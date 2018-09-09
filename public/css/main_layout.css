@@ -1,0 +1,2441 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 12, 2017, 10:39:45 PM
+    Author     : Ivan
+*/
+
+/*all fonts*/
+
+/*Attention!!! Important!!! Rules for fonts! Website title should use specific font family 
+and size 70px nd normal font-style. Home page is different. It is using 
+"Times New Roman" font family with heading and paragraph sizes 40px and 25px respectively. 
+Its font-style should be "Italic". All buttons should use "Arial" font family 
+with size 16px and normal font-style. 
+All another paragraphs and just texts sholud use "Georgia" font-family 
+as a primary font family and normal font-style. "Verdana" and "Arial" font-families 
+should be used as a secondary and tertiary font-families. Font-size should be 16px. 
+The same should be done for website footer. Only font-style sholud be "Italic".
+Compact-view-menu has its own rules, different from the rest of the site.*/
+
+/*font for text on home page in a main part. I don't use it now. I keep it just in case.'*/
+@font-face {
+    font-family: OptimusPrinceps;
+    src: url('/fonts/Nickainley-Normal.otf');
+}
+
+/*website English title*/
+@font-face {
+    font-family: AlexBrush;
+    src: url('/fonts/AlexBrush-Regular.ttf');
+}
+
+/*website New title. Need to remove old fonts!*/
+@font-face {
+    font-family: Classica Two;
+    src: url('/fonts/classica_two.ttf');
+}
+
+/*Website Russian title font is located in main html layout file  called 'app.blade.php' in a head section */
+
+/*-------------------------------------------------------*/
+
+
+/*main site wrap styles*/
+
+/*This was done with a purpose to make my footer to be in the end of screen and
+make my website's height flexible.*/
+/*html {
+    min-height: 1366px;
+}*/
+
+.website-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url("/images/backgrounds/luxfon.com_3506.jpg");
+    background-attachment: fixed;
+    background-repeat: repeat;
+    /*This was done with a purpose to make my footer to be in the end of screen and
+    make my website's height flexible.*/
+    /*min-height: 1366px;*/
+    /*For test.*/
+    /*background-color: blue;*/
+}
+
+/*We need the class below when we use mobile view menu.
+The mobile view menu should move when user is scrolling the page,
+but the main content of the page on the background should be static 
+(should not move).*/
+.website-wrapper-fixed {
+    position: fixed;
+}
+
+/*--------------------------------------------------------*/
+
+/* main header styles*/
+
+.website-wrapper .website-header {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(rgba(128,128,128, 0.8), rgba(128,128,128, 0.3));
+    box-shadow: 0 0px 3px 0px grey;
+}
+
+.website-wrapper .website-header .website-language-and-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.website-wrapper .website-header .website-language-and-title .website-language-select {
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 5%;
+    padding-left: 5%;
+    /*We need min-width for mobile devices to make web-site look like properly*/
+    min-width: 200px;
+    display: flex;
+    justify-content: flex-end;
+    min-height: 70px;
+    /*For test.*/
+    /*background-color: green;*/
+}
+
+.website-wrapper .website-header .website-language-and-title .website-language-select a {
+    /*We need to remove some unwanted lines which might appear when 
+    we click on a language select link*/
+    text-decoration: none;
+}
+
+.website-wrapper .website-header .website-language-and-title .website-language-select img {
+    margin-left: 15px;
+}
+
+/*I made a separate class for that property because due to lower priority of 
+just a class (not a class + selector) it is much easer to change a view of 
+an element by javascript*/
+.website-wrapper .website-header .website-language-and-title .website-language-select .website-en-language-select-button,
+.website-wrapper .website-header .website-language-and-title .website-language-select .website-rus-language-select-button {
+    filter: drop-shadow(0 0 4px black);
+}
+
+/*Here we will add some nice effects when we put a mouse pointer on language sign*/
+.website-wrapper .website-header .website-language-and-title .website-language-select img:hover {
+    filter: drop-shadow(0 0 3px black) brightness(90%);
+}
+
+.website-wrapper .website-header .website-language-and-title .website-language-select .website-language-select-button-pressed {
+    transform: scale(0.98);
+    filter: drop-shadow(0 0 1px black) brightness(80%);
+}
+
+/*Old language select button styles of decoration and behaviour.
+Keep just in case!*/
+/*
+.website-laguage-select img {
+    margin-left: 15px;
+    filter: drop-shadow(0 0 2px black);
+}*/
+
+/*Here we will add some nice effects when we put a mouse pointer on language sign*/
+/*.website-laguage-select img:hover {
+    filter: drop-shadow(0 0 3px black) brightness(110%);
+}*/
+
+.website-wrapper .website-header .website-language-and-title .website-title {
+    color: black;
+    /*We need min-width for mobile devices to make web-site look like properly*/
+    min-width: 200px;
+    text-align: center;
+    min-height: 70px;
+    line-height: 1.5;
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.website-wrapper .website-header .website-language-and-title .website-title h1 {
+    font-size: 50px;
+    /*We need to zero the next following margins to get rid of margins h1 tag does 
+    before and after its div*/
+    margin-top: 0px;
+    margin-bottom: 0px;
+    /*In a line below I have a following language sequece:
+    1. Wesite title for English version;
+    2. Website title for Russian version;
+    3,4. Emergency fonts.*/
+    /*We also can try a font-family from my very first website.*/
+    /*Classica Two*/
+    /*font-family: "AlexBrush", "Bikham Cyr Script", "Times New Roman", "Arial";*/
+    font-family: "Classica Two", "AlexBrush", "Times New Roman", "Arial";
+    font-weight: bold;
+    /*Small white shadow in my opinion will make my text look like more elegant.*/
+    text-shadow: 0 0px 3px white;
+}
+
+.website-wrapper .website-header .website-menu {
+    /*This div we need to be flex to display website menu buttons properly*/
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 200px;
+    padding-right: 5%;
+    padding-left: 5%;
+    min-height: 70px;
+}
+
+.website-wrapper .website-header .website-menu .website-menu-compact-view {
+    display: none;
+    position: relative;
+    min-width: 42px;
+    height: 30px;
+}
+
+.website-wrapper .website-header .website-menu .website-menu-compact-view > div {
+    position: absolute;
+    top: 13px;
+    min-width: 42px;
+    height: 3px;
+    background-color: #242626;
+}
+
+/*I did it by pseudo elements because when it was done by shadows this compact 
+menu could not be scaled properly! Basic element was slightly smaller and 
+its shadows were slightly bigger. Now it is Ok!*/
+.website-wrapper .website-header .website-menu .website-menu-compact-view::before {
+    content: "";
+    position: absolute;
+    min-width: 42px;
+    height: 3px;
+    background-color: #242626;
+}
+
+.website-wrapper .website-header .website-menu .website-menu-compact-view::after {
+    content: "";
+    position: absolute;
+    top: 27px;
+    min-width: 42px;
+    height: 3px;
+    background-color: #242626;
+}
+
+.website-wrapper .website-header .website-menu .website-menu-compact-view:hover {
+    filter: brightness(3);
+}
+
+.website-wrapper .website-header .website-menu .website-menu-normal-view-button {
+    /*Seems we don't need the next line. I'll keep it just in case. 
+    Need to watch how website is working without it.*/
+    /*display: flex;*/
+    height: 34px;
+    min-width: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/*To make our links look like and work as a regular buttons I displayed link as a block element and 
+stretched it on the full size of its container (div).*/
+
+.website-wrapper .website-header .website-menu .website-menu-normal-view-button .website-menu-button-link {
+    /*We need a link to be displayed as a block to make a proper link's size.*/
+    display: block;
+    opacity: 0.7;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black;
+    min-width: 120px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    /*Deafault font size also was Ok, but I wrote it myself to
+    make font size more obvious.*/
+    font-size: 16px;
+    /*Actually we don't need the line below as we have the same font-family
+    by default. I put this line just to show what kind of font-family 
+    we are using at the moment.'*/
+    font-family: "Arial";
+    /*!Information for future! "line-height" is very important property here
+    because without it (it should be stretched on the full container's height')
+    "vertical-align" property won't work!*/
+    line-height: 34px;
+    vertical-align: middle;
+
+    background-image: linear-gradient(grey 0%, white 45%, grey 100%);
+    box-shadow: 0 0 5px 1px black;    
+}
+
+/*I made separate classes specialy for js function so it can understand which 
+element exactly shall it change. May be in a future I will write an universal 
+js function and this will let me simplify my code.*/
+/*.menu-home-button-link, 
+.menu-about-me-button-link,
+.menu-albums-button-link {
+    background-image: linear-gradient(grey 0%, white 45%, grey 100%);
+    box-shadow: 0 0 5px 1px black;
+}*/
+
+.website-wrapper .website-header .website-menu .website-menu-normal-view-button .website-menu-button-link:hover {
+    /*The next line is for example to remind me how I can correctly combine 
+    filters.*/
+    /*filter: drop-shadow(0 0 3px black) brightness(110%);*/
+    filter: brightness(90%);
+    box-shadow: 0 0 3px 1px black;
+}
+
+/*My home-know-more-button-pressed class has the same properties, but
+I left it so I can see states of buttons in code more obviously. Need to 
+reorganize this code in a future!*/
+.website-menu-button-pressed {
+    transform: scale(0.98);
+    filter: brightness(80%);
+    box-shadow: 0 0 2px 1px black;
+}
+
+.pop-up-menu {
+    width: 100%;
+    /*height: 100%;*/
+    background-color: rgba(128,128,128, 0.97);
+    display: none;
+    /*z-index: 1;*/
+}
+
+/*Header for mobile devices.*/
+
+@media (max-width: 950px) {
+    .website-wrapper .website-header .website-language-and-title .website-language-select img {
+        transform: scale(0.95);   
+    }
+    .website-wrapper .website-header .website-language-and-title .website-title h1 {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 850px) {
+    .website-wrapper .website-header .website-language-and-title .website-language-select img {
+        transform: scale(0.9);
+        margin-left: 10px;
+    }
+    .website-wrapper .website-header .website-menu {
+        min-height: 60px;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-title h1 {
+        font-size: 40px;
+        line-height: 1.5;
+    }
+    .website-menu .website-menu-normal-view-button {
+        transform: scale(0.95);
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 775px) {
+    .website-wrapper .website-header .website-menu {
+        margin-top: -20px;
+        padding-bottom: 10px;
+    }
+    .website-wrapper .website-header .website-menu .website-menu-normal-view-button {
+        display: none;
+    }
+    .website-wrapper .website-header .website-menu .website-menu-compact-view {
+        display: block;
+        /*We need this to make our mouse pointer change view when we hover over this block.*/
+        cursor: pointer;
+    }
+    .pop-up-menu {
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: -100%;
+        transition-duration: 0.2s;
+    }
+    .pop-up-menu-activated {
+        left: 0px;
+    }
+    .pop-up-menu .pop-up-menu-top {
+        width: 100%;
+        text-align: right;
+    }
+    .pop-up-menu .pop-up-menu-top .pop-up-menu-close {
+        display: inline-block;
+        margin-top: 5px;
+        margin-right: 10px;
+        /*We need this to make our mouse pointer change view when we hover over this block.*/
+        cursor: pointer;
+    }
+    .pop-up-menu .pop-up-menu-top .pop-up-menu-close:hover {
+        filter: drop-shadow(0px 0px 1px #800000);
+    }
+    .pop-up-menu .pop-up-menu-body {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    
+    .pop-up-menu .pop-up-menu-body h1 {
+        font-size: 32px;
+        font-family: "Times New Roman", "Verdana", "Arial";
+        text-align: center;
+    }   
+    .pop-up-menu .pop-up-menu-body ul{
+        font-size: 22px;
+        font-family: "Times New Roman", "Verdana", "Arial";
+        list-style: none;
+        margin-top: 35px;
+        padding-left: 0px;
+    }
+    .pop-up-menu .pop-up-menu-body ul > li {
+        margin-bottom: 10px;
+    }
+    /*Here we can optimize. We can use our particular class instead of all these tags*/
+    .pop-up-menu .pop-up-menu-body ul > li a {
+        display: inline-block;
+        color: #3b3d3d;
+        text-decoration: none;
+        width: 100%;
+        height: 35px;
+    }
+    .pop-up-menu-link-pressed {
+        border: 1px dotted #d8dada;
+    }
+    /*Here we can optimize. We can use our particular class instead of all these tags*/
+    .pop-up-menu .pop-up-menu-body ul > li a:hover {
+        text-decoration: none;
+        filter: brightness(50%);
+    }
+    .pop-up-menu-link-active {
+        font-weight: bold;
+    }
+}
+
+@media (max-width: 500px) {
+    .website-wrapper .website-header .website-menu {
+        margin-top: -10px;
+    }
+}
+
+@media (max-width: 450px) {
+    .website-wrapper .website-header .website-language-and-title .website-language-select {
+        min-height: 60px;
+    }
+}
+
+@media (max-width: 430px) {
+    .website-wrapper .website-header .website-language-and-title {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-language-select {
+        min-width: 10%;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-title {
+        min-width: 70%;
+        text-align: left;
+        min-height: 70px;
+        line-height: 1;
+        padding-right: 5%;
+        padding-left: 5%;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-title h1 {
+        font-size: 30px;
+        margin-top: 20px;
+        margin-bottom: -10px;
+    }
+}
+
+@media (max-width: 370px) {
+    .website-wrapper .website-header .website-language-and-title {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-laguage-select {
+        min-width: 10%;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-title {
+        min-width: 70%;
+        text-align: left;
+        min-height: 70px;
+        line-height: 1;
+        padding-right: 5%;
+        padding-left: 5%;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-title h1 {
+        font-size: 25px;
+        margin-top: 15px;
+        margin-bottom: -10px;
+    }
+}
+
+@media (max-width: 350px) {
+    .website-wrapper .website-header .website-menu {
+        min-height: 45px;
+    } 
+    .website-wrapper .website-header .website-menu .website-menu-compact-view {
+        transform: scale(0.8);
+    }
+    .website-wrapper .website-header .website-menu .website-menu-compact-view > div {
+        transform: scale(0.9);
+    }   
+    .website-wrapper .website-header .website-menu .website-menu-compact-view::before {
+        transform: scale(0.9);
+    }
+    .website-wrapper .website-header .website-menu .website-menu-compact-view::after {
+        transform: scale(0.9);
+    }
+    .pop-up-menu .pop-up-menu-body {
+        padding-top: 10px;
+        padding-bottom: 15px;
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+    .pop-up-menu .pop-up-menu-body ul{
+        /*font-size: 22px;*/
+        margin-top: 25px;
+    }
+}
+
+@media (max-width: 330px) {
+    .website-wrapper .website-header .website-language-and-title .website-title {
+        padding-right: 7%;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-title h1 {
+        margin-bottom: -15px;
+    }
+}
+
+@media (max-width: 300px) {
+    .website-wrapper .website-header .website-menu {
+        margin-top: 0px;
+    }
+}
+
+@media (max-width: 280px) {
+    .website-wrapper .website-header .website-menu {
+        margin-top: 0px;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-title h1 {
+        font-family: "Times New Roman", "Arial";
+        font-weight: bold;
+        font-style: italic;
+        margin-top: 10px;
+        line-height: 1.2;
+    }
+}
+
+@media (max-width: 255px) {
+    .website-wrapper .website-header .website-language-and-title .website-title h1 {
+        font-size: 23px;
+        margin-bottom: -20px;
+    }
+}
+
+@media (max-width: 240px) {
+    .website-wrapper .website-header .website-language-and-title .website-language-select {
+        transform: scale(0.9);
+    }
+    .website-wrapper .website-header .website-language-and-title .website-language-select img {
+        margin-left: 5px;
+    }
+}
+
+@media (max-width: 230px) {
+    .website-wrapper .website-header .website-language-and-title .website-title h1 {
+        font-size: 22px;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-language-select img {
+        margin-left: 5px;
+    }
+}
+
+@media (max-width: 220px) {  
+    .website-wrapper .website-header .website-language-and-title .website-language-select {
+        transform: scale(0.8);
+    }
+    .pop-up-menu .pop-up-menu-top .pop-up-menu-close {
+        transform: scale(0.85);
+    }
+    .pop-up-menu .pop-up-menu-body {
+        padding-top: 0px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .pop-up-menu .pop-up-menu-body h1 {
+        font-size: 25px;
+    }  
+    .pop-up-menu .pop-up-menu-body ul{
+        font-size: 19px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 215px) {
+    .website-wrapper .website-header .website-language-and-title .website-title {
+        margin-right: 10px;
+    }
+    .website-wrapper .website-header .website-language-and-title .website-title h1 {
+        font-size: 21px;
+        margin-top: 15px;
+    }
+}
+
+/*-----------------------------------------*/
+
+/*main part*/
+
+main {
+    display: flex;
+    justify-content: center;
+    /*Here I use align-items property instead of padding-top and padding-bottom
+    to get rid of any problems we might have in case we have some additional
+    paddings and margins between blocks. I also assigned default minimal 
+    height for common article block.*/
+    align-items: flex-start;
+    min-width: 200px;
+    /*I put here minimal height of main body part to make website 
+    look like more nice. This is in case we have something with a very 
+    few contents inside. Even in this case our website will look like 
+    wide and big.*/
+    /*I commented this to try to make my website's height flexible.*/
+    min-height: 675px;
+    padding-top: 30px;
+    /*I commented this to try to make my website's height flexible.*/
+    padding-bottom: 30px;
+}
+
+/*This is a style of grey area with a text*/
+.website-main-article {
+    background-image: url("/images/backgrounds/paper_texture278.jpg");
+    opacity: 0.85;/*This is background opacity/transparency!*/
+    /*Following paddings are by default. Paddings for the home page
+    will be different so I override them below.*/
+    box-shadow: 0 0 20px 2px black;
+    padding: 40px;
+    max-width: 700px;
+    min-width: 200px;
+    min-height: 600px;
+    border-radius: 10px;
+}
+
+/*Main part for mobile devices.*/
+
+@media (max-width: 850px) {
+    main {
+        min-height: 570px;
+    }
+    
+    .website-main-article {
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 500px) {
+    main {
+        min-height: 500px;
+    }
+    
+    .website-main-article {
+        min-height: 450px;
+    }
+}
+
+@media (max-width: 400px) {
+    main {
+        /*I commented this to try to make my website's height flexible.*/
+        min-height: 510px;
+    }
+}
+
+@media (max-width: 350px) {
+    main {
+       padding-top: 20px;
+       padding-bottom: 20px;
+       min-height: 460px;
+    }
+    .website-main-article {
+       padding: 20px;
+       min-height: 450px;
+    } 
+}
+
+@media (max-width: 325px) {
+    main {
+       min-height: 430px;
+    } 
+}
+
+@media (max-width: 280px) {
+    main {
+        /*I commented this to try to make my website's height flexible.*/
+        min-height: 410px;
+    }
+}
+
+@media (max-width: 250px) {
+    main {
+        /*I commented this to try to make my website's height flexible.*/
+        min-height: 380px;
+    }
+}
+
+@media (max-width: 220px) {
+    main {
+        /*I commented this to try to make my website's height flexible.*/
+        min-height: 375px;
+    }
+}
+/*-----------------------------------------*/
+
+/*Main Home part*/
+
+.home-article {
+    padding-top: 60px;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 60px;
+}
+
+.home-article h2 {
+    font-style: italic;
+    font-size: 40px;
+    /*We need to zero next following margin to get rid of margin h2 tag does 
+    before its div.*/
+    margin-top: 0px;
+    margin-bottom: 40px;
+    font-family: "Times New Roman", "Arial";
+}
+
+.home-article p {
+    font-size: 25px;
+    line-height: 1.5;
+    font-style: italic;
+    font-family: "Times New Roman", "Arial";
+}
+
+.home-article .home-know-more-button {
+    min-height: 44px;
+    margin-top: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 120px;
+}
+
+.home-article .home-know-more-button a {
+    /*We need a link to be displayed as a block to make a proper link's size.*/
+    display: block;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 140px;
+    border-radius: 5px;
+    text-decoration: none;  
+    text-align: center;
+    font-weight: bold;
+    /*Deafault font size also was Ok, but I wrote it myself to
+    make font size more obvious.*/
+    font-size: 16px;
+    /*Actually we don't need the line below as we have the same font-family
+    by default. I put this line just to show what kind of font-family 
+    we are using at the moment.'*/
+    font-family: "Arial";
+    line-height: 44px;
+    vertical-align: middle;
+    /*We need this property in case there are longer words on a button so parts 
+    of words will go to a new line and it will expand our button (Consider our 
+    home-know-more-button has limited width it can grow only down!). 
+    The text will not fall out from the button.*/
+    word-wrap: break-word;
+}
+
+/*I extracted this from .home-know-more-button a because of javascript usage 
+for changing button after click. If I left it as it was before 
+(in .home-know-more-button a) the button would not change its view due to
+stronger affect of class + selector together comparing to just a class. Consider
+our javascript function adds a new class to a piece of html.*/
+.home-article .home-know-more-button .home-know-more-button-link {
+    background-image: linear-gradient(#006d1d 0%, #00f463 50%, #006d1d 100%);
+    box-shadow: 0 0 5px 1px black;
+}
+
+.home-article .home-know-more-button a:hover {
+    filter: brightness(90%);
+    box-shadow: 0 0 3px 1px black;
+}
+
+.home-know-more-button-pressed {
+    transform: scale(0.98);
+    filter: brightness(80%);
+    box-shadow: 0 0 2px 1px black;
+}
+
+/*-----------------------------------------*/
+
+/*Home part*/
+
+/*Home for mobile devices.*/
+
+@media (max-width: 850px) {
+    .home-article h2 {
+        font-size: 38px;
+    }
+    .home-article p {
+        font-size: 23px;
+    }
+    .home-article .home-know-more-button {
+        transform: scale(0.95);
+        margin-top: 80px;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-article .home-know-more-button {
+        margin-top: 60px;
+    }
+}
+
+@media (max-width: 500px) {
+    .home-article .home-know-more-button {
+        margin-top: 35px;
+    }
+}
+
+@media (max-width: 430px) {
+    .home-article h2 {
+        font-size: 29px;
+        margin-top: 0px;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 400px) {   
+    .home-article {
+        padding-top: 40px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-bottom: 40px;
+        min-height: 440px;
+    }
+    .home-article h2 {
+        font-size: 28px;
+        margin-top: 0px;
+        margin-bottom: 20px;
+    }
+    .home-article p {
+        font-size: 20px;
+        line-height: 1.5;
+    }
+    .home-article .home-know-more-button {
+        margin-top: 50px;
+        transform: scale(0.8);
+    }
+}
+
+@media (max-width: 370px) {
+    .home-article h2 {
+        font-size: 24px;
+        margin-top: 0px;
+        margin-bottom: 15px;
+    }
+    .home-article p {
+        font-size: 19px;
+    }
+    
+}
+
+@media (max-width: 360px) {
+    .home-article .home-know-more-button {
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 350px) {   
+    .home-article {
+       padding-top: 30px;
+       padding-bottom: 40px;
+       padding-left: 30px;
+       padding-right: 30px;
+       min-height: 420px;
+    }
+}
+
+@media (max-width: 325px) {
+    .home-article {
+        min-height: 390px;
+    }
+    .home-article h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    .home-article p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 315px) {
+    .home-article .home-know-more-button {
+        margin-top: 35px;
+    }
+}
+
+@media (max-width: 280px) {   
+    .home-article {
+       min-height: 380px;
+    }
+    .home-article h2 {
+        font-size: 22px;
+    }
+    .home-article p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 275px) {   
+    .home-article .home-know-more-button {
+        margin-left: 35px;
+    }
+    
+}
+
+@media (max-width: 250px) {   
+    .home-article .home-know-more-button {
+        margin-top: 20px;
+        margin-left: 27px;
+    } 
+    .home-article {
+       min-height: 335px;
+    }
+}
+
+@media (max-width: 235px) {   
+    .home-article .home-know-more-button {
+        margin-left: 25px;
+    }
+}
+
+@media (max-width: 230px) {   
+    .home-article .home-know-more-button {
+        margin-left: 23px;
+    }
+    .home-article h2 {
+        font-size: 21px;
+    }
+}
+
+@media (max-width: 225px) {   
+    .home-article .home-know-more-button {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 220px) {   
+    .home-article {
+        padding-top: 25px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 25px;
+    }
+    .home-article h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    .home-article p {
+        line-height: 1.5;
+    }
+    .home-article .home-know-more-button {
+        margin-top: 15px;
+        margin-left: 10px;
+        transform: scale(0.75);
+    }
+}
+
+/*About Me part*/
+
+.about-me-article p {
+    font-size: 16px;
+    font-family: "Georgia", "Verdana", "Arial";
+    line-height: 1.5;
+}
+
+.about-me-article .ivan-ivanov-main-picture {
+    height: 300px;
+    width: 200px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 0px black;
+}
+
+/*About Me for mobile devices.*/
+
+@media (max-width: 950px) {
+    .about-me-article .ivan-ivanov-main-picture {
+       height: 270px;
+       width: 180px;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-me-article p {
+       font-size: 15px;
+    }
+}
+
+@media (max-width: 400px) {  
+    .about-me-article .ivan-ivanov-main-picture {
+       height: 240px;
+       width: 160px;
+    }
+}
+
+@media (max-width: 325px) {
+    .about-me-article .ivan-ivanov-main-picture {
+        float: none;
+        margin-right: 0px;
+        margin-bottom: 10px;
+        margin-top: 0px;
+        border-radius: 10px;
+    }
+    .about-me-article p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 275px) {   
+    .about-me-article p {
+       font-size: 14px;
+    }
+}
+
+@media (max-width: 220px) {
+    .about-me-article .ivan-ivanov-main-picture {
+        height: 210px;
+        width: 140px;
+    }
+}
+
+/*-----------------------------------------*/
+
+/*Albums part*/
+
+.albums-article {
+    min-width: 650px;
+    max-width: 700px;
+    min-height: 720px;
+}
+
+.albums-article h2 {
+    font-size: 35px;
+    /*We need to zero next following margin to get rid of margin h2 tag does 
+    before its div.*/
+    margin-top: 0px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: "Times New Roman", "Arial";
+}
+
+/*As in albums we have similar element, we can align them as flex-start*/
+.albums-article .external-albums-wrapper .albums-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+/*We need external-albums-wrapper for situations when the page is not full of elements,
+but we need our pagination tools to be in the bottom off the page. This is some kind of spacer.*/
+.albums-article .external-albums-wrapper {
+    min-height: 580px;
+}
+
+.albums-article .external-albums-picture-wrapper .albums-picture-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    /*justify-content: flex-start;*/
+    align-items: center;
+}
+
+.albums-article .external-albums-wrapper .albums-wrapper .album-item {
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: -5px;
+    margin-bottom: -5px;   
+}
+
+.albums-article .external-albums-picture-wrapper {
+    min-height: 560px;
+}
+
+.albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: -30px;
+    margin-bottom: 0px;   
+}
+
+.albums-article .album-item .album-title {
+    margin-top: -20px;
+    margin-left: 5px;
+    width: 115px;
+}
+
+/*We need this to make gaps between pictures in albums*/
+.albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;   
+}
+
+.albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture img {
+    box-shadow: 0 0 2px 0px grey;
+}
+
+.albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture img:hover {
+    box-shadow: 0 0 0px 0px grey;
+    filter: brightness(115%);
+}
+
+.albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title .album-folder-title {
+    font-size: 16px;
+    font-family: Arial;
+    text-align: center;
+    filter: drop-shadow(0 0 1px black);
+}
+
+.albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title .album-folder-title {
+    font-size: 16px;
+    font-family: Arial;
+    text-align: center;
+    filter: drop-shadow(0 0 1px black);
+}
+
+.albums-article .empty-albums-text-wrapper {
+    text-align: center;
+    margin-top: 170px;
+}
+
+.albums-article .empty-albums-text-wrapper p {
+    font-family: Arial;
+    font-size: 16px;
+}
+
+.albums-article .album-item .album-body .album-folder {
+    /*box-shadow: 0 0 5px 0px black;*/
+    filter: drop-shadow(0 0 7px black);
+}
+
+.albums-article .album-item .album-body .album-folder:hover {
+    filter: drop-shadow(0 0 5px black);
+}
+
+.albums-article .album-item .album-body .album-is-chosen-for-body {
+    filter: drop-shadow(0 0 5px black);
+}
+
+.albums-article .album-item .album-title .album-is-chosen-for-title {
+    font-weight: bold;
+    filter: drop-shadow(0 0 0px black);
+}
+
+.albums-article .album-item:hover .album-title .album-folder-title {
+    font-weight: bold;
+    filter: drop-shadow(0 0 0px black);
+}
+
+/*this can be applied to all paginators*/
+.website-main-article .paginator {
+    margin-top: 20px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.website-main-article .paginator a,
+.website-main-article .paginator span {
+    display: inline-block;  
+    text-decoration: none;
+}
+
+.website-main-article .paginator .previous-inactive,
+.website-main-article .paginator .previous-active {
+    margin-right: 5px;
+}
+
+.website-main-article .paginator .next-inactive,
+.website-main-article .paginator .next-active {
+    margin-left: 5px;
+}
+
+.website-main-article .paginator .previous-inactive,
+.website-main-article .paginator .previous-active,
+.website-main-article .paginator .next-inactive,
+.website-main-article .paginator .next-active {
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+}
+
+
+.website-main-article .paginator .previous-inactive {
+    border-right-color: grey;  
+    border-left: 0;
+}
+
+.website-main-article .paginator .previous-active {
+    border-right-color: steelblue;  
+    border-left: 0;
+}
+
+.website-main-article .paginator .next-inactive {
+    border-left-color: grey;  
+    border-right: 0;
+}
+
+.website-main-article .paginator .next-active {
+    border-left-color: steelblue;  
+    border-right: 0;
+}
+
+.website-main-article .paginator .pagination-info {
+    padding: 0 10px;
+    vertical-align: top;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 16px;
+}
+
+.website-main-article .paginator .first-inactive,
+.website-main-article .paginator .first-active {
+    margin-right: 10px;
+}
+
+.website-main-article .paginator .last-inactive,
+.website-main-article .paginator .last-active {
+    margin-left: 10px;
+}
+
+.website-main-article .paginator .first-inactive,
+.website-main-article .paginator .first-active,
+.website-main-article .paginator .last-inactive,
+.website-main-article .paginator .last-active {
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+}
+
+.website-main-article .paginator .first-inactive {
+    border-right-color: grey;  
+    border-left: 0;
+    box-shadow: -3px 0 0 0 grey;
+}
+
+.website-main-article .paginator .first-active {
+    border-right-color: #0000cc;  
+    border-left: 0;
+    box-shadow: -3px 0 0 0 #0000cc;
+}
+
+.website-main-article .paginator .last-inactive {
+    border-left-color: grey;  
+    border-right: 0;
+    box-shadow: 3px 0 0 0 grey;
+}
+
+.website-main-article .paginator .last-active {
+    border-left-color: #0000cc;  
+    border-right: 0;
+    box-shadow: 3px 0 0 0 #0000cc;
+}
+
+/*Albums for mobile devices.*/
+
+@media (max-width: 850px) {
+    .albums-article {
+        /*max-width: 650px;*/
+        min-width: 600px;
+        min-height: 590px;
+    }
+    
+    .albums-article h2 {
+        font-size: 33px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 450px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper {
+        min-height: 510px;
+    }
+    
+    .albums-article .external-albums-wrapper .albumss-wrapper .album-item {
+        transform: scale(0.95);
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: -10px;
+        margin-bottom: -10px;   
+    }
+}
+
+@media (max-width: 700px) {
+    .albums-article {
+        min-width: 500px;
+        max-width: 600px;
+        min-height: 500px;
+    }
+    
+    .albums-article h2 {
+        font-size: 31px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 360px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper {
+        min-height: 460px;
+    }
+    
+    /*We need to write styles for root album folders and album folders included 
+    in root album folders separately because we need to metion classes 
+    albums-wrapper and albums-picture-wrapper. If we don't do this, styles for 
+    noraml view will be stronger and styles for mobile view won't take an effect.*/
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item {
+        transform: scale(0.9);
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-top: -15px;
+        margin-bottom: -15px;   
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        transform: scale(0.9);
+        /*margin-right: 5px;
+        margin-left: 5px;
+        margin-top: -15px;
+        margin-bottom: -10px;*/   
+    }
+    
+    /* font size is bigger because scale is minimizing the whole item (album-item), 
+    including text, but we need to keep it almost the same size. It means scale 
+    takes text 16px and appplies 0.8 to it.*/
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title .album-folder-title {
+        font-size: 18px;
+        filter: drop-shadow(0 0 0px black);
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title .album-folder-title {
+        font-size: 17px;
+        filter: drop-shadow(0 0 0px black);
+    }
+}
+
+@media (max-width: 630px) {
+    .albums-article {
+        min-width: 400px;
+        max-width: 480px;
+        min-height: 440px;
+    }
+}
+
+@media (max-width: 530px) {
+    .articles-article {
+        min-height: 500px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+        /*transform: scale(0.9);*/
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 360px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper {
+        min-height: 410px;
+    }
+}
+
+@media (max-width: 500px) {
+    .albums-article {
+        min-width: 340px;
+        max-width: 420px;
+        min-height: 470px;
+    }
+    
+    .albums-article h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 330px;
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item {
+        transform: scale(0.75);
+        margin-right: -10px;
+        margin-left: -10px;
+        margin-top: -25px;
+        margin-bottom: -25px;   
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        transform: scale(0.8);
+        margin-right: -5px;
+        margin-left: -5px;
+        margin-top: -25px;
+        margin-bottom: -20px;   
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title .album-folder-title {
+        font-size: 20px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title .album-folder-title {
+        font-size: 18px;
+    }
+    
+    .website-main-article .paginator .first-inactive,
+    .website-main-article .paginator .first-active,
+    .website-main-article .paginator .last-inactive,
+    .website-main-article .paginator .last-active,
+    .website-main-article .paginator .previous-inactive,
+    .website-main-article .paginator .previous-active,
+    .website-main-article .paginator .next-inactive,
+    .website-main-article .paginator .next-active {
+        transform: scale(0.9);
+    }
+    
+    .website-main-article .paginator .pagination-info {
+        font-size: 15px;
+    }
+    
+    .albums-article .empty-albums-text-wrapper {
+        margin-top: 140px;
+    }
+
+    .albums-article .empty-albums-text-wrapper p {
+       font-size: 14px;
+    }
+}
+
+@media (max-width: 430px) {
+    .albums-article {
+        min-width: 300px;
+        max-width: 400px;
+        min-height: 470px;
+        padding: 35px;
+    }  
+    .albums-article .external-albums-wrapper {
+        min-height: 340px;
+    }
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item {
+        transform: scale(0.70);
+        margin-right: -10px;
+        margin-left: -10px;
+        margin-top: -30px;
+        margin-bottom: -30px;   
+    }
+}
+
+@media (max-width: 400px) {
+    .albums-article {
+        min-width: 280px;
+        max-width: 310px;
+    }
+}
+
+@media (max-width: 360px) {
+    .albums-article {
+        min-height: 460px;
+    }
+    
+    .albums-article h2 {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+        transform: scale(0.8);
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+    
+    .albums-article .empty-albums-text-wrapper {
+        margin-top: 80px;
+    }
+
+    .albums-article .empty-albums-text-wrapper p {
+       font-size: 14px;
+    }
+}
+
+@media (max-width: 350px) {
+    .albums-article {
+        min-height: 430px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 320px;
+    }
+}
+
+@media (max-width: 315px) {
+    .albums-article {
+        min-width: 250px;
+        max-width: 255px;
+        min-height: 405px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 310px;
+    }
+    
+    .albums-article h2 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item {
+        transform: scale(0.6);
+        margin-right: -20px;
+        margin-left: -20px;
+        margin-top: -35px;
+        margin-bottom: -35px;   
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title{
+        transform: scale(1.2);
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        transform: scale(0.7);
+        margin-right: 1px;
+        margin-left: 1px;
+        margin-top: -30px;
+        margin-bottom: -30px;   
+    }
+    
+    .albums-article .external-albums-picture-wrapper {
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 300px) {
+    .albums-article {
+        max-width: 235px;
+        min-width: 200px;
+        min-height: 380px;
+        padding: 25px;
+    }
+    
+    .albums-article h2 {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 280px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+        transform: scale(0.7);
+        margin-top: -5px;
+        margin-bottom: -5px;
+        margin-right: -5px;
+        margin-left: -5px;
+    }
+    
+    .website-main-article .paginator .first-inactive,
+    .website-main-article .paginator .first-active,
+    .website-main-article .paginator .last-inactive,
+    .website-main-article .paginator .last-active,
+    .website-main-article .paginator .previous-inactive,
+    .website-main-article .paginator .previous-active,
+    .website-main-article .paginator .next-inactive,
+    .website-main-article .paginator .next-active {
+        transform: scale(0.8);
+    }
+    
+    .website-main-article .paginator .pagination-info {
+        font-size: 14px;
+    }
+    
+    .albums-article .empty-albums-text-wrapper {
+        margin-top: 40px;
+    }
+
+    .albums-article .empty-albums-text-wrapper p {
+       font-size: 13px;
+    }
+}
+
+@media (max-width: 280px) {  
+    .albums-article {
+        min-width: 210px;
+        max-width: 225px;
+        min-height: 360px;
+        padding: 20px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 265px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper {
+        min-height: 310px;
+    }
+    
+    .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+        transform: scale(0.6);
+        margin-top: -10px;
+        margin-bottom: -10px;
+        margin-right: -10px;
+        margin-left: -10px;
+    }
+    
+    .website-main-article .paginator .first-inactive,
+    .website-main-article .paginator .first-active,
+    .website-main-article .paginator .last-inactive,
+    .website-main-article .paginator .last-active,
+    .website-main-article .paginator .previous-inactive,
+    .website-main-article .paginator .previous-active,
+    .website-main-article .paginator .next-inactive,
+    .website-main-article .paginator .next-active {
+        transform: scale(0.7);
+    }
+    
+    .website-main-article .paginator .pagination-info {
+        padding: 0 0px;
+        font-size: 13px;
+    }
+    
+    .website-main-article .paginator .first-inactive,
+    .website-main-article .paginator .first-active {
+        margin-right: 5px;
+    }
+
+    .website-main-article .paginator .last-inactive,
+    .website-main-article .paginator .last-active {
+        margin-left: 5px;
+    }
+}
+
+@media (max-width: 220px) {
+    .albums-article {
+        max-width: 200px;
+        min-width: 180px;
+        min-height: 350px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 250px;
+    }
+
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item {
+        transform: scale(0.5);
+        margin-right: -25px;
+        margin-left: -25px;
+        margin-top: -45px;
+        margin-bottom: -40px;   
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title{
+        transform: scale(1.3);
+    }
+}
+
+/*200px is a minimal width of our Website!*/
+@media (max-width: 200px) {
+    .albums-article {
+        min-width: 160px;
+        min-height: 330px;
+    }
+    
+    .albums-article h2 {
+        font-size: 21px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        min-height: 230px;
+    }
+}
+
+/*-----------------------------------------*/
+
+/*Articles part*/
+
+.articles-article-folders {
+    min-width: 700px;
+    min-height: 610px;
+}
+
+.articles-article-folders-and-articles {
+    width: 700px;
+    min-height: 610px;
+}
+
+.articles-article {
+    width: 700px;
+    min-height: 610px;
+}
+
+.articles-article-folders h2 {
+    font-size: 35px;
+    /*We need to zero next following margin to get rid of margin h2 tag does 
+    before its div.*/
+    margin-top: 0px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: "Times New Roman", "Arial";
+}
+
+.articles-article-folders-and-articles h2 {
+    font-size: 35px;
+    /*We need to zero next following margin to get rid of margin h2 tag does 
+    before its div.*/
+    margin-top: 0px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: "Times New Roman", "Arial";
+}
+
+.articles-article h2 {
+    font-size: 35px;
+    /*We need to zero next following margin to get rid of margin h2 tag does 
+    before its div.*/
+    margin-top: 0px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: "Times New Roman", "Arial";
+}
+
+/*We need external-albums-wrapper for situations when the page is not full of elements,
+but we need our pagination tools to be in the bottom off the page. This is some kind of spacer.*/
+.articles-article-folders .external-folders-wrapper {
+    min-height: 555px;
+    align-items: center;
+}
+
+.articles-article-folders .external-folders-wrapper .folders-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.articles-article-folders .empty-folders-text-wrapper {
+    text-align: center;
+    margin-top: 170px;
+}
+
+.articles-article-folders .empty-folders-text-wrapper p {
+    font-family: Arial;
+    font-size: 16px;
+}
+
+.articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;   
+}
+
+.articles-article-folders .folder-item .folder-title {
+    margin-top: -25px;
+    width: 115px;
+}
+
+.articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item .folder-title .article-folder-title {
+    font-size: 16px;
+    font-family: Arial;
+    text-align: center;
+    filter: drop-shadow(0 0 1px black);
+}
+
+.articles-article-folders .folder-item .folder-body .article-folder {
+    /*box-shadow: 0 0 5px 0px black;*/
+    filter: drop-shadow(0 0 7px black);
+}
+
+.articles-article-folders .folder-item .folder-body .article-folder:hover {
+    filter: drop-shadow(0 0 5px black);
+}
+
+.articles-article-folders .folder-item .folder-body .folder-is-chosen-for-body {
+    filter: drop-shadow(0 0 5px black);
+}
+
+.articles-article-folders .folder-item .folder-body .folder-is-chosen-for-title {
+    font-weight: bold;
+    filter: drop-shadow(0 0 0px black);
+}
+
+.articles-article-folders .folder-item:hover .folder-title .article-folder-title {
+    font-weight: bold;
+    filter: drop-shadow(0 0 0px black);
+}
+
+.articles-article-folders-and-articles .folders-and-articles-wrapper {
+    min-height: 410px;
+}
+
+.articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article {
+    border-bottom: 2px solid #bcbcbc;
+    margin-top: 5px;
+    margin-bottom: 5px;  
+}
+
+.articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-link {
+    color: #393737;
+    text-decoration: none;
+}
+
+.articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
+    display: inline-block;
+    height: 31px;
+    vertical-align: bottom;
+    filter: drop-shadow(0 0 0px black);
+}
+
+.articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+    display: inline-block;
+    height: 23px;
+    vertical-align: bottom;
+    margin-left: 5px;
+    font-size: 14px;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.articles-article-folders-and-articles .article-folder-or-article:hover .article-folder-or-article-link .article-folder-or-article-picture {
+    filter: brightness(105%);
+    filter: drop-shadow(0 0 1px black);
+}
+
+.articles-article-folders-and-articles .article-folder-or-article:hover .article-folder-or-article-link .article-folder-or-article-title {
+    font-size: 15px;
+}
+
+.articles-article .article-picture {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 0px black;
+}
+
+.articles-article .article-description, .articles-article .article-body, .articles-article .article-author, .articles-article .article-source, .articles-article .article-creation-time {
+    font-family: "Times New Roman", "Arial";
+    font-style: italic;
+    font-size: 17px;
+}
+
+.articles-article .article-body {
+    font-style: normal;
+}
+
+.articles-article .article-creation-time {
+    text-align: right;
+}
+
+/*Articles for mobile devices.*/
+
+@media (max-width: 850px) {
+    .articles-article-folders {
+        max-width: 650px;
+        min-width: 600px;
+    }
+    
+    .articles-article {
+        width: 675px;
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 600px;
+    }
+    
+    .articles-article-folders h2 {
+        font-size: 33px;
+    }
+    
+    .articles-article h2 {
+        font-size: 33px;
+    }
+    
+    .articles-article-folders-and-articles h2 {
+        font-size: 33px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 450px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item {
+        transform: scale(0.95);
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: -10px;
+        margin-bottom: -10px;   
+    }
+    
+    .articles-article .article-picture {
+        margin-right: 15px;
+        margin-bottom: 15px;
+        margin-top: 5px;
+        transform: scale(0.95);
+}
+    
+    .articles-article .article-description, .articles-article .article-body, .articles-article .article-author, .articles-article .article-source, .articles-article .article-creation-time {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 700px) {
+    .articles-article-folders {
+        min-width: 500px;
+    }
+    
+    .articles-article {
+        width: 590px;
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 540px;
+    }
+    
+    .articles-article-folders h2 {
+        font-size: 31px;
+    }
+    
+    .articles-article h2 {
+        font-size: 31px;
+    }
+    
+    .articles-article-folders-and-articles h2 {
+        font-size: 31px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 360px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item {
+        transform: scale(0.95);
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: -10px;
+        margin-bottom: -10px;   
+    }
+     
+    /* font size is bigger because scale is minimizing the whole item (folder-item), 
+    including text, but we need to keep it almost the same size. It means scale
+    takes text 16px and appplies 0.8 to it.*/
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item .folder-title .article-folder-title {
+        font-size: 18px;
+        filter: drop-shadow(0 0 0px black);
+    }
+    
+    .articles-article .article-picture {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 630px) {
+    .articles-article {
+        width: 550px;
+    }
+    
+    .articles-article-folders {
+        max-width: 500px;
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 460px;
+        padding: 30px;
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-wrapper {
+        min-height: 435px;
+    }
+}
+
+@media (max-width: 600px) {
+    .articles-article {
+        width: 520px;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 530px) {
+    .articles-article-folders {
+        min-height: 500px;
+    }
+    
+    .articles-article-folders-and-articles {
+        min-height: 500px;
+    }
+    
+    .articles-article {
+        width: 490px;
+    }
+}
+
+@media (max-width: 500px) {
+    .articles-article-folders {
+        min-width: 340px;
+        max-width: 440px;
+        min-height: 470px;
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 390px;
+        min-height: 470px;
+    }
+    
+    .articles-article {
+        width: 440px;
+        padding: 25px;
+    }
+    
+    .articles-article-folders h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+    
+    .articles-article-folders-and-articles h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 330px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item {
+        transform: scale(0.75);
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-top: -20px;
+        margin-bottom: -20px;   
+    }
+    
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item .folder-title .article-folder-title {
+        font-size: 20px;
+    }
+    
+    .articles-article-folders .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
+        transform: scale(0.8);
+    }
+    
+    .articles-article-folders .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        font-size: 13px;
+        margin-left: 3px;
+    }
+    
+    .articles-article-folders .empty-folders-text-wrapper {
+        margin-top: 140px;
+    }
+
+    .articles-article-folders .empty-folders-text-wrapper p {
+       font-size: 14px;
+    }
+}
+
+@media (max-width: 450px) {
+    .articles-article {
+        width: 420px;
+    }
+}
+
+@media (max-width: 430px) {
+    .articles-article {
+        width: 390px;
+    }
+    
+    .articles-article h2 {
+        font-size: 28px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item {
+        transform: scale(0.70);
+        margin-right: -5px;
+        margin-left: -5px;
+        margin-top: -25px;
+        margin-bottom: -25px;   
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 380px;
+    }
+    
+    .articles-article .article-description, .articles-article .article-body, .articles-article .article-author, .articles-article .article-source, .articles-article .article-creation-time {
+        font-size: 15px;
+    }
+    
+    .articles-article .article-picture {
+        margin-right: 0px;
+        margin-left: -20px;
+        margin-bottom: -10px;
+        margin-top: -10px;
+        transform: scale(0.80);
+    }
+}
+
+@media (max-width: 400px) {
+    .articles-article {
+        width: 340px;
+    }
+    
+    .articles-article h2 {
+        font-size: 26px;
+    }
+    
+    .articles-article-folders {
+        min-width: 280px;
+        max-width: 310px;
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 320px;
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
+        height: 27px;
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        height: 20px;
+        margin-left: 3px;
+        font-size: 13px;
+    }
+    
+    .articles-article .article-picture {
+        margin-right: -10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .articles-article-folders {
+        min-height: 460px;
+    }
+    
+    .articles-article-folders-and-articles {
+        min-height: 460px;
+    }
+    
+    .articles-article-folders h2 {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+    
+    .articles-article-folders-and-articles h2 {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 320px;
+    }
+
+    .articles-article-folders .empty-folders-text-wrapper {
+        margin-top: 80px;
+    }
+
+    .articles-article-folders .empty-folders-text-wrapper p {
+       font-size: 14px;
+    }
+}
+
+@media (max-width: 350px) {
+    .articles-article {
+        width: 310px;
+    }
+    
+    .articles-article-folders {
+        min-height: 430px;
+    }
+    
+    .articles-article-folders-and-articles {
+        min-height: 430px;
+        width: 300px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 320px;
+    }
+    
+    .articles-article .article-picture {
+        margin-right: -20px;
+        margin-left: -30px;
+        margin-bottom: -25px;
+        margin-top: -20px;
+        transform: scale(0.70);
+    }
+}
+
+@media (max-width: 315px) {
+    .articles-article-folders-and-articles {
+        width: 290px;
+    }
+    
+    .articles-article {
+        width: 290px;
+    }
+    
+    .articles-article-folders h2 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+    
+    .articles-article-folders-and-articles h2 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item {
+        transform: scale(0.6);
+        margin-right: -15px;
+        margin-left: -15px;
+        margin-top: -30px;
+        margin-bottom: -30px;   
+    }
+    
+    .articles-article-folders {
+        min-height: 405px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 310px;
+    }
+}
+
+@media (max-width: 300px) {
+    .articles-article-folders {
+        max-width: 225px;
+        min-width: 200px;
+        min-height: 380px;
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 250px;
+        min-height: 380px;
+        padding: 25px;
+    }
+    
+    .articles-article {
+        width: 270px;
+        padding: 20px;
+    }
+    
+    .articles-article-folders h2 {
+        font-size: 24px;
+    }
+    
+    .articles-article-folders h2 {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+    
+    .articles-article-folders-and-articles h2 {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 280px;
+    }
+    
+    .articles-article-folders .empty-folders-text-wrapper {
+        margin-top: 40px;
+    }
+
+    .articles-article-folders .empty-folders-text-wrapper p {
+       font-size: 13px;
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
+        height: 29px;
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 280px) {   
+    .articles-article {
+        width: 240px;
+    }
+    
+    .articles-article-folders {
+        min-width: 210px;
+        min-height: 360px;
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 215px;
+        min-height: 360px;
+        padding: 20px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 265px;
+    }
+    
+    .articles-article .article-picture {
+        margin-right: -40px;
+        margin-left: -50px;
+        margin-bottom: -50px;
+        margin-top: -40px;
+        transform: scale(0.50);
+    }
+}
+
+@media (max-width: 245px) {
+    .articles-article {
+        width: 210px;
+    }
+    
+    .articles-article h2 {
+        font-size: 22px;
+    }
+    
+    .articles-article .article-description, .articles-article .article-body, .articles-article .article-author, .articles-article .article-source, .articles-article .article-creation-time {
+        font-size: 14px;
+    }
+    
+    .articles-article .article-picture {
+        margin-bottom: -45px;
+    }
+}
+
+@media (max-width: 220px) {
+    .articles-article-folders {
+        max-width: 200px;
+        min-width: 180px;
+        min-height: 340px;
+    }
+    
+    .articles-article {
+        width: 200px;
+    }
+    
+    .articles-article h2 {
+        font-size: 20px;
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 180px;
+        min-height: 340px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 235px;
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-wrapper {
+        min-height: 390px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item {
+        transform: scale(0.5);
+        margin-right: -20px;
+        margin-left: -20px;
+        margin-top: -35px;
+        margin-bottom: -35px;   
+    }
+    
+    /*Need to enlarge folder titles, because they are too small*/
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item .folder-title {
+        transform: scale(1.2);  
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        margin-left: 1px;
+    }
+}
+
+/*200px is a minimal width of our Website!*/
+@media (max-width: 200px) {
+    .articles-article-folders {
+        min-width: 160px;
+        min-height: 330px;
+    }
+    
+    .articles-article-folders-and-articles {
+        width: 160px;
+        min-height: 330px;
+    }
+    
+    .articles-article-folders h2 {
+        font-size: 21px;
+    }
+    
+    .articles-article-folders-and-articles h2 {
+        font-size: 21px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
+        min-height: 230px;
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-wrapper {
+        min-height: 370px;
+    }
+}
+
+/*-----------------------------------------*/
+
+/*-----------------------------------------*/
+
+/*footer part*/
+
+.website-footer {
+    /*Here is a property min-height (not height) to make website 
+    footer more flexible.*/
+    min-height: 100px;
+    padding-top: 25px;
+    padding-left: 5%;
+    font-size: 16px;
+    font-family: "Georgia", "Verdana", "Arial";
+    font-style: italic;
+    background-image: linear-gradient(rgba(128,128,128, 0.3), rgba(128,128,128, 0.8));
+    box-shadow: 0 0px 3px 0px grey;
+}
+
+/*Footer for mobile devices.*/
+
+@media (max-width: 350px) {
+    .website-footer {
+    font-size: 14px;
+    }
+}
+
+@media (max-width: 220px) {
+    .website-footer {
+    font-size: 12px;
+    }
+}
+
+/*-----------------------------------------*/

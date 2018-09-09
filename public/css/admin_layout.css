@@ -1,0 +1,192 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 9, 2018, 11:42:17 AM
+    Author     : Ivan
+*/
+
+.admin-panel-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /*background-color: orange;*/
+    background-color: #f5f5f5;
+}
+
+.admin-panel-wrapper .admin-panel-header {
+    display: flex;
+    flex-direction: column;
+    /*background-color: blue;*/
+    background-color: #e3e3e3;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-language-select {
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 5%;
+    padding-left: 5%;
+    /*We need min-width for mobile devices to make web-site look like properly*/
+    min-width: 200px;
+    display: flex;
+    justify-content: flex-end;
+    min-height: 40px;
+    /*background-color: green;*/
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-language-select div {
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-language-select a {
+    color: black;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-language-select .admin-panel-laguage-select-button-pressed {
+    font-weight: bold;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-language-select a:hover {
+    color: blue;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-language-select .admin-panel-laguage-select-button-pressed:hover {
+    color: black; 
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-language-select-button-separator {
+    font-weight: bold;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-title {
+    color: black;
+    /*We need min-width for mobile devices to make web-site look like properly*/
+    min-width: 200px;
+    text-align: center;
+    min-height: 60px;
+    line-height: 1.5;
+    padding-right: 5%;
+    padding-left: 5%;
+    /*background-color: blueviolet;*/
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-title h1 {
+    font-size: 50px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-style: italic;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 200px;
+    padding-right: 5%;
+    padding-left: 5%;
+    min-height: 45px;
+    /*background-color: red;*/
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link {
+    display: block;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: black;
+    min-width: 100px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link:hover {
+    color: blue;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link-pressed {
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link-pressed:hover {
+    color: black;
+}
+
+main {
+    display: flex;
+    /*justify-content: center;
+    align-items: flex-start;*/
+    flex-direction: column;
+    min-width: 200px;
+    min-height: 675px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    /*background-color: grey;*/
+}
+
+.admin-panel-wrapper .admin-panel-main-path-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    /*background-color: olive;*/
+}
+
+.admin-panel-wrapper .admin-panel-main-path {
+    padding: 10px;
+    max-width: 700px;
+    min-width: 200px;
+    min-height: 50px;
+    border-radius: 10px;
+    /*background-color: #009998;*/
+    /*background-color: #d4d4d4;*/
+    background-color: #e3e3e3;
+}
+
+.admin-panel-wrapper .admin-panel-main-article-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /*background-color: olivedrab;*/
+}
+
+.admin-panel-wrapper .admin-panel-main-article {
+    padding: 40px;
+    max-width: 700px;
+    min-width: 200px;
+    min-height: 600px;
+    border-radius: 10px;
+    /*background-color: #0d95e8;*/
+    /*background-color: #d4d4d4;*/
+    background-color: #dedede;
+}
+
+.admin-panel-wrapper .admin-panel-home-article {
+    padding-top: 60px;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 60px;
+}
+
+.admin-panel-wrapper .admin-panel-footer {
+    min-height: 100px;
+    padding-top: 25px;
+    padding-left: 5%;
+    font-size: 14px;
+    /*font-family: "Georgia", "Verdana", "Arial";*/
+    font-style: italic;
+    /*background-color: brown;*/
+    background-color: #e3e3e3;
+}
