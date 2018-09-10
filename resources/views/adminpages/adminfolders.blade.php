@@ -8,7 +8,7 @@
 </div>
 <div class="admin-panel-main-article-wrapper">
     <article class="admin-panel-main-article">
-        <h2 style="color: green;">{{ $headTitle }}</h2>
+        <h2 style="color: red;">{{ $headTitle }}</h2>
         <div>
             <a href=''>@lang('keywords.AddArticle')</a>
         </div>
