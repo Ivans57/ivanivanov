@@ -590,7 +590,7 @@ reorganize this code in a future!*/
 
 /*-----------------------------------------*/
 
-/*main part*/
+/*Main part*/
 
 main {
     display: flex;
@@ -2409,7 +2409,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
 /*-----------------------------------------*/
 
-/*footer part*/
+/*Footer part*/
 
 .website-footer {
     /*Here is a property min-height (not height) to make website 

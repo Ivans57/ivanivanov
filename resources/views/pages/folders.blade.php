@@ -3,22 +3,22 @@
 @section('content')
 <article class="website-main-article articles-article-folders">
     @if ($folders->count() > 0)
-    <section class="external-folders-wrapper">
-        <div class="folders-wrapper">
-            @foreach ($folders as $folder)
-                <div class="folder-item">
-                    <div class="folder-body">
-                        <a href='articles/{{ $folder->keyword }}/page/1'>
-                            <img src="{{ URL::asset('images/icons/regular_folder.png') }}" alt="{{ $folder->folder_name }}" class="article-folder">
-                        </a>
+        <section class="external-folders-wrapper">
+            <div class="folders-wrapper">
+                @foreach ($folders as $folder)
+                    <div class="folder-item">
+                        <div class="folder-body">
+                            <a href='articles/{{ $folder->keyword }}/page/1'>
+                                <img src="{{ URL::asset('images/icons/regular_folder.png') }}" alt="{{ $folder->folder_name }}" class="article-folder">
+                            </a>
+                        </div>
+                        <div class="folder-title">
+                            <h3 class="article-folder-title">{{ $folder->folder_name }}</h3>
+                        </div>
                     </div>
-                    <div class="folder-title">
-                        <h3 class="article-folder-title">{{ $folder->folder_name }}</h3>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </section>
+                @endforeach
+            </div>
+        </section>
     @else
         <section class="empty-folders-text-wrapper">
             <p>@lang('folderContent.EmptySection')</p>

@@ -8,6 +8,8 @@ and open the template in the editor.
     Author     : Ivan
 */
 
+/*Admin Panel Wrap styles*/
+
 .admin-panel-wrapper {
     display: flex;
     flex-direction: column;
@@ -15,6 +17,10 @@ and open the template in the editor.
     /*background-color: orange;*/
     background-color: #f5f5f5;
 }
+
+/*--------------------------------------------------------*/
+
+/*Admin Panel Main Header styles*/
 
 .admin-panel-wrapper .admin-panel-header {
     display: flex;
@@ -123,6 +129,10 @@ and open the template in the editor.
     color: black;
 }
 
+/*--------------------------------------------------------*/
+
+/*Admin Panel Main part*/
+
 main {
     display: flex;
     /*justify-content: center;
@@ -173,12 +183,20 @@ main {
     background-color: #dedede;
 }
 
+/*--------------------------------------------------------*/
+
+/*Admin Panel Main Home part*/
+
 .admin-panel-wrapper .admin-panel-home-article {
     padding-top: 60px;
     padding-left: 70px;
     padding-right: 70px;
     padding-bottom: 60px;
 }
+
+/*--------------------------------------------------------*/
+
+/*Footer part*/
 
 .admin-panel-wrapper .admin-panel-footer {
     min-height: 100px;
@@ -190,3 +208,5 @@ main {
     /*background-color: brown;*/
     background-color: #e3e3e3;
 }
+
+/*--------------------------------------------------------*/
