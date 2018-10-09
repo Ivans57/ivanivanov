@@ -34,6 +34,10 @@ class CreateEnArticlesTable extends Migration
      */
     public function down()
     {
+        Schema::table('en_articles', function (Blueprint $table) {
+            $table->dropForeign('en_articles_folder_id_foreign');
+            $table->dropColumn('folder_id');
+        });
         Schema::dropIfExists('en_articles');
     }
 }

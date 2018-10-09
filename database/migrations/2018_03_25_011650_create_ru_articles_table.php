@@ -34,6 +34,10 @@ class CreateRuArticlesTable extends Migration
      */
     public function down()
     {
+        Schema::table('ru_articles', function (Blueprint $table) {
+            $table->dropForeign('ru_articles_folder_id_foreign');
+            $table->dropColumn('folder_id');
+        });
         Schema::dropIfExists('ru_articles');
     }
 }

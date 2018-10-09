@@ -31,6 +31,10 @@ class CreateRuFoldersTable extends Migration
      */
     public function down()
     {
+        Schema::table('ru_folders', function (Blueprint $table) {
+            $table->dropForeign('ru_folders_included_in_folder_with_id_foreign');
+            $table->dropColumn('included_in_folder_with_id');
+        });
         Schema::dropIfExists('ru_folders');
     }
 }

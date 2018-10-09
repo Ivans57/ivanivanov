@@ -30,6 +30,10 @@ class CreateRuPicturesTable extends Migration
      */
     public function down()
     {
+        Schema::table('ru_pictures', function (Blueprint $table) {
+            $table->dropForeign('ru_pictures_album_id_foreign');
+            $table->dropColumn('album_id');
+        });
         Schema::dropIfExists('ru_pictures');
     }
 }

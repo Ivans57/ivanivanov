@@ -29,6 +29,7 @@ class AddIncludedInAlbumWithIdToEnAlmumsTable extends Migration
     {
         Schema::table('en_albums', function (Blueprint $table) {
             //
+            $table->dropForeign('en_albums_included_in_album_with_id_foreign');
             $table->dropColumn('included_in_album_with_id');
         });
     }

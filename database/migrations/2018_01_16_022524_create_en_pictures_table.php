@@ -30,6 +30,10 @@ class CreateEnPicturesTable extends Migration
      */
     public function down()
     {
+        Schema::table('en_pictures', function (Blueprint $table) {
+            $table->dropForeign('en_pictures_album_id_foreign');
+            $table->dropColumn('album_id');
+        });
         Schema::dropIfExists('en_pictures');
     }
 }

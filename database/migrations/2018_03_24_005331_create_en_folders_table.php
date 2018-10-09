@@ -31,6 +31,10 @@ class CreateEnFoldersTable extends Migration
      */
     public function down()
     {
+        Schema::table('en_folders', function (Blueprint $table) {
+            $table->dropForeign('en_folders_included_in_folder_with_id_foreign');
+            $table->dropColumn('included_in_folder_with_id');
+        });
         Schema::dropIfExists('en_folders');
     }
 }
