@@ -8,7 +8,7 @@
             <div>
                 <h2>{{ $headTitle }}</h2>
             </div>
-            <section class="external-folders-wrapper">
+            <div class="external-folders-wrapper">
                 <div class="folders-wrapper">       
                     @foreach ($folders_and_articles as $folder_or_article)
                         <div class="folder-item">
@@ -29,9 +29,9 @@
                         </div>
                     @endforeach       
                 </div>
-            </section>
+            </div>
             @if ($folders_and_articles_total_number > 16)
-                <section class="paginator">
+                <div class="paginator">
                     @if ($folders_and_articles_current_page == 1)
                         <span class="first-inactive"></span>
                     @else
@@ -53,7 +53,7 @@
                     @else
                         <a href="{{ $folders_and_articles_number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
                     @endif
-                </section>
+                </div>
             @endif
         </article>   
     @else
@@ -61,7 +61,7 @@
             <div>
                 <h2>{{ $headTitle }}</h2>
             </div>
-            <section class="folders-and-articles-wrapper">       
+            <div class="folders-and-articles-wrapper">       
                 @foreach ($folders_and_articles as $folder_or_article)
                     @if ($folder_or_article->type == 'folder')
                         <div class="article-folder-or-article">
@@ -93,9 +93,9 @@
                         </div>
                     @endif
                 @endforeach       
-            </section>
+            </div>
             @if ($folders_and_articles_total_number > 16)
-                <section class="paginator">
+                <div class="paginator">
                     @if ($folders_and_articles_current_page == 1)
                         <span class="first-inactive"></span>
                     @else
@@ -117,15 +117,15 @@
                     @else
                         <a href="{{ $folders_and_articles_number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
                     @endif
-                </section>
+                </div>
             @endif
         </article>
     @endif
 @else
     <article class="website-main-article articles-article-folders">
-        <section class="empty-folders-text-wrapper">
+        <div class="empty-folders-text-wrapper">
             <p>@lang('folderContent.EmptySection')</p>
-        </section>
+        </div>
     </article> 
 @endif   
 

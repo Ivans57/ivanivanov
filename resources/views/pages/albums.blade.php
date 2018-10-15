@@ -3,7 +3,7 @@
 @section('content')
 <article class="website-main-article albums-article">
     @if ($album_links->count() > 0)
-        <section class="external-albums-wrapper">
+        <div class="external-albums-wrapper">
             <div class="albums-wrapper">
                 @foreach ($album_links as $album_link)
                     <div class="album-item">
@@ -18,15 +18,15 @@
                     </div>
                 @endforeach
             </div>
-        </section>
+        </div>
     @else
-        <section class="empty-albums-text-wrapper">
+        <div class="empty-albums-text-wrapper">
             <p>@lang('folderContent.EmptySection')</p>
-        </section>
+        </div>
     @endif
     
     @if ($album_links->total() > 16)
-        <section class="paginator">
+        <div class="paginator">
             @if ($album_links->currentPage() == 1)
                <span class="first-inactive"></span>
             @else
@@ -48,16 +48,7 @@
             @else
                <a href="{{ $album_links->url($album_links->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
             @endif
-        </section>
+        </div>
     @endif
-    
-    <!--<section>
-        <div>
-            <input type="button" id="press" value="Жми уже! Жми!" style="background-color: #00ffff">
-        </div>
-        <div>
-            <p style="color: red" id="ajaxResponse"></p>
-        </div>
-    </section>-->
 </article>
 @stop

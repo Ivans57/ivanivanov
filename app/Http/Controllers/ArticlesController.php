@@ -60,9 +60,7 @@ class ArticlesController extends Controller
             'folders_and_articles_previous_page' => $folders_and_articles_full_info->folders_and_articles_previous_page,
             'folders_and_articles_next_page' => $folders_and_articles_full_info->folders_and_articles_next_page
             ]);
-        
-        //return 'Privet';
-               
+
     }
     
     public function showArticle($keyword){
@@ -89,8 +87,6 @@ class ArticlesController extends Controller
             'created_at' => $article[0]->created_at,
             'hello_world' => $hello_world    
             ]);
-        
-        //return $article;
-               
+
     }
 }

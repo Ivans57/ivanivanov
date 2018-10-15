@@ -6,7 +6,7 @@
         <h2>{{ $headTitle }}</h2>
     </div>
     @if ($albums_and_pictures_total_number > 0)
-        <section class="external-albums-picture-wrapper">
+        <div class="external-albums-picture-wrapper">
             <div class="albums-picture-wrapper">       
                 @foreach ($albums_and_pictures as $album_or_picture)
                     @if ($album_or_picture->type == 'album')
@@ -35,14 +35,14 @@
                     @endif
                 @endforeach       
             </div>
-        </section>
+        </div>
     @else
-        <section class="empty-albums-text-wrapper">
+        <div class="empty-albums-text-wrapper">
             <p>@lang('albumContent.EmptyAlbum')</p>
-        </section>
+        </div>
     @endif
     @if ($albums_and_pictures_total_number > 20)
-        <section class="paginator">
+        <div class="paginator">
             @if ($albums_and_pictures_current_page == 1)
                <span class="first-inactive"></span>
             @else
@@ -64,7 +64,7 @@
             @else
                <a href="{{ $albums_and_pictures_number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
             @endif
-        </section>
+        </div>
     @endif
 </article>
 @stop

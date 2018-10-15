@@ -10,11 +10,13 @@
     <article class="admin-panel-main-article">
         <h2>{{ $headTitle }}</h2>
         <div>
-            <a href=''>@lang('keywords.AddArticle')</a>
-        </div>
-        <div>
-            <a href=''>@lang('keywords.AddFolder')</a>
-        </div>
+            <div>
+                <a href=''>@lang('keywords.AddArticle')</a>
+            </div>
+            <div>
+                <a href=''>@lang('keywords.AddFolder')</a>
+            </div>
+        </div>    
         <div>
             @if ($folders->count() > 0)
                 @foreach ($folders as $folder)
@@ -29,7 +31,7 @@
             @endif
             
             @if ($folders->total() > 16)
-                <section class="paginator">
+                <div class="paginator">
                     @if ($folders->currentPage() == 1)
                         <span class="first-inactive">@lang('pagination.ToFirstPage') | </span>
                     @else
@@ -51,7 +53,7 @@
                     @else
                         <a href="{{ $folders->url($folders->lastPage()) }}" class="last-active">@lang('pagination.ToLastPage')</a>
                     @endif
-                </section>
+                </div>
             @endif
         </div>
     </article>

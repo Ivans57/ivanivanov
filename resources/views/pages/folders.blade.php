@@ -3,7 +3,7 @@
 @section('content')
 <article class="website-main-article articles-article-folders">
     @if ($folders->count() > 0)
-        <section class="external-folders-wrapper">
+        <div class="external-folders-wrapper">
             <div class="folders-wrapper">
                 @foreach ($folders as $folder)
                     <div class="folder-item">
@@ -18,15 +18,15 @@
                     </div>
                 @endforeach
             </div>
-        </section>
+        </div>
     @else
-        <section class="empty-folders-text-wrapper">
+        <div class="empty-folders-text-wrapper">
             <p>@lang('folderContent.EmptySection')</p>
-        </section>
+        </div>
     @endif
     
     @if ($folders->total() > 16)
-        <section class="paginator">
+        <div class="paginator">
             @if ($folders->currentPage() == 1)
                <span class="first-inactive"></span>
             @else
@@ -48,7 +48,7 @@
             @else
                <a href="{{ $folders->url($folders->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
             @endif
-        </section>
+        </div>
     @endif
 </article>
 @stop

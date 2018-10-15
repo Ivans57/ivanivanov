@@ -5,7 +5,7 @@
     <div>
        <h2>{{ $headTitle }}</h2>
     </div>
-    <section class="article-wrapper">
+    <div class="article-wrapper">
         <div class="article-description">
             <p>{{ $article_description }}</p>
         </div>
@@ -21,6 +21,6 @@
         <div class="article-creation-time">
             <p>@lang('articleContent.Time'): <b>{{ $created_at }}</b></p>
         </div>
-    </section>
+    </div>
 </article>
 @stop
