@@ -27,8 +27,8 @@ class FolderAndArticleForViewFullInfoForPage {
 
 class ArticlesRepository {
     
-    public function getAllFolders(){
-        $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->where('is_visible', '=', 1)->paginate(16);
+    public function getAllFolders($item_amount){
+        $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->where('is_visible', '=', 1)->paginate($item_amount);
         
         return $folder_links;
     }

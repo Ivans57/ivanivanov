@@ -32,7 +32,7 @@ class ArticlesController extends Controller
         
         //$folders = \App\Folder::where('included_in_folder_with_id', '=', NULL)->get();
         //$album_links = $this->albums->getAllAlbums();
-        $folders = $this->folders->getAllFolders();
+        $folders = $this->folders->getAllFolders(16);
         
         return view('pages.folders')->with([
             'headTitle' => $headTitle,

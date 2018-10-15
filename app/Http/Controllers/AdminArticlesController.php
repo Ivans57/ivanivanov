@@ -35,7 +35,7 @@ class AdminArticlesController extends Controller
         $headTitle= __('mainLinks.'.$this->current_page);
         
         //On the line below we are fetching all articles from the database
-        $folders = $this->folders->getAllFolders();
+        $folders = $this->folders->getAllFolders(22);
         
         return view('adminpages.adminfolders')->with([
             'main_links' => $main_links,

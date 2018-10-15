@@ -8,8 +8,7 @@
 </div>
 <div class="admin-panel-main-article-wrapper">
     <article class="admin-panel-main-article">
-        <h2>{{ $headTitle }}</h2>
-        <div>
+        <div style="background-color: red;">
             <div>
                 <a href=''>@lang('keywords.AddArticle')</a>
             </div>
@@ -19,19 +18,23 @@
         </div>    
         <div>
             @if ($folders->count() > 0)
-                @foreach ($folders as $folder)
-                    <div class="folder-item">
-                        <div class="folder-body">
-                            <a href='articles/{{ $folder->keyword }}/page/1'>{{ $folder->folder_name }}</a>
+                <div style="background-color: green;">
+                    @foreach ($folders as $folder)
+                        <div class="folder-item">
+                            <div class="folder-body">
+                                <a href='articles/{{ $folder->keyword }}/page/1'>{{ $folder->folder_name }}</a>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             @else
-                <p>@lang('keywords.EmptySection')</p>
+                <div style="background-color: green;">
+                    <p>@lang('keywords.EmptySection')</p>
+                </div>
             @endif
             
-            @if ($folders->total() > 16)
-                <div class="paginator">
+            @if ($folders->total() > 22)
+                <div class="paginator" style="background-color: orange;">
                     @if ($folders->currentPage() == 1)
                         <span class="first-inactive">@lang('pagination.ToFirstPage') | </span>
                     @else

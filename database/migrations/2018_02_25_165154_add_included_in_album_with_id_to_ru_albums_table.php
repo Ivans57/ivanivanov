@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIncludedInAlbumWithIdToEnAlmumsTable extends Migration
+class AddIncludedInAlbumWithIdToRuAlbumsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddIncludedInAlbumWithIdToEnAlmumsTable extends Migration
      */
     public function up()
     {
-        Schema::table('en_albums', function (Blueprint $table) {
+        Schema::table('ru_albums', function (Blueprint $table) {
             //
             $table->integer('included_in_album_with_id')->unsigned()->nullable();
-            $table->foreign('included_in_album_with_id')->references('id')->on('en_albums')->onDelete('cascade');
+            $table->foreign('included_in_album_with_id')->references('id')->on('ru_albums')->onDelete('cascade');
         });
     }
 
@@ -27,9 +27,9 @@ class AddIncludedInAlbumWithIdToEnAlmumsTable extends Migration
      */
     public function down()
     {
-        Schema::table('en_albums', function (Blueprint $table) {
+        Schema::table('ru_albums', function (Blueprint $table) {
             //
-            $table->dropForeign('en_albums_included_in_album_with_id_foreign');
+            $table->dropForeign('ru_albums_included_in_album_with_id_foreign');
             $table->dropColumn('included_in_album_with_id');
         });
     }

@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : Ivan
 */
 
-/*all fonts*/
+/*All Fonts*/
 
 /*Attention!!! Important!!! Rules for fonts! Website title should use specific font family 
 and size 70px nd normal font-style. Home page is different. It is using 
@@ -21,7 +21,7 @@ should be used as a secondary and tertiary font-families. Font-size should be 16
 The same should be done for website footer. Only font-style sholud be "Italic".
 Compact-view-menu has its own rules, different from the rest of the site.*/
 
-/*font for text on home page in a main part. I don't use it now. I keep it just in case.'*/
+/*Font for text on home page in a main part. I don't use it now. I keep it just in case.'*/
 @font-face {
     font-family: OptimusPrinceps;
     src: url('/fonts/Nickainley-Normal.otf');
@@ -44,7 +44,7 @@ Compact-view-menu has its own rules, different from the rest of the site.*/
 /*-------------------------------------------------------*/
 
 
-/*main site wrap styles*/
+/*Main Website Wrap styles*/
 
 /*This was done with a purpose to make my footer to be in the end of screen and
 make my website's height flexible.*/
@@ -76,7 +76,7 @@ but the main content of the page on the background should be static
 
 /*--------------------------------------------------------*/
 
-/* main header styles*/
+/* Main Header styles*/
 
 .website-wrapper .website-header {
     display: flex;
@@ -1152,113 +1152,6 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     filter: drop-shadow(0 0 0px black);
 }
 
-/*this can be applied to all paginators*/
-.website-main-article .paginator {
-    margin-top: 20px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.website-main-article .paginator a,
-.website-main-article .paginator span {
-    display: inline-block;  
-    text-decoration: none;
-}
-
-.website-main-article .paginator .previous-inactive,
-.website-main-article .paginator .previous-active {
-    margin-right: 5px;
-}
-
-.website-main-article .paginator .next-inactive,
-.website-main-article .paginator .next-active {
-    margin-left: 5px;
-}
-
-.website-main-article .paginator .previous-inactive,
-.website-main-article .paginator .previous-active,
-.website-main-article .paginator .next-inactive,
-.website-main-article .paginator .next-active {
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-}
-
-
-.website-main-article .paginator .previous-inactive {
-    border-right-color: grey;  
-    border-left: 0;
-}
-
-.website-main-article .paginator .previous-active {
-    border-right-color: steelblue;  
-    border-left: 0;
-}
-
-.website-main-article .paginator .next-inactive {
-    border-left-color: grey;  
-    border-right: 0;
-}
-
-.website-main-article .paginator .next-active {
-    border-left-color: steelblue;  
-    border-right: 0;
-}
-
-.website-main-article .paginator .pagination-info {
-    padding: 0 10px;
-    vertical-align: top;
-    text-align: center;
-    font-weight: bold;
-    font-family: "Arial";
-    font-size: 16px;
-}
-
-.website-main-article .paginator .first-inactive,
-.website-main-article .paginator .first-active {
-    margin-right: 10px;
-}
-
-.website-main-article .paginator .last-inactive,
-.website-main-article .paginator .last-active {
-    margin-left: 10px;
-}
-
-.website-main-article .paginator .first-inactive,
-.website-main-article .paginator .first-active,
-.website-main-article .paginator .last-inactive,
-.website-main-article .paginator .last-active {
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-}
-
-.website-main-article .paginator .first-inactive {
-    border-right-color: grey;  
-    border-left: 0;
-    box-shadow: -3px 0 0 0 grey;
-}
-
-.website-main-article .paginator .first-active {
-    border-right-color: #0000cc;  
-    border-left: 0;
-    box-shadow: -3px 0 0 0 #0000cc;
-}
-
-.website-main-article .paginator .last-inactive {
-    border-left-color: grey;  
-    border-right: 0;
-    box-shadow: 3px 0 0 0 grey;
-}
-
-.website-main-article .paginator .last-active {
-    border-left-color: #0000cc;  
-    border-right: 0;
-    box-shadow: 3px 0 0 0 #0000cc;
-}
-
 /*Albums for mobile devices.*/
 
 @media (max-width: 850px) {
@@ -1280,7 +1173,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         min-height: 510px;
     }
     
-    .albums-article .external-albums-wrapper .albumss-wrapper .album-item {
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item {
         transform: scale(0.95);
         margin-right: 10px;
         margin-left: 10px;
@@ -1411,22 +1304,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title .album-folder-title {
         font-size: 18px;
     }
-    
-    .website-main-article .paginator .first-inactive,
-    .website-main-article .paginator .first-active,
-    .website-main-article .paginator .last-inactive,
-    .website-main-article .paginator .last-active,
-    .website-main-article .paginator .previous-inactive,
-    .website-main-article .paginator .previous-active,
-    .website-main-article .paginator .next-inactive,
-    .website-main-article .paginator .next-active {
-        transform: scale(0.9);
-    }
-    
-    .website-main-article .paginator .pagination-info {
-        font-size: 15px;
-    }
-    
+      
     .albums-article .empty-albums-text-wrapper {
         margin-top: 140px;
     }
@@ -1565,21 +1443,6 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-left: -5px;
     }
     
-    .website-main-article .paginator .first-inactive,
-    .website-main-article .paginator .first-active,
-    .website-main-article .paginator .last-inactive,
-    .website-main-article .paginator .last-active,
-    .website-main-article .paginator .previous-inactive,
-    .website-main-article .paginator .previous-active,
-    .website-main-article .paginator .next-inactive,
-    .website-main-article .paginator .next-active {
-        transform: scale(0.8);
-    }
-    
-    .website-main-article .paginator .pagination-info {
-        font-size: 14px;
-    }
-    
     .albums-article .empty-albums-text-wrapper {
         margin-top: 40px;
     }
@@ -1611,32 +1474,6 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-bottom: -10px;
         margin-right: -10px;
         margin-left: -10px;
-    }
-    
-    .website-main-article .paginator .first-inactive,
-    .website-main-article .paginator .first-active,
-    .website-main-article .paginator .last-inactive,
-    .website-main-article .paginator .last-active,
-    .website-main-article .paginator .previous-inactive,
-    .website-main-article .paginator .previous-active,
-    .website-main-article .paginator .next-inactive,
-    .website-main-article .paginator .next-active {
-        transform: scale(0.7);
-    }
-    
-    .website-main-article .paginator .pagination-info {
-        padding: 0 0px;
-        font-size: 13px;
-    }
-    
-    .website-main-article .paginator .first-inactive,
-    .website-main-article .paginator .first-active {
-        margin-right: 5px;
-    }
-
-    .website-main-article .paginator .last-inactive,
-    .website-main-article .paginator .last-active {
-        margin-left: 5px;
     }
 }
 
@@ -2435,6 +2272,181 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 @media (max-width: 220px) {
     .website-footer {
     font-size: 12px;
+    }
+}
+
+/*-----------------------------------------*/
+
+
+/*Universal Paginator*/
+/*this can be applied to all paginators*/
+
+.website-main-article .paginator {
+    margin-top: 20px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.website-main-article .paginator a,
+.website-main-article .paginator span {
+    display: inline-block;  
+    text-decoration: none;
+}
+
+.website-main-article .paginator .previous-inactive,
+.website-main-article .paginator .previous-active {
+    margin-right: 5px;
+}
+
+.website-main-article .paginator .next-inactive,
+.website-main-article .paginator .next-active {
+    margin-left: 5px;
+}
+
+.website-main-article .paginator .previous-inactive,
+.website-main-article .paginator .previous-active,
+.website-main-article .paginator .next-inactive,
+.website-main-article .paginator .next-active {
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+}
+
+.website-main-article .paginator .previous-inactive {
+    border-right-color: grey;  
+    border-left: 0;
+}
+
+.website-main-article .paginator .previous-active {
+    border-right-color: steelblue;  
+    border-left: 0;
+}
+
+.website-main-article .paginator .next-inactive {
+    border-left-color: grey;  
+    border-right: 0;
+}
+
+.website-main-article .paginator .next-active {
+    border-left-color: steelblue;  
+    border-right: 0;
+}
+
+.website-main-article .paginator .pagination-info {
+    padding: 0 10px;
+    vertical-align: top;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 16px;
+}
+
+.website-main-article .paginator .first-inactive,
+.website-main-article .paginator .first-active {
+    margin-right: 10px;
+}
+
+.website-main-article .paginator .last-inactive,
+.website-main-article .paginator .last-active {
+    margin-left: 10px;
+}
+
+.website-main-article .paginator .first-inactive,
+.website-main-article .paginator .first-active,
+.website-main-article .paginator .last-inactive,
+.website-main-article .paginator .last-active {
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+}
+
+.website-main-article .paginator .first-inactive {
+    border-right-color: grey;  
+    border-left: 0;
+    box-shadow: -3px 0 0 0 grey;
+}
+
+.website-main-article .paginator .first-active {
+    border-right-color: #0000cc;  
+    border-left: 0;
+    box-shadow: -3px 0 0 0 #0000cc;
+}
+
+.website-main-article .paginator .last-inactive {
+    border-left-color: grey;  
+    border-right: 0;
+    box-shadow: 3px 0 0 0 grey;
+}
+
+.website-main-article .paginator .last-active {
+    border-left-color: #0000cc;  
+    border-right: 0;
+    box-shadow: 3px 0 0 0 #0000cc;
+}
+
+/*Universal Paginator for mobile devices.*/
+
+@media (max-width: 500px) {    
+    .website-main-article .paginator .first-inactive,
+    .website-main-article .paginator .first-active,
+    .website-main-article .paginator .last-inactive,
+    .website-main-article .paginator .last-active,
+    .website-main-article .paginator .previous-inactive,
+    .website-main-article .paginator .previous-active,
+    .website-main-article .paginator .next-inactive,
+    .website-main-article .paginator .next-active {
+        transform: scale(0.9);
+    }
+    
+    .website-main-article .paginator .pagination-info {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 300px) {   
+    .website-main-article .paginator .first-inactive,
+    .website-main-article .paginator .first-active,
+    .website-main-article .paginator .last-inactive,
+    .website-main-article .paginator .last-active,
+    .website-main-article .paginator .previous-inactive,
+    .website-main-article .paginator .previous-active,
+    .website-main-article .paginator .next-inactive,
+    .website-main-article .paginator .next-active {
+        transform: scale(0.8);
+    }
+    
+    .website-main-article .paginator .pagination-info {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 280px) {    
+    .website-main-article .paginator .first-inactive,
+    .website-main-article .paginator .first-active,
+    .website-main-article .paginator .last-inactive,
+    .website-main-article .paginator .last-active,
+    .website-main-article .paginator .previous-inactive,
+    .website-main-article .paginator .previous-active,
+    .website-main-article .paginator .next-inactive,
+    .website-main-article .paginator .next-active {
+        transform: scale(0.7);
+    }
+    
+    .website-main-article .paginator .pagination-info {
+        padding: 0 0px;
+        font-size: 13px;
+    }
+    
+    .website-main-article .paginator .first-inactive,
+    .website-main-article .paginator .first-active {
+        margin-right: 5px;
+    }
+
+    .website-main-article .paginator .last-inactive,
+    .website-main-article .paginator .last-active {
+        margin-left: 5px;
     }
 }
 
