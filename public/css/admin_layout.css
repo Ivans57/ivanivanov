@@ -195,12 +195,10 @@ main {
 
 /*--------------------------------------------------------*/
 
-/*Articles part*/
+/*Admin Panel Articles part*/
 
 .admin-panel-main-article .admin-panel-external-folders-wrapper {
     min-height: 500px;
-    align-items: center;
-    background-color: yellow;
 }
 
 /*--------------------------------------------------------*/

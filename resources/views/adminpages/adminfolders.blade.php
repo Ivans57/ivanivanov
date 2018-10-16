@@ -9,17 +9,17 @@
 <!-- "admin-panel-main-article-wrapper" we might not need if we remove the path section above -->
 <div class="admin-panel-main-article-wrapper">
     <article class="admin-panel-main-article">
-        <div style="background-color: red;" class="admin-panel-add-article-or-folder-button-wrapper">
+        <div class="admin-panel-add-article-folder-wrapper" style="background-color: red;">
             <div>
-                <a href=''>@lang('keywords.AddArticle')</a>
+                {!! Form::button(Lang::get('keywords.AddArticle')) !!}
             </div>
             <div>
-                <a href=''>@lang('keywords.AddFolder')</a>
+                {!! Form::button(Lang::get('keywords.AddFolder')) !!}
             </div>
-        </div>     
+        </div>         
         @if ($folders->count() > 0)
-            <div class="admin-panel-external-folders-wrapper">
-                <div style="background-color: green;" class="admin-panel-folders-wrapper">
+            <div class="admin-panel-external-folders-wrapper" style="background-color: yellow;">
+                <div class="admin-panel-folders-wrapper" style="background-color: green;">
                     @foreach ($folders as $folder)
                         <div class="folder-item">
                             <div class="folder-body">
@@ -30,11 +30,10 @@
                 </div>
             </div>
         @else
-            <div style="background-color: green;" class="admin-panel-empty-folders-text-wrapper">
+            <div class="admin-panel-empty-folders-text-wrapper" style="background-color: green;">
                 <p>@lang('keywords.EmptySection')</p>
             </div>
-        @endif
-            
+        @endif  
         @if ($folders->total() > 25)
             <div class="admin-panel-paginator">
                 @if ($folders->currentPage() == 1)
