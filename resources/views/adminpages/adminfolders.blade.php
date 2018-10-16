@@ -8,17 +8,17 @@
 </div>
 <div class="admin-panel-main-article-wrapper">
     <article class="admin-panel-main-article">
-        <div style="background-color: red;">
+        <div class="admin-panel-add-article-folder-wrapper" style="background-color: red;">
             <div>
-                <a href=''>@lang('keywords.AddArticle')</a>
+                {!! Form::button(Lang::get('keywords.AddArticle')) !!}
             </div>
             <div>
-                <a href=''>@lang('keywords.AddFolder')</a>
+                {!! Form::button(Lang::get('keywords.AddFolder')) !!}
             </div>
         </div>    
-        <div>
-            @if ($folders->count() > 0)
-                <div style="background-color: green;">
+        @if ($folders->count() > 0)
+            <div class="admin-panel-external-folders-wrapper" style="background-color: yellow;">
+                <div class="admin-panel-folders-wrapper" style="background-color: green;">
                     @foreach ($folders as $folder)
                         <div class="folder-item">
                             <div class="folder-body">
@@ -27,38 +27,37 @@
                         </div>
                     @endforeach
                 </div>
-            @else
-                <div style="background-color: green;">
-                    <p>@lang('keywords.EmptySection')</p>
-                </div>
-            @endif
-            
-            @if ($folders->total() > 22)
-                <div class="paginator" style="background-color: orange;">
-                    @if ($folders->currentPage() == 1)
-                        <span class="first-inactive">@lang('pagination.ToFirstPage') | </span>
-                    @else
-                        <a href="{{ $folders->url(1) }}" class="first-active">@lang('pagination.ToFirstPage')</a><span> | </span>
-                    @endif
-                    @if ($folders->currentPage() == 1)
-                        <span class="previous-inactive">@lang('pagination.ToPreviousPage')</span>
-                    @else
-                        <a href="{{ $folders->previousPageUrl() }}" class="previous-active">@lang('pagination.ToPreviousPage')</a>
-                    @endif
-                        <span class="pagination-info">({{ $folders->currentPage() }} @lang('pagination.Of') {{ $folders->lastPage() }})</span>
-                    @if ($folders->currentPage() == $folders->lastPage())
-                        <span class="next-inactive">@lang('pagination.ToNextPage') | </span>
-                    @else
-                        <a href="{{ $folders->nextPageUrl() }}" class="next-active">@lang('pagination.ToNextPage')</a><span> | </span>
-                    @endif
-                    @if ($folders->currentPage() == $folders->lastPage())
-                        <span class="last-inactive">@lang('pagination.ToLastPage')</span>
-                    @else
-                        <a href="{{ $folders->url($folders->lastPage()) }}" class="last-active">@lang('pagination.ToLastPage')</a>
-                    @endif
-                </div>
-            @endif
-        </div>
+            </div>
+        @else
+            <div class="admin-panel-empty-folders-text-wrapper" style="background-color: green;">
+                <p>@lang('keywords.EmptySection')</p>
+            </div>
+        @endif  
+        @if ($folders->total() > 25)
+            <div class="admin-panel-paginator">
+                @if ($folders->currentPage() == 1)
+                    <span class="first-inactive"></span>
+                @else
+                    <a href="{{ $folders->url(1) }}" class="first-active" title="@lang('pagination.ToFirstPage')"></a>
+                @endif
+                @if ($folders->currentPage() == 1)
+                    <span class="previous-inactive"></span>
+                @else
+                    <a href="{{ $folders->previousPageUrl() }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
+                @endif
+                <span class="pagination-info">{{ $folders->currentPage() }} @lang('pagination.Of') {{ $folders->lastPage() }}</span>
+                @if ($folders->currentPage() == $folders->lastPage())
+                    <span class="next-inactive"></span>
+                @else
+                    <a href="{{ $folders->nextPageUrl() }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
+                @endif
+                @if ($folders->currentPage() == $folders->lastPage())
+                    <span class="last-inactive"></span>
+                @else
+                    <a href="{{ $folders->url($folders->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
+                @endif
+            </div>
+        @endif
     </article>
 </div>
 @stop
