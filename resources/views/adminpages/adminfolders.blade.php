@@ -9,28 +9,32 @@
 <!-- "admin-panel-main-article-wrapper" we might not need if we remove the path section above -->
 <div class="admin-panel-main-article-wrapper">
     <article class="admin-panel-main-article">
-        <div class="admin-panel-add-article-folder-wrapper" style="background-color: red;">
-            <div>
-                {!! Form::button(Lang::get('keywords.AddArticle')) !!}
-            </div>
-            <div>
-                {!! Form::button(Lang::get('keywords.AddFolder')) !!}
-            </div>
+        <div class="admin-panel-add-article-folder-wrapper">
+            {!! Form::button(Lang::get('keywords.AddArticle')) !!}
+            {!! Form::button(Lang::get('keywords.AddFolder')) !!}
+
         </div>         
         @if ($folders->count() > 0)
-            <div class="admin-panel-external-folders-wrapper" style="background-color: yellow;">
-                <div class="admin-panel-folders-wrapper" style="background-color: green;">
+            <div class="admin-panel-external-article-folders-wrapper">
+                <div class="admin-panel-article-folders-wrapper">
                     @foreach ($folders as $folder)
-                        <div class="folder-item">
-                            <div class="folder-body">
-                                <a href='articles/{{ $folder->keyword }}/page/1'>{{ $folder->folder_name }}</a>
+                        <div class="admin-panel-folder-item">
+                            <div class="admin-panel-folder-title">
+                                <p>{{ $folder->folder_name }}</p>
+                            </div>
+                            <div class="admin-panel-folder-buttons-wrapper">
+                                <div class="admin-panel-folder-buttons">
+                                    {!! Form::button(Lang::get('keywords.Open')) !!}
+                                    {!! Form::button(Lang::get('keywords.Edit')) !!}
+                                    {!! Form::button(Lang::get('keywords.Delete')) !!}
+                                </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
         @else
-            <div class="admin-panel-empty-folders-text-wrapper" style="background-color: green;">
+            <div class="admin-panel-empty-folders-text-wrapper">
                 <p>@lang('keywords.EmptySection')</p>
             </div>
         @endif  
