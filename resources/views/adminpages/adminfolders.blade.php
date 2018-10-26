@@ -19,8 +19,13 @@
                 <div class="admin-panel-article-folders-wrapper">
                     @foreach ($folders as $folder)
                         <div class="admin-panel-folder-item">
-                            <div class="admin-panel-folder-title">
-                                <p>{{ $folder->folder_name }}</p>
+                            <div class="admin-panel-folder-title-and-picture-wrapper">
+                                <div class="admin-panel-folder-picture">
+                                    <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
+                                </div>
+                                <div class="admin-panel-folder-title">
+                                    <p>{{ $folder->folder_name }}</p>
+                                </div>
                             </div>
                             <div class="admin-panel-folder-buttons-wrapper">
                                 <div class="admin-panel-folder-buttons">

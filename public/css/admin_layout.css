@@ -235,9 +235,15 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
-.admin-panel-folder-item .admin-panel-folder-title {
+.admin-panel-folder-item .admin-panel-folder-title-and-picture-wrapper {
+    display: flex;
+}
+
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-title-and-picture-wrapper .admin-panel-folder-title {
     max-width: 400px;
-    background-color: pink;
+    margin-left: 5px;
+    padding-top: 5px;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
@@ -246,7 +252,7 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
-.admin-panel-folder-item:hover .admin-panel-folder-title {
+.admin-panel-folder-item:hover .admin-panel-folder-title-and-picture-wrapper .admin-panel-folder-title {
     font-weight: bold;
 }
 
@@ -256,7 +262,7 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
-.admin-panel-folder-item .admin-panel-folder-title {
+.admin-panel-folder-item .admin-panel-folder-title-and-picture-wrapper .admin-panel-folder-title {
     font-size: 15px;
 }
 
