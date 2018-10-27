@@ -248,7 +248,7 @@ main {
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item:hover {
-    filter: brightness(0.95);
+    filter: brightness(0.97);
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
@@ -280,24 +280,52 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
-.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons button {
-    max-height: 26px;
-}
-
-.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
-.admin-panel-folder-item .admin-panel-folder-buttons button:first-child {
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
+.admin-panel-article-folder-control-button:first-child {
     margin-left: 10px;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
-.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons button:nth-child(2) {
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
+.admin-panel-article-folder-control-button:nth-child(2) {
     margin-left: 10px;
     margin-right: 10px;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
-.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons button:hover {
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
+.admin-panel-article-folder-control-button {
+    height: 26px;
+    min-width: 56px;
+    background-image: linear-gradient(white, #d6d6d6);
+    border: #a8a8a8 1px solid;
+}
+
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
+.admin-panel-article-folder-control-button-link {
+    display: block;
+    min-width: 56px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+    
+}
+
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
+.admin-panel-article-folder-control-button:hover {
     font-weight: bold;
+    filter: brightness(0.98);
+}
+
+.admin-panel-article-folder-control-button-pressed {
+    /*background-color: black;*/
+    background-image: linear-gradient(#d6d6d6, white);
 }
 
 /*--------------------------------------------------------*/

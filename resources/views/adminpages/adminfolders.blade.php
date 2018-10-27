@@ -29,9 +29,15 @@
                             </div>
                             <div class="admin-panel-folder-buttons-wrapper">
                                 <div class="admin-panel-folder-buttons">
-                                    {!! Form::button(Lang::get('keywords.Open')) !!}
-                                    {!! Form::button(Lang::get('keywords.Edit')) !!}
-                                    {!! Form::button(Lang::get('keywords.Delete')) !!}
+                                    <div class="admin-panel-article-folder-control-button">
+                                        <a href='#' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                    </div>
+                                    <div class="admin-panel-article-folder-control-button">
+                                        <a href='#' class="admin-panel-article-folder-control-button-link">@lang('keywords.Edit')</a>
+                                    </div>
+                                    <div class="admin-panel-article-folder-control-button">
+                                        <a href='#' class="admin-panel-article-folder-control-button-link">@lang('keywords.Delete')</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

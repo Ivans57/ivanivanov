@@ -266,7 +266,6 @@ stretched it on the full size of its container (div).*/
     "vertical-align" property won't work!*/
     line-height: 34px;
     vertical-align: middle;
-
     background-image: linear-gradient(grey 0%, white 45%, grey 100%);
     box-shadow: 0 0 5px 1px black;    
 }
