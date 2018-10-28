@@ -14,7 +14,6 @@ and open the template in the editor.
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /*background-color: orange;*/
     background-color: #f5f5f5;
 }
 
@@ -25,7 +24,6 @@ and open the template in the editor.
 .admin-panel-wrapper .admin-panel-header {
     display: flex;
     flex-direction: column;
-    /*background-color: blue;*/
     background-color: #e3e3e3;
 }
 
@@ -44,7 +42,6 @@ and open the template in the editor.
     display: flex;
     justify-content: flex-end;
     min-height: 40px;
-    /*background-color: green;*/
 }
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-language-select div {
@@ -83,7 +80,6 @@ and open the template in the editor.
     line-height: 1.5;
     padding-right: 5%;
     padding-left: 5%;
-    /*background-color: blueviolet;*/
 }
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title .admin-panel-title h1 {
@@ -102,7 +98,6 @@ and open the template in the editor.
     padding-right: 5%;
     padding-left: 5%;
     min-height: 45px;
-    /*background-color: red;*/
 }
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link {
@@ -142,7 +137,6 @@ main {
     min-height: 675px;
     padding-top: 30px;
     padding-bottom: 30px;
-    /*background-color: grey;*/
 }
 
 .admin-panel-wrapper .admin-panel-main-path-wrapper {
@@ -151,7 +145,6 @@ main {
     align-items: flex-start;
     margin-top: -15px;
     margin-bottom: 15px;
-    /*background-color: olive;*/
 }
 
 .admin-panel-wrapper .admin-panel-main-path {
@@ -160,8 +153,6 @@ main {
     min-width: 200px;
     min-height: 50px;
     border-radius: 10px;
-    /*background-color: #009998;*/
-    /*background-color: #d4d4d4;*/
     background-color: #e3e3e3;
 }
 
@@ -169,7 +160,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /*background-color: olivedrab;*/
 }
 
 .admin-panel-wrapper .admin-panel-main-article {
@@ -179,8 +169,6 @@ main {
     width: 700px;
     min-height: 600px;
     border-radius: 10px;
-    /*background-color: #0d95e8;*/
-    /*background-color: #d4d4d4;*/
     background-color: #dedede;
 }
 
@@ -205,12 +193,55 @@ main {
     margin-bottom: 5px;
 }
 
-.admin-panel-main-article .admin-panel-add-article-folder-wrapper button:hover {
-    font-weight: bold;
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button,
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button-pressed {
+    display: inline-block;
+    height: 26px;
+    min-width: 74px;
+    border: #a8a8a8 1px solid;
 }
 
-.admin-panel-main-article .admin-panel-add-article-folder-wrapper button:first-child {
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button:first-child,
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button-pressed:first-child {
     margin-right: 5px;
+}
+
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button-pressed {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button:hover {
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button 
+.admin-panel-add-article-folder-button-link,
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button-pressed 
+.admin-panel-add-article-folder-button-link-pressed {
+    display: block;
+    min-width: 74px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button 
+.admin-panel-add-article-folder-button-link {
+    color: black;
+}
+
+.admin-panel-main-article .admin-panel-add-article-folder-wrapper .admin-panel-add-article-folder-button-pressed 
+.admin-panel-add-article-folder-button-link-pressed {
+    color: grey;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper {
@@ -320,14 +351,15 @@ main {
 .admin-panel-article-folder-control-button-pressed {
     background-image: linear-gradient(#d6d6d6, white);
     transform: scale(0.98);
+    filter: brightness(0.95);
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
-.admin-panel-article-folder-control-button-link,
+.admin-panel-article-folder-control-button .admin-panel-article-folder-control-button-link,
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons
-.admin-panel-article-folder-control-button-link-pressed {
+.admin-panel-article-folder-control-button-pressed .admin-panel-article-folder-control-button-link-pressed {
     display: block;
     min-width: 56px;
     padding-left: 5px;
@@ -340,21 +372,20 @@ main {
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons
-.admin-panel-article-folder-control-button-link {
+.admin-panel-article-folder-control-button .admin-panel-article-folder-control-button-link {
     color: black;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons
-.admin-panel-article-folder-control-button-link-pressed {
+.admin-panel-article-folder-control-button-pressed .admin-panel-article-folder-control-button-link-pressed {
     color: grey;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
 .admin-panel-article-folder-control-button:hover {
-    font-weight: bold;
-    filter: brightness(0.98);
+    filter: brightness(0.95);
 }
 
 /*--------------------------------------------------------*/
@@ -368,7 +399,6 @@ main {
     font-size: 14px;
     /*font-family: "Georgia", "Verdana", "Arial";*/
     font-style: italic;
-    /*background-color: brown;*/
     background-color: #e3e3e3;
 }
 

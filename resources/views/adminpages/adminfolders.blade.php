@@ -10,9 +10,12 @@
 <div class="admin-panel-main-article-wrapper">
     <article class="admin-panel-main-article">
         <div class="admin-panel-add-article-folder-wrapper">
-            {!! Form::button(Lang::get('keywords.AddArticle')) !!}
-            {!! Form::button(Lang::get('keywords.AddFolder')) !!}
-
+            <div class="admin-panel-add-article-folder-button">
+                <a href='#' class="admin-panel-add-article-folder-button-link">@lang('keywords.AddArticle')</a>
+            </div>
+            <div class="admin-panel-add-article-folder-button">
+                <a href='#' class="admin-panel-add-article-folder-button-link">@lang('keywords.AddFolder')</a>
+            </div>
         </div>         
         @if ($folders->count() > 0)
             <div class="admin-panel-external-article-folders-wrapper">
