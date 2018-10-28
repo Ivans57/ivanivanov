@@ -291,7 +291,7 @@ js function and this will let me simplify my code.*/
 /*My home-know-more-button-pressed class has the same properties, but
 I left it so I can see states of buttons in code more obviously. Need to 
 reorganize this code in a future!*/
-.website-menu-button-pressed {
+.website-wrapper .website-header .website-menu .website-menu-normal-view-button .website-menu-button-pressed {
     transform: scale(0.98);
     filter: brightness(80%);
     box-shadow: 0 0 2px 1px black;

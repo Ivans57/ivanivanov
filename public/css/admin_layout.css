@@ -281,39 +281,73 @@ main {
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
-.admin-panel-article-folder-control-button:first-child {
+.admin-panel-article-folder-control-button:first-child,
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
+.admin-panel-article-folder-control-button-pressed:first-child {
     margin-left: 10px;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
-.admin-panel-article-folder-control-button:nth-child(2) {
+.admin-panel-article-folder-control-button:nth-child(2),
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
+.admin-panel-article-folder-control-button-pressed:nth-child(2){
     margin-left: 10px;
     margin-right: 10px;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
-.admin-panel-article-folder-control-button {
+.admin-panel-article-folder-control-button,
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons
+.admin-panel-article-folder-control-button-pressed {
     height: 26px;
     min-width: 56px;
-    background-image: linear-gradient(white, #d6d6d6);
     border: #a8a8a8 1px solid;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
 .admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
-.admin-panel-article-folder-control-button-link {
+.admin-panel-article-folder-control-button {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons
+.admin-panel-article-folder-control-button-pressed {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+}
+
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons 
+.admin-panel-article-folder-control-button-link,
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons
+.admin-panel-article-folder-control-button-link-pressed {
     display: block;
     min-width: 56px;
     padding-left: 5px;
     padding-right: 5px;
-    color: black;
     text-decoration: none;
     text-align: center;
     line-height: 25px;
     vertical-align: middle;
-    
+}
+
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons
+.admin-panel-article-folder-control-button-link {
+    color: black;
+}
+
+.admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
+.admin-panel-folder-item .admin-panel-folder-buttons-wrapper .admin-panel-folder-buttons
+.admin-panel-article-folder-control-button-link-pressed {
+    color: grey;
 }
 
 .admin-panel-main-article .admin-panel-external-article-folders-wrapper .admin-panel-article-folders-wrapper 
@@ -321,11 +355,6 @@ main {
 .admin-panel-article-folder-control-button:hover {
     font-weight: bold;
     filter: brightness(0.98);
-}
-
-.admin-panel-article-folder-control-button-pressed {
-    /*background-color: black;*/
-    background-image: linear-gradient(#d6d6d6, white);
 }
 
 /*--------------------------------------------------------*/

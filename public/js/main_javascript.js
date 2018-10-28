@@ -43,7 +43,7 @@ $( document ).ready(function() {
     //for all of them. We don't need these elements id anymore.
     for (var i = 0; i < controls.length; i++) {
         clickControl(controls[i]);
-}
+    }
     function clickControl(control) {
         control.addEventListener('click', function() {
            control.classList.add('pop-up-menu-link-pressed');
@@ -59,12 +59,12 @@ $( document ).ready(function() {
     //for all of them. We don't need these elements id anymore.
     for (var i = 0; i < controls.length; i++) {
         clickControl(controls[i]);
-}
+    }
     function clickControl(control) {
         control.addEventListener('click', function() {
            control.classList.add('website-menu-button-pressed');
         });
-}
+    }
 });
 
 $( "#know-more-button" ).click(function() {

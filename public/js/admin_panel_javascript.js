@@ -6,16 +6,27 @@
 
 $( document ).ready(function() {
     //making list of all elements with our class.
-    var controls = document.querySelectorAll('.admin-panel-article-folder-control-button-link');
+    var buttons = document.querySelectorAll('.admin-panel-article-folder-control-button');
+    var links = document.querySelectorAll('.admin-panel-article-folder-control-button-link');
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
-    for (var i = 0; i < controls.length; i++) {
-        clickControl(controls[i]);
-}
-    function clickControl(control) {
-        control.addEventListener('click', function() {
-           control.classList.add('admin-panel-article-folder-control-button-pressed');
+    for (var i = 0; i < buttons.length; i++) {
+        clickButton(buttons[i]);
+    }
+    for (var i = 0; i < links.length; i++) {
+        clickLink(links[i]);
+    }
+    function clickButton(button) {
+        button.addEventListener('click', function() {
+            button.classList.remove('admin-panel-article-folder-control-button');
+            button.classList.add('admin-panel-article-folder-control-button-pressed');
         });
-}
+    }
+    function clickLink(link) {
+        link.addEventListener('click', function() {
+            link.classList.remove('admin-panel-article-folder-control-button-link');
+            link.classList.add('admin-panel-article-folder-control-button-link-pressed');
+        });
+    }
 });
 
