@@ -11,19 +11,12 @@ $( document ).ready(function() {
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
     for (var i = 0; i < buttons.length; i++) {
-        clickButton(buttons[i]);
+        clickButton(buttons[i], links[i]);
     }
-    for (var i = 0; i < links.length; i++) {
-        clickLink(links[i]);
-    }
-    function clickButton(button) {
+    function clickButton(button, link) {
         button.addEventListener('click', function() {
             button.classList.remove('admin-panel-article-folder-control-button');
             button.classList.add('admin-panel-article-folder-control-button-pressed');
-        });
-    }
-    function clickLink(link) {
-        link.addEventListener('click', function() {
             link.classList.remove('admin-panel-article-folder-control-button-link');
             link.classList.add('admin-panel-article-folder-control-button-link-pressed');
         });
@@ -37,19 +30,12 @@ $( document ).ready(function() {
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
     for (var i = 0; i < buttons.length; i++) {
-        clickButton(buttons[i]);
+        clickButton(buttons[i], links[i]);
     }
-    for (var i = 0; i < links.length; i++) {
-        clickLink(links[i]);
-    }
-    function clickButton(button) {
+    function clickButton(button, link) {
         button.addEventListener('click', function() {
             button.classList.remove('admin-panel-add-article-folder-button');
             button.classList.add('admin-panel-add-article-folder-button-pressed');
-        });
-    }
-    function clickLink(link) {
-        link.addEventListener('click', function() {
             link.classList.remove('admin-panel-add-article-folder-button-link');
             link.classList.add('admin-panel-add-article-folder-button-link-pressed');
         });
