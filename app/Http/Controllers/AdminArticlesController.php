@@ -44,6 +44,29 @@ class AdminArticlesController extends Controller
             ]);
     }
     
+    public function showFolder($keyword, $page){
+        
+        $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
+        
+        $folders_and_articles_full_info = $this->folders->getFolder($keyword, $page);
+        
+        return view('adminpages.adminfolder')->with([
+            'main_links' => $main_links,
+            'headTitle' => $folders_and_articles_full_info->head_title,
+            'folderName' => $folders_and_articles_full_info->folder_name,           
+            'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
+            'articleAmount' => $folders_and_articles_full_info->articleAmount, 
+            'folders_and_articles_total_number' => $folders_and_articles_full_info->folders_and_articles_total_number,
+            'folders_and_articles_number_of_pages' => $folders_and_articles_full_info->folders_and_articles_number_of_pages,
+            'folders_and_articles_current_page' => $folders_and_articles_full_info->folders_and_articles_current_page,
+            'folders_and_articles_previous_page' => $folders_and_articles_full_info->folders_and_articles_previous_page,
+            'folders_and_articles_next_page' => $folders_and_articles_full_info->folders_and_articles_next_page
+            ]);
+        /*$privet = $keyword.$page;
+        return $privet;*/
+
+    }
+    
     public function create(){
         
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);

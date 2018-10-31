@@ -125,6 +125,14 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
 
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/page/{page}', 'AdminArticlesController@showFolder');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/page/{page}', 'AdminArticlesController@showFolder');
+});
+
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles/new-article', 'AdminArticlesController@create');
 });
