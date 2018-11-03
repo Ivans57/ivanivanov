@@ -25,7 +25,7 @@
         </div>
     @endif
     
-    @if ($folders->total() > 16)
+    @if ($folders->total() > $items_amount_per_page)
         <div class="paginator">
             @if ($folders->currentPage() == 1)
                <span class="first-inactive"></span>

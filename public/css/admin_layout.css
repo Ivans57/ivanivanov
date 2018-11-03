@@ -130,36 +130,12 @@ and open the template in the editor.
 
 main {
     display: flex;
-    /*justify-content: center;
-    align-items: flex-start;*/
-    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     min-width: 200px;
     min-height: 675px;
     padding-top: 30px;
     padding-bottom: 30px;
-}
-
-.admin-panel-wrapper .admin-panel-main-path-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: -15px;
-    margin-bottom: 15px;
-}
-
-.admin-panel-wrapper .admin-panel-main-path {
-    padding: 10px;
-    max-width: 700px;
-    min-width: 200px;
-    min-height: 50px;
-    border-radius: 10px;
-    background-color: #e3e3e3;
-}
-
-.admin-panel-wrapper .admin-panel-main-article-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
 }
 
 .admin-panel-wrapper .admin-panel-main-article {

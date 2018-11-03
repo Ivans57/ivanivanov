@@ -29,15 +29,18 @@ class ArticlesController extends Controller
         
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);     
         $headTitle= __('mainLinks.'.$this->current_page);
-        
+             
+        //We need the variable below to display how many items we need to show per one page
+        $items_amount_per_page = 16;
         //$folders = \App\Folder::where('included_in_folder_with_id', '=', NULL)->get();
         //$album_links = $this->albums->getAllAlbums();
-        $folders = $this->folders->getAllFolders(16);
+        $folders = $this->folders->getAllFolders($items_amount_per_page);
         
         return view('pages.folders')->with([
             'headTitle' => $headTitle,
             'main_links' => $main_links,
             'folders' => $folders,
+            'items_amount_per_page' => $items_amount_per_page
             ]);
         //return $folders;
     }

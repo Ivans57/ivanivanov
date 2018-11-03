@@ -34,13 +34,16 @@ class AdminArticlesController extends Controller
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
         $headTitle= __('mainLinks.'.$this->current_page);
         
+        //We need the variable below to display how many items we need to show per one page
+        $items_amount_per_page = 14;
         //On the line below we are fetching all articles from the database
-        $folders = $this->folders->getAllFolders(25);
+        $folders = $this->folders->getAllFolders($items_amount_per_page);
         
         return view('adminpages.adminfolders')->with([
             'main_links' => $main_links,
             'headTitle' => $headTitle,
-            'folders' => $folders
+            'folders' => $folders,
+            'items_amount_per_page' => $items_amount_per_page
             ]);
     }
     
