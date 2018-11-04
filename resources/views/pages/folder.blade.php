@@ -30,7 +30,7 @@
                     @endforeach       
                 </div>
             </div>
-            @if ($folders_and_articles_total_number > 16)
+            @if ($folders_and_articles_total_number > $items_amount_per_page)
                 <div class="paginator">
                     @if ($folders_and_articles_current_page == 1)
                         <span class="first-inactive"></span>
@@ -94,7 +94,7 @@
                     @endif
                 @endforeach       
             </div>
-            @if ($folders_and_articles_total_number > 16)
+            @if ($folders_and_articles_total_number > $items_amount_per_page)
                 <div class="paginator">
                     @if ($folders_and_articles_current_page == 1)
                         <span class="first-inactive"></span>

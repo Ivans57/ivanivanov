@@ -4,34 +4,53 @@
 
 @if ($folders_and_articles_total_number > 0)
     @if ($articleAmount < 1)
-        <article class="website-main-article articles-article-folders">
+        <article class="admin-panel-main-article">
             <div>
                 <h2>{{ $headTitle }}</h2>
             </div>
-            <div class="external-folders-wrapper">
-                <div class="folders-wrapper">       
-                    @foreach ($folders_and_articles as $folder_or_article)
-                        <div class="folder-item">
-                            <div class="folder-body">
-                                @if (App::isLocale('en'))
-                                    <a href='/articles/{{ $folder_or_article->keyWord }}/page/1'>
-                                        <img src="{{ URL::asset('images/icons/regular_folder.png') }}" alt="{{ $folder_or_article->caption }}" class="article-folder">
-                                    </a>
-                                @else
-                                    <a href='/ru/articles/{{ $folder_or_article->keyWord }}/page/1'>
-                                        <img src="{{ URL::asset('images/icons/regular_folder.png') }}" alt="{{ $folder_or_article->caption }}" class="article-folder">
-                                    </a>
-                                @endif
-                            </div>
-                            <div class="folder-title">
-                                <h3 class="article-folder-title">{{ $folder_or_article->caption }}</h3>
-                            </div>
-                        </div>
-                    @endforeach       
+            <div class="admin-panel-articles-add-article-folder-wrapper">
+                <div class="admin-panel-articles-add-article-folder-button">
+                    <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddArticle')</a>
+                </div>
+                <div class="admin-panel-articles-add-article-folder-button">
+                    <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddFolder')</a>
                 </div>
             </div>
-            @if ($folders_and_articles_total_number > 16)
-                <div class="paginator">
+            <div class="admin-panel-articles-external-articles-and-folders-wrapper">
+                <div class="admin-panel-articles-articles-and-folders-wrapper">
+                    @foreach ($folders_and_articles as $folder_or_article)
+                        <div class="admin-panel-articles-article-and-folder-item">
+                            <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
+                                <div class="admin-panel-articles-article-and-folder-picture">
+                                    <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
+                                </div>
+                                <div class="admin-panel-articles-article-and-folder-title">
+                                    <p>{{ $folder_or_article->caption }}</p>
+                                </div>
+                            </div>
+                            <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
+                                <div class="admin-panel-articles-article-and-folder-control-buttons">
+                                    <div class="admin-panel-articles-article-and-folder-control-button">
+                                        @if (App::isLocale('en'))
+                                            <a href='/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                        @else
+                                            <a href='/ru/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                        @endif
+                                    </div>
+                                    <div class="admin-panel-articles-article-and-folder-control-button">
+                                        <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
+                                    </div>
+                                    <div class="admin-panel-articles-article-and-folder-control-button">
+                                        <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Delete')</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @if ($folders_and_articles_total_number > $items_amount_per_page)
+                <div class="admin-panel-paginator">
                     @if ($folders_and_articles_current_page == 1)
                         <span class="first-inactive"></span>
                     @else
@@ -57,45 +76,83 @@
             @endif
         </article>   
     @else
-        <article class="website-main-article articles-article-folders-and-articles">
+        <article class="admin-panel-main-article">
             <div>
                 <h2>{{ $headTitle }}</h2>
             </div>
-            <div class="folders-and-articles-wrapper">       
-                @foreach ($folders_and_articles as $folder_or_article)
-                    @if ($folder_or_article->type == 'folder')
-                        <div class="article-folder-or-article">
-                            @if (App::isLocale('en'))
-                                <a href='/articles/{{ $folder_or_article->keyWord }}/page/1' class="article-folder-or-article-link">
-                                    <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/regular_folder_small.png') }}" alt="{{ $folder_or_article->caption }}"></div>
-                                    <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
-                                </a>
-                            @else
-                                <a href='/ru/articles/{{ $folder_or_article->keyWord }}/page/1' class="article-folder-or-article-link">
-                                    <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/regular_folder_small.png') }}" alt="{{ $folder_or_article->caption }}"></div>
-                                    <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
-                                </a>
-                            @endif
-                        </div>
-                    @else
-                        <div class="article-folder-or-article">
-                            @if (App::isLocale('en'))
-                                <a href='/articles/{{ $folder_or_article->keyWord }}' class="article-folder-or-article-link">
-                                    <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/article.png') }}" alt="{{ $folder_or_article->caption }}"></div>
-                                    <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
-                                </a>
-                            @else
-                                <a href='/ru/articles/{{ $folder_or_article->keyWord }}' class="article-folder-or-article-link">
-                                    <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/article.png') }}" alt="{{ $folder_or_article->caption }}"></div>
-                                    <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
-                                </a>
-                            @endif
-                        </div>
-                    @endif
-                @endforeach       
+            <div class="admin-panel-articles-add-article-folder-wrapper">
+                <div class="admin-panel-articles-add-article-folder-button">
+                    <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddArticle')</a>
+                </div>
+                <div class="admin-panel-articles-add-article-folder-button">
+                    <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddFolder')</a>
+                </div>
             </div>
-            @if ($folders_and_articles_total_number > 16)
-                <div class="paginator">
+            <div class="admin-panel-articles-external-articles-and-folders-wrapper">       
+                <div class="admin-panel-articles-articles-and-folders-wrapper">
+                    @foreach ($folders_and_articles as $folder_or_article)
+                        @if ($folder_or_article->type == 'folder')
+                            <div class="admin-panel-articles-article-and-folder-item">
+                                <div class="admin-panel-folder-title-and-picture-wrapper">
+                                    <div class="admin-panel-articles-article-and-folder-picture">
+                                        <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
+                                    </div>
+                                    <div class="admin-panel-articles-article-and-folder-title">
+                                        <p>{{ $folder_or_article->caption }}</p>
+                                    </div>
+                                </div>
+                                <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
+                                    <div class="admin-panel-articles-article-and-folder-control-buttons">
+                                        <div class="admin-panel-articles-article-and-folder-control-button">
+                                            @if (App::isLocale('en'))
+                                                <a href='/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                            @else
+                                                <a href='/ru/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                            @endif
+                                        </div>
+                                        <div class="admin-panel-articles-article-and-folder-control-button">
+                                            <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
+                                        </div>
+                                        <div class="admin-panel-articles-article-and-folder-control-button">
+                                            <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Delete')</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="admin-panel-articles-article-and-folder-item">
+                                <div class="admin-panel-folder-title-and-picture-wrapper">
+                                    <div class="admin-panel-articles-article-and-folder-picture">
+                                        <img src="{{ URL::asset('images/icons/article.png') }}">
+                                    </div>
+                                    <div class="admin-panel-articles-article-and-folder-title">
+                                        <p>{{ $folder_or_article->caption }}</p>
+                                    </div>
+                                </div>
+                                <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
+                                    <div class="admin-panel-articles-article-and-folder-control-buttons">
+                                        <div class="admin-panel-articles-article-and-folder-control-button">
+                                            @if (App::isLocale('en'))
+                                                <a href='/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                            @else
+                                                <a href='/ru/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                            @endif
+                                        </div>
+                                        <div class="admin-panel-articles-article-and-folder-control-button">
+                                            <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
+                                        </div>
+                                        <div class="admin-panel-articles-article-and-folder-control-button">
+                                            <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Delete')</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+            @if ($folders_and_articles_total_number > $items_amount_per_page)
+                <div class="admin-panel-paginator">
                     @if ($folders_and_articles_current_page == 1)
                         <span class="first-inactive"></span>
                     @else

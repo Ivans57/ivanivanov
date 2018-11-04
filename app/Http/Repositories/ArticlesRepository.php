@@ -34,7 +34,7 @@ class ArticlesRepository {
     }
     
     //need to make methods for this method
-    public function getFolder($keyword, $page){
+    public function getFolder($items_amount_per_page, $keyword, $page){
         //Here we take only first value, because this type of request supposed
         //to give us a collection of items. But in this case as keyword is unique
         //for every single record we will always have only one item, which is
@@ -68,12 +68,12 @@ class ArticlesRepository {
         //The following information we can have only if we have at least one item in selected folder
         if($folders_and_articles_total_number > 0) {
         if ($folders_and_articles_full_info->articleAmount < 1) {   
-            $folders_and_articles_pages = array_chunk($folders_and_articles_full, 16, false);
+            $folders_and_articles_pages = array_chunk($folders_and_articles_full, $items_amount_per_page, false);
         }
         else {
             //Actually we don't need this condition, but I saved it in case we change items amount
             //on one page with a list view.
-            $folders_and_articles_pages = array_chunk($folders_and_articles_full, 16, false);
+            $folders_and_articles_pages = array_chunk($folders_and_articles_full, $items_amount_per_page, false);
         }
         $folders_and_articles_full_info->folders_and_articles_number_of_pages = count($folders_and_articles_pages);
         $folders_and_articles_current_page_for_pagination = $page - 1;

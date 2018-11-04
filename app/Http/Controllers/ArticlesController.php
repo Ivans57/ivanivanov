@@ -49,7 +49,10 @@ class ArticlesController extends Controller
         
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
         
-        $folders_and_articles_full_info = $this->folders->getFolder($keyword, $page);
+        //We need the variable below to display how many items we need to show per one page
+        $items_amount_per_page = 16;
+        
+        $folders_and_articles_full_info = $this->folders->getFolder($items_amount_per_page, $keyword, $page);
         
         return view('pages.folder')->with([
             'main_links' => $main_links,
@@ -61,7 +64,8 @@ class ArticlesController extends Controller
             'folders_and_articles_number_of_pages' => $folders_and_articles_full_info->folders_and_articles_number_of_pages,
             'folders_and_articles_current_page' => $folders_and_articles_full_info->folders_and_articles_current_page,
             'folders_and_articles_previous_page' => $folders_and_articles_full_info->folders_and_articles_previous_page,
-            'folders_and_articles_next_page' => $folders_and_articles_full_info->folders_and_articles_next_page
+            'folders_and_articles_next_page' => $folders_and_articles_full_info->folders_and_articles_next_page,
+            'items_amount_per_page' => $items_amount_per_page
             ]);
 
     }
