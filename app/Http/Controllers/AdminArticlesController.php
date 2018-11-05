@@ -52,7 +52,7 @@ class AdminArticlesController extends Controller
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
-        $items_amount_per_page = 16;
+        $items_amount_per_page = 14;
         
         $folders_and_articles_full_info = $this->folders->getFolder($items_amount_per_page, $keyword, $page);
         
