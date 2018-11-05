@@ -1520,6 +1520,9 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
 /*Articles part*/
 
+/*We might do not need two separate classes below, we might need only one,
+but I will keep them in case we need them to have diferent properties.
+If we don't need both of them, their view can be simplified as in admin panel.*/
 .articles-article-folders {
     min-width: 700px;
     min-height: 610px;
