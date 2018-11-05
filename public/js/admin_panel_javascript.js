@@ -25,19 +25,38 @@ $( document ).ready(function() {
 
 $( document ).ready(function() {
     //making list of all elements with our class.
-    var buttons = document.querySelectorAll('.admin-panel-articles-article-and-folder-control-button');
-    var links = document.querySelectorAll('.admin-panel-articles-article-and-folder-control-button-link');
+    var folder_buttons = document.querySelectorAll('.admin-panel-articles-article-and-folder-control-button');
+    var folder_links = document.querySelectorAll('.admin-panel-articles-article-and-folder-control-button-link');
+    
+    var article_buttons = document.querySelectorAll('.admin-panel-articles-article-control-button');
+    var article_links = document.querySelectorAll('.admin-panel-articles-article-control-button-link');
+    
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
-    for (var i = 0; i < buttons.length; i++) {
-        clickButton(buttons[i], links[i]);
+    for (var i = 0; i < folder_buttons.length; i++) {
+        clickFolderButton(folder_buttons[i], folder_links[i]);
     }
-    function clickButton(button, link) {
-        button.addEventListener('click', function() {
-            button.classList.remove('admin-panel-articles-article-and-folder-control-button');
-            button.classList.add('admin-panel-articles-article-and-folder-control-button-pressed');
-            link.classList.remove('admin-panel-articles-article-and-folder-control-button-link');
-            link.classList.add('admin-panel-articles-article-and-folder-control-button-link-pressed');
+    
+    for (var i = 0; i < article_buttons.length; i++) {
+        clickArticleButton(article_buttons[i], article_links[i]);
+    }
+    
+    function clickFolderButton(folder_button, folder_link) {
+        folder_button.addEventListener('click', function() {
+            folder_button.classList.remove('admin-panel-articles-article-and-folder-control-button');
+            folder_button.classList.add('admin-panel-articles-article-and-folder-control-button-pressed');
+            folder_link.classList.remove('admin-panel-articles-article-and-folder-control-button-link');
+            folder_link.classList.add('admin-panel-articles-article-and-folder-control-button-link-pressed');
         });
     }
+    
+    function clickArticleButton(article_button, article_link) {
+        article_button.addEventListener('click', function() {
+            article_button.classList.remove('admin-panel-articles-article-control-button');
+            article_button.classList.add('admin-panel-articles-article-control-button-pressed');
+            article_link.classList.remove('admin-panel-articles-article-control-button-link');
+            article_link.classList.add('admin-panel-articles-article-control-button-link-pressed');
+        });
+    }
+    
 });

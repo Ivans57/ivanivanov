@@ -19,13 +19,7 @@
                 @endforeach
             </div>
         </div>
-    @else
-        <div class="empty-folders-text-wrapper">
-            <p>@lang('folderContent.EmptySection')</p>
-        </div>
-    @endif
-    
-    @if ($folders->total() > $items_amount_per_page)
+        @if ($folders->total() > $items_amount_per_page)
         <div class="paginator">
             @if ($folders->currentPage() == 1)
                <span class="first-inactive"></span>
@@ -48,6 +42,11 @@
             @else
                <a href="{{ $folders->url($folders->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
             @endif
+        </div>
+        @endif
+    @else
+        <div class="empty-folders-text-wrapper">
+            <p>@lang('folderContent.EmptySection')</p>
         </div>
     @endif
 </article>

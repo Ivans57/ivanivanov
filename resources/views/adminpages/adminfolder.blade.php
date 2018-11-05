@@ -32,9 +32,9 @@
                                 <div class="admin-panel-articles-article-and-folder-control-buttons">
                                     <div class="admin-panel-articles-article-and-folder-control-button">
                                         @if (App::isLocale('en'))
-                                            <a href='/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                            <a href='/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
                                         @else
-                                            <a href='/ru/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                            <a href='/ru/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
                                         @endif
                                     </div>
                                     <div class="admin-panel-articles-article-and-folder-control-button">
@@ -93,7 +93,7 @@
                     @foreach ($folders_and_articles as $folder_or_article)
                         @if ($folder_or_article->type == 'folder')
                             <div class="admin-panel-articles-article-and-folder-item">
-                                <div class="admin-panel-folder-title-and-picture-wrapper">
+                                <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
                                     <div class="admin-panel-articles-article-and-folder-picture">
                                         <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
                                     </div>
@@ -105,9 +105,9 @@
                                     <div class="admin-panel-articles-article-and-folder-control-buttons">
                                         <div class="admin-panel-articles-article-and-folder-control-button">
                                             @if (App::isLocale('en'))
-                                                <a href='/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                                <a href='/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
                                             @else
-                                                <a href='/ru/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                                <a href='/ru/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
                                             @endif
                                         </div>
                                         <div class="admin-panel-articles-article-and-folder-control-button">
@@ -121,7 +121,7 @@
                             </div>
                         @else
                             <div class="admin-panel-articles-article-and-folder-item">
-                                <div class="admin-panel-folder-title-and-picture-wrapper">
+                                <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
                                     <div class="admin-panel-articles-article-and-folder-picture">
                                         <img src="{{ URL::asset('images/icons/article.png') }}">
                                     </div>
@@ -131,18 +131,11 @@
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
                                     <div class="admin-panel-articles-article-and-folder-control-buttons">
-                                        <div class="admin-panel-articles-article-and-folder-control-button">
-                                            @if (App::isLocale('en'))
-                                                <a href='/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
-                                            @else
-                                                <a href='/ru/admin/articles/{{ $folder_or_article->keyWord }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
-                                            @endif
+                                        <div class="admin-panel-articles-article-control-button">
+                                            <a href='#' class="admin-panel-articles-article-control-button-link">@lang('keywords.Edit')</a>
                                         </div>
-                                        <div class="admin-panel-articles-article-and-folder-control-button">
-                                            <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
-                                        </div>
-                                        <div class="admin-panel-articles-article-and-folder-control-button">
-                                            <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Delete')</a>
+                                        <div class="admin-panel-articles-article-control-button">
+                                            <a href='#' class="admin-panel-articles-article-control-button-link">@lang('keywords.Delete')</a>
                                         </div>
                                     </div>
                                 </div>
@@ -179,8 +172,16 @@
         </article>
     @endif
 @else
-    <article class="website-main-article articles-article-folders">
-        <div class="empty-folders-text-wrapper">
+    <article class="admin-panel-main-article">
+        <div class="admin-panel-articles-add-article-folder-wrapper">
+            <div class="admin-panel-articles-add-article-folder-button">
+                <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddArticle')</a>
+            </div>
+            <div class="admin-panel-articles-add-article-folder-button">
+                <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddFolder')</a>
+            </div>
+        </div>
+        <div class="admin-panel-articles-empty-folders-text-wrapper">
             <p>@lang('keywords.EmptySection')</p>
         </div>
     </article> 

@@ -27,13 +27,13 @@
                         <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
                             <div class="admin-panel-articles-article-and-folder-control-buttons">
                                 <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='articles/{{ $folder->keyword }}/page/1' class="admin-panel-article-folder-control-button-link">@lang('keywords.Open')</a>
+                                    <a href='articles/{{ $folder->keyword }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='#' class="admin-panel-article-folder-control-button-link">@lang('keywords.Edit')</a>
+                                    <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='#' class="admin-panel-article-folder-control-button-link">@lang('keywords.Delete')</a>
+                                    <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Delete')</a>
                                 </div>
                             </div>
                         </div>
@@ -41,12 +41,7 @@
                 @endforeach
             </div>
         </div>
-    @else
-        <div class="admin-panel-articles-empty-folders-text-wrapper">
-            <p>@lang('keywords.EmptySection')</p>
-        </div>
-    @endif  
-    @if ($folders->total() > $items_amount_per_page)
+        @if ($folders->total() > $items_amount_per_page)
         <div class="admin-panel-paginator">
             @if ($folders->currentPage() == 1)
                 <span class="first-inactive"></span>
@@ -69,6 +64,11 @@
             @else
                 <a href="{{ $folders->url($folders->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
             @endif
+        </div>
+        @endif
+    @else
+        <div class="admin-panel-articles-empty-folders-text-wrapper">
+            <p>@lang('keywords.EmptySection')</p>
         </div>
     @endif
 </article>
