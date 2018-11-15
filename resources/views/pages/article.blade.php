@@ -2,6 +2,23 @@
 
 @section('content')
 <article class="website-main-article articles-article">
+    <div class="path-panel">
+        <span class="path-panel-text">@lang('keywords.Path'):</span>
+        @if (App::isLocale('en'))
+            <a href='/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+        @else
+            <a href='/ru/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+        @endif
+        <span class="path-panel-text"> /</span>
+        @foreach ($articleParents as $articleParent)
+            @if (App::isLocale('en'))
+                <a href='/articles/{{ $articleParent->keyWord }}/page/1' class="path-panel-text">{{ $articleParent->folderName }}</a>
+            @else
+                <a href='/ru/articles/{{ $articleParent->keyWord }}/page/1' class="path-panel-text">{{ $articleParent->folderName }}</a>
+            @endif
+                <span class="path-panel-text"> /</span>
+        @endforeach
+    </div>
     <div>
        <h2>{{ $headTitle }}</h2>
     </div>

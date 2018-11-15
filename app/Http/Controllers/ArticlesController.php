@@ -59,7 +59,8 @@ class ArticlesController extends Controller
             'headTitle' => $folders_and_articles_full_info->head_title,
             'folderName' => $folders_and_articles_full_info->folder_name,           
             'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
-            'articleAmount' => $folders_and_articles_full_info->articleAmount, 
+            'articleAmount' => $folders_and_articles_full_info->articleAmount,
+            'folderParents' => $folders_and_articles_full_info->folderParents,
             'folders_and_articles_total_number' => $folders_and_articles_full_info->folders_and_articles_total_number,
             'folders_and_articles_number_of_pages' => $folders_and_articles_full_info->folders_and_articles_number_of_pages,
             'folders_and_articles_current_page' => $folders_and_articles_full_info->folders_and_articles_current_page,
@@ -81,18 +82,17 @@ class ArticlesController extends Controller
         
         //Here I unsuccesfully attempted to use html tags which I kept in text in database.
         //$article_body = htmlspecialchars_decode($article[0]->article_body, ENT_HTML5);
-        $hello_world = 'Hello World!';
         
         return view('pages.article')->with([
             'main_links' => $main_links,
-            'headTitle' => $article[0]->article_title,
-            'article_description' => $article[0]->article_description,
+            'headTitle' => $article->article->article_title,
+            'article_description' => $article->article->article_description,
             //'article_body' => $article_body,
-            'article_body' => $article[0]->article_body,
-            'article_author' => $article[0]->article_author,
-            'article_source' => $article[0]->article_source,
-            'created_at' => $article[0]->created_at,
-            'hello_world' => $hello_world    
+            'article_body' => $article->article->article_body,
+            'article_author' => $article->article->article_author,
+            'article_source' => $article->article->article_source,
+            'created_at' => $article->article->created_at,
+            'articleParents' => $article->articleParents
             ]);
 
     }

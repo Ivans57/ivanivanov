@@ -19,10 +19,16 @@ class FolderAndArticleForViewFullInfoForPage {
     public $folders_and_articles_total_number;
     public $foldersAndArticles;
     public $articleAmount;
+    public $folderParents;
     public $folders_and_articles_number_of_pages;
     public $folders_and_articles_current_page;
     public $folders_and_articles_previous_page;
     public $folders_and_articles_next_page;
+}
+
+class ArticleForView {
+    public $article;
+    public $articleParents;
 }
 
 class ArticlesRepository {
@@ -40,7 +46,7 @@ class ArticlesRepository {
         //for every single record we will always have only one item, which is
         //the first one and the last one.
         //We are choosing the album we are working with at the current moment 
-        $folder = \App\Folder::where('keyword', $keyword)->first();    
+        $folder = \App\Folder::where('keyword', $keyword)->first();
         
         $included_articles = \App\Article::where('folder_id', $folder->id)->get();
         
@@ -55,6 +61,18 @@ class ArticlesRepository {
         //and pictures and also some necessary data for pagination, which we will 
         //pass with this object's properties.
         $folders_and_articles_full_info = new FolderAndArticleForViewFullInfoForPage();
+        
+        //Below we need to check if the folder has any parent folder.
+        //If it does, Path Panel should be displayed
+        //Need a bit to reorganize it.
+        //We do not need property folderHasParent
+        // We need property to keep all parents and this property can be checked in view
+        if($folder->included_in_folder_with_id === NULL) {
+            $folders_and_articles_full_info->folderParents = 0;
+        }
+        else {
+            $folders_and_articles_full_info->folderParents = array_reverse($this->get_folders_and_articles_parents_for_view($folder->included_in_folder_with_id));
+        }
         
         //We need this to know if we will have any article on the page.
         //Depending on if we have them or not, we will have some ceratin view of contents.
@@ -87,9 +105,13 @@ class ArticlesRepository {
     }
     
     public function getArticle($keyword){
-        $article = \App\Article::where('keyword', '=', $keyword)->get();
         
-        return $article;
+        $articles_full_info = new ArticleForView();
+        
+        $articles_full_info->article = \App\Article::where('keyword', '=', $keyword)->first();
+        $articles_full_info->articleParents = array_reverse($this->get_folders_and_articles_parents_for_view($articles_full_info->article->folder_id));
+        
+        return $articles_full_info;
     }
     
     //We need this function to make our own array which will contain all included
@@ -116,5 +138,30 @@ class ArticlesRepository {
         }
         
         return $folders_and_articles_full;
+    }
+    
+    private function get_folders_and_articles_parents_for_view($id) {
+        
+        $parent_folder = \App\Folder::where('id', $id)->first();
+        
+        $parent_folder_for_view = new FolderLinkForView();
+        
+        $parent_folder_for_view->keyWord = $parent_folder->keyword;
+        $parent_folder_for_view->folderName = $parent_folder->folder_name;
+        
+        $parent_folders_for_view = array();
+        
+        $parent_folders_for_view[] = $parent_folder_for_view;
+        
+        if ($parent_folder->included_in_folder_with_id === NULL) {
+            return $parent_folders_for_view;
+        }
+        else {
+            $folders_and_articles_parents_for_view = $this->get_folders_and_articles_parents_for_view($parent_folder->included_in_folder_with_id);
+            foreach ($folders_and_articles_parents_for_view as $folders_and_articles_parent_for_view) {
+                $parent_folders_for_view[] = $folders_and_articles_parent_for_view;
+            }
+            return $parent_folders_for_view;
+        }
     }
 }

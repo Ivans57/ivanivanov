@@ -11,14 +11,14 @@ and open the template in the editor.
 /*All Fonts*/
 
 /*Attention!!! Important!!! Rules for fonts! Website title should use specific font family 
-and size 70px nd normal font-style. Home page is different. It is using 
+and size 70px and normal font-style. Home page is different. It is using 
 "Times New Roman" font family with heading and paragraph sizes 40px and 25px respectively. 
 Its font-style should be "Italic". All buttons should use "Arial" font family 
 with size 16px and normal font-style. 
-All another paragraphs and just texts sholud use "Georgia" font-family 
+All another paragraphs and just texts should use "Georgia" font-family 
 as a primary font family and normal font-style. "Verdana" and "Arial" font-families 
 should be used as a secondary and tertiary font-families. Font-size should be 16px. 
-The same should be done for website footer. Only font-style sholud be "Italic".
+The same should be done for website footer. Only font-style should be "Italic".
 Compact-view-menu has its own rules, different from the rest of the site.*/
 
 /*Font for text on home page in a main part. I don't use it now. I keep it just in case.'*/
@@ -2274,6 +2274,35 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 @media (max-width: 220px) {
     .website-footer {
     font-size: 12px;
+    }
+}
+
+/*-----------------------------------------*/
+
+/*Path Panel*/
+
+.website-main-article .path-panel {
+    margin-top: -15px;
+    margin-bottom: 10px;
+}
+
+.website-main-article .path-panel .path-panel-text {
+    font-family: "Arial";
+    font-size: 16px;
+}
+
+.website-main-article .path-panel span {
+    font-weight: bold;
+}
+
+@media (max-width: 350px) {
+    .website-main-article .path-panel {
+    margin-top: -10px;
+    margin-bottom: 5px;
+    }
+    
+    .website-main-article .path-panel .path-panel-text {
+    font-size: 14px;
     }
 }
 
