@@ -61,7 +61,8 @@ class AdminArticlesController extends Controller
             'headTitle' => $folders_and_articles_full_info->head_title,
             'folderName' => $folders_and_articles_full_info->folder_name,           
             'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
-            'articleAmount' => $folders_and_articles_full_info->articleAmount, 
+            'articleAmount' => $folders_and_articles_full_info->articleAmount,
+            'folderParents' => $folders_and_articles_full_info->folderParents,
             'folders_and_articles_total_number' => $folders_and_articles_full_info->folders_and_articles_total_number,
             'folders_and_articles_number_of_pages' => $folders_and_articles_full_info->folders_and_articles_number_of_pages,
             'folders_and_articles_current_page' => $folders_and_articles_full_info->folders_and_articles_current_page,
@@ -69,9 +70,6 @@ class AdminArticlesController extends Controller
             'folders_and_articles_next_page' => $folders_and_articles_full_info->folders_and_articles_next_page,
             'items_amount_per_page' => $items_amount_per_page
             ]);
-        /*$privet = $keyword.$page;
-        return $privet;*/
-
     }
     
     public function create(){

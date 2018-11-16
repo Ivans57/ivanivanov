@@ -178,7 +178,7 @@ main {
     /*We need to zero next following margin to get rid of margin h2 tag does 
     before its div.*/
     margin-top: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     text-align: center;
     font-family: "Times New Roman", "Arial";
 }
@@ -435,6 +435,37 @@ article's button, because article has only two control buttons instead of three*
 
 /*--------------------------------------------------------*/
 
+/*-----------------------------------------*/
+
+/*Admin Panel Path Panel*/
+
+.admin-panel-main-article .path-panel {
+    margin-top: -10px;
+    margin-bottom: 0px;
+}
+
+.admin-panel-main-article .path-panel .path-panel-text {
+    font-family: "Arial";
+    font-size: 16px;
+}
+
+.admin-panel-main-article .path-panel span {
+    font-weight: bold;
+}
+
+@media (max-width: 350px) {
+    .admin-panel-main-article .path-panel {
+    margin-top: -10px;
+    margin-bottom: 5px;
+    }
+    
+    .admin-panel-main-article .path-panel .path-panel-text {
+    font-size: 14px;
+    }
+}
+
+/*-----------------------------------------*/
+
 /*Universal admin-panel-paginator*/
 /*this can be applied to all admin-panel-paginators*/
 
@@ -544,6 +575,8 @@ article's button, because article has only two control buttons instead of three*
 }
 
 /*Universal admin-panel-paginator for mobile devices.*/
+/*This might be changed after I decide what to do with mobile styles for
+Admin Panel*/
 
 @media (max-width: 500px) {    
     .admin-panel-main-article .admin-panel-paginator .first-inactive,

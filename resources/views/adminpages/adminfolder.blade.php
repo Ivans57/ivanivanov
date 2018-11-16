@@ -3,6 +3,35 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article">
+    @if ($folderParents == 0)
+        <div class="path-panel">
+            <span class="path-panel-text">@lang('keywords.Path'):</span>
+            @if (App::isLocale('en'))
+                <a href='/admin/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+            @else
+                <a href='/ru/admin/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+            @endif
+            <span class="path-panel-text"> /</span>
+        </div>
+    @else
+        <div class="path-panel">
+            <span class="path-panel-text">@lang('keywords.Path'):</span>
+            @if (App::isLocale('en'))
+                <a href='/admin/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+            @else
+                <a href='/ru/admin/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+            @endif
+            <span class="path-panel-text"> /</span>
+            @foreach ($folderParents as $folderParent)
+                @if (App::isLocale('en'))
+                    <a href='/admin/articles/{{ $folderParent->keyWord }}/page/1' class="path-panel-text">{{ $folderParent->folderName }}</a>
+                @else
+                    <a href='/ru/admin/articles/{{ $folderParent->keyWord }}/page/1' class="path-panel-text">{{ $folderParent->folderName }}</a>
+                @endif
+                <span class="path-panel-text"> /</span>
+            @endforeach
+        </div>
+    @endif
     @if ($folders_and_articles_total_number > 0)
         <div>
             <h2>{{ $headTitle }}</h2>
@@ -98,6 +127,9 @@
             </div>
         @endif
     @else
+        <div>
+            <h2>{{ $headTitle }}</h2>
+        </div>    
         <div class="admin-panel-articles-add-article-folder-wrapper">
             <div class="admin-panel-articles-add-article-folder-button">
                 <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddArticle')</a>
