@@ -2,10 +2,10 @@
 
 namespace App\Http\Repositories;
 
-/*class AlbumLinkForView {
+class AlbumLinkForView {
     public $keyWord;
     public $albumName;
-}*/    
+}  
         
 class AlbumAndPictureForView {
     public $keyWord;
@@ -19,6 +19,7 @@ class AlbumAndPictureForViewFullInfoForPage {
     public $head_title;
     public $albums_and_pictures_total_number;
     public $albumsAndPictures;
+    public $albumParents;
     public $albums_and_pictures_number_of_pages;
     public $albums_and_pictures_current_page;
     public $albums_and_pictures_previous_page;
@@ -53,6 +54,13 @@ class AlbumsRepository {
         //and pictures and also some necessary data for pagination, which we will 
         //pass with this object's properties.
         $albums_and_pictures_full_info = new AlbumAndPictureForViewFullInfoForPage();
+        
+        if($album->included_in_album_with_id === NULL) {
+            $albums_and_pictures_full_info->albumParents = 0;
+        }
+        else {
+            $albums_and_pictures_full_info->albumParents = array_reverse($this->get_albums_parents_for_view($album->included_in_album_with_id));
+        }
         
         $albums_and_pictures_total_number = count($albums_and_pictures_full);
         $albums_and_pictures_full_info->albums_and_pictures_total_number = $albums_and_pictures_total_number;
@@ -100,4 +108,30 @@ class AlbumsRepository {
         
         return $albums_and_pictures_full;
     }
+    
+    private function get_albums_parents_for_view($id) {
+        
+        $parent_album = \App\Album::where('id', $id)->first();
+        
+        $parent_album_for_view = new AlbumLinkForView();
+        
+        $parent_album_for_view->keyWord = $parent_album->keyword;
+        $parent_album_for_view->albumName = $parent_album->album_name;
+        
+        $parent_albums_for_view = array();
+        
+        $parent_albums_for_view[] = $parent_album_for_view;
+        
+        if ($parent_album->included_in_album_with_id === NULL) {
+            return $parent_albums_for_view;
+        }
+        else {
+            $albums_parents_for_view = $this->get_albums_parents_for_view($parent_album->included_in_album_with_id);
+            foreach ($albums_parents_for_view as $albums_parent_for_view) {
+                $parent_albums_for_view[] = $albums_parent_for_view;
+            }
+            return $parent_albums_for_view;
+        }
+    }
+    
 }

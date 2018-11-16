@@ -61,6 +61,7 @@ class AlbumsController extends Controller {
             'headTitle' => $albums_and_pictures_full_info->head_title,
             'albumName' => $albums_and_pictures_full_info->album_name,           
             'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
+            'albumParents' => $albums_and_pictures_full_info->albumParents,
             'albums_and_pictures_total_number' => $albums_and_pictures_full_info->albums_and_pictures_total_number,
             'albums_and_pictures_number_of_pages' => $albums_and_pictures_full_info->albums_and_pictures_number_of_pages,
             'albums_and_pictures_current_page' => $albums_and_pictures_full_info->albums_and_pictures_current_page,

@@ -2,6 +2,35 @@
 
 @section('content')
 <article class="website-main-article albums-article">
+    @if ($albumParents == 0)
+        <div class="path-panel">
+            <span class="path-panel-text">@lang('keywords.Path'):</span>
+            @if (App::isLocale('en'))
+                <a href='/articles' class="path-panel-text"> @lang('mainLinks.Albums')</a>
+            @else
+                <a href='/ru/articles' class="path-panel-text"> @lang('mainLinks.Albums')</a>
+            @endif
+            <span class="path-panel-text"> /</span>
+        </div>
+    @else
+        <div class="path-panel">
+            <span class="path-panel-text">@lang('keywords.Path'):</span>
+            @if (App::isLocale('en'))
+                <a href='/articles' class="path-panel-text"> @lang('mainLinks.Albums')</a>
+            @else
+                <a href='/ru/articles' class="path-panel-text"> @lang('mainLinks.Albums')</a>
+            @endif
+            <span class="path-panel-text"> /</span>
+            @foreach ($albumParents as $albumParent)
+                @if (App::isLocale('en'))
+                    <a href='/albums/{{ $albumParent->keyWord }}/page/1' class="path-panel-text">{{ $albumParent->albumName }}</a>
+                @else
+                    <a href='/ru/albums/{{ $albumParent->keyWord }}/page/1' class="path-panel-text">{{ $albumParent->albumName }}</a>
+                @endif
+                <span class="path-panel-text"> /</span>
+            @endforeach
+        </div>
+    @endif
     <div>
         <h2>{{ $headTitle }}</h2>
     </div>
