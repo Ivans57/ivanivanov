@@ -111,8 +111,20 @@ and open the template in the editor.
     font-size: 18px;
 }
 
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keyword-menu-link {
+    margin-left: 10px;
+    border-left: 3px solid black;
+    min-width: 0px;
+    padding-left: 10px;
+    color: #535389;
+}
+
 .admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link:hover {
     color: blue;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keyword-menu-link:hover {
+    color: red;
 }
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link-pressed {

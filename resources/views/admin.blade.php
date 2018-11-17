@@ -76,11 +76,12 @@
                 <nav class="admin-panel-menu">              
                     @foreach ($main_links as $main_link)
                         @if ($main_link->isActive == true)
-                            <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link admin-panel-menu-link-pressed">{{ $main_link->linkName }}</a>
+                        <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link admin-panel-menu-link-pressed">{{ $main_link->linkName }}</a>
                         @else
                             <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link">{{ $main_link->linkName }}</a>
                         @endif
-                    @endforeach                       
+                    @endforeach
+                    <a class="admin-panel-menu-link admin-panel-keyword-menu-link" href='#'>@lang('keywords.Keywords')</a>
                 </nav>
             </header>
             <main>
