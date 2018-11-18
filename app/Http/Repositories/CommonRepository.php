@@ -14,9 +14,19 @@ class MainLinkForView {
             public $isActive = false;
         }
 
+//We need the class below to make an object which will contain an array of all main links
+//for navigation menu and also will show the status of additional keywords link.
+//We use this only for Administration Panel.     
+class MainLinksAndKeywordLinkCheck {
+            public $mainLinks;
+            public $keywordsLinkIsActive;
+        }
+
 class CommonRepository {
     
-    public function get_main_links($rurrent_page) {
+    //This method we need to use only when we are working with website, as we 
+    //don't show there keywords link
+    public function get_main_links ($current_page) {
         
         //On the line below we can see an old example of using my localization.
         //We don't need it. I left it for information purposes.        
@@ -49,12 +59,38 @@ class CommonRepository {
         //If it does we are setting its isActive property to true.
         foreach($main_links_info as $main_link_info) {
             //$check = $main_link_info;
-            if ($main_link_info->keyWord == $rurrent_page){
+            if ($main_link_info->keyWord == $current_page){
                 $main_link_info->isActive = true;
             }
         }
-        
+      
         return $main_links_info;
+    }
+      
+    //This method we need to use only when we are working with admin panel, as we 
+    //need to show there keywords link. This method is getting all main links for navigation menu
+    //and also checking whether keywords link is active 
+    public function get_main_links_and_keywords_link_status ($current_page) {
+        
+        $main_links_and_keywords_link_status = new MainLinksAndKeywordLinkCheck();
+        
+        $main_links_and_keywords_link_status->mainLinks = $this->get_main_links($current_page);
+        
+        $main_links_and_keywords_link_status->keywordsLinkIsActive = $this->active_link_search($main_links_and_keywords_link_status->mainLinks);
+        
+        return $main_links_and_keywords_link_status;
+        
+    }
+    
+    private function active_link_search($all_main_links) {
+        $array_does_not_have_active_links = true;
+        foreach($all_main_links as $main_link) {
+            if ($main_link->isActive == true){
+                $array_does_not_have_active_links = false;
+                return $array_does_not_have_active_links;
+            }
+        }
+        return $array_does_not_have_active_links;     
     }
     
 }

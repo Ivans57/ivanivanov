@@ -31,7 +31,7 @@ class AdminArticlesController extends Controller
     //
     public function index(){
         
-        $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
+        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
         $headTitle= __('mainLinks.'.$this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
@@ -40,7 +40,8 @@ class AdminArticlesController extends Controller
         $folders = $this->folders->getAllFolders($items_amount_per_page);
         
         return view('adminpages.adminfolders')->with([
-            'main_links' => $main_links,
+            'main_links' => $main_links->mainLinks,
+            'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
             'headTitle' => $headTitle,
             'folders' => $folders,
             'items_amount_per_page' => $items_amount_per_page
@@ -49,7 +50,7 @@ class AdminArticlesController extends Controller
     
     public function showFolder($keyword, $page){
         
-        $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
+        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
@@ -57,7 +58,8 @@ class AdminArticlesController extends Controller
         $folders_and_articles_full_info = $this->folders->getFolder($items_amount_per_page, $keyword, $page);
         
         return view('adminpages.adminfolder')->with([
-            'main_links' => $main_links,
+            'main_links' => $main_links->mainLinks,
+            'keywordsLinkStatus' => $main_links->keywordLinkIsActive,
             'headTitle' => $folders_and_articles_full_info->head_title,
             'folderName' => $folders_and_articles_full_info->folder_name,           
             'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
@@ -74,11 +76,12 @@ class AdminArticlesController extends Controller
     
     public function create(){
         
-        $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
+        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
         $headTitle= __('mainLinks.'.$this->current_page);
         
         return view('adminpages.adminfolders')->with([
-            'main_links' => $main_links,
+            'main_links' => $main_links->mainLinks,
+            'keywordsLinkStatus' => $main_links->keywordLinkIsActive,
             'headTitle' => $headTitle
             ]);
     }

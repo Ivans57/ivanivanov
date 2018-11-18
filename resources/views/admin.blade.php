@@ -81,7 +81,19 @@
                             <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link">{{ $main_link->linkName }}</a>
                         @endif
                     @endforeach
-                    <a class="admin-panel-menu-link admin-panel-keyword-menu-link" href='#'>@lang('keywords.Keywords')</a>
+                    @if ($keywordsLinkIsActive)
+                        @if (App::isLocale('en'))
+                            <a class="admin-panel-menu-link admin-panel-keywords-menu-link admin-panel-keywords-menu-link-pressed" href='/admin/keywords'>@lang('keywords.Keywords')</a>
+                        @else
+                            <a class="admin-panel-menu-link admin-panel-keywords-menu-link admin-panel-keywords-menu-link-pressed" href='/ru/admin/keywords'>@lang('keywords.Keywords')</a>
+                        @endif
+                    @else
+                        @if (App::isLocale('en'))
+                            <a class="admin-panel-menu-link admin-panel-keywords-menu-link" href='/admin/keywords'>@lang('keywords.Keywords')</a>
+                        @else
+                            <a class="admin-panel-menu-link admin-panel-keywords-menu-link" href='/ru/admin/keywords'>@lang('keywords.Keywords')</a>
+                        @endif
+                    @endif
                 </nav>
             </header>
             <main>

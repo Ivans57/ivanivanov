@@ -111,7 +111,7 @@ and open the template in the editor.
     font-size: 18px;
 }
 
-.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keyword-menu-link {
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keywords-menu-link {
     margin-left: 10px;
     border-left: 3px solid black;
     min-width: 0px;
@@ -123,17 +123,22 @@ and open the template in the editor.
     color: blue;
 }
 
-.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keyword-menu-link:hover {
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keywords-menu-link:hover {
     color: red;
 }
 
-.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link-pressed {
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link-pressed,
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keywords-menu-link-pressed {
     font-weight: bold;
     font-size: 19px;
 }
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link-pressed:hover {
     color: black;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keywords-menu-link-pressed:hover {
+    color: #535389;
 }
 
 /*--------------------------------------------------------*/

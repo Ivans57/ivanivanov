@@ -108,6 +108,8 @@ Route::group(['prefix' => 'ru', 'middleware' => ['web'], 'locale'], function() {
     Route::post('albums/refresh', 'AlbumsController@refreshAlbum');
 });*/
 
+
+
 //This is for Admin Panel
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin', 'AdminController@index');
@@ -139,6 +141,14 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 
 Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/articles/new-article', 'AdminArticlesController@create');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/keywords', 'AdminKeywordsController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/keywords', 'AdminKeywordsController@index');
 });
 
 /*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
