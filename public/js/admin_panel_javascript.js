@@ -60,3 +60,22 @@ $( document ).ready(function() {
     }
     
 });
+
+$( document ).ready(function() {
+    //making list of all elements with our class.
+    var buttons = document.querySelectorAll('.admin-panel-keywords-add-keyword-button');
+    var links = document.querySelectorAll('.admin-panel-keywords-add-keyword-button-link');
+    //getting through the array of elements and applying required function
+    //for all of them. We don't need these elements id anymore.
+    for (var i = 0; i < buttons.length; i++) {
+        clickButton(buttons[i], links[i]);
+    }
+    function clickButton(button, link) {
+        button.addEventListener('click', function() {
+            button.classList.remove('admin-panel-keywords-add-keyword-button');
+            button.classList.add('admin-panel-keywords-add-keyword-button-pressed');
+            link.classList.remove('admin-panel-keywords-add-keyword-button-link');
+            link.classList.add('admin-panel-keywords-add-keyword-button-link-pressed');
+        });
+    }
+});

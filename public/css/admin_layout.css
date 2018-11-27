@@ -438,6 +438,139 @@ article's button, because article has only two control buttons instead of three*
 
 /*--------------------------------------------------------*/
 
+/*Keywords part*/
+
+.admin-panel-main-article .admin-panel-keywords-empty-text-wrapper {
+    text-align: center;
+    margin-top: 170px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-empty-text-wrapper p {
+    font-family: Arial;
+    font-size: 16px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button,
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed {
+    display: inline-block;
+    height: 26px;
+    min-width: 74px;
+    border: #a8a8a8 1px solid;
+    margin-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button:hover {
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button 
+.admin-panel-keywords-add-keyword-button-link,
+.admin-panel-keywords-add-keyword-button-pressed 
+.admin-panel-keywords-add-keyword-button-link-pressed {
+    display: block;
+    min-width: 74px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button 
+.admin-panel-keywords-add-keyword-button-link {
+    color: black;
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed 
+.admin-panel-keywords-add-keyword-button-link-pressed {
+    color: grey;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper {
+    min-height: 500px;  
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
+.admin-panel-keywords-keywords-header, 
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword {
+    background-color: black;
+    min-height: 26px;
+    width: 200px;
+    margin-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword {
+    background-color: red;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
+.admin-panel-keywords-keywords-header:last-child,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword:last-child {
+    max-width: 220px;
+    margin-right: 0px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
+.admin-panel-keywords-keywords-header h3,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword p {
+    display: block;
+    font-family: Arial;
+    font-size: 15px;
+    color: white;
+    /*We need margins below, otherwise they will be adjusted automatically and 
+    the text won't look right' */
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 26px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword p {
+    color: black;
+    word-wrap: break-word;
+}
+
+/*--------------------------------------------------------*/
+
 /*Footer part*/
 
 .admin-panel-wrapper .admin-panel-footer {

@@ -31,10 +31,16 @@ class AdminKeywordsController extends Controller
         $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
         $headTitle= __('mainLinks.'.$this->current_page);
         
+        $items_amount_per_page = 14;
+        
+        $keywords = \App\Keyword::paginate($items_amount_per_page);
+        
         return view('adminpages.adminkeywords')->with([
             'main_links' => $main_links->mainLinks,
             'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
-            'headTitle' => $headTitle
+            'headTitle' => $headTitle,
+            'keywords' => $keywords,
+            'items_amount_per_page' => $items_amount_per_page
             ]);
     }
 }

@@ -12,6 +12,8 @@
         </div>
     </div>         
     @if ($folders->count() > 0)
+        <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
+        in case we don't have full page-->
         <div class="admin-panel-articles-external-articles-and-folders-wrapper">
             <div class="admin-panel-articles-articles-and-folders-wrapper">
                 @foreach ($folders as $folder)
