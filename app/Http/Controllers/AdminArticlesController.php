@@ -59,7 +59,7 @@ class AdminArticlesController extends Controller
         
         return view('adminpages.adminfolder')->with([
             'main_links' => $main_links->mainLinks,
-            'keywordsLinkStatus' => $main_links->keywordLinkIsActive,
+            'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
             'headTitle' => $folders_and_articles_full_info->head_title,
             'folderName' => $folders_and_articles_full_info->folder_name,           
             'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
