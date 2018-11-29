@@ -28,7 +28,16 @@
                         <div class="admin-panel-keywords-keyword">
                             <p>{{ $keyword->text }}</p>
                         </div>
-                        <div class="admin-panel-keywords-keyword"></div>
+                        <div class="admin-panel-keywords-keyword admin-panel-keywords-keyword-control-buttons-wrapper">
+                            <div class="admin-panel-keywords-keyword-control-buttons">
+                                <div class="admin-panel-keywords-keyword-control-button">
+                                    <a href='#' class="admin-panel-keywords-keyword-control-button-link">@lang('keywords.Edit')</a>
+                                </div>
+                                <div class="admin-panel-keywords-keyword-control-button">
+                                    <a href='#' class="admin-panel-keywords-keyword-control-button-link">@lang('keywords.Delete')</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>        

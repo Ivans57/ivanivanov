@@ -532,7 +532,13 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
 .admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
 .admin-panel-keywords-keyword {
-    background-color: red;
+    background-color: #cccccc;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper:hover 
+.admin-panel-keywords-keyword {
+    filter: brightness(0.97);
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
@@ -567,6 +573,89 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-keywords-keyword p {
     color: black;
     word-wrap: break-word;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper {
+    display: flex;
+    /*We need to have flex-direction: column to show group of buttons in the 
+    middle of Y axis of the container*/
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button:last-child,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button-pressed:last-child {
+    margin-left: 20px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button-pressed {
+    height: 26px;
+    min-width: 56px;
+    border: #a8a8a8 1px solid;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
+.admin-panel-keywords-keyword-control-button-pressed {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button .admin-panel-keywords-keyword-control-button-link,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
+.admin-panel-keywords-keyword-control-button-pressed .admin-panel-keywords-keyword-control-button-link-pressed {
+    display: block;
+    min-width: 56px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
+.admin-panel-keywords-keyword-control-button .admin-panel-keywords-keyword-control-button-link {
+    color: black;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
+.admin-panel-keywords-keyword-control-button-pressed .admin-panel-keywords-keyword-control-button-link-pressed {
+    color: grey;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button:hover {
+    filter: brightness(0.95);
 }
 
 /*--------------------------------------------------------*/

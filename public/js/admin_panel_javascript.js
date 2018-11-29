@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+/*Scripts for Admin Panel Articles*/
+
 $( document ).ready(function() {
     //making list of all elements with our class.
     var buttons = document.querySelectorAll('.admin-panel-articles-add-article-folder-button');
@@ -57,9 +59,13 @@ $( document ).ready(function() {
             article_link.classList.remove('admin-panel-articles-article-control-button-link');
             article_link.classList.add('admin-panel-articles-article-control-button-link-pressed');
         });
-    }
-    
+    }   
 });
+
+/*--------------------------------------------------------*/
+
+
+/*Scripts for Admin Panel Keywords*/
 
 $( document ).ready(function() {
     //making list of all elements with our class.
@@ -79,3 +85,26 @@ $( document ).ready(function() {
         });
     }
 });
+
+$( document ).ready(function() {
+    //making list of all elements with our class.
+    var buttons = document.querySelectorAll('.admin-panel-keywords-keyword-control-button');
+    var links = document.querySelectorAll('.admin-panel-keywords-keyword-control-button-link');
+    
+    //getting through the array of elements and applying required function
+    //for all of them. We don't need these elements id anymore.
+    for (var i = 0; i < buttons.length; i++) {
+        clickButton(buttons[i], links[i]);
+    }
+    
+    function clickButton(button, link) {
+        button.addEventListener('click', function() {
+            button.classList.remove('admin-panel-keywords-keyword-control-button');
+            button.classList.add('admin-panel-keywords-keyword-control-button-pressed');
+            link.classList.remove('admin-panel-keywords-keyword-control-button-link');
+            link.classList.add('admin-panel-keywords-keyword-control-button-link-pressed');
+        });
+    }  
+});
+
+/*--------------------------------------------------------*/
