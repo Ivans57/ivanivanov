@@ -2,7 +2,7 @@
 
 @section('admincontent')
 
-<article class="admin-panel-main-article">
+<article class="admin-panel-main-article admin-panel-main-article-keywords">
     <div class="admin-panel-keywords-add-keyword-button">
         <a href='#' class="admin-panel-keywords-add-keyword-button-link">@lang('keywords.AddKeyword')</a>
     </div>

@@ -440,6 +440,10 @@ article's button, because article has only two control buttons instead of three*
 
 /*Keywords part*/
 
+.admin-panel-wrapper .admin-panel-main-article-keywords {
+    width: 730px;
+}
+
 .admin-panel-main-article .admin-panel-keywords-empty-text-wrapper {
     text-align: center;
     margin-top: 170px;
@@ -547,7 +551,7 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
 .admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
 .admin-panel-keywords-keyword:last-child {
-    max-width: 220px;
+    width: 240px;
     margin-right: 0px;
 }
 
@@ -597,6 +601,7 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
 .admin-panel-keywords-keyword-control-button-pressed:last-child {
     margin-left: 20px;
+    margin-right: 10px;
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
