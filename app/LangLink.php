@@ -11,34 +11,17 @@ use Illuminate\Database\Eloquent\Model;
 //a proper table. Look at App::isLocale('en')
 use App;
 
-class LangLink extends Model
-{
+class LangLink extends Model {
     
-    //If we did not have a localization it would be enough
-    //just to assign necessary variables as we can see in 
-    //next three lines below.
-    /*public $timestamps = false;
-    
-    protected $table = 'language_links';
-    
-    protected $fillable = ['language'];*/
-    
-    
-    public $timestamps;
+    public $timestamps = false;
     
     protected $table;
     
-    protected $fillable;
-    
-    public function __construct() {
-    
-        $this->timestamps = false;
-    
-        $this->fillable = ['keyword', 'language'];
-        
-        $this->check_lang();
-    }      
-    
+    protected $fillable = ['keyword', 'language'];
+      
+    //Here we are making a method which according to a current language 
+    //will select a proper table.
+    //This method is called from main parent model's constructor.
     public function check_lang(){
         
         if (App::isLocale('en')) {
@@ -50,6 +33,5 @@ class LangLink extends Model
         $this->table = 'ru_language_links';
         
     }
-    }
-    
+    } 
 }

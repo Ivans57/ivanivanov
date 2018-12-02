@@ -151,6 +151,22 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/keywords', 'AdminKeywordsController@index');
 });
 
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/keywords/create', 'AdminKeywordsController@create');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/keywords/create', 'AdminKeywordsController@create');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/keywords', 'AdminKeywordsController@store');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/keywords', 'AdminKeywordsController@store');
+});
+
 /*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin', 'AdminController@editHome');
 });
