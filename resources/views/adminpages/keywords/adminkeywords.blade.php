@@ -4,11 +4,10 @@
 
 <article class="admin-panel-main-article admin-panel-main-article-keywords">
     <div class="admin-panel-keywords-add-keyword-button">
-        @if (App::isLocale('en'))
-            <a href='/admin/keywords/create' class="admin-panel-keywords-add-keyword-button-link">@lang('keywords.AddKeyword')</a>
-        @else
-            <a href='/ru/admin/keywords/create' class="admin-panel-keywords-add-keyword-button-link">@lang('keywords.AddKeyword')</a>
-        @endif       
+        <a href={{ App::isLocale('en') ? "/admin/keywords/create" : "/ru/admin/keywords/create" }} 
+        class="admin-panel-keywords-add-keyword-button-link" data-fancybox data-type="iframe">
+            @lang('keywords.AddKeyword')
+        </a>   
     </div>
     @if ($keywords->count() > 0)
         <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional

@@ -1,24 +1,27 @@
-@extends('admin')
+@extends('partial')
 
-@section('admincontent')
+@section('partialcontent')
 
-<article class="admin-panel-main-article">
-    @if (App::isLocale('en'))
-    {!! Form::open(['url' => 'admin/keywords']) !!}
-    @else
-    {!! Form::open(['url' => 'ru/admin/keywords']) !!}
-    @endif
-        <div>
-            <div>{!! Form::label('keyword', 'Keyword:') !!}</div>
-            <div>{!! Form::text('keyword', null, ['class' => 'some-class']) !!}</div>
+    {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords" : "/ru/admin/keywords", 'id' => 'admin-panel-create-keyword-form' ]) !!}
+    
+        <div class='admin-panel-keywords-create-edit-keyword'> 
+            <div class="admin-panel-keywords-create-edit-keyword-controls">
+                <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>
+                <div>{!! Form::text('keyword', null, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input']) !!}</div>
+            </div>
+            <div class="admin-panel-keywords-create-edit-keyword-controls">
+                <div>{!! Form::label('text', Lang::get('keywords.Text').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>
+                <div>{!! Form::text('text', null, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input']) !!}</div>
+            </div>
+            <div class="admin-panel-keywords-create-edit-keyword-controls">
+                {!! Form::button(Lang::get('keywords.Save'), ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button
+                admin-panel-keywords-create-edit-keyword-controls-button-save']) !!}
+                {!! Form::button(Lang::get('keywords.Cancel'), 
+                ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button
+                admin-panel-keywords-create-edit-keyword-controls-button-cancel']) !!}
+            </div>
         </div>
-        <div>
-            <div>{!! Form::label('text', 'Text:') !!}</div>
-            <div>{!! Form::text('text', null, ['class' => 'some-class']) !!}</div>
-        </div>
-        <div>
-            {!! Form::submit('Save', ['class' => 'some-class one-more-class']) !!}
-        </div>
+    
     {!! Form::close() !!}
-</article>
+
 @stop

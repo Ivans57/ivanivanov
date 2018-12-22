@@ -38,7 +38,7 @@ class AdminKeywordsController extends Controller
         $items_amount_per_page = 14;
         
         $keywords = \App\Keyword::paginate($items_amount_per_page);
-        
+
         return view('adminpages.keywords.adminkeywords')->with([
             'main_links' => $main_links->mainLinks,
             'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,

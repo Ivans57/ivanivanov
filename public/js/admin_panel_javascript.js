@@ -107,4 +107,37 @@ $( document ).ready(function() {
     }  
 });
 
+//We need this script to open new keyword create page in fancy box window
+$( document ).ready(function() {
+    $(".admin-panel-keywords-add-keyword-button-link").fancybox({
+	toolbar  : false,
+	smallBtn : true,
+	iframe : {
+		preload : false,
+                css : {
+                    'width' : '320px',
+                    'height' : '240px',
+                    'margin-bottom' : '200px'
+                }
+	},
+        //Also we will need a function which will recover add button's view after
+        //closing pop up's window without adding a new keyword.
+        afterClose: function() {
+            //We don't need an array here as in previous examples, because there will be
+            //always only one pressed element.
+            var button = document.querySelector('.admin-panel-keywords-add-keyword-button-pressed');
+            var link = document.querySelector('.admin-panel-keywords-add-keyword-button-link-pressed');
+
+            unclickButton(button, link);
+
+            function unclickButton(button, link) {
+                button.classList.remove('admin-panel-keywords-add-keyword-button-pressed');
+                button.classList.add('admin-panel-keywords-add-keyword-button');
+                link.classList.remove('admin-panel-keywords-add-keyword-button-link-pressed');
+                link.classList.add('admin-panel-keywords-add-keyword-button-link');
+            }
+        }
+    });
+});
+
 /*--------------------------------------------------------*/
