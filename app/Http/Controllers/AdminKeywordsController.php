@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
+use App\Keyword;
 //use Illuminate\Http\Request;
-use Request;
+//use Request;
+use App\Http\Requests;
+use App\Http\Requests\CreateKeywordRequest;
+use Illuminate\Http\Response;
 
 //We need this line below to check our localization
 use App;
@@ -59,10 +63,10 @@ class AdminKeywordsController extends Controller
             ]);
     }
     
-    public function store() {
-        $input = Request::all();
+    public function store(CreateKeywordRequest $request) {
+        //$input = Request::all();
         
-        \App\Keyword::create($input);       
+        Keyword::create($request->all());       
         
         if (App::isLocale('en')) {
             return redirect('admin/keywords');

@@ -671,7 +671,7 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-keywords-create-edit-keyword > div:first-child {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .admin-panel-keywords-create-edit-keyword > div:last-child {
@@ -699,6 +699,15 @@ article's button, because article has only two control buttons instead of three*
     font-weight: bold;
     word-wrap: break-word;
     padding: 2px;
+}
+
+.admin-panel-keywords-create-notification-wrapper {
+    position: absolute;
+}
+
+.admin-panel-keywords-create-notification-wrapper .admin-panel-keywords-create-notification {
+    margin-bottom: 1px;
+    width: 325px;
 }
 
 /*--------------------------------------------------------*/

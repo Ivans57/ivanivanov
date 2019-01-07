@@ -15,7 +15,7 @@ class CreateRuKeywordsTable extends Migration
     {
         Schema::create('ru_keywords', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('keyword')->unique();
+            $table->string('keyword', 50)->unique();
             $table->text('text');
         });
     }

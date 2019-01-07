@@ -115,8 +115,8 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '320px',
-                    'height' : '240px',
+                    'width' : '325px',
+                    'height' : '280px',
                     'margin-bottom' : '200px'
                 }
 	},

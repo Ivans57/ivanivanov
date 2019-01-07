@@ -17,10 +17,10 @@ We will activate this when we make our logo. -->
 <!-- !!!Check Bootstrap version!!! -->
     
 <!-- This is main bootstrap link. Without it my project won't implement any bootstrap view. -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/../../bootstrap-3.3.7-dist/css/bootstrap.min.css">
     
 <!-- The line below makes my project look like more beautiful. I paid my attention if I use this line buttons look like more 3D. Optional! -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/../../bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!-- This was in bootstrap template example. I commented this. May be we can need it in a future in case any issues with IE10 -->
