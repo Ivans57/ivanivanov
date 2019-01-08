@@ -4,6 +4,7 @@
 for messages might be called by javascript later. We need to keep these attributes, 
 so we don't need to translate phrases with javascript. There might be some difficulties
 to translate keywords via javascript as I ma taking my keywords from the database-->
+<button id="click" onclick="myFunction({{ $keywords }})">Click</button>
 @section('partialcontent')
     <div class="admin-panel-keywords-create-notification-wrapper"></div>
     {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords" : "/ru/admin/keywords", 'id' => 'admin-panel-create-keyword-form' ]) !!}

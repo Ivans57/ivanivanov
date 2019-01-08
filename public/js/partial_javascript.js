@@ -16,9 +16,6 @@ $( document ).ready(function() {
         //Save (Submit) button should close the form only if all inputs have proper values
         if (keyword_input.value === "" || text_input.value === "") {
             
-            /*alert(button_save.dataset.message);*/
-            /*notification_container.insertAdjacentHTML("beforeend", button_save.dataset.message+' Hi');*/
-            /*alert('Fields are empty!');*/
             notification_container.insertAdjacentHTML("beforeend", "<div \n\
             class='admin-panel-keywords-create-notification alert \n\
             alert-danger alert-dismissible' role='alert'>\n\
@@ -38,8 +35,6 @@ $( document ).ready(function() {
     keyword_input.addEventListener('input', function() {
         if (keyword_input.value.length >= 50) {
             
-            /*alert(keyword_input.dataset.message);*/
-            /*notification_container.insertAdjacentHTML("beforeend", keyword_input.dataset.message+' Bye');*/
             notification_container.insertAdjacentHTML("beforeend", "<div \n\
             id='character-amount-notification' \n\
             class='admin-panel-keywords-create-notification alert \n\
@@ -49,7 +44,6 @@ $( document ).ready(function() {
             </button>" + keyword_input.dataset.message + "</div>");
             keyword_input.addEventListener('input', function() {
                 if (keyword_input.value.length < 50) {
-                    /*alert('Too many characters!');*/
                     if (document.contains(document.getElementById("character-amount-notification"))) {
                         document.getElementById("character-amount-notification").remove();
                     }
@@ -70,22 +64,34 @@ $( document ).ready(function() {
     };
 });
 
-/*$( "#show-test-div" ).click(function() {
-    var test_div = document.querySelector('.admin-panel-keywords-create-notification-wrapper');
+function myFunction(keywords) {
+    /*alert(keywords);*/
+    var keyword_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-keyword');
     
-    test_div.insertAdjacentHTML("afterbegin", "<div class='alert alert-danger \n\
-    alert-dismissible' role='alert'><button type='button' class='close' \n\
-    data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;\n\
-    </span></button><strong>Warning!</strong> Better check yourself, \n\
-    you're not looking too good.</div>");  
-});*/
+    for (var i = 0; i < keywords.length; i++) {
+        if (new String(keywords[i]).valueOf().trim() === new String(keyword_input.value).valueOf().trim()) {
+        alert('Equals!');
+        } else {
+        alert('Not equals!');
+        }
+    }
+};
 
-/*$( document ).ready(function() {
-    var button_close = document.querySelector('.admin-panel-keywords-create-notification-close');
-    var alert_notification = document.querySelector('.admin-panel-keywords-create-notification');
+/*$( "#click" ).click(function() {
+    var keyword_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-keyword');
+    //var test = "Hello world";
     
-    button_close.onclick = function() {
-        alert_notification.classList.remove('admin-panel-keywords-create-notification');
-        alert_notification.classList.add('admin-panel-keywords-create-notification-hidden');
-    };
+    //alert(keyword_input.dataset.keywords);
+    
+    var all_keywords = keyword_input.dataset.keywords;
+    
+    
+    
+    //if (new String(test).valueOf().trim() === new String(keyword_input.value).valueOf().trim()) {
+        //alert('Equals!');
+    //} else {
+        //alert('Not equals!');
+    //}
+    
+    //alert(keyword_input.value);
 });*/
