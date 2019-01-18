@@ -4,7 +4,6 @@
 for messages might be called by javascript later. We need to keep these attributes, 
 so we don't need to translate phrases with javascript. There might be some difficulties
 to translate keywords via javascript as I ma taking my keywords from the database-->
-<button id="click" onclick="myFunction({{ $keywords }})">Click</button>
 @section('partialcontent')
     <div class="admin-panel-keywords-create-notification-wrapper"></div>
     {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords" : "/ru/admin/keywords", 'id' => 'admin-panel-create-keyword-form' ]) !!}
@@ -13,7 +12,8 @@ to translate keywords via javascript as I ma taking my keywords from the databas
             <div class="admin-panel-keywords-create-edit-keyword-controls">
                 <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>
                 <div>{!! Form::text('keyword', null, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input admin-panel-keywords-create-edit-keyword-controls-input-keyword',
-                    'maxlength' => 50, 'id' => 'keyword_input', 'data-message' => Lang::get('keywords.TooManyCharactersInInputField') ]) !!}</div>
+                    'maxlength' => 50, 'id' => 'keyword_input', 'data-message' => Lang::get('keywords.TooManyCharactersInInputField'), 
+                    'data-keywords' => $keywords, 'data-uniqueness' => Lang::get('keywords.KeywordNotUnique') ]) !!}</div>
             </div>
             <div class="admin-panel-keywords-create-edit-keyword-controls">
                 <div>{!! Form::label('text', Lang::get('keywords.Text').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>

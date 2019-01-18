@@ -56,6 +56,7 @@ class AdminKeywordsController extends Controller
         $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
         $headTitle= __('mainLinks.'.$this->current_page);
         
+        //We need a list with all keywords to check whether the new keyword is uniq
         $keywords_full_data = \App\Keyword::select('keyword')->get();
         
         //There are lots of another data in the variable $keywords_full_data

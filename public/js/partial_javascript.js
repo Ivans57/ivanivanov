@@ -11,18 +11,37 @@ $( document ).ready(function() {
     var keyword_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-keyword');
     var text_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-text');
     var notification_container =document.querySelector('.admin-panel-keywords-create-notification-wrapper');
+    //We need an array of keywords to check whether new keyword is unique
+    var keywords = JSON.parse(keyword_input.dataset.keywords);
+    //We need the variable below to perform a check whether entered keyword is unique.
+    //Form should not be closed if the keyords is not unique.
+    var keyword_uniqueness = true;
     
     button_save.onclick = function() {
+        
+        //We need to make a check whether entered keyword is unique
+        for (var i = 0; i < keywords.length; i++) {
+            if (new String(keywords[i]).valueOf().trim() === new String(keyword_input.value).valueOf().trim()) {
+                notification_container.insertAdjacentHTML("beforeend", "<div \n\
+                class='admin-panel-keywords-create-notification alert \n\
+                alert-danger alert-dismissible' role='alert'>\n\
+                <button type='button' class='close' data-dismiss='alert' \n\
+                aria-label='Close'><span aria-hidden='true'>&times;</span>\n\
+                </button>" + keyword_input.dataset.uniqueness + "</div>");
+                keyword_uniqueness = false;
+                break;
+            }
+        }
+        
         //Save (Submit) button should close the form only if all inputs have proper values
         if (keyword_input.value === "" || text_input.value === "") {
-            
             notification_container.insertAdjacentHTML("beforeend", "<div \n\
             class='admin-panel-keywords-create-notification alert \n\
             alert-danger alert-dismissible' role='alert'>\n\
             <button type='button' class='close' data-dismiss='alert' \n\
             aria-label='Close'><span aria-hidden='true'>&times;</span>\n\
             </button>" + button_save.dataset.message + "</div>");
-        } else {
+        } else if (keyword_uniqueness) {
             form.submit();
             //After submitting the form we need to colse the fancy box and reload the page
             if (typeof window.parent.$.fancybox!=='undefined'){
@@ -30,6 +49,9 @@ $( document ).ready(function() {
             }
             parent.location.reload(true);
         }
+        //After all checks we need to set keyword_uniqueness back to true,
+        //because there might be more attempts to submit the form
+        keyword_uniqueness = true;
     };
     
     keyword_input.addEventListener('input', function() {
@@ -50,7 +72,7 @@ $( document ).ready(function() {
                 }
             });
         }
-    }); 
+    });   
 });
 
 //We need the script below to make a button closing a Fancy Box.
@@ -63,35 +85,3 @@ $( document ).ready(function() {
         }
     };
 });
-
-function myFunction(keywords) {
-    /*alert(keywords);*/
-    var keyword_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-keyword');
-    
-    for (var i = 0; i < keywords.length; i++) {
-        if (new String(keywords[i]).valueOf().trim() === new String(keyword_input.value).valueOf().trim()) {
-        alert('Equals!');
-        } else {
-        alert('Not equals!');
-        }
-    }
-};
-
-/*$( "#click" ).click(function() {
-    var keyword_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-keyword');
-    //var test = "Hello world";
-    
-    //alert(keyword_input.dataset.keywords);
-    
-    var all_keywords = keyword_input.dataset.keywords;
-    
-    
-    
-    //if (new String(test).valueOf().trim() === new String(keyword_input.value).valueOf().trim()) {
-        //alert('Equals!');
-    //} else {
-        //alert('Not equals!');
-    //}
-    
-    //alert(keyword_input.value);
-});*/
