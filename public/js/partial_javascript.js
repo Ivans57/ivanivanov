@@ -33,6 +33,19 @@ $( document ).ready(function() {
             }
         }
         
+        //New Keyword should not have any space. It should be one word. 
+        //We are doing that check below
+        var keyword_space_test = keyword_input.value.split(" ");
+        
+        if (keyword_space_test.length > 1) {
+            notification_container.insertAdjacentHTML("beforeend", "<div \n\
+            class='admin-panel-keywords-create-notification alert \n\
+            alert-danger alert-dismissible' role='alert'>\n\
+            <button type='button' class='close' data-dismiss='alert' \n\
+            aria-label='Close'><span aria-hidden='true'>&times;</span>\n\
+            </button>" + keyword_input.dataset.spaces + "</div>");
+        }
+        
         //Save (Submit) button should close the form only if all inputs have proper values
         if (keyword_input.value === "" || text_input.value === "") {
             notification_container.insertAdjacentHTML("beforeend", "<div \n\
@@ -41,7 +54,12 @@ $( document ).ready(function() {
             <button type='button' class='close' data-dismiss='alert' \n\
             aria-label='Close'><span aria-hidden='true'>&times;</span>\n\
             </button>" + button_save.dataset.message + "</div>");
-        } else if (keyword_uniqueness) {
+        } else if (keyword_uniqueness && keyword_space_test.length < 2 ) {
+            //Before submitting the form we need to make the first letter 
+            //of keyword capital in case user did not make it capital
+            
+            keyword_input.value = keyword_input.value[0].toUpperCase() + keyword_input.value.slice(1);
+            
             form.submit();
             //After submitting the form we need to colse the fancy box and reload the page
             if (typeof window.parent.$.fancybox!=='undefined'){
@@ -52,6 +70,8 @@ $( document ).ready(function() {
         //After all checks we need to set keyword_uniqueness back to true,
         //because there might be more attempts to submit the form
         keyword_uniqueness = true;
+        
+        
     };
     
     keyword_input.addEventListener('input', function() {
