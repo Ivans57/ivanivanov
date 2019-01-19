@@ -18,6 +18,10 @@ $( document ).ready(function() {
     var keyword_uniqueness = true;
     
     button_save.onclick = function() {
+        //First of all we need to make the first letter 
+        //of keyword capital in case user did not make it capital
+            
+        keyword_input.value = keyword_input.value[0].toUpperCase() + keyword_input.value.slice(1);
         
         //We need to make a check whether entered keyword is unique
         for (var i = 0; i < keywords.length; i++) {
@@ -55,10 +59,6 @@ $( document ).ready(function() {
             aria-label='Close'><span aria-hidden='true'>&times;</span>\n\
             </button>" + button_save.dataset.message + "</div>");
         } else if (keyword_uniqueness && keyword_space_test.length < 2 ) {
-            //Before submitting the form we need to make the first letter 
-            //of keyword capital in case user did not make it capital
-            
-            keyword_input.value = keyword_input.value[0].toUpperCase() + keyword_input.value.slice(1);
             
             form.submit();
             //After submitting the form we need to colse the fancy box and reload the page
