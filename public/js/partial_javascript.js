@@ -9,6 +9,7 @@ $( document ).ready(function() {
     var form = document.getElementById('admin-panel-create-keyword-form');
     var button_save = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-save');
     var keyword_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-keyword');
+    var keyword = keyword_input.value;
     var text_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-text');
     var notification_container =document.querySelector('.admin-panel-keywords-create-notification-wrapper');
     //We need an array of keywords to check whether new keyword is unique
@@ -16,12 +17,22 @@ $( document ).ready(function() {
     //We need the variable below to perform a check whether entered keyword is unique.
     //Form should not be closed if the keyords is not unique.
     var keyword_uniqueness = true;
+    //Also we need to perform check if keyword does not have any prohibited
+    //symbol. Keyword should contatain only latin alphabet letters.
+    const keywordPattern = /[a-zA-Z]/;
+    //The variable below is required for checking if new keyword matches
+    //symbol requirements
+    var keyword_test = true;
     
     button_save.onclick = function() {
+        
         //First of all we need to make the first letter 
-        //of keyword capital in case user did not make it capital
-            
+        //of keyword capital in case user did not make it capital   
         keyword_input.value = keyword_input.value[0].toUpperCase() + keyword_input.value.slice(1);
+        
+        //We need to assign keyword variable again as there might be some 
+        //made by user changes in that field
+        keyword = keyword_input.value;
         
         //We need to make a check whether entered keyword is unique
         for (var i = 0; i < keywords.length; i++) {
@@ -33,6 +44,20 @@ $( document ).ready(function() {
                 aria-label='Close'><span aria-hidden='true'>&times;</span>\n\
                 </button>" + keyword_input.dataset.uniqueness + "</div>");
                 keyword_uniqueness = false;
+                break;
+            }
+        }
+        
+        //We need to make a check for prohibited symbols
+        for ( var i = 0; i < keyword.length; i++ ) {
+            keyword_test = keywordPattern.test(keyword[i]);
+            if(!keyword_test) {
+                notification_container.insertAdjacentHTML("beforeend", "<div \n\
+                class='admin-panel-keywords-create-notification alert \n\
+                alert-danger alert-dismissible' role='alert'>\n\
+                <button type='button' class='close' data-dismiss='alert' \n\
+                aria-label='Close'><span aria-hidden='true'>&times;</span>\n\
+                </button>" + keyword_input.dataset.symbols + "</div>");
                 break;
             }
         }
@@ -58,7 +83,7 @@ $( document ).ready(function() {
             <button type='button' class='close' data-dismiss='alert' \n\
             aria-label='Close'><span aria-hidden='true'>&times;</span>\n\
             </button>" + button_save.dataset.message + "</div>");
-        } else if (keyword_uniqueness && keyword_space_test.length < 2 ) {
+        } else if (keyword_uniqueness && keyword_space_test.length < 2 && keyword_test) {
             
             form.submit();
             //After submitting the form we need to colse the fancy box and reload the page
@@ -69,7 +94,9 @@ $( document ).ready(function() {
         }
         //After all checks we need to set keyword_uniqueness back to true,
         //because there might be more attempts to submit the form
+        //The same for keyword symbol test
         keyword_uniqueness = true;
+        keyword_test = true;
         
         
     };
