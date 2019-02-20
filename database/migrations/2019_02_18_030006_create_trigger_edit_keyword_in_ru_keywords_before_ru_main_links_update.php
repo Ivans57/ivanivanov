@@ -23,6 +23,9 @@ class CreateTriggerEditKeywordInRuKeywordsBeforeRuMainLinksUpdate extends Migrat
 
                 SET _keyword_to_check = (SELECT keyword FROM ru_keywords WHERE keyword=NEW.keyword);
                 SET _keyword_to_update = (SELECT keyword FROM ru_keywords WHERE keyword=OLD.keyword);
+                
+                SET NEW.link_name = CONCAT(UCASE(LEFT(NEW.link_name, 1)),
+                SUBSTRING(NEW.link_name, 2));
 
                 IF (_keyword_to_check = NEW.keyword) THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword already exists in keywords table";
                 ELSEIF (_keyword_to_update = OLD.keyword) THEN UPDATE ru_keywords SET keyword = NEW.keyword, text = NEW.link_name WHERE keyword = OLD.keyword;
