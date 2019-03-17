@@ -44,7 +44,7 @@ class CommonRepository {
             //$main_links_info[$i]->keyWord = $main_links_full[$i]->keyword;
             $main_links_info[$i] = new MainLinkForView();
             $main_links_info[$i]->keyWord = $main_links_full[$i]->keyword;
-            $main_links_info[$i]->linkName = $main_links_full[$i]->link_name;
+            $main_links_info[$i]->linkName = $this->get_link_name($main_links_full[$i]->keyword);
             $main_links_info[$i]->webLinkName = $main_links_full[$i]->web_link_name;
             $main_links_info[$i]->adminWebLinkName = $main_links_full[$i]->admin_web_link_name;
         }
@@ -65,6 +65,13 @@ class CommonRepository {
         }
       
         return $main_links_info;
+    }
+    
+    //This method allows to get an actual text for the link from keywords table
+    //knowing its keyword
+    public function get_link_name ($link_keyword) {
+        $link_name = \App\Keyword::where('keyword', $link_keyword)->first();
+        return $link_name->text;
     }
       
     //This method we need to use only when we are working with admin panel, as we 
@@ -92,5 +99,5 @@ class CommonRepository {
         }
         return $array_does_not_have_active_links;     
     }
-    
-}
+
+    }

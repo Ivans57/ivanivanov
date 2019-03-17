@@ -27,7 +27,13 @@ class CreateTriggerEditKeywordInRuKeywordsBeforeRuMainLinksUpdate extends Migrat
                 SET NEW.link_name = CONCAT(UCASE(LEFT(NEW.link_name, 1)),
                 SUBSTRING(NEW.link_name, 2));
 
-                IF (_keyword_to_check = NEW.keyword) THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword already exists in keywords table";
+                #We need to perform another field check as if we don not do this,
+                #we will be unable to update record, because system will try
+                #to assign to an old keyword field value the same new value
+                #which will cause an error.
+                IF (_keyword_to_check = NEW.keyword AND OLD.link_name = 
+                NEW.link_name AND OLD.web_link_name = NEW.web_link_name AND OLD.admin_web_link_name = 
+                NEW.admin_web_link_name) THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword already exists in keywords table";
                 ELSEIF (_keyword_to_update = OLD.keyword) THEN UPDATE ru_keywords SET keyword = NEW.keyword, text = NEW.link_name WHERE keyword = OLD.keyword;
                 ELSE INSERT INTO ru_keywords (keyword, text) VALUES (NEW.keyword, NEW.link_name);
                 END IF;

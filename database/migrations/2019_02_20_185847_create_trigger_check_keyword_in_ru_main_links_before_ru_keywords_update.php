@@ -22,7 +22,14 @@ class CreateTriggerCheckKeywordInRuMainLinksBeforeRuKeywordsUpdate extends Migra
 
                 SET _keyword_to_check = (SELECT keyword FROM ru_main_links WHERE keyword=NEW.keyword); 
 
-                IF (_keyword_to_check = NEW.keyword) THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword already exists in main_links table";
+                IF (_keyword_to_check = NEW.keyword AND OLD.text = NEW.text) THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword already exists in main_links table";
+                END IF;
+                
+                SET _keyword_to_check = (SELECT keyword FROM ru_main_links WHERE keyword=OLD.keyword); 
+
+                IF (_keyword_to_check = OLD.keyword AND OLD.text = NEW.text) 
+                THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Can not update the keyword, because it exists in main_links table";
+                ELSEIF (_keyword_to_check = OLD.keyword) THEN UPDATE ru_keywords SET text = OLD.text;
                 END IF;
 
             END
