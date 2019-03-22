@@ -17,6 +17,7 @@ class CreateRuKeywordsTable extends Migration
             $table->increments('id');
             $table->string('keyword', 50)->unique();
             $table->text('text');
+            $table->timestamps();
         });
     }
 

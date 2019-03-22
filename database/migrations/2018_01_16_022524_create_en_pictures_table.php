@@ -20,6 +20,7 @@ class CreateEnPicturesTable extends Migration
             $table->integer('album_id')->unsigned();
             $table->foreign('album_id')->references('id')->on('en_albums')->onDelete('cascade');
             $table->timestamps();
+            $table->string('file_extension');
         });
     }
 

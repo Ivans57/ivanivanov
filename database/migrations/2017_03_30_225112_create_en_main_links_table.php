@@ -16,7 +16,8 @@ class CreateEnMainLinksTable extends Migration
         Schema::create('en_main_links', function (Blueprint $table) {
             $table->increments('id');
             $table->string('keyword')->unique();
-            $table->string('link_name');
+            $table->string('web_link_name');
+            $table->string('admin_web_link_name');
         });
     }
 

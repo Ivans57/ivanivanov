@@ -17,6 +17,7 @@ class CreateEnKeywordsTable extends Migration
             $table->increments('id');
             $table->string('keyword', 50)->unique();
             $table->text('text');
+            $table->timestamps();
         });
     }
 

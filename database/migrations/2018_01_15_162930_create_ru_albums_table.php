@@ -18,6 +18,9 @@ class CreateRuAlbumsTable extends Migration
             $table->string('keyword')->unique();
             $table->string('album_name')->unique();
             $table->timestamps();
+            $table->boolean('is_visible');
+            $table->integer('included_in_album_with_id')->unsigned()->nullable();
+            $table->foreign('included_in_album_with_id')->references('id')->on('ru_albums')->onDelete('cascade');
         });
     }
 
