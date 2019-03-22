@@ -25,7 +25,7 @@ class CreateTriggerAddKeywordToEnKeywordsBeforeEnMainLinksInsert extends Migrati
                 IF (_keyword_to_check = NEW.keyword) THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword already exists in keywords table";
                 ELSE 
                 
-                INSERT INTO en_keywords (keyword, text) VALUES (NEW.keyword, NEW.keyword);               
+                INSERT INTO en_keywords (keyword, text, created_at, updated_at) VALUES (NEW.keyword, NEW.keyword, now(), now());               
                 
                 END IF;
                 
