@@ -16,10 +16,13 @@ class CreateTriggerCheckKeywordBeforeEnMainLinksUpdate extends Migration
         DB::unprepared('
         CREATE TRIGGER `check_keyword_before_en_main_links_update` BEFORE UPDATE ON `en_main_links` FOR EACH ROW
             BEGIN
+                
+                DECLARE specialty CONDITION FOR SQLSTATE "45000";
+
                 CALL CheckKeyword(NEW.keyword, @word_check_result);
 
                 IF (!@word_check_result) THEN
-                    SIGNAL SQLSTATE "45000";
+                    SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword contains restricted characters";
                 END IF;
             END
         ');

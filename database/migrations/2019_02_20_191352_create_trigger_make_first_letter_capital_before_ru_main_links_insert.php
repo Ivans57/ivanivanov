@@ -20,9 +20,6 @@ class CreateTriggerMakeFirstLetterCapitalBeforeRuMainLinksInsert extends Migrati
                 SET NEW.keyword = CONCAT(UCASE(LEFT(NEW.keyword, 1)),
                 SUBSTRING(NEW.keyword, 2));
 
-                SET NEW.link_name = CONCAT(UCASE(LEFT(NEW.link_name, 1)),
-                SUBSTRING(NEW.link_name, 2));
-
             END
         ');
     }

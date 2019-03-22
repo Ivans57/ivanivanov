@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTriggerCheckKeywordBeforeEnAlbumsUpdate extends Migration
+class CreateTriggerCheckKeywordBeforeRuAlbumsInsert extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,15 @@ class CreateTriggerCheckKeywordBeforeEnAlbumsUpdate extends Migration
     public function up()
     {
         DB::unprepared('
-        CREATE TRIGGER `check_keyword_before_en_albums_update` BEFORE UPDATE ON `en_albums` FOR EACH ROW
+        CREATE TRIGGER `check_keyword_before_ru_albums_insert` BEFORE INSERT ON `ru_albums` FOR EACH ROW
             BEGIN
+                
+                DECLARE specialty CONDITION FOR SQLSTATE "45000";
+
                 CALL CheckKeyword(NEW.keyword, @word_check_result);
 
                 IF (!@word_check_result) THEN
-                    SIGNAL SQLSTATE "45000";
+                    SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword contains restricted characters";
                 END IF;
             END
         ');
@@ -32,6 +35,6 @@ class CreateTriggerCheckKeywordBeforeEnAlbumsUpdate extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER `check_keyword_before_en_albums_update`');
+        DB::unprepared('DROP TRIGGER `check_keyword_before_ru_albums_insert`');
     }
 }

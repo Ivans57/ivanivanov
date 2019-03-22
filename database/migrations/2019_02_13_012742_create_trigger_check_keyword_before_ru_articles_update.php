@@ -16,10 +16,13 @@ class CreateTriggerCheckKeywordBeforeRuArticlesUpdate extends Migration
         DB::unprepared('
         CREATE TRIGGER `check_keyword_before_ru_articles_update` BEFORE UPDATE ON `ru_articles` FOR EACH ROW
             BEGIN
+                
+                DECLARE specialty CONDITION FOR SQLSTATE "45000";
+
                 CALL CheckKeyword(NEW.keyword, @word_check_result);
 
                 IF (!@word_check_result) THEN
-                    SIGNAL SQLSTATE "45000";
+                    SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword contains restricted characters";
                 END IF;
             END
         ');
