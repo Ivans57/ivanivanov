@@ -24,11 +24,8 @@ class CreateTriggerAddKeywordToRuKeywordsBeforeRuMainLinksInsert extends Migrati
 
                 IF (_keyword_to_check = NEW.keyword) THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword already exists in keywords table";
                 ELSE 
-                
-                SET NEW.link_name = CONCAT(UCASE(LEFT(NEW.link_name, 1)),
-                SUBSTRING(NEW.link_name, 2));
 
-                INSERT INTO ru_keywords (keyword, text) VALUES (NEW.keyword, NEW.link_name);
+                INSERT INTO ru_keywords (keyword, text) VALUES (NEW.keyword, NEW.keyword);
                 END IF;
                 
             END
