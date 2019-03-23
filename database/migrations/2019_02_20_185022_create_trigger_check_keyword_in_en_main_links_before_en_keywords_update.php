@@ -19,17 +19,11 @@ class CreateTriggerCheckKeywordInEnMainLinksBeforeEnKeywordsUpdate extends Migra
 
                 DECLARE specialty CONDITION FOR SQLSTATE "45000";
                 DECLARE _keyword_to_check nvarchar(55);
-
-                SET _keyword_to_check = (SELECT keyword FROM en_main_links WHERE keyword=NEW.keyword); 
-
-                IF (_keyword_to_check = NEW.keyword AND OLD.text = NEW.text) THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword already exists in main_links table";
-                END IF;
                 
                 SET _keyword_to_check = (SELECT keyword FROM en_main_links WHERE keyword=OLD.keyword); 
 
-                IF (_keyword_to_check = OLD.keyword AND OLD.text = NEW.text) 
-                THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Can not update the keyword, because it exists in main_links table";
-                ELSEIF (_keyword_to_check = OLD.keyword) THEN UPDATE en_keywords SET text = OLD.text;
+                IF (_keyword_to_check = OLD.keyword AND OLD.keyword != NEW.keyword) 
+                THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Can not update the keyword, because it exists in en_main_links table";
                 END IF;
 
             END
