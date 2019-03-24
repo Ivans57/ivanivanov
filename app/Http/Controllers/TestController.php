@@ -74,7 +74,7 @@ class TestController extends Controller
         return $vivod;*/
         
         //Testing bootsrap on a test view.
-        return phpinfo();
+        //return phpinfo();
         /*$for_test = 1;
         
         $one_more_for_test = 2;
@@ -82,6 +82,7 @@ class TestController extends Controller
         $test_for_return = $for_test + $one_more_for_test;
 
         return $test_for_return;*/
+        return "Hello World!";
                
     }
 }

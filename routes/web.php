@@ -29,7 +29,7 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'TestController@index');
 });
 
 
