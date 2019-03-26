@@ -82,7 +82,7 @@ class TestController extends Controller
         $test_for_return = $for_test + $one_more_for_test;
 
         return $test_for_return;*/
-        return "Hello World!";
+        return "Privet mir!";
                
     }
 }
