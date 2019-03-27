@@ -174,3 +174,6 @@ Route::group(['middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::get('admin', 'AdminController@editHome');
 });*/
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

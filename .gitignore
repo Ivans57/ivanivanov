@@ -8,3 +8,5 @@ Homestead.json
 Homestead.yaml
 .env
 /nbproject/private/
+/database/database.sqlite
+/config/database.php
