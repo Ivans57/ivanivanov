@@ -11,4 +11,4 @@ Homestead.yaml
 /config/database.php
 /jauna_mape/*
 /jauna_mape/neuer_ordner/some_folder/*
-!/jauna_mape/neuer_ordner/some_folder/test.php
+!/**/test.php
