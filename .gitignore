@@ -9,4 +9,5 @@ Homestead.yaml
 .env
 /nbproject/private/
 /config/database.php
-/novaja_papka/
+/novaja_papka/*
+!/novaja_papka/test.php
