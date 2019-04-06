@@ -2,14 +2,11 @@
 /public/storage
 /public/hot
 /storage/*.key
-/vendor/
+/vendor/*
+!/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php
 /.idea
 Homestead.json
 Homestead.yaml
 .env
 /nbproject/private/
 /config/database.php
-/jauna_mape/
-!/jauna_mape/neuer_ordner/some_folder/
-/jauna_mape/neuer_ordner/some_folder/*
-!/jauna_mape/neuer_ordner/some_folder/test.php
