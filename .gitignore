@@ -9,3 +9,4 @@ Homestead.yaml
 .env
 /nbproject/private/
 /config/database.php
+/jauna_mape/
