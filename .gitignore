@@ -10,3 +10,4 @@ Homestead.yaml
 .env
 /nbproject/private/
 /config/database.php
+/folder1/
