@@ -2,8 +2,7 @@
 /public/storage
 /public/hot
 /storage/*.key
-/vendor/*
-!/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php
+
 /.idea
 Homestead.json
 Homestead.yaml
