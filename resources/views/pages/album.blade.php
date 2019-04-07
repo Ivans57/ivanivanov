@@ -6,9 +6,9 @@
         <div class="path-panel">
             <span class="path-panel-text">@lang('keywords.Path'):</span>
             @if (App::isLocale('en'))
-                <a href='/albums' class="path-panel-text"> @lang('mainLinks.Albums')</a>
+                <a href='/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
             @else
-                <a href='/ru/albums' class="path-panel-text"> @lang('mainLinks.Albums')</a>
+                <a href='/ru/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
             @endif
             <span class="path-panel-text"> /</span>
         </div>
@@ -16,9 +16,9 @@
         <div class="path-panel">
             <span class="path-panel-text">@lang('keywords.Path'):</span>
             @if (App::isLocale('en'))
-                <a href='/albums' class="path-panel-text"> @lang('mainLinks.Albums')</a>
+                <a href='/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
             @else
-                <a href='/ru/albums' class="path-panel-text"> @lang('mainLinks.Albums')</a>
+                <a href='/ru/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
             @endif
             <span class="path-panel-text"> /</span>
             @foreach ($albumParents as $albumParent)

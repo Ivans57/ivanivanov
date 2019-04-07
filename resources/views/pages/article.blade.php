@@ -5,9 +5,9 @@
     <div class="path-panel">
         <span class="path-panel-text">@lang('keywords.Path'):</span>
         @if (App::isLocale('en'))
-            <a href='/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+            <a href='/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
         @else
-            <a href='/ru/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+            <a href='/ru/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
         @endif
         <span class="path-panel-text"> /</span>
         @foreach ($articleParents as $articleParent)
