@@ -26,6 +26,11 @@ $( document ).ready(function() {
     
     button_save.onclick = function() {
         
+        //Before performing all checks, we need to check if there is something
+        //in keyword field. If we don't do that check in case of empty
+        //field there will be an error with JavaScript and 
+        //all another checks will not work. 
+        if(keyword_input.value !== "") {
         //First of all we need to make the first letter 
         //of keyword capital in case user did not make it capital   
         keyword_input.value = keyword_input.value[0].toUpperCase() + keyword_input.value.slice(1);
@@ -73,6 +78,8 @@ $( document ).ready(function() {
             <button type='button' class='close' data-dismiss='alert' \n\
             aria-label='Close'><span aria-hidden='true'>&times;</span>\n\
             </button>" + keyword_input.dataset.spaces + "</div>");
+        }
+        
         }
         
         //Save (Submit) button should close the form only if all inputs have proper values
