@@ -7,9 +7,9 @@
         <div class="path-panel">
             <span class="path-panel-text">@lang('keywords.Path'):</span>
             @if (App::isLocale('en'))
-                <a href='/admin/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+                <a href='/admin/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
             @else
-                <a href='/ru/admin/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+                <a href='/ru/admin/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
             @endif
             <span class="path-panel-text"> /</span>
         </div>
@@ -17,9 +17,9 @@
         <div class="path-panel">
             <span class="path-panel-text">@lang('keywords.Path'):</span>
             @if (App::isLocale('en'))
-                <a href='/admin/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+                <a href='/admin/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
             @else
-                <a href='/ru/admin/articles' class="path-panel-text"> @lang('mainLinks.Articles')</a>
+                <a href='/ru/admin/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
             @endif
             <span class="path-panel-text"> /</span>
             @foreach ($folderParents as $folderParent)
