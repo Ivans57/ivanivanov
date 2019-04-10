@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\CommonRepository;
 use App\Keyword;
 //use Illuminate\Http\Request;
-//use Request;
-use App\Http\Requests;
-use App\Http\Requests\CreateKeywordRequest;
-use Illuminate\Http\Response;
+use Request;
+//use App\Http\Requests;
+//use App\Http\Requests\CreateKeywordRequest;
+//use Illuminate\Http\Response;
+use Carbon\Carbon;
 
 //We need this line below to check our localization
 use App;
@@ -79,10 +80,16 @@ class AdminKeywordsController extends Controller
             ]);
     }
     
-    public function store(CreateKeywordRequest $request) {
-        //$input = Request::all();
+    //As we use JavaScipt to authorise filled form, we do not need any Request objects.
+    //I left it for example. I will use this approcah for articles creation.
+    public function store(/*CreateKeywordRequest $request*/) {
         
-        Keyword::create($request->all());       
+        //Keyword::create($request->all());       
+        
+        $input = Request::all();
+        $input['created_at'] = Carbon::now();
+        $input['updated_at'] = Carbon::now();
+        Keyword::create($input);
         
         if (App::isLocale('en')) {
             return redirect('admin/keywords');

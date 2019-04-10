@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+//As we use JavaScipt to authorise filled form, we temporary do not need this file.
 class CreateKeywordRequest extends FormRequest
 {
     /**
