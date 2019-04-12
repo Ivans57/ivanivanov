@@ -11,6 +11,7 @@ use Request;
 //use Illuminate\Http\Response;
 use Carbon\Carbon;
 
+
 //We need this line below to check our localization
 use App;
 
@@ -42,7 +43,10 @@ class AdminKeywordsController extends Controller
         
         $items_amount_per_page = 14;
         
-        $keywords = \App\Keyword::paginate($items_amount_per_page);
+        //$keywords = \App\Keyword::latest()->get();
+        $keywords = \App\Keyword::latest()->paginate($items_amount_per_page);
+        //$keywords = \App\Keyword::orderBy('created_at', 'desc')->first();
+        //$keywords = \App\Keyword::get();
 
         return view('adminpages.keywords.adminkeywords')->with([
             'main_links' => $main_links->mainLinks,
@@ -91,11 +95,14 @@ class AdminKeywordsController extends Controller
         $input['updated_at'] = Carbon::now();
         Keyword::create($input);
         
-        if (App::isLocale('en')) {
+        /*if (App::isLocale('en')) {
             return redirect('admin/keywords');
+            //return redirect()->route('admin/keywords')->refresh();
+            //return redirect()->action('HomeController@index');
         } 
         else {
-            return redirect('ru/admin/keywords');
-        }
+            return redirect('ru/admin/keywords')->refresh();
+            //return redirect()->route('ru/admin/keywords')->refresh();
+        }*/
     }
 }
