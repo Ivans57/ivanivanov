@@ -7,6 +7,7 @@
 /*We need the script below to control the number of characters in the input field*/
 $( document ).ready(function() {
     var form = document.getElementById('admin-panel-create-keyword-form');
+    //var form_data = $(form).serialize();
     var button_save = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-save');
     var keyword_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-keyword');
     var keyword = keyword_input.value;
@@ -92,12 +93,21 @@ $( document ).ready(function() {
             </button>" + button_save.dataset.message + "</div>");
         } else if (keyword_uniqueness && keyword_space_test.length < 2 && keyword_test) {
             
-            form.submit();
+            /*form.submit();
             //After submitting the form we need to colse the fancy box and reload the page
             if (typeof window.parent.$.fancybox!=='undefined'){
                 window.parent.$.fancybox.close();
             }
-            parent.location.reload(true);
+            parent.location.reload(true);*/
+            
+            $.ajax({
+                type: "POST",
+                url: '/admin/keywords',
+                data: {keyword: keyword_input.value, text: text_input.value},
+                success: function() {
+                
+                }
+            });
         }
         //After all checks we need to set keyword_uniqueness back to true,
         //because there might be more attempts to submit the form
@@ -138,4 +148,15 @@ $( document ).ready(function() {
            window.parent.$.fancybox.close();
         }
     };
+});
+
+//We need the following lines to make ajax requests work.
+//There are special tokens used for security. We need to add them in all heads
+//and also ajax should be set up to pass them.
+$( document ).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 });

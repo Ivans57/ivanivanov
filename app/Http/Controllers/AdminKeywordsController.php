@@ -86,11 +86,14 @@ class AdminKeywordsController extends Controller
     
     //As we use JavaScipt to authorise filled form, we do not need any Request objects.
     //I left it for example. I will use this approcah for articles creation.
-    public function store(/*CreateKeywordRequest $request*/) {
+    public function store(/*CreateKeywordRequest $request*/Request $request) {
         
         //Keyword::create($request->all());       
         
-        $input = Request::all();
+        //$input = Request::all();
+        //$input = $request->all();
+        $input['keyword'] = $request->input('keyword');
+        $input['text'] = $request->input('text');
         $input['created_at'] = Carbon::now();
         $input['updated_at'] = Carbon::now();
         Keyword::create($input);

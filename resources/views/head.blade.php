@@ -4,6 +4,7 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <meta name="description" content="">
 <meta name="author" content="">
+<meta name="csrf-token" content="{{ csrf_token() }}">
     
 <!-- We need a line below to make a nice icon on our bookmark. I have temporary commented this.
 We will activate this when we make our logo. --> 

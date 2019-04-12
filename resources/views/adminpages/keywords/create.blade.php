@@ -7,7 +7,7 @@ to translate keywords via javascript as I ma taking my keywords from the databas
 @section('partialcontent')
     <div class="admin-panel-keywords-create-notification-wrapper"></div>
     {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords" : "/ru/admin/keywords", 'id' => 'admin-panel-create-keyword-form' ]) !!}
-     
+        
         <div class='admin-panel-keywords-create-edit-keyword'> 
             <div class="admin-panel-keywords-create-edit-keyword-controls">
                 <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>
