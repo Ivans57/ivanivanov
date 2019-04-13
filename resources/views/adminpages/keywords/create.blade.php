@@ -6,9 +6,9 @@ so we don't need to translate phrases with javascript. There might be some diffi
 to translate keywords via javascript as I ma taking my keywords from the database-->
 @section('partialcontent')
     <div class="admin-panel-keywords-create-notification-wrapper"></div>
-    {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords" : "/ru/admin/keywords", 'id' => 'admin-panel-create-keyword-form' ]) !!}
+    {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords" : "/ru/admin/keywords", 'id' => 'admin_panel_create_keyword_form' ]) !!}
         
-        <div class='admin-panel-keywords-create-edit-keyword'> 
+        <div class='admin-panel-keywords-create-edit-keyword'>
             <div class="admin-panel-keywords-create-edit-keyword-controls">
                 <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>
                 <div>{!! Form::text('keyword', null, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input admin-panel-keywords-create-edit-keyword-controls-input-keyword',

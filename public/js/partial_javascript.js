@@ -6,7 +6,9 @@
   only for buttons*/
 /*We need the script below to control the number of characters in the input field*/
 $( document ).ready(function() {
-    var form = document.getElementById('admin-panel-create-keyword-form');
+    //The line below is left just in case we need it.
+    //var form = document.getElementById('admin_panel_create_keyword_form');
+    //The line below is left for example.
     //var form_data = $(form).serialize();
     var button_save = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-save');
     var keyword_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-keyword');
@@ -24,7 +26,7 @@ $( document ).ready(function() {
     //The variable below is required for checking if new keyword matches
     //symbol requirements
     var keyword_test = true;
-    
+      
     button_save.onclick = function() {
         
         //Before performing all checks, we need to check if there is something
@@ -84,6 +86,9 @@ $( document ).ready(function() {
         }
         
         //Save (Submit) button should close the form only if all inputs have proper values
+        //How does keyword create work? First we are sending data to store method
+        //which is in Keywords controller. After that we are closing create window
+        //and reloading parents page.
         if (keyword_input.value === "" || text_input.value === "") {
             notification_container.insertAdjacentHTML("beforeend", "<div \n\
             class='admin-panel-keywords-create-notification alert \n\
@@ -93,21 +98,19 @@ $( document ).ready(function() {
             </button>" + button_save.dataset.message + "</div>");
         } else if (keyword_uniqueness && keyword_space_test.length < 2 && keyword_test) {
             
-            /*form.submit();
-            //After submitting the form we need to colse the fancy box and reload the page
+            $.ajax({
+                type: "POST",
+                //We need to take url from attributes because we have two
+                //localizations of the website.
+                url: $('#admin_panel_create_keyword_form').attr('action'),
+                data: {keyword: keyword_input.value, text: text_input.value}
+            });
+            
+            //After saving the data from the form we need to close the fancy box and reload the page
             if (typeof window.parent.$.fancybox!=='undefined'){
                 window.parent.$.fancybox.close();
             }
-            parent.location.reload(true);*/
-            
-            $.ajax({
-                type: "POST",
-                url: '/admin/keywords',
-                data: {keyword: keyword_input.value, text: text_input.value},
-                success: function() {
-                
-                }
-            });
+            parent.location.reload(true);
         }
         //After all checks we need to set keyword_uniqueness back to true,
         //because there might be more attempts to submit the form
