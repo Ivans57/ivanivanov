@@ -17,6 +17,7 @@ to translate keywords via javascript as I ma taking my keywords from the databas
                     'data-spaces' => Lang::get('keywords.KeywordShouldNotHaveSpaces'), 
                     'data-symbols' => Lang::get('keywords.ProhibitedSymbols') ]) !!}</div>
             </div>
+            <div class="admin-panel-keywords-create-edit-keyword-regulations"><span>@lang('keywords.KeywordRegulations')</span></div>
             <div class="admin-panel-keywords-create-edit-keyword-controls">
                 <div>{!! Form::label('text', Lang::get('keywords.Text').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>
                 <div>{!! Form::textarea('text', null, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input admin-panel-keywords-create-edit-keyword-controls-input-text', 'rows' => 3]) !!}</div>

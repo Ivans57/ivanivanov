@@ -663,15 +663,32 @@ article's button, because article has only two control buttons instead of three*
     filter: brightness(0.95);
 }
 
+/*--------------------------------------------------------*/
+
+/*Keyword create window*/
+
+/*Window's size is regulated by javascript in admin_panel_javascript file*/
+
 .admin-panel-keywords-create-edit-keyword {
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 25px;
     padding-bottom: 20px;
 }
 
+.admin-panel-keywords-create-edit-keyword .admin-panel-keywords-create-edit-keyword-regulations {
+    margin-bottom: 15px;
+}
+
+.admin-panel-keywords-create-edit-keyword .admin-panel-keywords-create-edit-keyword-regulations span {
+    font-family: "Arial";
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+}
+
 .admin-panel-keywords-create-edit-keyword > div:first-child {
-    margin-bottom: 20px;
+    margin-bottom: 2px;
 }
 
 .admin-panel-keywords-create-edit-keyword > div:last-child {
@@ -707,7 +724,7 @@ article's button, because article has only two control buttons instead of three*
 
 .admin-panel-keywords-create-notification-wrapper .admin-panel-keywords-create-notification {
     margin-bottom: 1px;
-    width: 325px;
+    width: 330px;
 }
 
 /*--------------------------------------------------------*/
