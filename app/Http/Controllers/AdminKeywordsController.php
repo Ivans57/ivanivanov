@@ -103,4 +103,10 @@ class AdminKeywordsController extends Controller
         $input->save();
         
     }
+    
+     public function edit($keyword) {
+        
+        return $keyword;
+        
+    }
 }

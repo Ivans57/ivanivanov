@@ -34,7 +34,7 @@
                         <div class="admin-panel-keywords-keyword admin-panel-keywords-keyword-control-buttons-wrapper">
                             <div class="admin-panel-keywords-keyword-control-buttons">
                                 <div class="admin-panel-keywords-keyword-control-button">
-                                    <a href='#' class="admin-panel-keywords-keyword-control-button-link">@lang('keywords.Edit')</a>
+                                    <a href={{ App::isLocale('en') ? "keywords/".$keyword->keyword."/edit" : "/ru/admin/keywords/".$keyword->keyword."/edit" }} class="admin-panel-keywords-keyword-control-button-link">@lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-keywords-keyword-control-button">
                                     <a href='#' class="admin-panel-keywords-keyword-control-button-link">@lang('keywords.Delete')</a>
