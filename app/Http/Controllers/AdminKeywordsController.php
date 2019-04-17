@@ -39,7 +39,7 @@ class AdminKeywordsController extends Controller
     public function index() {
         
         $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
-        $headTitle= __('mainLinks.'.$this->current_page);
+        $headTitle= __('keywords.'.$this->current_page);
         
         $items_amount_per_page = 14;
         
@@ -58,10 +58,12 @@ class AdminKeywordsController extends Controller
     }
     
     public function create() {
-        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
-        $headTitle= __('mainLinks.'.$this->current_page);
+        //$main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
+        //Actually we do not need any head title as it is just a partisal view
+        //We need it only to make the variable initialized. Othervise there will be error. 
+        $headTitle= __('keywords.'.$this->current_page);
         
-        //We need a list with all keywords to check whether the new keyword is uniq
+        //We need a list with all keywords to check whether the new keyword is unique
         $keywords_full_data = \App\Keyword::select('keyword')->get();
         
         //There are lots of another data in the variable $keywords_full_data
@@ -76,11 +78,17 @@ class AdminKeywordsController extends Controller
         //we need to convert the $keywords array to json
         $keywords_json = json_encode($keywords);
         
+        //We are going to use one view for create and edit
+        //thats why we will nedd kind of indicator to know which option do we use
+        //create or edit.
+        $create_or_edit = 'create';
+        
         return view('adminpages.keywords.create')->with([
-            'main_links' => $main_links->mainLinks,
-            'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+            //'main_links' => $main_links->mainLinks,
+            //'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
             'headTitle' => $headTitle,
-            'keywords' => $keywords_json
+            'keywords' => $keywords_json,
+            'create_or_edit' => $create_or_edit
             ]);
     }
     
@@ -106,7 +114,56 @@ class AdminKeywordsController extends Controller
     
      public function edit($keyword) {
         
-        return $keyword;
+        //Actually we do not need any head title as it is just a partisal view
+        //We need it only to make the variable initialized. Othervise there will be error.
+         $headTitle= __('keywords.'.$this->current_page);
+        
+        //We need a list with all keywords to check whether the new keyword is unique
+        $keywords_full_data = \App\Keyword::select('keyword')->get();
+        
+        //There are lots of another data in the variable $keywords_full_data
+        //Below I am extracting only required data and pushing it in the new array $keywords
+        $keywords = array();
+        
+        foreach($keywords_full_data as $keyword_full_data) {
+            array_push($keywords, $keyword_full_data->keyword);
+        }
+        
+        //As there is not possible to pass any arrays to the view or javascript,
+        //we need to convert the $keywords array to json
+        $keywords_json = json_encode($keywords);
+        
+        //Belowe we are fetching the keyword we need to edit
+        $keyword_to_edit = \App\Keyword::where('keyword', '=', $keyword)->first();
+        
+        //We are going to use one view for create and edit
+        //thats why we will nedd kind of indicator to know which option do we use
+        //create or edit.
+        $create_or_edit = 'edit';
+        
+        return view('adminpages.keywords.create')->with([
+            'headTitle' => $headTitle,
+            'keywords' => $keywords_json,
+            'keyword_to_edit_keyword' => $keyword_to_edit->keyword,
+            'keyword_to_edit_text' => $keyword_to_edit->text,
+            'create_or_edit' => $create_or_edit
+            ]);
+        
+    }
+    
+    public function update($keyword) {
+        
+        //$input = Request::all();
+        
+        $edit = \App\Keyword::where('keyword', '=', $keyword)->first();;
+        
+        $edit['keyword'] = filter_input(INPUT_PUT, 'keyword');
+        
+        $edit['text'] = filter_input(INPUT_PUT, 'text');
+        
+        $edit['updated_at'] = Carbon::now();
+        
+        $edit->save();
         
     }
 }

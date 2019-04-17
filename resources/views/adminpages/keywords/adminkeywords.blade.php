@@ -33,8 +33,10 @@
                         </div>
                         <div class="admin-panel-keywords-keyword admin-panel-keywords-keyword-control-buttons-wrapper">
                             <div class="admin-panel-keywords-keyword-control-buttons">
-                                <div class="admin-panel-keywords-keyword-control-button">
-                                    <a href={{ App::isLocale('en') ? "keywords/".$keyword->keyword."/edit" : "/ru/admin/keywords/".$keyword->keyword."/edit" }} class="admin-panel-keywords-keyword-control-button-link">@lang('keywords.Edit')</a>
+                                <div class="admin-panel-keywords-keyword-control-button admin-panel-keywords-keyword-edit-button">
+                                    <a class="admin-panel-keywords-keyword-control-button-link admin-panel-keywords-keyword-edit-button-link" 
+                                       data-fancybox data-type="iframe" href={{ App::isLocale('en') ? "keywords/".$keyword->keyword."/edit" : 
+                                       "/ru/admin/keywords/".$keyword->keyword."/edit" }}>@lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-keywords-keyword-control-button">
                                     <a href='#' class="admin-panel-keywords-keyword-control-button-link">@lang('keywords.Delete')</a>
