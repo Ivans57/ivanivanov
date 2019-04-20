@@ -144,6 +144,7 @@ class AdminKeywordsController extends Controller
         return view('adminpages.keywords.create')->with([
             'headTitle' => $headTitle,
             'keywords' => $keywords_json,
+            'keyword_to_edit_id' => $keyword_to_edit->id,
             'keyword_to_edit_keyword' => $keyword_to_edit->keyword,
             'keyword_to_edit_text' => $keyword_to_edit->text,
             'create_or_edit' => $create_or_edit
@@ -151,19 +152,24 @@ class AdminKeywordsController extends Controller
         
     }
     
-    public function update($keyword) {
+    public function update($keyword_id) {
         
         //$input = Request::all();
         
-        $edit = \App\Keyword::where('keyword', '=', $keyword)->first();;
+        //$edit = \App\Keyword::where('keyword', '=', $keyword_previous)->first();
+        //$edit = \App\Keyword::find($keyword_id)->get();
+        //$edit = \App\Keyword::find('id', '=', $keyword_id)->get();
+        $edit = \App\Keyword::findOrFail($keyword_id);
         
-        $edit['keyword'] = filter_input(INPUT_PUT, 'keyword');
+        //$edit['keyword'] = 'keyword';
         
-        $edit['text'] = filter_input(INPUT_PUT, 'text');
+        $edit['keyword'] = filter_input(INPUT_POST, 'keyword');
+        
+        $edit['text'] = filter_input(INPUT_POST, 'text');
         
         $edit['updated_at'] = Carbon::now();
         
-        $edit->save();
+        $edit->update();
         
     }
 }

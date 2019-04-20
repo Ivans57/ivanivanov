@@ -6,10 +6,13 @@ so we don't need to translate phrases with javascript. There might be some diffi
 to translate keywords via javascript as I ma taking my keywords from the database-->
 @section('partialcontent')
     <div class="admin-panel-keywords-create-notification-wrapper"></div>
-    {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords" : "/ru/admin/keywords", 'id' => 'admin_panel_create_keyword_form' ]) !!}
+    {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords" : "/ru/admin/keywords", 'id' => 'admin_panel_create_keyword_form', 'data-processing_option' => $create_or_edit ]) !!}
         
         <div class='admin-panel-keywords-create-edit-keyword'>
             <div class="admin-panel-keywords-create-edit-keyword-controls">
+                @if ($create_or_edit==='edit')
+                    <div>{!! Form::hidden('keyword_id', $keyword_to_edit_id, ['id' => 'keyword_id_field']) !!}</div>
+                @endif
                 <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>
                 <div>{!! Form::text('keyword', $create_or_edit==='create' ? null : $keyword_to_edit_keyword, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input admin-panel-keywords-create-edit-keyword-controls-input-keyword',
                     'maxlength' => 50, 'id' => 'keyword_input', 'data-message' => Lang::get('keywords.TooManyCharactersInInputField'), 
