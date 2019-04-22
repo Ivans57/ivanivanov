@@ -40,7 +40,5 @@ to translate keywords via javascript as I ma taking my keywords from the databas
         </div>
     
     {!! Form::close() !!}
-
-    
-    
+   
 @stop

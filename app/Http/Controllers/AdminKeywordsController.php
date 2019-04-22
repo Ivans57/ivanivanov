@@ -58,7 +58,6 @@ class AdminKeywordsController extends Controller
     }
     
     public function create() {
-        //$main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
         //Actually we do not need any head title as it is just a partisal view
         //We need it only to make the variable initialized. Othervise there will be error. 
         $headTitle= __('keywords.'.$this->current_page);
@@ -84,8 +83,6 @@ class AdminKeywordsController extends Controller
         $create_or_edit = 'create';
         
         return view('adminpages.keywords.create')->with([
-            //'main_links' => $main_links->mainLinks,
-            //'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
             'headTitle' => $headTitle,
             'keywords' => $keywords_json,
             'create_or_edit' => $create_or_edit
@@ -96,6 +93,7 @@ class AdminKeywordsController extends Controller
     //I left it for example. I will use this approcah for articles creation.
     public function store() {
         
+        //The line below left just for example
         //$input = Request::all();
         
         $input = new Keyword();
@@ -154,14 +152,7 @@ class AdminKeywordsController extends Controller
     
     public function update($keyword_id) {
         
-        //$input = Request::all();
-        
-        //$edit = \App\Keyword::where('keyword', '=', $keyword_previous)->first();
-        //$edit = \App\Keyword::find($keyword_id)->get();
-        //$edit = \App\Keyword::find('id', '=', $keyword_id)->get();
         $edit = \App\Keyword::findOrFail($keyword_id);
-        
-        //$edit['keyword'] = 'keyword';
         
         $edit['keyword'] = filter_input(INPUT_POST, 'keyword');
         

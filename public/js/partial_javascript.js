@@ -20,8 +20,6 @@ $( document ).ready(function() {
     }
     if (data_processing_option === "edit") {
         var keyword_id_field = document.getElementById('keyword_id_field');
-        //var test = $('#admin_panel_create_keyword_form').attr('action')+'/'+keyword_id_field.value;
-        //var test = $('#admin_panel_create_keyword_form').attr('action')+'/'+keyword_input.value;
     }
     var keyword = keyword_input.value;
     var text_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-text');
