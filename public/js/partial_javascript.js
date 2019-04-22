@@ -22,6 +22,7 @@ $( document ).ready(function() {
         var keyword_id_field = document.getElementById('keyword_id_field');
     }
     var keyword = keyword_input.value;
+    var keyword_previous = keyword;
     var text_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-text');
     var notification_container =document.querySelector('.admin-panel-keywords-create-notification-wrapper');
     //We need an array of keywords to check whether new keyword is unique
@@ -52,7 +53,7 @@ $( document ).ready(function() {
         keyword = keyword_input.value;
         
         //We need to make a check whether entered keyword is unique (but only in create mode)
-        if (data_processing_option === "create") {
+        if (keyword_input.value !== keyword_previous) {
             for (var i = 0; i < keywords.length; i++) {
                 if (new String(keywords[i]).valueOf().trim() === new String(keyword_input.value).valueOf().trim()) {
                     notification_container.insertAdjacentHTML("beforeend", "<div \n\
@@ -129,7 +130,7 @@ $( document ).ready(function() {
                     //be unable to find new keyword value in the database.
                     //We need to know an old value to find it and change in database.
                     url: $('#admin_panel_create_keyword_form').attr('action')+'/'+keyword_id_field.value,
-                    data: {keyword: keyword_input.value, text: text_input.value}
+                    data: {keyword: keyword_input.value, text: text_input.value},
                 });
             }
             
