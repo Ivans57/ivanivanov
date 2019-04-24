@@ -166,9 +166,15 @@ class AdminKeywordsController extends Controller
     
     public function remove($keyword_id) {
         
-        $text = 'remove '.$keyword_id;
+        //$text = 'remove '.$keyword_id;
         
-        return $text;
+        //return $text;
+        $headTitle= __('keywords.'.$this->current_page);
+        
+        return view('adminpages.keywords.delete')->with([
+            'headTitle' => $headTitle,
+            'keyword_id' => $keyword_id
+            ]);
                
     }
 }
