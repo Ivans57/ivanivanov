@@ -39,7 +39,9 @@
                                        "/ru/admin/keywords/".$keyword->keyword."/edit" }}>@lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-keywords-keyword-control-button">
-                                    <a href='#' class="admin-panel-keywords-keyword-control-button-link">@lang('keywords.Delete')</a>
+                                    <a class="admin-panel-keywords-keyword-control-button-link admin-panel-keywords-keyword-delete-button-link"
+                                       data-fancybox data-type="iframe" href={{ App::isLocale('en') ? "keywords/".$keyword->id : 
+                                       "/ru/admin/keywords/".$keyword->id }}>@lang('keywords.Delete')</a>
                                 </div>
                             </div>
                         </div>

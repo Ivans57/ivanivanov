@@ -183,6 +183,14 @@ Route::group(['middleware' => 'locale'], function() {
     Route::post('admin/keywords/{keyword_id}', 'AdminKeywordsController@update');
 });
 
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/keywords/{keyword_id}', 'AdminKeywordsController@remove');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/keywords/{keyword_id}', 'AdminKeywordsController@remove');
+});
+
 /*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin', 'AdminController@editHome');
 });

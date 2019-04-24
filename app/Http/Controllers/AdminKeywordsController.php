@@ -163,4 +163,12 @@ class AdminKeywordsController extends Controller
         $edit->update();
                
     }
+    
+    public function remove($keyword_id) {
+        
+        $text = 'remove '.$keyword_id;
+        
+        return $text;
+               
+    }
 }
