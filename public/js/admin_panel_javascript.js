@@ -182,7 +182,7 @@ $( document ).ready(function() {
 		preload : false,
                 css : {
                     'width' : '330px',
-                    'height' : '370px',
+                    'height' : '170px',
                     'margin-bottom' : '200px'
                 }
 	},

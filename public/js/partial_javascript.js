@@ -173,7 +173,14 @@ $( document ).ready(function() {
 
 //We need the script below to make a button closing a Fancy Box.
 $( document ).ready(function() {
-    var button_cancel = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-cancel');
+    var form = document.getElementById('admin_panel_create_keyword_form');
+    var data_processing_option = form.dataset.processing_option;
+    var button_cancel;
+    if (data_processing_option === "create" || "edit") {
+        button_cancel = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-cancel');
+    } else if (data_processing_option === "delete"){
+        button_cancel = document.querySelector('.admin-panel-keywords-delete-keyword-controls-button-cancel');
+    }
     
     button_cancel.onclick = function() {
         if (typeof window.parent.$.fancybox!=='undefined'){
@@ -181,6 +188,7 @@ $( document ).ready(function() {
         }
     };
 });
+
 
 //We need the following lines to make ajax requests work.
 //There are special tokens used for security. We need to add them in all heads
