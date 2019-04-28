@@ -176,7 +176,9 @@ $( document ).ready(function() {
     var form = document.getElementById('admin_panel_create_keyword_form');
     var data_processing_option = form.dataset.processing_option;
     var button_cancel;
-    if (data_processing_option === "create" || "edit") {
+    if (data_processing_option === "create") {
+        button_cancel = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-cancel');
+    } else if (data_processing_option === "edit"){
         button_cancel = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-cancel');
     } else if (data_processing_option === "delete"){
         button_cancel = document.querySelector('.admin-panel-keywords-delete-keyword-controls-button-cancel');
