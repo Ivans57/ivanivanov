@@ -133,12 +133,12 @@ $( document ).ready(function() {
                         //be unable to find new keyword value in the database.
                         //We need to know an old value to find it and change in database.
                         url: $('#admin_panel_create_keyword_form').attr('action')+'/'+keyword_id_field.value,
-                        data: {keyword: keyword_input.value, text: text_input.value},
+                        data: {keyword: keyword_input.value, text: text_input.value}
                     });
                 }
             
                 //After saving the data from the form we need to close the fancy box and reload the page
-                if (typeof window.parent.$.fancybox!=='undefined'){
+                if (typeof window.parent.$.fancybox!=='undefined') {
                     window.parent.$.fancybox.close();
                 }
                 parent.location.reload(true);
@@ -173,9 +173,26 @@ $( document ).ready(function() {
             }
         });
       
+    } else if (data_processing_option === "delete") {
+        
+        var button_delete = document.querySelector('.admin-panel-keywords-delete-keyword-controls-button-delete');
+        var keyword_id_field = document.getElementById('keyword_id_field');
+        button_delete.onclick = function() {
+            
+            $.ajax({
+                type: "DELETE",
+                url: $('#admin_panel_create_keyword_form').attr('action')+'/'+keyword_id_field.value,
+                });
+            
+            //After saving the data from the form we need to close the fancy box and reload the page
+            if (typeof window.parent.$.fancybox!=='undefined') {
+                window.parent.$.fancybox.close();
+            }
+            parent.location.reload(true);    
+        };
+        
     }
-    
-    
+        
 });
 
 //We need the script below to make a button closing a Fancy Box.

@@ -177,4 +177,12 @@ class AdminKeywordsController extends Controller
             ]);
                
     }
+    
+    public function destroy($keyword_id) {
+               
+        $destroy = \App\Keyword::findOrFail($keyword_id);
+        
+        $destroy->delete();
+               
+    }
 }
