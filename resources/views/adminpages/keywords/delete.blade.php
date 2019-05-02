@@ -5,7 +5,7 @@
     url, so we can get rid of the hidden field.
     The same approcah can be used for update as well.-->
     {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords/" : "/ru/admin/keywords/", 
-    'method' => 'delete', 'id' => 'admin_panel_create_keyword_form', 'data-processing_option' => 'delete' ]) !!}
+    'method' => 'delete', 'id' => 'admin_panel_create_edit_delete_keyword_form', 'data-processing_option' => 'delete' ]) !!}
         
         <div class='admin-panel-keywords-delete-keyword'>
             {!! Form::hidden('keyword_id', $keyword_id, ['id' => 'keyword_id_field']) !!}

@@ -7,7 +7,7 @@
 /*We need the script below to control the number of characters in the input field*/
 $( document ).ready(function() {
     //The line below is left just in case we need it.
-    var form = document.getElementById('admin_panel_create_keyword_form');
+    var form = document.getElementById('admin_panel_create_edit_delete_keyword_form');
     var data_processing_option = form.dataset.processing_option;
     
     if (data_processing_option === "create"  || data_processing_option === "edit") {
@@ -119,7 +119,7 @@ $( document ).ready(function() {
                         type: "POST",
                         //We need to take url from attributes because we have two
                         //localizations of the website.
-                        url: $('#admin_panel_create_keyword_form').attr('action'),
+                        url: $('#admin_panel_create_edit_delete_keyword_form').attr('action'),
                         data: {keyword: keyword_input.value, text: text_input.value}
                     });
             
@@ -132,7 +132,7 @@ $( document ).ready(function() {
                         //Because since we change keyword field value to new, we will
                         //be unable to find new keyword value in the database.
                         //We need to know an old value to find it and change in database.
-                        url: $('#admin_panel_create_keyword_form').attr('action')+'/'+keyword_id_field.value,
+                        url: $('#admin_panel_create_edit_delete_keyword_form').attr('action')+'/'+keyword_id_field.value,
                         data: {keyword: keyword_input.value, text: text_input.value}
                     });
                 }
@@ -181,7 +181,7 @@ $( document ).ready(function() {
             
             $.ajax({
                 type: "DELETE",
-                url: $('#admin_panel_create_keyword_form').attr('action')+'/'+keyword_id_field.value,
+                url: $('#admin_panel_create_edit_delete_keyword_form').attr('action')+'/'+keyword_id_field.value,
                 });
             
             //After saving the data from the form we need to close the fancy box and reload the page
@@ -197,7 +197,7 @@ $( document ).ready(function() {
 
 //We need the script below to make a button closing a Fancy Box.
 $( document ).ready(function() {
-    var form = document.getElementById('admin_panel_create_keyword_form');
+    var form = document.getElementById('admin_panel_create_edit_delete_keyword_form');
     var data_processing_option = form.dataset.processing_option;
     var button_cancel;
     if (data_processing_option === "create" || data_processing_option === "edit") {
