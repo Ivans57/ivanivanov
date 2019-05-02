@@ -4,20 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 use App\Keyword;
+use Carbon\Carbon;
+//We don't nedd the lines commented below, but I left them just in case
 //use Illuminate\Http\Request;
 //use Request;
 //use App\Http\Requests;
 //use App\Http\Requests\CreateKeywordRequest;
 //use Illuminate\Http\Response;
-use Carbon\Carbon;
-
-
-//We need this line below to check our localization
 //use App;
+
 
 class AdminKeywordsController extends Controller
 {
-    //
+    
     protected $current_page;
     protected $navigation_bar_obj;
     
@@ -25,7 +24,6 @@ class AdminKeywordsController extends Controller
     //if we call the and initialize in constructor
     public function __construct(){
         
-        //$this->folders = $articles;
         $this->current_page = 'Keywords';
         //The line below is making an object of repository which contains
         //a method for making navigation bar main links
@@ -43,10 +41,7 @@ class AdminKeywordsController extends Controller
         
         $items_amount_per_page = 14;
         
-        //$keywords = \App\Keyword::latest()->get();
-        $keywords = \App\Keyword::latest()->paginate($items_amount_per_page);
-        //$keywords = \App\Keyword::orderBy('created_at', 'desc')->first();
-        //$keywords = \App\Keyword::get();
+        $keywords = Keyword::latest()->paginate($items_amount_per_page);
 
         return view('adminpages.keywords.adminkeywords')->with([
             'main_links' => $main_links->mainLinks,
@@ -63,7 +58,7 @@ class AdminKeywordsController extends Controller
         $headTitle= __('keywords.'.$this->current_page);
         
         //We need a list with all keywords to check whether the new keyword is unique
-        $keywords_full_data = \App\Keyword::select('keyword')->get();
+        $keywords_full_data = Keyword::select('keyword')->get();
         
         //There are lots of another data in the variable $keywords_full_data
         //Below I am extracting only required data and pushing it in the new array $keywords
@@ -82,7 +77,7 @@ class AdminKeywordsController extends Controller
         //create or edit.
         $create_or_edit = 'create';
         
-        return view('adminpages.keywords.create')->with([
+        return view('adminpages.keywords.create_and_edit')->with([
             'headTitle' => $headTitle,
             'keywords' => $keywords_json,
             'create_or_edit' => $create_or_edit
@@ -117,7 +112,7 @@ class AdminKeywordsController extends Controller
          $headTitle= __('keywords.'.$this->current_page);
         
         //We need a list with all keywords to check whether the new keyword is unique
-        $keywords_full_data = \App\Keyword::select('keyword')->get();
+        $keywords_full_data = Keyword::select('keyword')->get();
         
         //There are lots of another data in the variable $keywords_full_data
         //Below I am extracting only required data and pushing it in the new array $keywords
@@ -139,7 +134,7 @@ class AdminKeywordsController extends Controller
         //create or edit.
         $create_or_edit = 'edit';
         
-        return view('adminpages.keywords.create')->with([
+        return view('adminpages.keywords.create_and_edit')->with([
             'headTitle' => $headTitle,
             'keywords' => $keywords_json,
             'keyword_to_edit_id' => $keyword_to_edit->id,
@@ -152,7 +147,7 @@ class AdminKeywordsController extends Controller
     
     public function update($keyword_id) {
         
-        $edit = \App\Keyword::findOrFail($keyword_id);
+        $edit = Keyword::findOrFail($keyword_id);
         
         $edit['keyword'] = filter_input(INPUT_POST, 'keyword');
         
@@ -166,9 +161,6 @@ class AdminKeywordsController extends Controller
     
     public function remove($keyword_id) {
         
-        //$text = 'remove '.$keyword_id;
-        
-        //return $text;
         $headTitle= __('keywords.'.$this->current_page);
         
         return view('adminpages.keywords.delete')->with([
@@ -180,7 +172,7 @@ class AdminKeywordsController extends Controller
     
     public function destroy($keyword_id) {
                
-        $destroy = \App\Keyword::findOrFail($keyword_id);
+        $destroy = Keyword::findOrFail($keyword_id);
         
         $destroy->delete();
                
