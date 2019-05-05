@@ -17,9 +17,9 @@ $( document ).ready(function() {
     
         var keyword_input =document.getElementById('keyword_input');
         if (data_processing_option === "create") {
-            var button_save = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-save');
+            var button_save = document.getElementById('admin_panel_keywords_create_edit_keyword_controls_button_save');
         } else {
-            var button_save = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-update');
+            var button_save = document.getElementById('admin_panel_keywords_create_edit_keyword_controls_button_update');
         }
         if (data_processing_option === "edit") {
             var keyword_id_field = document.getElementById('keyword_id_field');

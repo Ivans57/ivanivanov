@@ -27,11 +27,13 @@ to translate keywords via javascript as I ma taking my keywords from the databas
             </div>
             <div class="admin-panel-keywords-create-edit-keyword-controls">
                 @if ($create_or_edit==='create')
-                    {!! Form::button(Lang::get('keywords.Save'), ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button
-                    admin-panel-keywords-create-edit-keyword-controls-button-save', 'data-message' => Lang::get('keywords.EmptyFields') ]) !!}
+                    {!! Form::button(Lang::get('keywords.Save'), ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button',
+                    'id' => 'admin_panel_keywords_create_edit_keyword_controls_button_save',
+                    'data-message' => Lang::get('keywords.EmptyFields') ]) !!}
                 @else
-                    {!! Form::button(Lang::get('keywords.Save'), ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button
-                    admin-panel-keywords-create-edit-keyword-controls-button-update', 'data-message' => Lang::get('keywords.EmptyFields') ]) !!}
+                    {!! Form::button(Lang::get('keywords.Save'), ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button',
+                    'id' => 'admin_panel_keywords_create_edit_keyword_controls_button_update', 
+                    'data-message' => Lang::get('keywords.EmptyFields') ]) !!}
                 @endif
                 {!! Form::button(Lang::get('keywords.Cancel'), 
                 ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button
