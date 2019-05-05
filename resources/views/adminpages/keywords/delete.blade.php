@@ -15,8 +15,8 @@
                 'id' => 'admin_panel_keywords_delete_keyword_controls_button_delete']) !!}
 
                 {!! Form::button(Lang::get('keywords.Cancel'), 
-                ['class' => 'admin-panel-keywords-delete-keyword-controls-button
-                admin-panel-keywords-delete-keyword-controls-button-cancel']) !!}
+                ['class' => 'admin-panel-keywords-delete-keyword-controls-button', 
+                'id' => 'admin_panel_keywords_create_edit_delete_keyword_controls_button_cancel']) !!}
             </div>
         </div>
     

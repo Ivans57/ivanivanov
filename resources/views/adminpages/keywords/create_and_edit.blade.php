@@ -36,8 +36,8 @@ to translate keywords via javascript as I ma taking my keywords from the databas
                     'data-message' => Lang::get('keywords.EmptyFields') ]) !!}
                 @endif
                 {!! Form::button(Lang::get('keywords.Cancel'), 
-                ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button
-                admin-panel-keywords-create-edit-keyword-controls-button-cancel']) !!}
+                ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button', 
+                'id' => 'admin_panel_keywords_create_edit_delete_keyword_controls_button_cancel']) !!}
             </div>
         </div>
     

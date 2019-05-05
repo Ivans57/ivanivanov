@@ -4,11 +4,33 @@
   I can not use submit input in that particular case, because 
   "word-wrap: break-word" doesn't work for submit input. It works
   only for buttons*/
+
 /*We need the script below to control the number of characters in the input field*/
 $( document ).ready(function() {
+    //We need the following lines to make ajax requests work.
+    //There are special tokens used for security. We need to add them in all heads
+    //and also ajax should be set up to pass them.
+    $( document ).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+    
     //The line below is left just in case we need it.
     var form = document.getElementById('admin_panel_create_edit_delete_keyword_form');
     var data_processing_option = form.dataset.processing_option;
+    
+    //Few lines below are made for cancel button, which is closing opened window 
+    //without saving or deleting anything.
+    var button_cancel = document.getElementById('admin_panel_keywords_create_edit_delete_keyword_controls_button_cancel');
+    
+    button_cancel.onclick = function() {
+        if (typeof window.parent.$.fancybox!=='undefined'){
+           window.parent.$.fancybox.close();
+        }
+    };
     
     if (data_processing_option === "create"  || data_processing_option === "edit") {
         
@@ -189,34 +211,4 @@ $( document ).ready(function() {
         
     }
         
-});
-
-//We need the script below to make a button closing a Fancy Box.
-$( document ).ready(function() {
-    var form = document.getElementById('admin_panel_create_edit_delete_keyword_form');
-    var data_processing_option = form.dataset.processing_option;
-    var button_cancel;
-    if (data_processing_option === "create" || data_processing_option === "edit") {
-        button_cancel = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-cancel');
-    } else if (data_processing_option === "delete"){
-        button_cancel = document.querySelector('.admin-panel-keywords-delete-keyword-controls-button-cancel');
-    }
-    
-    button_cancel.onclick = function() {
-        if (typeof window.parent.$.fancybox!=='undefined'){
-           window.parent.$.fancybox.close();
-        }
-    };
-});
-
-
-//We need the following lines to make ajax requests work.
-//There are special tokens used for security. We need to add them in all heads
-//and also ajax should be set up to pass them.
-$( document ).ready(function() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 });
