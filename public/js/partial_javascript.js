@@ -171,7 +171,7 @@ $( document ).ready(function() {
       
     } else if (data_processing_option === "delete") {
         
-        var button_delete = document.querySelector('.admin-panel-keywords-delete-keyword-controls-button-delete');
+        var button_delete = document.getElementById('admin_panel_keywords_delete_keyword_controls_button_delete');
         var keyword_id_field = document.getElementById('keyword_id_field');
         button_delete.onclick = function() {
             
