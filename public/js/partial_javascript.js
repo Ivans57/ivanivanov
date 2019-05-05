@@ -24,8 +24,8 @@ $( document ).ready(function() {
         if (data_processing_option === "edit") {
             var keyword_id_field = document.getElementById('keyword_id_field');
         }
-        var keyword = keyword_input.value;
-        var keyword_previous = keyword;
+        
+        var keyword_previous = keyword_input.value;
         var text_input =document.getElementById('text_input');
         var notification_container =document.querySelector('.admin-panel-keywords-create-notification-wrapper');
         //We need an array of keywords to check whether new keyword is unique
@@ -50,12 +50,8 @@ $( document ).ready(function() {
             //First of all we need to make the first letter 
             //of keyword capital in case user did not make it capital   
             keyword_input.value = keyword_input.value[0].toUpperCase() + keyword_input.value.slice(1);
-        
-            //We need to assign keyword variable again as there might be some 
-            //made by user changes in that field
-            keyword = keyword_input.value;
-        
-            //We need to make a check whether entered keyword is unique (but only in create mode)
+                
+            //We need to make a check whether entered keyword is unique
             if (keyword_input.value !== keyword_previous) {
                 for (var i = 0; i < keywords.length; i++) {
                     if (new String(keywords[i]).valueOf().trim() === new String(keyword_input.value).valueOf().trim()) {
@@ -72,8 +68,8 @@ $( document ).ready(function() {
             }
         
             //We need to make a check for prohibited symbols
-            for ( var i = 0; i < keyword.length; i++ ) {
-                keyword_test = keywordPattern.test(keyword[i]);
+            for ( var i = 0; i < keyword_input.value.length; i++ ) {
+                keyword_test = keywordPattern.test(keyword_input.value[i]);
                 if(!keyword_test) {
                     notification_container.insertAdjacentHTML("beforeend", "<div \n\
                     class='admin-panel-keywords-create-notification alert \n\
