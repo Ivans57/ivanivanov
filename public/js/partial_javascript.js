@@ -15,7 +15,7 @@ $( document ).ready(function() {
         //The line below is left for example.
         //var form_data = $(form).serialize();
     
-        var keyword_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-keyword');
+        var keyword_input =document.getElementById('keyword_input');
         if (data_processing_option === "create") {
             var button_save = document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-button-save');
         } else {
@@ -26,7 +26,7 @@ $( document ).ready(function() {
         }
         var keyword = keyword_input.value;
         var keyword_previous = keyword;
-        var text_input =document.querySelector('.admin-panel-keywords-create-edit-keyword-controls-input-text');
+        var text_input =document.getElementById('text_input');
         var notification_container =document.querySelector('.admin-panel-keywords-create-notification-wrapper');
         //We need an array of keywords to check whether new keyword is unique
         var keywords = JSON.parse(keyword_input.dataset.keywords);

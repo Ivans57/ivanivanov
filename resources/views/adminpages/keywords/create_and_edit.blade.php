@@ -14,7 +14,7 @@ to translate keywords via javascript as I ma taking my keywords from the databas
                     <div>{!! Form::hidden('keyword_id', $keyword_to_edit_id, ['id' => 'keyword_id_field']) !!}</div>
                 @endif
                 <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>
-                <div>{!! Form::text('keyword', $create_or_edit==='create' ? null : $keyword_to_edit_keyword, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input admin-panel-keywords-create-edit-keyword-controls-input-keyword',
+                <div>{!! Form::text('keyword', $create_or_edit==='create' ? null : $keyword_to_edit_keyword, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input',
                     'maxlength' => 50, 'id' => 'keyword_input', 'data-message' => Lang::get('keywords.TooManyCharactersInInputField'), 
                     'data-keywords' => $keywords, 'data-uniqueness' => Lang::get('keywords.KeywordNotUnique'), 
                     'data-spaces' => Lang::get('keywords.KeywordShouldNotHaveSpaces'), 
@@ -23,7 +23,7 @@ to translate keywords via javascript as I ma taking my keywords from the databas
             <div class="admin-panel-keywords-create-edit-keyword-regulations"><span>@lang('keywords.KeywordRegulations')</span></div>
             <div class="admin-panel-keywords-create-edit-keyword-controls">
                 <div>{!! Form::label('text', Lang::get('keywords.Text').':', ['class' => 'admin-panel-keywords-create-edit-keyword-controls-label']) !!}</div>
-                <div>{!! Form::textarea('text', $create_or_edit==='create' ? null : $keyword_to_edit_text, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input admin-panel-keywords-create-edit-keyword-controls-input-text', 'rows' => 3]) !!}</div>
+                <div>{!! Form::textarea('text', $create_or_edit==='create' ? null : $keyword_to_edit_text, ['class' => 'admin-panel-keywords-create-edit-keyword-controls-input', 'rows' => 3, 'id' => 'text_input']) !!}</div>
             </div>
             <div class="admin-panel-keywords-create-edit-keyword-controls">
                 @if ($create_or_edit==='create')
