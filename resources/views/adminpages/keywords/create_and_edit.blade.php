@@ -9,7 +9,7 @@ to translate keywords via javascript as I ma taking my keywords from the databas
     @if ($create_or_edit==='create')
         {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords/" : "/ru/admin/keywords/", 'id' => 'admin_panel_create_edit_delete_keyword_form', 'data-processing_option' => $create_or_edit ]) !!}
     @else
-        {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords/".$keyword_to_edit_id : "/ru/admin/keywords/".$keyword_to_edit_id, 'id' => 'admin_panel_create_edit_delete_keyword_form', 'data-processing_option' => $create_or_edit ]) !!}
+        {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords/".$keyword_to_edit_id : "/ru/admin/keywords/".$keyword_to_edit_id, 'id' => 'admin_panel_create_edit_delete_keyword_form', 'data-processing_option' => $create_or_edit, 'method' => 'put' ]) !!}
     @endif
             <div class='admin-panel-keywords-create-edit-keyword'>
                 <div class="admin-panel-keywords-create-edit-keyword-controls">

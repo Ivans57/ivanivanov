@@ -176,11 +176,11 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/keywords/{keyword_id}', 'AdminKeywordsController@update');
+    Route::put('admin/keywords/{keyword_id}', 'AdminKeywordsController@update');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/keywords/{keyword_id}', 'AdminKeywordsController@update');
+    Route::put('admin/keywords/{keyword_id}', 'AdminKeywordsController@update');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

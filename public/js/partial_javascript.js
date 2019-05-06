@@ -140,7 +140,7 @@ $( document ).ready(function() {
             
                 } else {
                     $.ajax({
-                        type: "POST",
+                        type: "PUT",
                         //We need to take url from attributes because we have two
                         //localizations of the website.
                         //We need to use keyword variable instead of keyword_input.value.
@@ -192,7 +192,6 @@ $( document ).ready(function() {
     } else if (data_processing_option === "delete") {
         
         var button_delete = document.getElementById('admin_panel_keywords_delete_keyword_controls_button_delete');
-        var keyword_id_field = document.getElementById('keyword_id_field');
         button_delete.onclick = function() {
             
             $.ajax({

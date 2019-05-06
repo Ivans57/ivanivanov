@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\CommonRepository;
 use App\Keyword;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 //We don't nedd the lines commented below, but I left them just in case
-//use Illuminate\Http\Request;
 //use Request;
 //use App\Http\Requests;
 //use App\Http\Requests\CreateKeywordRequest;
@@ -145,13 +145,13 @@ class AdminKeywordsController extends Controller
         
     }
     
-    public function update($keyword_id) {
+    public function update(Request $request, $keyword_id) {
         
-        $edit = Keyword::findOrFail($keyword_id);
+        $edit = Keyword::findOrFail($keyword_id);       
         
-        $edit['keyword'] = filter_input(INPUT_POST, 'keyword');
+        $edit['keyword'] = $request->input('keyword');
         
-        $edit['text'] = filter_input(INPUT_POST, 'text');
+        $edit['text'] = $request->input('text');
         
         $edit['updated_at'] = Carbon::now();
         
