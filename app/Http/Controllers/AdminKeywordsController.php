@@ -105,7 +105,7 @@ class AdminKeywordsController extends Controller
         
     }
     
-     public function edit($keyword) {
+     public function edit($keyword_id) {
         
         //Actually we do not need any head title as it is just a partisal view
         //We need it only to make the variable initialized. Othervise there will be error.
@@ -127,7 +127,7 @@ class AdminKeywordsController extends Controller
         $keywords_json = json_encode($keywords);
         
         //Belowe we are fetching the keyword we need to edit
-        $keyword_to_edit = \App\Keyword::where('keyword', '=', $keyword)->first();
+        $keyword_to_edit = Keyword::findOrFail($keyword_id);
         
         //We are going to use one view for create and edit
         //thats why we will nedd kind of indicator to know which option do we use

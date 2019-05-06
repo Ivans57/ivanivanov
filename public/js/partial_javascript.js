@@ -43,9 +43,6 @@ $( document ).ready(function() {
         } else {
             var button_save = document.getElementById('admin_panel_keywords_create_edit_keyword_controls_button_update');
         }
-        if (data_processing_option === "edit") {
-            var keyword_id_field = document.getElementById('keyword_id_field');
-        }
         
         var keyword_previous = keyword_input.value;
         var text_input =document.getElementById('text_input');
@@ -150,7 +147,8 @@ $( document ).ready(function() {
                         //Because since we change keyword field value to new, we will
                         //be unable to find new keyword value in the database.
                         //We need to know an old value to find it and change in database.
-                        url: $('#admin_panel_create_edit_delete_keyword_form').attr('action')+'/'+keyword_id_field.value,
+                        //url: $('#admin_panel_create_edit_delete_keyword_form').attr('action')+'/'+keyword_id_field.value,
+                        url: $('#admin_panel_create_edit_delete_keyword_form').attr('action'),
                         data: {keyword: keyword_input.value, text: text_input.value}
                     });
                 }
@@ -199,7 +197,7 @@ $( document ).ready(function() {
             
             $.ajax({
                 type: "DELETE",
-                url: $('#admin_panel_create_edit_delete_keyword_form').attr('action')+'/'+keyword_id_field.value,
+                url: $('#admin_panel_create_edit_delete_keyword_form').attr('action'),
                 });
             
             //After saving the data from the form we need to close the fancy box and reload the page

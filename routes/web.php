@@ -168,11 +168,11 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword}/edit', 'AdminKeywordsController@edit');
+    Route::get('admin/keywords/{keyword_id}/edit', 'AdminKeywordsController@edit');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword}/edit', 'AdminKeywordsController@edit');
+    Route::get('admin/keywords/{keyword_id}/edit', 'AdminKeywordsController@edit');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
