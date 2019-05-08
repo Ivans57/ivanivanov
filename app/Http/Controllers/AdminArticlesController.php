@@ -63,7 +63,8 @@ class AdminArticlesController extends Controller
             'headTitle' => $folders_and_articles_full_info->head_title,
             'folderName' => $folders_and_articles_full_info->folder_name,           
             'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
-            'articleAmount' => $folders_and_articles_full_info->articleAmount,
+            //Possibly, the line below I do not need. Check if I need it!
+            //'articleAmount' => $folders_and_articles_full_info->articleAmount,
             'folderParents' => $folders_and_articles_full_info->folderParents,
             'folders_and_articles_total_number' => $folders_and_articles_full_info->folders_and_articles_total_number,
             'folders_and_articles_number_of_pages' => $folders_and_articles_full_info->folders_and_articles_number_of_pages,

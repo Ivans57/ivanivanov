@@ -120,6 +120,22 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/albums', 'AdminAlbumsController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/albums', 'AdminAlbumsController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/albums/{keyword}/page/{page}', 'AdminAlbumsController@showAlbum');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/albums/{keyword}/page/{page}', 'AdminAlbumsController@showAlbum');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
 
