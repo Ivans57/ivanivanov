@@ -55,7 +55,7 @@ class AdminAlbumsController extends Controller
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
         
-        $albums_and_pictures_full_info = $this->albums->getAlbum($items_amount_per_page, $keyword, $page);
+        $albums_and_pictures_full_info = $this->albums->getAlbum($keyword, $page);
         
         return view('adminpages.adminalbum')->with([
             'main_links' => $main_links->mainLinks,

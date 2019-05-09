@@ -26,7 +26,7 @@
                         <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
                             <div class="admin-panel-articles-article-and-folder-control-buttons">
                                 <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='articles/{{ $album->keyword }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
+                                    <a href='albums/{{ $album->keyword }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-control-button">
                                     <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
