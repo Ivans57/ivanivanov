@@ -36,66 +36,66 @@
         <div>
             <h2>{{ $headTitle }}</h2>
         </div>
-        <div class="admin-panel-articles-add-article-folder-wrapper">
-            <div class="admin-panel-articles-add-article-folder-button">
-                <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddAPicture')</a>
+        <div class="admin-panel-albums-add-picture-album-wrapper">
+            <div class="admin-panel-albums-add-picture-album-button">
+                <a href='#' class="admin-panel-albums-add-picture-album-button-link">@lang('keywords.AddPicture')</a>
             </div>
-            <div class="admin-panel-articles-add-article-folder-button">
-                <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddAlbum')</a>
+            <div class="admin-panel-albums-add-picture-album-button">
+                <a href='#' class="admin-panel-albums-add-picture-album-button-link">@lang('keywords.AddAlbum')</a>
             </div>
         </div>
-        <div class="admin-panel-articles-external-articles-and-folders-wrapper">
-            <div class="admin-panel-articles-articles-and-folders-wrapper">          
+        <div class="admin-panel-albums-external-pictures-and-albums-wrapper">
+            <div class="admin-panel-albums-pictures-and-albums-wrapper">          
                 @foreach ($albums_and_pictures as $album_or_picture)
                     @if ($album_or_picture->type == 'album')
-                        <div class="admin-panel-articles-article-and-folder-item">
-                            <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
-                                <div class="admin-panel-articles-article-and-folder-picture">
+                        <div class="admin-panel-albums-picture-and-album-item">
+                            <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
+                                <div>
                                     <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
                                 </div>
-                                <div class="admin-panel-articles-article-and-folder-title">
+                                <div class="admin-panel-albums-picture-and-album-title">
                                     <p>{{ $album_or_picture->caption }}</p>
                                 </div>
                             </div>
-                            <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
-                                <div class="admin-panel-articles-article-and-folder-control-buttons">
-                                    <div class="admin-panel-articles-article-and-folder-control-button">
+                            <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
+                                <div class="admin-panel-albums-picture-and-album-control-buttons">
+                                    <div class="admin-panel-albums-picture-and-album-control-button">
                                         @if (App::isLocale('en'))
-                                            <a href='/admin/albums/{{ $album_or_picture->keyWord }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
+                                            <a href='/admin/albums/{{ $album_or_picture->keyWord }}/page/1' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
                                         @else
-                                            <a href='/ru/admin/albums/{{ $album_or_picture>keyWord }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
+                                            <a href='/ru/admin/albums/{{ $album_or_picture>keyWord }}/page/1' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
                                         @endif
                                     </div>
-                                    <div class="admin-panel-articles-article-and-folder-control-button">
-                                        <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
+                                    <div class="admin-panel-albums-picture-and-album-control-button">
+                                        <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Edit')</a>
                                     </div>
-                                    <div class="admin-panel-articles-article-and-folder-control-button">
-                                        <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Delete')</a>
+                                    <div class="admin-panel-albums-picture-and-album-control-button">
+                                        <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Delete')</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endif
                     @if ($album_or_picture->type == 'picture')
-                        <div class="admin-panel-articles-article-and-folder-item">
-                            <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
-                                <div class="admin-panel-articles-article-and-folder-picture">
+                        <div class="admin-panel-albums-picture-and-album-item">
+                            <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
+                                <div>
                                     <img src="{{ URL::asset('images/icons/article.png') }}">
                                 </div>
-                                <div class="admin-panel-articles-article-and-folder-title">
+                                <div class="admin-panel-albums-picture-and-album-title">
                                     <p>{{ $album_or_picture->caption }}</p>
                                 </div>
                             </div>
-                            <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
-                                <div class="admin-panel-articles-article-and-folder-control-buttons">
-                                    <div class="admin-panel-articles-article-control-button">
-                                        <a href='#' class="admin-panel-articles-article-control-button-link">@lang('keywords.Open')</a>
+                            <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
+                                <div class="admin-panel-albums-picture-and-album-control-buttons">
+                                    <div class="admin-panel-albums-picture-control-button">
+                                        <a href='#' class="admin-panel-albums-picture-control-button-link">@lang('keywords.Open')</a>
                                     </div>
-                                    <div class="admin-panel-articles-article-control-button">
-                                        <a href='#' class="admin-panel-articles-article-control-button-link">@lang('keywords.Edit')</a>
+                                    <div class="admin-panel-albums-picture-control-button">
+                                        <a href='#' class="admin-panel-albums-picture-control-button-link">@lang('keywords.Edit')</a>
                                     </div>
-                                    <div class="admin-panel-articles-article-control-button">
-                                        <a href='#' class="admin-panel-articles-article-control-button-link">@lang('keywords.Delete')</a>
+                                    <div class="admin-panel-albums-picture-control-button">
+                                        <a href='#' class="admin-panel-albums-picture-control-button-link">@lang('keywords.Delete')</a>
                                     </div>
                                 </div>
                             </div>
@@ -133,15 +133,15 @@
         <div>
             <h2>{{ $headTitle }}</h2>
         </div>    
-        <div class="admin-panel-articles-add-article-folder-wrapper">
-            <div class="admin-panel-articles-add-article-folder-button">
-                <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddPicture')</a>
+        <div class="admin-panel-albums-add-picture-album-wrapper">
+            <div class="admin-panel-albums-add-picture-album-button">
+                <a href='#' class="admin-panel-albums-add-picture-album-button-link">@lang('keywords.AddPicture')</a>
             </div>
-            <div class="admin-panel-articles-add-article-folder-button">
-                <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddAlbum')</a>
+            <div class="admin-panel-albums-add-picture-album-button">
+                <a href='#' class="admin-panel-albums-add-picture-album-button-link">@lang('keywords.AddAlbum')</a>
             </div>
         </div>
-        <div class="admin-panel-articles-empty-folders-text-wrapper">
+        <div class="admin-panel-albums-empty-albums-text-wrapper">
             <p>@lang('keywords.EmptySection')</p>
         </div>
     @endif   

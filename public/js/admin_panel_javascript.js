@@ -4,6 +4,66 @@
  * and open the template in the editor.
  */
 
+/*Scripts for Admin Panel Albums*/
+
+$( document ).ready(function() {
+    //making list of all elements with our class.
+    var buttons = document.querySelectorAll('.admin-panel-albums-add-picture-album-button');
+    var links = document.querySelectorAll('.admin-panel-albums-add-picture-album-button-link');
+    //getting through the array of elements and applying required function
+    //for all of them. We don't need these elements id anymore.
+    for (var i = 0; i < buttons.length; i++) {
+        clickButton(buttons[i], links[i]);
+    }
+    function clickButton(button, link) {
+        button.addEventListener('click', function() {
+            button.classList.remove('admin-panel-albums-add-picture-album-button');
+            button.classList.add('admin-panel-albums-add-picture-album-button-pressed');
+            link.classList.remove('admin-panel-albums-add-picture-album-button-link');
+            link.classList.add('admin-panel-albums-add-picture-album-button-link-pressed');
+        });
+    }
+});
+
+$( document ).ready(function() {
+    //making list of all elements with our class.
+    var folder_buttons = document.querySelectorAll('.admin-panel-albums-picture-and-album-control-button');
+    var folder_links = document.querySelectorAll('.admin-panel-albums-picture-and-album-control-button-link');
+    
+    var article_buttons = document.querySelectorAll('.admin-panel-albums-picture-control-button');
+    var article_links = document.querySelectorAll('.admin-panel-albums-picture-control-button-link');
+    
+    //getting through the array of elements and applying required function
+    //for all of them. We don't need these elements id anymore.
+    for (var i = 0; i < folder_buttons.length; i++) {
+        clickFolderButton(folder_buttons[i], folder_links[i]);
+    }
+    
+    for (var i = 0; i < article_buttons.length; i++) {
+        clickArticleButton(article_buttons[i], article_links[i]);
+    }
+    
+    function clickFolderButton(folder_button, folder_link) {
+        folder_button.addEventListener('click', function() {
+            folder_button.classList.remove('admin-panel-albums-picture-and-album-control-button');
+            folder_button.classList.add('admin-panel-albums-picture-and-album-control-button-pressed');
+            folder_link.classList.remove('admin-panel-albums-picture-and-album-control-button-link');
+            folder_link.classList.add('admin-panel-albums-picture-and-album-control-button-link-pressed');
+        });
+    }
+    
+    function clickArticleButton(article_button, article_link) {
+        article_button.addEventListener('click', function() {
+            article_button.classList.remove('admin-panel-albums-picture-control-button');
+            article_button.classList.add('admin-panel-albums-picture-control-button-pressed');
+            article_link.classList.remove('admin-panel-albums-picture-control-button-link');
+            article_link.classList.add('admin-panel-albums-picture-control-button-link-pressed');
+        });
+    }   
+});
+
+/*--------------------------------------------------------*/
+
 /*Scripts for Admin Panel Articles*/
 
 $( document ).ready(function() {

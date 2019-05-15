@@ -3,36 +3,36 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article">
-    <div class="admin-panel-articles-add-article-folder-wrapper">
-        <div class="admin-panel-articles-add-article-folder-button">
-            <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddAlbum')</a>
+    <div class="admin-panel-albums-add-picture-album-wrapper">
+        <div class="admin-panel-albums-add-picture-album-button">
+            <a href='#' class="admin-panel-albums-add-picture-album-button-link">@lang('keywords.AddAlbum')</a>
         </div>
     </div>         
     @if ($albums->count() > 0)
         <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
         in case we don't have full page-->
-        <div class="admin-panel-articles-external-articles-and-folders-wrapper">
-            <div class="admin-panel-articles-articles-and-folders-wrapper">
+        <div class="admin-panel-albums-external-pictures-and-albums-wrapper">
+            <div class="admin-panel-albums-pictures-and-albums-wrapper">
                 @foreach ($albums as $album)
-                    <div class="admin-panel-articles-article-and-folder-item">
-                        <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
-                            <div class="admin-panel-articles-article-and-folder-picture">
+                    <div class="admin-panel-albums-picture-and-album-item">
+                        <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
+                            <div>
                                 <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
                             </div>
-                            <div class="admin-panel-articles-article-and-folder-title">
+                            <div class="admin-panel-albums-picture-and-album-title">
                                 <p>{{ $album->album_name }}</p>
                             </div>
                         </div>
-                        <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
-                            <div class="admin-panel-articles-article-and-folder-control-buttons">
-                                <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='albums/{{ $album->keyword }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
+                        <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
+                            <div class="admin-panel-albums-picture-and-album-control-buttons">
+                                <div class="admin-panel-albums-picture-and-album-control-button">
+                                    <a href='albums/{{ $album->keyword }}/page/1' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
                                 </div>
-                                <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
+                                <div class="admin-panel-albums-picture-and-album-control-button">
+                                    <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Edit')</a>
                                 </div>
-                                <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Delete')</a>
+                                <div class="admin-panel-albums-picture-and-album-control-button">
+                                    <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Delete')</a>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
         </div>
         @endif
     @else
-        <div class="admin-panel-articles-empty-folders-text-wrapper">
+        <div class="admin-panel-albums-empty-albums-text-wrapper">
             <p>@lang('keywords.EmptySection')</p>
         </div>
     @endif

@@ -50,7 +50,7 @@
                     @if ($folder_or_article->type == 'folder')
                         <div class="admin-panel-articles-article-and-folder-item">
                             <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
-                                <div class="admin-panel-articles-article-and-folder-picture">
+                                <div>
                                     <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-title">
@@ -79,7 +79,7 @@
                     @if ($folder_or_article->type == 'article')
                         <div class="admin-panel-articles-article-and-folder-item">
                             <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
-                                <div class="admin-panel-articles-article-and-folder-picture">
+                                <div>
                                     <img src="{{ URL::asset('images/icons/article.png') }}">
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-title">

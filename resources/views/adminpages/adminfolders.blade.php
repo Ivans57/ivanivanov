@@ -16,7 +16,7 @@
                 @foreach ($folders as $folder)
                     <div class="admin-panel-articles-article-and-folder-item">
                         <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
-                            <div class="admin-panel-articles-article-and-folder-picture">
+                            <div>
                                 <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
                             </div>
                             <div class="admin-panel-articles-article-and-folder-title">
