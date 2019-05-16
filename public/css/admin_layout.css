@@ -589,13 +589,7 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-albums-picture-and-album-control-button:nth-child(2),
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-and-album-control-button-pressed:nth-child(2),
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-control-button:first-child,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-control-button-pressed:first-child {
+.admin-panel-albums-picture-and-album-control-button-pressed:nth-child(2) {
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -605,13 +599,7 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-albums-picture-and-album-control-button,
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons
-.admin-panel-albums-picture-and-album-control-button-pressed,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-control-button,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-control-button-pressed {
+.admin-panel-albums-picture-and-album-control-button-pressed {
     height: 26px;
     min-width: 56px;
     border: #a8a8a8 1px solid;
@@ -619,19 +607,13 @@ article's button, because article has only two control buttons instead of three*
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-and-album-control-button,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-control-button {
+.admin-panel-albums-picture-and-album-control-button {
     background-image: linear-gradient(white, #d6d6d6);
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons
-.admin-panel-albums-picture-and-album-control-button-pressed,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons
-.admin-panel-albums-picture-control-button-pressed {
+.admin-panel-albums-picture-and-album-control-button-pressed {
     background-image: linear-gradient(#d6d6d6, white);
     transform: scale(0.98);
     filter: brightness(0.95);
@@ -642,13 +624,7 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-albums-picture-and-album-control-button .admin-panel-albums-picture-and-album-control-button-link,
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons
-.admin-panel-albums-picture-and-album-control-button-pressed .admin-panel-albums-picture-and-album-control-button-link-pressed,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-control-button .admin-panel-albums-picture-control-button-link,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons
-.admin-panel-albums-picture-control-button-pressed .admin-panel-albums-picture-control-button-link-pressed {
+.admin-panel-albums-picture-and-album-control-button-pressed .admin-panel-albums-picture-and-album-control-button-link-pressed {
     display: block;
     min-width: 56px;
     padding-left: 5px;
@@ -661,28 +637,19 @@ article's button, because article has only two control buttons instead of three*
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons
-.admin-panel-albums-picture-and-album-control-button .admin-panel-albums-picture-and-album-control-button-link,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons
-.admin-panel-albums-picture-control-button .admin-panel-albums-picture-control-button-link {
+.admin-panel-albums-picture-and-album-control-button .admin-panel-albums-picture-and-album-control-button-link {
     color: black;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons
-.admin-panel-albums-picture-and-album-control-button-pressed .admin-panel-albums-picture-and-album-control-button-link-pressed,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons
-.admin-panel-albums-picture-control-button-pressed .admin-panel-albums-picture-control-button-link-pressed {
+.admin-panel-albums-picture-and-album-control-button-pressed .admin-panel-albums-picture-and-album-control-button-link-pressed {
     color: grey;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-and-album-control-button:hover,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper .admin-panel-albums-picture-and-album-control-buttons 
-.admin-panel-albums-picture-control-button:hover {
+.admin-panel-albums-picture-and-album-control-button:hover {
     filter: brightness(0.95);
 }
 

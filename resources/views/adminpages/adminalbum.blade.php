@@ -88,14 +88,14 @@
                             </div>
                             <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
                                 <div class="admin-panel-albums-picture-and-album-control-buttons">
-                                    <div class="admin-panel-albums-picture-control-button">
-                                        <a href='#' class="admin-panel-albums-picture-control-button-link">@lang('keywords.Open')</a>
+                                    <div class="admin-panel-albums-picture-and-album-control-button">
+                                        <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
                                     </div>
-                                    <div class="admin-panel-albums-picture-control-button">
-                                        <a href='#' class="admin-panel-albums-picture-control-button-link">@lang('keywords.Edit')</a>
+                                    <div class="admin-panel-albums-picture-and-album-control-button">
+                                        <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Edit')</a>
                                     </div>
-                                    <div class="admin-panel-albums-picture-control-button">
-                                        <a href='#' class="admin-panel-albums-picture-control-button-link">@lang('keywords.Delete')</a>
+                                    <div class="admin-panel-albums-picture-and-album-control-button">
+                                        <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Delete')</a>
                                     </div>
                                 </div>
                             </div>
