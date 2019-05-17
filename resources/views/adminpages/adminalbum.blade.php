@@ -5,19 +5,12 @@
 <article class="admin-panel-main-article">  
     <div class="path-panel">
         <span class="path-panel-text">@lang('keywords.Path'):</span>
-        @if (App::isLocale('en'))
-            <a href='/admin/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
-        @else
-            <a href='/ru/admin/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
-        @endif
+        <a href={{ App::isLocale('en') ? "/admin/albums" : "/ru/admin/albums" }} class="path-panel-text">@lang('keywords.Albums')</a>
         <span class="path-panel-text"> /</span>
         @if ($albumParents > 0)
             @foreach ($albumParents as $albumParent)
-                @if (App::isLocale('en'))
-                    <a href='/admin/albums/{{ $albumParent->keyWord }}/page/1' class="path-panel-text">{{ $albumParent->albumName }}</a>
-                @else
-                    <a href='/ru/admin/albums/{{ $albumParent->keyWord }}/page/1' class="path-panel-text">{{ $albumParent->albumName }}</a>
-                @endif
+                <a href={{ App::isLocale('en') ? "/admin/albums/".$albumParent->keyWord."/page/1" : 
+                   "/ru/admin/albums/".$albumParent->keyWord."/page/1" }} class="path-panel-text">{{ $albumParent->albumName }}</a>
                 <span class="path-panel-text"> /</span>
             @endforeach
         @endif
@@ -50,11 +43,9 @@
                             <div class="admin-panel-albums-picture-and-album-control-buttons">
                                 @if ($album_or_picture->type == 'album')
                                     <div class="admin-panel-albums-picture-and-album-control-button">
-                                        @if (App::isLocale('en'))
-                                            <a href='/admin/albums/{{ $album_or_picture->keyWord }}/page/1' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
-                                        @else
-                                            <a href='/ru/admin/albums/{{ $album_or_picture>keyWord }}/page/1' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
-                                        @endif
+                                        <a href={{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyWord."/page/1" : 
+                                            "/ru/admin/albums/".$album_or_picture->keyWord."/page/1" }} 
+                                            class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
                                         <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Edit')</a>
