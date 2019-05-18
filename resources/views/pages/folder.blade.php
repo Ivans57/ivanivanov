@@ -2,55 +2,33 @@
 
 @section('content')
 
-@if ($folders_and_articles_total_number > 0)
-    @if ($articleAmount < 1)
-        <article class="website-main-article articles-article-folders">
-            @if ($folderParents == 0)
-                <div class="path-panel">
-                    <span class="path-panel-text">@lang('keywords.Path'):</span>
-                    @if (App::isLocale('en'))
-                        <a href='/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                    @else
-                        <a href='/ru/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                    @endif
-                    <span class="path-panel-text"> /</span>
-                </div>
-            @else
-                <div class="path-panel">
-                    <span class="path-panel-text">@lang('keywords.Path'):</span>
-                    @if (App::isLocale('en'))
-                        <a href='/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                    @else
-                        <a href='/ru/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                    @endif
-                    <span class="path-panel-text"> /</span>
-                    @foreach ($folderParents as $folderParent)
-                        @if (App::isLocale('en'))
-                            <a href='/articles/{{ $folderParent->keyWord }}/page/1' class="path-panel-text">{{ $folderParent->folderName }}</a>
-                        @else
-                            <a href='/ru/articles/{{ $folderParent->keyWord }}/page/1' class="path-panel-text">{{ $folderParent->folderName }}</a>
-                        @endif
-                        <span class="path-panel-text"> /</span>
-                    @endforeach
-                </div>
-            @endif
-            <div>
-                <h2>{{ $headTitle }}</h2>
-            </div>
+<article class="{{ $articleAmount < 1 ? "website-main-article articles-article-folders" : "website-main-article articles-article-folders-and-articles" }}">       
+    <div class="path-panel">
+        <span class="path-panel-text">@lang('keywords.Path'):</span>
+        <a href={{ App::isLocale('en') ? "/articles" : "/ru/articles" }} class="path-panel-text">@lang('keywords.Articles')</a>             
+        @if ($folderParents > 0)                
+            <span class="path-panel-text"> /</span>
+            @foreach ($folderParents as $folderParent)
+                <a href={{ App::isLocale('en') ? "/articles/".$folderParent->keyWord."/page/1" : 
+                    "/ru/articles/".$folderParent->keyWord."/page/1" }} class="path-panel-text">{{ $folderParent->folderName }}</a>
+                <span class="path-panel-text"> /</span>
+            @endforeach                
+        @endif
+    </div>
+    <div>
+        <h2>{{ $headTitle }}</h2>
+    </div>
+    @if ($folders_and_articles_total_number > 0)   
+        @if ($articleAmount < 1)       
             <div class="external-folders-wrapper">
                 <div class="folders-wrapper">       
                     @foreach ($folders_and_articles as $folder_or_article)
                         <div class="folder-item">
                             <div class="folder-body">
-                                @if (App::isLocale('en'))
-                                    <a href='/articles/{{ $folder_or_article->keyWord }}/page/1'>
+                                <a href={{ App::isLocale('en') ? "/articles/".$folder_or_article->keyWord."/page/1" : 
+                                    "/ru/articles/".$folder_or_article->keyWord."/page/1" }}>
                                         <img src="{{ URL::asset('images/icons/regular_folder.png') }}" alt="{{ $folder_or_article->caption }}" class="article-folder">
-                                    </a>
-                                @else
-                                    <a href='/ru/articles/{{ $folder_or_article->keyWord }}/page/1'>
-                                        <img src="{{ URL::asset('images/icons/regular_folder.png') }}" alt="{{ $folder_or_article->caption }}" class="article-folder">
-                                    </a>
-                                @endif
+                                </a>                   
                             </div>
                             <div class="folder-title">
                                 <h3 class="article-folder-title">{{ $folder_or_article->caption }}</h3>
@@ -83,73 +61,16 @@
                         <a href="{{ $folders_and_articles_number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
                     @endif
                 </div>
-            @endif
-        </article>   
-    @else
-        <article class="website-main-article articles-article-folders-and-articles">
-            @if ($folderParents == 0)
-                <div class="path-panel">
-                    <span class="path-panel-text">@lang('keywords.Path'):</span>
-                    @if (App::isLocale('en'))
-                        <a href='/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                    @else
-                        <a href='/ru/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                    @endif
-                    <span class="path-panel-text"> /</span>
-                </div>
-            @else
-                <div class="path-panel">
-                    <span class="path-panel-text">@lang('keywords.Path'):</span>
-                    @if (App::isLocale('en'))
-                        <a href='/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                    @else
-                        <a href='/ru/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                    @endif
-                    <span class="path-panel-text"> /</span>
-                    @foreach ($folderParents as $folderParent)
-                        @if (App::isLocale('en'))
-                            <a href='/articles/{{ $folderParent->keyWord }}/page/1' class="path-panel-text">{{ $folderParent->folderName }}</a>
-                        @else
-                            <a href='/ru/articles/{{ $folderParent->keyWord }}/page/1' class="path-panel-text">{{ $folderParent->folderName }}</a>
-                        @endif
-                        <span class="path-panel-text"> /</span>
-                    @endforeach
-                </div>
-            @endif
-            <div>
-                <h2>{{ $headTitle }}</h2>
-            </div>
+            @endif        
+        @else
             <div class="folders-and-articles-wrapper">       
                 @foreach ($folders_and_articles as $folder_or_article)
-                    @if ($folder_or_article->type == 'folder')
-                        <div class="article-folder-or-article">
-                            @if (App::isLocale('en'))
-                                <a href='/articles/{{ $folder_or_article->keyWord }}/page/1' class="article-folder-or-article-link">
-                                    <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/regular_folder_small.png') }}" alt="{{ $folder_or_article->caption }}"></div>
-                                    <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
-                                </a>
-                            @else
-                                <a href='/ru/articles/{{ $folder_or_article->keyWord }}/page/1' class="article-folder-or-article-link">
-                                    <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/regular_folder_small.png') }}" alt="{{ $folder_or_article->caption }}"></div>
-                                    <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
-                                </a>
-                            @endif
-                        </div>
-                    @else
-                        <div class="article-folder-or-article">
-                            @if (App::isLocale('en'))
-                                <a href='/articles/{{ $folder_or_article->keyWord }}' class="article-folder-or-article-link">
-                                    <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/article.png') }}" alt="{{ $folder_or_article->caption }}"></div>
-                                    <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
-                                </a>
-                            @else
-                                <a href='/ru/articles/{{ $folder_or_article->keyWord }}' class="article-folder-or-article-link">
-                                    <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/article.png') }}" alt="{{ $folder_or_article->caption }}"></div>
-                                    <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
-                                </a>
-                            @endif
-                        </div>
-                    @endif
+                    <div class="article-folder-or-article">                                               
+                        <a href={{ App::isLocale('en') ? "/articles/".$folder_or_article->keyWord."/page/1" : "/ru/articles/".$folder_or_article->keyWord."/page/1" }} class="article-folder-or-article-link">
+                            <div class="article-folder-or-article-picture"><img src="{{ $folder_or_article->type == 'folder' ? URL::asset('images/icons/regular_folder_small.png') : URL::asset('images/icons/article.png') }}" alt="{{ $folder_or_article->caption }}"></div>
+                            <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
+                        </a>                                                                                                                
+                    </div>
                 @endforeach       
             </div>
             @if ($folders_and_articles_total_number > $items_amount_per_page)
@@ -176,47 +97,12 @@
                         <a href="{{ $folders_and_articles_number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
                     @endif
                 </div>
-            @endif
-        </article>
-    @endif
-@else
-    <article class="website-main-article articles-article-folders">
-        @if ($folderParents == 0)
-            <div class="path-panel">
-                <span class="path-panel-text">@lang('keywords.Path'):</span>
-                @if (App::isLocale('en'))
-                    <a href='/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                @else
-                    <a href='/ru/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                @endif
-                <span class="path-panel-text"> /</span>
-            </div>
-        @else
-            <div class="path-panel">
-                <span class="path-panel-text">@lang('keywords.Path'):</span>
-                @if (App::isLocale('en'))
-                    <a href='/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                @else
-                    <a href='/ru/articles' class="path-panel-text"> @lang('keywords.Articles')</a>
-                @endif
-                <span class="path-panel-text"> /</span>
-                @foreach ($folderParents as $folderParent)
-                    @if (App::isLocale('en'))
-                        <a href='/articles/{{ $folderParent->keyWord }}/page/1' class="path-panel-text">{{ $folderParent->folderName }}</a>
-                    @else
-                        <a href='/ru/articles/{{ $folderParent->keyWord }}/page/1' class="path-panel-text">{{ $folderParent->folderName }}</a>
-                    @endif
-                    <span class="path-panel-text"> /</span>
-                @endforeach
-            </div>
+            @endif      
         @endif
-        <div>
-            <h2>{{ $headTitle }}</h2>
-        </div>
+    @else
         <div class="empty-folders-text-wrapper">
             <p>@lang('folderContent.EmptySection')</p>
-        </div>
-    </article> 
-@endif   
-
+        </div>     
+    @endif   
+</article>
 @stop
