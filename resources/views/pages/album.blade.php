@@ -2,35 +2,18 @@
 
 @section('content')
 <article class="website-main-article albums-article">
-    @if ($albumParents == 0)
-        <div class="path-panel">
-            <span class="path-panel-text">@lang('keywords.Path'):</span>
-            @if (App::isLocale('en'))
-                <a href='/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
-            @else
-                <a href='/ru/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
-            @endif
-            <span class="path-panel-text"> /</span>
-        </div>
-    @else
-        <div class="path-panel">
-            <span class="path-panel-text">@lang('keywords.Path'):</span>
-            @if (App::isLocale('en'))
-                <a href='/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
-            @else
-                <a href='/ru/albums' class="path-panel-text"> @lang('keywords.Albums')</a>
-            @endif
-            <span class="path-panel-text"> /</span>
+    <div class="path-panel">        
+        <span class="path-panel-text">@lang('keywords.Path'):</span>
+        <a href={{ App::isLocale('en') ? "/albums" : "/ru/albums" }} class="path-panel-text">@lang('keywords.Albums')</a>
+        <span class="path-panel-text"> /</span>                   
+        @if ($albumParents > 0)           
             @foreach ($albumParents as $albumParent)
-                @if (App::isLocale('en'))
-                    <a href='/albums/{{ $albumParent->keyWord }}/page/1' class="path-panel-text">{{ $albumParent->albumName }}</a>
-                @else
-                    <a href='/ru/albums/{{ $albumParent->keyWord }}/page/1' class="path-panel-text">{{ $albumParent->albumName }}</a>
-                @endif
+                <a href={{ App::isLocale('en') ? "/albums/".$albumParent->keyWord."/page/1" : 
+                    "/ru/albums/".$folderParent->keyWord."/page/1" }} class="path-panel-text">{{ $albumParent->albumName }}</a>
                 <span class="path-panel-text"> /</span>
-            @endforeach
-        </div>
-    @endif
+            @endforeach        
+        @endif
+    </div>
     <div>
         <h2>{{ $headTitle }}</h2>
     </div>
@@ -40,16 +23,11 @@
                 @foreach ($albums_and_pictures as $album_or_picture)
                     @if ($album_or_picture->type == 'album')
                         <div class="album-item">
-                            <div class="album-body">
-                                @if (App::isLocale('en'))
-                                    <a href='/albums/{{ $album_or_picture->keyWord }}/page/1'>
+                            <div class="album-body">                               
+                                <a href={{ App::isLocale('en') ? "/albums/".$album_or_picture->keyWord."/page/1" : 
+                                    "/ru/albums/".$album_or_picture->keyWord."/page/1" }}>
                                         <img src="{{ URL::asset('images/icons/album_folder.png') }}" alt="{{ $album_or_picture->caption }}" class="album-folder">
-                                    </a>
-                                @else
-                                    <a href='/ru/albums/{{ $album_or_picture->keyWord }}/page/1'>
-                                        <img src="{{ URL::asset('images/icons/album_folder.png') }}" alt="{{ $album_or_picture->caption }}" class="album-folder">
-                                    </a>
-                                @endif
+                                </a>
                             </div>
                             <div class="album-title">
                                 <h3 class="album-folder-title">{{ $album_or_picture->caption }}</h3>
