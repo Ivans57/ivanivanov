@@ -20,7 +20,7 @@ class MainLink extends Model {
     
     protected $table;
     
-    protected $fillable = ['keyword', 'link_name'];  
+    protected $fillable = ['keyword'];  
     
     //Here we are making a method which according to a current language 
     //will select a proper table.

@@ -38,7 +38,7 @@ class AlbumsController extends Controller {
         //Localiztion gets applied only if we call some certaion method from any controller
         //!Need to think is it possible still to apply localization in constructor!
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
-        $headTitle= __('mainLinks.'.$this->current_page);     
+        $headTitle= __('keywords.'.$this->current_page);     
         $album_links = $this->albums->getAllAlbums();
         
         

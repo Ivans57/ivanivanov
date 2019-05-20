@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function index(){
         
         $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
-        $headTitle= __('mainLinks.'.$this->current_page);
+        $headTitle= __('keywords.'.$this->current_page);
         
         return view('adminpages.adminhome')->with([
             'main_links' => $main_links->mainLinks,
