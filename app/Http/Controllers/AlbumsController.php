@@ -42,7 +42,6 @@ class AlbumsController extends Controller {
         $album_links = $this->albums->getAllAlbums();
         
         
-        //return $album_links;
         return view('pages.albums')->with([
             'headTitle' => $headTitle,
             'main_links' => $main_links,

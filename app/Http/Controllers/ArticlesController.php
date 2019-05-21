@@ -32,8 +32,6 @@ class ArticlesController extends Controller
              
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 16;
-        //$folders = \App\Folder::where('included_in_folder_with_id', '=', NULL)->get();
-        //$album_links = $this->albums->getAllAlbums();
         $folders = $this->folders->getAllFolders($items_amount_per_page);
         
         return view('pages.folders')->with([
@@ -42,7 +40,6 @@ class ArticlesController extends Controller
             'folders' => $folders,
             'items_amount_per_page' => $items_amount_per_page
             ]);
-        //return $folders;
     }
     
     public function showFolder($keyword, $page){
@@ -87,7 +84,6 @@ class ArticlesController extends Controller
             'main_links' => $main_links,
             'headTitle' => $article->article->article_title,
             'article_description' => $article->article->article_description,
-            //'article_body' => $article_body,
             'article_body' => $article->article->article_body,
             'article_author' => $article->article->article_author,
             'article_source' => $article->article->article_source,
