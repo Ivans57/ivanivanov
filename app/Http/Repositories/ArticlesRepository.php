@@ -16,14 +16,14 @@ class FolderAndArticleForView {
 class FolderAndArticleForViewFullInfoForPage {
     public $folder_name;
     public $head_title;
-    public $folders_and_articles_total_number;
+    public $total_number_of_items;
     public $foldersAndArticles;
     public $articleAmount;
     public $folderParents;
-    public $folders_and_articles_number_of_pages;
-    public $folders_and_articles_current_page;
-    public $folders_and_articles_previous_page;
-    public $folders_and_articles_next_page;
+    public $number_of_pages;
+    public $current_page;
+    public $previous_page;
+    public $next_page;
 }
 
 class ArticleForView {
@@ -78,13 +78,13 @@ class ArticlesRepository {
         //Depending on if we have them or not, we will have some ceratin view of contents.
         $folders_and_articles_full_info->articleAmount = count($included_articles);
         
-        $folders_and_articles_total_number = count($folders_and_articles_full);
-        $folders_and_articles_full_info->folders_and_articles_total_number = $folders_and_articles_total_number;
+        $total_number_of_items = count($folders_and_articles_full);
+        $folders_and_articles_full_info->total_number_of_items = $total_number_of_items;
         $folders_and_articles_full_info->folder_name = $folder->keyword;
         $folders_and_articles_full_info->head_title = $folder->folder_name;
         
         //The following information we can have only if we have at least one item in selected folder
-        if($folders_and_articles_total_number > 0) {
+        if($total_number_of_items > 0) {
         if ($folders_and_articles_full_info->articleAmount < 1) {   
             $folders_and_articles_pages = array_chunk($folders_and_articles_full, $items_amount_per_page, false);
         }
@@ -93,12 +93,12 @@ class ArticlesRepository {
             //on one page with a list view.
             $folders_and_articles_pages = array_chunk($folders_and_articles_full, $items_amount_per_page, false);
         }
-        $folders_and_articles_full_info->folders_and_articles_number_of_pages = count($folders_and_articles_pages);
+        $folders_and_articles_full_info->number_of_pages = count($folders_and_articles_pages);
         $folders_and_articles_current_page_for_pagination = $page - 1;
         $folders_and_articles_full_info->foldersAndArticles = $folders_and_articles_pages[$folders_and_articles_current_page_for_pagination];
-        $folders_and_articles_full_info->folders_and_articles_current_page = $page;
-        $folders_and_articles_full_info->folders_and_articles_previous_page = $folders_and_articles_full_info->folders_and_articles_current_page - 1;
-        $folders_and_articles_full_info->folders_and_articles_next_page = $folders_and_articles_full_info->folders_and_articles_current_page + 1;
+        $folders_and_articles_full_info->current_page = $page;
+        $folders_and_articles_full_info->previous_page = $folders_and_articles_full_info->current_page - 1;
+        $folders_and_articles_full_info->next_page = $folders_and_articles_full_info->current_page + 1;
         }
         
         return $folders_and_articles_full_info;

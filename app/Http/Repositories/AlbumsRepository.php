@@ -17,13 +17,13 @@ class AlbumAndPictureForView {
 class AlbumAndPictureForViewFullInfoForPage {
     public $album_name;
     public $head_title;
-    public $albums_and_pictures_total_number;
+    public $total_number_of_items;
     public $albumsAndPictures;
     public $albumParents;
-    public $albums_and_pictures_number_of_pages;
-    public $albums_and_pictures_current_page;
-    public $albums_and_pictures_previous_page;
-    public $albums_and_pictures_next_page;
+    public $number_of_pages;
+    public $current_page;
+    public $previous_page;
+    public $next_page;
 }
 
 class AlbumsRepository {
@@ -63,19 +63,19 @@ class AlbumsRepository {
         }
         
         $albums_and_pictures_total_number = count($albums_and_pictures_full);
-        $albums_and_pictures_full_info->albums_and_pictures_total_number = $albums_and_pictures_total_number;
+        $albums_and_pictures_full_info->total_number_of_items = $albums_and_pictures_total_number;
         $albums_and_pictures_full_info->album_name = $album->keyword;
         $albums_and_pictures_full_info->head_title = $album->album_name;
         
         //The following information we can have only if we have at least one item in selected folder
         if($albums_and_pictures_total_number > 0) {
         $albums_and_pictures_pages = array_chunk($albums_and_pictures_full, 20, false);
-        $albums_and_pictures_full_info->albums_and_pictures_number_of_pages = count($albums_and_pictures_pages);
+        $albums_and_pictures_full_info->number_of_pages = count($albums_and_pictures_pages);
         $albums_and_pictures_current_page_for_pagination = $page - 1;
         $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_pages[$albums_and_pictures_current_page_for_pagination];
-        $albums_and_pictures_full_info->albums_and_pictures_current_page = $page;
-        $albums_and_pictures_full_info->albums_and_pictures_previous_page = $albums_and_pictures_full_info->albums_and_pictures_current_page - 1;
-        $albums_and_pictures_full_info->albums_and_pictures_next_page = $albums_and_pictures_full_info->albums_and_pictures_current_page + 1;
+        $albums_and_pictures_full_info->current_page = $page;
+        $albums_and_pictures_full_info->previous_page = $albums_and_pictures_full_info->current_page - 1;
+        $albums_and_pictures_full_info->next_page = $albums_and_pictures_full_info->current_page + 1;
         }
         
         return $albums_and_pictures_full_info;

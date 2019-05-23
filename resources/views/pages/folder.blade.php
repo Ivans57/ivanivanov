@@ -18,7 +18,7 @@
     <div>
         <h2>{{ $headTitle }}</h2>
     </div>
-    @if ($folders_and_articles_total_number > 0)   
+    @if ($total_number_of_items > 0)   
         @if ($articleAmount < 1)       
             <div class="external-folders-wrapper">
                 <div class="folders-wrapper">       
@@ -37,7 +37,7 @@
                     @endforeach       
                 </div>
             </div>
-            @if ($folders_and_articles_total_number > $items_amount_per_page)
+            @if ($total_number_of_items > $items_amount_per_page)
                 <div class="paginator">
                     @if ($folders_and_articles_current_page == 1)
                         <span class="first-inactive"></span>
@@ -73,28 +73,28 @@
                     </div>
                 @endforeach       
             </div>
-            @if ($folders_and_articles_total_number > $items_amount_per_page)
+            @if ($total_number_of_items > $items_amount_per_page)
                 <div class="paginator">
-                    @if ($folders_and_articles_current_page == 1)
+                    @if ($current_page == 1)
                         <span class="first-inactive"></span>
                     @else
                         <a href="1" class="first-active" title="@lang('pagination.ToFirstPage')"></a>
                     @endif
-                    @if ($folders_and_articles_current_page == 1)
+                    @if ($current_page == 1)
                         <span class="previous-inactive"></span>
                     @else
-                        <a href="{{ $folders_and_articles_previous_page }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
+                        <a href="{{ $previous_page }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
                     @endif
-                        <span class="pagination-info">{{ $folders_and_articles_current_page }} @lang('pagination.Of') {{ $folders_and_articles_number_of_pages }}</span>
-                    @if ($folders_and_articles_current_page == $folders_and_articles_number_of_pages)
+                        <span class="pagination-info">{{ $current_page }} @lang('pagination.Of') {{ $number_of_pages }}</span>
+                    @if ($current_page == $number_of_pages)
                         <span class="next-inactive"></span>
                     @else
-                        <a href="{{ $folders_and_articles_next_page }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
+                        <a href="{{ $next_page }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
                     @endif
-                    @if ($folders_and_articles_current_page == $folders_and_articles_number_of_pages)
+                    @if ($current_page == $number_of_pages)
                         <span class="last-inactive"></span>
                     @else
-                        <a href="{{ $folders_and_articles_number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
+                        <a href="{{ $number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
                     @endif
                 </div>
             @endif      

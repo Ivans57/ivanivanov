@@ -41,11 +41,10 @@ class AlbumsController extends Controller {
         $headTitle= __('keywords.'.$this->current_page);     
         $album_links = $this->albums->getAllAlbums();
         
-        
         return view('pages.albums')->with([
             'headTitle' => $headTitle,
             'main_links' => $main_links,
-            'album_links' => $album_links,
+            'album_links' => $album_links
             ]);
         
     }
@@ -55,17 +54,21 @@ class AlbumsController extends Controller {
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);        
         $albums_and_pictures_full_info = $this->albums->getAlbum($keyword, $page);
         
+        //We need the variable below to display how many items we need to show per one page
+        $items_amount_per_page = 20;
+        
         return view('pages.album')->with([
             'main_links' => $main_links,
             'headTitle' => $albums_and_pictures_full_info->head_title,
             'albumName' => $albums_and_pictures_full_info->album_name,           
             'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
             'albumParents' => $albums_and_pictures_full_info->albumParents,
-            'albums_and_pictures_total_number' => $albums_and_pictures_full_info->albums_and_pictures_total_number,
-            'albums_and_pictures_number_of_pages' => $albums_and_pictures_full_info->albums_and_pictures_number_of_pages,
-            'albums_and_pictures_current_page' => $albums_and_pictures_full_info->albums_and_pictures_current_page,
-            'albums_and_pictures_previous_page' => $albums_and_pictures_full_info->albums_and_pictures_previous_page,
-            'albums_and_pictures_next_page' => $albums_and_pictures_full_info->albums_and_pictures_next_page
+            'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
+            'number_of_pages' => $albums_and_pictures_full_info->number_of_pages,
+            'current_page' => $albums_and_pictures_full_info->current_page,
+            'previous_page' => $albums_and_pictures_full_info->previous_page,
+            'next_page' => $albums_and_pictures_full_info->next_page,
+            'items_amount_per_page' => $items_amount_per_page
             ]);
                
     }

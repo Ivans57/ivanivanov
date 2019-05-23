@@ -64,11 +64,11 @@ class AdminAlbumsController extends Controller
             'albumName' => $albums_and_pictures_full_info->album_name,           
             'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
             'albumParents' => $albums_and_pictures_full_info->albumParents,
-            'albums_and_pictures_total_number' => $albums_and_pictures_full_info->albums_and_pictures_total_number,
-            'albums_and_pictures_number_of_pages' => $albums_and_pictures_full_info->albums_and_pictures_number_of_pages,
-            'albums_and_pictures_current_page' => $albums_and_pictures_full_info->albums_and_pictures_current_page,
-            'albums_and_pictures_previous_page' => $albums_and_pictures_full_info->albums_and_pictures_previous_page,
-            'albums_and_pictures_next_page' => $albums_and_pictures_full_info->albums_and_pictures_next_page,
+            'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
+            'number_of_pages' => $albums_and_pictures_full_info->number_of_pages,
+            'current_page' => $albums_and_pictures_full_info->current_page,
+            'previous_page' => $albums_and_pictures_full_info->previous_page,
+            'next_page' => $albums_and_pictures_full_info->next_page,
             'items_amount_per_page' => $items_amount_per_page
             ]);
     }

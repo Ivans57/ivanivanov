@@ -66,11 +66,11 @@ class AdminArticlesController extends Controller
             //Possibly, the line below I do not need. Check if I need it!
             //'articleAmount' => $folders_and_articles_full_info->articleAmount,
             'folderParents' => $folders_and_articles_full_info->folderParents,
-            'folders_and_articles_total_number' => $folders_and_articles_full_info->folders_and_articles_total_number,
-            'folders_and_articles_number_of_pages' => $folders_and_articles_full_info->folders_and_articles_number_of_pages,
-            'folders_and_articles_current_page' => $folders_and_articles_full_info->folders_and_articles_current_page,
-            'folders_and_articles_previous_page' => $folders_and_articles_full_info->folders_and_articles_previous_page,
-            'folders_and_articles_next_page' => $folders_and_articles_full_info->folders_and_articles_next_page,
+            'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
+            'number_of_pages' => $folders_and_articles_full_info->number_of_pages,
+            'current_page' => $folders_and_articles_full_info->current_page,
+            'previous_page' => $folders_and_articles_full_info->previous_page,
+            'next_page' => $folders_and_articles_full_info->next_page,
             'items_amount_per_page' => $items_amount_per_page
             ]);
     }
