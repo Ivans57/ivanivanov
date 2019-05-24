@@ -17,7 +17,7 @@
     <div>
         <h2>{{ $headTitle }}</h2>
     </div>
-    @if ($total_number_of_items > 0)
+    @if ($pagination_info->total_number_of_items > 0)
         <div class="external-albums-picture-wrapper">
             <div class="albums-picture-wrapper">       
                 @foreach ($albums_and_pictures as $album_or_picture)
@@ -48,28 +48,28 @@
             <p>@lang('albumContent.EmptyAlbum')</p>
         </div>
     @endif
-    @if ($total_number_of_items > $items_amount_per_page)
+    @if ($pagination_info->total_number_of_items > $items_amount_per_page)
         <div class="paginator">
-            @if ($current_page == 1)
+            @if ($pagination_info->current_page == 1)
                <span class="first-inactive"></span>
             @else
                <a href="1" class="first-active" title="@lang('pagination.ToFirstPage')"></a>
             @endif
-            @if ($current_page == 1)
+            @if ($pagination_info->current_page == 1)
                <span class="previous-inactive"></span>
             @else
-               <a href="{{ $previous_page }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
+               <a href="{{ $pagination_info->previous_page }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
             @endif
-            <span class="pagination-info">{{ $current_page }} @lang('pagination.Of') {{ $number_of_pages }}</span>
-            @if ($current_page == $number_of_pages)
+            <span class="pagination-info">{{ $pagination_info->current_page }} @lang('pagination.Of') {{ $pagination_info->number_of_pages }}</span>
+            @if ($pagination_info->current_page == $pagination_info->number_of_pages)
                <span class="next-inactive"></span>
             @else
-               <a href="{{ $next_page }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
+               <a href="{{ $pagination_info->next_page }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
             @endif
-            @if ($current_page == $number_of_pages)
+            @if ($pagination_info->current_page == $pagination_info->number_of_pages)
                <span class="last-inactive"></span>
             @else
-               <a href="{{ $number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
+               <a href="{{ $pagination_info->number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
             @endif
         </div>
     @endif

@@ -17,14 +17,19 @@ class AlbumAndPictureForView {
 class AlbumAndPictureForViewFullInfoForPage {
     public $album_name;
     public $head_title;
-    public $total_number_of_items;
     public $albumsAndPictures;
     public $albumParents;
+    public $paginator_info;   
+}
+
+class Paginator {
+    public $total_number_of_items;
     public $number_of_pages;
     public $current_page;
     public $previous_page;
     public $next_page;
 }
+
 
 class AlbumsRepository {
     
@@ -35,7 +40,7 @@ class AlbumsRepository {
     }
     
     //need to make methods for this method
-    public function getAlbum($keyword, $page){
+    public function getAlbum($keyword, $page, $items_amount_per_page){
         //Here we take only first value, because this type of request supposed
         //to give us a collection of items. But in this case as keyword is unique
         //for every single record we will always have only one item, which is
@@ -62,24 +67,36 @@ class AlbumsRepository {
             $albums_and_pictures_full_info->albumParents = array_reverse($this->get_albums_parents_for_view($album->included_in_album_with_id));
         }
         
-        $albums_and_pictures_total_number = count($albums_and_pictures_full);
-        $albums_and_pictures_full_info->total_number_of_items = $albums_and_pictures_total_number;
         $albums_and_pictures_full_info->album_name = $album->keyword;
         $albums_and_pictures_full_info->head_title = $album->album_name;
+        //The line below cuts all data into pages
+        $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_full, $items_amount_per_page, false);
+        //The line below selects the page we need, as computer counts from 0, we need to subtract 1
+        $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_cut_into_pages[$page-1];
         
-        //The following information we can have only if we have at least one item in selected folder
-        if($albums_and_pictures_total_number > 0) {
-        $albums_and_pictures_pages = array_chunk($albums_and_pictures_full, 20, false);
-        $albums_and_pictures_full_info->number_of_pages = count($albums_and_pictures_pages);
-        $albums_and_pictures_current_page_for_pagination = $page - 1;
-        $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_pages[$albums_and_pictures_current_page_for_pagination];
-        $albums_and_pictures_full_info->current_page = $page;
-        $albums_and_pictures_full_info->previous_page = $albums_and_pictures_full_info->current_page - 1;
-        $albums_and_pictures_full_info->next_page = $albums_and_pictures_full_info->current_page + 1;
+        //Paginator information we can have only if we have more then one item in selected folder
+        if(count($albums_and_pictures_full) > 1/*0*/) {
+            $albums_and_pictures_full_info->paginator_info = $this->get_paginator_info($page, $albums_and_pictures_full, $albums_and_pictures_full_cut_into_pages);
         }
-        
+               
         return $albums_and_pictures_full_info;
     }
+    
+    
+    //This method gets all necessary information for paginator
+    private function get_paginator_info($page, $all_items_collection, $all_items_collection_cut_into_pages) {
+        
+        $paginator_info = new Paginator();
+        
+        $paginator_info->total_number_of_items = count($all_items_collection);
+        $paginator_info->number_of_pages = count($all_items_collection_cut_into_pages);    
+        $paginator_info->current_page = $page;       
+        $paginator_info->previous_page = $paginator_info->current_page - 1;
+        $paginator_info->next_page = $paginator_info->current_page + 1;
+        
+        return $paginator_info;
+    }
+    
     
     //We need this function to make our own array which will contain all included
     //in some chosen folder folders and pictures

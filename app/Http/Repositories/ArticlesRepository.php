@@ -78,13 +78,12 @@ class ArticlesRepository {
         //Depending on if we have them or not, we will have some ceratin view of contents.
         $folders_and_articles_full_info->articleAmount = count($included_articles);
         
-        $total_number_of_items = count($folders_and_articles_full);
-        $folders_and_articles_full_info->total_number_of_items = $total_number_of_items;
+        $folders_and_articles_full_info->total_number_of_items = count($folders_and_articles_full);
         $folders_and_articles_full_info->folder_name = $folder->keyword;
         $folders_and_articles_full_info->head_title = $folder->folder_name;
         
         //The following information we can have only if we have at least one item in selected folder
-        if($total_number_of_items > 0) {
+        if($folders_and_articles_full_info->total_number_of_items > 0) {
         if ($folders_and_articles_full_info->articleAmount < 1) {   
             $folders_and_articles_pages = array_chunk($folders_and_articles_full, $items_amount_per_page, false);
         }

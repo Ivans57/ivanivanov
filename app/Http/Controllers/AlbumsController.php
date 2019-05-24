@@ -51,11 +51,12 @@ class AlbumsController extends Controller {
     
     public function showAlbum($keyword, $page){
         
-        $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);        
-        $albums_and_pictures_full_info = $this->albums->getAlbum($keyword, $page);
+        $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 20;
+        
+        $albums_and_pictures_full_info = $this->albums->getAlbum($keyword, $page, $items_amount_per_page);
         
         return view('pages.album')->with([
             'main_links' => $main_links,
@@ -63,12 +64,8 @@ class AlbumsController extends Controller {
             'albumName' => $albums_and_pictures_full_info->album_name,           
             'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
             'albumParents' => $albums_and_pictures_full_info->albumParents,
-            'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
-            'number_of_pages' => $albums_and_pictures_full_info->number_of_pages,
-            'current_page' => $albums_and_pictures_full_info->current_page,
-            'previous_page' => $albums_and_pictures_full_info->previous_page,
-            'next_page' => $albums_and_pictures_full_info->next_page,
-            'items_amount_per_page' => $items_amount_per_page
+            'pagination_info' => $albums_and_pictures_full_info->paginator_info,
+            'items_amount_per_page' => $items_amount_per_page           
             ]);
                
     }
