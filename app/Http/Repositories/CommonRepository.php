@@ -7,27 +7,27 @@ namespace App\Http\Repositories;
 //Need to check if I met all rules about writing the class below and its properties.
 //For example of all small and capital letters
 class MainLinkForView {
-            public $keyWord;
-            public $linkName;
-            public $webLinkName;
-            public $adminWebLinkName;
-            public $isActive = false;
-        }
+    public $keyWord;
+    public $linkName;
+    public $webLinkName;
+    public $adminWebLinkName;
+    public $isActive = false;
+}
 
 //We need the class below to make an object which will contain an array of all main links
 //for navigation menu and also will show the status of additional keywords link.
 //We use this only for Administration Panel.     
 class MainLinksAndKeywordLinkCheck {
-            public $mainLinks;
-            public $keywordsLinkIsActive;
-        }
+    public $mainLinks;
+    public $keywordsLinkIsActive;
+}
 
 class Paginator {
     public $number_of_pages;
     public $current_page;
     public $previous_page;
     public $next_page;
-    }
+}
 
 class CommonRepository {
     
@@ -86,10 +86,8 @@ class CommonRepository {
     //and also checking whether keywords link is active 
     public function get_main_links_and_keywords_link_status ($current_page) {
         
-        $main_links_and_keywords_link_status = new MainLinksAndKeywordLinkCheck();
-        
-        $main_links_and_keywords_link_status->mainLinks = $this->get_main_links($current_page);
-        
+        $main_links_and_keywords_link_status = new MainLinksAndKeywordLinkCheck();        
+        $main_links_and_keywords_link_status->mainLinks = $this->get_main_links($current_page);        
         $main_links_and_keywords_link_status->keywordsLinkIsActive = $this->active_link_search($main_links_and_keywords_link_status->mainLinks);
         
         return $main_links_and_keywords_link_status;
@@ -115,10 +113,9 @@ class CommonRepository {
         foreach($all_main_links as $main_link) {
             if ($main_link->isActive == true){
                 $array_does_not_have_active_links = false;
-                return $array_does_not_have_active_links;
+                return $array_does_not_have_active_links;                
+            }            
             }
-        }
-        return $array_does_not_have_active_links;     
-    }
-
+        return $array_does_not_have_active_links;            
+            }
     }
