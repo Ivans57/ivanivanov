@@ -65,6 +65,7 @@ class AlbumsController extends Controller {
             'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
             'albumParents' => $albums_and_pictures_full_info->albumParents,
             'pagination_info' => $albums_and_pictures_full_info->paginator_info,
+            'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
             'items_amount_per_page' => $items_amount_per_page           
             ]);
                

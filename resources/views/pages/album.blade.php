@@ -17,7 +17,7 @@
     <div>
         <h2>{{ $headTitle }}</h2>
     </div>
-    @if ($pagination_info->total_number_of_items > 0)
+    @if ($total_number_of_items > 0)
         <div class="external-albums-picture-wrapper">
             <div class="albums-picture-wrapper">       
                 @foreach ($albums_and_pictures as $album_or_picture)
@@ -43,7 +43,7 @@
                 @endforeach       
             </div>
         </div>
-        @if ($pagination_info->total_number_of_items > $items_amount_per_page)
+        @if ($total_number_of_items > $items_amount_per_page)
         <div class="paginator">
             @if ($pagination_info->current_page == 1)
                <span class="first-inactive"></span>
