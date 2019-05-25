@@ -69,14 +69,24 @@ class AlbumsRepository {
         
         $albums_and_pictures_full_info->album_name = $album->keyword;
         $albums_and_pictures_full_info->head_title = $album->album_name;
-        //The line below cuts all data into pages
-        $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_full, $items_amount_per_page, false);
-        //The line below selects the page we need, as computer counts from 0, we need to subtract 1
-        $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_cut_into_pages[$page-1];
         
+
         //Paginator information we can have only if we have more then one item in selected folder
-        if(count($albums_and_pictures_full) > 1/*0*/) {
+        if(count($albums_and_pictures_full) > 0/*0*/) {
+            //The line below cuts all data into pages
+            //We can do it only if we have at least one item in the array of the full data
+            $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_full, $items_amount_per_page, false);
+            //The line below selects the page we need, as computer counts from 0, we need to subtract 1
+            $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_cut_into_pages[$page-1];
             $albums_and_pictures_full_info->paginator_info = $this->get_paginator_info($page, $albums_and_pictures_full, $albums_and_pictures_full_cut_into_pages);
+        } else {
+	           //Total number of items should have some value
+	           //because there is a check in view which is giving
+	           //a result based on the total number of items.
+            $paginator = new Paginator();
+            $paginator->total_number_of_items = 0;
+            $albums_and_pictures_full_info->paginator_info =  $paginator;
+            //$albums_and_pictures_full_info->paginator_info = 0;
         }
                
         return $albums_and_pictures_full_info;

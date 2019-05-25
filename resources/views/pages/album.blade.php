@@ -43,12 +43,7 @@
                 @endforeach       
             </div>
         </div>
-    @else
-        <div class="empty-albums-text-wrapper">
-            <p>@lang('albumContent.EmptyAlbum')</p>
-        </div>
-    @endif
-    @if ($pagination_info->total_number_of_items > $items_amount_per_page)
+        @if ($pagination_info->total_number_of_items > $items_amount_per_page)
         <div class="paginator">
             @if ($pagination_info->current_page == 1)
                <span class="first-inactive"></span>
@@ -71,6 +66,11 @@
             @else
                <a href="{{ $pagination_info->number_of_pages }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
             @endif
+        </div>
+    @endif
+    @else
+        <div class="empty-albums-text-wrapper">
+            <p>@lang('albumContent.EmptyAlbum')</p>
         </div>
     @endif
 </article>
