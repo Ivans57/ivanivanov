@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Repositories;
+use  App\Http\Repositories\CommonRepository;
 
 class AlbumLinkForView {
     public $keyWord;
@@ -25,14 +26,6 @@ class AlbumAndPictureForViewFullInfoForPage {
     public $total_number_of_items;
     public $paginator_info;   
 }
-
-class Paginator {
-    public $number_of_pages;
-    public $current_page;
-    public $previous_page;
-    public $next_page;
-}
-
 
 class AlbumsRepository {
     
@@ -80,26 +73,12 @@ class AlbumsRepository {
             $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_full, $items_amount_per_page, false);
             //The line below selects the page we need, as computer counts from 0, we need to subtract 1
             $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_cut_into_pages[$page-1];
-            $albums_and_pictures_full_info->paginator_info = $this->get_paginator_info($page, $albums_and_pictures_full_cut_into_pages);
+            $common_repository = new CommonRepository();
+            $albums_and_pictures_full_info->paginator_info = $common_repository->get_paginator_info($page, $albums_and_pictures_full_cut_into_pages);
         }
                
         return $albums_and_pictures_full_info;
     }
-    
-    
-    //This method gets all necessary information for paginator
-    private function get_paginator_info($page, $all_items_collection_cut_into_pages) {
-        
-        $paginator_info = new Paginator();
-        
-        $paginator_info->number_of_pages = count($all_items_collection_cut_into_pages);    
-        $paginator_info->current_page = $page;       
-        $paginator_info->previous_page = $paginator_info->current_page - 1;
-        $paginator_info->next_page = $paginator_info->current_page + 1;
-        
-        return $paginator_info;
-    }
-    
     
     //We need this function to make our own array which will contain all included
     //in some chosen folder folders and pictures

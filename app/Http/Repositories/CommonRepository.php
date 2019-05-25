@@ -22,6 +22,13 @@ class MainLinksAndKeywordLinkCheck {
             public $keywordsLinkIsActive;
         }
 
+class Paginator {
+    public $number_of_pages;
+    public $current_page;
+    public $previous_page;
+    public $next_page;
+    }
+
 class CommonRepository {
     
     //This method we need to use only when we are working with website, as we 
@@ -89,6 +96,20 @@ class CommonRepository {
         
     }
     
+    //This method gets all necessary information for paginator
+    public function get_paginator_info($page, $all_items_collection_cut_into_pages) {
+        
+        $paginator_info = new Paginator();
+        
+        $paginator_info->number_of_pages = count($all_items_collection_cut_into_pages);    
+        $paginator_info->current_page = $page;       
+        $paginator_info->previous_page = $paginator_info->current_page - 1;
+        $paginator_info->next_page = $paginator_info->current_page + 1;
+        
+        return $paginator_info;
+    }
+
+
     private function active_link_search($all_main_links) {
         $array_does_not_have_active_links = true;
         foreach($all_main_links as $main_link) {
