@@ -57,12 +57,9 @@ class ArticlesController extends Controller
             'folderName' => $folders_and_articles_full_info->folder_name,           
             'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
             'articleAmount' => $folders_and_articles_full_info->articleAmount,
-            'folderParents' => $folders_and_articles_full_info->folderParents,
+            'folderParents' => $folders_and_articles_full_info->folderParents,            
+            'pagination_info' => $folders_and_articles_full_info->paginator_info,
             'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
-            'number_of_pages' => $folders_and_articles_full_info->number_of_pages,
-            'current_page' => $folders_and_articles_full_info->current_page,
-            'previous_page' => $folders_and_articles_full_info->previous_page,
-            'next_page' => $folders_and_articles_full_info->next_page,
             'items_amount_per_page' => $items_amount_per_page
             ]);
 

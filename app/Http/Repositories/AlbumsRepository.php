@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Repositories;
-use  App\Http\Repositories\CommonRepository;
+use App\Http\Repositories\CommonRepository;
 
 class AlbumLinkForView {
     public $keyWord;
