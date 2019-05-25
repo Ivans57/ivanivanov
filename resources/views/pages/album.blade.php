@@ -9,7 +9,7 @@
         @if ($albumParents > 0)           
             @foreach ($albumParents as $albumParent)
                 <a href={{ App::isLocale('en') ? "/albums/".$albumParent->keyWord."/page/1" : 
-                    "/ru/albums/".$folderParent->keyWord."/page/1" }} class="path-panel-text">{{ $albumParent->albumName }}</a>
+                    "/ru/albums/".$albumParent->keyWord."/page/1" }} class="path-panel-text">{{ $albumParent->albumName }}</a>
                 <span class="path-panel-text"> /</span>
             @endforeach        
         @endif

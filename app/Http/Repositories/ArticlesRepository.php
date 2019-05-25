@@ -86,8 +86,7 @@ class ArticlesRepository {
             $folders_and_articles_full_cut_into_pages = array_chunk($folders_and_articles_full, $items_amount_per_page, false);
             //The line below selects the page we need, as computer counts from 0, we need to subtract 1
             $folders_and_articles_full_info->foldersAndArticles = $folders_and_articles_full_cut_into_pages[$page-1];
-            $common_repository = new CommonRepository();
-            $folders_and_articles_full_info->paginator_info = $common_repository->get_paginator_info($page, $folders_and_articles_full_cut_into_pages);
+            $folders_and_articles_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, $folders_and_articles_full_cut_into_pages);
         }
         
         return $folders_and_articles_full_info;

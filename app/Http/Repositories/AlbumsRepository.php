@@ -73,8 +73,7 @@ class AlbumsRepository {
             $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_full, $items_amount_per_page, false);
             //The line below selects the page we need, as computer counts from 0, we need to subtract 1
             $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_cut_into_pages[$page-1];
-            $common_repository = new CommonRepository();
-            $albums_and_pictures_full_info->paginator_info = $common_repository->get_paginator_info($page, $albums_and_pictures_full_cut_into_pages);
+            $albums_and_pictures_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, $albums_and_pictures_full_cut_into_pages);
         }
                
         return $albums_and_pictures_full_info;
