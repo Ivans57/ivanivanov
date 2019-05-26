@@ -57,7 +57,7 @@ class AlbumsController extends Controller {
         $items_amount_per_page = 20;
         
         $albums_and_pictures_full_info = $this->albums->getAlbum($keyword, $page, $items_amount_per_page);
-
+        
         return view('pages.album')->with([
             'main_links' => $main_links,
             'headTitle' => $albums_and_pictures_full_info->head_title,
@@ -66,7 +66,7 @@ class AlbumsController extends Controller {
             'albumParents' => $albums_and_pictures_full_info->albumParents,
             'pagination_info' => $albums_and_pictures_full_info->paginator_info,
             'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
-            'items_amount_per_page' => $items_amount_per_page           
+            'items_amount_per_page' => $items_amount_per_page
             ]);
                
     }

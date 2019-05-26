@@ -44,10 +44,8 @@
             </div>
         </div>
         @if ($total_number_of_items > $items_amount_per_page)
-            @component('paginator')
-                @slot('pagination_info')
-                    {!! $pagination_info !!}
-                @endslot
+            <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
+            @component('paginator', ['pagination_info' => $pagination_info])
             @endcomponent
         @endif
     @else
