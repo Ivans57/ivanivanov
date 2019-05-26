@@ -1018,7 +1018,7 @@ article's button, because article has only two control buttons instead of three*
 /*Universal admin-panel-paginator*/
 /*this can be applied to all admin-panel-paginators*/
 
-.admin-panel-main-article .admin-panel-paginator {
+.admin-panel-main-article .paginator {
     margin-top: 20px;
     height: 40px;
     line-height: 40px;
@@ -1026,52 +1026,52 @@ article's button, because article has only two control buttons instead of three*
     vertical-align: middle;
 }
 
-.admin-panel-main-article .admin-panel-paginator a,
-.admin-panel-main-article .admin-panel-paginator span {
+.admin-panel-main-article .paginator a,
+.admin-panel-main-article .paginator span {
     display: inline-block;  
     text-decoration: none;
 }
 
-.admin-panel-main-article .admin-panel-paginator .previous-inactive,
-.admin-panel-main-article .admin-panel-paginator .previous-active {
+.admin-panel-main-article .paginator .previous-inactive,
+.admin-panel-main-article .paginator .previous-active {
     margin-right: 5px;
 }
 
-.admin-panel-main-article .admin-panel-paginator .next-inactive,
-.admin-panel-main-article .admin-panel-paginator .next-active {
+.admin-panel-main-article .paginator .next-inactive,
+.admin-panel-main-article .paginator .next-active {
     margin-left: 5px;
 }
 
-.admin-panel-main-article .admin-panel-paginator .previous-inactive,
-.admin-panel-main-article .admin-panel-paginator .previous-active,
-.admin-panel-main-article .admin-panel-paginator .next-inactive,
-.admin-panel-main-article .admin-panel-paginator .next-active {
+.admin-panel-main-article .paginator .previous-inactive,
+.admin-panel-main-article .paginator .previous-active,
+.admin-panel-main-article .paginator .next-inactive,
+.admin-panel-main-article .paginator .next-active {
     width: 0;
     height: 0;
     border: 20px solid transparent;
 }
 
-.admin-panel-main-article .admin-panel-paginator .previous-inactive {
+.admin-panel-main-article .paginator .previous-inactive {
     border-right-color: grey;  
     border-left: 0;
 }
 
-.admin-panel-main-article .admin-panel-paginator .previous-active {
+.admin-panel-main-article .paginator .previous-active {
     border-right-color: steelblue;  
     border-left: 0;
 }
 
-.admin-panel-main-article .admin-panel-paginator .next-inactive {
+.admin-panel-main-article .paginator .next-inactive {
     border-left-color: grey;  
     border-right: 0;
 }
 
-.admin-panel-main-article .admin-panel-paginator .next-active {
+.admin-panel-main-article .paginator .next-active {
     border-left-color: steelblue;  
     border-right: 0;
 }
 
-.admin-panel-main-article .admin-panel-paginator .pagination-info {
+.admin-panel-main-article .paginator .pagination-info {
     padding: 0 10px;
     vertical-align: top;
     text-align: center;
@@ -1080,44 +1080,44 @@ article's button, because article has only two control buttons instead of three*
     font-size: 16px;
 }
 
-.admin-panel-main-article .admin-panel-paginator .first-inactive,
-.admin-panel-main-article .admin-panel-paginator .first-active {
+.admin-panel-main-article .paginator .first-inactive,
+.admin-panel-main-article .paginator .first-active {
     margin-right: 10px;
 }
 
-.admin-panel-main-article .admin-panel-paginator .last-inactive,
-.admin-panel-main-article .admin-panel-paginator .last-active {
+.admin-panel-main-article .paginator .last-inactive,
+.admin-panel-main-article .paginator .last-active {
     margin-left: 10px;
 }
 
-.admin-panel-main-article .admin-panel-paginator .first-inactive,
-.admin-panel-main-article .admin-panel-paginator .first-active,
-.admin-panel-main-article .admin-panel-paginator .last-inactive,
-.admin-panel-main-article .admin-panel-paginator .last-active {
+.admin-panel-main-article .paginator .first-inactive,
+.admin-panel-main-article .paginator .first-active,
+.admin-panel-main-article .paginator .last-inactive,
+.admin-panel-main-article .paginator .last-active {
     width: 0;
     height: 0;
     border: 20px solid transparent;
 }
 
-.admin-panel-main-article .admin-panel-paginator .first-inactive {
+.admin-panel-main-article .paginator .first-inactive {
     border-right-color: grey;  
     border-left: 0;
     box-shadow: -3px 0 0 0 grey;
 }
 
-.admin-panel-main-article .admin-panel-paginator .first-active {
+.admin-panel-main-article .paginator .first-active {
     border-right-color: #0000cc;  
     border-left: 0;
     box-shadow: -3px 0 0 0 #0000cc;
 }
 
-.admin-panel-main-article .admin-panel-paginator .last-inactive {
+.admin-panel-main-article .paginator .last-inactive {
     border-left-color: grey;  
     border-right: 0;
     box-shadow: 3px 0 0 0 grey;
 }
 
-.admin-panel-main-article .admin-panel-paginator .last-active {
+.admin-panel-main-article .paginator .last-active {
     border-left-color: #0000cc;  
     border-right: 0;
     box-shadow: 3px 0 0 0 #0000cc;
@@ -1128,63 +1128,63 @@ article's button, because article has only two control buttons instead of three*
 Admin Panel*/
 
 @media (max-width: 500px) {    
-    .admin-panel-main-article .admin-panel-paginator .first-inactive,
-    .admin-panel-main-article .admin-panel-paginator .first-active,
-    .admin-panel-main-article .admin-panel-paginator .last-inactive,
-    .admin-panel-main-article .admin-panel-paginator .last-active,
-    .admin-panel-main-article .admin-panel-paginator .previous-inactive,
-    .admin-panel-main-article .admin-panel-paginator .previous-active,
-    .admin-panel-main-article .admin-panel-paginator .next-inactive,
-    .admin-panel-main-article .admin-panel-paginator .next-active {
+    .admin-panel-main-article .paginator .first-inactive,
+    .admin-panel-main-article .paginator .first-active,
+    .admin-panel-main-article .paginator .last-inactive,
+    .admin-panel-main-article .paginator .last-active,
+    .admin-panel-main-article .paginator .previous-inactive,
+    .admin-panel-main-article .paginator .previous-active,
+    .admin-panel-main-article .paginator .next-inactive,
+    .admin-panel-main-article .paginator .next-active {
         transform: scale(0.9);
     }
     
-    .admin-panel-main-article .admin-panel-paginator .pagination-info {
+    .admin-panel-main-article .paginator .pagination-info {
         font-size: 15px;
     }
 }
 
 @media (max-width: 300px) {   
-    .admin-panel-main-article .admin-panel-paginator .first-inactive,
-    .admin-panel-main-article .admin-panel-paginator .first-active,
-    .admin-panel-main-article .admin-panel-paginator .last-inactive,
-    .admin-panel-main-article .admin-panel-paginator .last-active,
-    .admin-panel-main-article .admin-panel-paginator .previous-inactive,
-    .admin-panel-main-article .admin-panel-paginator .previous-active,
-    .admin-panel-main-article .admin-panel-paginator .next-inactive,
-    .admin-panel-main-article .admin-panel-paginator .next-active {
+    .admin-panel-main-article .paginator .first-inactive,
+    .admin-panel-main-article .paginator .first-active,
+    .admin-panel-main-article .paginator .last-inactive,
+    .admin-panel-main-article .paginator .last-active,
+    .admin-panel-main-article .paginator .previous-inactive,
+    .admin-panel-main-article .paginator .previous-active,
+    .admin-panel-main-article .paginator .next-inactive,
+    .admin-panel-main-article .paginator .next-active {
         transform: scale(0.8);
     }
     
-    .admin-panel-main-article .admin-panel-paginator .pagination-info {
+    .admin-panel-main-article .paginator .pagination-info {
         font-size: 14px;
     }
 }
 
 @media (max-width: 280px) {    
-    .admin-panel-main-article .admin-panel-paginator .first-inactive,
-    .admin-panel-main-article .admin-panel-paginator .first-active,
-    .admin-panel-main-article .admin-panel-paginator .last-inactive,
-    .admin-panel-main-article .admin-panel-paginator .last-active,
-    .admin-panel-main-article .admin-panel-paginator .previous-inactive,
-    .admin-panel-main-article .admin-panel-paginator .previous-active,
-    .admin-panel-main-article .admin-panel-paginator .next-inactive,
-    .admin-panel-main-article .admin-panel-paginator .next-active {
+    .admin-panel-main-article .paginator .first-inactive,
+    .admin-panel-main-article .paginator .first-active,
+    .admin-panel-main-article .paginator .last-inactive,
+    .admin-panel-main-article .paginator .last-active,
+    .admin-panel-main-article .paginator .previous-inactive,
+    .admin-panel-main-article .paginator .previous-active,
+    .admin-panel-main-article .paginator .next-inactive,
+    .admin-panel-main-article .paginator .next-active {
         transform: scale(0.7);
     }
     
-    .admin-panel-main-article .admin-panel-paginator .pagination-info {
+    .admin-panel-main-article .paginator .pagination-info {
         padding: 0 0px;
         font-size: 13px;
     }
     
-    .admin-panel-main-article .admin-panel-paginator .first-inactive,
-    .admin-panel-main-article .admin-panel-paginator .first-active {
+    .admin-panel-main-article .paginator .first-inactive,
+    .admin-panel-main-article .paginator .first-active {
         margin-right: 5px;
     }
 
-    .admin-panel-main-article .admin-panel-paginator .last-inactive,
-    .admin-panel-main-article .admin-panel-paginator .last-active {
+    .admin-panel-main-article .paginator .last-inactive,
+    .admin-panel-main-article .paginator .last-active {
         margin-left: 5px;
     }
 }

@@ -67,13 +67,6 @@ class AdminAlbumsController extends Controller
             'pagination_info' => $albums_and_pictures_full_info->paginator_info,
             'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
             'items_amount_per_page' => $items_amount_per_page
-
-            /*'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
-            'number_of_pages' => $albums_and_pictures_full_info->number_of_pages,
-            'current_page' => $albums_and_pictures_full_info->current_page,
-            'previous_page' => $albums_and_pictures_full_info->previous_page,
-            'next_page' => $albums_and_pictures_full_info->next_page,
-            'items_amount_per_page' => $items_amount_per_page*/
             ]);
     }
 }

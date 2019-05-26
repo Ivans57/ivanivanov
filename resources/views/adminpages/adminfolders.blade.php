@@ -41,7 +41,7 @@
             </div>
         </div>
         @if ($folders->total() > $items_amount_per_page)
-        <div class="admin-panel-paginator">
+        <div class="paginator">
             @if ($folders->currentPage() == 1)
                 <span class="first-inactive"></span>
             @else
