@@ -19,35 +19,34 @@
                 @endforeach
             </div>
         </div>
+        @if ($album_links->total() > $items_amount_per_page)
+            <div class="paginator">
+                @if ($album_links->currentPage() == 1)
+                    <span class="first-inactive"></span>
+                @else
+                    <a href="{{ $album_links->url(1) }}" class="first-active" title="@lang('pagination.ToFirstPage')"></a>
+                @endif
+                @if ($album_links->currentPage() == 1)
+                    <span class="previous-inactive"></span>
+                @else
+                    <a href="{{ $album_links->previousPageUrl() }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
+                @endif
+                <span class="pagination-info">{{ $album_links->currentPage() }} @lang('pagination.Of') {{ $album_links->lastPage() }}</span>
+                @if ($album_links->currentPage() == $album_links->lastPage())
+                    <span class="next-inactive"></span>
+                @else
+                    <a href="{{ $album_links->nextPageUrl() }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
+                @endif
+                @if ($album_links->currentPage() == $album_links->lastPage())
+                    <span class="last-inactive"></span>
+                @else
+                    <a href="{{ $album_links->url($album_links->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
+                @endif
+            </div>
+        @endif
     @else
         <div class="empty-albums-text-wrapper">
             <p>@lang('folderContent.EmptySection')</p>
-        </div>
-    @endif
-    
-    @if ($album_links->total() > 16)
-        <div class="paginator">
-            @if ($album_links->currentPage() == 1)
-               <span class="first-inactive"></span>
-            @else
-               <a href="{{ $album_links->url(1) }}" class="first-active" title="@lang('pagination.ToFirstPage')"></a>
-            @endif
-            @if ($album_links->currentPage() == 1)
-               <span class="previous-inactive"></span>
-            @else
-               <a href="{{ $album_links->previousPageUrl() }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
-            @endif
-            <span class="pagination-info">{{ $album_links->currentPage() }} @lang('pagination.Of') {{ $album_links->lastPage() }}</span>
-            @if ($album_links->currentPage() == $album_links->lastPage())
-               <span class="next-inactive"></span>
-            @else
-               <a href="{{ $album_links->nextPageUrl() }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
-            @endif
-            @if ($album_links->currentPage() == $album_links->lastPage())
-               <span class="last-inactive"></span>
-            @else
-               <a href="{{ $album_links->url($album_links->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
-            @endif
         </div>
     @endif
 </article>

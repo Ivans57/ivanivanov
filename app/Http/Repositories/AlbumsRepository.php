@@ -29,8 +29,8 @@ class AlbumAndPictureForViewFullInfoForPage {
 
 class AlbumsRepository {
     
-    public function getAllAlbums(){
-        $album_links = \App\Album::where('included_in_album_with_id', '=', NULL)->where('is_visible', '=', 1)->paginate(16);
+    public function getAllAlbums($items_amount_per_page){
+        $album_links = \App\Album::where('included_in_album_with_id', '=', NULL)->where('is_visible', '=', 1)->paginate($items_amount_per_page);
         
         return $album_links;
     }
