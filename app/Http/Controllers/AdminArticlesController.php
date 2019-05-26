@@ -56,7 +56,7 @@ class AdminArticlesController extends Controller
         $items_amount_per_page = 14;
         
         $folders_and_articles_full_info = $this->folders->getFolder($items_amount_per_page, $keyword, $page);
-        
+        //return $folders_and_articles_full_info->paginator_info->current_page;
         return view('adminpages.adminfolder')->with([
             'main_links' => $main_links->mainLinks,
             'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
@@ -66,11 +66,8 @@ class AdminArticlesController extends Controller
             //Possibly, the line below I do not need. Check if I need it!
             //'articleAmount' => $folders_and_articles_full_info->articleAmount,
             'folderParents' => $folders_and_articles_full_info->folderParents,
+            'pagination_info' => $folders_and_articles_full_info->paginator_info,
             'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
-            'number_of_pages' => $folders_and_articles_full_info->number_of_pages,
-            'current_page' => $folders_and_articles_full_info->current_page,
-            'previous_page' => $folders_and_articles_full_info->previous_page,
-            'next_page' => $folders_and_articles_full_info->next_page,
             'items_amount_per_page' => $items_amount_per_page
             ]);
     }
