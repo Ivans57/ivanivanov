@@ -39,7 +39,7 @@
             </div>
             @if ($total_number_of_items > $items_amount_per_page)
                 <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
-                @component('paginator', ['pagination_info' => $pagination_info])
+                @component('multy_entity_paginator', ['pagination_info' => $pagination_info])
                 @endcomponent
             @endif        
         @else
@@ -55,7 +55,7 @@
             </div>
             @if ($total_number_of_items > $items_amount_per_page)
                 <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
-                @component('paginator', ['pagination_info' => $pagination_info])
+                @component('multy_entity_paginator', ['pagination_info' => $pagination_info])
                 @endcomponent
             @endif      
         @endif

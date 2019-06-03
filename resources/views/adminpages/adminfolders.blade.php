@@ -41,29 +41,9 @@
             </div>
         </div>
         @if ($folders->total() > $items_amount_per_page)
-        <div class="paginator">
-            @if ($folders->currentPage() == 1)
-                <span class="first-inactive"></span>
-            @else
-                <a href="{{ $folders->url(1) }}" class="first-active" title="@lang('pagination.ToFirstPage')"></a>
-            @endif
-            @if ($folders->currentPage() == 1)
-                <span class="previous-inactive"></span>
-            @else
-                <a href="{{ $folders->previousPageUrl() }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
-            @endif
-                <span class="pagination-info">{{ $folders->currentPage() }} @lang('pagination.Of') {{ $folders->lastPage() }}</span>
-            @if ($folders->currentPage() == $folders->lastPage())
-                <span class="next-inactive"></span>
-            @else
-                <a href="{{ $folders->nextPageUrl() }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
-            @endif
-            @if ($folders->currentPage() == $folders->lastPage())
-                <span class="last-inactive"></span>
-            @else
-                <a href="{{ $folders->url($folders->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
-            @endif
-        </div>
+            <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
+            @component('one_entity_paginator', ['items' => $folders])
+            @endcomponent
         @endif
     @else
         <div class="admin-panel-articles-empty-folders-text-wrapper">

@@ -41,29 +41,9 @@
             </div>
         </div>
         @if ($albums->total() > $items_amount_per_page)
-        <div class="paginator">
-            @if ($albums->currentPage() == 1)
-                <span class="first-inactive"></span>
-            @else
-                <a href="{{ $albums->url(1) }}" class="first-active" title="@lang('pagination.ToFirstPage')"></a>
-            @endif
-            @if ($albums->currentPage() == 1)
-                <span class="previous-inactive"></span>
-            @else
-                <a href="{{ $albums->previousPageUrl() }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
-            @endif
-                <span class="pagination-info">{{ $albums->currentPage() }} @lang('pagination.Of') {{ $albums->lastPage() }}</span>
-            @if ($albums->currentPage() == $albums->lastPage())
-                <span class="next-inactive"></span>
-            @else
-                <a href="{{ $albums->nextPageUrl() }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
-            @endif
-            @if ($albums->currentPage() == $albums->lastPage())
-                <span class="last-inactive"></span>
-            @else
-                <a href="{{ $albums->url($albums->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
-            @endif
-        </div>
+            <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
+            @component('one_entity_paginator', ['items' => $albums])
+            @endcomponent
         @endif
     @else
         <div class="admin-panel-albums-empty-albums-text-wrapper">
