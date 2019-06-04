@@ -37,29 +37,48 @@ class AlbumsRepository {
     
     //We need the method below to clutter down the method in controller, which
     //is responsible for showing some separate album
-    public function showAlbumView($section, $page, $keyword, $items_amount_per_page, $main_links){
+    public function showAlbumView($section, $page, $keyword, $items_amount_per_page, $main_links, $is_admin_panel){
         
         $common_repository = new CommonRepository();
         //The condition below fixs a problem when user enters as a number of page some number less then 1
         if ($page < 1) {
-            return $common_repository->redirect_to_first_page_multi_entity($section, $keyword);          
+            return $common_repository->redirect_to_first_page_multi_entity($section, $keyword, $is_admin_panel);          
         } else {
             $albums_and_pictures_full_info = $this->getAlbum($keyword, $page, $items_amount_per_page);
             //We need to do the check below in case user enters a page number more tha actual number of pages
             if ($page > $albums_and_pictures_full_info->paginator_info->number_of_pages) {
-                return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $albums_and_pictures_full_info->paginator_info->number_of_pages);
-            } else {
-                return view('pages.album')->with([
-                    'main_links' => $main_links,
-                    'headTitle' => $albums_and_pictures_full_info->head_title,
-                    'albumName' => $albums_and_pictures_full_info->album_name,           
-                    'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
-                    'albumParents' => $albums_and_pictures_full_info->albumParents,
-                    'pagination_info' => $albums_and_pictures_full_info->paginator_info,
-                    'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
-                    'items_amount_per_page' => $items_amount_per_page
-                ]);
+                return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $albums_and_pictures_full_info->paginator_info->number_of_pages, $is_admin_panel);
+            } else {                
+                return $this->get_view($is_admin_panel, $main_links, $albums_and_pictures_full_info, $items_amount_per_page);
             }
+        }
+    }
+    
+    //We need the method below to clutter down showAlbumView method
+    private function get_view($is_admin_panel, $main_links, $albums_and_pictures_full_info, $items_amount_per_page) {
+        if ($is_admin_panel) {
+            return view('adminpages.adminalbum')->with([
+                'main_links' => $main_links->mainLinks,
+                'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+                'headTitle' => $albums_and_pictures_full_info->head_title,
+                'albumName' => $albums_and_pictures_full_info->album_name,           
+                'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
+                'albumParents' => $albums_and_pictures_full_info->albumParents,
+                'pagination_info' => $albums_and_pictures_full_info->paginator_info,
+                'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
+                'items_amount_per_page' => $items_amount_per_page
+                ]);
+        } else {
+            return view('pages.album')->with([
+                'main_links' => $main_links,
+                'headTitle' => $albums_and_pictures_full_info->head_title,
+                'albumName' => $albums_and_pictures_full_info->album_name,           
+                'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
+                'albumParents' => $albums_and_pictures_full_info->albumParents,
+                'pagination_info' => $albums_and_pictures_full_info->paginator_info,
+                'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
+                'items_amount_per_page' => $items_amount_per_page
+                ]);                   
         }
     }
     

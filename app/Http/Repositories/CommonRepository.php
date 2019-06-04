@@ -112,31 +112,55 @@ class CommonRepository {
 
     //This function checks the localization and redirects to the last page in
     //case user enters a page number more than actucal numebr of pages.
-    public function redirect_to_last_page_one_entity($section, $last_page){       
-        if (App::isLocale('en')) {
-            return redirect($section.'?page='.$last_page);
+    public function redirect_to_last_page_one_entity($section, $last_page, $is_admin_panel){              
+        if ($is_admin_panel) {
+            if (App::isLocale('en')) {
+                return redirect('admin/'.$section.'?page='.$last_page);
+            } else {
+                return redirect('ru/'.'admin/'.$section.'?page='.$last_page);
+            }
         } else {
-            return redirect('ru/'.$section.'?page='.$last_page);
-        }
+            if (App::isLocale('en')) {
+                return redirect($section.'?page='.$last_page);
+            } else {
+                return redirect('ru/'.$section.'?page='.$last_page);
+            }
+        }        
     }
     
     //This function checks the localization and redirects to the first page in
     //case user enters a page number less then 1.
-    public function redirect_to_first_page_multi_entity($section, $keyword){       
-        if (App::isLocale('en')) {
-            return redirect($section.'/'.$keyword.'/page/1');
+    public function redirect_to_first_page_multi_entity($section, $keyword, $is_admin_panel){       
+        if ($is_admin_panel) {
+            if (App::isLocale('en')) {
+                return redirect('admin/'.$section.'/'.$keyword.'/page/1');
+            } else {
+                return redirect('ru/'.'admin/'.$section.'/'.$keyword.'/page/1');
+            }
         } else {
-            return redirect('ru/'.$section.'/'.$keyword.'/page/1');
+            if (App::isLocale('en')) {
+                return redirect($section.'/'.$keyword.'/page/1');
+            } else {
+                return redirect('ru/'.$section.'/'.$keyword.'/page/1');
+            }
         }
     }
     
     //This function checks the localization and redirects to the last page in
     //case user enters a page number more than actucal numebr of pages.
-    public function redirect_to_last_page_multi_entity($section, $keyword, $last_page){       
-        if (App::isLocale('en')) {
-            return redirect($section.'/'.$keyword.'/page/'.$last_page);
+    public function redirect_to_last_page_multi_entity($section, $keyword, $last_page, $is_admin_panel){       
+        if ($is_admin_panel) {
+            if (App::isLocale('en')) {
+                return redirect('admin/'.$section.'/'.$keyword.'/page/'.$last_page);
+            } else {
+                return redirect('ru/'.'admin/'.$section.'/'.$keyword.'/page/'.$last_page);
+            }
         } else {
-            return redirect('ru/'.$section.'/'.$keyword.'/page/'.$last_page);
+            if (App::isLocale('en')) {
+                return redirect($section.'/'.$keyword.'/page/'.$last_page);
+            } else {
+                return redirect('ru/'.$section.'/'.$keyword.'/page/'.$last_page);
+            }
         }
     }
     
