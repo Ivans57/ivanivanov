@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AlbumsRepository;
-
 use Illuminate\Http\Request;
+//We need the line below to peform some manipulations with strings
+//e.g. making all string letters lowe case.
+use Illuminate\Support\Str;
 
         
 class AlbumsController extends Controller {
@@ -42,16 +44,21 @@ class AlbumsController extends Controller {
         
         $items_amount_per_page = 16;        
         $album_links = $this->albums->getAllAlbums($items_amount_per_page);
-        
-        return view('pages.albums')->with([
-            'headTitle' => $headTitle,
-            'main_links' => $main_links,
-            'album_links' => $album_links,
-            'items_amount_per_page' => $items_amount_per_page
+
+        //Below we need to do the check if entered page number is more than
+        //actual number of pages, we redirect the user to the last page
+        if ($album_links->currentPage() > $album_links->lastPage()) {
+            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $album_links->lastPage());
+        } else {
+            return view('pages.albums')->with([
+                'headTitle' => $headTitle,
+                'main_links' => $main_links,
+                'album_links' => $album_links,
+                'items_amount_per_page' => $items_amount_per_page
             ]);
-        
+        }
     }
-    
+            
     public function showAlbum($keyword, $page){
         
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
@@ -59,19 +66,8 @@ class AlbumsController extends Controller {
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 20;
         
-        $albums_and_pictures_full_info = $this->albums->getAlbum($keyword, $page, $items_amount_per_page);
-        
-        return view('pages.album')->with([
-            'main_links' => $main_links,
-            'headTitle' => $albums_and_pictures_full_info->head_title,
-            'albumName' => $albums_and_pictures_full_info->album_name,           
-            'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
-            'albumParents' => $albums_and_pictures_full_info->albumParents,
-            'pagination_info' => $albums_and_pictures_full_info->paginator_info,
-            'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
-            'items_amount_per_page' => $items_amount_per_page
-            ]);
-               
+        //We need to call the method below to clutter down current method in controller
+        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links);       
     }
     
     public function testik(Request $request){

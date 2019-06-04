@@ -35,8 +35,35 @@ class AlbumsRepository {
         return $album_links;
     }
     
-    //need to make methods for this method
-    public function getAlbum($keyword, $page, $items_amount_per_page){
+    //We need the method below to clutter down the method in controller, which
+    //is responsible for showing some separate album
+    public function showAlbumView($section, $page, $keyword, $items_amount_per_page, $main_links){
+        
+        $common_repository = new CommonRepository();
+        //The condition below fixs a problem when user enters as a number of page some number less then 1
+        if ($page < 1) {
+            return $common_repository->redirect_to_first_page_multi_entity($section, $keyword);          
+        } else {
+            $albums_and_pictures_full_info = $this->getAlbum($keyword, $page, $items_amount_per_page);
+            //We need to do the check below in case user enters a page number more tha actual number of pages
+            if ($page > $albums_and_pictures_full_info->paginator_info->number_of_pages) {
+                return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $albums_and_pictures_full_info->paginator_info->number_of_pages);
+            } else {
+                return view('pages.album')->with([
+                    'main_links' => $main_links,
+                    'headTitle' => $albums_and_pictures_full_info->head_title,
+                    'albumName' => $albums_and_pictures_full_info->album_name,           
+                    'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
+                    'albumParents' => $albums_and_pictures_full_info->albumParents,
+                    'pagination_info' => $albums_and_pictures_full_info->paginator_info,
+                    'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
+                    'items_amount_per_page' => $items_amount_per_page
+                ]);
+            }
+        }
+    }
+    
+    private function getAlbum($keyword, $page, $items_amount_per_page){
         //Here we take only first value, because this type of request supposed
         //to give us a collection of items. But in this case as keyword is unique
         //for every single record we will always have only one item, which is
@@ -71,14 +98,19 @@ class AlbumsRepository {
             //The line below cuts all data into pages
             //We can do it only if we have at least one item in the array of the full data
             $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_full, $items_amount_per_page, false);
-            //The line below selects the page we need, as computer counts from 0, we need to subtract 1
-            $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_cut_into_pages[$page-1];
             $albums_and_pictures_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, $albums_and_pictures_full_cut_into_pages);
+            //We need to do the check below in case user enters a page number more tha actual number of pages,
+            //so we can avoid an error.
+            if ($albums_and_pictures_full_info->paginator_info->number_of_pages >= $page) {
+                //The line below selects the page we need, as computer counts from 0, we need to subtract 1
+                $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_cut_into_pages[$page-1];
+            }
+            
         }
                
         return $albums_and_pictures_full_info;
     }
-    
+       
     //We need this function to make our own array which will contain all included
     //in some chosen folder folders and pictures
     private function get_included_albums_and_pictures($included_albums, $pictures){

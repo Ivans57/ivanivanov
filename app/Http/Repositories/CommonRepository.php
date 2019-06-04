@@ -2,6 +2,9 @@
 
 namespace App\Http\Repositories;
 
+//We need the line below to use localization 
+use App;
+
 //We need the class below to make an array of this class objects which will 
 //contain only database data we need for the relevant view.
 //Need to check if I met all rules about writing the class below and its properties.
@@ -107,7 +110,36 @@ class CommonRepository {
         return $paginator_info;
     }
 
-
+    //This function checks the localization and redirects to the last page in
+    //case user enters a page number more than actucal numebr of pages.
+    public function redirect_to_last_page_one_entity($section, $last_page){       
+        if (App::isLocale('en')) {
+            return redirect($section.'?page='.$last_page);
+        } else {
+            return redirect('ru/'.$section.'?page='.$last_page);
+        }
+    }
+    
+    //This function checks the localization and redirects to the first page in
+    //case user enters a page number less then 1.
+    public function redirect_to_first_page_multi_entity($section, $keyword){       
+        if (App::isLocale('en')) {
+            return redirect($section.'/'.$keyword.'/page/1');
+        } else {
+            return redirect('ru/'.$section.'/'.$keyword.'/page/1');
+        }
+    }
+    
+    //This function checks the localization and redirects to the last page in
+    //case user enters a page number more than actucal numebr of pages.
+    public function redirect_to_last_page_multi_entity($section, $keyword, $last_page){       
+        if (App::isLocale('en')) {
+            return redirect($section.'/'.$keyword.'/page/'.$last_page);
+        } else {
+            return redirect('ru/'.$section.'/'.$keyword.'/page/'.$last_page);
+        }
+    }
+    
     private function active_link_search($all_main_links) {
         $array_does_not_have_active_links = true;
         foreach($all_main_links as $main_link) {
