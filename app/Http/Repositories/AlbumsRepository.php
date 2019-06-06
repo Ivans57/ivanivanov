@@ -112,7 +112,8 @@ class AlbumsRepository {
         $albums_and_pictures_full_info->album_name = $album->keyword;
         $albums_and_pictures_full_info->head_title = $album->album_name;
         $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_full);
-        //Paginator information we can have only if we have more then one item in selected folder
+        
+        //The following information we can have only if we have at least one item in selected folder
         if(count($albums_and_pictures_full) > 0) {
             //The line below cuts all data into pages
             //We can do it only if we have at least one item in the array of the full data

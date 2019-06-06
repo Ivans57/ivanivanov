@@ -37,8 +37,55 @@ class ArticlesRepository {
         return $folder_links;
     }
     
-    //need to make methods for this method
-    public function getFolder($items_amount_per_page, $keyword, $page){
+    //We need the method below to clutter down the method in controller, which
+    //is responsible for showing some separate album
+    public function showFolderView($section, $page, $keyword, $items_amount_per_page, $main_links, $is_admin_panel){
+        
+        $common_repository = new CommonRepository();
+        //The condition below fixs a problem when user enters as a number of page some number less then 1
+        if ($page < 1) {
+            return $common_repository->redirect_to_first_page_multi_entity($section, $keyword, $is_admin_panel);          
+        } else {
+            $folders_and_articles_full_info = $this->getFolder($keyword, $page, $items_amount_per_page);
+            //We need to do the check below in case user enters a page number more tha actual number of pages
+            if ($page > $folders_and_articles_full_info->paginator_info->number_of_pages) {
+                return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $folders_and_articles_full_info->paginator_info->number_of_pages, $is_admin_panel);
+            } else {                
+                return $this->get_view($is_admin_panel, $main_links, $folders_and_articles_full_info, $items_amount_per_page);
+            }
+        }
+    }
+    
+    //We need the method below to clutter down showFolderView method
+    private function get_view($is_admin_panel, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
+        if ($is_admin_panel) {
+            return view('adminpages.adminfolder')->with([
+                'main_links' => $main_links->mainLinks,
+                'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+                'headTitle' => $folders_and_articles_full_info->head_title,
+                'folderName' => $folders_and_articles_full_info->folder_name,           
+                'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
+                'folderParents' => $folders_and_articles_full_info->folderParents,
+                'pagination_info' => $folders_and_articles_full_info->paginator_info,
+                'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
+                'items_amount_per_page' => $items_amount_per_page
+                ]);
+        } else {
+            return view('pages.folder')->with([
+                'main_links' => $main_links,
+                'headTitle' => $folders_and_articles_full_info->head_title,
+                'folderName' => $folders_and_articles_full_info->folder_name,           
+                'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
+                'articleAmount' => $folders_and_articles_full_info->articleAmount,
+                'folderParents' => $folders_and_articles_full_info->folderParents,            
+                'pagination_info' => $folders_and_articles_full_info->paginator_info,
+                'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
+                'items_amount_per_page' => $items_amount_per_page
+                ]);                   
+        }
+    }
+    
+    private function getFolder($keyword, $page, $items_amount_per_page){
         //Here we take only first value, because this type of request supposed
         //to give us a collection of items. But in this case as keyword is unique
         //for every single record we will always have only one item, which is
@@ -80,13 +127,17 @@ class ArticlesRepository {
         $folders_and_articles_full_info->total_number_of_items = count($folders_and_articles_full);
         
         //The following information we can have only if we have at least one item in selected folder
-        if($folders_and_articles_full_info->total_number_of_items > 0) {
+        if(count($folders_and_articles_full) > 0/*$folders_and_articles_full_info->total_number_of_items > 0*/) {
             //The line below cuts all data into pages
             //We can do it only if we have at least one item in the array of the full data
             $folders_and_articles_full_cut_into_pages = array_chunk($folders_and_articles_full, $items_amount_per_page, false);
-            //The line below selects the page we need, as computer counts from 0, we need to subtract 1
-            $folders_and_articles_full_info->foldersAndArticles = $folders_and_articles_full_cut_into_pages[$page-1];
             $folders_and_articles_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, $folders_and_articles_full_cut_into_pages);
+            //We need to do the check below in case user enters a page number more tha actual number of pages,
+            //so we can avoid an error.
+            if ($folders_and_articles_full_info->paginator_info->number_of_pages >= $page) {
+                //The line below selects the page we need, as computer counts from 0, we need to subtract 1
+                $folders_and_articles_full_info->foldersAndArticles = $folders_and_articles_full_cut_into_pages[$page-1];
+            }
         }
         
         return $folders_and_articles_full_info;

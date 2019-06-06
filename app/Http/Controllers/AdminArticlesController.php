@@ -67,20 +67,9 @@ class AdminArticlesController extends Controller
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
-        
-        $folders_and_articles_full_info = $this->folders->getFolder($items_amount_per_page, $keyword, $page);
-        //return $folders_and_articles_full_info->paginator_info->current_page;
-        return view('adminpages.adminfolder')->with([
-            'main_links' => $main_links->mainLinks,
-            'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
-            'headTitle' => $folders_and_articles_full_info->head_title,
-            'folderName' => $folders_and_articles_full_info->folder_name,           
-            'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
-            'folderParents' => $folders_and_articles_full_info->folderParents,
-            'pagination_info' => $folders_and_articles_full_info->paginator_info,
-            'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
-            'items_amount_per_page' => $items_amount_per_page
-            ]);
+              
+        //We need to call the method below to clutter down current method in controller
+        return $this->folders->showFolderView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel);
     }
     
     public function create(){
