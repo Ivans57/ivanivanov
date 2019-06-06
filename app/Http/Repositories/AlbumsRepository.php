@@ -112,7 +112,7 @@ class AlbumsRepository {
         $albums_and_pictures_full_info->album_name = $album->keyword;
         $albums_and_pictures_full_info->head_title = $album->album_name;
         $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_full);
-        
+
         //The following information we can have only if we have at least one item in selected folder
         if(count($albums_and_pictures_full) > 0) {
             //The line below cuts all data into pages
@@ -124,8 +124,14 @@ class AlbumsRepository {
             if ($albums_and_pictures_full_info->paginator_info->number_of_pages >= $page) {
                 //The line below selects the page we need, as computer counts from 0, we need to subtract 1
                 $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_cut_into_pages[$page-1];
-            }
-            
+            }           
+        } else {
+            //As we need to know paginator_info->number_of_pages to check the condition
+            //in showAlbumView() method we need to make paginator_info object
+            //and assign its number_of_pages variable. Otherwise we will have an error
+            //if we have any empty folder
+            $albums_and_pictures_full_info->paginator_info = new Paginator();
+            $albums_and_pictures_full_info->paginator_info->number_of_pages = 1;
         }
                
         return $albums_and_pictures_full_info;
