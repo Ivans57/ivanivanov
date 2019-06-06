@@ -50,29 +50,9 @@
             </div>        
         </div>
         @if ($keywords->total() > $items_amount_per_page)
-        <div class="admin-panel-paginator">
-            @if ($keywords->currentPage() == 1)
-                <span class="first-inactive"></span>
-            @else
-                <a href="{{ $keywords->url(1) }}" class="first-active" title="@lang('pagination.ToFirstPage')"></a>
-            @endif
-            @if ($keywords->currentPage() == 1)
-                <span class="previous-inactive"></span>
-            @else
-                <a href="{{ $keywords->previousPageUrl() }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
-            @endif
-                <span class="pagination-info">{{ $keywords->currentPage() }} @lang('pagination.Of') {{ $keywords->lastPage() }}</span>
-            @if ($keywords->currentPage() == $keywords->lastPage())
-                <span class="next-inactive"></span>
-            @else
-                <a href="{{ $keywords->nextPageUrl() }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
-            @endif
-            @if ($keywords->currentPage() == $keywords->lastPage())
-                <span class="last-inactive"></span>
-            @else
-                <a href="{{ $keywords->url($keywords->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
-            @endif
-        </div>
+            <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
+            @component('one_entity_paginator', ['items' => $keywords])
+            @endcomponent
         @endif
     @else
         <div class="admin-panel-keywords-empty-text-wrapper">
