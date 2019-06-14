@@ -5,7 +5,7 @@ use App\Http\Repositories\CommonRepository;
 
 class AlbumLinkForView {
     public $keyWord;
-    public $albumName;
+    public $name;
 }  
         
 class AlbumAndPictureForView {
@@ -49,13 +49,13 @@ class AlbumsRepository {
             if ($page > $albums_and_pictures_full_info->paginator_info->number_of_pages) {
                 return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $albums_and_pictures_full_info->paginator_info->number_of_pages, $is_admin_panel);
             } else {                
-                return $this->get_view($is_admin_panel, $main_links, $albums_and_pictures_full_info, $items_amount_per_page);
+                return $this->get_view($is_admin_panel, $section, $main_links, $albums_and_pictures_full_info, $items_amount_per_page);
             }
         }
     }
     
     //We need the method below to clutter down showAlbumView method
-    private function get_view($is_admin_panel, $main_links, $albums_and_pictures_full_info, $items_amount_per_page) {
+    private function get_view($is_admin_panel, $section, $main_links, $albums_and_pictures_full_info, $items_amount_per_page) {
         if ($is_admin_panel) {
             return view('adminpages.adminalbum')->with([
                 'main_links' => $main_links->mainLinks,
@@ -63,10 +63,11 @@ class AlbumsRepository {
                 'headTitle' => $albums_and_pictures_full_info->head_title,
                 'albumName' => $albums_and_pictures_full_info->album_name,           
                 'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
-                'albumParents' => $albums_and_pictures_full_info->albumParents,
+                'parents' => $albums_and_pictures_full_info->albumParents,
                 'pagination_info' => $albums_and_pictures_full_info->paginator_info,
                 'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
-                'items_amount_per_page' => $items_amount_per_page
+                'items_amount_per_page' => $items_amount_per_page,
+                'section' => $section
                 ]);
         } else {
             return view('pages.album')->with([
@@ -74,10 +75,11 @@ class AlbumsRepository {
                 'headTitle' => $albums_and_pictures_full_info->head_title,
                 'albumName' => $albums_and_pictures_full_info->album_name,           
                 'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
-                'albumParents' => $albums_and_pictures_full_info->albumParents,
+                'parents' => $albums_and_pictures_full_info->albumParents,
                 'pagination_info' => $albums_and_pictures_full_info->paginator_info,
                 'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
-                'items_amount_per_page' => $items_amount_per_page
+                'items_amount_per_page' => $items_amount_per_page,
+                'section' => $section
                 ]);                   
         }
     }
@@ -172,7 +174,7 @@ class AlbumsRepository {
         $parent_album_for_view = new AlbumLinkForView();
         
         $parent_album_for_view->keyWord = $parent_album->keyword;
-        $parent_album_for_view->albumName = $parent_album->album_name;
+        $parent_album_for_view->name = $parent_album->album_name;
         
         $parent_albums_for_view = array();
         

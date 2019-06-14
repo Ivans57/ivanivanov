@@ -6,12 +6,13 @@
         <span class="path-panel-text">@lang('keywords.Path'):</span>
         <a href={{ App::isLocale('en') ? "/albums" : "/ru/albums" }} class="path-panel-text">@lang('keywords.Albums')</a>
         <span class="path-panel-text"> /</span>                   
-        @if ($albumParents > 0)           
-            @foreach ($albumParents as $albumParent)
-                <a href={{ App::isLocale('en') ? "/albums/".$albumParent->keyWord."/page/1" : 
-                    "/ru/albums/".$albumParent->keyWord."/page/1" }} class="path-panel-text">{{ $albumParent->albumName }}</a>
-                <span class="path-panel-text"> /</span>
-            @endforeach        
+        @if ($parents > 0)
+            <!--The component below is based on paginator component-->
+            @component('path_panel', ['parents' => $parents])
+                @slot('section')
+                    $section
+                @endslot
+            @endcomponent       
         @endif
     </div>
     <div>

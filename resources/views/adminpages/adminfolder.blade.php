@@ -7,12 +7,13 @@
         <span class="path-panel-text">@lang('keywords.Path'):</span>
         <a href={{ App::isLocale('en') ? "/admin/articles" : "/ru/admin/articles" }} class="path-panel-text">@lang('keywords.Articles')</a>
         <span class="path-panel-text"> /</span>
-        @if ($folderParents > 0)    
-            @foreach ($folderParents as $folderParent)
-                <a href={{ App::isLocale('en') ? "/admin/articles/".$folderParent->keyWord."/page/1" : 
-                   "/ru/admin/articles/".$folderParent->keyWord."/page/1" }} class="path-panel-text">{{ $folderParent->folderName }}</a>
-                <span class="path-panel-text"> /</span>
-            @endforeach
+        @if ($parents > 0)    
+            <!--The component below is based on paginator component-->
+            @component('path_panel', ['parents' => $parents])
+                @slot('section')
+                    $section
+                @endslot
+            @endcomponent
         @endif
     </div>
     <div>

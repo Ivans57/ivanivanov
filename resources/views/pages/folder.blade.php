@@ -5,14 +5,15 @@
 <article class="{{ $articleAmount < 1 ? "website-main-article articles-article-folders" : "website-main-article articles-article-folders-and-articles" }}">       
     <div class="path-panel">
         <span class="path-panel-text">@lang('keywords.Path'):</span>
-        <a href={{ App::isLocale('en') ? "/articles" : "/ru/articles" }} class="path-panel-text">@lang('keywords.Articles')</a>             
-        @if ($folderParents > 0)                
-            <span class="path-panel-text"> /</span>
-            @foreach ($folderParents as $folderParent)
-                <a href={{ App::isLocale('en') ? "/articles/".$folderParent->keyWord."/page/1" : 
-                    "/ru/articles/".$folderParent->keyWord."/page/1" }} class="path-panel-text">{{ $folderParent->folderName }}</a>
-                <span class="path-panel-text"> /</span>
-            @endforeach                
+        <a href={{ App::isLocale('en') ? "/articles" : "/ru/articles" }} class="path-panel-text">@lang('keywords.Articles')</a>
+        <span class="path-panel-text"> /</span>
+        @if ($parents > 0)
+            <!--The component below is based on paginator component-->
+            @component('path_panel', ['parents' => $parents])
+                @slot('section')
+                    $section
+                @endslot
+            @endcomponent                
         @endif
     </div>
     <div>
