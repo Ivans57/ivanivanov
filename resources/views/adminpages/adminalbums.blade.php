@@ -17,7 +17,7 @@
                     <div class="admin-panel-albums-picture-and-album-item">
                         <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
                             <div>
-                                <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
+                                <img src="{{ URL::asset('images/icons/album_folder.png') }}" class="admin-panel-album-image">
                             </div>
                             <div class="admin-panel-albums-picture-and-album-title">
                                 <p>{{ $album->album_name }}</p>

@@ -534,10 +534,16 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-album-image {
+    width: 27%;
+    height: 82%;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-albums-picture-and-album-title {
     max-width: 400px;
-    margin-left: 5px;
-    padding-top: 5px;
+    margin-left: -90px;
+    padding-top: 10px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
