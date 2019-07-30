@@ -16,12 +16,8 @@
                 @foreach ($albums as $album)
                     <div class="admin-panel-albums-picture-and-album-item">
                         <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
-                            <div>
-                                <img src="{{ URL::asset('images/icons/album_folder.png') }}" class="admin-panel-album-image">
-                            </div>
-                            <div class="admin-panel-albums-picture-and-album-title">
-                                <p>{{ $album->album_name }}</p>
-                            </div>
+                            <img src="{{ URL::asset('images/icons/album_folder.png') }}" class="admin-panel-albums-picture-and-album-picture">
+                            <span class="admin-panel-albums-picture-and-album-title">{{ $album->album_name }}</span>
                         </div>
                         <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
                             <div class="admin-panel-albums-picture-and-album-control-buttons">
