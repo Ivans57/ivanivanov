@@ -281,15 +281,16 @@ main {
     /*Pictures' width should have fixed value in px, as wrapper's width value must be flexible*/
     width: 35px;
     height: 35px;
-    margin-bottom: 10px;
-    margin-top: -2px;
-    vertical-align: middle;
+    margin-bottom: 0px;
+    margin-top: 3px;
+    vertical-align: -7px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-title-and-picture-wrapper 
 .admin-panel-albums-picture-and-album-title {
     font-size: 15px;
+    margin-top: 5px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 

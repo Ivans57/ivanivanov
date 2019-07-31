@@ -33,7 +33,9 @@
                 @foreach ($albums_and_pictures as $album_or_picture)   
                     <div class="admin-panel-albums-picture-and-album-item">
                         <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
-                            <img src="{{ $album_or_picture->type == 'album' ? URL::asset('images/icons/regular_folder_small.png') : URL::asset('images/icons/article.png') }}">
+                            <img src="{{ $album_or_picture->type == 'album' ? 
+                                URL::asset('images/icons/album_folder.png') : URL::asset('images/pages/albums/'.$albumName.'/'.$album_or_picture->keyWord.$album_or_picture->fileExtension) }}"
+                                 class="admin-panel-albums-picture-and-album-picture">
                             <span class="admin-panel-albums-picture-and-album-title">{{ $album_or_picture->caption }}</span>
                         </div>
                         <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
