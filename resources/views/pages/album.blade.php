@@ -10,7 +10,7 @@
             <!--The component below is based on paginator component-->
             @component('path_panel', ['parents' => $parents])
                 @slot('section')
-                    $section
+                    {{ $section }}
                 @endslot
             @endcomponent       
         @endif
