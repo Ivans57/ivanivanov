@@ -14,12 +14,6 @@
         <div>
             @yield('partialcontent')
         </div>
-        <!-- Scripts -->
-        @component('pages/body_scripts')
-            @slot('js')
-                <script type="text/javascript" src="{{ URL::asset('js/partial_javascript.js') }}"></script>
-            @endslot
-        @endcomponent
-        <!-- End of scripts -->
+        @yield('scripts')
     </body>
 </html>

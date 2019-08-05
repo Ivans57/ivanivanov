@@ -135,6 +135,16 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/albums/{keyword}/page/{page}', 'AdminAlbumsController@showAlbum');
 });
 
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/albums/create', 'AdminAlbumsController@create');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/albums/create', 'AdminAlbumsController@create');
+});
+
+
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });

@@ -71,4 +71,38 @@ class AdminAlbumsController extends Controller
         //We need to call the method below to clutter down current method in controller
         return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel);
     }
+    
+    public function create() {
+        
+        //Actually we do not need any head title as it is just a partial view
+        //We need it only to make the variable initialized. Othervise there will be error. 
+        $headTitle= __('keywords.'.$this->current_page);
+        
+        //We need a list with all keywords to check whether the new keyword is unique
+        //$keywords_full_data = Keyword::select('keyword')->get();
+        
+        //There are lots of another data in the variable $keywords_full_data
+        //Below I am extracting only required data and pushing it in the new array $keywords
+        //$keywords = array();
+        
+        //foreach($keywords_full_data as $keyword_full_data) {
+            //array_push($keywords, $keyword_full_data->keyword);
+        //}
+        
+        //As there is not possible to pass any arrays to the view or javascript,
+        //we need to convert the $keywords array to json
+        //$keywords_json = json_encode($keywords);
+        
+        //We are going to use one view for create and edit
+        //thats why we will nedd kind of indicator to know which option do we use
+        //create or edit.
+        //$create_or_edit = 'create';
+        
+        return view('adminpages.create_and_edit_album')->with([
+            'headTitle' => $headTitle
+            //'keywords' => $keywords_json,
+            //'create_or_edit' => $create_or_edit
+            ]);
+        //return "Privet!";
+    }
 }

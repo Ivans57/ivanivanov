@@ -61,7 +61,7 @@ class AdminKeywordsController extends Controller
     }
     
     public function create() {
-        //Actually we do not need any head title as it is just a partisal view
+        //Actually we do not need any head title as it is just a partial view
         //We need it only to make the variable initialized. Othervise there will be error. 
         $headTitle= __('keywords.'.$this->current_page);
         

@@ -22,4 +22,12 @@
     {!! Form::close() !!}
    
 @stop
-
+@section('scripts')
+    <!-- Scripts -->
+    @component('pages/body_scripts')
+        @slot('js')
+            <script type="text/javascript" src="{{ URL::asset('js/partial_javascript.js') }}"></script>
+        @endslot
+    @endcomponent
+    <!-- End of scripts -->
+@stop
