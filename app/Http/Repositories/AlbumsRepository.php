@@ -27,12 +27,49 @@ class AlbumAndPictureForViewFullInfoForPage {
     public $paginator_info;   
 }
 
+class AlbumForDropDownList {
+    public $id;
+    public $keyword;
+    public $album_name;
+    public $created_at;
+    public $updated_at;
+    public $is_visible;
+    public $included_in_album_with_id;
+}
+
 class AlbumsRepository {
     
     public function getAllAlbums($items_amount_per_page){
         $album_links = \App\Album::where('included_in_album_with_id', '=', NULL)->where('is_visible', '=', 1)->paginate($items_amount_per_page);
         
         return $album_links;
+    }
+    
+    //We need this function to make a drop down list for Album addition in Admin Panel
+    public function getAllAlbumsList(){
+        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)->get();
+        
+        $albums_for_list = array();
+        foreach ($albums as $album) {
+            $album_for_list = new AlbumForDropDownList();
+            $album_for_list->id = $album->id;
+            $album_for_list->keyword = $album->keyword;
+            $album_for_list->album_name = $album->album_name;
+            $album_for_list->created_at = $album->created_at;
+            $album_for_list->updated_at = $album->updated_at;
+            $album_for_list->is_visible = $album->is_visible;
+            $album_for_list->included_in_album_with_id = $album->included_in_album_with_id;
+            array_push($albums_for_list, $album_for_list);
+            
+            $all_included_albums = $this->get_all_included_albums($album->id);
+            if ($all_included_albums != NULL) {
+                foreach ($all_included_albums as $included_album) {
+                   array_push($albums_for_list, $included_album);
+                }                   
+            }
+        }
+        
+        return $albums_for_list;
     }
     
     //We need the method below to clutter down the method in controller, which
@@ -52,6 +89,33 @@ class AlbumsRepository {
                 return $this->get_view($is_admin_panel, $section, $main_links, $albums_and_pictures_full_info, $items_amount_per_page);
             }
         }
+    }
+    
+    //We need this function to get all included albums in parent album
+    private function get_all_included_albums($parent_album_id) {
+        $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->get();
+        
+        $included_albums_for_list = array();
+        foreach ($included_albums as $included_album) {
+            $included_album_for_list = new AlbumForDropDownList();
+            $included_album_for_list->id = $included_album->id;
+            $included_album_for_list->keyword = $included_album->keyword;
+            $included_album_for_list->album_name = $included_album->album_name;
+            $included_album_for_list->created_at = $included_album->created_at;
+            $included_album_for_list->updated_at = $included_album->updated_at;
+            $included_album_for_list->is_visible = $included_album->is_visible;
+            $included_album_for_list->included_in_album_with_id = $included_album->included_in_album_with_id;
+            array_push($included_albums_for_list, $included_album_for_list);
+            
+            $all_included_albums = $this->get_all_included_albums($included_album->id);
+            if ($all_included_albums != NULL) {
+                foreach ($all_included_albums as $included_album) {
+                   array_push($included_albums_for_list, $included_album);
+                }                   
+            }
+        }
+        
+        return $included_albums_for_list;
     }
     
     //We need the method below to clutter down showAlbumView method

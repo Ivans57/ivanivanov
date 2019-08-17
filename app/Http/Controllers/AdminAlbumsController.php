@@ -78,6 +78,8 @@ class AdminAlbumsController extends Controller
         //We need it only to make the variable initialized. Othervise there will be error. 
         $headTitle= __('keywords.'.$this->current_page);
         
+        $albums = $this->albums->getAllAlbumsList();
+        
         //We need a list with all keywords to check whether the new keyword is unique
         //$keywords_full_data = Keyword::select('keyword')->get();
         

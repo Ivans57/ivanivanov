@@ -5,7 +5,17 @@ for messages might be called by javascript later. We need to keep these attribut
 so we don't need to translate phrases with javascript. There might be some difficulties
 to translate keywords via javascript as I am taking my keywords from the database-->
 @section('partialcontent')
-    <h3>Hello World!</h3>  
+    <h3>Hello World!</h3>
+    <select style="height: 30px; width: 200px; font-size: 17px;">
+        <optgroup label="Fiction">
+            <option>Prose</option>
+            <option>Poetry</option>
+        </optgroup>
+        <optgroup label="Non-Fiction">
+            <option>Aviation</option>
+            <option>Computers</option>
+        </optgroup>
+    </select>
 @stop
 @section('scripts')
     <!-- Scripts -->
