@@ -7,14 +7,9 @@ to translate keywords via javascript as I am taking my keywords from the databas
 @section('partialcontent')
     <h3>Hello World!</h3>
     <select style="height: 30px; width: 200px; font-size: 17px;">
-        <optgroup label="Fiction">
-            <option>Prose</option>
-            <option>Poetry</option>
-        </optgroup>
-        <optgroup label="Non-Fiction">
-            <option>Aviation</option>
-            <option>Computers</option>
-        </optgroup>
+        @foreach ($albums as $album)
+            <option>{!! $album->album_name !!}</option>                   
+        @endforeach
     </select>
 @stop
 @section('scripts')

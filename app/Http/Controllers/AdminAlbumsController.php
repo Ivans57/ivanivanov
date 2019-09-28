@@ -101,7 +101,8 @@ class AdminAlbumsController extends Controller
         //$create_or_edit = 'create';
         
         return view('adminpages.create_and_edit_album')->with([
-            'headTitle' => $headTitle
+            'headTitle' => $headTitle,
+            'albums' => $albums
             //'keywords' => $keywords_json,
             //'create_or_edit' => $create_or_edit
             ]);

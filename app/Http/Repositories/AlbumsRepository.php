@@ -61,7 +61,12 @@ class AlbumsRepository {
             $album_for_list->included_in_album_with_id = $album->included_in_album_with_id;
             array_push($albums_for_list, $album_for_list);
             
-            $all_included_albums = $this->get_all_included_albums($album->id);
+            //We need the variable below to add prefix spaces properly to each element
+            //of the list, depeding on whether some particluar list of item is included
+            //in some another item or no.
+            $list_inclusion_level = 1;
+            
+            $all_included_albums = $this->get_all_included_albums($album->id, $list_inclusion_level);
             if ($all_included_albums != NULL) {
                 foreach ($all_included_albums as $included_album) {
                    array_push($albums_for_list, $included_album);
@@ -92,7 +97,7 @@ class AlbumsRepository {
     }
     
     //We need this function to get all included albums in parent album
-    private function get_all_included_albums($parent_album_id) {
+    private function get_all_included_albums($parent_album_id, $list_inclusion_level) {
         $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->get();
         
         $included_albums_for_list = array();
@@ -100,14 +105,24 @@ class AlbumsRepository {
             $included_album_for_list = new AlbumForDropDownList();
             $included_album_for_list->id = $included_album->id;
             $included_album_for_list->keyword = $included_album->keyword;
-            $included_album_for_list->album_name = $included_album->album_name;
+            
+            //The variable below is required to add prefix spaces to the element
+            //of the list.
+            $album_name_prefix = '';
+            //We need a loop below to add prefix spaces to the elements of the list 
+            for ($level_in_list = 0; $level_in_list < $list_inclusion_level; $level_in_list++) {
+                $album_name_prefix = $album_name_prefix.'&nbsp &nbsp';
+            }
+            
+            $included_album_for_list->album_name = $album_name_prefix.$included_album->album_name;
             $included_album_for_list->created_at = $included_album->created_at;
             $included_album_for_list->updated_at = $included_album->updated_at;
             $included_album_for_list->is_visible = $included_album->is_visible;
             $included_album_for_list->included_in_album_with_id = $included_album->included_in_album_with_id;
+            //$list_inclusion_level = $list_inclusion_level + 1;
             array_push($included_albums_for_list, $included_album_for_list);
             
-            $all_included_albums = $this->get_all_included_albums($included_album->id);
+            $all_included_albums = $this->get_all_included_albums($included_album->id, $list_inclusion_level+1);
             if ($all_included_albums != NULL) {
                 foreach ($all_included_albums as $included_album) {
                    array_push($included_albums_for_list, $included_album);
