@@ -37,7 +37,7 @@ class HomeController extends Controller
         //We can't make global variable and initialize it in constructor because
         //localization won't be applied
         //Localiztion gets applied only if we call some certaion method from any controller
-        //!Need to think is it possible still to apply localization in constructor!
+        //!Need to think is it possible still to apply localization in constructor!    
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
         
         //Request supposed to be in repository, but as we have just a single line, I left it in the controller
