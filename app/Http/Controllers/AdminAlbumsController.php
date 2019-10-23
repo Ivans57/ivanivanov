@@ -100,6 +100,9 @@ class AdminAlbumsController extends Controller
         //create or edit.
         //$create_or_edit = 'create';
         
+        //for example
+        //$user_types = UserTypes::pluck('name', 'id');
+        
         return view('adminpages.create_and_edit_album')->with([
             'headTitle' => $headTitle,
             'albums' => $albums

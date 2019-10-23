@@ -6,11 +6,8 @@ so we don't need to translate phrases with javascript. There might be some diffi
 to translate keywords via javascript as I am taking my keywords from the database-->
 @section('partialcontent')
     <h3>Hello World!</h3>
-    <select style="height: 30px; width: 200px; font-size: 17px;">
-        @foreach ($albums as $album)
-            <option>{!! $album->album_name !!}</option>                   
-        @endforeach
-    </select>
+    
+    {!! Form::select('chap_user_type_name',  $albums, null, ['class' => 'form-control']) !!}
 @stop
 @section('scripts')
     <!-- Scripts -->

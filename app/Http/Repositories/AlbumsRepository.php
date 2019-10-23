@@ -27,7 +27,7 @@ class AlbumAndPictureForViewFullInfoForPage {
     public $paginator_info;   
 }
 
-class AlbumForDropDownList {
+/*class AlbumForDropDownList {
     public $id;
     public $keyword;
     public $album_name;
@@ -35,7 +35,7 @@ class AlbumForDropDownList {
     public $updated_at;
     public $is_visible;
     public $included_in_album_with_id;
-}
+}*/
 
 class AlbumsRepository {
     
@@ -46,7 +46,7 @@ class AlbumsRepository {
     }
     
     //We need this function to make a drop down list for Album addition in Admin Panel
-    public function getAllAlbumsList(){
+    /*public function getAllAlbumsList(){
         $albums = \App\Album::where('included_in_album_with_id', '=', NULL)->get();
         
         $albums_for_list = array();
@@ -75,6 +75,31 @@ class AlbumsRepository {
         }
         
         return $albums_for_list;
+    }*/
+    
+    //We need this function to make a drop down list for Album addition in Admin Panel
+    public function getAllAlbumsList(){
+        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)->get();
+        
+        $albums_for_list = array();
+        $albums_for_list[0] = '-';
+        foreach ($albums as $album) {           
+            $albums_for_list[$album->keyword] = $album->album_name;          
+            //We need the variable below to add prefix spaces properly to each element
+            //of the list, depeding on whether some particluar list of item is included
+            //in some another item or no.
+            $list_inclusion_level = 1;
+            
+            $all_included_albums = $this->get_all_included_albums($album->id, $list_inclusion_level);
+            if ($all_included_albums != NULL) {
+                /*foreach ($all_included_albums as $included_album) {
+                   array_push($albums_for_list, $included_album);
+                }*/
+                $albums_for_list = $albums_for_list + $all_included_albums;
+            }
+        }
+        
+        return $albums_for_list;
     }
     
     //We need the method below to clutter down the method in controller, which
@@ -97,7 +122,7 @@ class AlbumsRepository {
     }
     
     //We need this function to get all included albums in parent album
-    private function get_all_included_albums($parent_album_id, $list_inclusion_level) {
+    /*private function get_all_included_albums($parent_album_id, $list_inclusion_level) {
         $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->get();
         
         $included_albums_for_list = array();
@@ -127,6 +152,35 @@ class AlbumsRepository {
                 foreach ($all_included_albums as $included_album) {
                    array_push($included_albums_for_list, $included_album);
                 }                   
+            }
+        }
+        
+        return $included_albums_for_list;
+    }*/
+    
+    //We need this function to get all included albums in parent album
+    private function get_all_included_albums($parent_album_id, $list_inclusion_level) {
+        $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->get();
+        
+        $included_albums_for_list = array();
+        foreach ($included_albums as $included_album) {
+           
+            //The variable below is required to add prefix spaces to the element
+            //of the list.
+            $album_name_prefix = '';
+            //We need a loop below to add prefix spaces to the elements of the list 
+            for ($level_in_list = 0; $level_in_list < $list_inclusion_level; $level_in_list++) {
+                $album_name_prefix = $album_name_prefix.'&nbsp; &nbsp;';
+            }
+            
+            $included_albums_for_list[$included_album->keyword] = $album_name_prefix.$included_album->album_name;
+            
+            $all_included_albums = $this->get_all_included_albums($included_album->id, $list_inclusion_level+1);
+            if ($all_included_albums != NULL) {
+                /*foreach ($all_included_albums as $included_album) {
+                   array_push($included_albums_for_list, $included_album);
+                }*/
+                $included_albums_for_list = $included_albums_for_list + $all_included_albums;
             }
         }
         
