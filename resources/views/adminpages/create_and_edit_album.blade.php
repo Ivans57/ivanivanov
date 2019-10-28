@@ -22,6 +22,10 @@ to translate keywords via javascript as I am taking my keywords from the databas
                 <div>{!! Form::text('album_name', null, ['class' => 'admin-panel-albums-create-edit-album-controls-input' ]) !!}</div>
             </div>
             <div class="admin-panel-albums-create-edit-album-controls">
+                {!! Form::label('album_name', Lang::get('keywords.IsVisible').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}
+                {!! Form::checkbox('is_visible', 1, false ) !!}
+            </div>
+            <div class="admin-panel-albums-create-edit-album-controls">
                 {!! Form::button(Lang::get('keywords.Save'), ['class' => 'admin-panel-albums-create-edit-album-controls-button' ]) !!}
                 {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-albums-create-edit-album-controls-button' ]) !!}
             </div>           

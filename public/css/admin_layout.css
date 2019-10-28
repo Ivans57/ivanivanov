@@ -449,6 +449,10 @@ article's button, because article has only two control buttons instead of three*
     margin-bottom: 10px;
 }
 
+.admin-panel-albums-create-edit-album > div:nth-child(4) {
+    margin-bottom: 10px;
+}
+
 .admin-panel-albums-create-edit-album > div:last-child {
     display: flex;
     justify-content: space-between;
