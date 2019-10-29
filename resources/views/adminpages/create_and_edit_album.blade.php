@@ -5,7 +5,15 @@ for messages might be called by javascript later. We need to keep these attribut
 so we don't need to translate phrases with javascript. There might be some difficulties
 to translate keywords via javascript as I am taking my keywords from the database-->
 @section('partialcontent')
-    <div class="admin-panel-slbums-create-notification-wrapper"></div>
+    <div class="admin-panel-albums-create-notification-wrapper">
+        @if ($errors->any())
+            <ul class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
     {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/albums/" : "/ru/admin/albums/", 'id' => 'admin_panel_create_edit_delete_album_form' ]) !!}
         <div class='admin-panel-albums-create-edit-album'>
             <div class="admin-panel-albums-create-edit-album-controls">              

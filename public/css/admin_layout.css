@@ -489,11 +489,11 @@ article's button, because article has only two control buttons instead of three*
     padding: 2px;
 }
 
-/*.admin-panel-keywords-create-notification-wrapper {
+.admin-panel-albums-create-notification-wrapper {
     position: absolute;
 }
 
-.admin-panel-keywords-create-notification-wrapper .admin-panel-keywords-create-notification {
+/*.admin-panel-albums-create-notification-wrapper .admin-panel-albums-create-notification {
     margin-bottom: 1px;
     width: 330px;
 }*/
