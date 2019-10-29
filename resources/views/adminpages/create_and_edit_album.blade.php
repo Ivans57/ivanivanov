@@ -9,8 +9,8 @@ to translate keywords via javascript as I am taking my keywords from the databas
     {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/albums/" : "/ru/admin/albums/", 'id' => 'admin_panel_create_edit_delete_album_form' ]) !!}
         <div class='admin-panel-albums-create-edit-album'>
             <div class="admin-panel-albums-create-edit-album-controls">              
-                {!! Form::label('parent_album', Lang::get('keywords.ParentAlbum').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}
-                {!! Form::select('parent_album',  $albums, null, ['class' => 'admin-panel-albums-create-edit-album-controls-input']) !!}
+                {!! Form::label('included_in_album_with_id', Lang::get('keywords.ParentAlbum').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}
+                {!! Form::select('included_in_album_with_id',  $albums, null, ['class' => 'admin-panel-albums-create-edit-album-controls-input']) !!}
             </div>
             <div class="admin-panel-albums-create-edit-album-regulations"><span>@lang('keywords.AlbumKeywordRegulations')</span></div>
             <div class="admin-panel-albums-create-edit-album-controls">
@@ -22,11 +22,11 @@ to translate keywords via javascript as I am taking my keywords from the databas
                 <div>{!! Form::text('album_name', null, ['class' => 'admin-panel-albums-create-edit-album-controls-input' ]) !!}</div>
             </div>
             <div class="admin-panel-albums-create-edit-album-controls">
-                {!! Form::label('album_name', Lang::get('keywords.IsVisible').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}
+                {!! Form::label('is_visible', Lang::get('keywords.IsVisible').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}
                 {!! Form::checkbox('is_visible', 1, false ) !!}
             </div>
             <div class="admin-panel-albums-create-edit-album-controls">
-                {!! Form::button(Lang::get('keywords.Save'), ['class' => 'admin-panel-albums-create-edit-album-controls-button' ]) !!}
+                {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-albums-create-edit-album-controls-button' ]) !!}
                 {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-albums-create-edit-album-controls-button' ]) !!}
             </div>           
         </div>       

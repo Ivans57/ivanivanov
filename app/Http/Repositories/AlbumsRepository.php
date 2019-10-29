@@ -84,7 +84,7 @@ class AlbumsRepository {
         $albums_for_list = array();
         $albums_for_list[0] = '-';
         foreach ($albums as $album) {           
-            $albums_for_list[$album->keyword] = $album->album_name;          
+            $albums_for_list[$album->id] = $album->album_name;          
             //We need the variable below to add prefix spaces properly to each element
             //of the list, depeding on whether some particluar list of item is included
             //in some another item or no.
@@ -173,7 +173,7 @@ class AlbumsRepository {
                 $album_name_prefix = $album_name_prefix.'&nbsp; &nbsp;';
             }
             
-            $included_albums_for_list[$included_album->keyword] = $album_name_prefix.$included_album->album_name;
+            $included_albums_for_list[$included_album->id] = $album_name_prefix.$included_album->album_name;
             
             $all_included_albums = $this->get_all_included_albums($included_album->id, $list_inclusion_level+1);
             if ($all_included_albums != NULL) {

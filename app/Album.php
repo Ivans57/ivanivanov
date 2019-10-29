@@ -12,7 +12,7 @@ class Album extends Model {
     
     protected $table;
     
-    protected $fillable = ['keyword', 'album_name'];  
+    protected $fillable = ['keyword', 'album_name', 'created_at', 'updated_at', 'is_visible', 'included_in_album_with_id']; 
     
     //Here we are making a method which according to a current language 
     //will select a proper table.

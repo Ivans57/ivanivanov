@@ -7,8 +7,9 @@ use App\Http\Repositories\AlbumsRepository;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lowe case.
 use Illuminate\Support\Str;
-//We don't need the line below. May be we will need it in a future.
-//use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Request;
+use App\Album;
 
 class AdminAlbumsController extends Controller
 {
@@ -111,4 +112,16 @@ class AdminAlbumsController extends Controller
             ]);
         //return "Privet!";
     }
+    
+    
+    public function store() {
+        $input = Request::all();
+        $input['created_at'] = Carbon::now();
+        $input['updated_at'] = Carbon::now();
+        Album::create($input);
+        
+        return redirect ('admin/albums');
+        //return $input;
+    }
+    
 }

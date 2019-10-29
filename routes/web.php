@@ -144,6 +144,13 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/albums/create', 'AdminAlbumsController@create');
 });
 
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/albums', 'AdminAlbumsController@store');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/albums', 'AdminAlbumsController@store');
+});
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
