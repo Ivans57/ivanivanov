@@ -493,10 +493,10 @@ article's button, because article has only two control buttons instead of three*
     position: absolute;
 }
 
-/*.admin-panel-albums-create-notification-wrapper .admin-panel-albums-create-notification {
-    margin-bottom: 1px;
+.admin-panel-albums-create-notification-wrapper .admin-panel-albums-create-notification {
+    margin-bottom: 0px;
     width: 330px;
-}*/
+}
 
 /*--------------------------------------------------------*/
 

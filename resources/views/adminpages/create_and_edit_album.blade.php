@@ -7,11 +7,13 @@ to translate keywords via javascript as I am taking my keywords from the databas
 @section('partialcontent')
     <div class="admin-panel-albums-create-notification-wrapper">
         @if ($errors->any())
-            <ul class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+            @foreach ($errors->all() as $error)
+                <div class='admin-panel-albums-create-notification alert alert-danger alert-dismissible' role='alert'>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>{!! $error !!}
+                </div>
+            @endforeach
         @endif
     </div>
     {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/albums/" : "/ru/admin/albums/", 'id' => 'admin_panel_create_edit_delete_album_form' ]) !!}
@@ -35,7 +37,8 @@ to translate keywords via javascript as I am taking my keywords from the databas
             </div>
             <div class="admin-panel-albums-create-edit-album-controls">
                 {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-albums-create-edit-album-controls-button' ]) !!}
-                {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-albums-create-edit-album-controls-button' ]) !!}
+                {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-albums-create-edit-album-controls-button', 
+                    'id' => 'admin_panel_albums_create_edit_delete_album_controls_button_cancel' ]) !!}
             </div>           
         </div>       
     {!! Form::close() !!}

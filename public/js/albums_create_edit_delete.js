@@ -17,5 +17,14 @@ $( document ).ready(function() {
             }
         });
     });  
-        
+   
+    //Few lines below are made for cancel button, which is closing opened window 
+    //without saving or deleting anything.
+    var button_cancel = document.getElementById('admin_panel_albums_create_edit_delete_album_controls_button_cancel');
+    
+    button_cancel.onclick = function() {
+        if (typeof window.parent.$.fancybox!=='undefined'){
+           window.parent.$.fancybox.close();
+        }
+    };
 });
