@@ -177,6 +177,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        
+        /*Additional Service Providers*/
+        
+        App\Providers\CustomValidationServiceProvider::class,
 
     ],
 

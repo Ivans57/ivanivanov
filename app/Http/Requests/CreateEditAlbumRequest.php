@@ -24,7 +24,7 @@ class CreateEditAlbumRequest extends FormRequest
     public function rules()
     {
         return [
-            'keyword' => 'required',
+            'keyword' => 'required|folder_keyword_pattern',
             'album_name' => 'required'
         ];
     }
