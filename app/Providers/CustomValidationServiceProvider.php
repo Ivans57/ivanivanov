@@ -28,8 +28,8 @@ class CustomValidationServiceProvider extends ServiceProvider
         });
         
         Validator::replacer('folder_keyword_pattern', function($message, $attribute, $rule, $parameters) {
-            return str_replace($message, "Keyword has prohobited characters", $message);
-        });   
+            return str_replace($message, __("customValidation.prohibited_characters"), $message);
+        });
     }
 
     /**

@@ -21,11 +21,16 @@ class CreateEditAlbumRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'keyword' => 'required|folder_keyword_pattern',
+            'keyword' => 'bail|required|folder_keyword_pattern',
             'album_name' => 'required'
+        ];
+    }
+    
+    public function messages() {
+        return [
+            'required' => __('customValidation.required'),
         ];
     }
 }
