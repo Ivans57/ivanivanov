@@ -32,6 +32,6 @@ class CreateTriggerPreventRuMainLinksUpdate extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER `edit_keyword_in_ru_keywords_before_ru_main_links_update`');
+        DB::unprepared('DROP TRIGGER `prevent_ru_main_links_update`');
     }
 }
