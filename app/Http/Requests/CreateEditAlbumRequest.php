@@ -30,7 +30,8 @@ class CreateEditAlbumRequest extends FormRequest
     
     public function messages() {
         return [
-            'required' => __('customValidation.required'),
+            'keyword.required' => __('customValidation.keyword_required'),
+            'album_name.required' => __('customValidation.album_name_required'),
         ];
     }
 }

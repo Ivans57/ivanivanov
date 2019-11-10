@@ -5,8 +5,9 @@ reason to allow user to correct error messages. */
 
 return [
 
-    'required' => 'There are some empty fields',
-    'prohibited_characters' => 'There are some prohibited characters in keywords field',
+    'keyword_required' => 'Keyword field is required.',
+    'album_name_required' => 'Album Name field is required.',
+    'prohibited_characters' => 'There are some prohibited characters in Keyword field',
 
 ];
 

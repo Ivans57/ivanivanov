@@ -5,7 +5,8 @@ reason to allow user to correct error messages. */
 
 return [
 
-    'required' => 'Есть пустые поля',
+    'keyword_required' => 'Поле ключевого слова не должно быть пустым',
+    'album_name_required' => 'Поле названия альбома не должно быть пустым',
     'prohibited_characters' => 'Ключевое слово содержит запрещённые символы',
 
 ];
