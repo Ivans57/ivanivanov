@@ -8,6 +8,7 @@ return [
     'keyword_required' => 'Keyword field is required.',
     'album_name_required' => 'Album Name field is required.',
     'prohibited_characters' => 'There are some prohibited characters in Keyword field',
+    'spaces_not_allowed' => 'Keyword should not have spaces',
 
 ];
 
