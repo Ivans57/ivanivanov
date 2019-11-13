@@ -50,6 +50,6 @@ class CreateStoredProcedureCheckFolderKeyword extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP PROCEDURE CheckKeywordNumbersAllowed');
+        DB::unprepared('DROP PROCEDURE CheckFolderKeyword');
     }
 }

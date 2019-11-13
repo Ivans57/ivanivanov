@@ -15,8 +15,8 @@ class CreateEnPicturesTable extends Migration
     {
         Schema::create('en_pictures', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('keyword')->unique();
-            $table->string('picture_caption');
+            $table->string('keyword', 50)->unique();
+            $table->string('picture_caption', 50);
             $table->integer('album_id')->unsigned();
             $table->foreign('album_id')->references('id')->on('en_albums')->onDelete('cascade');
             $table->timestamps();

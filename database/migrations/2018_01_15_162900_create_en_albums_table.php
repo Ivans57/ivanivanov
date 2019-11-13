@@ -15,8 +15,8 @@ class CreateEnAlbumsTable extends Migration
     {
         Schema::create('en_albums', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('keyword')->unique();
-            $table->string('album_name')->unique();
+            $table->string('keyword', 50)->unique();
+            $table->string('album_name', 50)->unique();
             $table->timestamps();
             $table->boolean('is_visible');
             $table->integer('included_in_album_with_id')->unsigned()->nullable();

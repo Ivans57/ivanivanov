@@ -15,7 +15,7 @@ class CreateRuPaginatorTable extends Migration
     {
         Schema::create('ru_paginator', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('keyword')->unique();
+            $table->string('keyword', 50)->unique();
             $table->string('text');
         });
     }

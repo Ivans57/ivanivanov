@@ -15,11 +15,11 @@ class CreateEnArticlesTable extends Migration
     {
         Schema::create('en_articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('keyword')->unique();
-            $table->string('article_title');
+            $table->string('keyword', 50)->unique();
+            $table->string('article_title', 50);
             $table->text('article_description');
             $table->text('article_body');
-            $table->string('article_author');
+            $table->string('article_author', 50);
             $table->string('article_source');
             $table->integer('folder_id')->unsigned();
             $table->foreign('folder_id')->references('id')->on('en_folders')->onDelete('cascade');

@@ -40,12 +40,37 @@ class CustomValidationServiceProvider extends ServiceProvider
             }
         });
         
+        //Need to check if it is possible to improve these validators. Make one universal instead of few different.
+        Validator::extend('keyword_length_check', function ($attribute, $value, $parameters, $validator) {            
+            if (strlen($value) > 50) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+        
+        Validator::extend('album_name_length_check', function ($attribute, $value, $parameters, $validator) {            
+            if (strlen($value) > 50) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+        
         Validator::replacer('folder_keyword_pattern', function($message, $attribute, $rule, $parameters) {
             return str_replace($message, __("customValidation.prohibited_characters"), $message);
         });
         
         Validator::replacer('keyword_space_check', function($message, $attribute, $rule, $parameters) {
             return str_replace($message, __("customValidation.spaces_not_allowed"), $message);
+        });
+        
+        Validator::replacer('keyword_length_check', function($message, $attribute, $rule, $parameters) {
+            return str_replace($message, __("customValidation.keyword_has_too_many_characters"), $message);
+        });
+        
+        Validator::replacer('album_name_length_check', function($message, $attribute, $rule, $parameters) {
+            return str_replace($message, __("customValidation.album_name_has_too_many_characters"), $message);
         });
     }
 

@@ -15,8 +15,8 @@ class CreateRuFoldersTable extends Migration
     {
         Schema::create('ru_folders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('keyword')->unique();
-            $table->string('folder_name')->unique();
+            $table->string('keyword', 50)->unique();
+            $table->string('folder_name', 50)->unique();
             $table->timestamps();
             $table->boolean('is_visible')->nullable();
             $table->integer('included_in_folder_with_id')->unsigned()->nullable();

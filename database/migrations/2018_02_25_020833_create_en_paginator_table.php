@@ -15,7 +15,7 @@ class CreateEnPaginatorTable extends Migration
     {
         Schema::create('en_paginator', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('keyword')->unique();
+            $table->string('keyword', 50)->unique();
             $table->string('text');
         });
     }
