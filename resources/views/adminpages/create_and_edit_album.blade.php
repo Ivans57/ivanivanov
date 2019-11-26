@@ -25,7 +25,7 @@ to translate keywords via javascript as I am taking my keywords from the databas
             <div class="admin-panel-albums-create-edit-album-regulations"><span>@lang('keywords.AlbumKeywordRegulations')</span></div>
             <div class="admin-panel-albums-create-edit-album-controls">
                 <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>
-                <div>{!! Form::text('keyword', null, ['class' => 'admin-panel-albums-create-edit-album-controls-input' ]) !!}</div>
+                <div>{!! Form::text('keyword', null, ['class' => 'admin-panel-albums-create-edit-album-controls-input']) !!}</div>
             </div>
             <div class="admin-panel-albums-create-edit-album-controls">
                 <div>{!! Form::label('album_name', Lang::get('keywords.AlbumName').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>
