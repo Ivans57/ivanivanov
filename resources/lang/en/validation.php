@@ -85,6 +85,9 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
+    //Additional validations added by developer
+    'prohibited_characters' => 'There are some prohibited characters in :attribute field.',
+    'spaces_not_allowed' => ':attribute should not have spaces.',
 
     /*
     |--------------------------------------------------------------------------
@@ -114,6 +117,6 @@ return [
     |
     */
 
-    'attributes' => ['keyword' => 'Keyword',],
+    'attributes' => ['keyword' => 'Keyword', 'album_name' => 'Album Name',],
 
 ];

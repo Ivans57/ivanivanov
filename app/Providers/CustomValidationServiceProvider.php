@@ -41,11 +41,11 @@ class CustomValidationServiceProvider extends ServiceProvider
         });
                 
         Validator::replacer('folder_keyword_pattern', function($message, $attribute, $rule, $parameters) {
-            return str_replace($message, __("customValidation.prohibited_characters"), $message);
+            return str_replace($message, __("validation.prohibited_characters"), $message);
         });
         
         Validator::replacer('keyword_space_check', function($message, $attribute, $rule, $parameters) {
-            return str_replace($message, __("customValidation.spaces_not_allowed"), $message);
+            return str_replace($message, __("validation.spaces_not_allowed", $message));
         });
        
     }

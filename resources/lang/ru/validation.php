@@ -51,7 +51,7 @@ return [
     'max'                  => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file'    => 'The :attribute may not be greater than :max kilobytes.',
-        'string'  => 'The :attribute may not be greater than :max characters.',
+        'string'  => 'В поле :attribute должно быть не больше :max знаков.',
         'array'   => 'The :attribute may not have more than :max items.',
     ],
     'mimes'                => 'The :attribute must be a file of type: :values.',
@@ -84,7 +84,10 @@ return [
     'timezone'             => 'The :attribute must be a valid zone.',
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
-    'url'                  => 'The :attribute format is invalid.',
+    'url'                  => 'The :attribute format is invalid.', 
+    //Additional validations added by developer
+    'prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
+    'spaces_not_allowed' => 'Поле :attribute не должно содержать пробелы.',
 
     /*
     |--------------------------------------------------------------------------
@@ -114,6 +117,6 @@ return [
     |
     */
 
-    'attributes' => ['keyword' => 'Ключевое слово',],
+    'attributes' => ['keyword' => 'Ключевое слово', 'album_name' => 'Название альбома',],
 
 ];
