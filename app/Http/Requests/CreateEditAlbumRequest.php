@@ -23,7 +23,7 @@ class CreateEditAlbumRequest extends FormRequest
      */
     public function rules() {
         return [
-            'keyword' => 'required|bail|folder_keyword_pattern|keyword_space_check|max:3',
+            'keyword' => 'required|bail|prohibited_characters|space_check|max:3',
             'album_name' => 'required|max:3'
         ];
     }

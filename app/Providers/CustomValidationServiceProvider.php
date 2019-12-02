@@ -13,7 +13,7 @@ class CustomValidationServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot() {
-        Validator::extend('folder_keyword_pattern', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('prohibited_characters', function ($attribute, $value, $parameters, $validator) {
             //I have added space to the array of allowed characters only for the purpose to show an error message
             //just once, so we don't have two messages for prohibited characters and for spaces detection.
             //We just need only one message telling that spaces are not allowed.
@@ -30,7 +30,7 @@ class CustomValidationServiceProvider extends ServiceProvider
             return true;
         });
         
-        Validator::extend('keyword_space_check', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('space_check', function ($attribute, $value, $parameters, $validator) {
             $pieces = explode(" ", $value);
             
             if (count($pieces) > 1) {
@@ -38,16 +38,7 @@ class CustomValidationServiceProvider extends ServiceProvider
             } else {
                 return true;
             }
-        });
-                
-        Validator::replacer('folder_keyword_pattern', function($message, $attribute, $rule, $parameters) {
-            return str_replace($message, __("validation.prohibited_characters"), $message);
-        });
-        
-        Validator::replacer('keyword_space_check', function($message, $attribute, $rule, $parameters) {
-            return str_replace($message, __("validation.spaces_not_allowed", $message));
-        });
-       
+        });      
     }
 
     /**

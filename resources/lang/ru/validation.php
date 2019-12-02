@@ -85,9 +85,10 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.', 
+    
     //Additional validations added by developer
     'prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
-    'spaces_not_allowed' => 'Поле :attribute не должно содержать пробелы.',
+    'space_check' => 'Поле :attribute не должно содержать пробелы.',
 
     /*
     |--------------------------------------------------------------------------
@@ -117,6 +118,6 @@ return [
     |
     */
 
-    'attributes' => ['keyword' => 'Ключевое слово', 'album_name' => 'Название альбома',],
+    'attributes' => ['keyword' => __('keywords.Keyword'), 'album_name' => __('keywords.AlbumName'),],
 
 ];
