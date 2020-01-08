@@ -21,12 +21,12 @@ to translate keywords via javascript as I am taking my keywords from the databas
             <div class="admin-panel-albums-create-edit-album-controls">              
                 {!! Form::label('included_in_album_with_id', Lang::get('keywords.ParentAlbum').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}
                 {!! Form::select('included_in_album_with_id',  $albums, null, ['class' => 'admin-panel-albums-create-edit-album-controls-input']) !!}
-            </div>
-            <div class="admin-panel-albums-create-edit-album-regulations"><span>@lang('keywords.AlbumKeywordRegulations')</span></div>
+            </div>          
             <div class="admin-panel-albums-create-edit-album-controls">
                 <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>
                 <div>{!! Form::text('keyword', null, ['class' => 'admin-panel-albums-create-edit-album-controls-input']) !!}</div>
             </div>
+            <div class="admin-panel-albums-create-edit-album-regulations"><span>@lang('keywords.AlbumKeywordRegulations')</span></div>
             <div class="admin-panel-albums-create-edit-album-controls">
                 <div>{!! Form::label('album_name', Lang::get('keywords.AlbumName').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>
                 <div>{!! Form::text('album_name', null, ['class' => 'admin-panel-albums-create-edit-album-controls-input' ]) !!}</div>

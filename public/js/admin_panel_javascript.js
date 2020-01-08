@@ -57,7 +57,7 @@ $( document ).ready(function() {
 		preload : false,
                 css : {
                     'width' : '330px',
-                    'height' : '430px',
+                    'height' : '420px',
                     'margin-bottom' : '200px'
                 }
 	},
