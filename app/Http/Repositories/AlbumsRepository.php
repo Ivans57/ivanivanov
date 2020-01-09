@@ -271,7 +271,24 @@ class AlbumsRepository {
                
         return $albums_and_pictures_full_info;
     }
-       
+    
+    //We need this to make a check for keyword uniqueness when adding a new
+    //album keyword or editing existing.
+    public function get_all_albums_keywords() {
+        
+        $all_albums_keywords = \App\Album::all('keyword');
+        
+        $albums_keywords_array = array();
+        
+        foreach ($all_albums_keywords as $album_keyword) {
+            array_push($albums_keywords_array, $album_keyword->keyword);
+        }
+        
+        return $albums_keywords_array;
+        
+    }
+
+    
     //We need this function to make our own array which will contain all included
     //in some chosen folder folders and pictures
     private function get_included_albums_and_pictures($included_albums, $pictures){

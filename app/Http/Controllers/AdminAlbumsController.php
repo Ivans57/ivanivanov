@@ -47,7 +47,7 @@ class AdminAlbumsController extends Controller
         $items_amount_per_page = 14;       
         //On the line below we are fetching all articles from the database
         $albums = $this->albums->getAllAlbums($items_amount_per_page);
-
+      
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page
         if ($albums->currentPage() > $albums->lastPage()) {

@@ -38,7 +38,17 @@ class CustomValidationServiceProvider extends ServiceProvider
             } else {
                 return true;
             }
-        });      
+        });
+        
+        /*Validator::extend('keyword_uniqueness_check', function ($attribute, $value, $parameters, $validator) {
+            $pieces = explode(" ", $value);
+            
+            if (count($pieces) > 1) {
+                return false;
+            } else {
+                return true;
+            }
+        });*/
     }
 
     /**
