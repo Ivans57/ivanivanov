@@ -10,20 +10,3 @@ Homestead.yaml
 /nbproject/private/
 /nbproject/project.properties
 /config/database.php
-
-#We need the next following lines to track Model file, which inherit all models
-!/vendor/
-/vendor/*
-!/vendor/laravel/
-/vendor/laravel/*
-!/vendor/laravel/framework/
-/vendor/laravel/framework/*
-!/vendor/laravel/framework/src/
-/vendor/laravel/framework/src/*
-!/vendor/laravel/framework/src/Illuminate/
-/vendor/laravel/framework/src/Illuminate/*
-!/vendor/laravel/framework/src/Illuminate/Database/
-/vendor/laravel/framework/src/Illuminate/Database/*
-!/vendor/laravel/framework/src/Illuminate/Database/Eloquent/
-/vendor/laravel/framework/src/Illuminate/Database/Eloquent/*
-!/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php
