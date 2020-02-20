@@ -154,7 +154,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         $this->syncOriginal();
 
         $this->fill($attributes);
-
+        
         $this->check_lang();
     }
 

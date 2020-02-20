@@ -3,12 +3,12 @@
 /public/hot
 /storage/*.key
 /vendor/*
-!/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php
 /.idea
 Homestead.json
 Homestead.yaml
 .env
 /nbproject/private/
+/nbproject/project.properties
 /config/database.php
 
 #We need the next following lines to track Model file, which inherit all models

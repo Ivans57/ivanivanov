@@ -1,5 +1,10 @@
 <?php
 
+/* Need to find file 
+vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php
+and add in __construct the line
+$this->check_lang();*/
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
