@@ -9,7 +9,7 @@
         <span class="path-panel-text"> /</span>
         @if ($parents > 0)
             <!--The component below is based on paginator component-->
-            @component('path_panel', ['parents' => $parents])
+            @component('path_panel', ['parents' => $parents, 'is_admin_panel' => false])
                 @slot('section')
                     {{ $section }}
                 @endslot
