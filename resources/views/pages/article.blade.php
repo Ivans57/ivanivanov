@@ -12,9 +12,9 @@
         <span class="path-panel-text"> /</span>
         @foreach ($articleParents as $articleParent)
             @if (App::isLocale('en'))
-                <a href='/articles/{{ $articleParent->keyWord }}/page/1' class="path-panel-text">{{ $articleParent->folderName }}</a>
+                <a href='/articles/{{ $articleParent->keyWord }}/page/1' class="path-panel-text">{{ $articleParent->name }}</a>
             @else
-                <a href='/ru/articles/{{ $articleParent->keyWord }}/page/1' class="path-panel-text">{{ $articleParent->folderName }}</a>
+                <a href='/ru/articles/{{ $articleParent->keyWord }}/page/1' class="path-panel-text">{{ $articleParent->name }}</a>
             @endif
                 <span class="path-panel-text"> /</span>
         @endforeach
