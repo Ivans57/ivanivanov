@@ -118,6 +118,13 @@ class AdminAlbumsController extends Controller
     public function store(CreateEditAlbumRequest $request) {
         
         $input = $request->all();
+        //We need to do the following if case because,
+        //if user doesn't choose any parent album
+        //then parent album id will be assigned 0 instead of NULL
+        //which will cause an error whilst saving a new record
+        if ($input['included_in_album_with_id'] == 0){
+            $input['included_in_album_with_id'] = NULL;
+        }      
         $input['created_at'] = Carbon::now();
         $input['updated_at'] = Carbon::now();
         Album::create($input);
