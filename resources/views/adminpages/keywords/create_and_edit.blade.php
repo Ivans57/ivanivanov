@@ -48,7 +48,7 @@ to translate keywords via javascript as I am taking my keywords from the databas
     <!-- Scripts -->
     @component('pages/body_scripts')
         @slot('js')
-            <script type="text/javascript" src="{{ URL::asset('js/partial_javascript.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::asset('js/form_close.js') }}"></script>
         @endslot
     @endcomponent
     <!-- End of scripts -->

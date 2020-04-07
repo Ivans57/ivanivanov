@@ -1,9 +1,5 @@
 @extends('partial')
 
-<!-- Some elements have data-... attributes. These attributes contain some phrases 
-for messages might be called by javascript later. We need to keep these attributes, 
-so we don't need to translate phrases with javascript. There might be some difficulties
-to translate keywords via javascript as I am taking my keywords from the database-->
 @section('partialcontent')
     <div class="admin-panel-albums-create-notification-wrapper">
         @if ($errors->any())

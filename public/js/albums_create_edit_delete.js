@@ -22,9 +22,12 @@ $( document ).ready(function() {
     //without saving or deleting anything.
     var button_cancel = document.getElementById('admin_panel_albums_create_edit_delete_album_controls_button_cancel');
     
-    button_cancel.onclick = function() {
-        if (typeof window.parent.$.fancybox!=='undefined'){
-           window.parent.$.fancybox.close();
-        }
-    };
+    //We actually don't need the check below, but I let it just in case
+    if (button_cancel !== null) {   
+        button_cancel.onclick = function() {
+            if (typeof window.parent.$.fancybox!=='undefined'){
+                window.parent.$.fancybox.close();
+            }
+        };
+    }
 });

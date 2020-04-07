@@ -111,11 +111,14 @@ class AdminAlbumsController extends Controller
             //'keywords' => $keywords_json,
             //'create_or_edit' => $create_or_edit
             ]);
-        //return "Privet!";
     }
     
     
     public function store(CreateEditAlbumRequest $request) {
+        
+        //Actually we do not need any head title as it is just a partial view
+        //We need it only to make the variable initialized. Othervise there will be error.
+        $headTitle= __('keywords.'.$this->current_page);
         
         $input = $request->all();
         //We need to do the following if case because,
@@ -129,7 +132,14 @@ class AdminAlbumsController extends Controller
         $input['updated_at'] = Carbon::now();
         Album::create($input);
         
-        return redirect ('admin/albums');
+        //We need to show an empty form first to close
+        //a pop up window. We are opening special close
+        //form and thsi form is launching special
+        //javascript which closing the pop up window
+        //and reloading a parent page.
+        return view('adminpages.form_close')->with([
+            'headTitle' => $headTitle
+            ]);
     }
     
 }
