@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AlbumsRepository;
 //We need the line below to peform some manipulations with strings
-//e.g. making all string letters lowe case.
+//e.g. making all string letters low case.
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 //use Request;

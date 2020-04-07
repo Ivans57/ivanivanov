@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
+//We need AlbumsRepository to provide Album Keyword's uniqueness check
+use App\Http\Repositories\AlbumsRepository;
+
 class CustomValidationServiceProvider extends ServiceProvider
 {
     /**
@@ -40,15 +43,17 @@ class CustomValidationServiceProvider extends ServiceProvider
             }
         });
         
-        /*Validator::extend('keyword_uniqueness_check', function ($attribute, $value, $parameters, $validator) {
-            $pieces = explode(" ", $value);
-            
-            if (count($pieces) > 1) {
-                return false;
-            } else {
-                return true;
+        Validator::extend('album_keyword_uniqueness_check', function ($attribute, $value, $parameters, $validator) {
+            $albums = new AlbumsRepository();
+            $all_keywords = $albums->get_all_albums_keywords();
+            foreach ($all_keywords as $keyword) {
+                $keyword_check_result = strcmp(strtolower($keyword), strtolower($value));
+                if ($keyword_check_result == 0){
+                    return false;
+                }
             }
-        });*/
+            return true;
+        });
     }
 
     /**

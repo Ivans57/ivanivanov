@@ -89,6 +89,7 @@ return [
     //Additional validations added by developer
     'prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
     'space_check' => 'Поле :attribute не должно содержать пробелы.',
+    'album_keyword_uniqueness_check' => 'Ключевое слово альбома не уникально.',
 
     /*
     |--------------------------------------------------------------------------

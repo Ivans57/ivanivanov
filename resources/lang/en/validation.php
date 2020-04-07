@@ -89,6 +89,7 @@ return [
     //Additional validations added by developer
     'prohibited_characters' => 'There are some prohibited characters in :attribute field.',
     'space_check' => ':attribute should not have spaces.',
+    'album_keyword_uniqueness_check' => 'Album keyword is not unique.',
 
     /*
     |--------------------------------------------------------------------------
