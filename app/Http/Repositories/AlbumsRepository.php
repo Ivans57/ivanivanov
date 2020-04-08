@@ -42,9 +42,9 @@ class AlbumsRepository {
     public function getAllAlbums($items_amount_per_page, $including_invisible){
         
         if ($including_invisible) {
-            $album_links = \App\Album::where('included_in_album_with_id', '=', NULL)->paginate($items_amount_per_page);
+            $album_links = \App\Album::where('included_in_album_with_id', '=', NULL)->orderBy('created_at','DESC')->paginate($items_amount_per_page);
         } else {
-            $album_links = \App\Album::where('included_in_album_with_id', '=', NULL)->where('is_visible', '=', 1)->paginate($items_amount_per_page);
+            $album_links = \App\Album::where('included_in_album_with_id', '=', NULL)->where('is_visible', '=', 1)->orderBy('created_at','DESC')->paginate($items_amount_per_page);
         }
         return $album_links;
     }
@@ -231,9 +231,9 @@ class AlbumsRepository {
         
         //Here we are calling method which will merge all pictures and folders from selected folder into one array
         if ($including_invisible) {
-            $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', $album->id)->get(), \App\Picture::where('album_id', $album->id)->get());
+            $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', $album->id)->orderBy('created_at','DESC')->get(), \App\Picture::where('album_id', $album->id)->orderBy('created_at','DESC')->get());
         } else {
-            $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', $album->id)->where('is_visible', '=', 1)->get(), \App\Picture::where('album_id', $album->id)->get());
+            $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', $album->id)->where('is_visible', '=', 1)->orderBy('created_at','DESC')->get(), \App\Picture::where('album_id', $album->id)->orderBy('created_at','DESC')->get());
         }
         //As we don't need to show all the items from the array above on the 
         //same page, we will take only first 20 items to show
