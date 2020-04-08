@@ -83,7 +83,7 @@ class AlbumsRepository {
     
     //We need this function to make a drop down list for Album addition in Admin Panel
     public function getAllAlbumsList(){
-        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)->get();
+        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)->orderBy('created_at','DESC')->get();
         
         $albums_for_list = array();
         $albums_for_list[0] = '-';
@@ -164,7 +164,7 @@ class AlbumsRepository {
     
     //We need this function to get all included albums in parent album
     private function get_all_included_albums($parent_album_id, $list_inclusion_level) {
-        $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->get();
+        $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->orderBy('created_at','DESC')->get();
         
         $included_albums_for_list = array();
         foreach ($included_albums as $included_album) {
