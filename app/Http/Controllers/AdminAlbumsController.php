@@ -46,7 +46,7 @@ class AdminAlbumsController extends Controller
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;       
         //On the line below we are fetching all articles from the database
-        $albums = $this->albums->getAllAlbums($items_amount_per_page);
+        $albums = $this->albums->getAllAlbums($items_amount_per_page, 1);
       
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page
@@ -71,7 +71,7 @@ class AdminAlbumsController extends Controller
         $items_amount_per_page = 14;
         
         //We need to call the method below to clutter down current method in controller
-        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel);
+        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1);
     }
     
     public function create() {

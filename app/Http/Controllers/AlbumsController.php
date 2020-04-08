@@ -48,7 +48,7 @@ class AlbumsController extends Controller {
         $headTitle= __('keywords.'.$this->current_page);
         
         $items_amount_per_page = 16;        
-        $album_links = $this->albums->getAllAlbums($items_amount_per_page);
+        $album_links = $this->albums->getAllAlbums($items_amount_per_page, 0);
 
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page
@@ -72,7 +72,7 @@ class AlbumsController extends Controller {
         $items_amount_per_page = 20;
         
         //We need to call the method below to clutter down current method in controller
-        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel);       
+        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 0);       
     }
     
     public function testik(Request $request){
