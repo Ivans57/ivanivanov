@@ -24,7 +24,7 @@
             <a href='#' class="admin-panel-albums-add-picture-album-button-link">@lang('keywords.AddPicture')</a>
         </div>
         <div class="admin-panel-albums-add-picture-album-button">
-            <a href={{ App::isLocale('en') ? "/admin/albums/create" : "/ru/admin/albums/create" }} 
+            <a href={{ App::isLocale('en') ? "/admin/albums/create/".$parent_keyword : "/ru/admin/albums/create/".$parent_keyword }} 
             class="admin-panel-albums-add-picture-album-button-link" data-fancybox data-type="iframe">
                @lang('keywords.AddAlbum')
             </a>

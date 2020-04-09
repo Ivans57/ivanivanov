@@ -137,11 +137,11 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/albums/create', 'AdminAlbumsController@create');
+    Route::get('admin/albums/create/{parent_keyword}', 'AdminAlbumsController@create');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/albums/create', 'AdminAlbumsController@create');
+    Route::get('admin/albums/create/{parent_keyword}', 'AdminAlbumsController@create');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

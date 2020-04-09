@@ -58,7 +58,10 @@ class AdminAlbumsController extends Controller
             'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
             'headTitle' => $headTitle,
             'albums' => $albums,
-            'items_amount_per_page' => $items_amount_per_page
+            'items_amount_per_page' => $items_amount_per_page,
+            //If we open just a root path of Albums we won't have any parent keyword,
+            //to avoid an exception we will assign it 0.
+            'parent_keyword' => "0",
             ]);
         }    
     }
@@ -74,14 +77,14 @@ class AdminAlbumsController extends Controller
         return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1);
     }
     
-    public function create() {
+    public function create($parent_keyword) {
         
         //Actually we do not need any head title as it is just a partial view
         //We need it only to make the variable initialized. Othervise there will be error. 
         $headTitle= __('keywords.'.$this->current_page);
         
         $albums = $this->albums->getAllAlbumsList();
-        
+               
         //We need a list with all keywords to check whether the new keyword is unique
         //$keywords_full_data = Keyword::select('keyword')->get();
         
@@ -107,7 +110,10 @@ class AdminAlbumsController extends Controller
         
         return view('adminpages.create_and_edit_album')->with([
             'headTitle' => $headTitle,
-            'albums' => $albums
+            'albums' => $albums,
+            //We need to know parent keyword to choose by default
+            //parent album from drop dwon list in pop up window
+            'parent_id' => ($parent_keyword != "0") ? (\App\Album::where('keyword', '=', $parent_keyword)->first()->id) : $parent_keyword,
             //'keywords' => $keywords_json,
             //'create_or_edit' => $create_or_edit
             ]);

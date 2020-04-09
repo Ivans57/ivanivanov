@@ -120,7 +120,7 @@ class AlbumsRepository {
             if ($page > $albums_and_pictures_full_info->paginator_info->number_of_pages) {
                 return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $albums_and_pictures_full_info->paginator_info->number_of_pages, $is_admin_panel);
             } else {                
-                return $this->get_view($is_admin_panel, $section, $main_links, $albums_and_pictures_full_info, $items_amount_per_page);
+                return $this->get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, $items_amount_per_page);
             }
         }
     }
@@ -192,7 +192,7 @@ class AlbumsRepository {
     }
     
     //We need the method below to clutter down showAlbumView method
-    private function get_view($is_admin_panel, $section, $main_links, $albums_and_pictures_full_info, $items_amount_per_page) {
+    private function get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, $items_amount_per_page) {
         if ($is_admin_panel) {
             return view('adminpages.adminalbum')->with([
                 'main_links' => $main_links->mainLinks,
@@ -204,7 +204,8 @@ class AlbumsRepository {
                 'pagination_info' => $albums_and_pictures_full_info->paginator_info,
                 'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
-                'section' => $section
+                'section' => $section,
+                'parent_keyword' => $keyword
                 ]);
         } else {
             return view('pages.album')->with([
