@@ -30,7 +30,8 @@
                                        class="admin-panel-albums-picture-and-album-control-button-link admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">@lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-albums-picture-and-album-control-button">
-                                    <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Delete')</a>
+                                    <a href='albums/{{ $album->keyword }}/delete'
+                                       class="admin-panel-albums-picture-and-album-control-button-link admin-panel-albums-picture-and-album-control-button-link-delete" data-fancybox data-type="iframe">@lang('keywords.Delete')</a>
                                 </div>
                             </div>
                         </div>

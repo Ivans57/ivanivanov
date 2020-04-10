@@ -58,7 +58,9 @@
                                             class="admin-panel-albums-picture-and-album-control-button-link admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">@lang('keywords.Edit')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
-                                        <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Delete')</a>
+                                        <a href={{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyWord."/delete" : 
+                                            "/ru/admin/albums/".$album_or_picture->keyWord."/delete" }} 
+                                            class="admin-panel-albums-picture-and-album-control-button-link admin-panel-albums-picture-and-album-control-button-link-delete" data-fancybox data-type="iframe">@lang('keywords.Delete')</a>
                                     </div>
                                 @elseif ($album_or_picture->type == 'picture') 
                                     <div class="admin-panel-albums-picture-and-album-control-button">

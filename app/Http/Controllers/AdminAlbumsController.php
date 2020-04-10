@@ -210,4 +210,31 @@ class AdminAlbumsController extends Controller
             'headTitle' => $headTitle
             ]);
     }
+    
+    public function delete($keyword) {
+        
+        //Actually we do not need any head title as it is just a partial view
+        //We need it only to make the variable initialized. Othervise there will be error.
+        $headTitle= __('keywords.'.$this->current_page);
+        
+        //return 'Delete '.$keyword.'?';
+        return view('adminpages.delete_album')->with([
+            'headTitle' => $headTitle,
+            'keyword' => $keyword
+            ]);
+    }
+    
+    public function destroy($keyword) {
+        
+        //Actually we do not need any head title as it is just a partial view
+        //We need it only to make the variable initialized. Othervise there will be error.
+        $headTitle= __('keywords.'.$this->current_page);
+        
+        //return 'Delete '.$keyword.'?';
+        Album::where('keyword', '=', $keyword)->delete();
+        
+        return view('adminpages.form_close')->with([
+            'headTitle' => $headTitle
+            ]);
+    }
 }

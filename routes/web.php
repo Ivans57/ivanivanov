@@ -169,6 +169,22 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/albums/{keyword}/delete', 'AdminAlbumsController@delete');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/albums/{keyword}/delete', 'AdminAlbumsController@delete');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::delete('admin/albums/{keyword}', 'AdminAlbumsController@destroy');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::delete('admin/albums/{keyword}', 'AdminAlbumsController@destroy');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
 
