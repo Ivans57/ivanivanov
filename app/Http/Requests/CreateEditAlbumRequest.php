@@ -22,8 +22,14 @@ class CreateEditAlbumRequest extends FormRequest
      * @return array
      */
     public function rules() {
+        //We need to pass an old keyword to validation
+        //because we need to compare it with a new keyword to avoid any misunderstanding
+        //when do keyword uniqueness check.
+        //When we edit existing record we might change something without changing
+        //a keyword. If we don't compare new keyword with its previous value, the system
+        //might think keyword is not unique as user is trying to assign already existing keyword.
         return [
-            'keyword' => 'required|bail|prohibited_characters|space_check|album_keyword_uniqueness_check|max:50',
+            'keyword' => 'required|bail|prohibited_characters|space_check|album_keyword_uniqueness_check:'.$this->request->get('old_keyword').'|max:50',
             'album_name' => 'required|max:50'
         ];
     }

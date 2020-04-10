@@ -5,10 +5,7 @@
 <article class="admin-panel-main-article">
     <div class="admin-panel-albums-add-picture-album-wrapper">
         <div class="admin-panel-albums-add-picture-album-button">
-            <a href={{ App::isLocale('en') ? "/admin/albums/create/".$parent_keyword : "/ru/admin/albums/create/".$parent_keyword }} 
-            class="admin-panel-albums-add-picture-album-button-link" data-fancybox data-type="iframe">
-               @lang('keywords.AddAlbum')
-            </a>
+            <a href='albums/create/{{ $parent_keyword }}' class="admin-panel-albums-add-picture-album-button-link" data-fancybox data-type="iframe">@lang('keywords.AddAlbum')</a>
         </div>
     </div>         
     @if ($albums->count() > 0)
@@ -28,7 +25,9 @@
                                     <a href='albums/{{ $album->keyword }}/page/1' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
                                 </div>
                                 <div class="admin-panel-albums-picture-and-album-control-button">
-                                    <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Edit')</a>
+                                    <!--We need class admin-panel-albums-picture-and-album-control-button-link-edit only to identify edit button -->
+                                    <a href='albums/{{ $album->keyword }}/edit/{{ $parent_keyword }}'
+                                       class="admin-panel-albums-picture-and-album-control-button-link admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">@lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-albums-picture-and-album-control-button">
                                     <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Delete')</a>

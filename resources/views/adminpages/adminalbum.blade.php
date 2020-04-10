@@ -45,12 +45,17 @@
                             <div class="admin-panel-albums-picture-and-album-control-buttons">
                                 @if ($album_or_picture->type == 'album')
                                     <div class="admin-panel-albums-picture-and-album-control-button">
+                                        <!--We need to provide absolute path below as otherwise links are not working correctly -->
                                         <a href={{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyWord."/page/1" : 
                                             "/ru/admin/albums/".$album_or_picture->keyWord."/page/1" }} 
                                             class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
-                                        <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Edit')</a>
+                                        <!--We need to provide absolute path below as otherwise links are not working correctly -->
+                                        <!--We need class admin-panel-albums-picture-and-album-control-button-link-edit only to identify edit button -->
+                                        <a href={{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyWord."/edit/".$parent_keyword : 
+                                            "/ru/admin/albums/".$album_or_picture->keyWord."/edit/".$parent_keyword }} 
+                                            class="admin-panel-albums-picture-and-album-control-button-link admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">@lang('keywords.Edit')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
                                         <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Delete')</a>

@@ -44,15 +44,23 @@ class CustomValidationServiceProvider extends ServiceProvider
         });
         
         Validator::extend('album_keyword_uniqueness_check', function ($attribute, $value, $parameters, $validator) {
-            $albums = new AlbumsRepository();
-            $all_keywords = $albums->get_all_albums_keywords();
-            foreach ($all_keywords as $keyword) {
-                $keyword_check_result = strcmp(strtolower($keyword), strtolower($value));
-                if ($keyword_check_result == 0){
-                    return false;
+            //We need to compare an old keyword (from parameters[0]) with a new keyword ($value) 
+            //to avoid any misunderstanding when do keyword uniqueness check.
+            //When we edit existing record we might change something without changing
+            //a keyword. If we don't compare new keyword with its previous value, the system
+            //might think keyword is not unique as user is trying to assign already existing keyword.
+            if ((strcmp($value, $parameters[0])) == 0) {
+                return true;
+            } else {
+                $albums = new AlbumsRepository();
+                $all_keywords = $albums->get_all_albums_keywords();
+                foreach ($all_keywords as $keyword) {
+                    if ((strcmp(strtolower($keyword), strtolower($value))) == 0){
+                        return false;
+                    }
                 }
-            }
             return true;
+            }
         });
     }
 

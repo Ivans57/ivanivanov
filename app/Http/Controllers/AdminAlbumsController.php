@@ -83,6 +83,10 @@ class AdminAlbumsController extends Controller
         //We need it only to make the variable initialized. Othervise there will be error. 
         $headTitle= __('keywords.'.$this->current_page);
         
+        //We need this variable to find out which mode are we using Create or Edit
+        //and then to open a view accordingly with a chosen mode
+        $create_or_edit = 'create';
+        
         $albums = $this->albums->getAllAlbumsList();
                
         //We need a list with all keywords to check whether the new keyword is unique
@@ -113,7 +117,8 @@ class AdminAlbumsController extends Controller
             'albums' => $albums,
             //We need to know parent keyword to choose by default
             //parent album from drop dwon list in pop up window
-            'parent_id' => ($parent_keyword != "0") ? (\App\Album::where('keyword', '=', $parent_keyword)->first()->id) : $parent_keyword,
+            'parent_id' => ($parent_keyword != "0") ? (\App\Album::where('keyword', '=', $parent_keyword)->firstOrFail()->id) : $parent_keyword,
+            'create_or_edit' => $create_or_edit,
             //'keywords' => $keywords_json,
             //'create_or_edit' => $create_or_edit
             ]);
@@ -148,4 +153,61 @@ class AdminAlbumsController extends Controller
             ]);
     }
     
+    public function edit($keyword, $parent_keyword) {
+        
+        //Actually we do not need any head title as it is just a partial view
+        //We need it only to make the variable initialized. Othervise there will be error. 
+        $headTitle= __('keywords.'.$this->current_page);
+        
+        //We need this variable to find out which mode are we using Create or Edit
+        //and then to open a view accordingly with a chosen mode
+        $create_or_edit = 'edit';
+        
+        $albums = $this->albums->getAllAlbumsList();
+        
+        $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();
+        
+        return view('adminpages.create_and_edit_album')->with([
+            'headTitle' => $headTitle,
+            'albums' => $albums,
+            //We need to know parent keyword to choose by default
+            //parent album from drop dwon list in pop up window
+            'parent_id' => ($parent_keyword != "0") ? (\App\Album::where('keyword', '=', $parent_keyword)->firstOrFail()->id) : $parent_keyword,
+            'create_or_edit' => $create_or_edit,
+            'edited_album' => $edited_album,
+            ]);
+        
+    }
+    
+    public function update($keyword, CreateEditAlbumRequest $request) {
+        
+        //Actually we do not need any head title as it is just a partial view
+        //We need it only to make the variable initialized. Othervise there will be error.
+        $headTitle= __('keywords.'.$this->current_page);
+        
+        $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();
+        
+        $input = $request->all();
+        //We need to do the following if case because,
+        //if user doesn't choose any parent album
+        //then parent album id will be assigned 0 instead of NULL
+        //which will cause an error whilst saving a new record
+        if ($input['included_in_album_with_id'] == 0){
+            $input['included_in_album_with_id'] = NULL;
+        }      
+ 
+        $input['updated_at'] = Carbon::now();
+        
+        $edited_album->update($input);
+        //Album::update($input);
+        
+        //We need to show an empty form first to close
+        //a pop up window. We are opening special close
+        //form and thsi form is launching special
+        //javascript which closing the pop up window
+        //and reloading a parent page.
+        return view('adminpages.form_close')->with([
+            'headTitle' => $headTitle
+            ]);
+    }
 }

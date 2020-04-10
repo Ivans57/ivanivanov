@@ -81,6 +81,39 @@ $( document ).ready(function() {
     });
 });
 
+$( document ).ready(function() {
+    //We need this script to open existing Album edit page in fancy box window
+    $(".admin-panel-albums-picture-and-album-control-button-link-edit").fancybox({
+	toolbar  : false,
+	smallBtn : true,
+	iframe : {
+		preload : false,
+                css : {
+                    'width' : '330px',
+                    'height' : '420px',
+                    'margin-bottom' : '200px'
+                }
+	},
+        //Also we will need a function which will recover add button's view after
+        //closing pop up's window without adding a new keyword.
+        afterClose: function() {
+            //We don't need an array here as in previous examples, because there will be
+            //always only one pressed element.
+            var button = document.querySelector('.admin-panel-albums-picture-and-album-control-button-pressed');
+            var link = document.querySelector('.admin-panel-albums-picture-and-album-control-button-link-pressed');
+
+            unclickButton(button, link);
+
+            function unclickButton(button, link) {
+                button.classList.remove('admin-panel-albums-picture-and-album-control-button-pressed');
+                button.classList.add('admin-panel-albums-picture-and-album-control-button');
+                link.classList.remove('admin-panel-albums-picture-and-album-control-button-link-pressed');
+                link.classList.add('admin-panel-albums-picture-and-album-control-button-link');
+            }
+        }
+    });
+});
+
 /*--------------------------------------------------------*/
 
 /*Scripts for Admin Panel Articles*/

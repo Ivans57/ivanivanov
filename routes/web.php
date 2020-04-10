@@ -153,6 +153,22 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/albums/{keyword}/edit/{parent_keyword}', 'AdminAlbumsController@edit');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/albums/{keyword}/edit/{parent_keyword}', 'AdminAlbumsController@edit');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::put('admin/albums/{keyword}', 'AdminAlbumsController@update');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::put('admin/albums/{keyword}', 'AdminAlbumsController@update');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
 

@@ -228,7 +228,7 @@ class AlbumsRepository {
         //for every single record we will always have only one item, which is
         //the first one and the last one.
         //We are choosing the album we are working with at the current moment 
-        $album = \App\Album::where('keyword', $keyword)->first();    
+        $album = \App\Album::where('keyword', $keyword)->firstOrFail();    
         
         //Here we are calling method which will merge all pictures and folders from selected folder into one array
         if ($including_invisible) {
@@ -325,7 +325,7 @@ class AlbumsRepository {
     
     private function get_albums_parents_for_view($id) {
         
-        $parent_album = \App\Album::where('id', $id)->first();
+        $parent_album = \App\Album::where('id', $id)->firstOrFail();
         
         $parent_album_for_view = new AlbumLinkForView();
         
