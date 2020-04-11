@@ -415,20 +415,20 @@ article's button, because article has only two control buttons instead of three*
     padding-bottom: 20px;
 }
 
-/*.admin-panel-keywords-delete-keyword {
+.admin-panel-albums-delete-album {
     padding-left: 35px;
     padding-right: 35px;
     padding-top: 10px;
     padding-bottom: 20px;
-}*/
+}
 
-/*.admin-panel-keywords-delete-keyword .admin-panel-keywords-delete-keyword-message h3 {
+.admin-panel-albums-delete-album .admin-panel-albums-delete-album-message h3 {
     font-family: "Arial";
-    font-size: 24px;
+    font-size: 28px;
     text-align: center;
-    color: red;
+    font-weight: bold;
     word-wrap: break-word;
-}*/
+}
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-regulations {
     margin-bottom: 15px;
@@ -437,6 +437,13 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-regulations span {
     font-family: "Arial";
     font-size: 12px;
+    font-style: italic;
+    color: red;
+}
+
+.admin-panel-albums-delete-album .admin-panel-albums-delete-album-regulations span {
+    font-family: "Arial";
+    font-size: 14px;
     font-style: italic;
     color: red;
 }
@@ -460,13 +467,20 @@ article's button, because article has only two control buttons instead of three*
     margin-top: 30px;
 }
 
-/*.admin-panel-albums-create-edit-album .admin-panel-keywords-delete-keyword-controls {
+.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls {
     display: flex;
     justify-content: space-between;
     min-width: 250px;
-    margin-top: 35px;
-}*/
+    margin-top: 30px;
+}
 
+.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls > div:first-child {
+    margin-left: 12px;
+}
+
+.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls > div:last-child {
+    margin-right: 12px;
+}
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-controls-label {
     font-family: "Arial";
@@ -479,9 +493,9 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button/*,
-.admin-panel-keywords-delete-keyword .admin-panel-keywords-delete-keyword-controls 
-.admin-panel-keywords-delete-keyword-controls-button*/ {
+.admin-panel-albums-create-edit-album-controls-button,
+.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls 
+.admin-panel-albums-delete-album-controls-button {
     width: 100px;
     font-size: 16px;
     font-weight: bold;
