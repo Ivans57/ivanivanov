@@ -51,11 +51,11 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('albums/{keyword}/page/{page}', 'AlbumsController@showAlbum');
+    Route::get('albums/{keyword}/page/{page}', 'AlbumsController@show');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('albums/{keyword}/page/{page}', 'AlbumsController@showAlbum');
+    Route::get('albums/{keyword}/page/{page}', 'AlbumsController@show');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
@@ -128,13 +128,12 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/albums/{keyword}/page/{page}', 'AdminAlbumsController@showAlbum');
+    Route::get('admin/albums/{keyword}/page/{page}', 'AdminAlbumsController@show');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/albums/{keyword}/page/{page}', 'AdminAlbumsController@showAlbum');
+    Route::get('admin/albums/{keyword}/page/{page}', 'AdminAlbumsController@show');
 });
-
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/albums/create/{parent_keyword}', 'AdminAlbumsController@create');

@@ -66,7 +66,7 @@ class AdminAlbumsController extends Controller
         }    
     }
     
-    public function showAlbum($keyword, $page){
+    public function show($keyword, $page){
         
         $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
         

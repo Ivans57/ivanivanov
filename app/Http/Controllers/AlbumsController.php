@@ -64,7 +64,7 @@ class AlbumsController extends Controller {
         }
     }
             
-    public function showAlbum($keyword, $page){
+    public function show($keyword, $page){
         
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
         
