@@ -163,7 +163,7 @@ class AdminAlbumsController extends Controller
         //and then to open a view accordingly with a chosen mode
         $create_or_edit = 'edit';
         
-        $albums = $this->albums->getAllAlbumsList();
+        $albums = $this->albums->getAllAlbumsList($keyword);
         
         $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();
         

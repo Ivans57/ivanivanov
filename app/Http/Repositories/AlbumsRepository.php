@@ -82,8 +82,13 @@ class AlbumsRepository {
     }*/
     
     //We need this function to make a drop down list for Album addition in Admin Panel
-    public function getAllAlbumsList(){
-        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)->orderBy('created_at','DESC')->get();
+    //This function accepts one argument, because when we have a drop down list
+    //in edit window, we need to exclude being changed album and its parents
+    //from that list, so user can't move the album into itself or its children.
+    //The argument has default value NULL because the same function
+    //is used for create method which can't give any argument to this function.
+    public function getAllAlbumsList($albums_to_exclude_keyword = NULL){
+        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)->where('keyword', '!=', $albums_to_exclude_keyword)->orderBy('created_at','DESC')->get();
         
         $albums_for_list = array();
         $albums_for_list[0] = '-';
@@ -94,7 +99,7 @@ class AlbumsRepository {
             //in some another item or no.
             $list_inclusion_level = 1;
             
-            $all_included_albums = $this->get_all_included_albums($album->id, $list_inclusion_level);
+            $all_included_albums = $this->get_all_included_albums($album->id, $list_inclusion_level, $albums_to_exclude_keyword);
             if ($all_included_albums != NULL) {
                 /*foreach ($all_included_albums as $included_album) {
                    array_push($albums_for_list, $included_album);
@@ -162,9 +167,14 @@ class AlbumsRepository {
         return $included_albums_for_list;
     }*/
     
-    //We need this function to get all included albums in parent album
-    private function get_all_included_albums($parent_album_id, $list_inclusion_level) {
-        $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->orderBy('created_at','DESC')->get();
+    //We need this function to get all included albums in parent album.
+    //This function accepts one argument, because when we have a drop down list
+    //in edit window, we need to exclude being changed album and its parents
+    //from that list, so user can't move the album into itself or its children.
+    //The argument has default value NULL because the same function
+    //is used for create method which can't give any argument to this function.
+    private function get_all_included_albums($parent_album_id, $list_inclusion_level, $albums_to_exclude_keyword = NULL) {
+        $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->where('keyword', '!=', $albums_to_exclude_keyword)->orderBy('created_at','DESC')->get();
         
         $included_albums_for_list = array();
         foreach ($included_albums as $included_album) {
@@ -179,7 +189,7 @@ class AlbumsRepository {
             
             $included_albums_for_list[$included_album->id] = $album_name_prefix.$included_album->album_name;
             
-            $all_included_albums = $this->get_all_included_albums($included_album->id, $list_inclusion_level+1);
+            $all_included_albums = $this->get_all_included_albums($included_album->id, $list_inclusion_level+1, $albums_to_exclude_keyword);
             if ($all_included_albums != NULL) {
                 /*foreach ($all_included_albums as $included_album) {
                    array_push($included_albums_for_list, $included_album);
