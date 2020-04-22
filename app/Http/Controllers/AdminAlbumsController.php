@@ -138,7 +138,16 @@ class AdminAlbumsController extends Controller
         //which will cause an error whilst saving a new record
         if ($input['included_in_album_with_id'] == 0){
             $input['included_in_album_with_id'] = NULL;
-        }      
+        }
+        
+        //We need the if below, because form's tickbox is not null only
+        //when it is ticked, otherwise it is null and the data from is_visible 
+        //field will be lost. In the database is_visible is not nullable field,
+        //and it keeps a boolean value.
+        if (isset($input['is_visible'])== NULL) {
+            $input['is_visible'] = 0;
+        }
+        
         $input['created_at'] = Carbon::now();
         $input['updated_at'] = Carbon::now();
         Album::create($input);
@@ -196,6 +205,14 @@ class AdminAlbumsController extends Controller
             $input['included_in_album_with_id'] = NULL;
         }      
  
+        //We need the if below, because form's tickbox is not null only
+        //when it is ticked, otherwise it is null and the data from is_visible 
+        //field will be lost. In the database is_visible is not nullable field,
+        //and it keeps a boolean value.
+        if (isset($input['is_visible'])== NULL) {
+            $input['is_visible'] = 0;
+        }
+        
         $input['updated_at'] = Carbon::now();
         
         $edited_album->update($input);

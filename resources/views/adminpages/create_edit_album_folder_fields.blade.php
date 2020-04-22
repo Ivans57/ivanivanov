@@ -15,7 +15,7 @@
     </div>
     <div class="admin-panel-albums-create-edit-album-controls">
         {!! Form::label('is_visible', Lang::get('keywords.IsVisible').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}
-        {!! Form::checkbox('is_visible', 1, null ) !!}
+        {!! Form::checkbox('is_visible', 1) !!}
     </div>
         <div class="admin-panel-albums-create-edit-album-controls">
             {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-albums-create-edit-album-controls-button' ]) !!}
