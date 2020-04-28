@@ -30,7 +30,9 @@ class CreateTriggerChildrenArrayChangeBeforeEnAlbumsDelete extends Migration
 				
                     SET @one_parent_id := CONVERT(JSON_EXTRACT(@parents, CONCAT("$[",_counter,"]")), UNSIGNED);		
 			
-                    UPDATE en_albums_ids_nesting_levels_parents_children SET children = RemoveItemFromJSON(@one_parent_id, @items_ids_to_remove, "en_albums_ids_nesting_levels_parents_children") WHERE items_id = @one_parent_id;
+                    UPDATE en_albums_ids_nesting_levels_parents_children SET children = 
+                        RemoveItemFromJSON(@one_parent_id, @items_ids_to_remove, "en_albums_ids_nesting_levels_parents_children", "children") 
+			WHERE items_id = @one_parent_id;
                 
                     SET _counter := _counter + 1;
     
