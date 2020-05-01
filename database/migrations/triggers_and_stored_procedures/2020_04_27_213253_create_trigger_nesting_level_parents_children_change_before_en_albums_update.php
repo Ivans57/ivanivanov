@@ -23,6 +23,17 @@ class CreateTriggerNestingLevelParentsChildrenChangeBeforeEnAlbumsUpdate extends
 		
                     SET @items_children := (SELECT children FROM en_albums_ids_nesting_levels_parents_children WHERE items_id = OLD.id);
 			
+                    SET @items_parents_to_remove := (SELECT parents FROM en_albums_ids_nesting_levels_parents_children WHERE items_id = OLD.id);
+                    SET @new_parents_without_prev := (SELECT parents from en_albums_ids_nesting_levels_parents_children where items_id = NEW.included_in_album_with_id);
+			
+                    IF (@new_parents_without_prev IS NULL) THEN	
+			#We need to make an empty array as we cannot operate with NULL using JSON_MERGE later.
+			SET @new_parents_without_prev := JSON_ARRAY();
+                    END IF;
+                    IF (NEW.included_in_album_with_id IS NOT NULL) THEN
+			SET @new_parents_without_prev := JSON_ARRAY_INSERT(@new_parents_without_prev, "$[0]", CONVERT(NEW.included_in_album_with_id, CHAR));
+                    END IF;
+			
                     IF (@items_children IS NULL) THEN
 			IF (NEW.included_in_album_with_id IS NULL) THEN				
                             SET @new_nesting_level := 0;
@@ -30,29 +41,23 @@ class CreateTriggerNestingLevelParentsChildrenChangeBeforeEnAlbumsUpdate extends
 			ELSE				
                             SET @new_nesting_level := (SELECT nesting_level from en_albums_ids_nesting_levels_parents_children where items_id = NEW.included_in_album_with_id) + 1;
                             SET @new_parents := (SELECT parents from en_albums_ids_nesting_levels_parents_children where items_id = NEW.included_in_album_with_id);
-                            
+					
                             IF (@new_parents IS NULL) THEN
 				SET @new_parents := JSON_ARRAY();
                             END IF;
                             SET @new_parents := JSON_ARRAY_INSERT(@new_parents, "$[0]", CONVERT(NEW.included_in_album_with_id, CHAR));
 			END IF;
-								
+			
+                        #We need to assign this variable, because we are going to use its value in UpdateChildrenInEnAlbumsIdsNestingLevelsParentsChildren
+			#I cannot do it earlier out of IF, because otherwise my IF would not work. It should have NULL initially.
+                        #Possibly, I might need to revise the whole IF logic of this trigger.
+			SET @items_children := JSON_ARRAY();
+			SET @items_children := JSON_ARRAY_INSERT(@items_children, "$[0]", CONVERT(OLD.id, CHAR));
 			UPDATE en_albums_ids_nesting_levels_parents_children SET nesting_level = @new_nesting_level, parents = @new_parents WHERE items_id = OLD.id;
                     ELSE
 			#Here we need to include being moved items children ids and its id.
 			SET @items_children := JSON_ARRAY_INSERT(@items_children, "$[0]", CONVERT(OLD.id, CHAR));
 			SET @old_nesting_level := (SELECT nesting_level from en_albums_ids_nesting_levels_parents_children where items_id = OLD.id);
-				
-			SET @items_parents_to_remove := (SELECT parents FROM en_albums_ids_nesting_levels_parents_children WHERE items_id = OLD.id);
-			SET @new_parents_without_prev := (SELECT parents from en_albums_ids_nesting_levels_parents_children where items_id = NEW.included_in_album_with_id);
-			
-                        IF (@new_parents_without_prev IS NULL) THEN	
-                            #We need to make an empty array as we cannot operate with NULL using JSON_MERGE later.
-                            SET @new_parents_without_prev := JSON_ARRAY();
-			END IF;
-			IF (NEW.included_in_album_with_id IS NOT NULL) THEN
-                            SET @new_parents_without_prev := JSON_ARRAY_INSERT(@new_parents_without_prev, "$[0]", CONVERT(NEW.included_in_album_with_id, CHAR));
-			END IF;
 				
 			WHILE (_counter < JSON_LENGTH(@items_children)) DO
 				
@@ -78,7 +83,7 @@ class CreateTriggerNestingLevelParentsChildrenChangeBeforeEnAlbumsUpdate extends
                             END IF;
                             #Now we need to merge two arrays one @parent_ids_without_old_parents and @new_parents_without_prev
                             SET @new_parents := JSON_MERGE(@new_parents_without_prev, @parent_ids_without_old_parents);
-                            
+					
                             #We do not keep empty arrays in the database table. If we get one, NULL needs to be assigned.
                             IF (JSON_LENGTH(@new_parents) < 1) THEN
 				SET @new_parents := NULL;
@@ -89,7 +94,8 @@ class CreateTriggerNestingLevelParentsChildrenChangeBeforeEnAlbumsUpdate extends
                             SET _counter := _counter + 1;
     
 			END WHILE;			
-                    END IF;           
+                    END IF; 
+                    CALL UpdateChildrenInEnAlbumsIdsNestingLevelsParentsChildren(@items_children, @items_parents_to_remove, @new_parents_without_prev, "en_albums_ids_nesting_levels_parents_children", "children");
 		END IF;
             END
         ');
