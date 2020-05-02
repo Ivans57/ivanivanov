@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEnAlbumsIdsNestingLevelsParentsChildrenTable extends Migration
+class CreateRuAlbumsDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateEnAlbumsIdsNestingLevelsParentsChildrenTable extends Migration
      */
     public function up()
     {
-        Schema::create('en_albums_ids_nesting_levels_parents_children', function (Blueprint $table) {
+        Schema::create('ru_albums_data', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('items_id')->unsigned()->unique();
-            $table->foreign('items_id')->references('id')->on('en_albums')->onDelete('cascade');
+            $table->foreign('items_id')->references('id')->on('ru_albums')->onDelete('cascade');
             $table->integer('nesting_level')->unsigned();
             $table->json('parents')->nullable();
             $table->json('children')->nullable();
@@ -30,6 +30,6 @@ class CreateEnAlbumsIdsNestingLevelsParentsChildrenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('en_albums_ids_nesting_levels_parents_children');
+        Schema::dropIfExists('ru_albums_data');
     }
 }
