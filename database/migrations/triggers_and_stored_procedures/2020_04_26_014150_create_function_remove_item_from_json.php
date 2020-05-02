@@ -28,10 +28,10 @@ class CreateFunctionRemoveItemFromJson extends Migration
 		
                     WHILE (_counter < JSON_LENGTH(_items_ids_to_remove)) DO
 					
-                        SET @items := JSON_REMOVE(@items, replace(JSON_SEARCH(@items, *all*, 
-                                    replace(JSON_EXTRACT(_items_ids_to_remove, CONCAT("$[",_counter,"]")), *"*, **)), *"*, **));
+			SET @items := JSON_REMOVE(@items, replace(JSON_SEARCH(@items, *all*, 
+                            replace(JSON_EXTRACT(_items_ids_to_remove, CONCAT("$[",_counter,"]")), *"*, **)), *"*, **));
 					
-                        SET _counter := _counter + 1;
+			SET _counter := _counter + 1;
 		
                     END WHILE;
 					
@@ -39,7 +39,7 @@ class CreateFunctionRemoveItemFromJson extends Migration
                     #but we do not keep empty arrays in children fields. For parent fields we do the same, but later on we need to merge
                     #this result with another array. We cannot merge with null, thats why we still need an empty array.
                     IF (JSON_LENGTH(@items) = 0 AND _field_name = "children") THEN
-                        SET @items := NULL;           
+			SET @items := NULL;           
                     END IF;
 
 		END IF;
