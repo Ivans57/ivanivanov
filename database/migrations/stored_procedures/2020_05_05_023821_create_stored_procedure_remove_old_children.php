@@ -25,13 +25,13 @@ class CreateStoredProcedureRemoveOldChildren extends Migration
                     SET @new_children := RemoveItemFromJSON(@current_parents_id, _children, _table_name, _field_name);
 							
                     CASE _table_name
-			WHEN "en_albums_data" THEN 
+                        WHEN "en_albums_data" THEN 
                             UPDATE en_albums_data SET children = @new_children WHERE items_id = @current_parents_id;
-			WHEN "ru_albums_data" THEN 
+                        WHEN "ru_albums_data" THEN 
                             UPDATE ru_albums_data SET children = @new_children WHERE items_id = @current_parents_id;
-			WHEN "en_folders_data" THEN 
+                        WHEN "en_folders_data" THEN 
                             UPDATE en_folders_data SET children = @new_children WHERE items_id = @current_parents_id;
-			WHEN "ru_folders_data" THEN 
+                        WHEN "ru_folders_data" THEN 
                             UPDATE ru_folders_data SET children = @new_children WHERE items_id = @current_parents_id;
                     END CASE;
 							

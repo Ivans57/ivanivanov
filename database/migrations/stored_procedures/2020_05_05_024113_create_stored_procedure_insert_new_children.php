@@ -30,11 +30,6 @@ class CreateStoredProcedureInsertNewChildren extends Migration
                     END IF;
 
                     SET @new_children := JSON_MERGE(_children, @new_parents_children);
-
-                    #We do not keep empty arrays in the database table. If we get one, NULL needs to be assigned.
-                    IF (JSON_LENGTH(@new_children) < 1) THEN
-                        SET @new_children := NULL;
-                    END IF;
 							
                     CASE _table_name
 			WHEN "en_albums_data" THEN 
