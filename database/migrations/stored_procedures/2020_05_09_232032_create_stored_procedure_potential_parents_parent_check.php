@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStoredProcedurePotetialParentsParentCheck extends Migration
+class CreateStoredProcedurePotentialParentsParentCheck extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateStoredProcedurePotetialParentsParentCheck extends Migration
     public function up()
     {
         DB::unprepared('
-        CREATE PROCEDURE PotetialParentsParentCheck(IN _being_changed_items_id INT, IN _potential_parents_id INT, IN _table_name VARCHAR(45))
+        CREATE PROCEDURE PotentialParentsParentCheck(IN _being_changed_items_id INT, IN _potential_parents_id INT, IN _table_name VARCHAR(45))
             BEGIN
                 DECLARE potential_parents_parent_id INT;
                 
@@ -34,7 +34,7 @@ class CreateStoredProcedurePotetialParentsParentCheck extends Migration
                         THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "The destination folder is a child folder of the source folder.";
                     END IF;
                 ELSEIF (potential_parents_parent_id) AND (potential_parents_parent_id != _being_changed_items_id) 
-                    THEN CALL PotetialParentsParentCheck(_being_changed_items_id, potential_parents_parent_id, _table_name);
+                    THEN CALL PotentialParentsParentCheck(_being_changed_items_id, potential_parents_parent_id, _table_name);
                 END IF;
             END
         ');
@@ -47,6 +47,6 @@ class CreateStoredProcedurePotetialParentsParentCheck extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP PROCEDURE PotetialParentsParentCheck');
+        DB::unprepared('DROP PROCEDURE PotentialParentsParentCheck');
     }
 }

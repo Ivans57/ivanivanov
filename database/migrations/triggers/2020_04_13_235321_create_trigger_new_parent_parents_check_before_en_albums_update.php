@@ -19,7 +19,7 @@ class CreateTriggerNewParentParentsCheckBeforeEnAlbumsUpdate extends Migration
 		IF (NEW.included_in_album_with_id = OLD.id) 
                     THEN SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "The destination album is the same as the source album.";
 		ELSE 
-                    CALL PotetialParentsParentCheck(OLD.id, NEW.included_in_album_with_id, "en_albums");
+                    CALL PotentialParentsParentCheck(OLD.id, NEW.included_in_album_with_id, "en_albums");
 		END IF;				
             END
         ');
