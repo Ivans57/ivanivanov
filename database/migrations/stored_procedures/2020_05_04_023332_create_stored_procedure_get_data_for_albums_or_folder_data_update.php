@@ -61,7 +61,11 @@ class CreateStoredProcedureGetDataForAlbumsOrFolderDataUpdate extends Migration
 
                 SET @items_id_in_array := JSON_ARRAY();
                 SET @items_id_in_array := JSON_ARRAY_INSERT(@items_id_in_array, "$[0]", CONVERT(_items_id, CHAR));			
-                SET _items_children_with_current_item := JSON_MERGE(@items_id_in_array, _items_children);
+                IF (_items_children IS NULL) THEN
+                    SET _items_children_with_current_item := @items_id_in_array;
+		ELSE
+                    SET _items_children_with_current_item := JSON_MERGE(_items_children, @items_id_in_array);
+		END IF;
             END	
         ');
     }
