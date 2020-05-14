@@ -5,7 +5,8 @@
 <article class="admin-panel-main-article">
     <div class="admin-panel-albums-add-picture-album-wrapper">
         <div class="admin-panel-albums-add-picture-album-button">
-            <a href='albums/create/{{ $parent_keyword }}' class="admin-panel-albums-add-picture-album-button-link" data-fancybox data-type="iframe">@lang('keywords.AddAlbum')</a>
+            <a href='albums/create/{{ $parent_keyword }}' class="admin-panel-albums-add-picture-album-button-link" 
+               data-fancybox data-type="iframe">@lang('keywords.AddAlbum')</a>
         </div>
     </div>         
     @if ($albums->count() > 0)

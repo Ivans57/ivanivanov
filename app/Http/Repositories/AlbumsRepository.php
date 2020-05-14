@@ -20,6 +20,7 @@ class AlbumAndPictureForViewFullInfoForPage {
     public $head_title;
     public $albumsAndPictures;
     public $albumParents;
+    public $albumNestingLevel;
     //It is better to keep this property here,
     //so in case of empty items array we don't need
     //to make an object.
@@ -211,6 +212,7 @@ class AlbumsRepository {
                 'albumName' => $albums_and_pictures_full_info->album_name,           
                 'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
                 'parents' => $albums_and_pictures_full_info->albumParents,
+                'nesting_level' => $albums_and_pictures_full_info->albumNestingLevel,
                 'pagination_info' => $albums_and_pictures_full_info->paginator_info,
                 'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
@@ -238,8 +240,10 @@ class AlbumsRepository {
         //for every single record we will always have only one item, which is
         //the first one and the last one.
         //We are choosing the album we are working with at the current moment 
-        $album = \App\Album::where('keyword', $keyword)->firstOrFail();    
+        $album = \App\Album::where('keyword', $keyword)->firstOrFail();
         
+        $nesting_level = \App\AlbumData::where('items_id', $album->id)->select('nesting_level')->firstOrFail();
+            
         //Here we are calling method which will merge all pictures and folders from selected folder into one array
         if ($including_invisible) {
             $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', $album->id)->orderBy('created_at','DESC')->get(), \App\Picture::where('album_id', $album->id)->orderBy('created_at','DESC')->get());
@@ -250,10 +254,12 @@ class AlbumsRepository {
         //same page, we will take only first 20 items to show
         //Also we will need some variables for paginator
         
-        //We need the object below which will contatin an array of needed folders 
+        //We need the object below which will contain an array of needed folders 
         //and pictures and also some necessary data for pagination, which we will 
         //pass with this object's properties.
         $albums_and_pictures_full_info = new AlbumAndPictureForViewFullInfoForPage();
+        
+        $albums_and_pictures_full_info->albumNestingLevel = $nesting_level->nesting_level;
         
         if($album->included_in_album_with_id === NULL) {
             $albums_and_pictures_full_info->albumParents = 0;
