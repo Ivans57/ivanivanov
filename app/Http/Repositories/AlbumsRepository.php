@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Repositories;
+
 use App\Http\Repositories\CommonRepository;
+use App;
+
 
 class AlbumLinkForView {
     public $keyWord;
@@ -28,15 +31,6 @@ class AlbumAndPictureForViewFullInfoForPage {
     public $paginator_info;   
 }
 
-/*class AlbumForDropDownList {
-    public $id;
-    public $keyword;
-    public $album_name;
-    public $created_at;
-    public $updated_at;
-    public $is_visible;
-    public $included_in_album_with_id;
-}*/
 
 class AlbumsRepository {
     
@@ -49,39 +43,7 @@ class AlbumsRepository {
         }
         return $album_links;
     }
-    
-    //We need this function to make a drop down list for Album addition in Admin Panel
-    /*public function getAllAlbumsList(){
-        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)->get();
-        
-        $albums_for_list = array();
-        foreach ($albums as $album) {
-            $album_for_list = new AlbumForDropDownList();
-            $album_for_list->id = $album->id;
-            $album_for_list->keyword = $album->keyword;
-            $album_for_list->album_name = $album->album_name;
-            $album_for_list->created_at = $album->created_at;
-            $album_for_list->updated_at = $album->updated_at;
-            $album_for_list->is_visible = $album->is_visible;
-            $album_for_list->included_in_album_with_id = $album->included_in_album_with_id;
-            array_push($albums_for_list, $album_for_list);
-            
-            //We need the variable below to add prefix spaces properly to each element
-            //of the list, depeding on whether some particluar list of item is included
-            //in some another item or no.
-            $list_inclusion_level = 1;
-            
-            $all_included_albums = $this->get_all_included_albums($album->id, $list_inclusion_level);
-            if ($all_included_albums != NULL) {
-                foreach ($all_included_albums as $included_album) {
-                   array_push($albums_for_list, $included_album);
-                }                   
-            }
-        }
-        
-        return $albums_for_list;
-    }*/
-    
+       
     //We need this function to make a drop down list for Album addition in Admin Panel
     //This function accepts one argument, because when we have a drop down list
     //in edit window, we need to exclude being changed album and its parents
@@ -89,8 +51,10 @@ class AlbumsRepository {
     //The argument has default value NULL because the same function
     //is used for create method which can't give any argument to this function.
     public function getAllAlbumsList($albums_to_exclude_keyword = NULL){
-        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)->where('keyword', '!=', $albums_to_exclude_keyword)->orderBy('created_at','DESC')->get();
-        
+                    
+        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)
+                ->where('keyword', '!=', $albums_to_exclude_keyword)->orderBy('created_at','DESC')->get();
+      
         $albums_for_list = array();
         $albums_for_list[0] = '-';
         foreach ($albums as $album) {           
@@ -130,44 +94,7 @@ class AlbumsRepository {
             }
         }
     }
-    
-    //We need this function to get all included albums in parent album
-    /*private function get_all_included_albums($parent_album_id, $list_inclusion_level) {
-        $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->get();
-        
-        $included_albums_for_list = array();
-        foreach ($included_albums as $included_album) {
-            $included_album_for_list = new AlbumForDropDownList();
-            $included_album_for_list->id = $included_album->id;
-            $included_album_for_list->keyword = $included_album->keyword;
-            
-            //The variable below is required to add prefix spaces to the element
-            //of the list.
-            $album_name_prefix = '';
-            //We need a loop below to add prefix spaces to the elements of the list 
-            for ($level_in_list = 0; $level_in_list < $list_inclusion_level; $level_in_list++) {
-                $album_name_prefix = $album_name_prefix.'&nbsp &nbsp';
-            }
-            
-            $included_album_for_list->album_name = $album_name_prefix.$included_album->album_name;
-            $included_album_for_list->created_at = $included_album->created_at;
-            $included_album_for_list->updated_at = $included_album->updated_at;
-            $included_album_for_list->is_visible = $included_album->is_visible;
-            $included_album_for_list->included_in_album_with_id = $included_album->included_in_album_with_id;
-            //$list_inclusion_level = $list_inclusion_level + 1;
-            array_push($included_albums_for_list, $included_album_for_list);
-            
-            $all_included_albums = $this->get_all_included_albums($included_album->id, $list_inclusion_level+1);
-            if ($all_included_albums != NULL) {
-                foreach ($all_included_albums as $included_album) {
-                   array_push($included_albums_for_list, $included_album);
-                }                   
-            }
-        }
-        
-        return $included_albums_for_list;
-    }*/
-    
+       
     //We need this function to get all included albums in parent album.
     //This function accepts one argument, because when we have a drop down list
     //in edit window, we need to exclude being changed album and its parents
@@ -175,8 +102,9 @@ class AlbumsRepository {
     //The argument has default value NULL because the same function
     //is used for create method which can't give any argument to this function.
     private function get_all_included_albums($parent_album_id, $list_inclusion_level, $albums_to_exclude_keyword = NULL) {
-        $included_albums = \App\Album::where('included_in_album_with_id', '=', $parent_album_id)->where('keyword', '!=', $albums_to_exclude_keyword)->orderBy('created_at','DESC')->get();
-        
+                     
+        $included_albums = $this->get_all_included_albums_from_query($parent_album_id, $albums_to_exclude_keyword);
+                
         $included_albums_for_list = array();
         foreach ($included_albums as $included_album) {
            
@@ -200,6 +128,32 @@ class AlbumsRepository {
         }
         
         return $included_albums_for_list;
+    }
+    
+    //We need this function to shorten get_all_included_albums function
+    private function get_all_included_albums_from_query($parent_album_id, $albums_to_exclude_keyword = NULL) {
+               
+        if (App::isLocale('en')) {
+        
+            $included_albums = \App\Album::select('en_albums.id', 'en_albums.album_name')
+                ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                ->where('en_albums.included_in_album_with_id', '=', $parent_album_id)
+                ->where('en_albums.keyword', '!=', $albums_to_exclude_keyword)
+                ->where('en_albums_data.nesting_level', '<', 7)
+                ->orderBy('en_albums.created_at','DESC')->get();
+    
+        } else {
+        
+            $included_albums = \App\Album::select('ru_albums.id', 'ru_albums.album_name')
+                ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
+                ->where('ru_albums.included_in_album_with_id', '=', $parent_album_id)
+                ->where('ru_albums.keyword', '!=', $albums_to_exclude_keyword)
+                ->where('ru_albums_data.nesting_level', '<', 7)
+                ->orderBy('ru_albums.created_at','DESC')->get();
+        
+        }
+             
+        return $included_albums;
     }
     
     //We need the method below to clutter down showAlbumView method

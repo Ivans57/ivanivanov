@@ -33,5 +33,5 @@ class Album extends Model {
         $this->table = 'ru_albums';
         
     }
-    }    
+    }
 }
