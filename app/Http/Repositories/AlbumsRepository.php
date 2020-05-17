@@ -66,9 +66,6 @@ class AlbumsRepository {
             
             $all_included_albums = $this->get_all_included_albums($album->id, $list_inclusion_level, $albums_to_exclude_keyword);
             if ($all_included_albums != NULL) {
-                /*foreach ($all_included_albums as $included_album) {
-                   array_push($albums_for_list, $included_album);
-                }*/
                 $albums_for_list = $albums_for_list + $all_included_albums;
             }
         }
@@ -133,13 +130,49 @@ class AlbumsRepository {
     //We need this function to shorten get_all_included_albums function
     private function get_all_included_albums_from_query($parent_album_id, $albums_to_exclude_keyword = NULL) {
                
+        $max_acceptable_nest_level = 7;
+        
+        if ($albums_to_exclude_keyword != NULL) {
+            $items_id = \App\Album::where('keyword', $albums_to_exclude_keyword)->select('id')->firstOrFail();
+            $items_nesting_level_and_children = \App\AlbumData::where('items_id', $items_id->id)
+                    ->select('nesting_level', 'children')->firstOrFail();
+            
+            $items_children = json_decode($items_nesting_level_and_children->children, true);
+            
+            if (is_null($items_children)){
+                $children_max_nest_level = $items_nesting_level_and_children->nesting_level;
+            } else {
+                //Converting string array to int array.
+                $items_children = array_map('intval', $items_children);
+                $children_nest_levels = \App\AlbumData::whereIn('items_id', $items_children)
+                        ->select('nesting_level')->get();
+                
+                $children_max_nest_level = 0;
+                
+                foreach ($children_nest_levels as $children_nest_level) {
+                    if ($children_nest_level->nesting_level > $children_max_nest_level && 
+                            $children_nest_level->nesting_level != $max_acceptable_nest_level) {
+                        $children_max_nest_level = $children_nest_level->nesting_level;
+                    } elseif ($children_nest_level->nesting_level > $children_max_nest_level && 
+                            $children_nest_level->nesting_level == $max_acceptable_nest_level) {
+                        $children_max_nest_level = $children_nest_level->nesting_level;
+                        break;
+                            }
+                }
+            }
+            
+            $children_rel_max_nest_level = $children_max_nest_level - $items_nesting_level_and_children->nesting_level;
+            $max_acceptable_nest_level = $max_acceptable_nest_level - $children_rel_max_nest_level;
+        }
+        
+        
         if (App::isLocale('en')) {
         
             $included_albums = \App\Album::select('en_albums.id', 'en_albums.album_name')
                 ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
                 ->where('en_albums.included_in_album_with_id', '=', $parent_album_id)
                 ->where('en_albums.keyword', '!=', $albums_to_exclude_keyword)
-                ->where('en_albums_data.nesting_level', '<', 7)
+                ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
                 ->orderBy('en_albums.created_at','DESC')->get();
     
         } else {
@@ -148,7 +181,7 @@ class AlbumsRepository {
                 ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
                 ->where('ru_albums.included_in_album_with_id', '=', $parent_album_id)
                 ->where('ru_albums.keyword', '!=', $albums_to_exclude_keyword)
-                ->where('ru_albums_data.nesting_level', '<', 7)
+                ->where('ru_albums_data.nesting_level', '<', $max_acceptable_nest_level)
                 ->orderBy('ru_albums.created_at','DESC')->get();
         
         }
