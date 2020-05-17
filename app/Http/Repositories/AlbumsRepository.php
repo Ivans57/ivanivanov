@@ -127,44 +127,10 @@ class AlbumsRepository {
         return $included_albums_for_list;
     }
     
-    //We need this function to shorten get_all_included_albums function
+    //We need this function to shorten get_all_included_albums function.
     private function get_all_included_albums_from_query($parent_album_id, $albums_to_exclude_keyword = NULL) {
-               
-        $max_acceptable_nest_level = 7;
         
-        if ($albums_to_exclude_keyword != NULL) {
-            $items_id = \App\Album::where('keyword', $albums_to_exclude_keyword)->select('id')->firstOrFail();
-            $items_nesting_level_and_children = \App\AlbumData::where('items_id', $items_id->id)
-                    ->select('nesting_level', 'children')->firstOrFail();
-            
-            $items_children = json_decode($items_nesting_level_and_children->children, true);
-            
-            if (is_null($items_children)){
-                $children_max_nest_level = $items_nesting_level_and_children->nesting_level;
-            } else {
-                //Converting string array to int array.
-                $items_children = array_map('intval', $items_children);
-                $children_nest_levels = \App\AlbumData::whereIn('items_id', $items_children)
-                        ->select('nesting_level')->get();
-                
-                $children_max_nest_level = 0;
-                
-                foreach ($children_nest_levels as $children_nest_level) {
-                    if ($children_nest_level->nesting_level > $children_max_nest_level && 
-                            $children_nest_level->nesting_level != $max_acceptable_nest_level) {
-                        $children_max_nest_level = $children_nest_level->nesting_level;
-                    } elseif ($children_nest_level->nesting_level > $children_max_nest_level && 
-                            $children_nest_level->nesting_level == $max_acceptable_nest_level) {
-                        $children_max_nest_level = $children_nest_level->nesting_level;
-                        break;
-                            }
-                }
-            }
-            
-            $children_rel_max_nest_level = $children_max_nest_level - $items_nesting_level_and_children->nesting_level;
-            $max_acceptable_nest_level = $max_acceptable_nest_level - $children_rel_max_nest_level;
-        }
-        
+        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($albums_to_exclude_keyword);
         
         if (App::isLocale('en')) {
         
@@ -187,6 +153,55 @@ class AlbumsRepository {
         }
              
         return $included_albums;
+    }
+    
+    //We need this function to shorten get_all_included_albums_from_query function.
+    private function get_max_acceptable_nest_level($albums_to_exclude_keyword = NULL) {
+               
+        $max_acceptable_nest_level = 7;
+        
+        if ($albums_to_exclude_keyword != NULL) {
+            $items_id = \App\Album::where('keyword', $albums_to_exclude_keyword)->select('id')->firstOrFail();
+            $items_nesting_level_and_children = \App\AlbumData::where('items_id', $items_id->id)
+                    ->select('nesting_level', 'children')->firstOrFail();
+            
+            $items_children = json_decode($items_nesting_level_and_children->children, true);
+            
+            if (is_null($items_children)){
+                $children_max_nest_level = $items_nesting_level_and_children->nesting_level;
+            } else {
+                $children_max_nest_level = $this->get_children_max_nest_level($items_children, $max_acceptable_nest_level);
+            }
+            
+            $children_rel_max_nest_level = $children_max_nest_level - $items_nesting_level_and_children->nesting_level;
+            $max_acceptable_nest_level = $max_acceptable_nest_level - $children_rel_max_nest_level;
+        }
+                   
+        return $max_acceptable_nest_level;
+    }
+    
+    //We need this function to shorten get_max_acceptable_nest_level function.
+    private function get_children_max_nest_level($items_children_strings, $max_acceptable_nest_level) {
+               
+        //Converting string array to int array.
+        $items_children = array_map('intval', $items_children_strings);
+        $children_nest_levels = \App\AlbumData::whereIn('items_id', $items_children)
+                    ->select('nesting_level')->get();
+                
+        $children_max_nest_level = 0;
+                
+            foreach ($children_nest_levels as $children_nest_level) {
+                if ($children_nest_level->nesting_level > $children_max_nest_level && 
+                        $children_nest_level->nesting_level != $max_acceptable_nest_level) {
+                    $children_max_nest_level = $children_nest_level->nesting_level;
+                } elseif ($children_nest_level->nesting_level > $children_max_nest_level && 
+                        $children_nest_level->nesting_level == $max_acceptable_nest_level) {
+                    $children_max_nest_level = $children_nest_level->nesting_level;
+                    break;
+                        }
+            }
+                   
+        return $children_max_nest_level;
     }
     
     //We need the method below to clutter down showAlbumView method
