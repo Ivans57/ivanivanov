@@ -51,9 +51,10 @@ class AlbumsRepository {
     //The argument has default value NULL because the same function
     //is used for create method which can't give any argument to this function.
     public function getAllAlbumsList($albums_to_exclude_keyword = NULL){
-                    
-        $albums = \App\Album::where('included_in_album_with_id', '=', NULL)
-                ->where('keyword', '!=', $albums_to_exclude_keyword)->orderBy('created_at','DESC')->get();
+        
+        //First we need to filter out albums which caanot be parents du to their nesting level.
+        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($albums_to_exclude_keyword);
+        $albums = $this->get_all_albums_for_dp_list_from_query(NULL, $max_acceptable_nest_level, $albums_to_exclude_keyword);
       
         $albums_for_list = array();
         $albums_for_list[0] = '-';
@@ -64,7 +65,8 @@ class AlbumsRepository {
             //in some another item or no.
             $list_inclusion_level = 1;
             
-            $all_included_albums = $this->get_all_included_albums($album->id, $list_inclusion_level, $albums_to_exclude_keyword);
+            $all_included_albums = $this->get_all_included_albums($album->id, 
+                    $list_inclusion_level, $max_acceptable_nest_level, $albums_to_exclude_keyword);
             if ($all_included_albums != NULL) {
                 $albums_for_list = $albums_for_list + $all_included_albums;
             }
@@ -98,9 +100,10 @@ class AlbumsRepository {
     //from that list, so user can't move the album into itself or its children.
     //The argument has default value NULL because the same function
     //is used for create method which can't give any argument to this function.
-    private function get_all_included_albums($parent_album_id, $list_inclusion_level, $albums_to_exclude_keyword = NULL) {
+    private function get_all_included_albums($parent_album_id, 
+            $list_inclusion_level, $max_acceptable_nest_level, $albums_to_exclude_keyword = NULL) {
                      
-        $included_albums = $this->get_all_included_albums_from_query($parent_album_id, $albums_to_exclude_keyword);
+        $included_albums = $this->get_all_albums_for_dp_list_from_query($parent_album_id, $max_acceptable_nest_level, $albums_to_exclude_keyword);
                 
         $included_albums_for_list = array();
         foreach ($included_albums as $included_album) {
@@ -115,7 +118,8 @@ class AlbumsRepository {
             
             $included_albums_for_list[$included_album->id] = $album_name_prefix.$included_album->album_name;
             
-            $all_included_albums = $this->get_all_included_albums($included_album->id, $list_inclusion_level+1, $albums_to_exclude_keyword);
+            $all_included_albums = $this->get_all_included_albums($included_album->id, $list_inclusion_level + 1, 
+                    $max_acceptable_nest_level, $albums_to_exclude_keyword);
             if ($all_included_albums != NULL) {
                 /*foreach ($all_included_albums as $included_album) {
                    array_push($included_albums_for_list, $included_album);
@@ -128,9 +132,7 @@ class AlbumsRepository {
     }
     
     //We need this function to shorten get_all_included_albums function.
-    private function get_all_included_albums_from_query($parent_album_id, $albums_to_exclude_keyword = NULL) {
-        
-        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($albums_to_exclude_keyword);
+    private function get_all_albums_for_dp_list_from_query($parent_album_id, $max_acceptable_nest_level, $albums_to_exclude_keyword = NULL) {
         
         if (App::isLocale('en')) {
         
@@ -155,7 +157,7 @@ class AlbumsRepository {
         return $included_albums;
     }
     
-    //We need this function to shorten get_all_included_albums_from_query function.
+    //We need this function to shorten getAllAlbumsList function.
     private function get_max_acceptable_nest_level($albums_to_exclude_keyword = NULL) {
                
         $max_acceptable_nest_level = 7;
