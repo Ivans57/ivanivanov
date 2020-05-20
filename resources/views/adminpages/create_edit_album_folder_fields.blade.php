@@ -1,8 +1,17 @@
 <div class='admin-panel-albums-create-edit-album'>
     {{ $hidden_field }}
-    <div class="admin-panel-albums-create-edit-album-controls">              
+    <!-- <div class="admin-panel-albums-create-edit-album-controls">              
         {!! Form::label('included_in_album_with_id', Lang::get('keywords.ParentAlbum').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}
         {!! Form::select('included_in_album_with_id', $albums, $parent_id, ['class' => 'admin-panel-albums-create-edit-album-controls-input']) !!}
+    </div> -->
+    <div class="admin-panel-albums-create-edit-album-controls">              
+        <div>{!! Form::label('included_in_album_with_id', Lang::get('keywords.ParentAlbum').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>
+        <div>{!! Form::text('included_in_album_with_id', null, 
+            ['class' => 'admin-panel-albums-create-edit-album-controls-input-parent', 'placeholder' => 'Search...', 'name' => 'search']) !!}
+            {!! Form::button('<i class="fas fa-search fa-sm"></i>', ['class' => 'admin-panel-albums-create-edit-album-controls-button-search', 
+                'id' => 'parent_albums_search_button' ]) !!}
+            </button>
+        </div>
     </div>
     <div class="admin-panel-albums-create-edit-album-controls">
         <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>

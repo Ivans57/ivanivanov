@@ -30,4 +30,22 @@ $( document ).ready(function() {
             }
         };
     }
+    
+    //Below we are making a functionality for Search button
+    var button_search = document.getElementById('parent_albums_search_button');
+    var parent_search =document.getElementById('included_in_album_with_id');
+    
+    button_search.onclick = function() {
+            $.ajax({
+                type: "POST",
+                //We need to take url from attributes because we have two
+                //localizations of the website.
+                url: "findParents",
+                data: {parent_search: parent_search.value},
+                success:function(data) {
+                        //alert(data.name);
+                        parent_search.value = data.name;
+                    }
+            });
+    };
 });

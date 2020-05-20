@@ -8,6 +8,7 @@ use App\Http\Repositories\AlbumsRepository;
 //e.g. making all string letters low case.
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 //use Request;
 use App\Http\Requests\CreateEditAlbumRequest;
 use App\Album;
@@ -253,5 +254,14 @@ class AdminAlbumsController extends Controller
         return view('adminpages.form_close')->with([
             'headTitle' => $headTitle
             ]);
+    }
+    
+    public function findParents(Request $request){
+        
+        $test = $request->input('parent_search');
+        $greeting = $test;
+        
+        return response()
+            ->json(['name' => 'Abigail', 'state' => 'CA']);
     }
 }

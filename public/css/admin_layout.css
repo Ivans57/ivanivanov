@@ -493,6 +493,33 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-input-parent {
+    width: 210px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    background: #f1f1f1;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search {
+    width: 25px;
+    float: left;
+    padding-right: 4px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none; /* Prevent double borders */
+    cursor: pointer;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search:hover {
+    background: #0b7dda;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-controls-button,
 .admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls 
 .admin-panel-albums-delete-album-controls-button {
