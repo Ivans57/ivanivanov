@@ -9,9 +9,10 @@
         <div>{!! Form::text('included_in_album_with_id', null, 
             ['class' => 'admin-panel-albums-create-edit-album-controls-input-parent', 'placeholder' => 'Search...', 'name' => 'search']) !!}
             {!! Form::button('<i class="fas fa-search fa-sm"></i>', ['class' => 'admin-panel-albums-create-edit-album-controls-button-search', 
-                'id' => 'parent_albums_search_button' ]) !!}
+                'id' => 'parent_albums_search_button', 'title' => "Search in Data Base" ]) !!}
             </button>
         </div>
+        <div id="album_list_container"></div>
     </div>
     <div class="admin-panel-albums-create-edit-album-controls">
         <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>

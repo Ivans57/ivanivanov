@@ -258,10 +258,40 @@ class AdminAlbumsController extends Controller
     
     public function findParents(Request $request){
         
-        $test = $request->input('parent_search');
-        $greeting = $test;
-        
-        return response()
-            ->json(['name' => 'Abigail', 'state' => 'CA']);
+        $album_to_find = $request->input('parent_search');
+        if ($album_to_find) {
+            $albums = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
+                    ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                    ->where('album_name', 'LIKE', "%$album_to_find%")
+                    ->orderBy('en_albums.created_at','DESC')->get();
+
+            $albums_data_array = array();
+
+            foreach ($albums as $album) {
+                //We need to do firstOrFail() becuase if we do get(), we will have an exception
+                //when trying to get keyword, as with get() we will have an array including just [0] element.
+                $album_keyword = \App\Album::select('keyword')->where('id', $album->id)->firstOrFail();
+                $album_path = $this->get_full_album_path($album->id, "");
+                $album_data_array = [$album_keyword->keyword, $album_path];
+                array_push($albums_data_array, $album_data_array);
+            }    
+               
+            return response()
+                ->json(['albums_data' => $albums_data_array]);
+        } else {
+            return response()
+                ->json(['albums_data' => [["", "Nothing found"]]]);
+        }
+    }
+    
+    private function get_full_album_path($album_id, $album_path) {
+        //We cannot get information from data table becuase in this case the sequence of items is important.
+        $album = \App\Album::select('album_name', 'included_in_album_with_id')
+                ->where('id', $album_id)->firstOrFail();
+        $album_full_path = substr_replace($album_path, ' / '.$album->album_name, 0, 0);
+        if ($album->included_in_album_with_id != 0){
+            $album_full_path = $this->get_full_album_path($album->included_in_album_with_id, $album_full_path);
+        }
+        return $album_full_path;
     }
 }

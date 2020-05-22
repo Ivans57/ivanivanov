@@ -34,6 +34,7 @@ $( document ).ready(function() {
     //Below we are making a functionality for Search button
     var button_search = document.getElementById('parent_albums_search_button');
     var parent_search =document.getElementById('included_in_album_with_id');
+    var album_list_container =document.getElementById('album_list_container');
     
     button_search.onclick = function() {
             $.ajax({
@@ -44,8 +45,41 @@ $( document ).ready(function() {
                 data: {parent_search: parent_search.value},
                 success:function(data) {
                         //alert(data.name);
-                        parent_search.value = data.name;
+                        //parent_search.value = data.albums_data;
+                        //var tests = data.albums_data;
+                        album_list_container.insertAdjacentHTML("beforeend", "<div \n\
+                                                                class='admin-panel-albums-create-edit-album-album-list'\n\
+                                                                id='album_list'> \n\
+                                                                </div>");
+                        
+                        var album_list = document.getElementById('album_list');
+                        /*data.albums_data.forEach(function(album_data) {
+                            album_list.insertAdjacentHTML("beforeend", "<div \n\
+                                                          class='admin-panel-albums-create-edit-album-album-list-element'> \n\
+                                                          <a href='#' \n\
+                                                          id='album_list_element_link'> \n\
+                                                          data-keyword=" + album_data[0] + ">" + album_data[1] + "</a> \n\
+                                                          </div>");
+                        });*/
+                        var album_data = data.albums_data;
+                        for (i = 0; i < album_data.length; i++) {
+                            album_list.insertAdjacentHTML("beforeend", "<div \n\
+                                                          class='admin-panel-albums-create-edit-album-album-list-element'> \n\
+                                                          <a href='#' \n\
+                                                          id='album_list_element_link' \n\
+                                                          data-keyword='" + album_data[i][0] + "'>"
+                                                          + album_data[i][1] + "</a> \n\
+                                                          </div>");
+                        }
+                        
                     }
             });
     };
+ 
+    window.onclick = function(event) {
+        //We need this to close a drop down list.
+        if (!event.target.matches('.admin-panel-albums-create-edit-album-controls-button-search')) {
+            $("#album_list_container").empty();
+        }
+    }
 });

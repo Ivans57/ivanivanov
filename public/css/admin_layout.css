@@ -530,6 +530,44 @@ article's button, because article has only two control buttons instead of three*
     padding: 2px;
 }
 
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list {
+    z-index: 1;
+    position: absolute;
+    top: 80.1px; 
+    left: 34.5px;
+    width: 260px;
+    border: 1px solid grey;
+    background-color: white;
+    max-height: 320px;
+    overflow: auto;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element {
+    border-bottom: 1px solid grey;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element a {
+    display: block;
+    text-decoration: none;
+    color: #0d95e8;
+    padding-left: 5px;
+    padding-top: 3px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element a:hover {
+    background-color: #0d95e8;
+    color: white;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element:last-child {
+    border-bottom: 0px;
+}
+
 .admin-panel-albums-create-notification-wrapper {
     position: absolute;
 }
