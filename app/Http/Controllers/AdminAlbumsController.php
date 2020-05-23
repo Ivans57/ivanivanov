@@ -259,20 +259,21 @@ class AdminAlbumsController extends Controller
     public function findParents(Request $request){
         
         $album_to_find = $request->input('parent_search');
-        if ($album_to_find) {
-            $albums = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
+        
+        $albums = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
                     ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
                     ->where('album_name', 'LIKE', "%$album_to_find%")
                     ->orderBy('en_albums.created_at','DESC')->get();
-
+        
+        $test = count($albums);
+        
+        if ($album_to_find && $test > 0) {
+            
             $albums_data_array = array();
 
             foreach ($albums as $album) {
-                //We need to do firstOrFail() becuase if we do get(), we will have an exception
-                //when trying to get keyword, as with get() we will have an array including just [0] element.
-                $album_keyword = \App\Album::select('keyword')->where('id', $album->id)->firstOrFail();
                 $album_path = $this->get_full_album_path($album->id, "");
-                $album_data_array = [$album_keyword->keyword, $album_path];
+                $album_data_array = [$album->id, $album_path];
                 array_push($albums_data_array, $album_data_array);
             }    
                
@@ -280,7 +281,7 @@ class AdminAlbumsController extends Controller
                 ->json(['albums_data' => $albums_data_array]);
         } else {
             return response()
-                ->json(['albums_data' => [["", "Nothing found"]]]);
+                ->json(['albums_data' => [["0", "Nothing found"]]]);
         }
     }
     

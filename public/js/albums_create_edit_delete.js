@@ -33,9 +33,10 @@ $( document ).ready(function() {
     
     //Below we are making a functionality for Search button
     var button_search = document.getElementById('parent_albums_search_button');
-    var parent_search =document.getElementById('included_in_album_with_id');
+    var parent_search =document.getElementById('included_in_album_with_name');
+    var parent_id =document.getElementById('included_in_album_with_id');
     var album_list_container =document.getElementById('album_list_container');
-    
+        
     button_search.onclick = function() {
             $.ajax({
                 type: "POST",
@@ -44,34 +45,31 @@ $( document ).ready(function() {
                 url: "findParents",
                 data: {parent_search: parent_search.value},
                 success:function(data) {
-                        //alert(data.name);
-                        //parent_search.value = data.albums_data;
-                        //var tests = data.albums_data;
+                        //Making empty drop down list with album links.
                         album_list_container.insertAdjacentHTML("beforeend", "<div \n\
                                                                 class='admin-panel-albums-create-edit-album-album-list'\n\
                                                                 id='album_list'> \n\
                                                                 </div>");
                         
+                        //Filling up albums drop dwon list.
                         var album_list = document.getElementById('album_list');
-                        /*data.albums_data.forEach(function(album_data) {
+                        data.albums_data.forEach(function(album_data) {
                             album_list.insertAdjacentHTML("beforeend", "<div \n\
                                                           class='admin-panel-albums-create-edit-album-album-list-element'> \n\
                                                           <a href='#' \n\
-                                                          id='album_list_element_link'> \n\
-                                                          data-keyword=" + album_data[0] + ">" + album_data[1] + "</a> \n\
+                                                          class='admin-panel-albums-create-edit-album-album-list-element-link' \n\
+                                                          data-id='" + album_data[0] +"'>" 
+                                                          + album_data[1] + "</a> \n\
                                                           </div>");
-                        });*/
-                        var album_data = data.albums_data;
-                        for (i = 0; i < album_data.length; i++) {
-                            album_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                          class='admin-panel-albums-create-edit-album-album-list-element'> \n\
-                                                          <a href='#' \n\
-                                                          id='album_list_element_link' \n\
-                                                          data-keyword='" + album_data[i][0] + "'>"
-                                                          + album_data[i][1] + "</a> \n\
-                                                          </div>");
-                        }
+                        });
                         
+                        //Need to attach an event which will select albums keyword and name and assign them to proper form fields.
+                        var album_list_element_links = 
+                                document.getElementsByClassName("admin-panel-albums-create-edit-album-album-list-element-link");
+                        
+                        for (i = 0; i < album_list_element_links.length; i++) {
+                            album_list_element_links[i].addEventListener ("click", assignIDAndName, false);
+                        }
                     }
             });
     };
@@ -80,6 +78,24 @@ $( document ).ready(function() {
         //We need this to close a drop down list.
         if (!event.target.matches('.admin-panel-albums-create-edit-album-controls-button-search')) {
             $("#album_list_container").empty();
+        }
+    };
+    
+    //Here we need to assign proper form fields for keyword and selected parent name.
+    function assignIDAndName(zEvent) {
+        //-- this and the parameter are special in event handlers.
+        var album_id  = this.getAttribute ("data-id");
+        //We are working with album_id as a string, because when we are getting data from backend, 
+        //we are getting them as json with strings.
+        if (album_id !== "0") {
+            var path = this.innerHTML;
+            var path_array = path.split(" ");
+            //We need to take the last element of the array.
+            var album_name = path_array[path_array.length - 1];
+            parent_search.value = album_name;
+            parent_id.value = album_id;
+        } else {
+            parent_search.value = null;
         }
     }
 });
