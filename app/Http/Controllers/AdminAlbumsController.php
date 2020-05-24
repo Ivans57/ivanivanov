@@ -40,7 +40,7 @@ class AdminAlbumsController extends Controller
     }
     
     public function index() {
-        
+        //For some lines e.g. two lines below which are getting repeated need to apply inheritance mechanism!
         $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
         $headTitle= __('keywords.'.$this->current_page);
         
@@ -89,39 +89,19 @@ class AdminAlbumsController extends Controller
         $create_or_edit = 'create';
         
         $albums = $this->albums->getAllAlbumsList();
-               
-        //We need a list with all keywords to check whether the new keyword is unique
-        //$keywords_full_data = Keyword::select('keyword')->get();
         
-        //There are lots of another data in the variable $keywords_full_data
-        //Below I am extracting only required data and pushing it in the new array $keywords
-        //$keywords = array();
-        
-        //foreach($keywords_full_data as $keyword_full_data) {
-            //array_push($keywords, $keyword_full_data->keyword);
-        //}
-        
-        //As there is not possible to pass any arrays to the view or javascript,
-        //we need to convert the $keywords array to json
-        //$keywords_json = json_encode($keywords);
-        
-        //We are going to use one view for create and edit
-        //thats why we will nedd kind of indicator to know which option do we use
-        //create or edit.
-        //$create_or_edit = 'create';
-        
-        //for example
-        //$user_types = UserTypes::pluck('name', 'id');
-        
+        if ($parent_keyword != "0") {
+            $parent_info = \App\Album::select('id', 'album_name')
+                    ->where('keyword', '=', $parent_keyword)->firstOrFail();
+        }
+                      
         return view('adminpages.create_and_edit_album')->with([
             'headTitle' => $headTitle,
             'albums' => $albums,
-            //We need to know parent keyword to choose by default
-            //parent album from drop dwon list in pop up window
-            'parent_id' => ($parent_keyword != "0") ? (\App\Album::where('keyword', '=', $parent_keyword)->firstOrFail()->id) : $parent_keyword,
+            //We need to know parent keyword to fill up Parent Search field.
+            'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
+            'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
             'create_or_edit' => $create_or_edit,
-            //'keywords' => $keywords_json,
-            //'create_or_edit' => $create_or_edit
             ]);
     }
     
@@ -177,12 +157,17 @@ class AdminAlbumsController extends Controller
         
         $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();
         
+        if ($parent_keyword != "0") {
+            $parent_info = \App\Album::select('id', 'album_name')
+                    ->where('keyword', '=', $parent_keyword)->firstOrFail();
+        }
+        
         return view('adminpages.create_and_edit_album')->with([
             'headTitle' => $headTitle,
             'albums' => $albums,
-            //We need to know parent keyword to choose by default
-            //parent album from drop dwon list in pop up window
-            'parent_id' => ($parent_keyword != "0") ? (\App\Album::where('keyword', '=', $parent_keyword)->firstOrFail()->id) : $parent_keyword,
+            //We need to know parent keyword to fill up Parent Search field.
+            'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
+            'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
             'create_or_edit' => $create_or_edit,
             'edited_album' => $edited_album,
             ]);

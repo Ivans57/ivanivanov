@@ -7,7 +7,7 @@
     @else
         {!! Form::model($edited_album, [ 'method' => 'PUT', 'url' => App::isLocale('en') ? "/admin/albums/".$edited_album->keyword : "/ru/admin/albums/".$edited_album->keyword, 'id' => 'admin_panel_create_edit_delete_album_form' ]) !!}
     @endif
-        @component('adminpages/create_edit_album_folder_fields', ['albums' => $albums, 'parent_id' => $parent_id])
+        @component('adminpages/create_edit_album_folder_fields', ['albums' => $albums, 'parent_id' => $parent_id, 'parent_name' => $parent_name])
             @slot('old_keyword')
                 <!-- We need to pass an old keyword to validation because we need to compare it with a new keyword to avoid any misunderstanding 
                 when do keyword uniqueness check. When we edit existing record we might change something without changing a keyword. 
