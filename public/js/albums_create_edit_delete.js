@@ -36,14 +36,23 @@ $( document ).ready(function() {
     var parent_search =document.getElementById('included_in_album_with_name');
     var parent_id =document.getElementById('included_in_album_with_id');
     var album_list_container =document.getElementById('album_list_container');
+    var form = document.getElementById('admin_panel_create_edit_delete_album_form');
+    
+    //We need to make an event on this as onsubmit function is not working properly.
+    var button_submit = document.getElementById('admin_panel_albums_create_edit_delete_album_controls_button_submit');
         
+    var url;
+    if (form.dataset.localization === "en") {
+        url = "/admin/albums/create_or_edit/findParents";
+    } else {
+        url = "/ru/admin/albums/create_or_edit/findParents";
+    }
+    
     button_search.onclick = function() {
             $.ajax({
                 type: "POST",
-                //We need to take url from attributes because we have two
-                //localizations of the website.
-                url: "findParents",
-                data: {parent_search: parent_search.value},
+                url: url,
+                data: {parent_search: parent_search.value, localization: form.dataset.localization},
                 success:function(data) {
                         //Making empty drop down list with album links.
                         album_list_container.insertAdjacentHTML("beforeend", "<div \n\
@@ -97,5 +106,14 @@ $( document ).ready(function() {
         } else {
             parent_search.value = null;
         }
+    }
+    
+    //We need to make this event as onsubmit function is not working properly.
+    if (button_submit !== null) {   
+        button_submit.onclick = function() {
+            if (parent_search.value === "") {
+                parent_id.value = "0";
+            }
+        };
     }
 });

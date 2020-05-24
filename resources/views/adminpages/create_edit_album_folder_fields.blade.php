@@ -9,7 +9,7 @@
     <div class="admin-panel-albums-create-edit-album-controls">              
         <div>{!! Form::label('included_in_album_with_name', Lang::get('keywords.ParentAlbum').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>
         <div>{!! Form::text('included_in_album_with_name', $parent_name, 
-            ['class' => 'admin-panel-albums-create-edit-album-controls-input-parent', 'placeholder' => 'Search...', 'name' => 'search']) !!}
+            ['class' => 'admin-panel-albums-create-edit-album-controls-input-parent', 'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'search']) !!}
             {!! Form::button('<i class="fas fa-search fa-sm"></i>', ['class' => 'admin-panel-albums-create-edit-album-controls-button-search', 
                 'id' => 'parent_albums_search_button', 'title' => "Search in Data Base" ]) !!}
             </button>
@@ -30,7 +30,8 @@
         {!! Form::checkbox('is_visible', 1) !!}
     </div>
         <div class="admin-panel-albums-create-edit-album-controls">
-            {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-albums-create-edit-album-controls-button' ]) !!}
+            {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-albums-create-edit-album-controls-button', 
+            'id' => 'admin_panel_albums_create_edit_delete_album_controls_button_submit']) !!}
             {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-albums-create-edit-album-controls-button', 
                 'id' => 'admin_panel_albums_create_edit_delete_album_controls_button_cancel' ]) !!}
         </div>           

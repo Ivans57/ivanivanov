@@ -245,10 +245,19 @@ class AdminAlbumsController extends Controller
         
         $album_to_find = $request->input('parent_search');
         
-        $albums = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
-                    ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                    ->where('album_name', 'LIKE', "%$album_to_find%")
-                    ->orderBy('en_albums.created_at','DESC')->get();
+        $localization = $request->input('localization');
+        
+        if ($localization === "en") {
+            $albums = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
+                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                        ->where('album_name', 'LIKE', "%$album_to_find%")
+                        ->orderBy('en_albums.created_at','DESC')->get(); 
+        } else {
+            $albums = \App\Album::select('ru_albums.id', 'ru_albums.keyword', 'ru_albums.album_name')
+                        ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
+                        ->where('album_name', 'LIKE', "%$album_to_find%")
+                        ->orderBy('ru_albums.created_at','DESC')->get();
+        }
         
         $test = count($albums);
         
@@ -266,7 +275,7 @@ class AdminAlbumsController extends Controller
                 ->json(['albums_data' => $albums_data_array]);
         } else {
             return response()
-                ->json(['albums_data' => [["0", "Nothing found"]]]);
+                ->json(['albums_data' => [["0", __('keywords.NothingFound')]]]);
         }
     }
     

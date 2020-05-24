@@ -3,9 +3,15 @@
 @section('partialcontent')
     @include('adminpages.create_edit_errors')
     @if ($create_or_edit==='create')
-        {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/albums/" : "/ru/admin/albums/", 'id' => 'admin_panel_create_edit_delete_album_form' ]) !!}
+        {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/albums/" : "/ru/admin/albums/",
+                         'data-localization' => App::isLocale('en') ? "en" : "ru",
+                         'id' => 'admin_panel_create_edit_delete_album_form' ]) !!}
     @else
-        {!! Form::model($edited_album, [ 'method' => 'PUT', 'url' => App::isLocale('en') ? "/admin/albums/".$edited_album->keyword : "/ru/admin/albums/".$edited_album->keyword, 'id' => 'admin_panel_create_edit_delete_album_form' ]) !!}
+        {!! Form::model($edited_album, [ 'method' => 'PUT', 
+                                         'url' => App::isLocale('en') ? "/admin/albums/".$edited_album->keyword : 
+                                         "/ru/admin/albums/".$edited_album->keyword,
+                                         'data-localization' => App::isLocale('en') ? "en" : "ru",
+                                         'id' => 'admin_panel_create_edit_delete_album_form' ]) !!}
     @endif
         @component('adminpages/create_edit_album_folder_fields', ['albums' => $albums, 'parent_id' => $parent_id, 'parent_name' => $parent_name])
             @slot('old_keyword')
@@ -22,6 +28,8 @@
     <!-- Scripts -->
     @component('pages/body_scripts')
         @slot('js')
+            <!-- The first line below we need to make small images working (e.g. magnifying glass on search button). -->
+            <script src="https://kit.fontawesome.com/de385ec762.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="{{ URL::asset('js/albums_create_edit_delete.js') }}"></script>
         @endslot
     @endcomponent

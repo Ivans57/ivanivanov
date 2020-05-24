@@ -8,9 +8,7 @@
             @slot('css')
                 <link href="{{ URL::asset('css/admin_layout.css') }}" rel="stylesheet">
             @endslot
-        @endcomponent
-        <!-- Need to relocate the line below -->
-        <script src="https://kit.fontawesome.com/de385ec762.js" crossorigin="anonymous"></script>
+        @endcomponent     
     </head>
     <body>
         <div>
