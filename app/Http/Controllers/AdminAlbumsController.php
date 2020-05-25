@@ -242,11 +242,12 @@ class AdminAlbumsController extends Controller
     }
     
     public function findParents(Request $request){
-                
-        $albums = $this->albums->getParents($request->input('localization'), $request->input('parent_search'));
+                     
+        $parents = $this->albums->getParents($request->input('localization'), $request->input('parent_search'), 
+                $request->input('keyword'));
                    
-        if (count($albums) > 0) {              
-            return response()->json(['albums_data' => $albums]);
+        if (count($parents) > 0) {              
+            return response()->json(['albums_data' => $parents]);
         } else {
             return response()->json(['albums_data' => [["0", __('keywords.NothingFound')]]]);
         }

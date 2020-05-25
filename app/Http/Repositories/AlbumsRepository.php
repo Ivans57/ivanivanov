@@ -44,6 +44,135 @@ class AlbumsRepository {
         return $album_links;
     }
        
+    //We need the method below to clutter down the method in controller, which
+    //is responsible for showing some separate album
+    public function showAlbumView($section, $page, $keyword, $items_amount_per_page, $main_links, $is_admin_panel, $including_invisible){
+        
+        $common_repository = new CommonRepository();
+        //The condition below fixs a problem when user enters as a number of page some number less then 1
+        if ($page < 1) {
+            return $common_repository->redirect_to_first_page_multi_entity($section, $keyword, $is_admin_panel);          
+        } else {
+            $albums_and_pictures_full_info = $this->getAlbum($keyword, $page, $items_amount_per_page, $including_invisible);
+            //We need to do the check below in case user enters a page number more than actual number of pages
+            if ($page > $albums_and_pictures_full_info->paginator_info->number_of_pages) {
+                return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $albums_and_pictures_full_info->paginator_info->number_of_pages, $is_admin_panel);
+            } else {                
+                return $this->get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, $items_amount_per_page);
+            }
+        }
+    }
+    
+    //We need this function for Album Parent search field when create or edit album.
+    public function getParents($localization, $album_to_find, $albums_to_exclude_keyword){
+              
+        $albums = $this->get_parents_from_query($localization, $album_to_find, $albums_to_exclude_keyword);
+        
+        $parents_data_array = array();
+        
+        if ($album_to_find && count($albums) > 0) {
+            
+            foreach ($albums as $album) {
+                $album_path = $this->get_full_album_path($album->id, "");
+                $parent_data_array = [$album->id, $album_path];
+                array_push($parents_data_array, $parent_data_array);
+            }
+        }
+        
+        return $parents_data_array;
+    }
+    
+    //We need this function to simplify getParents function.
+    private function get_parents_from_query($localization, $album_to_find, $albums_to_exclude_keyword) { 
+        
+        $items_children = $this->get_albums_children_array($albums_to_exclude_keyword);
+        
+        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($albums_to_exclude_keyword);
+        
+        if ($localization === "en") {
+            $parents = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
+                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                        ->where('album_name', 'LIKE', "%$album_to_find%")
+                        ->where('en_albums.keyword', '!=', $albums_to_exclude_keyword)
+                        ->whereNotIn('en_albums.id', $items_children)
+                        ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
+                        ->orderBy('en_albums.created_at','DESC')->get(); 
+        } else {
+            $parents = \App\Album::select('ru_albums.id', 'ru_albums.keyword', 'ru_albums.album_name')
+                        ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
+                        ->where('album_name', 'LIKE', "%$album_to_find%")
+                        ->where('ru_albums.keyword', '!=', $albums_to_exclude_keyword)
+                        ->whereNotIn('ru_albums.id', $items_children)
+                        ->where('ru_albums_data.nesting_level', '<', $max_acceptable_nest_level)
+                        ->orderBy('ru_albums.created_at','DESC')->get();
+        }
+            
+        return $parents;
+    }
+    
+    //We need this function to simplify getParents and get_parents_from_query functions.
+    private function get_albums_children_array($albums_to_exclude_keyword) {
+        if($albums_to_exclude_keyword) {
+        
+            //We will do two request to avoid localization check.
+            $album_id = \App\Album::select('id')->where('keyword', $albums_to_exclude_keyword)->firstOrFail();
+            
+            $items_children_from_query = \App\AlbumData::select('children')
+                    ->where('items_id', $album_id->id)->firstOrFail();
+
+            $items_children_array = json_decode($items_children_from_query->children, true);
+            
+            if($items_children_array){
+                $items_children = array_map('intval', $items_children_array);
+            } else {
+                $items_children = array();
+            }
+        
+        } else {
+            $items_children = array();
+        }
+        
+        return $items_children;
+    }
+    
+    //We need this function to shorten getParents function.
+    private function get_max_acceptable_nest_level($albums_to_exclude_keyword = NULL) {
+               
+        $max_acceptable_nest_level = 7;
+        
+        if ($albums_to_exclude_keyword != NULL) {
+            $items_id = \App\Album::where('keyword', $albums_to_exclude_keyword)->select('id')->firstOrFail();
+            $items_nesting_level_and_children = \App\AlbumData::where('items_id', $items_id->id)
+                    ->select('nesting_level', 'children')->firstOrFail();
+            
+            $items_children = json_decode($items_nesting_level_and_children->children, true);
+            
+            if (is_null($items_children)){
+                $children_max_nest_level = $items_nesting_level_and_children->nesting_level;
+            } else {
+                $children_max_nest_level = $this->get_children_max_nest_level($items_children, $max_acceptable_nest_level);
+            }
+            
+            $children_rel_max_nest_level = $children_max_nest_level - $items_nesting_level_and_children->nesting_level;
+            $max_acceptable_nest_level = $max_acceptable_nest_level - $children_rel_max_nest_level;
+        }
+                   
+        return $max_acceptable_nest_level;
+    }
+    
+    //We need this function for Album Parent search field when create or edit album.
+    //It is not enough to get just a name of the album, we need to get a full path to show.
+    private function get_full_album_path($album_id, $album_path) {
+        //We cannot get information from data table becuase in this case the sequence of items is important.
+        $album = \App\Album::select('album_name', 'included_in_album_with_id')
+                ->where('id', $album_id)->firstOrFail();
+        $album_full_path = substr_replace($album_path, ' / '.$album->album_name, 0, 0);
+        if ($album->included_in_album_with_id != 0){
+            $album_full_path = $this->get_full_album_path($album->included_in_album_with_id, $album_full_path);
+        }
+        return $album_full_path;
+    }
+    
     //We need this function to make a drop down list for Album addition in Admin Panel
     //This function accepts one argument, because when we have a drop down list
     //in edit window, we need to exclude being changed album and its children
@@ -75,70 +204,9 @@ class AlbumsRepository {
         return $albums_for_list;
     }
     
-    //We need the method below to clutter down the method in controller, which
-    //is responsible for showing some separate album
-    public function showAlbumView($section, $page, $keyword, $items_amount_per_page, $main_links, $is_admin_panel, $including_invisible){
-        
-        $common_repository = new CommonRepository();
-        //The condition below fixs a problem when user enters as a number of page some number less then 1
-        if ($page < 1) {
-            return $common_repository->redirect_to_first_page_multi_entity($section, $keyword, $is_admin_panel);          
-        } else {
-            $albums_and_pictures_full_info = $this->getAlbum($keyword, $page, $items_amount_per_page, $including_invisible);
-            //We need to do the check below in case user enters a page number more than actual number of pages
-            if ($page > $albums_and_pictures_full_info->paginator_info->number_of_pages) {
-                return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $albums_and_pictures_full_info->paginator_info->number_of_pages, $is_admin_panel);
-            } else {                
-                return $this->get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, $items_amount_per_page);
-            }
-        }
-    }
-    
-    //We need this function for Album Parent search field when create or edit album.
-    public function getParents($localization, $album_to_find){
-             
-        if ($localization === "en") {
-            $albums = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
-                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                        ->where('album_name', 'LIKE', "%$album_to_find%")
-                        ->orderBy('en_albums.created_at','DESC')->get(); 
-        } else {
-            $albums = \App\Album::select('ru_albums.id', 'ru_albums.keyword', 'ru_albums.album_name')
-                        ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
-                        ->where('album_name', 'LIKE', "%$album_to_find%")
-                        ->orderBy('ru_albums.created_at','DESC')->get();
-        }
-        
-        $albums_data_array = array();
-        
-        if ($album_to_find && count($albums) > 0) {
-            
-            foreach ($albums as $album) {
-                $album_path = $this->get_full_album_path($album->id, "");
-                $album_data_array = [$album->id, $album_path];
-                array_push($albums_data_array, $album_data_array);
-            }
-        }
-        
-        return $albums_data_array;
-    }
-    
-    //We need this function for Album Parent search field when create or edit album.
-    //It is not enough to get just a name of the album, we need to get a full path to show.
-    private function get_full_album_path($album_id, $album_path) {
-        //We cannot get information from data table becuase in this case the sequence of items is important.
-        $album = \App\Album::select('album_name', 'included_in_album_with_id')
-                ->where('id', $album_id)->firstOrFail();
-        $album_full_path = substr_replace($album_path, ' / '.$album->album_name, 0, 0);
-        if ($album->included_in_album_with_id != 0){
-            $album_full_path = $this->get_full_album_path($album->included_in_album_with_id, $album_full_path);
-        }
-        return $album_full_path;
-    }
-    
     //We need this function to get all included albums in parent album.
     //This function accepts one argument, because when we have a drop down list
-    //in edit window, we need to exclude being changed album and its parents
+    //in edit window, we need to exclude being changed album and its children
     //from that list, so user can't move the album into itself or its children.
     //The argument has default value NULL because the same function
     //is used for create method which can't give any argument to this function.
@@ -163,9 +231,6 @@ class AlbumsRepository {
             $all_included_albums = $this->get_all_included_albums($included_album->id, $list_inclusion_level + 1, 
                     $max_acceptable_nest_level, $albums_to_exclude_keyword);
             if ($all_included_albums != NULL) {
-                /*foreach ($all_included_albums as $included_album) {
-                   array_push($included_albums_for_list, $included_album);
-                }*/
                 $included_albums_for_list = $included_albums_for_list + $all_included_albums;
             }
         }
@@ -197,31 +262,6 @@ class AlbumsRepository {
         }
              
         return $included_albums;
-    }
-    
-    //We need this function to shorten getAllAlbumsList function.
-    private function get_max_acceptable_nest_level($albums_to_exclude_keyword = NULL) {
-               
-        $max_acceptable_nest_level = 7;
-        
-        if ($albums_to_exclude_keyword != NULL) {
-            $items_id = \App\Album::where('keyword', $albums_to_exclude_keyword)->select('id')->firstOrFail();
-            $items_nesting_level_and_children = \App\AlbumData::where('items_id', $items_id->id)
-                    ->select('nesting_level', 'children')->firstOrFail();
-            
-            $items_children = json_decode($items_nesting_level_and_children->children, true);
-            
-            if (is_null($items_children)){
-                $children_max_nest_level = $items_nesting_level_and_children->nesting_level;
-            } else {
-                $children_max_nest_level = $this->get_children_max_nest_level($items_children, $max_acceptable_nest_level);
-            }
-            
-            $children_rel_max_nest_level = $children_max_nest_level - $items_nesting_level_and_children->nesting_level;
-            $max_acceptable_nest_level = $max_acceptable_nest_level - $children_rel_max_nest_level;
-        }
-                   
-        return $max_acceptable_nest_level;
     }
     
     //We need this function to shorten get_max_acceptable_nest_level function.

@@ -32,15 +32,16 @@ $( document ).ready(function() {
     }
     
     //Below we are making a functionality for Search button
-    var button_search = document.getElementById('parent_albums_search_button');
     var parent_search =document.getElementById('included_in_album_with_name');
+    var button_search = document.getElementById('parent_albums_search_button');
+    var keyword = document.getElementById('keyword');
     var parent_id =document.getElementById('included_in_album_with_id');
     var album_list_container =document.getElementById('album_list_container');
     var form = document.getElementById('admin_panel_create_edit_delete_album_form');
     
     //We need to make an event on this as onsubmit function is not working properly.
     var button_submit = document.getElementById('admin_panel_albums_create_edit_delete_album_controls_button_submit');
-        
+   
     var url;
     if (form.dataset.localization === "en") {
         url = "/admin/albums/create_or_edit/findParents";
@@ -52,7 +53,7 @@ $( document ).ready(function() {
             $.ajax({
                 type: "POST",
                 url: url,
-                data: {parent_search: parent_search.value, localization: form.dataset.localization},
+                data: {localization: form.dataset.localization, parent_search: parent_search.value, keyword: keyword.value},
                 success:function(data) {
                         //Making empty drop down list with album links.
                         album_list_container.insertAdjacentHTML("beforeend", "<div \n\
