@@ -242,51 +242,13 @@ class AdminAlbumsController extends Controller
     }
     
     public function findParents(Request $request){
-        
-        $album_to_find = $request->input('parent_search');
-        
-        $localization = $request->input('localization');
-        
-        if ($localization === "en") {
-            $albums = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
-                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                        ->where('album_name', 'LIKE', "%$album_to_find%")
-                        ->orderBy('en_albums.created_at','DESC')->get(); 
+                
+        $albums = $this->albums->getParents($request->input('localization'), $request->input('parent_search'));
+                   
+        if (count($albums) > 0) {              
+            return response()->json(['albums_data' => $albums]);
         } else {
-            $albums = \App\Album::select('ru_albums.id', 'ru_albums.keyword', 'ru_albums.album_name')
-                        ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
-                        ->where('album_name', 'LIKE', "%$album_to_find%")
-                        ->orderBy('ru_albums.created_at','DESC')->get();
+            return response()->json(['albums_data' => [["0", __('keywords.NothingFound')]]]);
         }
-        
-        $test = count($albums);
-        
-        if ($album_to_find && $test > 0) {
-            
-            $albums_data_array = array();
-
-            foreach ($albums as $album) {
-                $album_path = $this->get_full_album_path($album->id, "");
-                $album_data_array = [$album->id, $album_path];
-                array_push($albums_data_array, $album_data_array);
-            }    
-               
-            return response()
-                ->json(['albums_data' => $albums_data_array]);
-        } else {
-            return response()
-                ->json(['albums_data' => [["0", __('keywords.NothingFound')]]]);
-        }
-    }
-    
-    private function get_full_album_path($album_id, $album_path) {
-        //We cannot get information from data table becuase in this case the sequence of items is important.
-        $album = \App\Album::select('album_name', 'included_in_album_with_id')
-                ->where('id', $album_id)->firstOrFail();
-        $album_full_path = substr_replace($album_path, ' / '.$album->album_name, 0, 0);
-        if ($album->included_in_album_with_id != 0){
-            $album_full_path = $this->get_full_album_path($album->included_in_album_with_id, $album_full_path);
-        }
-        return $album_full_path;
     }
 }
