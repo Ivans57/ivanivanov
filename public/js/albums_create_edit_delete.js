@@ -41,7 +41,10 @@ $( document ).ready(function() {
     
     //We need to make an event on this as onsubmit function is not working properly.
     var button_submit = document.getElementById('admin_panel_albums_create_edit_delete_album_controls_button_submit');
-   
+    
+    //var parent_next;
+    //var parent_prev;
+    
     var url;
     if (form.dataset.localization === "en") {
         url = "/admin/albums/create_or_edit/findParents";
@@ -49,20 +52,39 @@ $( document ).ready(function() {
         url = "/ru/admin/albums/create_or_edit/findParents";
     }
     
-    button_search.onclick = function() {
-            $.ajax({
+    //Simple button_search.onclick function is not working properly, that's why we are going to do via event listener.
+    button_search.addEventListener('click', function() {
+        get_parents(form.dataset.localization, parent_search.value, keyword.value, url, 1);
+    });
+    
+    function get_parents(localization, parent_name, keyword, url, page) {
+        $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: form.dataset.localization, parent_search: parent_search.value, keyword: keyword.value},
+                data: {localization: localization, page: page, parent_search: parent_name, keyword: keyword},
                 success:function(data) {
+                        //We will always assign it, because if we don't do that,
+                        //after turning pages, that value will always disappear from search field.
+                        parent_search.value = parent_name;
                         //Making empty drop down list with album links.
                         album_list_container.insertAdjacentHTML("beforeend", "<div \n\
                                                                 class='admin-panel-albums-create-edit-album-album-list'\n\
                                                                 id='album_list'> \n\
                                                                 </div>");
-                        
+                    
                         //Filling up albums drop dwon list.
                         var album_list = document.getElementById('album_list');
+                        
+                        if (data.pagination_info.previousPage !== null) {
+                            album_list.insertAdjacentHTML("beforeend", "<div \n\
+                                                              class='admin-panel-albums-create-edit-album-album-list-element'> \n\
+                                                              <a href='#' \n\
+                                                              class='admin-panel-albums-create-edit-album-album-list-element-link' \n\
+                                                              id='parents_previous_page'>Previous Page\n\
+                                                              </a> \n\
+                                                              </div>");
+                        }
+                        
                         data.albums_data.forEach(function(album_data) {
                             album_list.insertAdjacentHTML("beforeend", "<div \n\
                                                           class='admin-panel-albums-create-edit-album-album-list-element'> \n\
@@ -73,6 +95,38 @@ $( document ).ready(function() {
                                                           </div>");
                         });
                         
+                        if (data.pagination_info.nextPage !== null) {
+                        album_list.insertAdjacentHTML("beforeend", "<div \n\
+                                                          class='admin-panel-albums-create-edit-album-album-list-element'> \n\
+                                                          <a href='#' \n\
+                                                          class='admin-panel-albums-create-edit-album-album-list-element-link' \n\
+                                                          id='parents_next_page'>Next Page\n\
+                                                          </a> \n\
+                                                          </div>");
+                        }
+                        
+                        var parent_prev = document.getElementById('parents_previous_page');
+                        
+                        var parent_next = document.getElementById('parents_next_page');
+                        
+                        //Before applying an event to the object, need to make sure it exists,
+                        //otherwise might be an error.
+                        if (parent_prev !== null) {
+                            parent_prev.addEventListener('click', function() {
+                                get_parents(localization, parent_name, keyword, url, 
+                                            data.pagination_info.previousPage);
+                            });
+                        }
+                        
+                        //Before applying an event to the object, need to make sure it exists,
+                        //otherwise might be an error.
+                        if (parent_next !== null) {
+                            parent_next.addEventListener('click', function() {
+                                get_parents(localization, parent_name, keyword, url, 
+                                            data.pagination_info.nextPage);
+                            });
+                        }
+                        
                         //Need to attach an event which will select albums keyword and name and assign them to proper form fields.
                         var album_list_element_links = 
                                 document.getElementsByClassName("admin-panel-albums-create-edit-album-album-list-element-link");
@@ -82,8 +136,8 @@ $( document ).ready(function() {
                         }
                     }
             });
-    };
- 
+    }
+   
     window.onclick = function(event) {
         //We need this to close a drop down list.
         if (!event.target.matches('.admin-panel-albums-create-edit-album-controls-button-search')) {

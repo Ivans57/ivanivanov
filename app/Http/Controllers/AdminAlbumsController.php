@@ -243,13 +243,16 @@ class AdminAlbumsController extends Controller
     
     public function findParents(Request $request){
                      
-        $parents = $this->albums->getParents($request->input('localization'), $request->input('parent_search'), 
-                $request->input('keyword'));
+        $parents = $this->albums->getParents($request->input('localization'), $request->input('page'), 
+                $request->input('parent_search'), $request->input('keyword'));
                    
-        if (count($parents) > 0) {              
-            return response()->json(['albums_data' => $parents]);
+        if (count($parents->parentsDataArray) > 0) {              
+            return response()->json(['albums_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
         } else {
-            return response()->json(['albums_data' => [["0", __('keywords.NothingFound')]]]);
+            //Here we need to override the following property, because in case user doesn't enter anything in search
+            //system supposed to return nothing instead of everything and there shouldn't be any pages.
+            $parents->paginationInfo->nextPage = null;
+            return response()->json(['albums_data' => [["0", __('keywords.NothingFound')]], 'pagination_info' => $parents->paginationInfo]);
         }
     }
 }

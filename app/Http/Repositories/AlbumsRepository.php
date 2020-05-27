@@ -31,6 +31,15 @@ class AlbumAndPictureForViewFullInfoForPage {
     public $paginator_info;   
 }
 
+class AlbumParentsData {
+    public $parentsDataArray;
+    public $paginationInfo;
+}
+
+class PaginationInfoForParentSearch {
+    public $previousPage;
+    public $nextPage;
+}
 
 class AlbumsRepository {
     
@@ -64,26 +73,42 @@ class AlbumsRepository {
     }
     
     //We need this function for Album Parent search field when create or edit album.
-    public function getParents($localization, $album_to_find, $albums_to_exclude_keyword){
+    public function getParents($localization, $page, $album_to_find, $albums_to_exclude_keyword){
               
-        $albums = $this->get_parents_from_query($localization, $album_to_find, $albums_to_exclude_keyword);
+        $parents = new AlbumParentsData();
         
-        $parents_data_array = array();
+        $parents->paginationInfo = new PaginationInfoForParentSearch();
         
-        if ($album_to_find && count($albums) > 0) {
+        $records_to_show = 10;
+        
+        $parents_from_query = $this->get_parents_from_query($localization, $page, $album_to_find, $albums_to_exclude_keyword, $records_to_show);
+        
+        if ($parents_from_query->previousPageUrl() !== null) {
+            $parents->paginationInfo->previousPage = (int)substr($parents_from_query->previousPageUrl(), -1);
+        }
+
+        if ($parents_from_query->nextPageUrl() !== null) {
+            //In case user did not enter anything in search, this property will be overriden in controller
+            //before sending json response.
+            $parents->paginationInfo->nextPage = (int)substr($parents_from_query->nextPageUrl(), -1);
+        } 
+        
+        $parents->parentsDataArray = array();
+        
+        if ($album_to_find && count($parents_from_query) > 0) {
             
-            foreach ($albums as $album) {
+            foreach ($parents_from_query as $album) {
                 $album_path = $this->get_full_album_path($album->id, "");
                 $parent_data_array = [$album->id, $album_path];
-                array_push($parents_data_array, $parent_data_array);
+                array_push($parents->parentsDataArray, $parent_data_array);
             }
         }
-        
-        return $parents_data_array;
+             
+        return $parents;
     }
     
     //We need this function to simplify getParents function.
-    private function get_parents_from_query($localization, $album_to_find, $albums_to_exclude_keyword) { 
+    private function get_parents_from_query($localization, $page, $album_to_find, $albums_to_exclude_keyword, $records_to_show) { 
         
         $items_children = $this->get_albums_children_array($albums_to_exclude_keyword);
         
@@ -96,7 +121,7 @@ class AlbumsRepository {
                         ->where('en_albums.keyword', '!=', $albums_to_exclude_keyword)
                         ->whereNotIn('en_albums.id', $items_children)
                         ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
-                        ->orderBy('en_albums.created_at','DESC')->get(); 
+                        ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
         } else {
             $parents = \App\Album::select('ru_albums.id', 'ru_albums.keyword', 'ru_albums.album_name')
                         ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
@@ -104,7 +129,7 @@ class AlbumsRepository {
                         ->where('ru_albums.keyword', '!=', $albums_to_exclude_keyword)
                         ->whereNotIn('ru_albums.id', $items_children)
                         ->where('ru_albums_data.nesting_level', '<', $max_acceptable_nest_level)
-                        ->orderBy('ru_albums.created_at','DESC')->get();
+                        ->orderBy('ru_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
         }
             
         return $parents;
