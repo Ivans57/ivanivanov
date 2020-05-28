@@ -14,7 +14,8 @@
                 'id' => 'parent_albums_search_button', 'title' => "Search in Data Base" ]) !!}
             </button>
         </div>
-        <div id="album_list_container"></div>
+        <div id="album_list_container" data-previous_page="{{ Lang::get('keywords.PreviousPage') }}"
+                                       data-next_page="{{ Lang::get('keywords.NextPage') }}"></div>
     </div>
     <div class="admin-panel-albums-create-edit-album-controls">
         <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>

@@ -10,13 +10,12 @@ $( document ).ready(function() {
     //We need the following lines to make ajax requests work.
     //There are special tokens used for security. We need to add them in all heads
     //and also ajax should be set up to pass them.
-    $( document ).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    });  
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+ 
    
     //Few lines below are made for cancel button, which is closing opened window 
     //without saving or deleting anything.
@@ -41,10 +40,7 @@ $( document ).ready(function() {
     
     //We need to make an event on this as onsubmit function is not working properly.
     var button_submit = document.getElementById('admin_panel_albums_create_edit_delete_album_controls_button_submit');
-    
-    //var parent_next;
-    //var parent_prev;
-    
+
     var url;
     if (form.dataset.localization === "en") {
         url = "/admin/albums/create_or_edit/findParents";
@@ -77,11 +73,11 @@ $( document ).ready(function() {
                         
                         if (data.pagination_info.previousPage !== null) {
                             album_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                              class='admin-panel-albums-create-edit-album-album-list-element'> \n\
+                                                              class='admin-panel-albums-create-edit-album-album-list-button'> \n\
                                                               <a href='#' \n\
-                                                              class='admin-panel-albums-create-edit-album-album-list-element-link' \n\
-                                                              id='parents_previous_page'>Previous Page\n\
-                                                              </a> \n\
+                                                              class='admin-panel-albums-create-edit-album-album-list-button-link' \n\
+                                                              id='parents_previous_page'>" + album_list_container.dataset.previous_page +
+                                                              "</a> \n\
                                                               </div>");
                         }
                         
@@ -89,7 +85,7 @@ $( document ).ready(function() {
                             album_list.insertAdjacentHTML("beforeend", "<div \n\
                                                           class='admin-panel-albums-create-edit-album-album-list-element'> \n\
                                                           <a href='#' \n\
-                                                          class='admin-panel-albums-create-edit-album-album-list-element-link' \n\
+                                                          class='admin-panel-albums-create-edit-album-album-list-element-element-link' \n\
                                                           data-id='" + album_data[0] +"'>" 
                                                           + album_data[1] + "</a> \n\
                                                           </div>");
@@ -97,11 +93,11 @@ $( document ).ready(function() {
                         
                         if (data.pagination_info.nextPage !== null) {
                         album_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                          class='admin-panel-albums-create-edit-album-album-list-element'> \n\
+                                                          class='admin-panel-albums-create-edit-album-album-list-button'> \n\
                                                           <a href='#' \n\
-                                                          class='admin-panel-albums-create-edit-album-album-list-element-link' \n\
-                                                          id='parents_next_page'>Next Page\n\
-                                                          </a> \n\
+                                                          class='admin-panel-albums-create-edit-album-album-list-element-button-link' \n\
+                                                          id='parents_next_page'>" + album_list_container.dataset.next_page +
+                                                          "</a> \n\
                                                           </div>");
                         }
                         

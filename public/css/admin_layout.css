@@ -549,12 +549,35 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element a {
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button {
+    border: 1px solid grey;
+    border-bottom: 2px solid grey;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element a,
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button a {
     display: block;
     text-decoration: none;
     color: #0d95e8;
     padding-left: 5px;
     padding-top: 3px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button {
+    background-color: #dedede;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button a {
+    display: block;
+    text-decoration: underline;
+    color: #1a7dd9;
+    padding-left: 0px;
+    padding-top: 0px;
+    text-align: center;
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
@@ -564,8 +587,19 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button a:hover {
+    color: red;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element:last-child {
     border-bottom: 0px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button:last-child {
+    border-bottom: 0px;
+    border: 1px solid grey;
 }
 
 .admin-panel-albums-create-notification-wrapper {
