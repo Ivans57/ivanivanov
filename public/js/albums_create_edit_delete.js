@@ -33,7 +33,7 @@ $( document ).ready(function() {
     //Below we are making a functionality for Search button
     var parent_search =document.getElementById('included_in_album_with_name');
     var button_search = document.getElementById('parent_albums_search_button');
-    var keyword = document.getElementById('keyword');
+    var old_keyword = document.getElementById('old_keyword');
     var parent_id =document.getElementById('included_in_album_with_id');
     var album_list_container =document.getElementById('album_list_container');
     var form = document.getElementById('admin_panel_create_edit_delete_album_form');
@@ -50,7 +50,7 @@ $( document ).ready(function() {
     
     //Simple button_search.onclick function is not working properly, that's why we are going to do via event listener.
     button_search.addEventListener('click', function() {
-        get_parents(form.dataset.localization, parent_search.value, keyword.value, url, 1);
+        get_parents(form.dataset.localization, parent_search.value, old_keyword.value, url, 1);
     });
     
     function get_parents(localization, parent_name, keyword, url, page) {
@@ -85,7 +85,7 @@ $( document ).ready(function() {
                             album_list.insertAdjacentHTML("beforeend", "<div \n\
                                                           class='admin-panel-albums-create-edit-album-album-list-element'> \n\
                                                           <a href='#' \n\
-                                                          class='admin-panel-albums-create-edit-album-album-list-element-element-link' \n\
+                                                          class='admin-panel-albums-create-edit-album-album-list-element-link' \n\
                                                           data-id='" + album_data[0] +"'>" 
                                                           + album_data[1] + "</a> \n\
                                                           </div>");
@@ -134,17 +134,10 @@ $( document ).ready(function() {
             });
     }
    
-    window.onclick = function(event) {
-        //We need this to close a drop down list.
-        if (!event.target.matches('.admin-panel-albums-create-edit-album-controls-button-search')) {
-            $("#album_list_container").empty();
-        }
-    };
-    
     //Here we need to assign proper form fields for keyword and selected parent name.
     function assignIDAndName(zEvent) {
         //-- this and the parameter are special in event handlers.
-        var album_id  = this.getAttribute ("data-id");
+        var album_id  = this.getAttribute("data-id");
         //We are working with album_id as a string, because when we are getting data from backend, 
         //we are getting them as json with strings.
         if (album_id !== "0") {
@@ -158,7 +151,14 @@ $( document ).ready(function() {
             parent_search.value = null;
         }
     }
-    
+   
+    window.onclick = function(event) {
+        //We need this to close a drop down list.
+        if (!event.target.matches('.admin-panel-albums-create-edit-album-controls-button-search')) {
+            $("#album_list_container").empty();
+        }
+    };
+       
     //We need to make this event as onsubmit function is not working properly.
     if (button_submit !== null) {   
         button_submit.onclick = function() {
