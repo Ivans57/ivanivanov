@@ -502,7 +502,7 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search {
+.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down {
     width: 25px;
     float: left;
     padding-right: 4px;
@@ -515,9 +515,60 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search:hover {
+.admin-panel-albums-create-edit-album-controls-button-drop-down {
+    width: 24px;
+    float: right;
+    cursor: pointer;
+    height: 28px;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover {
     background: #0b7dda;
 }
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-drop-down 
+.admin-panel-albums-create-edit-album-controls-button-drop-down-caret {
+    position: absolute;
+    top: 64px;
+    left: 273px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    border-color: white transparent transparent transparent;
+    transform: scale(0.7, 1.5);
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover
+.admin-panel-albums-create-edit-album-controls-button-drop-down-caret{
+    filter: brightness(90%)
+}
+
+/*.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-drop-down i {
+    width: 24px;
+    height: 28px;
+}*/
+
+/*.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down .caret {
+    cursor: pointer;
+    user-select: none;  Prevent text selection 
+}*/
+
+/*.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down .caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+    transform: rotate(90deg);
+}*/
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-controls-button,
