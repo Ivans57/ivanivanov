@@ -549,27 +549,6 @@ article's button, because article has only two control buttons instead of three*
     filter: brightness(90%)
 }
 
-/*.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-drop-down i {
-    width: 24px;
-    height: 28px;
-}*/
-
-/*.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down .caret {
-    cursor: pointer;
-    user-select: none;  Prevent text selection 
-}*/
-
-/*.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down .caret::before {
-    content: "\25B6";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
-    transform: rotate(90deg);
-}*/
-
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-controls-button,
 .admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls 
@@ -592,6 +571,66 @@ article's button, because article has only two control buttons instead of three*
     background-color: white;
     max-height: 330px;
     overflow: auto;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list {
+    z-index: 1;
+    position: absolute;
+    top: 80.1px; 
+    left: 34.5px;
+    width: 260px;
+    border: 1px solid grey;
+    background-color: white;
+    max-height: 330px;
+    overflow: auto;
+    list-style-type: none;
+}
+
+/* Remove margins and padding from the parent ul 
+with class .admin-panel-albums-create-edit-album-album-drop-down-list-item.
+We need to do only for this id element, because another uls of this class might have different
+requerments.*/
+#album_dropdown_list {
+    margin: 0px;
+    padding: 0px;
+    padding-left: 5px;
+}
+
+/* Style the caret/arrow */
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item {
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/*For elemnts without a caret we need to create an empty "caret" to even out elements list*/
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret::before {
+    content: "\25B6";
+    /*Element made by ::before can't exist without actual caret, so we will make it, 
+    but the clor will be transparent.*/
+    color: transparent;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down::before {
+    transform: rotate(90deg);
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 

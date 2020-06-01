@@ -11,15 +11,16 @@
         <div>{!! Form::text('included_in_album_with_name', $parent_name, 
             ['class' => 'admin-panel-albums-create-edit-album-controls-input-parent', 'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'search']) !!}
             {!! Form::button('<i class="fas fa-search fa-sm"></i>', ['class' => 'admin-panel-albums-create-edit-album-controls-button-search-and-drop-down', 
-                'id' => 'parent_albums_search_button', 'title' => Lang::get('keywords.SearchInDataBase') ]) !!}
+                'id' => 'parent_albums_search_button', 'title' => Lang::get('keywords.FindInDataBase') ]) !!}
                 {!! Form::button('<div class="admin-panel-albums-create-edit-album-controls-button-drop-down-caret"></div>', 
                 ['class' => 'admin-panel-albums-create-edit-album-controls-button-search-and-drop-down 
                 admin-panel-albums-create-edit-album-controls-button-drop-down', 
-                'id' => 'parent_albums_search_button', 'title' => Lang::get('keywords.SelectFromDropDownList') ]) !!}
+                'id' => 'parent_albums_select_from_dropdown_list_button', 'title' => Lang::get('keywords.SelectFromDropDownList') ]) !!}
             </button>
         </div>
         <div id="album_list_container" data-previous_page="{{ Lang::get('keywords.PreviousPage') }}"
-                                       data-next_page="{{ Lang::get('keywords.NextPage') }}"></div>
+             data-next_page="{{ Lang::get('keywords.NextPage') }}">
+        </div>
     </div>
     <div class="admin-panel-albums-create-edit-album-controls">
         <div>{!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>

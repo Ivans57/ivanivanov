@@ -143,6 +143,14 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::post('admin/albums/create_or_edit/findParents', 'AdminAlbumsController@findParents');
 });
 
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/albums/create_or_edit/getParentList', 'AdminAlbumsController@getParentList');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/albums/create_or_edit/getParentList', 'AdminAlbumsController@getParentList');
+});
+
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/albums/create/{parent_keyword}', 'AdminAlbumsController@create');
 });
