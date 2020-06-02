@@ -62,28 +62,64 @@ $( document ).ready(function() {
     }
     
     button_select_from_dropdown_list.addEventListener('click', function() {
-        get_parent_list(form.dataset.localization, url_for_parent_list, 1);
+        //get_parent_list(form.dataset.localization, url_for_parent_list, 1);
+        get_parent_list_begining(form.dataset.localization, url_for_parent_list, 1);
     });
     
-    function get_parent_list(localization, url, page) {
+    //We don't need to do a request here, but I will do it to make a dropdwon list.
+    //If I don't do it, function whicsh is supposed to close dropdown list area 
+    //if I click out of it, will always close it after I open it.
+    function get_parent_list_begining(localization, url, page) {
         $.ajax({
                 type: "POST",
                 url: url,
                 data: {localization: localization, page: page},
                 success:function(data) {
-                        //var test = data.parent_list_data;
-                        //var one_more_test = test;
+                        //We need this variable to identify a line which will open a new lsi of included albums.
+                        var line_id = "line_0";
                         album_list_container.insertAdjacentHTML("beforeend", "<ul \n\
                                                                 class='admin-panel-albums-create-edit-album-album-drop-down-list'\n\
                                                                 id='album_dropdown_list'> \n\
+                                                                <li id='" + line_id + "'>\n\
+                                                                    <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item' \n\
+                                                                    id='element_0'>Albums</span>\n\
+                                                                </li>\n\
                                                                 </ul>");
-                        //Filling up albums drop dwon list.
-                        var album_list = document.getElementById('album_dropdown_list');
+                        var album_list_element = document.getElementById('element_0');
+                        if (data.parent_list_data.length > 0) {
+                            album_list_element.insertAdjacentHTML("afterbegin", 
+                            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret'></span>");
+                        } else {
+                            album_list_element.insertAdjacentHTML("afterbegin", 
+                            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret'></span>");
+                        }
                         
+                        //Then we need to do something after user is pressing on a caret.
+                        caret_turn_and_request(localization, url, page);
+                    }
+            });
+    }
+    
+    function get_parent_list(localization, url, page, line_id) {
+        $.ajax({
+                type: "POST",
+                url: url,
+                data: {localization: localization, page: page},
+                success:function(data) {
+                        var nested_album_lists_parent = document.getElementById(line_id);
+                        
+                        nested_album_lists_parent.insertAdjacentHTML("beforeend", "<ul \n\
+                                                                class='admin-panel-albums-create-edit-album-album-drop-down-list-nested'\n\
+                                                                id='album_dropdown_list_for_" + line_id +
+                                                                "'></ul>");
+                        //Filling up albums drop dwon list.
+                        var album_list = document.getElementById("album_dropdown_list_for_" + line_id);
+                                             
                         data.parent_list_data.forEach(function(album_data) {
                             album_list.insertAdjacentHTML("beforeend", 
-                                                        "<li><span class='admin-panel-albums-create-edit-album-album-drop-down-list-item' id='element_" 
-                                                        + album_data.AlbumId +"'>"
+                                                        "<li id='line_" + album_data.AlbumId + "'>\n\
+                                                        <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item' \n\
+                                                        id='element_" + album_data.AlbumId +"'>"
                                                         + album_data.AlbumName +
                                                         "</span></li>");
                                                         var album_list_element = document.getElementById('element_' + album_data.AlbumId);
@@ -96,19 +132,31 @@ $( document ).ready(function() {
                                                         }
                         });
                         
-                        var toggler = document.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
-                        var i;
+                        //Then we need to do something after user is pressing on a caret.
+                        caret_turn_and_request(localization, url, page);
 
-                        for (i = 0; i < toggler.length; i++) {
-                            toggler[i].addEventListener("click", function() {
-                                //this.parentElement.querySelector(".nested").classList.toggle("active");
-                                this.classList.toggle("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down");
-                            });
-                        }
+                        //var initial_album_list = document.getElementById('element_0');
+                        //initial_album_list.style.display='none';
+                        //initial_album_list.offsetHeight; // no need to store this anywhere, the reference is enough
+                        //initial_album_list.style.display='block';
                     }
             });
     }
     
+    function caret_turn_and_request(localization, url, page) {
+        var toggler = document.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
+        var i;
+
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function() {
+                //this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down");
+                //$("#album_list_container").empty();
+                var line_id = this.id;
+                get_parent_list(localization, url, page, line_id);
+            });
+        }
+    }
     
     function get_parents(localization, parent_name, keyword, url, page) {
         $.ajax({
@@ -213,16 +261,7 @@ $( document ).ready(function() {
         }
         $("#album_list_container").empty();
     }
-   
-    //The following piece of code closes drop down list for potential parents
-    //after clicking out of it.
-    $(document).on('click', function (e) {
-        if ($(e.target).closest("#album_list_container").length === 0) {
-            //I will leave like this, because this function is not working with a variable.
-            $("#album_list_container").empty();
-        }
-    });
-       
+         
     //We need to make this event as onsubmit function is not working properly.
     if (button_submit !== null) {   
         button_submit.onclick = function() {
@@ -230,9 +269,14 @@ $( document ).ready(function() {
                 parent_id.value = "0";
             }
         };
+    }    
+});
+
+//The following piece of code closes drop down list for potential parents
+//after clicking out of it.
+$( document ).on('click', function (e) {
+    if ($(e.target).closest("#album_list_container").length === 0) {
+        //I will leave like this, because this function is not working with a variable.
+        $("#album_list_container").empty();
     }
-    
-    
-    
-    
 });

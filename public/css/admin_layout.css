@@ -562,7 +562,6 @@ article's button, because article has only two control buttons instead of three*
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-album-list {
-    z-index: 1;
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
@@ -575,7 +574,6 @@ article's button, because article has only two control buttons instead of three*
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-album-drop-down-list {
-    z-index: 1;
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
@@ -585,13 +583,17 @@ article's button, because article has only two control buttons instead of three*
     max-height: 330px;
     overflow: auto;
     list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 5px;
 }
 
-/* Remove margins and padding from the parent ul 
-with class .admin-panel-albums-create-edit-album-album-drop-down-list-item.
-We need to do only for this id element, because another uls of this class might have different
-requerments.*/
-#album_dropdown_list {
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list-nested {
+    background-color: white;
+    max-height: 330px;
+    overflow: auto;
+    list-style-type: none;
     margin: 0px;
     padding: 0px;
     padding-left: 5px;
