@@ -88,7 +88,7 @@ $( document ).ready(function() {
                         var album_list_element = document.getElementById('element_0');
                         if (data.parent_list_data.length > 0) {
                             album_list_element.insertAdjacentHTML("afterbegin", 
-                            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret'></span>");
+                            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret' data-line_id='" + line_id + "'></span>");
                         } else {
                             album_list_element.insertAdjacentHTML("afterbegin", 
                             "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret'></span>");
@@ -125,7 +125,8 @@ $( document ).ready(function() {
                                                         var album_list_element = document.getElementById('element_' + album_data.AlbumId);
                                                         if (album_data.HasChildren === true) {
                                                             album_list_element.insertAdjacentHTML("afterbegin", 
-                                                            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret'></span>");
+                                                            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret' \n\
+                                                                data-line_id='line_" + album_data.AlbumId + "'></span>");
                                                         } else {
                                                             album_list_element.insertAdjacentHTML("afterbegin", 
                                                             "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret'></span>");
@@ -152,7 +153,8 @@ $( document ).ready(function() {
                 //this.parentElement.querySelector(".nested").classList.toggle("active");
                 this.classList.toggle("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down");
                 //$("#album_list_container").empty();
-                var line_id = this.id;
+                //Taking id from caret (this) instead of line. Can pass line's id in caret's data.
+                var line_id = this.dataset.line_id;
                 get_parent_list(localization, url, page, line_id);
             });
         }
@@ -269,14 +271,28 @@ $( document ).ready(function() {
                 parent_id.value = "0";
             }
         };
-    }    
-});
-
-//The following piece of code closes drop down list for potential parents
-//after clicking out of it.
-$( document ).on('click', function (e) {
-    if ($(e.target).closest("#album_list_container").length === 0) {
-        //I will leave like this, because this function is not working with a variable.
-        $("#album_list_container").empty();
+    }
+    
+    //The following piece of code closes drop down list for potential parents
+    //after clicking out of it.
+    $(window).click(function(event) {
+        //We need to empty album_list_container only if it has something.
+        //Funtion trim will remove extra spaces.
+        if ($.trim($("#album_list_container").html()) !== ""){
+            var child = $(event.target);
+            //We need to take 0 element of event.target, because it is an array.
+            var parent_check = checkParent(album_list_container, child[0]);
+            if (parent_check === false) {
+                $("#album_list_container").empty();
+            }
+        }
+    });
+    
+    //We need this function to check whether some element is a child of another element.
+    function checkParent(parent, child) { 
+        if (parent.contains(child)) 
+            return true; 
+            return false; 
     }
 });
+
