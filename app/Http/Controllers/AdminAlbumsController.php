@@ -281,9 +281,14 @@ class AdminAlbumsController extends Controller
                         ->where('included_in_album_with_id', null)
                         ->orderBy('created_at','DESC')->paginate(10, ['*'], 'page', $request->input('page'));*/
         
+        $parent_id =  $request->input('parent_id');
+        if ($parent_id == 0){
+            $parent_id = null;
+        }
+        
         $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
                         ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                        ->where('en_albums.included_in_album_with_id', null)
+                        ->where('en_albums.included_in_album_with_id', $parent_id)
                         ->orderBy('en_albums.created_at','DESC')->paginate(10, ['*'], 'page', $request->input('page'));
         
         $parent_list_array = array();

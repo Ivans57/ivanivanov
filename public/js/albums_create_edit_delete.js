@@ -73,7 +73,7 @@ $( document ).ready(function() {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page},
+                data: {localization: localization, page: page, parent_id: 0},
                 success:function(data) {
                         //We need this variable to identify a line which will open a new lsi of included albums.
                         var line_id = "line_0";
@@ -88,23 +88,24 @@ $( document ).ready(function() {
                         var album_list_element = document.getElementById('element_0');
                         if (data.parent_list_data.length > 0) {
                             album_list_element.insertAdjacentHTML("afterbegin", 
-                            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret' data-line_id='" + line_id + "'></span>");
+                            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret' \n\
+                             data-line_id='" + line_id + "' data-record_id=0></span>");
                         } else {
                             album_list_element.insertAdjacentHTML("afterbegin", 
                             "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret'></span>");
                         }
                         
                         //Then we need to do something after user is pressing on a caret.
-                        caret_turn_and_request(localization, url, page);
+                        caret_turn_and_request(localization, url, page, album_list_container);
                     }
             });
     }
     
-    function get_parent_list(localization, url, page, line_id) {
+    function get_parent_list(localization, url, page, line_id, record_id) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page},
+                data: {localization: localization, page: page, parent_id: record_id},
                 success:function(data) {
                         var nested_album_lists_parent = document.getElementById(line_id);
                         
@@ -126,7 +127,8 @@ $( document ).ready(function() {
                                                         if (album_data.HasChildren === true) {
                                                             album_list_element.insertAdjacentHTML("afterbegin", 
                                                             "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret' \n\
-                                                                data-line_id='line_" + album_data.AlbumId + "'></span>");
+                                                            data-line_id='line_" + album_data.AlbumId + "' \n\
+                                                            data-record_id=" + album_data.AlbumId + "></span>");
                                                         } else {
                                                             album_list_element.insertAdjacentHTML("afterbegin", 
                                                             "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret'></span>");
@@ -134,7 +136,7 @@ $( document ).ready(function() {
                         });
                         
                         //Then we need to do something after user is pressing on a caret.
-                        caret_turn_and_request(localization, url, page);
+                        caret_turn_and_request(localization, url, page, album_list);
 
                         //var initial_album_list = document.getElementById('element_0');
                         //initial_album_list.style.display='none';
@@ -144,20 +146,31 @@ $( document ).ready(function() {
             });
     }
     
-    function caret_turn_and_request(localization, url, page) {
-        var toggler = document.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
+    function caret_turn_and_request(localization, url, page, parent_container) {
+        //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
+        //which will cause errors.
+        var toggler = parent_container.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
         var i;
 
         for (i = 0; i < toggler.length; i++) {
-            toggler[i].addEventListener("click", function() {
-                //this.parentElement.querySelector(".nested").classList.toggle("active");
-                this.classList.toggle("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down");
-                //$("#album_list_container").empty();
-                //Taking id from caret (this) instead of line. Can pass line's id in caret's data.
-                var line_id = this.dataset.line_id;
-                get_parent_list(localization, url, page, line_id);
-            });
+            toggler[i].addEventListener("click", turn_caret_and_get_children, false);
+            //If we use a function with events, we cannot pass arguments as normal.
+            toggler[i].localization = localization;
+            toggler[i].url = url;
+            toggler[i].page = page;
         }
+    }
+    
+    //If we use a function with events, we cannot pass arguments as normal.
+    function turn_caret_and_get_children(event) {
+        event.currentTarget.classList.remove("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
+        event.currentTarget.classList.add("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down");
+        //After an element is open, need to remove its onlcik event listener, otherwise drop down list won't work properly/
+        //Need to assign it again when closing an element.
+        event.currentTarget.removeEventListener("click", turn_caret_and_get_children);
+        //Taking id from caret (this) instead of line. Can pass line's id in caret's data.
+        get_parent_list(event.currentTarget.localization, event.currentTarget.url, 
+                        event.currentTarget.page, event.currentTarget.dataset.line_id, event.currentTarget.dataset.record_id);
     }
     
     function get_parents(localization, parent_name, keyword, url, page) {
