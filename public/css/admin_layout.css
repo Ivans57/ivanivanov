@@ -501,6 +501,9 @@ article's button, because article has only two control buttons instead of three*
     background: #f1f1f1;
 }
 
+/*Begining of parent search and drop down for Album create, edit and delete window*/
+
+/*Begigining for parent search*/
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-controls-button-search-and-drop-down {
     width: 25px;
@@ -515,52 +518,6 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-drop-down {
-    width: 24px;
-    float: right;
-    cursor: pointer;
-    height: 28px;
-    padding-top: 5px;
-    padding-right: 5px;
-}
-
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover {
-    background: #0b7dda;
-}
-
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-drop-down 
-.admin-panel-albums-create-edit-album-controls-button-drop-down-caret {
-    position: absolute;
-    top: 64px;
-    left: 273px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 10px 10px 10px;
-    border-color: white transparent transparent transparent;
-    transform: scale(0.7, 1.5);
-}
-
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover
-.admin-panel-albums-create-edit-album-controls-button-drop-down-caret{
-    filter: brightness(90%)
-}
-
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button,
-.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls 
-.admin-panel-albums-delete-album-controls-button {
-    width: 100px;
-    font-size: 16px;
-    font-weight: bold;
-    word-wrap: break-word;
-    padding: 2px;
-}
-
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-album-list {
     position: absolute;
     top: 80.1px; 
@@ -570,73 +527,6 @@ article's button, because article has only two control buttons instead of three*
     background-color: white;
     max-height: 330px;
     overflow: auto;
-}
-
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list {
-    position: absolute;
-    top: 80.1px; 
-    left: 34.5px;
-    width: 260px;
-    border: 1px solid grey;
-    background-color: white;
-    max-height: 330px;
-    overflow: auto;
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-    padding-left: 5px;
-}
-
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list-nested {
-    background-color: white;
-    max-height: 330px;
-    overflow: auto;
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-    padding-left: 5px;
-}
-
-/* Style the caret/arrow */
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item {
-    cursor: pointer;
-    user-select: none; /* Prevent text selection */
-}
-
-/* Create the caret/arrow with a unicode, and style it */
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret::before {
-    content: "\25B6";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
-}
-
-/*For elemnts without a caret we need to create an empty "caret" to even out elements list*/
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret::before {
-    content: "\25B6";
-    /*Element made by ::before can't exist without actual caret, so we will make it, 
-    but the clor will be transparent.*/
-    color: transparent;
-    display: inline-block;
-    margin-right: 6px;
-}
-
-/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down::before {
-    content: "\25B6";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
-    transform: rotate(90deg);
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
@@ -698,6 +588,113 @@ article's button, because article has only two control buttons instead of three*
     border: 1px solid grey;
 }
 
+/*End for parent search*/
+/*Begigining for parent drop down*/
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-drop-down {
+    width: 24px;
+    float: right;
+    cursor: pointer;
+    height: 28px;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover {
+    background: #0b7dda;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-drop-down 
+.admin-panel-albums-create-edit-album-controls-button-drop-down-caret {
+    position: absolute;
+    top: 64px;
+    left: 273px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    border-color: white transparent transparent transparent;
+    transform: scale(0.7, 1.5);
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover
+.admin-panel-albums-create-edit-album-controls-button-drop-down-caret{
+    filter: brightness(90%)
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list {
+    position: absolute;
+    top: 80.1px; 
+    left: 34.5px;
+    width: 260px;
+    border: 1px solid grey;
+    background-color: white;
+    max-height: 330px;
+    overflow: auto;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 5px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list-nested {
+    background-color: white;
+    overflow: auto;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 5px;
+}
+
+/* Style the caret/arrow */
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item {
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/*For elemnts without a caret we need to create an empty "caret" to even out elements list*/
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret::before {
+    content: "\25B6";
+    /*Element made by ::before can't exist without actual caret, so we will make it, 
+    but the clor will be transparent.*/
+    color: transparent;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+    transform: rotate(90deg);
+}
+
+/*End for parent drop down*/
+/*End of parent search and drop down for Album create, edit and delete window*/
+
 .admin-panel-albums-create-notification-wrapper {
     position: absolute;
 }
@@ -705,6 +702,17 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-albums-create-notification-wrapper .admin-panel-albums-create-notification {
     margin-bottom: 0px;
     width: 330px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button,
+.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls 
+.admin-panel-albums-delete-album-controls-button {
+    width: 100px;
+    font-size: 16px;
+    font-weight: bold;
+    word-wrap: break-word;
+    padding: 2px;
 }
 
 /*--------------------------------------------------------*/
