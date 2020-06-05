@@ -146,6 +146,10 @@ $( document ).ready(function() {
             });
     }
     
+    //This function turns down a caret of element of parent drop down list and sends a reuqest to get its children.
+    //After the caret has been turned and request has been alredy send this functionality shouldn't be applied for
+    //the element. We need to remove it from the element. To cancel this function for the element, we need to make it as a separate
+    //function with its personal name. In our case it is turn_caret_and_get_children.
     function caret_turn_and_request(localization, url, page, parent_container) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
@@ -168,9 +172,20 @@ $( document ).ready(function() {
         //After an element is open, need to remove its onlcik event listener, otherwise drop down list won't work properly/
         //Need to assign it again when closing an element.
         event.currentTarget.removeEventListener("click", turn_caret_and_get_children);
+        event.currentTarget.addEventListener("click", turn_caret_back_and_remove_children, false);
         //Taking id from caret (this) instead of line. Can pass line's id in caret's data.
         get_parent_list(event.currentTarget.localization, event.currentTarget.url, 
                         event.currentTarget.page, event.currentTarget.dataset.line_id, event.currentTarget.dataset.record_id);
+    }
+    
+    //This functions returns a caret to its noraml position and removes items children from the list.
+    function turn_caret_back_and_remove_children(event) {
+        event.currentTarget.classList.remove("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down");
+        event.currentTarget.classList.add("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
+        event.currentTarget.addEventListener("click", turn_caret_and_get_children, false);
+        event.currentTarget.removeEventListener("click", turn_caret_back_and_remove_children);
+        var children_to_remove = document.getElementById("album_dropdown_list_for_" + event.currentTarget.dataset.line_id);
+        children_to_remove.remove();
     }
     
     function get_parents(localization, parent_name, keyword, url, page) {
