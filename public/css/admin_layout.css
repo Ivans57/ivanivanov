@@ -507,7 +507,7 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-controls-button-search-and-drop-down {
     width: 25px;
-    float: left;
+    height: 28px;
     padding-right: 4px;
     background: #2196F3;
     color: white;
@@ -515,6 +515,20 @@ article's button, because article has only two control buttons instead of three*
     border: 1px solid grey;
     border-left: none; /* Prevent double borders */
     cursor: pointer;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down
+.admin-panel-albums-create-edit-album-controls-button-drop-down-search {
+    position: absolute;
+    top: 58px;
+    left: 250px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover
+.admin-panel-albums-create-edit-album-controls-button-drop-down-search {
+    filter: brightness(90%);
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
@@ -623,7 +637,7 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover
 .admin-panel-albums-create-edit-album-controls-button-drop-down-caret{
-    filter: brightness(90%)
+    filter: brightness(90%);
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
@@ -652,13 +666,30 @@ article's button, because article has only two control buttons instead of three*
     padding-left: 5px;
 }
 
-/* Style the caret/arrow */
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item {
-    cursor: pointer;
+    display: block;
     user-select: none; /* Prevent text selection */
 }
 
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item:hover {
+    background-color: #e3e3e3;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-name {
+    display: inline-block;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-name:hover {
+    cursor: pointer;
+}
+
+/* Style the caret/arrow */
 /* Create the caret/arrow with a unicode, and style it */
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-album-drop-down-list 
@@ -667,6 +698,15 @@ article's button, because article has only two control buttons instead of three*
     color: black;
     display: inline-block;
     margin-right: 6px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret:hover,
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down:hover {
+    cursor: pointer;
 }
 
 /*For elemnts without a caret we need to create an empty "caret" to even out elements list*/
@@ -697,6 +737,9 @@ article's button, because article has only two control buttons instead of three*
 
 .admin-panel-albums-create-notification-wrapper {
     position: absolute;
+    /*Need to add this z-index, otherwise through these notifications could be visible some
+    elements (e.g. arrovs and triangles), whic are supposed to be behind.*/
+    z-index: 1;
 }
 
 .admin-panel-albums-create-notification-wrapper .admin-panel-albums-create-notification {

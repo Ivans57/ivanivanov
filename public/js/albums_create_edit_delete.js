@@ -66,9 +66,7 @@ $( document ).ready(function() {
         get_parent_list_begining(form.dataset.localization, url_for_parent_list, 1);
     });
     
-    //We don't need to do a request here, but I will do it to make a dropdwon list.
-    //If I don't do it, function whicsh is supposed to close dropdown list area 
-    //if I click out of it, will always close it after I open it.
+    //Here are two functions for create or edit window parent search dropdown list.
     function get_parent_list_begining(localization, url, page) {
         $.ajax({
                 type: "POST",
@@ -81,8 +79,14 @@ $( document ).ready(function() {
                                                                 class='admin-panel-albums-create-edit-album-album-drop-down-list'\n\
                                                                 id='album_dropdown_list'> \n\
                                                                 <li id='" + line_id + "'>\n\
-                                                                    <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item' \n\
-                                                                    id='element_0'>Albums</span>\n\
+                                                                    <span \n\
+                                                                    class='admin-panel-albums-create-edit-album-album-drop-down-list-item' \n\
+                                                                    id='element_0'>\n\
+                                                                        <span \n\
+                                                                        class='admin-panel-albums-create-edit-album-album-drop-down-list-item-name' \n\
+                                                                        data-album_id=0>" 
+                                                                        + album_list_container.dataset.root + 
+                                                                    "</span></span>\n\
                                                                 </li>\n\
                                                                 </ul>");
                         var album_list_element = document.getElementById('element_0');
@@ -95,8 +99,10 @@ $( document ).ready(function() {
                             "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret'></span>");
                         }
                         
-                        //Then we need to do something after user is pressing on a caret.
+                        //Below we are assigning an event for that cse when user is pressing on a caret.
                         caret_turn_and_request(localization, url, page, album_list_container);
+                        //Below we are making an event for list element selection.
+                        select_from_dropdown_list(album_list_container);
                     }
             });
     }
@@ -119,10 +125,12 @@ $( document ).ready(function() {
                         data.parent_list_data.forEach(function(album_data) {
                             album_list.insertAdjacentHTML("beforeend", 
                                                         "<li id='line_" + album_data.AlbumId + "'>\n\
-                                                        <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item' \n\
-                                                        id='element_" + album_data.AlbumId +"'>"
-                                                        + album_data.AlbumName +
-                                                        "</span></li>");
+                                                            <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item' \n\
+                                                            id='element_" + album_data.AlbumId +"'> \n\
+                                                                <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-name' \n\
+                                                                data-album_id=" + album_data.AlbumId +">"
+                                                                + album_data.AlbumName +
+                                                            "</span></span></li>");
                                                         var album_list_element = document.getElementById('element_' + album_data.AlbumId);
                                                         if (album_data.HasChildren === true) {
                                                             album_list_element.insertAdjacentHTML("afterbegin", 
@@ -135,15 +143,36 @@ $( document ).ready(function() {
                                                         }
                         });
                         
-                        //Then we need to do something after user is pressing on a caret.
+                        //Below we are assigning an event for that cse when user is pressing on a caret.
                         caret_turn_and_request(localization, url, page, album_list);
-
-                        //var initial_album_list = document.getElementById('element_0');
-                        //initial_album_list.style.display='none';
-                        //initial_album_list.offsetHeight; // no need to store this anywhere, the reference is enough
-                        //initial_album_list.style.display='block';
+                        //Below we are making an event for list element selection.
+                        select_from_dropdown_list(album_list);
                     }
             });
+    }
+    
+    //This function makes an event listener for drop down list elements.
+    //After click on it, it becomes selected, its name is going to parent search field, just to make it visible, what has been selected.
+    //Selected parent's id then is being copied to a hidden field.
+    function select_from_dropdown_list(parent_container) {
+        //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
+        //which will cause errors.
+        var current_item = parent_container.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-name");
+        var i;
+
+        for (i = 0; i < current_item.length; i++) {
+            current_item[i].addEventListener("click", function(){
+                //If user chooses a root (in our case Albums, without any album),
+                //then parent search area should be left blank.               
+                if (this.innerText === album_list_container.dataset.root) {
+                    parent_search.value = null;
+                } else {
+                    parent_search.value = this.innerText;
+                }
+                parent_id.value = this.dataset.album_id;
+                $("#album_list_container").empty();
+            });
+        }
     }
     
     //This function turns down a caret of element of parent drop down list and sends a reuqest to get its children.
@@ -153,15 +182,15 @@ $( document ).ready(function() {
     function caret_turn_and_request(localization, url, page, parent_container) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
-        var toggler = parent_container.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
+        var current_item = parent_container.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
         var i;
 
-        for (i = 0; i < toggler.length; i++) {
-            toggler[i].addEventListener("click", turn_caret_and_get_children, false);
+        for (i = 0; i < current_item.length; i++) {
+            current_item[i].addEventListener("click", turn_caret_and_get_children, false);
             //If we use a function with events, we cannot pass arguments as normal.
-            toggler[i].localization = localization;
-            toggler[i].url = url;
-            toggler[i].page = page;
+            current_item[i].localization = localization;
+            current_item[i].url = url;
+            current_item[i].page = page;
         }
     }
     
@@ -188,6 +217,7 @@ $( document ).ready(function() {
         children_to_remove.remove();
     }
     
+    //Here is a function for create or edit window parent search in database.
     function get_parents(localization, parent_name, keyword, url, page) {
         $.ajax({
                 type: "POST",

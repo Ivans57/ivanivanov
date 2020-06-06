@@ -28,8 +28,6 @@
     <!-- Scripts -->
     @component('pages/body_scripts')
         @slot('js')
-            <!-- The first line below we need to make small images working (e.g. magnifying glass on search button). -->
-            <script src="https://kit.fontawesome.com/de385ec762.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="{{ URL::asset('js/albums_create_edit_delete.js') }}"></script>
         @endslot
     @endcomponent
