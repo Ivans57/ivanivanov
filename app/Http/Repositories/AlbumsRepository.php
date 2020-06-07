@@ -41,6 +41,12 @@ class PaginationInfoForParentSearch {
     public $nextPage;
 }
 
+class ParentDropDownListElement {
+    public $AlbumId;
+    public $AlbumName;
+    public $HasChildren;
+}
+
 class AlbumsRepository {
     
     public function getAllAlbums($items_amount_per_page, $including_invisible){
@@ -73,26 +79,16 @@ class AlbumsRepository {
     }
     
     //We need this function for Album Parent search field when create or edit album.
-    public function getParents($localization, $page, $album_to_find, $albums_to_exclude_keyword){
+    public function getParents($localization, $page, $album_to_find, $albums_to_exclude_keyword) {
               
         $parents = new AlbumParentsData();
         
-        $parents->paginationInfo = new PaginationInfoForParentSearch();
-        
         $records_to_show = 10;
         
-        $parents_from_query = $this->get_parents_from_query($localization, $page, $album_to_find, $albums_to_exclude_keyword, $records_to_show);
-        
-        if ($parents_from_query->previousPageUrl() !== null) {
-            $parents->paginationInfo->previousPage = (int)substr($parents_from_query->previousPageUrl(), -1);
-        }
+        $parents_from_query = $this->get_parents_from_query($localization, $page, $album_to_find, $albums_to_exclude_keyword, 
+                                                            $records_to_show);
+        $parents->paginationInfo = $this->get_pagination_info($parents_from_query);
 
-        if ($parents_from_query->nextPageUrl() !== null) {
-            //In case user did not enter anything in search, this property will be overriden in controller
-            //before sending json response.
-            $parents->paginationInfo->nextPage = (int)substr($parents_from_query->nextPageUrl(), -1);
-        } 
-        
         $parents->parentsDataArray = array();
         
         if ($album_to_find && count($parents_from_query) > 0) {
@@ -105,6 +101,64 @@ class AlbumsRepository {
         }
              
         return $parents;
+    }
+    
+    //We need this function for Album Parent dropdown list when create or edit album.
+    public function getParentList($page, $parent_id) {
+        
+        $parents = new AlbumParentsData();
+        
+        $records_to_show = 10;
+        
+        if ($parent_id == 0){
+            $parent_id = null;
+        }
+        
+        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
+                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                        ->where('en_albums.included_in_album_with_id', $parent_id)
+                        ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+        
+        $parent_list_array = array();
+        
+        if (count($parent_list_from_query) > 0) {
+            
+            foreach ($parent_list_from_query as $album) {
+                $parent_data_array = new ParentDropDownListElement();
+                $parent_data_array->AlbumId = $album->id;
+                $parent_data_array->AlbumName = $album->album_name;
+                if ($album->children) {
+                    $parent_data_array->HasChildren = true;
+                } else {
+                    $parent_data_array->HasChildren = false;
+                }
+                array_push($parent_list_array, $parent_data_array);
+            }
+        }
+        
+        $parents->parentsDataArray = $parent_list_array;
+        $parents->paginationInfo = $this->get_pagination_info($parent_list_from_query);
+        
+        return $parents;
+    }
+    
+    //This function gets a pagination information for Parent search when create or edit album.
+    //We cannot display all albums, as there might be a too many of them, which will make the system slow.
+    //To avoid it, need to split an information in portions, that's why need to do a pagination.
+    private function get_pagination_info($parents_from_query) {
+        
+        $pagination_info = new PaginationInfoForParentSearch();
+        
+        if ($parents_from_query->previousPageUrl() !== null) {
+            $pagination_info->previousPage = (int)substr($parents_from_query->previousPageUrl(), -1);
+        }
+
+        if ($parents_from_query->nextPageUrl() !== null) {
+            //In case user did not enter anything in search, this property will be overriden in controller
+            //before sending json response.
+            $pagination_info->nextPage = (int)substr($parents_from_query->nextPageUrl(), -1);
+        }
+        return $pagination_info;
     }
     
     //We need this function to simplify getParents function.

@@ -62,7 +62,8 @@ $( document ).ready(function() {
     }
     
     button_select_from_dropdown_list.addEventListener('click', function() {
-        //get_parent_list(form.dataset.localization, url_for_parent_list, 1);
+        //In this case we need a page number just to make a request and find out if a root album has at least
+        //one album or no, so we can know if a caret is required or no.
         get_parent_list_begining(form.dataset.localization, url_for_parent_list, 1);
     });
     
@@ -119,9 +120,22 @@ $( document ).ready(function() {
                                                                 class='admin-panel-albums-create-edit-album-album-drop-down-list-nested'\n\
                                                                 id='album_dropdown_list_for_" + line_id +
                                                                 "'></ul>");
+                                                        
                         //Filling up albums drop dwon list.
                         var album_list = document.getElementById("album_dropdown_list_for_" + line_id);
-                                             
+                        
+                        //Here we need to draw pagination button in case there is more than one page of records.
+                        if (data.pagination_info.previousPage !== null) {
+                            album_list.insertAdjacentHTML("beforeend", "<div \n\
+                                                            class='admin-panel-albums-create-edit-album-album-drop-down-list-button'> \n\
+                                                            <a href='#' \n\
+                                                            class='admin-panel-albums-create-edit-album-album-drop-down-list-button-link' \n\
+                                                            id='parents_previous_page_for_" + line_id + "'>"
+                                                                + album_list_container.dataset.previous_page +
+                                                            "</a> \n\
+                                                            </div>");
+                        }
+                    
                         data.parent_list_data.forEach(function(album_data) {
                             album_list.insertAdjacentHTML("beforeend", 
                                                         "<li id='line_" + album_data.AlbumId + "'>\n\
@@ -144,9 +158,45 @@ $( document ).ready(function() {
                         });
                         
                         //Below we are assigning an event for that cse when user is pressing on a caret.
-                        caret_turn_and_request(localization, url, page, album_list);
+                        //We need to pass as a page argument, the first page, because if we pass a page
+                        //variable, there might be wrong page and drop down list won't work properly.
+                        caret_turn_and_request(localization, url, 1, album_list);
                         //Below we are making an event for list element selection.
                         select_from_dropdown_list(album_list);
+                                                                     
+                        if (data.pagination_info.nextPage !== null) {
+                            album_list.insertAdjacentHTML("beforeend", "<div \n\
+                                                            class='admin-panel-albums-create-edit-album-album-drop-down-list-button'> \n\
+                                                            <a href='#' \n\
+                                                            class='admin-panel-albums-create-edit-album-album-drop-down-list-button-link' \n\
+                                                            id='parents_next_page_for_" + line_id + "'>" 
+                                                                + album_list_container.dataset.next_page +
+                                                            "</a> \n\
+                                                            </div>");
+                        }
+                    
+                        var parent_prev = document.getElementById('parents_previous_page_for_'+ line_id);
+                        var parent_next = document.getElementById('parents_next_page_for_' + line_id);
+                    
+                        if (parent_prev !== null) {
+                            parent_prev.addEventListener('click', function() {
+                                var element = document.querySelector("#" + album_list.id);
+                                //Here we need to remove nested list (ul) from DOM.
+                                element.parentNode.removeChild(element);
+                                //Here we need to turn the next page.
+                                get_parent_list(localization, url, data.pagination_info.previousPage, line_id, record_id)
+                            });
+                        }
+                    
+                        if (parent_next !== null) {
+                            parent_next.addEventListener('click', function() {
+                                var element = document.querySelector("#" + album_list.id);
+                                //Here we need to remove nested list (ul) from DOM.
+                                element.parentNode.removeChild(element);
+                                //Here we need to turn the next page.
+                                get_parent_list(localization, url, data.pagination_info.nextPage, line_id, record_id)
+                            });
+                        }
                     }
             });
     }
@@ -338,13 +388,25 @@ $( document ).ready(function() {
         //Funtion trim will remove extra spaces.
         if ($.trim($("#album_list_container").html()) !== ""){
             var child = $(event.target);
+            //Please see the explanation where the function is declared.
+            var existence_check = checkIfExists(child[0]);
             //We need to take 0 element of event.target, because it is an array.
             var parent_check = checkParent(album_list_container, child[0]);
-            if (parent_check === false) {
+            if (existence_check === true && parent_check === false) {
                 $("#album_list_container").empty();
             }
         }
     });
+    
+    //Here is a check if a target element exists.
+    //The problem is - when a dropdown list is open and we click a pagination button,
+    //it destroys its parent element and itself, so when it comes to check whether element is within container,
+    //system cannot see it and closes the window. It shouldn't happen.
+    function checkIfExists(element) { 
+        if (document.contains(element)) 
+            return true; 
+            return false; 
+    }
     
     //We need this function to check whether some element is a child of another element.
     function checkParent(parent, child) { 

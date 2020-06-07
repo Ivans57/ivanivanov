@@ -552,6 +552,7 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button {
     border: 1px solid grey;
     border-bottom: 2px solid grey;
+    background-color: #dedede;
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
@@ -566,13 +567,7 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button {
-    background-color: #dedede;
-}
-
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button a {
-    display: block;
     text-decoration: underline;
     color: #1a7dd9;
     padding-left: 0px;
@@ -664,6 +659,7 @@ article's button, because article has only two control buttons instead of three*
     margin: 0px;
     padding: 0px;
     padding-left: 5px;
+    border: 1px solid #dcdfe3;
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
@@ -730,6 +726,31 @@ article's button, because article has only two control buttons instead of three*
     display: inline-block;
     margin-right: 6px;
     transform: rotate(90deg);
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-button {
+    border: 1px solid grey;
+    background-color: #dedede;
+    margin-left: -4px;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-button a {
+    display: block;
+    text-decoration: underline;
+    color: #1a7dd9;
+    padding-left: 0px;
+    padding-top: 0px;
+    text-align: center;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list 
+.admin-panel-albums-create-edit-album-album-drop-down-list-button a:hover {
+    color: red;
 }
 
 /*End for parent drop down*/

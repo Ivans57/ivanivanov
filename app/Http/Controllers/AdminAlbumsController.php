@@ -13,11 +13,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CreateEditAlbumRequest;
 use App\Album;
 
-class ParentDropDownListelement {
-    public $AlbumId;
-    public $AlbumName;
-    public $HasChildren;
-}
 
 class AdminAlbumsController extends Controller
 {
@@ -267,49 +262,9 @@ class AdminAlbumsController extends Controller
     }
     
     public function getParentList(Request $request){
-        
-        /*$parents = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
-                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                        ->where('album_name', 'LIKE', "%$album_to_find%")
-                        ->where('en_albums.keyword', '!=', $albums_to_exclude_keyword)
-                        ->whereNotIn('en_albums.id', $items_children)
-                        ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
-                        ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
-         */
-        
-        /*$parent_list_from_query = \App\Album::select('id', 'album_name')
-                        ->where('included_in_album_with_id', null)
-                        ->orderBy('created_at','DESC')->paginate(10, ['*'], 'page', $request->input('page'));*/
-        
-        $parent_id =  $request->input('parent_id');
-        if ($parent_id == 0){
-            $parent_id = null;
-        }
-        
-        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
-                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                        ->where('en_albums.included_in_album_with_id', $parent_id)
-                        ->orderBy('en_albums.created_at','DESC')->paginate(10, ['*'], 'page', $request->input('page'));
-        
-        $parent_list_array = array();
-        
-        if (count($parent_list_from_query) > 0) {
-            
-            foreach ($parent_list_from_query as $album) {
-                $parent_data_array = new ParentDropDownListelement();
-                $parent_data_array->AlbumId = $album->id;
-                $parent_data_array->AlbumName = $album->album_name;
-                if ($album->children) {
-                    $parent_data_array->HasChildren = true;
-                } else {
-                    $parent_data_array->HasChildren = false;
-                }
-                array_push($parent_list_array, $parent_data_array);
-            }
-        }
-        
-        return response()->json(['parent_list_data' => $parent_list_array]);
+        //$parent_list_array       
+        $parents = $this->albums->getParentList($request->input('page'), $request->input('parent_id'));
+              
+        return response()->json(['parent_list_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
     }
 }
-//public $AlbumId;
-    //public $AlbumName;
