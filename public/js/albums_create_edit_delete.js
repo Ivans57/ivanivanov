@@ -64,15 +64,28 @@ $( document ).ready(function() {
     button_select_from_dropdown_list.addEventListener('click', function() {
         //In this case we need a page number just to make a request and find out if a root album has at least
         //one album or no, so we can know if a caret is required or no.
-        get_parent_list_begining(form.dataset.localization, url_for_parent_list, 1);
+        if (parent_id.value == 0) {
+            get_parent_list_for_create(form.dataset.localization, url_for_parent_list, parent_id.value, 1);
+        } else {
+            get_parent_list_for_edit(form.dataset.localization, url_for_parent_list, parent_id.value);
+        }
     });
     
-    //Here are two functions for create or edit window parent search dropdown list.
-    function get_parent_list_begining(localization, url, page) {
+    //Here is a function for album edit window parent search dropdown list.
+    function get_parent_list_for_edit(localization, url, parent_id, page) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page, parent_id: 0},
+                data: {localization: localization, page: page, parent_id: parent_id}
+            });
+    }
+    
+    //Here is a function for album create window parent search dropdown list.
+    function get_parent_list_for_create(localization, url, parent_id, page) {
+        $.ajax({
+                type: "POST",
+                url: url,
+                data: {localization: localization, page: page, parent_id: parent_id},
                 success:function(data) {
                         //We need this variable to identify a line which will open a new lsi of included albums.
                         var line_id = "line_0";

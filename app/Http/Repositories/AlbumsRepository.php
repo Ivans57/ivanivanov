@@ -106,40 +106,101 @@ class AlbumsRepository {
     //We need this function for Album Parent dropdown list when create or edit album.
     public function getParentList($page, $parent_id) {
         
-        $parents = new AlbumParentsData();
-        
+        $parents = new AlbumParentsData();        
         $records_to_show = 10;
         
-        if ($parent_id == 0){
+        //
+        if ($parent_id == 0) {
             $parent_id = null;
-        }
-        
-        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
-                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                        ->where('en_albums.included_in_album_with_id', $parent_id)
-                        ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
-        
-        $parent_list_array = array();
-        
-        if (count($parent_list_from_query) > 0) {
-            
-            foreach ($parent_list_from_query as $album) {
-                $parent_data_array = new ParentDropDownListElement();
-                $parent_data_array->AlbumId = $album->id;
-                $parent_data_array->AlbumName = $album->album_name;
-                if ($album->children) {
-                    $parent_data_array->HasChildren = true;
-                } else {
-                    $parent_data_array->HasChildren = false;
+              
+            $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
+                            ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                            ->where('en_albums.included_in_album_with_id', $parent_id)
+                            ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+
+            $parent_list_array = array();
+
+            if (count($parent_list_from_query) > 0) {
+
+                foreach ($parent_list_from_query as $album) {
+                    $parent_data_array = new ParentDropDownListElement();
+                    $parent_data_array->AlbumId = $album->id;
+                    $parent_data_array->AlbumName = $album->album_name;
+                    if ($album->children) {
+                        $parent_data_array->HasChildren = true;
+                    } else {
+                        $parent_data_array->HasChildren = false;
+                    }
+                    array_push($parent_list_array, $parent_data_array);
                 }
-                array_push($parent_list_array, $parent_data_array);
             }
+            $parents->parentsDataArray = $parent_list_array;
+            $parents->paginationInfo = $this->get_pagination_info($parent_list_from_query);
+        } else {
+            //Need to apply for all levels!
+            $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($parent_id, $records_to_show);
+            $parent_data_array = array();
+            $parent_pagination_info_array = array();
+            array_push($parent_data_array, $parents_and_pagination_info_for_array->parentsDataArray);
+            array_push($parent_pagination_info_array, $parents_and_pagination_info_for_array->paginationInfo);
+            $parents->parentsDataArray = $parent_data_array;
+            $parents->paginationInfo = $parent_pagination_info_array;
         }
-        
-        $parents->parentsDataArray = $parent_list_array;
-        $parents->paginationInfo = $this->get_pagination_info($parent_list_from_query);
         
         return $parents;
+    }
+    
+    //This function will get parent information and pagination inforamtion for
+    //parents and their pagination information array, which will be required for
+    //parent dropdown list for Album edit window.
+    private function get_parents_and_pagination_info_for_array($parent_id, $records_to_show) {
+        $parents_for_array = new AlbumParentsData();
+        $parent_id_of_parent = \App\Album::select('included_in_album_with_id')->where('id', $parent_id)->firstOrFail();
+            
+        //These request we need to do only to get a data for pagination, because required record might be not on the first page.
+        $parent_list_from_query_for_data = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
+                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                        ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
+                        ->orderBy('en_albums.created_at','DESC')->get();      
+            
+        $record_location = 0;
+            
+        $page_amount = count($parent_list_from_query_for_data);
+            
+        for ($i = 0; $i <= $page_amount; $i++) {
+            if ($parent_list_from_query_for_data[$i]->id == $parent_id) {
+                $record_location = $i + 1;
+                $i = $page_amount;
+            }
+        }
+            
+        //ceil function chooses the next bigger value of a decimal fraction, e.g. 5.1 => 6
+        //intval converts float which we get from ceil to int.
+        $page = intval(ceil($record_location/$records_to_show));
+            
+        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
+                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                        ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
+                        ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+            
+        $parents_for_array->parentsDataArray = array();
+            
+        foreach ($parent_list_from_query as $album) {
+            $parent_data_array = new ParentDropDownListElement();
+            $parent_data_array->AlbumId = $album->id;
+            $parent_data_array->AlbumName = $album->album_name;
+                
+            if ($album->children) {
+                $parent_data_array->HasChildren = true;
+            } else {
+                $parent_data_array->HasChildren = false;
+            }
+            array_push($parents_for_array->parentsDataArray, $parent_data_array);
+        }
+            
+        $parents_for_array->paginationInfo = $this->get_pagination_info($parent_list_from_query);
+        
+        return $parents_for_array;
     }
     
     //This function gets a pagination information for Parent search when create or edit album.
