@@ -262,8 +262,8 @@ class AdminAlbumsController extends Controller
     }
     
     public function getParentList(Request $request){
-        //$parent_list_array       
-        $parents = $this->albums->getParentList($request->input('page'), $request->input('parent_id'));
+              
+        $parents = $this->albums->getParentList($request->input('create_or_edit'), $request->input('page'), $request->input('parent_id'));
               
         return response()->json(['parent_list_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
     }

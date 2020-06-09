@@ -104,14 +104,16 @@ class AlbumsRepository {
     }
     
     //We need this function for Album Parent dropdown list when create or edit album.
-    public function getParentList($page, $parent_id) {
+    public function getParentList($create_or_edit, $page, $parent_id) {
         
         $parents = new AlbumParentsData();        
         $records_to_show = 10;
         
         //
-        if ($parent_id == 0) {
-            $parent_id = null;
+        if ($create_or_edit == "create") {
+            if ($parent_id == 0) {
+                $parent_id = null;
+            }
               
             $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
                             ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')

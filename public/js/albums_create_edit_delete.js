@@ -64,28 +64,31 @@ $( document ).ready(function() {
     button_select_from_dropdown_list.addEventListener('click', function() {
         //In this case we need a page number just to make a request and find out if a root album has at least
         //one album or no, so we can know if a caret is required or no.
-        if (parent_id.value == 0) {
-            get_parent_list_for_create(form.dataset.localization, url_for_parent_list, parent_id.value, 1);
+        if (old_keyword.value == "") {
+            parent_id.value = 0;
+            get_parent_list_for_create("create", form.dataset.localization, url_for_parent_list, parent_id.value, 1);
         } else {
-            get_parent_list_for_edit(form.dataset.localization, url_for_parent_list, parent_id.value);
+            //Need to pay attention, there is a proper behaviour when first find some parent in the databse
+            //and then select it from drop down list.
+            get_parent_list_for_edit("edit", form.dataset.localization, url_for_parent_list, parent_id.value);
         }
     });
     
     //Here is a function for album edit window parent search dropdown list.
-    function get_parent_list_for_edit(localization, url, parent_id, page) {
+    function get_parent_list_for_edit(create_or_edit, localization, url, parent_id, page) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page, parent_id: parent_id}
+                data: {create_or_edit: create_or_edit, localization: localization, page: page, parent_id: parent_id}
             });
     }
     
     //Here is a function for album create window parent search dropdown list.
-    function get_parent_list_for_create(localization, url, parent_id, page) {
+    function get_parent_list_for_create(create_or_edit, localization, url, parent_id, page) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page, parent_id: parent_id},
+                data: {create_or_edit: create_or_edit, localization: localization, page: page, parent_id: parent_id},
                 success:function(data) {
                         //We need this variable to identify a line which will open a new lsi of included albums.
                         var line_id = "line_0";
@@ -114,18 +117,18 @@ $( document ).ready(function() {
                         }
                         
                         //Below we are assigning an event for that cse when user is pressing on a caret.
-                        caret_turn_and_request(localization, url, page, album_list_container);
+                        caret_turn_and_request(create_or_edit, localization, url, page, album_list_container);
                         //Below we are making an event for list element selection.
                         select_from_dropdown_list(album_list_container);
                     }
             });
     }
     
-    function get_parent_list(localization, url, page, line_id, record_id) {
+    function get_parent_list(create_or_edit, localization, url, page, line_id, record_id) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page, parent_id: record_id},
+                data: {create_or_edit: create_or_edit, localization: localization, page: page, parent_id: record_id},
                 success:function(data) {
                         var nested_album_lists_parent = document.getElementById(line_id);
                         
@@ -173,7 +176,7 @@ $( document ).ready(function() {
                         //Below we are assigning an event for that cse when user is pressing on a caret.
                         //We need to pass as a page argument, the first page, because if we pass a page
                         //variable, there might be wrong page and drop down list won't work properly.
-                        caret_turn_and_request(localization, url, 1, album_list);
+                        caret_turn_and_request(create_or_edit, localization, url, 1, album_list);
                         //Below we are making an event for list element selection.
                         select_from_dropdown_list(album_list);
                                                                      
@@ -197,7 +200,7 @@ $( document ).ready(function() {
                                 //Here we need to remove nested list (ul) from DOM.
                                 element.parentNode.removeChild(element);
                                 //Here we need to turn the next page.
-                                get_parent_list(localization, url, data.pagination_info.previousPage, line_id, record_id)
+                                get_parent_list(create_or_edit, localization, url, data.pagination_info.previousPage, line_id, record_id)
                             });
                         }
                     
@@ -207,7 +210,7 @@ $( document ).ready(function() {
                                 //Here we need to remove nested list (ul) from DOM.
                                 element.parentNode.removeChild(element);
                                 //Here we need to turn the next page.
-                                get_parent_list(localization, url, data.pagination_info.nextPage, line_id, record_id)
+                                get_parent_list(create_or_edit, localization, url, data.pagination_info.nextPage, line_id, record_id)
                             });
                         }
                     }
@@ -242,7 +245,7 @@ $( document ).ready(function() {
     //After the caret has been turned and request has been alredy send this functionality shouldn't be applied for
     //the element. We need to remove it from the element. To cancel this function for the element, we need to make it as a separate
     //function with its personal name. In our case it is turn_caret_and_get_children.
-    function caret_turn_and_request(localization, url, page, parent_container) {
+    function caret_turn_and_request(create_or_edit, localization, url, page, parent_container) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
         var current_item = parent_container.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
@@ -251,6 +254,7 @@ $( document ).ready(function() {
         for (i = 0; i < current_item.length; i++) {
             current_item[i].addEventListener("click", turn_caret_and_get_children, false);
             //If we use a function with events, we cannot pass arguments as normal.
+            current_item[i].create_or_edit = create_or_edit;
             current_item[i].localization = localization;
             current_item[i].url = url;
             current_item[i].page = page;
@@ -266,7 +270,7 @@ $( document ).ready(function() {
         event.currentTarget.removeEventListener("click", turn_caret_and_get_children);
         event.currentTarget.addEventListener("click", turn_caret_back_and_remove_children, false);
         //Taking id from caret (this) instead of line. Can pass line's id in caret's data.
-        get_parent_list(event.currentTarget.localization, event.currentTarget.url, 
+        get_parent_list(event.currentTarget.create_or_edit, event.currentTarget.localization, event.currentTarget.url, 
                         event.currentTarget.page, event.currentTarget.dataset.line_id, event.currentTarget.dataset.record_id);
     }
     
