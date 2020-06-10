@@ -108,49 +108,83 @@ class AlbumsRepository {
         
         $parents = new AlbumParentsData();        
         $records_to_show = 10;
-        
+        if ($parent_id == 0) {
+            $parent_id = null;
+        }
         //
-        if ($create_or_edit == "create") {
-            if ($parent_id == 0) {
-                $parent_id = null;
-            }
-              
-            $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
-                            ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                            ->where('en_albums.included_in_album_with_id', $parent_id)
-                            ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
-
-            $parent_list_array = array();
-
-            if (count($parent_list_from_query) > 0) {
-
-                foreach ($parent_list_from_query as $album) {
-                    $parent_data_array = new ParentDropDownListElement();
-                    $parent_data_array->AlbumId = $album->id;
-                    $parent_data_array->AlbumName = $album->album_name;
-                    if ($album->children) {
-                        $parent_data_array->HasChildren = true;
-                    } else {
-                        $parent_data_array->HasChildren = false;
-                    }
-                    array_push($parent_list_array, $parent_data_array);
-                }
-            }
-            $parents->parentsDataArray = $parent_list_array;
-            $parents->paginationInfo = $this->get_pagination_info($parent_list_from_query);
+        if ($create_or_edit == "create" || $parent_id === null) {
+            
+            $parents = $this->get_parent_list_for_create($page, $records_to_show, $parent_id);
+            
         } else {
+            //First of all need to make an array of all ancestors of the item.
+            //There is a special field for them in data table, but their sequence might be wrong.
+            $parent_id_array = array();
+            array_push($parent_id_array, intval($parent_id));
+            $parent_ids_from_end = $this->get_all_parents_ids_for_item($parent_id, $parent_id_array);
+            $parent_ids = array_reverse($parent_ids_from_end);
+            //Comparing to create option, ecah of these properties will have an array, as
+            //on client's side javascript will take each array and form a list of items from it
+            //on some certain nesting level, then wi;ll take elements of the next nesting level.
+            $parents->parentsDataArray = array();
+            $parents->paginationInfo = array();
+            
             //Need to apply for all levels!
-            $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($parent_id, $records_to_show);
-            $parent_data_array = array();
-            $parent_pagination_info_array = array();
-            array_push($parent_data_array, $parents_and_pagination_info_for_array->parentsDataArray);
-            array_push($parent_pagination_info_array, $parents_and_pagination_info_for_array->paginationInfo);
-            $parents->parentsDataArray = $parent_data_array;
-            $parents->paginationInfo = $parent_pagination_info_array;
+            foreach ($parent_ids as $parent_id_one) {
+                $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($parent_id_one, $records_to_show);
+                array_push($parents->parentsDataArray, $parents_and_pagination_info_for_array->parentsDataArray);
+                array_push($parents->paginationInfo, $parents_and_pagination_info_for_array->paginationInfo);
+            }
         }
         
         return $parents;
     }
+    
+    //This function will be called when user is creating a new album on level 0,
+    //or when is editing an album which is located on level 0.
+    private function get_parent_list_for_create($page, $records_to_show, $parent_id) {
+        $parents = new AlbumParentsData();
+        
+        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
+                            ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                            ->where('en_albums.included_in_album_with_id', $parent_id)
+                            ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+
+        $parent_list_array = array();
+
+        if (count($parent_list_from_query) > 0) {
+
+            foreach ($parent_list_from_query as $album) {
+                $parent_data_array = new ParentDropDownListElement();
+                $parent_data_array->AlbumId = $album->id;
+                $parent_data_array->AlbumName = $album->album_name;
+                if ($album->children) {
+                    $parent_data_array->HasChildren = true;
+                } else {
+                    $parent_data_array->HasChildren = false;
+                }
+                array_push($parent_list_array, $parent_data_array);
+            }
+        }
+        $parents->parentsDataArray = $parent_list_array;
+        $parents->paginationInfo = $this->get_pagination_info($parent_list_from_query);
+        
+        return $parents;
+    }
+    
+    //This function extracts all ancestors of the selected record.
+    private function get_all_parents_ids_for_item($item_id, $parent_ids) {
+        $parent_id_new = \App\Album::select('included_in_album_with_id')->where('id', $item_id)->firstOrFail();
+        if ($parent_id_new->included_in_album_with_id !== null) {
+            array_push($parent_ids, $parent_id_new->included_in_album_with_id);
+            $parent_ids = $this->get_all_parents_ids_for_item($parent_id_new->included_in_album_with_id, $parent_ids);
+        }
+        return $parent_ids;
+    }
+    
+    /*private function get_parent_id_for_item($parent_id) {
+        return \App\Album::select('included_in_album_with_id')->where('id', $parent_id)->firstOrFail();      
+    }*/
     
     //This function will get parent information and pagination inforamtion for
     //parents and their pagination information array, which will be required for
