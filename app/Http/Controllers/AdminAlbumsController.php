@@ -262,8 +262,9 @@ class AdminAlbumsController extends Controller
     }
     
     public function getParentList(Request $request){
-              
-        $parents = $this->albums->getParentList($request->input('create_or_edit'), $request->input('page'), $request->input('parent_id'));
+        //parent_id is an id of parent of the item being edited or when user wants to create a new album in already existing album.
+        //parent_node_id is an id of album whcih is getting opened id parent dropdown list to get its nested albums.
+        $parents = $this->albums->getParentList($request->input('page'), $request->input('parent_id'), $request->input('parent_node_id'));
               
         return response()->json(['parent_list_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
     }

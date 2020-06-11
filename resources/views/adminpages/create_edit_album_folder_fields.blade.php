@@ -4,7 +4,7 @@
         {!! Form::label('included_in_album_with_id', Lang::get('keywords.ParentAlbum').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}
         {!! Form::select('included_in_album_with_id', $albums, $parent_id, ['class' => 'admin-panel-albums-create-edit-album-controls-input']) !!}
     </div> -->
-    {!! Form::hidden('included_in_album_with_id', $parent_id) !!} 
+    {!! Form::hidden('included_in_album_with_id', $parent_id) !!}
                 
     <div class="admin-panel-albums-create-edit-album-controls">              
         <div>{!! Form::label('included_in_album_with_name', Lang::get('keywords.ParentAlbum').':', ['class' => 'admin-panel-albums-create-edit-album-controls-label']) !!}</div>

@@ -45,6 +45,11 @@ class ParentDropDownListElement {
     public $AlbumId;
     public $AlbumName;
     public $HasChildren;
+    //The last two properties are used only when making opened list to indicate 
+    //whether a line is closed or open to show a caret and its events in 
+    //a proper state and mark selected record.
+    public $isOpened = false;
+    public $inFocus = false;
 }
 
 class AlbumsRepository {
@@ -104,37 +109,18 @@ class AlbumsRepository {
     }
     
     //We need this function for Album Parent dropdown list when create or edit album.
-    public function getParentList($create_or_edit, $page, $parent_id) {
+    public function getParentList($page, $parent_id, $parent_node_id) {
         
         $parents = new AlbumParentsData();        
         $records_to_show = 10;
-        if ($parent_id == 0) {
-            $parent_id = null;
-        }
-        //
-        if ($create_or_edit == "create" || $parent_id === null) {
-            
-            $parents = $this->get_parent_list_for_create($page, $records_to_show, $parent_id);
+        
+        //parent_id is an andicator whether an albums is located on 0 nestenig level or no.
+        //0 nesting level albums are easier to process.
+        if ($parent_id == 0 || $parent_node_id !== null) {
+            $parents = $this->get_closed_parent_list($page, $records_to_show, ($parent_node_id == 0 ? $parent_node_id = null : $parent_node_id));
             
         } else {
-            //First of all need to make an array of all ancestors of the item.
-            //There is a special field for them in data table, but their sequence might be wrong.
-            $parent_id_array = array();
-            array_push($parent_id_array, intval($parent_id));
-            $parent_ids_from_end = $this->get_all_parents_ids_for_item($parent_id, $parent_id_array);
-            $parent_ids = array_reverse($parent_ids_from_end);
-            //Comparing to create option, ecah of these properties will have an array, as
-            //on client's side javascript will take each array and form a list of items from it
-            //on some certain nesting level, then wi;ll take elements of the next nesting level.
-            $parents->parentsDataArray = array();
-            $parents->paginationInfo = array();
-            
-            //Need to apply for all levels!
-            foreach ($parent_ids as $parent_id_one) {
-                $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($parent_id_one, $records_to_show);
-                array_push($parents->parentsDataArray, $parents_and_pagination_info_for_array->parentsDataArray);
-                array_push($parents->paginationInfo, $parents_and_pagination_info_for_array->paginationInfo);
-            }
+            $parents = $this->get_opened_parent_list($records_to_show, $parent_id);
         }
         
         return $parents;
@@ -142,12 +128,12 @@ class AlbumsRepository {
     
     //This function will be called when user is creating a new album on level 0,
     //or when is editing an album which is located on level 0.
-    private function get_parent_list_for_create($page, $records_to_show, $parent_id) {
+    private function get_closed_parent_list($page, $records_to_show, $parent_node_id) {
         $parents = new AlbumParentsData();
         
         $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
                             ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                            ->where('en_albums.included_in_album_with_id', $parent_id)
+                            ->where('en_albums.included_in_album_with_id', $parent_node_id)
                             ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
 
         $parent_list_array = array();
@@ -172,6 +158,34 @@ class AlbumsRepository {
         return $parents;
     }
     
+    //This function will be called when user is creating a new album on level 0,
+    //or when is editing an album which is located on level 0.
+    private function get_opened_parent_list($records_to_show, $parent_id) {
+        $parents = new AlbumParentsData();
+        //First of all need to make an array of all ancestors of the item.
+        //There is a special field for them in data table, but their sequence might be wrong.
+        $parent_id_array = array();
+        array_push($parent_id_array, intval($parent_id));
+        $parent_ids = $this->get_all_parents_ids_for_item($parent_id, $parent_id_array);
+
+        //Comparing to create option, ecah of these properties will have an array, as
+        //on client's side javascript will take each array and form a list of items from it
+        //on some certain nesting level, then wi;ll take elements of the next nesting level.
+        $parentsDataArrayReversed = array();
+        $parentsPaginationInfoReversed = array();
+        
+        for ($i = 0; $i < count($parent_ids); $i++) {
+            $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($parent_ids[$i], $records_to_show, $i);
+            array_push($parentsDataArrayReversed, $parents_and_pagination_info_for_array->parentsDataArray);
+            array_push($parentsPaginationInfoReversed, $parents_and_pagination_info_for_array->paginationInfo);
+        }
+        
+        $parents->parentsDataArray = array_reverse($parentsDataArrayReversed);
+        $parents->paginationInfo = array_reverse($parentsPaginationInfoReversed);
+        
+        return $parents;
+    }
+    
     //This function extracts all ancestors of the selected record.
     private function get_all_parents_ids_for_item($item_id, $parent_ids) {
         $parent_id_new = \App\Album::select('included_in_album_with_id')->where('id', $item_id)->firstOrFail();
@@ -182,14 +196,10 @@ class AlbumsRepository {
         return $parent_ids;
     }
     
-    /*private function get_parent_id_for_item($parent_id) {
-        return \App\Album::select('included_in_album_with_id')->where('id', $parent_id)->firstOrFail();      
-    }*/
-    
     //This function will get parent information and pagination inforamtion for
     //parents and their pagination information array, which will be required for
     //parent dropdown list for Album edit window.
-    private function get_parents_and_pagination_info_for_array($parent_id, $records_to_show) {
+    private function get_parents_and_pagination_info_for_array($parent_id, $records_to_show, $iteration) {
         $parents_for_array = new AlbumParentsData();
         $parent_id_of_parent = \App\Album::select('included_in_album_with_id')->where('id', $parent_id)->firstOrFail();
             
@@ -201,12 +211,12 @@ class AlbumsRepository {
             
         $record_location = 0;
             
-        $page_amount = count($parent_list_from_query_for_data);
+        $items_amount = count($parent_list_from_query_for_data);
             
-        for ($i = 0; $i <= $page_amount; $i++) {
+        for ($i = 0; $i <= $items_amount; $i++) {
             if ($parent_list_from_query_for_data[$i]->id == $parent_id) {
                 $record_location = $i + 1;
-                $i = $page_amount;
+                $i = $items_amount;
             }
         }
             
@@ -230,6 +240,11 @@ class AlbumsRepository {
                 $parent_data_array->HasChildren = true;
             } else {
                 $parent_data_array->HasChildren = false;
+            }
+            if ($album->id == $parent_id && $iteration == 0) {
+                $parent_data_array->inFocus = true;
+            } else if ($album->id == $parent_id && $iteration > 0) {
+                $parent_data_array->isOpened = true;
             }
             array_push($parents_for_array->parentsDataArray, $parent_data_array);
         }
