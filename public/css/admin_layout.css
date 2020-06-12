@@ -669,6 +669,11 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
+.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item-selected {
+    background-color: #e3e3e3;
+}
+
+.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
 .admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item:hover {
     background-color: #e3e3e3;
 }
