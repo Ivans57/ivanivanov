@@ -109,7 +109,7 @@ class AlbumsRepository {
     }
     
     //We need this function for Album Parent dropdown list when create or edit album.
-    public function getParentList($page, $parent_id, $parent_node_id) {
+    public function getParentList($page, $parent_id, $parent_node_id, $keyword_of_album_to_exclude) {
         
         $parents = new AlbumParentsData();        
         $records_to_show = 10;
@@ -117,10 +117,15 @@ class AlbumsRepository {
         //parent_id is an andicator whether an albums is located on 0 nestenig level or no.
         //0 nesting level albums are easier to process.
         if ($parent_id == 0 || $parent_node_id !== null) {
-            $parents = $this->get_closed_parent_list($page, $records_to_show, ($parent_node_id == 0 ? $parent_node_id = null : $parent_node_id));
+            //Getting closed parent list only when creating or editing an album in root album.
+            $parents = $this->get_closed_parent_list($page, $records_to_show, 
+                                                    ($parent_node_id == 0 ? $parent_node_id = null : $parent_node_id), 
+                                                    $keyword_of_album_to_exclude);
             
         } else {
-            $parents = $this->get_opened_parent_list($records_to_show, $parent_id);
+            //Getting opened parent list only when creating or editing an album 
+            //in in any album except of the root album.
+            $parents = $this->get_opened_parent_list($records_to_show, $parent_id, $keyword_of_album_to_exclude);
         }
         
         return $parents;
@@ -128,12 +133,19 @@ class AlbumsRepository {
     
     //This function will be called when user is creating a new album on level 0,
     //or when is editing an album which is located on level 0.
-    private function get_closed_parent_list($page, $records_to_show, $parent_node_id) {
+    private function get_closed_parent_list($page, $records_to_show, $parent_node_id, $keyword_of_album_to_exclude) {
         $parents = new AlbumParentsData();
+        
+        //We need this for additional check whether a being checked item has children.
+        $id_of_album_to_exclude = null;
+        if ($keyword_of_album_to_exclude) {
+            $id_of_album_to_exclude = \App\Album::select('id')->where('keyword', $keyword_of_album_to_exclude)->firstOrFail();
+        }
         
         $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
                             ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
                             ->where('en_albums.included_in_album_with_id', $parent_node_id)
+                            ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
                             ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
 
         $parent_list_array = array();
@@ -144,11 +156,16 @@ class AlbumsRepository {
                 $parent_data_array = new ParentDropDownListElement();
                 $parent_data_array->AlbumId = $album->id;
                 $parent_data_array->AlbumName = $album->album_name;
-                if ($album->children) {
-                    $parent_data_array->HasChildren = true;
-                } else {
+                
+                //We need to use this function as due to some filters we might need 
+                //to exclude some children from item's children list.
+                $parent_data_array->HasChildren = true;
+                if ($album->children === null) {
                     $parent_data_array->HasChildren = false;
+                } else if ($id_of_album_to_exclude) {
+                    $parent_data_array->HasChildren = $this->check_for_children($album->id, $id_of_album_to_exclude->id);
                 }
+                
                 array_push($parent_list_array, $parent_data_array);
             }
         }
@@ -160,7 +177,7 @@ class AlbumsRepository {
     
     //This function will be called when user is creating a new album on level 0,
     //or when is editing an album which is located on level 0.
-    private function get_opened_parent_list($records_to_show, $parent_id) {
+    private function get_opened_parent_list($records_to_show, $parent_id, $keyword_of_album_to_exclude) {
         $parents = new AlbumParentsData();
         //First of all need to make an array of all ancestors of the item.
         //There is a special field for them in data table, but their sequence might be wrong.
@@ -175,7 +192,8 @@ class AlbumsRepository {
         $parentsPaginationInfoReversed = array();
         
         for ($i = 0; $i < count($parent_ids); $i++) {
-            $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($parent_ids[$i], $records_to_show, $i);
+            $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($parent_ids[$i], $records_to_show, $i,
+                                                                                                    $keyword_of_album_to_exclude);
             array_push($parentsDataArrayReversed, $parents_and_pagination_info_for_array->parentsDataArray);
             array_push($parentsPaginationInfoReversed, $parents_and_pagination_info_for_array->paginationInfo);
         }
@@ -196,16 +214,24 @@ class AlbumsRepository {
         return $parent_ids;
     }
     
-    //This function will get parent information and pagination inforamtion for
+    //This function will get parent information and pagination information for
     //parents and their pagination information array, which will be required for
     //parent dropdown list for Album edit window.
-    private function get_parents_and_pagination_info_for_array($parent_id, $records_to_show, $iteration) {
+    private function get_parents_and_pagination_info_for_array($parent_id, $records_to_show, $iteration, $keyword_of_album_to_exclude) {
         $parents_for_array = new AlbumParentsData();
         $parent_id_of_parent = \App\Album::select('included_in_album_with_id')->where('id', $parent_id)->firstOrFail();
+        
+        //We need an id of album which we need to exclude from parents list to find all its direct children.
+        $id_of_album_to_exclude = null;
+        if ($keyword_of_album_to_exclude) {
+            $id_of_album_to_exclude = \App\Album::select('id')->where('keyword', $keyword_of_album_to_exclude)->firstOrFail();
+        }
+
             
         //These request we need to do only to get a data for pagination, because required record might be not on the first page.
         $parent_list_from_query_for_data = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
                         ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                        ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
                         ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
                         ->orderBy('en_albums.created_at','DESC')->get();      
             
@@ -226,6 +252,7 @@ class AlbumsRepository {
             
         $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
                         ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                        ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
                         ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
                         ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
             
@@ -235,12 +262,16 @@ class AlbumsRepository {
             $parent_data_array = new ParentDropDownListElement();
             $parent_data_array->AlbumId = $album->id;
             $parent_data_array->AlbumName = $album->album_name;
-                
-            if ($album->children) {
-                $parent_data_array->HasChildren = true;
-            } else {
+            
+            //We need to use this function as due to some filters we might need 
+            //to exclude some children from item's children list.
+            $parent_data_array->HasChildren = true;
+            if ($album->children === null) {
                 $parent_data_array->HasChildren = false;
+            } else if ($id_of_album_to_exclude) {
+                $parent_data_array->HasChildren = $this->check_for_children($album->id, $id_of_album_to_exclude->id);
             }
+            
             if ($album->id == $parent_id && $iteration == 0) {
                 $parent_data_array->inFocus = true;
             } else if ($album->id == $parent_id && $iteration > 0) {
@@ -252,6 +283,24 @@ class AlbumsRepository {
         $parents_for_array->paginationInfo = $this->get_pagination_info($parent_list_from_query);
         
         return $parents_for_array;
+    }
+    
+    //We need to use this function as due to some filters we might need 
+    //to exclude some children from item's children list.
+    private function check_for_children($album_id, $id_of_album_to_exclude) {
+        
+        $items_direct_children = \App\Album::select('id')
+                        ->where('included_in_album_with_id', '=', $album_id)
+                        ->orderBy('en_albums.created_at','DESC')->get();
+        $hasChildren = false;       
+        if (count($items_direct_children) > 1) {
+            $hasChildren = true;
+        } else {
+            if ($items_direct_children[0]->id !== $id_of_album_to_exclude) {
+                $hasChildren = true;
+            }
+        }      
+        return $hasChildren;
     }
     
     //This function gets a pagination information for Parent search when create or edit album.
