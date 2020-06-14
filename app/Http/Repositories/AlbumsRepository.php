@@ -141,11 +141,16 @@ class AlbumsRepository {
         if ($keyword_of_album_to_exclude) {
             $id_of_album_to_exclude = \App\Album::select('id')->where('keyword', $keyword_of_album_to_exclude)->firstOrFail();
         }
+        //Below we need to get some information which will help to filter albums with unacceptable nesting level
+        //as nesting levels amount is limited.
+        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($keyword_of_album_to_exclude);
         
-        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
+        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
+                                                    'en_albums_data.nesting_level')
                             ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
                             ->where('en_albums.included_in_album_with_id', $parent_node_id)
                             ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
+                            ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
                             ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
 
         $parent_list_array = array();
@@ -157,10 +162,10 @@ class AlbumsRepository {
                 $parent_data_array->AlbumId = $album->id;
                 $parent_data_array->AlbumName = $album->album_name;
                 
-                //We need to use this function as due to some filters we might need 
+                //We need to use this function as due to some filters (selfinclusion and nesting levels) we might need 
                 //to exclude some children from item's children list.
                 $parent_data_array->HasChildren = true;
-                if ($album->children === null) {
+                if ($album->children === null || $album->nesting_level === ($max_acceptable_nest_level - 1)) {
                     $parent_data_array->HasChildren = false;
                 } else if ($id_of_album_to_exclude) {
                     $parent_data_array->HasChildren = $this->check_for_children($album->id, $id_of_album_to_exclude->id);
@@ -221,6 +226,10 @@ class AlbumsRepository {
         $parents_for_array = new AlbumParentsData();
         $parent_id_of_parent = \App\Album::select('included_in_album_with_id')->where('id', $parent_id)->firstOrFail();
         
+        //Below we need to get some information which will help to filter albums with unacceptable nesting level
+        //as nesting levels amount is limited.
+        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($keyword_of_album_to_exclude);
+        
         //We need an id of album which we need to exclude from parents list to find all its direct children.
         $id_of_album_to_exclude = null;
         if ($keyword_of_album_to_exclude) {
@@ -229,10 +238,12 @@ class AlbumsRepository {
 
             
         //These request we need to do only to get a data for pagination, because required record might be not on the first page.
-        $parent_list_from_query_for_data = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
+        $parent_list_from_query_for_data = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
+                                                            'en_albums_data.nesting_level')
                         ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
                         ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
                         ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
+                        ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
                         ->orderBy('en_albums.created_at','DESC')->get();      
             
         $record_location = 0;
@@ -250,10 +261,12 @@ class AlbumsRepository {
         //intval converts float which we get from ceil to int.
         $page = intval(ceil($record_location/$records_to_show));
             
-        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children')
+        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
+                                                    'en_albums_data.nesting_level')
                         ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
                         ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
                         ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
+                        ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
                         ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
             
         $parents_for_array->parentsDataArray = array();
@@ -262,11 +275,12 @@ class AlbumsRepository {
             $parent_data_array = new ParentDropDownListElement();
             $parent_data_array->AlbumId = $album->id;
             $parent_data_array->AlbumName = $album->album_name;
+            $test = $album->nesting_level;
             
             //We need to use this function as due to some filters we might need 
             //to exclude some children from item's children list.
             $parent_data_array->HasChildren = true;
-            if ($album->children === null) {
+            if ($album->children === null || $album->nesting_level === ($max_acceptable_nest_level - 1)) {
                 $parent_data_array->HasChildren = false;
             } else if ($id_of_album_to_exclude) {
                 $parent_data_array->HasChildren = $this->check_for_children($album->id, $id_of_album_to_exclude->id);
@@ -421,7 +435,7 @@ class AlbumsRepository {
     //is used for create method which can't give any argument to this function.
     public function getAllAlbumsList($albums_to_exclude_keyword = NULL){
         
-        //First we need to filter out albums which caanot be parents du to their nesting level.
+        //First we need to filter out albums which cannot be parents due to their nesting level.
         $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($albums_to_exclude_keyword);
         $albums = $this->get_all_albums_for_dp_list_from_query(NULL, $max_acceptable_nest_level, $albums_to_exclude_keyword);
       
