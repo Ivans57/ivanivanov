@@ -89,9 +89,6 @@ class AdminAlbumsController extends Controller
         //and then to open a view accordingly with a chosen mode
         $create_or_edit = 'create';
         
-        //Need to remove the line below.
-        $albums = $this->albums->getAllAlbumsList();
-        
         if ($parent_keyword != "0") {
             $parent_info = \App\Album::select('id', 'album_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
@@ -99,8 +96,6 @@ class AdminAlbumsController extends Controller
                       
         return view('adminpages.create_and_edit_album')->with([
             'headTitle' => $headTitle,
-            //Need to remove the line below.
-            'albums' => $albums,
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
@@ -156,9 +151,6 @@ class AdminAlbumsController extends Controller
         //and then to open a view accordingly with a chosen mode
         $create_or_edit = 'edit';
         
-        //Need to remove the line below.
-        $albums = $this->albums->getAllAlbumsList($keyword);
-        
         $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();
         
         if ($parent_keyword != "0") {
@@ -168,8 +160,6 @@ class AdminAlbumsController extends Controller
         
         return view('adminpages.create_and_edit_album')->with([
             'headTitle' => $headTitle,
-            //Need to remove the line below.
-            'albums' => $albums,
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
