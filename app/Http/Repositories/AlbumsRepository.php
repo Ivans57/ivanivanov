@@ -109,7 +109,7 @@ class AlbumsRepository {
     }
     
     //We need this function for Album Parent dropdown list when create or edit album.
-    public function getParentList($page, $parent_id, $parent_node_id, $keyword_of_album_to_exclude) {
+    public function getParentList($localization, $page, $parent_id, $parent_node_id, $keyword_of_album_to_exclude) {
         
         $parents = new AlbumParentsData();        
         $records_to_show = 10;
@@ -118,14 +118,14 @@ class AlbumsRepository {
         //0 nesting level albums are easier to process.
         if ($parent_id == 0 || $parent_node_id !== null) {
             //Getting closed parent list only when creating or editing an album in root album.
-            $parents = $this->get_closed_parent_list($page, $records_to_show, 
+            $parents = $this->get_closed_parent_list($localization, $page, $records_to_show, 
                                                     ($parent_node_id == 0 ? $parent_node_id = null : $parent_node_id), 
                                                     $keyword_of_album_to_exclude);
             
         } else {
             //Getting opened parent list only when creating or editing an album 
             //in in any album except of the root album.
-            $parents = $this->get_opened_parent_list($records_to_show, $parent_id, $keyword_of_album_to_exclude);
+            $parents = $this->get_opened_parent_list($localization, $records_to_show, $parent_id, $keyword_of_album_to_exclude);
         }
         
         return $parents;
@@ -133,7 +133,7 @@ class AlbumsRepository {
     
     //This function will be called when user is creating a new album on level 0,
     //or when is editing an album which is located on level 0.
-    private function get_closed_parent_list($page, $records_to_show, $parent_node_id, $keyword_of_album_to_exclude) {
+    private function get_closed_parent_list($localization, $page, $records_to_show, $parent_node_id, $keyword_of_album_to_exclude) {
         $parents = new AlbumParentsData();
         
         //We need this for additional check whether a being checked item has children.
@@ -145,13 +145,23 @@ class AlbumsRepository {
         //as nesting levels amount is limited.
         $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($keyword_of_album_to_exclude);
         
-        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
-                                                    'en_albums_data.nesting_level')
-                            ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                            ->where('en_albums.included_in_album_with_id', $parent_node_id)
-                            ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
-                            ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
-                            ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+        if ($localization === "en") {
+            $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
+                                                        'en_albums_data.nesting_level')
+                                ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                                ->where('en_albums.included_in_album_with_id', $parent_node_id)
+                                ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
+                                ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
+                                ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+        } else {
+            $parent_list_from_query = \App\Album::select('ru_albums.id', 'ru_albums.album_name', 'ru_albums_data.children', 
+                                                        'ru_albums_data.nesting_level')
+                                ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
+                                ->where('ru_albums.included_in_album_with_id', $parent_node_id)
+                                ->where('ru_albums.keyword', '!=', $keyword_of_album_to_exclude)
+                                ->where('ru_albums_data.nesting_level', '<', $max_acceptable_nest_level)
+                                ->orderBy('ru_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+        }
 
         $parent_list_array = array();
 
@@ -182,7 +192,7 @@ class AlbumsRepository {
     
     //This function will be called when user is creating a new album on level 0,
     //or when is editing an album which is located on level 0.
-    private function get_opened_parent_list($records_to_show, $parent_id, $keyword_of_album_to_exclude) {
+    private function get_opened_parent_list($localization, $records_to_show, $parent_id, $keyword_of_album_to_exclude) {
         $parents = new AlbumParentsData();
         //First of all need to make an array of all ancestors of the item.
         //There is a special field for them in data table, but their sequence might be wrong.
@@ -197,7 +207,8 @@ class AlbumsRepository {
         $parentsPaginationInfoReversed = array();
         
         for ($i = 0; $i < count($parent_ids); $i++) {
-            $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($parent_ids[$i], $records_to_show, $i,
+            $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($localization, $parent_ids[$i], 
+                                                                                                    $records_to_show, $i,
                                                                                                     $keyword_of_album_to_exclude);
             array_push($parentsDataArrayReversed, $parents_and_pagination_info_for_array->parentsDataArray);
             array_push($parentsPaginationInfoReversed, $parents_and_pagination_info_for_array->paginationInfo);
@@ -222,7 +233,8 @@ class AlbumsRepository {
     //This function will get parent information and pagination information for
     //parents and their pagination information array, which will be required for
     //parent dropdown list for Album edit window.
-    private function get_parents_and_pagination_info_for_array($parent_id, $records_to_show, $iteration, $keyword_of_album_to_exclude) {
+    private function get_parents_and_pagination_info_for_array($localization, $parent_id, $records_to_show, $iteration, 
+                                                            $keyword_of_album_to_exclude) {
         $parents_for_array = new AlbumParentsData();
         $parent_id_of_parent = \App\Album::select('included_in_album_with_id')->where('id', $parent_id)->firstOrFail();
         
@@ -235,16 +247,25 @@ class AlbumsRepository {
         if ($keyword_of_album_to_exclude) {
             $id_of_album_to_exclude = \App\Album::select('id')->where('keyword', $keyword_of_album_to_exclude)->firstOrFail();
         }
-
-            
+          
         //These request we need to do only to get a data for pagination, because required record might be not on the first page.
-        $parent_list_from_query_for_data = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
-                                                            'en_albums_data.nesting_level')
-                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                        ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
-                        ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
-                        ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
-                        ->orderBy('en_albums.created_at','DESC')->get();      
+        if ($localization === "en") {
+            $parent_list_from_query_for_data = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
+                                                                'en_albums_data.nesting_level')
+                            ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                            ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
+                            ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
+                            ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
+                            ->orderBy('en_albums.created_at','DESC')->get();
+        } else {
+            $parent_list_from_query_for_data = \App\Album::select('ru_albums.id', 'ru_albums.album_name', 'ru_albums_data.children', 
+                                                                'ru_albums_data.nesting_level')
+                            ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
+                            ->where('ru_albums.keyword', '!=', $keyword_of_album_to_exclude)
+                            ->where('ru_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
+                            ->where('ru_albums_data.nesting_level', '<', $max_acceptable_nest_level)
+                            ->orderBy('ru_albums.created_at','DESC')->get();
+        } 
             
         $record_location = 0;
             
@@ -260,14 +281,23 @@ class AlbumsRepository {
         //ceil function chooses the next bigger value of a decimal fraction, e.g. 5.1 => 6
         //intval converts float which we get from ceil to int.
         $page = intval(ceil($record_location/$records_to_show));
-            
-        $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
-                                                    'en_albums_data.nesting_level')
-                        ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
-                        ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
-                        ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
-                        ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
-                        ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+        if ($localization === "en") {    
+            $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
+                                                        'en_albums_data.nesting_level')
+                            ->join('en_albums_data', 'en_albums_data.items_id', '=', 'en_albums.id')
+                            ->where('en_albums.keyword', '!=', $keyword_of_album_to_exclude)
+                            ->where('en_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
+                            ->where('en_albums_data.nesting_level', '<', $max_acceptable_nest_level)
+                            ->orderBy('en_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+        } else {
+            $parent_list_from_query = \App\Album::select('ru_albums.id', 'ru_albums.album_name', 'ru_albums_data.children', 
+                                                    'ru_albums_data.nesting_level')
+                        ->join('ru_albums_data', 'ru_albums_data.items_id', '=', 'ru_albums.id')
+                        ->where('ru_albums.keyword', '!=', $keyword_of_album_to_exclude)
+                        ->where('ru_albums.included_in_album_with_id', $parent_id_of_parent->included_in_album_with_id)
+                        ->where('ru_albums_data.nesting_level', '<', $max_acceptable_nest_level)
+                        ->orderBy('ru_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
+        }
             
         $parents_for_array->parentsDataArray = array();
             
@@ -275,7 +305,6 @@ class AlbumsRepository {
             $parent_data_array = new ParentDropDownListElement();
             $parent_data_array->AlbumId = $album->id;
             $parent_data_array->AlbumName = $album->album_name;
-            $test = $album->nesting_level;
             
             //We need to use this function as due to some filters we might need 
             //to exclude some children from item's children list.
@@ -305,7 +334,7 @@ class AlbumsRepository {
         
         $items_direct_children = \App\Album::select('id')
                         ->where('included_in_album_with_id', '=', $album_id)
-                        ->orderBy('en_albums.created_at','DESC')->get();
+                        ->orderBy('created_at','DESC')->get();
         $hasChildren = false;       
         if (count($items_direct_children) > 1) {
             $hasChildren = true;
