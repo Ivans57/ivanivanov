@@ -384,7 +384,7 @@ class AlbumsRepository {
         $parent_list_array = array();
 
         if (count($parent_list_from_query) > 0) {
-            $parent_list_array = $this->make_parent_object_array_for_closed_parent_list($parent_list_from_query, $max_acceptable_nest_level, 
+            $parent_list_array = $this->make_parent_object_array_for_parent_list($parent_list_from_query, $max_acceptable_nest_level, 
                                                                                         $id_of_album_to_exclude);
         }
         $parents->parentsDataArray = $parent_list_array;
@@ -414,30 +414,6 @@ class AlbumsRepository {
                                 ->orderBy('ru_albums.created_at','DESC')->paginate($records_to_show, ['*'], 'page', $page);
         }
         return $parent_list_from_query;
-    }
-    
-    //We need this function to make smaller function get_closed_parent_list.
-    private function make_parent_object_array_for_closed_parent_list($parent_list_from_query, $max_acceptable_nest_level, 
-                                                                    $id_of_album_to_exclude) {
-        $parent_list_array = array();
-        
-        foreach ($parent_list_from_query as $album) {
-                $parent_data_array = new ParentDropDownListElement();
-                $parent_data_array->AlbumId = $album->id;
-                $parent_data_array->AlbumName = $album->album_name;
-                
-                //We need to use this function as due to some filters (selfinclusion and nesting levels) we might need 
-                //to exclude some children from item's children list.
-                $parent_data_array->HasChildren = true;
-                if ($album->children === null || $album->nesting_level === ($max_acceptable_nest_level - 1)) {
-                    $parent_data_array->HasChildren = false;
-                } else if ($id_of_album_to_exclude) {
-                    $parent_data_array->HasChildren = $this->check_for_children($album->id, $id_of_album_to_exclude->id);
-                }
-                
-                array_push($parent_list_array, $parent_data_array);
-            }
-        return $parent_list_array;
     }
     
     //This function will be called when user is creating a new album on level 0,
@@ -508,10 +484,8 @@ class AlbumsRepository {
         $parent_list_from_query = $this->get_parents_for_opened_list_from_query($localization, $keyword_of_album_to_exclude, 
                                                                                 $parent_id_of_parent->included_in_album_with_id, 
                                                                                 $records_to_show, $max_acceptable_nest_level, $page);
-        //Check if need the line below!    
-        $parents_for_array->parentsDataArray = array();
-            
-        $parents_for_array->parentsDataArray = $this->make_parent_object_array_for_opened_parent_list($parent_list_from_query, 
+   
+        $parents_for_array->parentsDataArray = $this->make_parent_object_array_for_parent_list($parent_list_from_query, 
                                                $max_acceptable_nest_level, $id_of_album_to_exclude, $parent_id, $iteration);
             
         $parents_for_array->paginationInfo = $this->get_pagination_info($parent_list_from_query);
@@ -576,12 +550,11 @@ class AlbumsRepository {
         }
         return $parent_list_from_query;
     }
-    
-    //Need to check this function for more simplification options! Consider its opened_list version.
-    //We need this function to make smaller function get_parents_and_pagination_info_for_array.
-    private function make_parent_object_array_for_opened_parent_list($parent_list_from_query, $max_acceptable_nest_level, 
-                                                                    $id_of_album_to_exclude, $parent_id, $iteration) {
-        $parents_for_array = array();
+           
+    //We need this function to make smaller functions get_parents_and_pagination_info_for_array and get_closed_parent_list.
+    private function make_parent_object_array_for_parent_list($parent_list_from_query, $max_acceptable_nest_level, 
+                                                                    $id_of_album_to_exclude, $parent_id = null, $iteration = null) {
+        $parent_list_array = array();
         
         foreach ($parent_list_from_query as $album) {
             $parent_data_array = new ParentDropDownListElement();
@@ -596,17 +569,33 @@ class AlbumsRepository {
             } else if ($id_of_album_to_exclude) {
                 $parent_data_array->HasChildren = $this->check_for_children($album->id, $id_of_album_to_exclude->id);
             }
-            
-            if ($album->id == $parent_id && $iteration == 0) {
-                $parent_data_array->inFocus = true;
-            } else if ($album->id == $parent_id && $iteration > 0) {
-                $parent_data_array->isOpened = true;
+            //We can use $parent_id as an indicator to know whether we are building closed or opened list.
+            if ($parent_id) {
+                //When javascript is building a dropdown list. First it is making list of elements from nesting level 0,
+                //it is one iteration, then list from the next nesting level. That will be the second iteration and so on.
+                $parent_data = $this->check_if_open_or_in_focus($album->id, $parent_id, $iteration);
+                $parent_data_array->inFocus = $parent_data->inFocus;
+                $parent_data_array->isOpened = $parent_data->isOpened;
             }
-            array_push($parents_for_array, $parent_data_array);
+            
+            array_push($parent_list_array, $parent_data_array);
         }
-        return $parents_for_array;
+        return $parent_list_array;
     }
     
+    //This function perpose is to shorten make_parent_object_array_for_parent_list().
+    private function check_if_open_or_in_focus($album_id, $parent_id, $iteration) {
+        $parent_data = new ParentDropDownListElement();
+        
+        if ($album_id == $parent_id && $iteration == 0) {
+            $parent_data->inFocus = true;
+        } else if ($album_id == $parent_id && $iteration > 0) {
+            $parent_data->isOpened = true;
+        }
+        return $parent_data;
+    }
+    
+      
     //We need to use this function as due to some filters we might need 
     //to exclude some children from item's children list.
     private function check_for_children($album_id, $id_of_album_to_exclude) {
