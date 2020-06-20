@@ -223,14 +223,15 @@ $( document ).ready(function() {
             var parent_list_data = data.parent_list_data[i];
             previous_page = data.pagination_info[i].previousPage;
             next_page = data.pagination_info[i].nextPage;
-            make_included_parent_list(localization, url, new_line_id, parent_node_id, parent_list_data, previous_page, next_page, old_keyword_value);
+            make_included_parent_list(localization, url, new_line_id, parent_node_id, parent_list_data, previous_page, next_page, 
+                                        old_keyword_value);
             
             //I can't include this in make_included_parent_list function, 
             //as in another funtion which uses make_included_parent_list function,
             //we don't need it.
             parent_list_data.forEach(function(album_data) {
                 if (album_data.isOpened === true) {
-                    parent_node_id = album_data.AlbumId;
+                    parent_node_id = album_data.DirectoryId;
                 }
             });
             new_line_id = "line_" + parent_node_id;
@@ -328,25 +329,25 @@ $( document ).ready(function() {
                     
         parent_list_data.forEach(function(album_data) {
             album_list.insertAdjacentHTML("beforeend", 
-                                        "<li id='line_" + album_data.AlbumId + "'>\n\
+                                        "<li id='line_" + album_data.DirectoryId + "'>\n\
                                             <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item' \n\
-                                            id='element_" + album_data.AlbumId +"'> \n\
+                                            id='element_" + album_data.DirectoryId +"'> \n\
                                                 <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-name' \n\
-                                                data-album_id=" + album_data.AlbumId +">"
-                                                    + album_data.AlbumName +
+                                                data-album_id=" + album_data.DirectoryId +">"
+                                                    + album_data.DirectoryName +
                                             "</span></span></li>");
                                     
-        var album_list_element = document.getElementById('element_' + album_data.AlbumId);
+        var album_list_element = document.getElementById('element_' + album_data.DirectoryId);
         if (album_data.HasChildren === true && album_data.isOpened === true) {
             album_list_element.insertAdjacentHTML("afterbegin", 
                                                 "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down' \n\
-                                                data-line_id='line_" + album_data.AlbumId + "' \n\
-                                                data-record_id=" + album_data.AlbumId + "></span>");
+                                                data-line_id='line_" + album_data.DirectoryId + "' \n\
+                                                data-record_id=" + album_data.DirectoryId + "></span>");
         } else if (album_data.HasChildren === true) {
             album_list_element.insertAdjacentHTML("afterbegin", 
                                                 "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret' \n\
-                                                data-line_id='line_" + album_data.AlbumId + "' \n\
-                                                data-record_id=" + album_data.AlbumId + "></span>");
+                                                data-line_id='line_" + album_data.DirectoryId + "' \n\
+                                                data-record_id=" + album_data.DirectoryId + "></span>");
         } else {
             album_list_element.insertAdjacentHTML("afterbegin", 
                                                 "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret'> \n\

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AlbumsRepository;
+use App\Http\Repositories\AlbumCreateOrEditRepository;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters low case.
 use Illuminate\Support\Str;
@@ -237,8 +238,10 @@ class AdminAlbumsController extends Controller
     }
     
     public function findParents(Request $request){
-                     
-        $parents = $this->albums->getParents($request->input('localization'), $request->input('page'), 
+        
+        $create_or_edit_window = new AlbumCreateOrEditRepository();
+        
+        $parents = $create_or_edit_window->getParents($request->input('localization'), $request->input('page'), 
                 $request->input('parent_search'), $request->input('keyword'));
                    
         if (count($parents->parentsDataArray) > 0) {              
@@ -252,9 +255,12 @@ class AdminAlbumsController extends Controller
     }
     
     public function getParentList(Request $request){
+        
+        $create_or_edit_window = new AlbumCreateOrEditRepository();
+        
         //parent_id is an id of parent of the item being edited or when user wants to create a new album in already existing album.
         //parent_node_id is an id of album whcih is getting opened id parent dropdown list to get its nested albums.
-        $parents = $this->albums->getParentList($request->input('localization'), $request->input('page'), $request->input('parent_id'), 
+        $parents = $create_or_edit_window->getParentList($request->input('localization'), $request->input('page'), $request->input('parent_id'), 
                                 $request->input('parent_node_id'), $request->input('keyword_of_album_to_exclude'));
              
         return response()->json(['parent_list_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
