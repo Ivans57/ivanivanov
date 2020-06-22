@@ -165,8 +165,10 @@ class AlbumCreateOrEditRepository {
         //as nesting levels amount is limited.
         $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($keyword_of_directory_to_exclude);
         
-        $parent_list_from_query = $this->get_parents_for_closed_list_from_query($localization, $page, $records_to_show, $parent_node_id, 
-                                                            $keyword_of_directory_to_exclude, $max_acceptable_nest_level);
+        $parent_list_from_query = $this->get_parent_list_from_query($localization, $page, $parent_node_id,
+                                                                                $keyword_of_directory_to_exclude, 
+                                                                                $max_acceptable_nest_level, $records_to_show);
+        
         $parent_list_array = array();
 
         if (count($parent_list_from_query) > 0) {
@@ -174,32 +176,10 @@ class AlbumCreateOrEditRepository {
                                                                                 $id_of_directory_to_exclude);
         }
         $parents->parentsDataArray = $parent_list_array;
-        $parent_list_from_query_with_pagination = $this->get_parent_list_from_query($parent_list_from_query, $max_acceptable_nest_level, 
-                                                                                $id_of_directory_to_exclude);
-        $parents->paginationInfo = $this->get_pagination_info($parent_list_from_query_with_pagination);
+
+        $parents->paginationInfo = $this->get_pagination_info($parent_list_from_query);
         
         return $parents;
-    }
-    
-    //We need this function to make smaller function get_closed_parent_list.
-    private function get_parents_for_closed_list_from_query($localization, $page, $records_to_show, $parent_node_id, 
-                                                            $keyword_of_directory_to_exclude, $max_acceptable_nest_level) {//-
-        
-        $parent_list_from_query = $this->get_parent_list_from_query($localization, $page, $parent_node_id, 
-                                                $keyword_of_directory_to_exclude, $max_acceptable_nest_level, $records_to_show);
-        
-        $parent_list = array();       
-        $parent_data = new DirectoryData();
-        
-        foreach ($parent_list_from_query as $parent_data_from_query) {
-            $parent_data->DirectoryId = $parent_data_from_query->id;
-            $parent_data->DirectoryName = $parent_data_from_query->album_name;
-            $parent_data->Children = $parent_data_from_query->children;
-            $parent_data->NestingLevel = $parent_data_from_query->nesting_level;
-            array_push($parent_list, $parent_data);
-        }
-             
-        return $parent_list;
     }
     
     //Direct data from query is giving useful additional information for pagination.
@@ -300,8 +280,7 @@ class AlbumCreateOrEditRepository {
                                                                                 $records_to_show, $max_acceptable_nest_level, $page);
    
         $parents_for_array->parentsDataArray = $this->make_parent_object_array_for_parent_list($parent_list_from_query, 
-                                               $max_acceptable_nest_level, $id_of_directory_to_exclude, $parent_id, $iteration);
-            
+                                               $max_acceptable_nest_level, $id_of_directory_to_exclude, $parent_id, $iteration);          
         $parents_for_array->paginationInfo = $this->get_pagination_info($parent_list_from_query);
         
         return $parents_for_array;
@@ -386,9 +365,12 @@ class AlbumCreateOrEditRepository {
     //We need this function to make smaller functions get_parents_and_pagination_info_for_array and get_closed_parent_list.
     private function make_parent_object_array_for_parent_list($parent_list_from_query, $max_acceptable_nest_level, 
                                                                     $id_of_directory_to_exclude, $parent_id = null, $iteration = null) {//-
+        
+        $parent_list_from_query_objects = $this->parent_list_from_query_to_object_array($parent_list_from_query);
+        
         $parent_list_array = array();
         
-        foreach ($parent_list_from_query as $directory) {
+        foreach ($parent_list_from_query_objects as $directory) {
             $parent_data_array = new ParentDropDownListElement();
             $parent_data_array->DirectoryId = $directory->DirectoryId;
             $parent_data_array->DirectoryName = $directory->DirectoryName;
@@ -413,6 +395,21 @@ class AlbumCreateOrEditRepository {
             array_push($parent_list_array, $parent_data_array);
         }
         return $parent_list_array;
+    }
+    
+    //This function transforms data which have been got from database to a special objects array.
+    //Usage of that object is giving more flexibility when sharing the same functions with another classes.
+    private function parent_list_from_query_to_object_array($parent_list_from_query) {//+
+        $parent_list = array();         
+        foreach ($parent_list_from_query as $parent_data_from_query) {
+            $parent_data = new DirectoryData();
+            $parent_data->DirectoryId = $parent_data_from_query->id;
+            $parent_data->DirectoryName = $parent_data_from_query->album_name;
+            $parent_data->Children = $parent_data_from_query->children;
+            $parent_data->NestingLevel = $parent_data_from_query->nesting_level;
+            array_push($parent_list, $parent_data);
+        }
+        return $parent_list;
     }
     
     //This function's purpose is to shorten make_parent_object_array_for_parent_list().
@@ -498,7 +495,7 @@ class AlbumCreateOrEditRepository {
     
     private function get_directory_data($items_id) {//+
         $directory_data = new DirectoryData();
-        $directory_data_from_query = \App\AlbumData::where('items_id', $items_id->id)->select('nesting_level', 'children')->firstOrFail();
+        $directory_data_from_query = \App\AlbumData::where('items_id', $items_id)->select('nesting_level', 'children')->firstOrFail();
         $directory_data->NestingLevel = $directory_data_from_query->nesting_level;
         $directory_data->Children = $directory_data_from_query->children;
         return $directory_data;
