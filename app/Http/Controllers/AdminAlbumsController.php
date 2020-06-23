@@ -28,7 +28,7 @@ class AdminAlbumsController extends Controller
     
     //There are some methods and variables which we will always use, so it will be better
     //if we call the and initialize in constructor
-    public function __construct(AlbumsRepository $albums){
+    public function __construct(AlbumsRepository $albums) {
         
         $this->albums = $albums;
         $this->current_page = 'Albums';
@@ -69,7 +69,7 @@ class AdminAlbumsController extends Controller
         }    
     }
     
-    public function show($keyword, $page){
+    public function show($keyword, $page) {
         
         $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
         
@@ -107,8 +107,8 @@ class AdminAlbumsController extends Controller
     
     public function store(CreateEditAlbumRequest $request) {
         
-        //Actually we do not need any head title as it is just a partial view
-        //We need it only to make the variable initialized. Othervise there will be error.
+        //Actually we do not need any head title as it is just a partial view.
+        //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
         
         $input = $request->all();
@@ -144,8 +144,8 @@ class AdminAlbumsController extends Controller
     
     public function edit($keyword, $parent_keyword) {
         
-        //Actually we do not need any head title as it is just a partial view
-        //We need it only to make the variable initialized. Othervise there will be error. 
+        //Actually we do not need any head title as it is just a partial view.
+        //We need it only to make the variable initialized. Othervise there will be an error. 
         $headTitle= __('keywords.'.$this->current_page);
         
         //We need this variable to find out which mode are we using Create or Edit
@@ -172,8 +172,8 @@ class AdminAlbumsController extends Controller
     
     public function update($keyword, CreateEditAlbumRequest $request) {
         
-        //Actually we do not need any head title as it is just a partial view
-        //We need it only to make the variable initialized. Othervise there will be error.
+        //Actually we do not need any head title as it is just a partial view.
+        //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
         
         $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();
@@ -212,8 +212,8 @@ class AdminAlbumsController extends Controller
     
     public function delete($keyword) {
         
-        //Actually we do not need any head title as it is just a partial view
-        //We need it only to make the variable initialized. Othervise there will be error.
+        //Actually we do not need any head title as it is just a partial view.
+        //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
         
         //return 'Delete '.$keyword.'?';
@@ -225,8 +225,8 @@ class AdminAlbumsController extends Controller
     
     public function destroy($keyword) {
         
-        //Actually we do not need any head title as it is just a partial view
-        //We need it only to make the variable initialized. Othervise there will be error.
+        //Actually we do not need any head title as it is just a partial view.
+        //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
         
         //return 'Delete '.$keyword.'?';
@@ -237,7 +237,7 @@ class AdminAlbumsController extends Controller
             ]);
     }
     
-    public function findParents(Request $request){
+    public function findParents(Request $request) {
         
         $create_or_edit_window = new AlbumCreateOrEditRepository();
         
@@ -254,7 +254,7 @@ class AdminAlbumsController extends Controller
         }
     }
     
-    public function getParentList(Request $request){
+    public function getParentList(Request $request) {
         
         $create_or_edit_window = new AlbumCreateOrEditRepository();
         

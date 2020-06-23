@@ -212,4 +212,17 @@ class ArticlesRepository {
             return $parent_folders_for_view;
         }
     }
+    
+    //We need this to make a check for keyword uniqueness when adding a new
+    //folder keyword or editing existing.
+    public function get_all_folders_keywords() {
+        
+        $all_folders_keywords = \App\Folder::all('keyword');       
+        $folders_keywords_array = array();
+        
+        foreach ($all_folders_keywords as $folder_keyword) {
+            array_push($folders_keywords_array, $folder_keyword->keyword);
+        }    
+        return $folders_keywords_array;   
+    }
 }

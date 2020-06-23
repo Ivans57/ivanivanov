@@ -215,13 +215,13 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles/{keyword}/page/{page}', 'AdminArticlesController@showFolder');
 });
 
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+/*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles/new-article', 'AdminArticlesController@create');
 });
 
 Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/articles/new-article', 'AdminArticlesController@create');
-});
+});*/
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/keywords', 'AdminKeywordsController@index');
