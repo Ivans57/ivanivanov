@@ -408,21 +408,21 @@ article's button, because article has only two control buttons instead of three*
 
 /*Window's size is regulated by javascript in admin_panel_javascript file*/
 
-.admin-panel-albums-create-edit-album {
+.admin-panel-create-edit-directory {
     padding-left: 35px;
     padding-right: 35px;
     padding-top: 25px;
     padding-bottom: 20px;
 }
 
-.admin-panel-albums-delete-album {
+.admin-panel-delete-directory {
     padding-left: 35px;
     padding-right: 35px;
     padding-top: 10px;
     padding-bottom: 20px;
 }
 
-.admin-panel-albums-delete-album .admin-panel-albums-delete-album-message h3 {
+.admin-panel-delete-directory .admin-panel-delete-directory-message h3 {
     font-family: "Arial";
     font-size: 28px;
     text-align: center;
@@ -430,70 +430,70 @@ article's button, because article has only two control buttons instead of three*
     word-wrap: break-word;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-regulations {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-regulations {
     margin-bottom: 15px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-regulations span {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-regulations span {
     font-family: "Arial";
     font-size: 12px;
     font-style: italic;
     color: red;
 }
 
-.admin-panel-albums-delete-album .admin-panel-albums-delete-album-regulations span {
+.admin-panel-delete-directory .admin-panel-delete-directory-regulations span {
     font-family: "Arial";
     font-size: 14px;
     font-style: italic;
     color: red;
 }
 
-.admin-panel-albums-create-edit-album > div:first-child {
+.admin-panel-create-edit-directory > div:first-child {
     margin-bottom: 2px;
 }
 
-.admin-panel-albums-create-edit-album > div:nth-child(3) {
+.admin-panel-create-edit-directory > div:nth-child(3) {
     margin-bottom: 10px;
 }
 
-.admin-panel-albums-create-edit-album > div:nth-child(4) {
+.admin-panel-create-edit-directory > div:nth-child(4) {
     margin-bottom: 10px;
 }
 
-.admin-panel-albums-create-edit-album > div:last-child {
+.admin-panel-create-edit-directory > div:last-child {
     display: flex;
     justify-content: space-between;
     min-width: 250px;
     margin-top: 30px;
 }
 
-.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls {
+.admin-panel-delete-directory .admin-panel-delete-directory-controls {
     display: flex;
     justify-content: space-between;
     min-width: 250px;
     margin-top: 30px;
 }
 
-.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls > div:first-child {
+.admin-panel-delete-directory .admin-panel-delete-directory-controls > div:first-child {
     margin-left: 12px;
 }
 
-.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls > div:last-child {
+.admin-panel-delete-directory .admin-panel-delete-directory-controls > div:last-child {
     margin-right: 12px;
 }
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-label {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-label {
     font-family: "Arial";
     font-size: 16px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-input {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-input {
     width: 260px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-input-parent {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-input-parent {
     width: 210px;
     font-size: 17px;
     border: 1px solid grey;
@@ -504,8 +504,8 @@ article's button, because article has only two control buttons instead of three*
 /*Begining of parent search and drop down for Album create, edit and delete window*/
 
 /*Begigining for parent search*/
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-button-search-and-drop-down {
     width: 25px;
     height: 28px;
     padding-right: 4px;
@@ -517,22 +517,22 @@ article's button, because article has only two control buttons instead of three*
     cursor: pointer;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down
-.admin-panel-albums-create-edit-album-controls-button-drop-down-search {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-button-search-and-drop-down
+.admin-panel-create-edit-directory-controls-button-drop-down-search {
     position: absolute;
     top: 58px;
     left: 250px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover
-.admin-panel-albums-create-edit-album-controls-button-drop-down-search {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-button-search-and-drop-down:hover
+.admin-panel-create-edit-directory-controls-button-drop-down-search {
     filter: brightness(90%);
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list {
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
@@ -543,22 +543,22 @@ article's button, because article has only two control buttons instead of three*
     overflow: auto;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-element {
     border-bottom: 1px solid grey;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button {
     border: 1px solid grey;
     border-bottom: 2px solid grey;
     background-color: #dedede;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element a,
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button a {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-element a,
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button a {
     display: block;
     text-decoration: none;
     color: #0d95e8;
@@ -566,8 +566,8 @@ article's button, because article has only two control buttons instead of three*
     padding-top: 3px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button a {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button a {
     text-decoration: underline;
     color: #1a7dd9;
     padding-left: 0px;
@@ -575,24 +575,24 @@ article's button, because article has only two control buttons instead of three*
     text-align: center;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element a:hover {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-element a:hover {
     background-color: #0d95e8;
     color: white;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button a:hover {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button a:hover {
     color: red;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-element:last-child {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-element:last-child {
     border-bottom: 0px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-list .admin-panel-albums-create-edit-album-album-list-button:last-child {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button:last-child {
     border-bottom: 0px;
     border: 1px solid grey;
 }
@@ -600,8 +600,8 @@ article's button, because article has only two control buttons instead of three*
 /*End for parent search*/
 /*Begigining for parent drop down*/
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-drop-down {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-button-drop-down {
     width: 24px;
     float: right;
     cursor: pointer;
@@ -610,14 +610,14 @@ article's button, because article has only two control buttons instead of three*
     padding-right: 5px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-button-search-and-drop-down:hover {
     background: #0b7dda;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-drop-down 
-.admin-panel-albums-create-edit-album-controls-button-drop-down-caret {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-button-drop-down 
+.admin-panel-create-edit-directory-controls-button-drop-down-caret {
     position: absolute;
     top: 64px;
     left: 273px;
@@ -629,14 +629,14 @@ article's button, because article has only two control buttons instead of three*
     transform: scale(0.7, 1.5);
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button-search-and-drop-down:hover
-.admin-panel-albums-create-edit-album-controls-button-drop-down-caret{
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-button-search-and-drop-down:hover
+.admin-panel-create-edit-directory-controls-button-drop-down-caret{
     filter: brightness(90%);
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list {
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
@@ -651,8 +651,8 @@ article's button, because article has only two control buttons instead of three*
     padding-left: 5px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list-nested {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list-nested {
     background-color: white;
     overflow: auto;
     list-style-type: none;
@@ -662,58 +662,58 @@ article's button, because article has only two control buttons instead of three*
     border: 1px solid #dcdfe3;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item {
     display: block;
     user-select: none; /* Prevent text selection */
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item-selected {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item-selected {
     background-color: #e3e3e3;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item:hover {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item:hover {
     background-color: #e3e3e3;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-name {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item 
+.admin-panel-create-edit-directory-album-drop-down-list-item-name {
     display: inline-block;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list .admin-panel-albums-create-edit-album-album-drop-down-list-item 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-name:hover {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item 
+.admin-panel-create-edit-directory-album-drop-down-list-item-name:hover {
     cursor: pointer;
 }
 
 /* Style the caret/arrow */
 /* Create the caret/arrow with a unicode, and style it */
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret::before {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list 
+.admin-panel-create-edit-directory-album-drop-down-list-item-caret::before {
     content: "\25B6";
     color: black;
     display: inline-block;
     margin-right: 6px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret:hover,
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down:hover {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list 
+.admin-panel-create-edit-directory-album-drop-down-list-item-caret:hover,
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list 
+.admin-panel-create-edit-directory-album-drop-down-list-item-caret-down:hover {
     cursor: pointer;
 }
 
 /*For elemnts without a caret we need to create an empty "caret" to even out elements list*/
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret::before {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list 
+.admin-panel-create-edit-directory-album-drop-down-list-item-empty-caret::before {
     content: "\25B6";
     /*Element made by ::before can't exist without actual caret, so we will make it, 
     but the clor will be transparent.*/
@@ -723,9 +723,9 @@ article's button, because article has only two control buttons instead of three*
 }
 
 /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down::before {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list 
+.admin-panel-create-edit-directory-album-drop-down-list-item-caret-down::before {
     content: "\25B6";
     color: black;
     display: inline-block;
@@ -733,17 +733,17 @@ article's button, because article has only two control buttons instead of three*
     transform: rotate(90deg);
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-button {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list 
+.admin-panel-create-edit-directory-album-drop-down-list-button {
     border: 1px solid grey;
     background-color: #dedede;
     margin-left: -4px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-button a {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list 
+.admin-panel-create-edit-directory-album-drop-down-list-button a {
     display: block;
     text-decoration: underline;
     color: #1a7dd9;
@@ -752,9 +752,9 @@ article's button, because article has only two control buttons instead of three*
     text-align: center;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-album-drop-down-list 
-.admin-panel-albums-create-edit-album-album-drop-down-list-button a:hover {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-album-drop-down-list 
+.admin-panel-create-edit-directory-album-drop-down-list-button a:hover {
     color: red;
 }
 
@@ -773,10 +773,10 @@ article's button, because article has only two control buttons instead of three*
     width: 330px;
 }
 
-.admin-panel-albums-create-edit-album .admin-panel-albums-create-edit-album-controls 
-.admin-panel-albums-create-edit-album-controls-button,
-.admin-panel-albums-delete-album .admin-panel-albums-delete-album-controls 
-.admin-panel-albums-delete-album-controls-button {
+.admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
+.admin-panel-create-edit-directory-controls-button,
+.admin-panel-delete-directory .admin-panel-delete-directory-controls 
+.admin-panel-delete-directory-controls-button {
     width: 100px;
     font-size: 16px;
     font-weight: bold;

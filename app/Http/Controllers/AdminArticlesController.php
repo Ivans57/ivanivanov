@@ -110,6 +110,8 @@ class AdminArticlesController extends Controller
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->folder_name : null,
             'create_or_edit' => $create_or_edit,
+            //The line below is required for form path.
+            'section' => 'articles',
             ]);
     }
     
@@ -175,6 +177,8 @@ class AdminArticlesController extends Controller
             'parent_name' => ($parent_keyword != "0") ? $parent_info->folder_name : null,
             'create_or_edit' => $create_or_edit,
             'edited_folder' => $edited_folder,
+            //The line below is required for form path.
+            'section' => 'articles',
             ]);
         
     }
@@ -226,7 +230,9 @@ class AdminArticlesController extends Controller
         
         return view('adminpages.delete_folder')->with([//Need to make this view.
             'headTitle' => $headTitle,
-            'keyword' => $keyword
+            'keyword' => $keyword,
+            //The line below is required for form path.
+            'section' => 'articles',
             ]);
     }
     

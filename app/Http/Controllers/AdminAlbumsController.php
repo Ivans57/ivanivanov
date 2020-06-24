@@ -95,12 +95,14 @@ class AdminAlbumsController extends Controller
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
         }
                       
-        return view('adminpages.create_and_edit_album')->with([
+        return view('adminpages.directory.create_and_edit_directory')->with([
             'headTitle' => $headTitle,
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
             'create_or_edit' => $create_or_edit,
+            //The line below is required for form path.
+            'section' => 'albums',            
             ]);
     }
     
@@ -159,13 +161,15 @@ class AdminAlbumsController extends Controller
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
         }
         
-        return view('adminpages.create_and_edit_album')->with([
+        return view('adminpages.directory.create_and_edit_directory')->with([
             'headTitle' => $headTitle,
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
             'create_or_edit' => $create_or_edit,
-            'edited_album' => $edited_album,
+            'edited_directory' => $edited_album,
+            //The line below is required for form path.
+            'section' => 'albums',
             ]);
         
     }
@@ -217,9 +221,11 @@ class AdminAlbumsController extends Controller
         $headTitle= __('keywords.'.$this->current_page);
         
         //return 'Delete '.$keyword.'?';
-        return view('adminpages.delete_album')->with([
+        return view('adminpages.directory.delete_directory')->with([
             'headTitle' => $headTitle,
-            'keyword' => $keyword
+            'keyword' => $keyword,
+            //The line below is required for form path.
+            'section' => 'albums',
             ]);
     }
     

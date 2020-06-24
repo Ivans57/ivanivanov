@@ -18,7 +18,7 @@ $( document ).ready(function() {
    
     //Few lines below are made for cancel button, which is closing opened window 
     //without saving or deleting anything.
-    var button_cancel = document.getElementById('admin_panel_albums_create_edit_delete_album_controls_button_cancel');
+    var button_cancel = document.getElementById('directory_cancel_button');
     
     //We actually don't need the check below, but I let it just in case
     if (button_cancel !== null) {   
@@ -30,16 +30,16 @@ $( document ).ready(function() {
     }
     
     //Below we are making a functionality for Search button
-    var parent_search =document.getElementById('included_in_album_with_name');
-    var button_search = document.getElementById('parent_albums_search_button');
-    var button_select_from_dropdown_list = document.getElementById('parent_albums_select_from_dropdown_list_button');
+    var parent_search =document.getElementById('included_in_directory_with_name');
+    var button_search = document.getElementById('parent_directory_search_button');
+    var button_select_from_dropdown_list = document.getElementById('parent_directory_select_from_dropdown_list_button');
     var old_keyword = document.getElementById('old_keyword');
-    var parent_id =document.getElementById('included_in_album_with_id');
-    var album_list_container =document.getElementById('album_list_container');
-    var form = document.getElementById('admin_panel_create_edit_delete_album_form');
+    var parent_id =document.getElementById('included_in_directory_with_id');
+    var directory_list_container =document.getElementById('directory_list_container');
+    var form = document.getElementById('admin_panel_create_edit_delete_directory_form');
     
     //We need to make an event on this as onsubmit function is not working properly.
-    var button_submit = document.getElementById('admin_panel_albums_create_edit_delete_album_controls_button_submit');
+    var button_submit = document.getElementById('directory_submit_button');
 
     //We need to make this event as onsubmit function is not working properly.
     if (button_submit !== null) {   
@@ -75,8 +75,8 @@ $( document ).ready(function() {
                         //after turning pages, that value will always disappear from search field.
                         parent_search.value = parent_name;
                         //Making empty drop down list with album links.
-                        album_list_container.insertAdjacentHTML("beforeend", "<div \n\
-                                                                class='admin-panel-albums-create-edit-album-album-list'\n\
+                        directory_list_container.insertAdjacentHTML("beforeend", "<div \n\
+                                                                class='admin-panel-create-edit-directory-album-list'\n\
                                                                 id='album_list'> \n\
                                                                 </div>");
                     
@@ -85,28 +85,28 @@ $( document ).ready(function() {
                         
                         if (data.pagination_info.previousPage !== null) {
                             album_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                              class='admin-panel-albums-create-edit-album-album-list-button'> \n\
+                                                              class='admin-panel-create-edit-directory-album-list-button'> \n\
                                                               <a href='#' \n\
-                                                              class='admin-panel-albums-create-edit-album-album-list-button-link' \n\
-                                                              id='parents_previous_page'>" + album_list_container.dataset.previous_page +
+                                                              class='admin-panel-create-edit-directory-album-list-button-link' \n\
+                                                              id='parents_previous_page'>" + directory_list_container.dataset.previous_page +
                                                               "</a> \n\
                                                               </div>");
                         }                       
                         data.albums_data.forEach(function(album_data) {
                             album_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                          class='admin-panel-albums-create-edit-album-album-list-element'> \n\
+                                                          class='admin-panel-create-edit-directory-album-list-element'> \n\
                                                           <a href='#' \n\
-                                                          class='admin-panel-albums-create-edit-album-album-list-element-link' \n\
+                                                          class='admin-panel-create-edit-directory-album-list-element-link' \n\
                                                           data-id='" + album_data[0] +"'>" 
                                                           + album_data[1] + "</a> \n\
                                                           </div>");
                         });                     
                         if (data.pagination_info.nextPage !== null) {
                         album_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                          class='admin-panel-albums-create-edit-album-album-list-button'> \n\
+                                                          class='admin-panel-create-edit-directory-album-list-button'> \n\
                                                           <a href='#' \n\
-                                                          class='admin-panel-albums-create-edit-album-album-list-element-button-link' \n\
-                                                          id='parents_next_page'>" + album_list_container.dataset.next_page +
+                                                          class='admin-panel-create-edit-directory-album-list-element-button-link' \n\
+                                                          id='parents_next_page'>" + directory_list_container.dataset.next_page +
                                                           "</a> \n\
                                                           </div>");
                         }                       
@@ -118,7 +118,7 @@ $( document ).ready(function() {
                         if (parent_prev !== null) {
                             parent_prev.addEventListener('click', function() {
                                 //I will leave like this, because this function is not working with a variable.
-                                $("#album_list_container").empty();
+                                $("#directory_list_container").empty();
                                 get_parents(localization, parent_name, keyword, url, 
                                             data.pagination_info.previousPage);
                             });
@@ -129,7 +129,7 @@ $( document ).ready(function() {
                         if (parent_next !== null) {
                             parent_next.addEventListener('click', function() {
                                 //I will leave like this, because this function is not working with a variable.
-                                $("#album_list_container").empty();
+                                $("#directory_list_container").empty();
                                 get_parents(localization, parent_name, keyword, url, 
                                             data.pagination_info.nextPage);
                             });
@@ -137,7 +137,7 @@ $( document ).ready(function() {
                         
                         //Need to attach an event which will select albums keyword and name and assign them to proper form fields.
                         var album_list_element_links = 
-                                document.getElementsByClassName("admin-panel-albums-create-edit-album-album-list-element-link");
+                                document.getElementsByClassName("admin-panel-create-edit-directory-album-list-element-link");
                         
                         for (i = 0; i < album_list_element_links.length; i++) {
                             album_list_element_links[i].addEventListener ("click", assignIDAndName, false);
@@ -162,7 +162,7 @@ $( document ).ready(function() {
         } else {
             parent_search.value = null;
         }
-        $("#album_list_container").empty();
+        $("#directory_list_container").empty();
     }
     
     //Functions for parent dropdown list (tree).
@@ -211,7 +211,7 @@ $( document ).ready(function() {
         //album_list_element in this case will always have some children.
         //If it doesn't, make_closed_parent_list will be called.
         album_list_element.insertAdjacentHTML("afterbegin", 
-                                            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down' \n\
+                                            "<span class='admin-panel-create-edit-directory-album-drop-down-list-item-caret-down' \n\
                                             data-line_id='" + line_id + "' data-record_id=0></span>");
         
         var parent_node_id = 0;
@@ -240,9 +240,9 @@ $( document ).ready(function() {
         //Need to add events for opened lists.
         //No need to worry about closed ones, as make_included_parent_list 
         //function has already done it.
-        caret_turn_back(localization, url, page, album_list_container, old_keyword_value);
+        caret_turn_back(localization, url, page, directory_list_container, old_keyword_value);
         //Below we are making an event for list element selection.
-        select_from_dropdown_list(album_list_container);
+        select_from_dropdown_list(directory_list_container);
     }
     
     //This function will make a parent list when there is no parent for being edited item.
@@ -252,34 +252,34 @@ $( document ).ready(function() {
         var album_list_element = document.getElementById('element_0');
         if (data.parent_list_data.length > 0) {
             album_list_element.insertAdjacentHTML("afterbegin", 
-            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret' \n\
+            "<span class='admin-panel-create-edit-directory-album-drop-down-list-item-caret' \n\
             data-line_id='" + line_id + "' data-record_id=0></span>");
         } else {
             album_list_element.insertAdjacentHTML("afterbegin", 
-            "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret'></span>");
+            "<span class='admin-panel-create-edit-directory-album-drop-down-list-item-empty-caret'></span>");
         }
                         
         //Below we are assigning an event for that cse when user is pressing on a caret.
-        caret_turn_and_request(localization, url, page, album_list_container, old_keyword_value);
+        caret_turn_and_request(localization, url, page, directory_list_container, old_keyword_value);
         //Below we are making an event for list element selection.
-        select_from_dropdown_list(album_list_container);
+        select_from_dropdown_list(directory_list_container);
     }
     
     //I have made a function, because I am going to use the same code at least two times.
     function make_initial_parent_list_without_carets() {
         //We need this variable to identify a line which will open a new lsi of included albums.
         var line_id = "line_0";
-        album_list_container.insertAdjacentHTML("beforeend", "<ul \n\
-                                                class='admin-panel-albums-create-edit-album-album-drop-down-list'\n\
+        directory_list_container.insertAdjacentHTML("beforeend", "<ul \n\
+                                                class='admin-panel-create-edit-directory-album-drop-down-list'\n\
                                                 id='album_dropdown_list'> \n\
                                                     <li id='" + line_id + "'>\n\
                                                         <span \n\
-                                                        class='admin-panel-albums-create-edit-album-album-drop-down-list-item' \n\
+                                                        class='admin-panel-create-edit-directory-album-drop-down-list-item' \n\
                                                         id='element_0'>\n\
                                                             <span \n\
-                                                            class='admin-panel-albums-create-edit-album-album-drop-down-list-item-name' \n\
+                                                            class='admin-panel-create-edit-directory-album-drop-down-list-item-name' \n\
                                                             data-album_id=0>" 
-                                                            + album_list_container.dataset.root + 
+                                                            + directory_list_container.dataset.root + 
                                                             "</span></span>\n\
                                                     </li>\n\
                                                 </ul>");
@@ -308,7 +308,7 @@ $( document ).ready(function() {
         var nested_album_lists_parent = document.getElementById(line_id);
                         
         nested_album_lists_parent.insertAdjacentHTML("beforeend", "<ul \n\
-                                                    class='admin-panel-albums-create-edit-album-album-drop-down-list-nested'\n\
+                                                    class='admin-panel-create-edit-directory-album-drop-down-list-nested'\n\
                                                     id='album_dropdown_list_for_" + line_id +
                                                     "'></ul>");
                                                         
@@ -318,11 +318,11 @@ $( document ).ready(function() {
         //Here we need to draw pagination button in case there is more than one page of records.
         if (previous_page !== null) {
             album_list.insertAdjacentHTML("beforeend", "<div \n\
-                                        class='admin-panel-albums-create-edit-album-album-drop-down-list-button'> \n\
+                                        class='admin-panel-create-edit-directory-album-drop-down-list-button'> \n\
                                             <a href='#' \n\
-                                            class='admin-panel-albums-create-edit-album-album-drop-down-list-button-link' \n\
+                                            class='admin-panel-create-edit-directory-album-drop-down-list-button-link' \n\
                                             id='parents_previous_page_for_" + line_id + "'>"
-                                                + album_list_container.dataset.previous_page +
+                                                + directory_list_container.dataset.previous_page +
                                             "</a> \n\
                                         </div>");
         }
@@ -330,9 +330,9 @@ $( document ).ready(function() {
         parent_list_data.forEach(function(album_data) {
             album_list.insertAdjacentHTML("beforeend", 
                                         "<li id='line_" + album_data.DirectoryId + "'>\n\
-                                            <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item' \n\
+                                            <span class='admin-panel-create-edit-directory-album-drop-down-list-item' \n\
                                             id='element_" + album_data.DirectoryId +"'> \n\
-                                                <span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-name' \n\
+                                                <span class='admin-panel-create-edit-directory-album-drop-down-list-item-name' \n\
                                                 data-album_id=" + album_data.DirectoryId +">"
                                                     + album_data.DirectoryName +
                                             "</span></span></li>");
@@ -340,22 +340,22 @@ $( document ).ready(function() {
         var album_list_element = document.getElementById('element_' + album_data.DirectoryId);
         if (album_data.HasChildren === true && album_data.isOpened === true) {
             album_list_element.insertAdjacentHTML("afterbegin", 
-                                                "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down' \n\
+                                                "<span class='admin-panel-create-edit-directory-album-drop-down-list-item-caret-down' \n\
                                                 data-line_id='line_" + album_data.DirectoryId + "' \n\
                                                 data-record_id=" + album_data.DirectoryId + "></span>");
         } else if (album_data.HasChildren === true) {
             album_list_element.insertAdjacentHTML("afterbegin", 
-                                                "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-caret' \n\
+                                                "<span class='admin-panel-create-edit-directory-album-drop-down-list-item-caret' \n\
                                                 data-line_id='line_" + album_data.DirectoryId + "' \n\
                                                 data-record_id=" + album_data.DirectoryId + "></span>");
         } else {
             album_list_element.insertAdjacentHTML("afterbegin", 
-                                                "<span class='admin-panel-albums-create-edit-album-album-drop-down-list-item-empty-caret'> \n\
+                                                "<span class='admin-panel-create-edit-directory-album-drop-down-list-item-empty-caret'> \n\
                                                 </span>");
         }
         //Need to make parent element visible. For opened dropdown list only.
         if (album_data.inFocus) {
-            album_list_element.classList.add("admin-panel-albums-create-edit-album-album-drop-down-list-item-selected");
+            album_list_element.classList.add("admin-panel-create-edit-directory-album-drop-down-list-item-selected");
         }
         });
                         
@@ -368,11 +368,11 @@ $( document ).ready(function() {
                                                                      
         if (next_page !== null) {
             album_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                        class='admin-panel-albums-create-edit-album-album-drop-down-list-button'> \n\
+                                                        class='admin-panel-create-edit-directory-album-drop-down-list-button'> \n\
                                                             <a href='#' \n\
-                                                            class='admin-panel-albums-create-edit-album-album-drop-down-list-button-link' \n\
+                                                            class='admin-panel-create-edit-directory-album-drop-down-list-button-link' \n\
                                                             id='parents_next_page_for_" + line_id + "'>" 
-                                                                + album_list_container.dataset.next_page +
+                                                                + directory_list_container.dataset.next_page +
                                                             "</a> \n\
                                                         </div>");
         }
@@ -407,20 +407,20 @@ $( document ).ready(function() {
     function select_from_dropdown_list(parent_container) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
-        var current_item = parent_container.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-name");
+        var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-directory-album-drop-down-list-item-name");
         var i;
 
         for (i = 0; i < current_item.length; i++) {
             current_item[i].addEventListener("click", function(){
                 //If user chooses a root (in our case Albums, without any album),
                 //then parent search area should be left blank.               
-                if (this.innerText === album_list_container.dataset.root) {
+                if (this.innerText === directory_list_container.dataset.root) {
                     parent_search.value = null;
                 } else {
                     parent_search.value = this.innerText;
                 }
                 parent_id.value = this.dataset.album_id;
-                $("#album_list_container").empty();
+                $("#directory_list_container").empty();
             });
         }
     }
@@ -432,7 +432,7 @@ $( document ).ready(function() {
     function caret_turn_and_request(localization, url, page, parent_container, old_keyword_value) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
-        var current_item = parent_container.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
+        var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-directory-album-drop-down-list-item-caret");
         var i;
 
         for (i = 0; i < current_item.length; i++) {
@@ -449,7 +449,7 @@ $( document ).ready(function() {
     function caret_turn_back(localization, url, page, parent_container, old_keyword_value) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
-        var current_item = parent_container.getElementsByClassName("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down");
+        var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-directory-album-drop-down-list-item-caret-down");
         var i;
 
         for (i = 0; i < current_item.length; i++) {
@@ -463,8 +463,8 @@ $( document ).ready(function() {
     
     //If we use a function with events, we cannot pass arguments as normal.
     function turn_caret_and_get_children(event) {
-        event.currentTarget.classList.remove("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
-        event.currentTarget.classList.add("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down");
+        event.currentTarget.classList.remove("admin-panel-create-edit-directory-album-drop-down-list-item-caret");
+        event.currentTarget.classList.add("admin-panel-create-edit-directory-album-drop-down-list-item-caret-down");
         //After an element is open, need to remove its onlcik event listener, otherwise drop down list won't work properly/
         //Need to assign it again when closing an element.
         event.currentTarget.removeEventListener("click", turn_caret_and_get_children);
@@ -477,8 +477,8 @@ $( document ).ready(function() {
     
     //This functions returns a caret to its noraml position and removes items children from the list.
     function turn_caret_back_and_remove_children(event) {
-        event.currentTarget.classList.remove("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret-down");
-        event.currentTarget.classList.add("admin-panel-albums-create-edit-album-album-drop-down-list-item-caret");
+        event.currentTarget.classList.remove("admin-panel-create-edit-directory-album-drop-down-list-item-caret-down");
+        event.currentTarget.classList.add("admin-panel-create-edit-directory-album-drop-down-list-item-caret");
         event.currentTarget.addEventListener("click", turn_caret_and_get_children, false);
         event.currentTarget.removeEventListener("click", turn_caret_back_and_remove_children);
         var children_to_remove = document.getElementById("album_dropdown_list_for_" + event.currentTarget.dataset.line_id);
@@ -492,16 +492,16 @@ $( document ).ready(function() {
     //The following piece of code closes drop down list for potential parents
     //after clicking out of it.
     $(window).click(function(event) {
-        //We need to empty album_list_container only if it has something.
+        //We need to empty directory_list_container only if it has something.
         //Funtion trim will remove extra spaces.
-        if ($.trim($("#album_list_container").html()) !== ""){
+        if ($.trim($("#directory_list_container").html()) !== ""){
             var child = $(event.target);
             //Please see the explanation where the function is declared.
             var existence_check = checkIfExists(child[0]);
             //We need to take 0 element of event.target, because it is an array.
-            var parent_check = checkParent(album_list_container, child[0]);
+            var parent_check = checkParent(directory_list_container, child[0]);
             if (existence_check === true && parent_check === false) {
-                $("#album_list_container").empty();
+                $("#directory_list_container").empty();
             }
         }
     });
