@@ -5,13 +5,15 @@
     @if ($create_or_edit==='create')
         {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/".$section."/" : "/ru/admin/".$section."/",
                          'data-localization' => App::isLocale('en') ? "en" : "ru",
-                         'id' => 'admin_panel_create_edit_delete_directory_form' ]) !!}
+                         'data-section' => $section,
+                         'id' => 'admin_panel_create_edit_directory_form' ]) !!}
     @else
         {!! Form::model($edited_directory, [ 'method' => 'PUT', 
                                          'url' => App::isLocale('en') ? "/admin/".$section."/".$edited_directory->keyword : 
                                          "/ru/admin/".$section."/".$edited_directory->keyword,
                                          'data-localization' => App::isLocale('en') ? "en" : "ru",
-                                         'id' => 'admin_panel_create_edit_delete_directory_form' ]) !!}
+                                         'data-section' => $section,
+                                         'id' => 'admin_panel_create_edit_directory_form' ]) !!}
     @endif
         @component('adminpages/directory/create_edit_directory_fields', ['parent_id' => $parent_id, 
                                                                         'parent_name' => $parent_name, 'section' => $section])
@@ -29,7 +31,7 @@
     <!-- Scripts -->
     @component('pages/body_scripts')
         @slot('js')
-            <script type="text/javascript" src="{{ URL::asset('js/directory_create_edit_delete.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::asset('js/directory_create_edit.js') }}"></script>
         @endslot
     @endcomponent
     <!-- End of scripts -->

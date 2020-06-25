@@ -257,12 +257,12 @@ class AdminArticlesController extends Controller
                 $request->input('parent_search'), $request->input('keyword'));
                    
         if (count($parents->parentsDataArray) > 0) {              
-            return response()->json(['folder_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
+            return response()->json(['directories_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
         } else {
             //Here we need to override the following property, because in case user doesn't enter anything in search
             //system supposed to return nothing instead of everything and there shouldn't be any pages.
             $parents->paginationInfo->nextPage = null;
-            return response()->json(['directory_data' => [["0", __('keywords.NothingFound')]], 'pagination_info' => $parents->paginationInfo]);
+            return response()->json(['directories_data' => [["0", __('keywords.NothingFound')]], 'pagination_info' => $parents->paginationInfo]);
         }
     }
     
@@ -273,7 +273,7 @@ class AdminArticlesController extends Controller
         //parent_id is an id of parent of the item being edited or when user wants to create a new folder in already existing folder.
         //parent_node_id is an id of folder which is getting opened id parent dropdown list to get its nested folders.
         $parents = $create_or_edit_window->getParentList($request->input('localization'), $request->input('page'), $request->input('parent_id'), 
-                                $request->input('parent_node_id'), $request->input('keyword_of_folder_to_exclude'));
+                                $request->input('parent_node_id'), $request->input('keyword_of_directory_to_exclude'));
              
         return response()->json(['parent_list_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
     }

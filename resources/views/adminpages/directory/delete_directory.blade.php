@@ -3,7 +3,7 @@
 @section('partialcontent')
     {!! Form::open([ 'method' => 'DELETE', 
     'url' => App::isLocale('en') ? "/admin/".$section."/".$keyword : "/ru/admin/".$section."/".$keyword, 
-    'id' => 'admin_panel_create_edit_delete_directory_form' ]) !!}
+    'id' => 'admin_panel_delete_directory_form' ]) !!}
         
         <div class='admin-panel-delete-directory'>
             {!! Form::hidden('keyword', $keyword) !!}
@@ -28,7 +28,7 @@
     <!-- Scripts -->
     @component('pages/body_scripts')
         @slot('js')
-            <script type="text/javascript" src="{{ URL::asset('js/directory_create_edit_delete.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::asset('js/directory_delete.js') }}"></script>
         @endslot
     @endcomponent
     <!-- End of scripts -->

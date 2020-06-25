@@ -532,7 +532,7 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list {
+.admin-panel-create-edit-directory-directory-list {
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
@@ -544,21 +544,21 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-element {
+.admin-panel-create-edit-directory-directory-list .admin-panel-create-edit-directory-directory-list-element {
     border-bottom: 1px solid grey;
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button {
+.admin-panel-create-edit-directory-directory-list .admin-panel-create-edit-directory-directory-list-button {
     border: 1px solid grey;
     border-bottom: 2px solid grey;
     background-color: #dedede;
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-element a,
+.admin-panel-create-edit-directory-directory-list .admin-panel-create-edit-directory-directory-list-element a,
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button a {
+.admin-panel-create-edit-directory-directory-list .admin-panel-create-edit-directory-directory-list-button a {
     display: block;
     text-decoration: none;
     color: #0d95e8;
@@ -567,7 +567,7 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button a {
+.admin-panel-create-edit-directory-directory-list .admin-panel-create-edit-directory-directory-list-button a {
     text-decoration: underline;
     color: #1a7dd9;
     padding-left: 0px;
@@ -576,23 +576,23 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-element a:hover {
+.admin-panel-create-edit-directory-directory-list .admin-panel-create-edit-directory-directory-list-element a:hover {
     background-color: #0d95e8;
     color: white;
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button a:hover {
+.admin-panel-create-edit-directory-directory-list .admin-panel-create-edit-directory-directory-list-button a:hover {
     color: red;
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-element:last-child {
+.admin-panel-create-edit-directory-directory-list .admin-panel-create-edit-directory-directory-list-element:last-child {
     border-bottom: 0px;
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-list .admin-panel-create-edit-directory-album-list-button:last-child {
+.admin-panel-create-edit-directory-directory-list .admin-panel-create-edit-directory-directory-list-button:last-child {
     border-bottom: 0px;
     border: 1px solid grey;
 }
@@ -636,7 +636,7 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list {
+.admin-panel-create-edit-directory-drop-down-list {
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
@@ -652,7 +652,7 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list-nested {
+.admin-panel-create-edit-directory-drop-down-list-nested {
     background-color: white;
     overflow: auto;
     list-style-type: none;
@@ -663,38 +663,38 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item {
+.admin-panel-create-edit-directory-drop-down-list .admin-panel-create-edit-directory-drop-down-list-item {
     display: block;
     user-select: none; /* Prevent text selection */
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item-selected {
+.admin-panel-create-edit-directory-drop-down-list .admin-panel-create-edit-directory-drop-down-list-item-selected {
     background-color: #e3e3e3;
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item:hover {
+.admin-panel-create-edit-directory-drop-down-list .admin-panel-create-edit-directory-drop-down-list-item:hover {
     background-color: #e3e3e3;
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item 
-.admin-panel-create-edit-directory-album-drop-down-list-item-name {
+.admin-panel-create-edit-directory-drop-down-list .admin-panel-create-edit-directory-drop-down-list-item 
+.admin-panel-create-edit-directory-drop-down-list-item-name {
     display: inline-block;
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list .admin-panel-create-edit-directory-album-drop-down-list-item 
-.admin-panel-create-edit-directory-album-drop-down-list-item-name:hover {
+.admin-panel-create-edit-directory-drop-down-list .admin-panel-create-edit-directory-drop-down-list-item 
+.admin-panel-create-edit-directory-drop-down-list-item-name:hover {
     cursor: pointer;
 }
 
 /* Style the caret/arrow */
 /* Create the caret/arrow with a unicode, and style it */
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list 
-.admin-panel-create-edit-directory-album-drop-down-list-item-caret::before {
+.admin-panel-create-edit-directory-drop-down-list 
+.admin-panel-create-edit-directory-drop-down-list-item-caret::before {
     content: "\25B6";
     color: black;
     display: inline-block;
@@ -702,18 +702,18 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list 
-.admin-panel-create-edit-directory-album-drop-down-list-item-caret:hover,
+.admin-panel-create-edit-directory-drop-down-list 
+.admin-panel-create-edit-directory-drop-down-list-item-caret:hover,
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list 
-.admin-panel-create-edit-directory-album-drop-down-list-item-caret-down:hover {
+.admin-panel-create-edit-directory-drop-down-list 
+.admin-panel-create-edit-directory-drop-down-list-item-caret-down:hover {
     cursor: pointer;
 }
 
 /*For elemnts without a caret we need to create an empty "caret" to even out elements list*/
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list 
-.admin-panel-create-edit-directory-album-drop-down-list-item-empty-caret::before {
+.admin-panel-create-edit-directory-drop-down-list 
+.admin-panel-create-edit-directory-drop-down-list-item-empty-caret::before {
     content: "\25B6";
     /*Element made by ::before can't exist without actual caret, so we will make it, 
     but the clor will be transparent.*/
@@ -724,8 +724,8 @@ article's button, because article has only two control buttons instead of three*
 
 /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list 
-.admin-panel-create-edit-directory-album-drop-down-list-item-caret-down::before {
+.admin-panel-create-edit-directory-drop-down-list 
+.admin-panel-create-edit-directory-drop-down-list-item-caret-down::before {
     content: "\25B6";
     color: black;
     display: inline-block;
@@ -734,16 +734,16 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list 
-.admin-panel-create-edit-directory-album-drop-down-list-button {
+.admin-panel-create-edit-directory-drop-down-list 
+.admin-panel-create-edit-directory-drop-down-list-button {
     border: 1px solid grey;
     background-color: #dedede;
     margin-left: -4px;
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list 
-.admin-panel-create-edit-directory-album-drop-down-list-button a {
+.admin-panel-create-edit-directory-drop-down-list 
+.admin-panel-create-edit-directory-drop-down-list-button a {
     display: block;
     text-decoration: underline;
     color: #1a7dd9;
@@ -753,8 +753,8 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 
-.admin-panel-create-edit-directory-album-drop-down-list 
-.admin-panel-create-edit-directory-album-drop-down-list-button a:hover {
+.admin-panel-create-edit-directory-drop-down-list 
+.admin-panel-create-edit-directory-drop-down-list-button a:hover {
     color: red;
 }
 
