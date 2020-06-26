@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class NestingLevelCheckBeforeRuAlbumsInsert extends Migration
+class CreateTriggerNestingLevelCheckBeforeRuAlbumsInsert extends Migration
 {
     /**
      * Run the migrations.
@@ -32,6 +32,6 @@ class NestingLevelCheckBeforeRuAlbumsInsert extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER `nesting_level_check_before_en_albums_insert`');
+        DB::unprepared('DROP TRIGGER `nesting_level_check_before_ru_albums_insert`');
     }
 }
