@@ -32,7 +32,7 @@ class ArticleForView {
 class ArticlesRepository {
     
     public function getAllFolders($item_amount){
-        $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->where('is_visible', '=', 1)->latest()->paginate($item_amount);
+        $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->latest()->paginate($item_amount);
         
         return $folder_links;
     }
