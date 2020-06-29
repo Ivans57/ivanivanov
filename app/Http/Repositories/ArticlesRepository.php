@@ -52,13 +52,13 @@ class ArticlesRepository {
             if ($page > $folders_and_articles_full_info->paginator_info->number_of_pages) {
                 return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $folders_and_articles_full_info->paginator_info->number_of_pages, $is_admin_panel);
             } else {                
-                return $this->get_view($is_admin_panel, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);
+                return $this->get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);
             }
         }
     }
     
     //We need the method below to clutter down showFolderView method
-    private function get_view($is_admin_panel, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
+    private function get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
         if ($is_admin_panel) {
             return view('adminpages.adminfolder')->with([
                 'main_links' => $main_links->mainLinks,
@@ -71,7 +71,8 @@ class ArticlesRepository {
                 'pagination_info' => $folders_and_articles_full_info->paginator_info,
                 'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
-                'section' => $section
+                'section' => $section,
+                'parent_keyword' => $keyword
                 ]);
         } else {
             return view('pages.folder')->with([

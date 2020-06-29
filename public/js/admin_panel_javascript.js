@@ -198,6 +198,96 @@ $( document ).ready(function() {
     }   
 });
 
+//We need this script to open new Folder create page in fancy box window.
+$( document ).ready(function() {
+    $(".admin-panel-articles-add-article-folder-button-link").fancybox({
+	toolbar  : false,
+	smallBtn : true,
+	iframe : {
+		preload : false,
+                css : {
+                    'width' : '330px',
+                    'height' : '420px',
+                    'margin-bottom' : '200px'
+                }
+	},
+        //Also we will need a function which will recover add button's view after
+        //closing pop up's window without adding a new keyword.
+        afterClose: function() {
+            //We don't need an array here as in previous examples, because there will be
+            //always only one pressed element.
+            var button = document.querySelector('.admin-panel-articles-add-article-folder-button-pressed');
+            var link = document.querySelector('.admin-panel-articles-add-article-folder-button-link-pressed');
+
+            unclickButton(button, link);
+
+            function unclickButton(button, link) {
+                button.classList.remove('admin-panel-articles-add-article-folder-button-pressed');
+                button.classList.add('admin-panel-articles-add-article-folder-button');
+                link.classList.remove('admin-panel-articles-add-article-folder-button-link-pressed');
+                link.classList.add('admin-panel-articles-add-article-folder-button-link');
+            }
+        }
+    });
+});
+
+$( document ).ready(function() {
+    
+    function control_button_view_change_after_fancybox_close(){
+        //We don't need an array here as in previous examples, because there will be
+        //always only one pressed element.
+        var button = document.querySelector('.admin-panel-articles-article-and-folder-control-button-pressed');
+        var link = document.querySelector('.admin-panel-articles-article-and-folder-control-button-link-pressed');
+
+        unclickButton(button, link);
+
+        function unclickButton(button, link) {
+            button.classList.remove('admin-panel-articles-article-and-folder-control-button-pressed');
+            button.classList.add('admin-panel-articles-article-and-folder-control-button');
+            link.classList.remove('admin-panel-articles-article-and-folder-control-button-link-pressed');
+            link.classList.add('admin-panel-articles-article-and-folder-control-button-link');
+        }
+    }
+    
+    //We need this script to open existing Folder edit page in fancy box window.
+    $(".admin-panel-articles-article-and-folder-control-button-link-edit").fancybox({
+	toolbar  : false,
+	smallBtn : true,
+	iframe : {
+		preload : false,
+                css : {
+                    'width' : '330px',
+                    'height' : '420px',
+                    'margin-bottom' : '200px'
+                }
+	},
+        //Also we will need a function which will recover add button's view after
+        //closing pop up's window without adding a new keyword.
+        afterClose: function() {
+            control_button_view_change_after_fancybox_close();
+        }
+    });
+    
+    //We need this script to open Folder delete page in fancy box window.
+    $(".admin-panel-articles-article-and-folder-control-button-link-delete").fancybox({
+	toolbar  : false,
+	smallBtn : true,
+	iframe : {
+		preload : false,
+                css : {
+                    'width' : '380px',
+                    'height' : '265px',
+                    'margin-bottom' : '200px'
+                }
+	},
+        //Also we will need a function which will recover add button's view after
+        //closing pop up's window without adding a new keyword.
+        afterClose: function() {
+            control_button_view_change_after_fancybox_close();
+        }
+    });
+});
+
 /*--------------------------------------------------------*/
 
 

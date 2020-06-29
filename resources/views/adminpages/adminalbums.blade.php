@@ -23,16 +23,21 @@
                         <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
                             <div class="admin-panel-albums-picture-and-album-control-buttons">
                                 <div class="admin-panel-albums-picture-and-album-control-button">
-                                    <a href='albums/{{ $album->keyword }}/page/1' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
+                                    <a href='albums/{{ $album->keyword }}/page/1' 
+                                       class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
                                 </div>
                                 <div class="admin-panel-albums-picture-and-album-control-button">
                                     <!--We need class admin-panel-albums-picture-and-album-control-button-link-edit only to identify edit button -->
                                     <a href='albums/{{ $album->keyword }}/edit/{{ $parent_keyword }}'
-                                       class="admin-panel-albums-picture-and-album-control-button-link admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">@lang('keywords.Edit')</a>
+                                       class="admin-panel-albums-picture-and-album-control-button-link 
+                                       admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">
+                                        @lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-albums-picture-and-album-control-button">
                                     <a href='albums/{{ $album->keyword }}/delete'
-                                       class="admin-panel-albums-picture-and-album-control-button-link admin-panel-albums-picture-and-album-control-button-link-delete" data-fancybox data-type="iframe">@lang('keywords.Delete')</a>
+                                       class="admin-panel-albums-picture-and-album-control-button-link 
+                                       admin-panel-albums-picture-and-album-control-button-link-delete" data-fancybox data-type="iframe">
+                                        @lang('keywords.Delete')</a>
                                 </div>
                             </div>
                         </div>

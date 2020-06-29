@@ -5,7 +5,8 @@
 <article class="admin-panel-main-article">
     <div class="admin-panel-articles-add-article-folder-wrapper">
         <div class="admin-panel-articles-add-article-folder-button">
-            <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddFolder')</a>
+            <a href='articles/create/{{ $parent_keyword }}' class="admin-panel-articles-add-article-folder-button-link"
+               data-fancybox data-type="iframe">@lang('keywords.AddFolder')</a>
         </div>
     </div>         
     @if ($folders->count() > 0)
@@ -26,13 +27,21 @@
                         <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
                             <div class="admin-panel-articles-article-and-folder-control-buttons">
                                 <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='articles/{{ $folder->keyword }}/page/1' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
+                                    <a href='articles/{{ $folder->keyword }}/page/1' 
+                                       class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
+                                    <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
+                                    <a href='articles/{{ $folder->keyword }}/edit/{{ $parent_keyword }}' 
+                                       class="admin-panel-articles-article-and-folder-control-button-link 
+                                       admin-panel-articles-article-and-folder-control-button-link-edit" data-fancybox data-type="iframe">
+                                        @lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Delete')</a>
+                                    <a href='articles/{{ $folder->keyword }}/delete' 
+                                       class="admin-panel-articles-article-and-folder-control-button-link 
+                                       admin-panel-articles-article-and-folder-control-button-link-delete" data-fancybox data-type="iframe">
+                                        @lang('keywords.Delete')</a>
                                 </div>
                             </div>
                         </div>

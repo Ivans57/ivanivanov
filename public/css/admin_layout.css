@@ -404,7 +404,7 @@ article's button, because article has only two control buttons instead of three*
 
 /*--------------------------------------------------------*/
 
-/*Album create, edit and delete windows*/
+/*Album (Folder) create, edit and delete windows*/
 
 /*Window's size is regulated by javascript in admin_panel_javascript file*/
 
@@ -501,7 +501,7 @@ article's button, because article has only two control buttons instead of three*
     background: #f1f1f1;
 }
 
-/*Begining of parent search and drop down for Album create, edit and delete window*/
+/*Begining of parent search and drop down for Directory (Album or Folder) create, edit and delete window*/
 
 /*Begigining for parent search*/
 .admin-panel-create-edit-directory .admin-panel-create-edit-directory-controls 

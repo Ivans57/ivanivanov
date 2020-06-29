@@ -25,7 +25,10 @@
         </div>
         @if ($nesting_level < 7)
             <div class="admin-panel-articles-add-article-folder-button">
-                <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddFolder')</a>
+                <a href={{ App::isLocale('en') ? "/admin/articles/create/".$parent_keyword : "/ru/admin/articles/create/".$parent_keyword }} 
+                class="admin-panel-articles-add-article-folder-button-link" data-fancybox data-type="iframe">
+                   @lang('keywords.AddFolder')
+                </a>
             </div>
         @endif
     </div>
@@ -51,10 +54,20 @@
                                             class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Open')</a>
                                     </div>
                                     <div class="admin-panel-articles-article-and-folder-control-button">
-                                        <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Edit')</a>
+                                        <!--We need to provide absolute path below as otherwise links are not working correctly -->
+                                        <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
+                                        <a href={{ App::isLocale('en') ? "/admin/articles/".$folder_or_article->keyWord."/edit/".$parent_keyword : 
+                                            "/ru/admin/articles/".$folder_or_article->keyWord."/edit/".$parent_keyword }} 
+                                            class="admin-panel-articles-article-and-folder-control-button-link 
+                                            admin-panel-articles-article-and-folder-control-button-link-edit" data-fancybox data-type="iframe">
+                                            @lang('keywords.Edit')</a>
                                     </div>
                                     <div class="admin-panel-articles-article-and-folder-control-button">
-                                        <a href='#' class="admin-panel-articles-article-and-folder-control-button-link">@lang('keywords.Delete')</a>
+                                        <a href={{ App::isLocale('en') ? "/admin/articles/".$folder_or_article->keyWord."/delete" : 
+                                            "/ru/admin/articles/".$folder_or_article->keyWord."/delete" }} 
+                                            class="admin-panel-articles-article-and-folder-control-button-link 
+                                            admin-panel-articles-article-and-folder-control-button-link-delete" data-fancybox data-type="iframe">
+                                            @lang('keywords.Delete')</a>
                                     </div>                                    
                                 @else                                    
                                     <div class="admin-panel-articles-article-control-button">

@@ -215,6 +215,70 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles/{keyword}/page/{page}', 'AdminArticlesController@showFolder');
 });
 
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/articles/create_or_edit/findParents', 'AdminArticlesController@findParents');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/articles/create_or_edit/findParents', 'AdminArticlesController@findParents');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/articles/create_or_edit/getParentList', 'AdminArticlesController@getParentList');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/articles/create_or_edit/getParentList', 'AdminArticlesController@getParentList');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/articles/create/{parent_keyword}', 'AdminArticlesController@create');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/articles/create/{parent_keyword}', 'AdminArticlesController@create');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/articles', 'AdminArticlesController@store');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/articles', 'AdminArticlesController@store');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/edit/{parent_keyword}', 'AdminArticlesController@edit');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/edit/{parent_keyword}', 'AdminArticlesController@edit');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/delete', 'AdminArticlesController@delete');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/delete', 'AdminArticlesController@delete');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::delete('admin/articles/{keyword}', 'AdminArticlesController@destroy');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::delete('admin/articles/{keyword}', 'AdminArticlesController@destroy');
+});
+
 /*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles/new-article', 'AdminArticlesController@create');
 });

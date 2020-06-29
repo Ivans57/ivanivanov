@@ -61,7 +61,10 @@ class AdminArticlesController extends Controller
                 'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
                 'headTitle' => $headTitle,
                 'folders' => $folders,
-                'items_amount_per_page' => $items_amount_per_page
+                'items_amount_per_page' => $items_amount_per_page,
+                //If we open just a root path of Folders, we won't have any parent keyword,
+                //to avoid an exception we will assign it 0.
+                'parent_keyword' => "0",
             ]);
         }
     }
@@ -104,7 +107,7 @@ class AdminArticlesController extends Controller
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
         }
                       
-        return view('adminpages.create_and_edit_directory')->with([
+        return view('adminpages.directory.create_and_edit_directory')->with([
             'headTitle' => $headTitle,
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
@@ -170,13 +173,13 @@ class AdminArticlesController extends Controller
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
         }
         
-        return view('adminpages.create_and_edit_directory')->with([
+        return view('adminpages.directory.create_and_edit_directory')->with([
             'headTitle' => $headTitle,
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->folder_name : null,
             'create_or_edit' => $create_or_edit,
-            'edited_folder' => $edited_folder,
+            'edited_directory' => $edited_folder,
             //The line below is required for form path.
             'section' => 'articles',
             ]);
@@ -228,7 +231,7 @@ class AdminArticlesController extends Controller
         //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
         
-        return view('adminpages.delete_folder')->with([//Need to make this view.
+        return view('adminpages.directory.delete_directory')->with([
             'headTitle' => $headTitle,
             'keyword' => $keyword,
             //The line below is required for form path.
