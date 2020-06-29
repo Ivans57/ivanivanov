@@ -20,6 +20,7 @@ class FolderAndArticleForViewFullInfoForPage {
     public $foldersAndArticles;
     public $articleAmount;
     public $folderParents;
+    public $folderNestingLevel;
     public $total_number_of_items;
     public $paginator_info;
 }
@@ -66,6 +67,7 @@ class ArticlesRepository {
                 'folderName' => $folders_and_articles_full_info->folder_name,           
                 'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
                 'parents' => $folders_and_articles_full_info->folderParents,
+                'nesting_level' => $folders_and_articles_full_info->folderNestingLevel,
                 'pagination_info' => $folders_and_articles_full_info->paginator_info,
                 'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
@@ -95,6 +97,8 @@ class ArticlesRepository {
         //We are choosing the album we are working with at the current moment 
         $folder = \App\Folder::where('keyword', $keyword)->first();
         
+        $nesting_level = \App\FolderData::where('items_id', $folder->id)->select('nesting_level')->firstOrFail();
+        
         $included_articles = \App\Article::where('folder_id', $folder->id)->get();
         
         //Here we are calling method which will merge all pictures and folders from selected folder into one array
@@ -108,6 +112,8 @@ class ArticlesRepository {
         //and pictures and also some necessary data for pagination, which we will 
         //pass with this object's properties.
         $folders_and_articles_full_info = new FolderAndArticleForViewFullInfoForPage();
+        
+        $folders_and_articles_full_info->folderNestingLevel = $nesting_level->nesting_level;
         
         //Below we need to check if the folder has any parent folder.
         //If it does, Path Panel should be displayed

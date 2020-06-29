@@ -23,9 +23,11 @@
         <div class="admin-panel-articles-add-article-folder-button">
             <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddArticle')</a>
         </div>
-        <div class="admin-panel-articles-add-article-folder-button">
-            <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddFolder')</a>
-        </div>
+        @if ($nesting_level < 7)
+            <div class="admin-panel-articles-add-article-folder-button">
+                <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddFolder')</a>
+            </div>
+        @endif
     </div>
     @if ($total_number_of_items > 0)
         <div class="admin-panel-articles-external-articles-and-folders-wrapper">
