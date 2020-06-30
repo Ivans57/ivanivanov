@@ -49,7 +49,7 @@ class AdminArticlesController extends Controller
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
         //On the line below we are fetching all articles from the database
-        $folders = $this->folders->getAllFolders($items_amount_per_page);
+        $folders = $this->folders->getAllFolders($items_amount_per_page, 1);
         
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page
@@ -77,7 +77,7 @@ class AdminArticlesController extends Controller
         $items_amount_per_page = 14;
               
         //We need to call the method below to clutter down current method in controller
-        return $this->folders->showFolderView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel);
+        return $this->folders->showFolderView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1);
     }
     
     /*public function create() {
@@ -119,7 +119,7 @@ class AdminArticlesController extends Controller
     }
     
     
-    public function store(CreateEditAlbumRequest $request) {
+    public function store(CreateEditFolderRequest $request) {
         
         //Actually we do not need any head title as it is just a partial view.
         //We need it only to make the variable initialized. Othervise there will be an error.

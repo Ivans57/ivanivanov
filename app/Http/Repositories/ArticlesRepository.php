@@ -32,22 +32,28 @@ class ArticleForView {
 
 class ArticlesRepository {
     
-    public function getAllFolders($item_amount){
-        $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->latest()->paginate($item_amount);
+    public function getAllFolders($items_amount_per_page, $including_invisible){     
+        if ($including_invisible) {
+            $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->orderBy('created_at','DESC')
+                            ->paginate($items_amount_per_page);
+        } else {
+            $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->where('is_visible', '=', 1)
+                            ->orderBy('created_at','DESC')->paginate($items_amount_per_page);
+        }
         
         return $folder_links;
     }
     
     //We need the method below to clutter down the method in controller, which
     //is responsible for showing some separate album
-    public function showFolderView($section, $page, $keyword, $items_amount_per_page, $main_links, $is_admin_panel){
+    public function showFolderView($section, $page, $keyword, $items_amount_per_page, $main_links, $is_admin_panel, $including_invisible){
         
         $common_repository = new CommonRepository();
         //The condition below fixs a problem when user enters as a number of page some number less then 1
         if ($page < 1) {
             return $common_repository->redirect_to_first_page_multi_entity($section, $keyword, $is_admin_panel);          
         } else {
-            $folders_and_articles_full_info = $this->getFolder($keyword, $page, $items_amount_per_page);
+            $folders_and_articles_full_info = $this->getFolder($keyword, $page, $items_amount_per_page, $including_invisible);
             //We need to do the check below in case user enters a page number more tha actual number of pages
             if ($page > $folders_and_articles_full_info->paginator_info->number_of_pages) {
                 return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $folders_and_articles_full_info->paginator_info->number_of_pages, $is_admin_panel);
@@ -90,7 +96,7 @@ class ArticlesRepository {
         }
     }
     
-    private function getFolder($keyword, $page, $items_amount_per_page){
+    private function getFolder($keyword, $page, $items_amount_per_page, $including_invisible){
         //Here we take only first value, because this type of request supposed
         //to give us a collection of items. But in this case as keyword is unique
         //for every single record we will always have only one item, which is
@@ -100,10 +106,18 @@ class ArticlesRepository {
         
         $nesting_level = \App\FolderData::where('items_id', $folder->id)->select('nesting_level')->firstOrFail();
         
-        $included_articles = \App\Article::where('folder_id', $folder->id)->get();
+        $included_articles = \App\Article::where('folder_id', $folder->id)->orderBy('created_at','DESC')->get();
         
-        //Here we are calling method which will merge all pictures and folders from selected folder into one array
-        $folders_and_articles_full = $this->get_included_folders_and_articles(\App\Folder::where('included_in_folder_with_id', '=', $folder->id)->get(), $included_articles);
+        //Here we are calling method which will merge all articles and folders from selected folder into one array.
+        if ($including_invisible) {
+            $folders_and_articles_full = $this->get_included_folders_and_articles(
+                    \App\Folder::where('included_in_folder_with_id', '=', $folder->id)
+                    ->orderBy('created_at','DESC')->get(), $included_articles);
+        } else {
+            $folders_and_articles_full = $this->get_included_folders_and_articles(
+                    \App\Folder::where('included_in_folder_with_id', '=', $folder->id)->where('is_visible', '=', 1)
+                    ->orderBy('created_at','DESC')->get(), $included_articles);
+        }
         
         //As we don't need to show all the items from the array above on the 
         //same page, we will take only first 20 items to show
@@ -177,12 +191,10 @@ class ArticlesRepository {
         $included_folders_count = count($included_folders);
         
         for($i = 0; $i < $included_folders_count; $i++) {
-            if ($included_folders[$i]->is_visible) {
             $folders_and_articles_full[$i] = new FolderAndArticleForView();
             $folders_and_articles_full[$i]->keyWord = $included_folders[$i]->keyword;
             $folders_and_articles_full[$i]->caption = $included_folders[$i]->folder_name;
             $folders_and_articles_full[$i]->type = 'folder';
-            }
         }           
         
         for($i = $included_folders_count; $i < count($articles)+$included_folders_count; $i++) {

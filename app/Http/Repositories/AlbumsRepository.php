@@ -77,7 +77,7 @@ class AlbumsRepository {
         
         $nesting_level = \App\AlbumData::where('items_id', $album->id)->select('nesting_level')->firstOrFail();
             
-        //Here we are calling method which will merge all pictures and folders from selected folder into one array
+        //Here we are calling method which will merge all pictures and albums from selected album into one array
         if ($including_invisible) {
             $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', 
                                         $album->id)->orderBy('created_at','DESC')->get(), \App\Picture::where('album_id', $album->id)

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 
 //We need AlbumsRepository to provide Album Keyword's uniqueness check
 use App\Http\Repositories\AlbumsRepository;
+//We need ArticlesRepository to provide Folder Keyword's uniqueness check
+use App\Http\Repositories\ArticlesRepository;
 
 class CustomValidationServiceProvider extends ServiceProvider
 {

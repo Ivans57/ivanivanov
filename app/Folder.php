@@ -17,7 +17,7 @@ class Folder extends Model{
     
     protected $table;
     
-    protected $fillable = ['keyword', 'folder_name'];   
+    protected $fillable = ['keyword', 'folder_name', 'created_at', 'updated_at', 'is_visible', 'included_in_folder_with_id'];   
     
     //Here we are making a method which according to a current language 
     //will select a proper table.

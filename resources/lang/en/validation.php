@@ -90,6 +90,7 @@ return [
     'prohibited_characters' => 'There are some prohibited characters in :attribute field.',
     'space_check' => ':attribute should not have spaces.',
     'album_keyword_uniqueness_check' => 'Album keyword is not unique.',
+    'folder_keyword_uniqueness_check' => 'Folder keyword is not unique.',
 
     /*
     |--------------------------------------------------------------------------
@@ -119,6 +120,7 @@ return [
     |
     */
 
-    'attributes' => ['keyword' => __('keywords.Keyword'), 'album_name' => __('keywords.AlbumName'),],
+    'attributes' => ['keyword' => __('keywords.Keyword'), 'album_name' => __('keywords.AlbumName'), 
+                    'folder_name' => __('keywords.FolderName'),],
 
 ];
