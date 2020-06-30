@@ -8,7 +8,7 @@ use App\Http\Repositories\AlbumCreateOrEditRepository;
 class FolderCreateOrEditRepository extends AlbumCreateOrEditRepository {
     
     //We need this function to simplify getParents function.
-    private function get_parents_from_query($localization, $page, $directory_to_find, $directory_to_exclude_keyword, $records_to_show) {//+
+    protected function get_parents_from_query($localization, $page, $directory_to_find, $directory_to_exclude_keyword, $records_to_show) {//+
         
         $items_children = $this->get_directory_children_array($directory_to_exclude_keyword);
         
@@ -37,7 +37,7 @@ class FolderCreateOrEditRepository extends AlbumCreateOrEditRepository {
     
     //Direct data from query is giving useful additional information for pagination.
     //In some cases need to call this function.
-    private function get_parent_list_from_query($localization, $page, $parent_node_id, 
+    protected function get_parent_list_from_query($localization, $page, $parent_node_id, 
                                                 $keyword_of_directory_to_exclude, $max_acceptable_nest_level, $records_to_show) {//+
         if ($localization === "en") {
             $parent_list_from_query = \App\Folder::select('en_folders.id', 'en_folders.folder_name', 'en_folders_data.children', 
@@ -60,7 +60,7 @@ class FolderCreateOrEditRepository extends AlbumCreateOrEditRepository {
         return $parent_list_from_query;
     }
     
-    private function get_id_of_parent($directory_id) {//+
+    protected function get_id_of_parent($directory_id) {//+
         $directory = new Directory();
         $parent_id_of_parent = \App\Folder::select('folder_name', 'included_in_folder_with_id')->where('id', $directory_id)->firstOrFail();
         $directory->DirectoryName = $parent_id_of_parent->folder_name;
@@ -69,7 +69,7 @@ class FolderCreateOrEditRepository extends AlbumCreateOrEditRepository {
     }
     
     //This information is requred to calculate the location of an element to open proper page.
-    private function get_full_parent_list_from_query($localization, $keyword_of_directory_to_exclude, $included_in_directory_with_id, 
+    protected function get_full_parent_list_from_query($localization, $keyword_of_directory_to_exclude, $included_in_directory_with_id, 
                                                     $max_acceptable_nest_level) {//+
         //These requests we need to do only to get a data for pagination, because required record might be not on the first page.
         if ($localization === "en") {
@@ -93,7 +93,7 @@ class FolderCreateOrEditRepository extends AlbumCreateOrEditRepository {
     }
     
     //We need this function to make smaller function get_parents_and_pagination_info_for_array.
-    private function get_parents_for_opened_list_from_query($localization, $keyword_of_directory_to_exclude, $included_in_directory_with_id, 
+    protected function get_parents_for_opened_list_from_query($localization, $keyword_of_directory_to_exclude, $included_in_directory_with_id, 
                                                             $records_to_show, $max_acceptable_nest_level, $page) {//+
         if ($localization === "en") {   
             $parent_list_from_query = \App\Folder::select('en_folders.id', 'en_folders.folder_name', 'en_folders_data.children', 
@@ -117,7 +117,7 @@ class FolderCreateOrEditRepository extends AlbumCreateOrEditRepository {
     
     //This function transforms data which have been got from database to a special objects array.
     //Usage of that object is giving more flexibility when sharing the same functions with another classes.
-    private function parent_list_from_query_to_object_array($parent_list_from_query) {//+
+    protected function parent_list_from_query_to_object_array($parent_list_from_query) {//+
         $parent_list = array();         
         foreach ($parent_list_from_query as $parent_data_from_query) {
             $parent_data = new DirectoryData();
@@ -130,16 +130,16 @@ class FolderCreateOrEditRepository extends AlbumCreateOrEditRepository {
         return $parent_list;
     }
     
-    private function get_direct_children_from_query($directory_id) {//+
+    protected function get_direct_children_from_query($directory_id) {//+
         return \App\Folder::select('id')->where('included_in_folder_with_id', '=', $directory_id)->orderBy('created_at','DESC')->get();
     }
     
-    private function get_directory_id_by_keyword($keyword) {//+
+    protected function get_directory_id_by_keyword($keyword) {//+
         $directory_id = \App\Folder::select('id')->where('keyword', $keyword)->firstOrFail();
         return $directory_id->id;
     }
     
-    private function get_directory_data($items_id) {//+
+    protected function get_directory_data($items_id) {//+
         $directory_data = new DirectoryData();
         $directory_data_from_query = \App\FolderData::where('items_id', $items_id)->select('nesting_level', 'children')->firstOrFail();
         $directory_data->NestingLevel = $directory_data_from_query->nesting_level;
@@ -147,7 +147,7 @@ class FolderCreateOrEditRepository extends AlbumCreateOrEditRepository {
         return $directory_data;
     }
     
-    private function get_children_nest_levels($items_children) {//+
+    protected function get_children_nest_levels($items_children) {//+
         return \App\FolderData::whereIn('items_id', array_map('intval', $items_children))->select('nesting_level')->get();
     }
 }

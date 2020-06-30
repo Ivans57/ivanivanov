@@ -22,7 +22,8 @@
             </button>
         </div>
         <div id="directory_list_container" data-previous_page="{{ Lang::get('keywords.PreviousPage') }}"
-             data-next_page="{{ Lang::get('keywords.NextPage') }}" data-root="{{ Lang::get('keywords.Albums') }}">
+             data-next_page="{{ Lang::get('keywords.NextPage') }}" 
+             data-root="{{ ($section === 'albums') ? Lang::get('keywords.Albums') : Lang::get('keywords.Articles') }}">
         </div> 
     </div>
     <div class="admin-panel-create-edit-directory-controls">
