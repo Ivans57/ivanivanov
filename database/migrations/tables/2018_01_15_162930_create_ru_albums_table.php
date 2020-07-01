@@ -16,7 +16,7 @@ class CreateRuAlbumsTable extends Migration
         Schema::create('ru_albums', function (Blueprint $table) {
             $table->increments('id');
             $table->string('keyword', 50)->unique();
-            $table->string('album_name', 50)->unique();
+            $table->string('album_name', 50);
             $table->timestamps();
             $table->boolean('is_visible');
             $table->integer('included_in_album_with_id')->unsigned()->nullable();
@@ -31,6 +31,10 @@ class CreateRuAlbumsTable extends Migration
      */
     public function down()
     {
+        Schema::table('ru_albums', function (Blueprint $table) {
+            $table->dropForeign('ru_albums_included_in_album_with_id_foreign');
+            $table->dropColumn('included_in_album_with_id');
+        });
         Schema::dropIfExists('ru_albums');
     }
 }
