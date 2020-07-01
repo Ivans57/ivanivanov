@@ -34,7 +34,7 @@
     </div>
     <div class="admin-panel-create-edit-directory-regulations"><span>@lang('keywords.AlbumKeywordRegulations')</span></div>
     <div class="admin-panel-create-edit-directory-controls">
-        <div>{!! Form::label('album_name',
+        <div>{!! Form::label(($section === 'albums') ? 'album_name' : 'folder_name',
             ($section === 'albums') ? Lang::get('keywords.AlbumName').':' : Lang::get('keywords.FolderName').':',
             ['class' => 'admin-panel-create-edit-directory-controls-label']) !!}
         </div>
