@@ -6,6 +6,7 @@ use App\Http\Repositories\CommonRepository;
 use App\Keyword;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateEditKeywordRequest;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
 use Illuminate\Support\Str;
@@ -65,52 +66,33 @@ class AdminKeywordsController extends Controller
         //We need it only to make the variable initialized. Othervise there will be error. 
         $headTitle= __('keywords.'.$this->current_page);
         
-        //We need a list with all keywords to check whether the new keyword is unique
-        $keywords_full_data = Keyword::select('keyword')->get();
-        
-        //There are lots of another data in the variable $keywords_full_data
-        //Below I am extracting only required data and pushing it in the new array $keywords
-        $keywords = array();
-        
-        foreach($keywords_full_data as $keyword_full_data) {
-            array_push($keywords, $keyword_full_data->keyword);
-        }
-        
-        //As there is not possible to pass any arrays to the view or javascript,
-        //we need to convert the $keywords array to json
-        $keywords_json = json_encode($keywords);
-        
         //We are going to use one view for create and edit
         //thats why we will nedd kind of indicator to know which option do we use
         //create or edit.
         $create_or_edit = 'create';
         
-        return view('adminpages.keywords.create_and_edit')->with([
+        return view('adminpages.keywords.create_and_edit_keyword')->with([
             'headTitle' => $headTitle,
-            'keywords' => $keywords_json,
             'create_or_edit' => $create_or_edit
             ]);
     }
     
     //As we use JavaScipt to authorise filled form, we do not need any Request objects.
     //I left it for example. I will use this approcah for articles creation.
-    public function store() {
+    public function store(CreateEditKeywordRequest $request) {//+
         
-        //The line below left just for example
-        //$input = Request::all();
+        $headTitle= __('keywords.'.$this->current_page);
         
-        $input = new Keyword();
-        
-        $input['keyword'] = filter_input(INPUT_POST, 'keyword');
-        
-        $input['text'] = filter_input(INPUT_POST, 'text');
-        
-        $input['created_at'] = Carbon::now();
-        
+        $input = $request->all();
+               
+        $input['created_at'] = Carbon::now();        
         $input['updated_at'] = Carbon::now();
         
-        $input->save();
+        Keyword::create($input);
         
+        return view('adminpages.form_close')->with([
+            'headTitle' => $headTitle
+            ]);
     }
     
      public function edit($keyword_id) {
@@ -118,21 +100,6 @@ class AdminKeywordsController extends Controller
         //Actually we do not need any head title as it is just a partisal view
         //We need it only to make the variable initialized. Othervise there will be error.
          $headTitle= __('keywords.'.$this->current_page);
-        
-        //We need a list with all keywords to check whether the new keyword is unique
-        $keywords_full_data = Keyword::select('keyword')->get();
-        
-        //There are lots of another data in the variable $keywords_full_data
-        //Below I am extracting only required data and pushing it in the new array $keywords
-        $keywords = array();
-        
-        foreach($keywords_full_data as $keyword_full_data) {
-            array_push($keywords, $keyword_full_data->keyword);
-        }
-        
-        //As there is not possible to pass any arrays to the view or javascript,
-        //we need to convert the $keywords array to json
-        $keywords_json = json_encode($keywords);
         
         //Belowe we are fetching the keyword we need to edit
         $keyword_to_edit = Keyword::findOrFail($keyword_id);
@@ -142,10 +109,9 @@ class AdminKeywordsController extends Controller
         //create or edit.
         $create_or_edit = 'edit';
         
-        return view('adminpages.keywords.create_and_edit')->with([
+        return view('adminpages.keywords.create_and_edit_keyword')->with([
             'headTitle' => $headTitle,
-            'keywords' => $keywords_json,
-            'keyword_to_edit_id' => $keyword_to_edit->id,
+            'keyword_to_edit_id' => $keyword_to_edit->id,//Need to check if we need this field!
             'keyword_to_edit_keyword' => $keyword_to_edit->keyword,
             'keyword_to_edit_text' => $keyword_to_edit->text,
             'create_or_edit' => $create_or_edit
@@ -153,36 +119,52 @@ class AdminKeywordsController extends Controller
         
     }
     
-    public function update(Request $request, $keyword_id) {
+    public function update($keyword, CreateEditAlbumRequest $request) {//+
         
-        $edit = Keyword::findOrFail($keyword_id);       
+        //Actually we do not need any head title as it is just a partial view.
+        //We need it only to make the variable initialized. Othervise there will be an error.
+        $headTitle= __('keywords.'.$this->current_page);
         
-        $edit['keyword'] = $request->input('keyword');
+        $edited_keyword = Keyword::where('keyword', '=', $keyword)->firstOrFail();
         
-        $edit['text'] = $request->input('text');
+        $input = $request->all();      
+        $input['updated_at'] = Carbon::now();
         
-        $edit['updated_at'] = Carbon::now();
+        $edited_keyword->update($input);
         
-        $edit->update();
-               
+        //We need to show an empty form first to close
+        //a pop up window. We are opening special close
+        //form and thsi form is launching special
+        //javascript which closing the pop up window
+        //and reloading a parent page.
+        return view('adminpages.form_close')->with([
+            'headTitle' => $headTitle
+            ]);
     }
     
-    public function remove($keyword_id) {
+    public function remove($keyword) {
         
         $headTitle= __('keywords.'.$this->current_page);
         
-        return view('adminpages.keywords.delete')->with([
+        return view('adminpages.keywords.delete_keyword')->with([
             'headTitle' => $headTitle,
-            'keyword_id' => $keyword_id
+            'keyword' => $keyword,
             ]);
                
     }
     
-    public function destroy($keyword_id) {
+    public function destroy($keyword) {
                
-        $destroy = Keyword::findOrFail($keyword_id);
+        //Actually we do not need any head title as it is just a partial view.
+        //We need it only to make the variable initialized. Othervise there will be an error.
+        $headTitle= __('keywords.'.$this->current_page);
         
-        $destroy->delete();
+        //return 'Delete '.$keyword.'?';
+        Keyword::where('keyword', '=', $keyword)->delete();
+        
+        return view('adminpages.form_close')->with([
+            'headTitle' => $headTitle
+            ]);
                
     }
 }

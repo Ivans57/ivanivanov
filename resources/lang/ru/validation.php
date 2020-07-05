@@ -88,9 +88,11 @@ return [
     
     //Additional validations added by developer
     'prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
+    'keywords_prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
     'space_check' => 'Поле :attribute не должно содержать пробелы.',
     'album_keyword_uniqueness_check' => 'Ключевое слово альбома не уникально.',
     'folder_keyword_uniqueness_check' => 'Ключевое слово папки не уникально.',
+    'keyword_uniqueness_check' => 'Ключевое слово не уникально.',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,7 +122,7 @@ return [
     |
     */
 
-    'attributes' => ['keyword' => __('keywords.Keyword'), 'album_name' => __('keywords.AlbumName'),
+    'attributes' => ['keyword' => __('keywords.Keyword'), 'text' => __('keywords.Text'), 'album_name' => __('keywords.AlbumName'),
                     'folder_name' => __('keywords.FolderName'),],
 
 ];
