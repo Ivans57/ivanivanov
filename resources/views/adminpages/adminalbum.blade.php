@@ -70,7 +70,11 @@
                                     </div>
                                 @elseif ($album_or_picture->type == 'picture') 
                                     <div class="admin-panel-albums-picture-and-album-control-button">
-                                        <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
+                                         <!--We need class admin-panel-albums-picture-control-button-link-open only for identification in javascript -->
+                                        <a href='{{ URL::asset('images/pages/albums/'.$albumName.'/'.$album_or_picture->keyWord.$album_or_picture->fileExtension) }}' 
+                                           data-fancybox="group" data-caption="{{ $album_or_picture->caption }}" title="{{ $album_or_picture->caption }}" 
+                                           class="admin-panel-albums-picture-and-album-control-button-link
+                                           admin-panel-albums-picture-control-button-link-open">@lang('keywords.Open')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
                                         <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Edit')</a>

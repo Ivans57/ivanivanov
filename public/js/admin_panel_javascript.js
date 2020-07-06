@@ -136,6 +136,15 @@ $( document ).ready(function() {
             control_button_view_change_after_fancybox_close();
         }
     });
+    
+    //We need this script to turn open button back to a not pressed view after user closes a picture.
+    $(".admin-panel-albums-picture-control-button-link-open").fancybox({
+        //Also we will need a function which will recover add button's view after
+        //closing pop up's window without adding a new keyword.
+        afterClose: function() {
+            control_button_view_change_after_fancybox_close();
+        }
+    });
 });
 
 /*--------------------------------------------------------*/

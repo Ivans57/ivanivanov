@@ -27,7 +27,8 @@
                             <div class="album-body">                               
                                 <a href={{ App::isLocale('en') ? "/albums/".$album_or_picture->keyWord."/page/1" : 
                                     "/ru/albums/".$album_or_picture->keyWord."/page/1" }}>
-                                        <img src="{{ URL::asset('images/icons/album_folder.png') }}" alt="{{ $album_or_picture->caption }}" class="album-folder">
+                                        <img src="{{ URL::asset('images/icons/album_folder.png') }}" alt="{{ $album_or_picture->caption }}" 
+                                            class="album-folder">
                                 </a>
                             </div>
                             <div class="album-title">
@@ -36,8 +37,12 @@
                         </div>
                     @else
                         <div class="album-picture">
-                            <a class="album_picture_link" href="{{ URL::asset('images/pages/albums/'.$albumName.'/'.$album_or_picture->keyWord.$album_or_picture->fileExtension) }}" data-fancybox="group" data-caption="{{ $album_or_picture->caption }}" title="{{ $album_or_picture->caption }}">
-                                <img src="{{ URL::asset('images/pages/albums/'.$albumName.'/small/'.$album_or_picture->keyWord.$album_or_picture->fileExtension) }}" alt="{{ $album_or_picture->caption }}" class="album-picture-big">
+                            <a class="album_picture_link" 
+                               href="{{ URL::asset('images/pages/albums/'.$albumName.'/'.$album_or_picture->keyWord.$album_or_picture->fileExtension) }}" 
+                               data-fancybox="group" data-caption="{{ $album_or_picture->caption }}" title="{{ $album_or_picture->caption }}">
+                                <img src="{{ URL::asset('images/pages/albums/'.$albumName.'/small/'
+                                            .$album_or_picture->keyWord.$album_or_picture->fileExtension) }}" 
+                                            alt="{{ $album_or_picture->caption }}" class="album-picture-big">
                             </a>
                         </div>
                     @endif
