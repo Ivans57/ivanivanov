@@ -312,35 +312,35 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword_id}/edit', 'AdminKeywordsController@edit');
+    Route::get('admin/keywords/{keyword}/edit', 'AdminKeywordsController@edit');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword_id}/edit', 'AdminKeywordsController@edit');
+    Route::get('admin/keywords/{keyword}/edit', 'AdminKeywordsController@edit');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::put('admin/keywords/{keyword_id}', 'AdminKeywordsController@update');
+    Route::put('admin/keywords/{keyword}', 'AdminKeywordsController@update');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::put('admin/keywords/{keyword_id}', 'AdminKeywordsController@update');
+    Route::put('admin/keywords/{keyword}', 'AdminKeywordsController@update');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword_id}', 'AdminKeywordsController@remove');
+    Route::get('admin/keywords/{keyword}', 'AdminKeywordsController@remove');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword_id}', 'AdminKeywordsController@remove');
+    Route::get('admin/keywords/{keyword}', 'AdminKeywordsController@remove');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/keywords/{keyword_id}', 'AdminKeywordsController@destroy');
+    Route::delete('admin/keywords/{keyword}', 'AdminKeywordsController@destroy');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/keywords/{keyword_id}', 'AdminKeywordsController@destroy');
+    Route::delete('admin/keywords/{keyword}', 'AdminKeywordsController@destroy');
 });
 
 /*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

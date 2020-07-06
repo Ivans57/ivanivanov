@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\CommonRepository;
 use App\Keyword;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Http\Requests\CreateEditKeywordRequest;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
@@ -79,7 +78,7 @@ class AdminKeywordsController extends Controller
     
     //As we use JavaScipt to authorise filled form, we do not need any Request objects.
     //I left it for example. I will use this approcah for articles creation.
-    public function store(CreateEditKeywordRequest $request) {//+
+    public function store(CreateEditKeywordRequest $request) {
         
         $headTitle= __('keywords.'.$this->current_page);
         
@@ -95,31 +94,29 @@ class AdminKeywordsController extends Controller
             ]);
     }
     
-     public function edit($keyword_id) {
+     public function edit($keyword) {
         
         //Actually we do not need any head title as it is just a partisal view
         //We need it only to make the variable initialized. Othervise there will be error.
          $headTitle= __('keywords.'.$this->current_page);
         
-        //Belowe we are fetching the keyword we need to edit
-        $keyword_to_edit = Keyword::findOrFail($keyword_id);
-        
         //We are going to use one view for create and edit
-        //thats why we will nedd kind of indicator to know which option do we use
-        //create or edit.
-        $create_or_edit = 'edit';
+        //thats why we will nedd kind of indicator to know which option do we use create or edit.
+        $create_or_edit = 'edit'; 
+         
+        //Belowe we are fetching the keyword we need to edit
+        $keyword_to_edit = Keyword::where('keyword', '=', $keyword)->firstOrFail();
         
         return view('adminpages.keywords.create_and_edit_keyword')->with([
             'headTitle' => $headTitle,
-            'keyword_to_edit_id' => $keyword_to_edit->id,//Need to check if we need this field!
-            'keyword_to_edit_keyword' => $keyword_to_edit->keyword,
-            'keyword_to_edit_text' => $keyword_to_edit->text,
+            'keyword' => $keyword_to_edit->keyword,
+            'text' => $keyword_to_edit->text,
             'create_or_edit' => $create_or_edit
             ]);
         
     }
     
-    public function update($keyword, CreateEditAlbumRequest $request) {//+
+    public function update($keyword, CreateEditKeywordRequest $request) {
         
         //Actually we do not need any head title as it is just a partial view.
         //We need it only to make the variable initialized. Othervise there will be an error.
@@ -144,6 +141,8 @@ class AdminKeywordsController extends Controller
     
     public function remove($keyword) {
         
+        //Actually we do not need any head title as it is just a partial view.
+        //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
         
         return view('adminpages.keywords.delete_keyword')->with([
@@ -159,7 +158,6 @@ class AdminKeywordsController extends Controller
         //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
         
-        //return 'Delete '.$keyword.'?';
         Keyword::where('keyword', '=', $keyword)->delete();
         
         return view('adminpages.form_close')->with([

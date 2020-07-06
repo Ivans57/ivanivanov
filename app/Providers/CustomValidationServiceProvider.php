@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Repositories\AlbumsRepository;
 //We need ArticlesRepository to provide Folder Keyword's uniqueness check
 use App\Http\Repositories\ArticlesRepository;
+//We need ArticlesRepository to provide Keyword's uniqueness check
+use App\Http\Repositories\KeywordsRepository;
 
 class CustomValidationServiceProvider extends ServiceProvider
 {
@@ -41,7 +43,7 @@ class CustomValidationServiceProvider extends ServiceProvider
             //We just need only one message telling that spaces are not allowed.
             $allowed_characters = array("A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g", "H", "h", "I", "i", "J", "j", "K", "k", "L", "l", "M", "m", 
             "N", "n", "O", "o", "P", "p", "Q", "q", "R", "r", "S", "s", "T", "t", "U", "u", "V", "v", "W", "w", 
-                "X", "x", "Y", "y", "Z", "z");
+                "X", "x", "Y", "y", "Z", "z", " ");
             $characters_to_check = str_split($value, 1);
             foreach ($characters_to_check as $character_to_check) {
                 if (in_array($character_to_check, $allowed_characters)) {
