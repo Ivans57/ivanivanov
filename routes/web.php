@@ -100,16 +100,6 @@ Route::group(['prefix' => 'ru', 'middleware' => ['web'], 'locale'], function() {
     Route::post('testik', 'AlbumsController@testik');
 });
 
-/*Route::group(['middleware' => ['web'], 'locale'], function() {
-    Route::post('albums/refresh', 'AlbumsController@refreshAlbum');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => ['web'], 'locale'], function() {
-    Route::post('albums/refresh', 'AlbumsController@refreshAlbum');
-});*/
-
-
-
 //This is for Admin Panel
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin', 'AdminController@index');
@@ -200,6 +190,22 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/pictures/create', 'AdminPicturesController@create');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/pictures/create', 'AdminPicturesController@create');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/pictures', 'AdminPicturesController@store');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/pictures', 'AdminPicturesController@store');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
 
@@ -278,14 +284,6 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::delete('admin/articles/{keyword}', 'AdminArticlesController@destroy');
 });
-
-/*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/new-article', 'AdminArticlesController@create');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/new-article', 'AdminArticlesController@create');
-});*/
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/keywords', 'AdminKeywordsController@index');

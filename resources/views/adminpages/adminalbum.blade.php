@@ -21,7 +21,10 @@
     </div>    
     <div class="admin-panel-albums-add-picture-album-wrapper">
         <div class="admin-panel-albums-add-picture-album-button">
-            <a href='#' class="admin-panel-albums-add-picture-album-button-link">@lang('keywords.AddPicture')</a>
+            <a href={{ App::isLocale('en') ? "/admin/pictures/create" : "/ru/admin/pictures/create" }} 
+                class="admin-panel-albums-add-picture-album-button-link" data-fancybox data-type="iframe">
+                   @lang('keywords.AddPicture')
+                </a>
         </div>
         @if ($nesting_level < 7)
             <div class="admin-panel-albums-add-picture-album-button">
