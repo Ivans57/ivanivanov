@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+//We need the line below to use localization 
+use App;
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AlbumsRepository;
 use App\Http\Repositories\AlbumCreateOrEditRepository;
@@ -13,6 +15,7 @@ use Illuminate\Http\Request;
 //use Request;
 use App\Http\Requests\CreateEditAlbumRequest;
 use App\Album;
+use Illuminate\Support\Facades\File;
 
 
 class AdminAlbumsController extends Controller
@@ -52,8 +55,9 @@ class AdminAlbumsController extends Controller
         $albums = $this->albums->getAllAlbums($items_amount_per_page, 1);
       
         //Below we need to do the check if entered page number is more than
-        //actual number of pages, we redirect the user to the last page
-        if ($albums->currentPage() > $albums->lastPage()) {
+        //actual number of pages, we redirect the user to the last page.
+        //To avoid indefinite looping need to check whether a section has at least one element.
+        if ($albums[0] && ($albums->currentPage() > $albums->lastPage())) {
             return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $albums->lastPage(), $this->is_admin_panel);
         } else {
             return view('adminpages.adminalbums')->with([
@@ -134,6 +138,15 @@ class AdminAlbumsController extends Controller
         $input['updated_at'] = Carbon::now();
         Album::create($input);
         
+        if (App::isLocale('en')) {
+            $root_path = public_path('images/albums/en/');
+        } else {
+            $root_path = public_path('images/albums/ru/');
+        }
+        
+        //We will use File facade as Storage is not working properly.
+        File::makeDirectory($root_path.$input['keyword'], 0775, true);
+        
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
         //form and thsi form is launching special
@@ -142,6 +155,7 @@ class AdminAlbumsController extends Controller
         return view('adminpages.form_close')->with([
             'headTitle' => $headTitle
             ]);
+        //return $test;
     }
     
     public function edit($keyword, $parent_keyword) {

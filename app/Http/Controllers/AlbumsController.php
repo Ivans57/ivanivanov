@@ -49,10 +49,13 @@ class AlbumsController extends Controller {
         
         $items_amount_per_page = 16;        
         $album_links = $this->albums->getAllAlbums($items_amount_per_page, 0);
+        
+        //$check = $album_links[0];
 
         //Below we need to do the check if entered page number is more than
-        //actual number of pages, we redirect the user to the last page
-        if ($album_links->currentPage() > $album_links->lastPage()) {
+        //actual number of pages, we redirect the user to the last page.
+        //To avoid indefinite looping need to check whether a section has at least one element.
+        if ($album_links[0] && ($album_links->currentPage() > $album_links->lastPage())) {
             return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $album_links->lastPage(), $this->is_admin_panel);
         } else {
             return view('pages.albums')->with([

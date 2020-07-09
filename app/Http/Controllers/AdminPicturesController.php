@@ -34,11 +34,9 @@ class AdminPicturesController extends Controller
         //We need it only to make the variable initialized. Othervise there will be error. 
         $headTitle= __('keywords.'.$this->current_page);
         
-        $word = "Hello World!!!";
         
         return view('adminpages.pictures.create_and_edit_picture')->with([
-            'headTitle' => $headTitle,
-            'word' => $word           
+            'headTitle' => $headTitle         
             ]);
     }
     
@@ -50,8 +48,9 @@ class AdminPicturesController extends Controller
         $image = $request->file('select_file');
 
         $new_name = rand() . '.' . $image->getClientOriginalExtension();
-
-        $image->move(public_path('images'), $new_name);
+        
+        $image->move(public_path('images/pages'), $new_name);
+        //File::mkdir($path);
         return back()->with('success', 'Image Uploaded Successfully')->with('path', $new_name);
     }
     
