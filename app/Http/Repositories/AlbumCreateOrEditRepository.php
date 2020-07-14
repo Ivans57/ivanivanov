@@ -20,6 +20,7 @@ class DirectoryBasic {
 
 class Directory extends DirectoryBasic {
     public $ParentId;
+    public $DirectoryKeyword;
 }
 
 class ParentDropDownListElement extends DirectoryBasic {
@@ -55,7 +56,7 @@ class AlbumCreateOrEditRepository {
         if ($directory_to_find && count($parents_from_query) > 0) {
             
             foreach ($parents_from_query as $directory) {
-                $directory_path = $this->get_full_directory_path($directory->id, "");
+                $directory_path = $this->get_full_directory_path($directory->id, "", "name");
                 $parent_data_array = [$directory->id, $directory_path];
                 array_push($parents->parentsDataArray, $parent_data_array);
             }
@@ -66,12 +67,18 @@ class AlbumCreateOrEditRepository {
     
     //We need this function for Directory Parent search field when create or edit directory.
     //It is not enough to get just a name of the directory, we need to get a full path to show.
-    private function get_full_directory_path($directory_id, $directory_path) {//-
+    //We need the third argument, because we are using the same function for parent search and also for albums creation i a file system.
+    //There will be small difference and to meet it we need the third argument $name_or_keyword_path.
+    private function get_full_directory_path($directory_id, $directory_path, $name_or_keyword_path) {//-
         //We cannot get information from data table, because in this case the sequence of items is important.
         $directory = $this->get_id_of_parent($directory_id);
-        $directory_full_path = substr_replace($directory_path, ' / '.$directory->DirectoryName, 0, 0);
+        if ($name_or_keyword_path == "name") {
+            $directory_full_path = substr_replace($directory_path, ' / '.$directory->DirectoryName, 0, 0);
+        } else {
+            $directory_full_path = substr_replace($directory_path, '/'.$directory->DirectoryKeyword, 0, 0);
+        }
         if ($directory->ParentId != 0) {
-            $directory_full_path = $this->get_full_directory_path($directory->ParentId, $directory_full_path);
+            $directory_full_path = $this->get_full_directory_path($directory->ParentId, $directory_full_path, $name_or_keyword_path);
         }
         return $directory_full_path;
     }
@@ -288,7 +295,8 @@ class AlbumCreateOrEditRepository {
     
     protected function get_id_of_parent($directory_id) {//+
         $directory = new Directory();
-        $parent_id_of_parent = \App\Album::select('album_name', 'included_in_album_with_id')->where('id', $directory_id)->firstOrFail();
+        $parent_id_of_parent = \App\Album::select('keyword', 'album_name', 'included_in_album_with_id')->where('id', $directory_id)->firstOrFail();
+        $directory->DirectoryKeyword = $parent_id_of_parent->keyword;
         $directory->DirectoryName = $parent_id_of_parent->album_name;
         $directory->ParentId = $parent_id_of_parent->included_in_album_with_id;
         return $directory;
@@ -525,5 +533,34 @@ class AlbumCreateOrEditRepository {
     
     protected function get_children_nest_levels($items_children) {//+
         return \App\AlbumData::whereIn('items_id', array_map('intval', $items_children))->select('nesting_level')->get();
+    }
+    
+    //This function is needed only to call private function get_full_directory_path.
+    //It is needed to form a path for newly created folder for albums and pictures in a file system.
+    public function getDirectoryPath($directory_id) {
+        $full_path = $this->get_full_directory_path($directory_id, "", "keyword");       
+        return $full_path;
+    }
+    
+    //As the basic php function cannot delete not empty folder and Laravel functions are not working,
+    //we will make our own function, based on baisc php functions.
+    
+    public function deleteDirectory($full_path) {
+        $contents = scandir($full_path);
+        
+        if (count($contents) < 3) {
+            rmdir($full_path);
+        } else {
+            //Need to remove first to elements of an array, 
+            //because scandir function includes in a directory's contents signs "." and "..".
+            unset($contents[0]);
+            unset($contents[1]);
+            foreach ($contents as $content) {
+                $this->deleteDirectory($full_path."/".$content);
+                //rmdir($full_path);
+                $this->deleteDirectory($full_path);
+            }
+        }
+        
     }
 }

@@ -15,12 +15,11 @@ use Illuminate\Http\Request;
 //use Request;
 use App\Http\Requests\CreateEditAlbumRequest;
 use App\Album;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 
 class AdminAlbumsController extends Controller
 {
-    //
     protected $albums;
     protected $current_page;
     protected $navigation_bar_obj;
@@ -139,13 +138,20 @@ class AdminAlbumsController extends Controller
         Album::create($input);
         
         if (App::isLocale('en')) {
-            $root_path = public_path('images/albums/en/');
+            $root_path = 'albums/en';
         } else {
-            $root_path = public_path('images/albums/ru/');
+            $root_path = 'albums/ru';
         }
         
-        //We will use File facade as Storage is not working properly.
-        File::makeDirectory($root_path.$input['keyword'], 0775, true);
+        if ($input['included_in_album_with_id']) {
+            $to_get_full_path = new AlbumCreateOrEditRepository();
+            $full_path = $to_get_full_path->getDirectoryPath($input['included_in_album_with_id']);
+            $full_path = $root_path.$full_path."/";
+        } else {
+            $full_path = $root_path."/";
+        }
+        
+        Storage::disk('public')->makeDirectory($full_path.$input['keyword'], 0777, true);
         
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
@@ -233,8 +239,7 @@ class AdminAlbumsController extends Controller
         //Actually we do not need any head title as it is just a partial view.
         //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
-        
-        //return 'Delete '.$keyword.'?';
+            
         return view('adminpages.directory.delete_directory')->with([
             'headTitle' => $headTitle,
             'keyword' => $keyword,
@@ -249,8 +254,26 @@ class AdminAlbumsController extends Controller
         //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
         
-        //return 'Delete '.$keyword.'?';
-        Album::where('keyword', '=', $keyword)->delete();
+        if (App::isLocale('en')) {
+            $root_path = 'albums/en';
+        } else {
+            $root_path = 'albums/ru';
+        }
+        
+        $album_to_remove = Album::select('id')->where('keyword', '=', $keyword)->firstOrFail();
+        
+        $to_remove_directory = new AlbumCreateOrEditRepository();
+        $path = $to_remove_directory->getDirectoryPath($album_to_remove->id);
+        $full_path = storage_path('app/public/'.$root_path.$path);
+        //Removes from File System.
+        //rmdir($full_path);
+        $to_remove_directory->deleteDirectory($full_path);
+        //$contents = scandir($full_path);
+        
+        //$check_dir = count($contents);
+        
+        //Removes from Database.
+        $album_to_remove->delete();
         
         return view('adminpages.form_close')->with([
             'headTitle' => $headTitle
