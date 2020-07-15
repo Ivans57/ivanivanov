@@ -194,6 +194,8 @@ class AdminAlbumsController extends Controller
         
     }
     
+    //Possibly, field old_keyword is not needed as we are passing 
+    //$keyword variable as the first argument and it is mentioned in routes file.
     public function update($keyword, CreateEditAlbumRequest $request) {
         
         //Actually we do not need any head title as it is just a partial view.
@@ -203,6 +205,34 @@ class AdminAlbumsController extends Controller
         $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();
         
         $input = $request->all();
+        
+        //Moving and renaming a folder in a file system.
+        if (App::isLocale('en')) {
+            $root_path = storage_path('app/public/albums/en');
+        } else {
+            $root_path = storage_path('app/public/albums/ru');
+        }
+        
+        $to_get_full_path = new AlbumCreateOrEditRepository();
+        
+        if ($edited_album->included_in_album_with_id) {
+            $path_before = $to_get_full_path->getDirectoryPath($edited_album->included_in_album_with_id);
+            $path_before = $root_path.$path_before."/";
+        } else {
+            $path_before = $root_path."/";
+        }
+        
+        if ($input['included_in_album_with_id']) {
+            $path_after = $to_get_full_path->getDirectoryPath($input['included_in_album_with_id']);
+            $path_after = $root_path.$path_after."/";
+        } else {
+            $path_after = $root_path."/";
+        }
+        
+        rename($path_before.$input['old_keyword'], $path_after.$input['keyword']);
+        
+        //Moving and renaming an album in a data base.
+        
         //We need to do the following if case because,
         //if user doesn't choose any parent album
         //then parent album id will be assigned 0 instead of NULL
@@ -223,7 +253,7 @@ class AdminAlbumsController extends Controller
         
         $edited_album->update($input);
         //Album::update($input);
-        
+
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
         //form and thsi form is launching special
@@ -254,23 +284,19 @@ class AdminAlbumsController extends Controller
         //We need it only to make the variable initialized. Othervise there will be an error.
         $headTitle= __('keywords.'.$this->current_page);
         
+        $album_to_remove = Album::select('id')->where('keyword', '=', $keyword)->firstOrFail();
+        
         if (App::isLocale('en')) {
             $root_path = 'albums/en';
         } else {
             $root_path = 'albums/ru';
         }
         
-        $album_to_remove = Album::select('id')->where('keyword', '=', $keyword)->firstOrFail();
-        
         $to_remove_directory = new AlbumCreateOrEditRepository();
         $path = $to_remove_directory->getDirectoryPath($album_to_remove->id);
         $full_path = storage_path('app/public/'.$root_path.$path);
         //Removes from File System.
-        //rmdir($full_path);
         $to_remove_directory->deleteDirectory($full_path);
-        //$contents = scandir($full_path);
-        
-        //$check_dir = count($contents);
         
         //Removes from Database.
         $album_to_remove->delete();
