@@ -543,8 +543,7 @@ class AlbumCreateOrEditRepository {
     }
     
     //As the basic php function cannot delete not empty folder and Laravel functions are not working,
-    //we will make our own function, based on baisc php functions.
-    
+    //we will make our own function, based on basic php functions.
     public function deleteDirectory($full_path) {
         $contents = scandir($full_path);
         
@@ -556,11 +555,20 @@ class AlbumCreateOrEditRepository {
             unset($contents[0]);
             unset($contents[1]);
             foreach ($contents as $content) {
-                $this->deleteDirectory($full_path."/".$content);
-                //rmdir($full_path);
-                $this->deleteDirectory($full_path);
+                //First of all need to delete all contents.
+                $this->deleteFileOrDirectory($full_path."/".$content);               
             }
+            //Then can remove a parent directory.
+            rmdir($full_path);
+        }       
+    }
+    
+    //The function below is needed to simplify deleteDirectory function.
+    private function deleteFileOrDirectory($current_item) {
+        if (is_file($current_item) === true) {
+            unlink($current_item); 
+        } else if (is_dir($current_item) === true) {
+            $this->deleteDirectory($current_item);
         }
-        
     }
 }
