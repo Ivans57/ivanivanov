@@ -54,22 +54,22 @@ $( document ).ready(function() {
 
     var url_to_find_parent;
     if (form.dataset.localization === "en") {
-        url_to_find_parent = "/admin/" + form.dataset.section + "/create_or_edit/findParents";
+        url_to_find_parent = "/admin/findParents";
     } else {
-        url_to_find_parent = "/ru/admin/" + form.dataset.section + "/create_or_edit/findParents";
+        url_to_find_parent = "/ru/admin/findParents";
     }
     
     //Simple button_search.onclick function is not working properly, that's why we are going to do via event listener.
     button_search.addEventListener('click', function() {
-        get_parents(form.dataset.localization, parent_search.value, old_keyword.value, url_to_find_parent, 1);
+        get_parents(form.dataset.localization, parent_search.value, old_keyword.value, url_to_find_parent, form.dataset.section, 1);
     });
     
     //Here is a function for create or edit window parent search in database.
-    function get_parents(localization, parent_name, keyword, url, page) {
+    function get_parents(localization, parent_name, keyword, url, section, page) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page, parent_search: parent_name, keyword: keyword},
+                data: {localization: localization, page: page, parent_search: parent_name, keyword: keyword, section: section},
                 success:function(data) {
                         //We will always assign it, because if we don't do that,
                         //after turning pages, that value will always disappear from search field.
@@ -119,7 +119,7 @@ $( document ).ready(function() {
                             parent_prev.addEventListener('click', function() {
                                 //I will leave like this, because this function is not working with a variable.
                                 $("#directory_list_container").empty();
-                                get_parents(localization, parent_name, keyword, url, 
+                                get_parents(localization, parent_name, keyword, url, section, 
                                             data.pagination_info.previousPage);
                             });
                         }
@@ -130,7 +130,7 @@ $( document ).ready(function() {
                             parent_next.addEventListener('click', function() {
                                 //I will leave like this, because this function is not working with a variable.
                                 $("#directory_list_container").empty();
-                                get_parents(localization, parent_name, keyword, url, 
+                                get_parents(localization, parent_name, keyword, url, section, 
                                             data.pagination_info.nextPage);
                             });
                         }
@@ -169,9 +169,9 @@ $( document ).ready(function() {
     
     var url_for_parent_list;
     if (form.dataset.localization === "en") {
-        url_for_parent_list = "/admin/" + form.dataset.section + "/create_or_edit/getParentList";
+        url_for_parent_list = "/admin/getParentList";
     } else {
-        url_for_parent_list = "/ru/admin/" + form.dataset.section + "/create_or_edit/getParentList";
+        url_for_parent_list = "/ru/admin/getParentList";
     }
     
     button_select_from_dropdown_list.addEventListener('click', function() {
@@ -180,30 +180,30 @@ $( document ).ready(function() {
         if (old_keyword.value == "" && parent_search.value == "") {
             parent_id.value = 0;
         }
-        get_parent_list(form.dataset.localization, url_for_parent_list, parent_id.value, 1, old_keyword.value);
+        get_parent_list(form.dataset.localization, url_for_parent_list, parent_id.value, 1, old_keyword.value, form.dataset.section);
     });
     
     //Here is a function for create or edit window parent dropdown list.
-    function get_parent_list(localization, url, parent_id, page, old_keyword_value) {
+    function get_parent_list(localization, url, parent_id, page, old_keyword_value, section) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page, parent_id: parent_id, keyword_of_directory_to_exclude: old_keyword_value},
+                data: {localization: localization, page: page, parent_id: parent_id, keyword_of_directory_to_exclude: old_keyword_value, section: section},
                 success:function(data) {
                     //In case we need to get an opened list, all elements of data array 
                     //will be arrays. If we get a closed list, all elements of data array
                     //will be numbers.
                     if (Array.isArray(data.parent_list_data[0]) === true) {
-                        make_opened_parent_list(data, localization, url, page, old_keyword_value);
+                        make_opened_parent_list(data, localization, url, page, old_keyword_value, section);
                     } else {
-                        make_closed_parent_list(data, localization, url, page, old_keyword_value);
+                        make_closed_parent_list(data, localization, url, page, old_keyword_value, section);
                     }                       
                     }
             });
     }
     
     //This function will make a parent list when being edited item has a parent.
-    function make_opened_parent_list(data, localization, url, page, old_keyword_value) {
+    function make_opened_parent_list(data, localization, url, page, old_keyword_value, section) {
         var line_id = make_initial_parent_list_without_carets(data, localization, url, page);
         
         var directory_list_element = document.getElementById('element_0');
@@ -224,7 +224,7 @@ $( document ).ready(function() {
             previous_page = data.pagination_info[i].previousPage;
             next_page = data.pagination_info[i].nextPage;
             make_included_parent_list(localization, url, new_line_id, parent_node_id, parent_list_data, previous_page, next_page, 
-                                        old_keyword_value);
+                                        old_keyword_value, section);
             
             //I can't include this in make_included_parent_list function, 
             //as in another funtion which uses make_included_parent_list function,
@@ -240,13 +240,13 @@ $( document ).ready(function() {
         //Need to add events for opened lists.
         //No need to worry about closed ones, as make_included_parent_list 
         //function has already done it.
-        caret_turn_back(localization, url, page, directory_list_container, old_keyword_value);
+        caret_turn_back(localization, url, page, directory_list_container, old_keyword_value, section);
         //Below we are making an event for list element selection.
         select_from_dropdown_list(directory_list_container);
     }
     
     //This function will make a parent list when there is no parent for being edited item.
-    function make_closed_parent_list(data, localization, url, page, old_keyword_value) {
+    function make_closed_parent_list(data, localization, url, page, old_keyword_value, section) {
         var line_id = make_initial_parent_list_without_carets();
         
         var directory_list_element = document.getElementById('element_0');
@@ -260,7 +260,7 @@ $( document ).ready(function() {
         }
                         
         //Below we are assigning an event for that cse when user is pressing on a caret.
-        caret_turn_and_request(localization, url, page, directory_list_container, old_keyword_value);
+        caret_turn_and_request(localization, url, page, directory_list_container, old_keyword_value, section);
         //Below we are making an event for list element selection.
         select_from_dropdown_list(directory_list_container);
     }
@@ -287,23 +287,22 @@ $( document ).ready(function() {
     
     //This function is working when user is clicking on the caret to get what is
     //included in its item.
-    function get_included_parent_list(localization, url, page, line_id, parent_node_id, old_keyword_value) {
+    function get_included_parent_list(localization, url, page, line_id, parent_node_id, old_keyword_value, section) {
         $.ajax({
                 type: "POST",
                 url: url,
                 data: {localization: localization, page: page, parent_node_id: parent_node_id, 
-                    keyword_of_directory_to_exclude: old_keyword_value},
-                success:function(data) {
-                        
+                    keyword_of_directory_to_exclude: old_keyword_value, section: section},
+                success:function(data) {                     
                         make_included_parent_list(localization, url, line_id, parent_node_id, data.parent_list_data, 
-                                                data.pagination_info.previousPage, data.pagination_info.nextPage, old_keyword_value);
+                                                data.pagination_info.previousPage, data.pagination_info.nextPage, old_keyword_value, section);
                     }
             });
     }
     
      //I have made a function, because I am going to use the same code at least two times.
     function make_included_parent_list(localization, url, line_id, parent_node_id, parent_list_data, previous_page, next_page, 
-                                        old_keyword_value) {
+                                        old_keyword_value, section) {
         var nested_directory_lists_parent = document.getElementById(line_id);
                         
         nested_directory_lists_parent.insertAdjacentHTML("beforeend", "<ul \n\
@@ -361,7 +360,7 @@ $( document ).ready(function() {
         //Below we are assigning an event for that cse when user is pressing on a caret.
         //We need to pass as a page argument, the first page, because if we pass a page
         //variable, there might be wrong page and drop down list won't work properly.
-        caret_turn_and_request(localization, url, 1, directory_list, old_keyword_value);
+        caret_turn_and_request(localization, url, 1, directory_list, old_keyword_value, section);
         //Below we are making an event for list element selection.
         select_from_dropdown_list(directory_list);
                                                                      
@@ -385,7 +384,7 @@ $( document ).ready(function() {
             //Here we need to remove nested list (ul) from DOM.
             element.parentNode.removeChild(element);
             //Here we need to turn the next page.
-            get_included_parent_list(localization, url, previous_page, line_id, parent_node_id, old_keyword_value);
+            get_included_parent_list(localization, url, previous_page, line_id, parent_node_id, old_keyword_value, section);
             });
         }
                     
@@ -395,7 +394,7 @@ $( document ).ready(function() {
             //Here we need to remove nested list (ul) from DOM.
             element.parentNode.removeChild(element);
             //Here we need to turn the next page.
-            get_included_parent_list(localization, url, next_page, line_id, parent_node_id, old_keyword_value);
+            get_included_parent_list(localization, url, next_page, line_id, parent_node_id, old_keyword_value, section);
             });
         }
     }
@@ -428,7 +427,7 @@ $( document ).ready(function() {
     //After the caret has been turned and request has been already send this functionality shouldn't be applied for
     //the element. We need to remove it from the element. To cancel this function for the element, we need to make it as a separate
     //function with its personal name. In our case it is turn_caret_and_get_children.
-    function caret_turn_and_request(localization, url, page, parent_container, old_keyword_value) {
+    function caret_turn_and_request(localization, url, page, parent_container, old_keyword_value, section) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
         var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-directory-drop-down-list-item-caret");
@@ -441,11 +440,12 @@ $( document ).ready(function() {
             current_item[i].url = url;
             current_item[i].page = page;
             current_item[i].old_keyword_value = old_keyword_value;
+            current_item[i].section = section;
         }
     }
     
     //This function will work only for opened dropdown list.
-    function caret_turn_back(localization, url, page, parent_container, old_keyword_value) {
+    function caret_turn_back(localization, url, page, parent_container, old_keyword_value, section) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
         var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-directory-drop-down-list-item-caret-down");
@@ -457,6 +457,7 @@ $( document ).ready(function() {
             current_item[i].url = url;
             current_item[i].page = page;
             current_item[i].old_keyword_value = old_keyword_value;
+            current_item[i].section = section;
         }
     }
     
@@ -471,7 +472,7 @@ $( document ).ready(function() {
         //Taking id from caret (this) instead of line. Can pass line's id in caret's data.
         get_included_parent_list(event.currentTarget.localization, event.currentTarget.url, 
                         event.currentTarget.page, event.currentTarget.dataset.line_id, event.currentTarget.dataset.record_id, 
-                        event.currentTarget.old_keyword_value);
+                        event.currentTarget.old_keyword_value, event.currentTarget.section);
     }
     
     //This functions returns a caret to its noraml position and removes items children from the list.

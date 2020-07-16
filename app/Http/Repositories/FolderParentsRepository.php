@@ -2,10 +2,10 @@
 
 namespace App\Http\Repositories;
 
-use App\Http\Repositories\AlbumCreateOrEditRepository;
+use App\Http\Repositories\AlbumParentsRepository;
 
 
-class FolderCreateOrEditRepository extends AlbumCreateOrEditRepository {
+class FolderParentsRepository extends AlbumParentsRepository {
     
     //We need this function to simplify getParents function.
     protected function get_parents_from_query($localization, $page, $directory_to_find, $directory_to_exclude_keyword, $records_to_show) {//+

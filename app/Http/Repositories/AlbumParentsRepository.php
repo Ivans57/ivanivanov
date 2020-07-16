@@ -2,7 +2,6 @@
 
 namespace App\Http\Repositories;
 
-
 class DirectoryParentsData {
     public $parentsDataArray;
     public $paginationInfo;
@@ -37,20 +36,16 @@ class DirectoryData extends DirectoryBasic {
     public $Children;
 }
 
-
-class AlbumCreateOrEditRepository {
-    
+class AlbumParentsRepository {
     //We need this function for Directory Parent search field when create or edit directory.
     public function getParents($localization, $page, $directory_to_find, $directory_to_exclude_keyword) {//-
               
         $parents = new DirectoryParentsData();
         
-        $records_to_show = 10;
-        
+        $records_to_show = 10;    
         $parents_from_query = $this->get_parents_from_query($localization, $page, $directory_to_find, $directory_to_exclude_keyword, 
                                                             $records_to_show);
         $parents->paginationInfo = $this->get_pagination_info($parents_from_query);
-
         $parents->parentsDataArray = array();
         
         if ($directory_to_find && count($parents_from_query) > 0) {
@@ -60,8 +55,7 @@ class AlbumCreateOrEditRepository {
                 $parent_data_array = [$directory->id, $directory_path];
                 array_push($parents->parentsDataArray, $parent_data_array);
             }
-        }
-             
+        }          
         return $parents;
     }
     
@@ -69,7 +63,8 @@ class AlbumCreateOrEditRepository {
     //It is not enough to get just a name of the directory, we need to get a full path to show.
     //We need the third argument, because we are using the same function for parent search and also for albums creation i a file system.
     //There will be small difference and to meet it we need the third argument $name_or_keyword_path.
-    private function get_full_directory_path($directory_id, $directory_path, $name_or_keyword_path) {//-
+    //As we are going to use this method out of this repository, it has to be public.
+    public function get_full_directory_path($directory_id, $directory_path, $name_or_keyword_path) {//-
         //We cannot get information from data table, because in this case the sequence of items is important.
         $directory = $this->get_id_of_parent($directory_id);
         if ($name_or_keyword_path == "name") {
@@ -113,8 +108,7 @@ class AlbumCreateOrEditRepository {
     
     //We need this function to simplify getParents and get_parents_from_query functions.
     protected function get_directory_children_array($directory_to_exclude_keyword) {//-
-        if($directory_to_exclude_keyword) {
-        
+        if($directory_to_exclude_keyword) {     
             //We will do two request to avoid localization check.
             $directory_id = $this->get_directory_id_by_keyword($directory_to_exclude_keyword);
 
@@ -126,12 +120,10 @@ class AlbumCreateOrEditRepository {
                 $items_children = array_map('intval', $items_children_array);
             } else {
                 $items_children = array();
-            }
-        
+            }      
         } else {
             $items_children = array();
-        }
-        
+        }     
         return $items_children;
     }
     
@@ -153,8 +145,7 @@ class AlbumCreateOrEditRepository {
             //Getting opened parent list only when creating or editing a directory 
             //in any directory except of the root directory.
             $parents = $this->get_opened_parent_list($localization, $records_to_show, $parent_id, $keyword_of_directory_to_exclude);
-        }
-        
+        }       
         return $parents;
     }
     
@@ -534,41 +525,5 @@ class AlbumCreateOrEditRepository {
     protected function get_children_nest_levels($items_children) {//+
         return \App\AlbumData::whereIn('items_id', array_map('intval', $items_children))->select('nesting_level')->get();
     }
-    
-    //This function is needed only to call private function get_full_directory_path.
-    //It is needed to form a path for newly created folder for albums and pictures in a file system.
-    public function getDirectoryPath($directory_id) {
-        $full_path = $this->get_full_directory_path($directory_id, "", "keyword");       
-        return $full_path;
-    }
-    
-    //As the basic php function cannot delete not empty folder and Laravel functions are not working,
-    //we will make our own function, based on basic php functions.
-    public function deleteDirectory($full_path) {
-        $contents = scandir($full_path);
-        
-        if (count($contents) < 3) {
-            rmdir($full_path);
-        } else {
-            //Need to remove first to elements of an array, 
-            //because scandir function includes in a directory's contents signs "." and "..".
-            unset($contents[0]);
-            unset($contents[1]);
-            foreach ($contents as $content) {
-                //First of all need to delete all contents.
-                $this->deleteFileOrDirectory($full_path."/".$content);               
-            }
-            //Then can remove a parent directory.
-            rmdir($full_path);
-        }       
-    }
-    
-    //The function below is needed to simplify deleteDirectory function.
-    private function deleteFileOrDirectory($current_item) {
-        if (is_file($current_item) === true) {
-            unlink($current_item); 
-        } else if (is_dir($current_item) === true) {
-            $this->deleteDirectory($current_item);
-        }
-    }
 }
+

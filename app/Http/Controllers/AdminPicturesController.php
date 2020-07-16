@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 use Illuminate\Http\Request;
-//use App\Http\Requests;
 
 class AdminPicturesController extends Controller
 {

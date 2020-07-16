@@ -41,7 +41,6 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('about-me', 'AboutMeController@index');
 });
 
-
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('albums', 'AlbumsController@index');
 });
@@ -126,19 +125,19 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/albums/create_or_edit/findParents', 'AdminAlbumsController@findParents');
+    Route::post('admin/findParents', 'AdminParentsController@findParents');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/albums/create_or_edit/findParents', 'AdminAlbumsController@findParents');
+    Route::post('admin/findParents', 'AdminParentsController@findParents');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/albums/create_or_edit/getParentList', 'AdminAlbumsController@getParentList');
+    Route::post('admin/getParentList', 'AdminParentsController@getParentList');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/albums/create_or_edit/getParentList', 'AdminAlbumsController@getParentList');
+    Route::post('admin/getParentList', 'AdminParentsController@getParentList');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
@@ -219,22 +218,6 @@ Route::group(['middleware' => 'locale'], function() {
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles/{keyword}/page/{page}', 'AdminArticlesController@showFolder');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/articles/create_or_edit/findParents', 'AdminArticlesController@findParents');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/articles/create_or_edit/findParents', 'AdminArticlesController@findParents');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/articles/create_or_edit/getParentList', 'AdminArticlesController@getParentList');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/articles/create_or_edit/getParentList', 'AdminArticlesController@getParentList');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
@@ -340,11 +323,3 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::delete('admin/keywords/{keyword}', 'AdminKeywordsController@destroy');
 });
-
-/*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin', 'AdminController@editHome');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin', 'AdminController@editHome');
-});*/
