@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-//We need the line below to use localization 
-use App;
 use App\Http\Repositories\CommonRepository;
-use App\Http\Repositories\AlbumsRepository;
-use App\Http\Repositories\AlbumCreateEditDeleteRepository;
+use App\Http\Repositories\AdminAlbumsRepository;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters low case.
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 use App\Http\Requests\CreateEditAlbumRequest;
 use App\Album;
-use Illuminate\Support\Facades\Storage;
 
 
 class AdminAlbumsController extends Controller
@@ -28,7 +23,7 @@ class AdminAlbumsController extends Controller
     
     //There are some methods and variables which we will always use, so it will be better
     //if we call the and initialize in constructor
-    public function __construct(AlbumsRepository $albums) {
+    public function __construct(AdminAlbumsRepository $albums) {
         
         $this->albums = $albums;
         $this->current_page = 'Albums';
@@ -85,12 +80,7 @@ class AdminAlbumsController extends Controller
         
         //Actually we do not need any head title as it is just a partial view
         //We need it only to make the variable initialized. Othervise there will be error. 
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        //We need this variable to find out which mode are we using Create or Edit
-        //and then to open a view accordingly with a chosen mode
-        $create_or_edit = 'create';
-        
+        $headTitle= __('keywords.'.$this->current_page);            
         if ($parent_keyword != "0") {
             $parent_info = \App\Album::select('id', 'album_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
@@ -101,7 +91,9 @@ class AdminAlbumsController extends Controller
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
-            'create_or_edit' => $create_or_edit,
+            //We need this variable to find out which mode are we using Create or Edit
+            //and then to open a view accordingly with a chosen mode.
+            'create_or_edit' => 'create',
             //The line below is required for form path.
             'section' => 'albums',            
             ]);
@@ -112,44 +104,8 @@ class AdminAlbumsController extends Controller
         
         //Actually we do not need any head title as it is just a partial view.
         //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        $input = $request->all();
-        //We need to do the following if case because,
-        //if user doesn't choose any parent album
-        //then parent album id will be assigned 0 instead of NULL
-        //which will cause an error whilst saving a new record
-        if ($input['included_in_album_with_id'] == 0){
-            $input['included_in_album_with_id'] = NULL;
-        }
-        
-        //We need the if below, because form's tickbox is not null only
-        //when it is ticked, otherwise it is null and the data from is_visible 
-        //field will be lost. In the database is_visible is not nullable field,
-        //and it keeps a boolean value.
-        if (isset($input['is_visible'])== NULL) {
-            $input['is_visible'] = 0;
-        }
-        
-        $input['created_at'] = Carbon::now();
-        $input['updated_at'] = Carbon::now();
-        Album::create($input);
-        
-        if (App::isLocale('en')) {
-            $root_path = 'albums/en';
-        } else {
-            $root_path = 'albums/ru';
-        }
-        
-        if ($input['included_in_album_with_id']) {
-            $to_get_full_path = new AlbumCreateEditDeleteRepository();
-            $full_path = $to_get_full_path->getDirectoryPath($input['included_in_album_with_id']);
-            $full_path = $root_path.$full_path."/";
-        } else {
-            $full_path = $root_path."/";
-        }
-        
-        Storage::disk('public')->makeDirectory($full_path.$input['keyword'], 0777, true);
+        $headTitle= __('keywords.'.$this->current_page);         
+        $this->albums->store($request);
         
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
@@ -159,21 +115,13 @@ class AdminAlbumsController extends Controller
         return view('adminpages.form_close')->with([
             'headTitle' => $headTitle
             ]);
-        //return $test;
     }
     
     public function edit($keyword, $parent_keyword) {
         
         //Actually we do not need any head title as it is just a partial view.
         //We need it only to make the variable initialized. Othervise there will be an error. 
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        //We need this variable to find out which mode are we using Create or Edit
-        //and then to open a view accordingly with a chosen mode
-        $create_or_edit = 'edit';
-        
-        $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();
-        
+        $headTitle= __('keywords.'.$this->current_page);                    
         if ($parent_keyword != "0") {
             $parent_info = \App\Album::select('id', 'album_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
@@ -184,8 +132,10 @@ class AdminAlbumsController extends Controller
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
-            'create_or_edit' => $create_or_edit,
-            'edited_directory' => $edited_album,
+            //We need this variable to find out which mode are we using Create or Edit
+            //and then to open a view accordingly with a chosen mode.
+            'create_or_edit' => 'edit',
+            'edited_directory' => Album::where('keyword', '=', $keyword)->firstOrFail(),
             //The line below is required for form path.
             'section' => 'albums',
             ]);
@@ -198,59 +148,8 @@ class AdminAlbumsController extends Controller
         
         //Actually we do not need any head title as it is just a partial view.
         //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();
-        
-        $input = $request->all();
-        
-        //Moving and renaming a folder in a file system.
-        if (App::isLocale('en')) {
-            $root_path = storage_path('app/public/albums/en');
-        } else {
-            $root_path = storage_path('app/public/albums/ru');
-        }
-        
-        $to_get_full_path = new AlbumCreateEditDeleteRepository();
-        
-        if ($edited_album->included_in_album_with_id) {
-            $path_before = $to_get_full_path->getDirectoryPath($edited_album->included_in_album_with_id);
-            $path_before = $root_path.$path_before."/";
-        } else {
-            $path_before = $root_path."/";
-        }
-        
-        if ($input['included_in_album_with_id']) {
-            $path_after = $to_get_full_path->getDirectoryPath($input['included_in_album_with_id']);
-            $path_after = $root_path.$path_after."/";
-        } else {
-            $path_after = $root_path."/";
-        }
-        
-        rename($path_before.$input['old_keyword'], $path_after.$input['keyword']);
-        
-        //Moving and renaming an album in a data base.
-        
-        //We need to do the following if case because,
-        //if user doesn't choose any parent album
-        //then parent album id will be assigned 0 instead of NULL
-        //which will cause an error whilst saving a new record
-        if ($input['included_in_album_with_id'] == 0){
-            $input['included_in_album_with_id'] = NULL;
-        }      
- 
-        //We need the if below, because form's tickbox is not null only
-        //when it is ticked, otherwise it is null and the data from is_visible 
-        //field will be lost. In the database is_visible is not nullable field,
-        //and it keeps a boolean value.
-        if (isset($input['is_visible'])== NULL) {
-            $input['is_visible'] = 0;
-        }
-        
-        $input['updated_at'] = Carbon::now();
-        
-        $edited_album->update($input);
-        //Album::update($input);
+        $headTitle= __('keywords.'.$this->current_page);       
+        $this->albums->update($keyword, $request);
 
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
@@ -280,24 +179,8 @@ class AdminAlbumsController extends Controller
         
         //Actually we do not need any head title as it is just a partial view.
         //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        $album_to_remove = Album::select('id')->where('keyword', '=', $keyword)->firstOrFail();
-        
-        if (App::isLocale('en')) {
-            $root_path = 'albums/en';
-        } else {
-            $root_path = 'albums/ru';
-        }
-        
-        $to_remove_directory = new AlbumCreateEditDeleteRepository();
-        $path = $to_remove_directory->getDirectoryPath($album_to_remove->id);
-        $full_path = storage_path('app/public/'.$root_path.$path);
-        //Removes from File System.
-        $to_remove_directory->deleteDirectory($full_path);
-        
-        //Removes from Database.
-        $album_to_remove->delete();
+        $headTitle= __('keywords.'.$this->current_page);      
+        $this->albums->destroy($keyword);
         
         return view('adminpages.form_close')->with([
             'headTitle' => $headTitle

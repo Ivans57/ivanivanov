@@ -3,7 +3,6 @@
 namespace App\Http\Repositories;
 
 use App\Http\Repositories\CommonRepository;
-use App;
 
 
 class AlbumLinkForView {
