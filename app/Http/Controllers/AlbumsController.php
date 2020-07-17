@@ -45,7 +45,6 @@ class AlbumsController extends Controller {
         //Localiztion gets applied only if we call some certaion method from any controller
         //!Need to think is it possible still to apply localization in constructor!
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
-        $headTitle= __('keywords.'.$this->current_page);
         
         $items_amount_per_page = 16;        
         $album_links = $this->albums->getAllAlbums($items_amount_per_page, 0);
@@ -59,7 +58,7 @@ class AlbumsController extends Controller {
             return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $album_links->lastPage(), $this->is_admin_panel);
         } else {
             return view('pages.albums')->with([
-                'headTitle' => $headTitle,
+                'headTitle' => __('keywords.'.$this->current_page),
                 'main_links' => $main_links,
                 'album_links' => $album_links,
                 'items_amount_per_page' => $items_amount_per_page

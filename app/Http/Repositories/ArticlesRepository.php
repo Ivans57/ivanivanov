@@ -39,8 +39,7 @@ class ArticlesRepository {
         } else {
             $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->where('is_visible', '=', 1)
                             ->orderBy('created_at','DESC')->paginate($items_amount_per_page);
-        }
-        
+        }      
         return $folder_links;
     }
     

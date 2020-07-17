@@ -34,8 +34,7 @@ class ArticlesController extends Controller
 
     public function index(){  
         
-        $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);     
-        $headTitle= __('keywords.'.$this->current_page);
+        $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
              
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 16;
@@ -48,7 +47,7 @@ class ArticlesController extends Controller
             return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $folders->lastPage(), $this->is_admin_panel);
         } else {
             return view('pages.folders')->with([
-                'headTitle' => $headTitle,
+                'headTitle' => __('keywords.'.$this->current_page),
                 'main_links' => $main_links,
                 'folders' => $folders,
                 'items_amount_per_page' => $items_amount_per_page

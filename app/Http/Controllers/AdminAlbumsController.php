@@ -39,7 +39,6 @@ class AdminAlbumsController extends Controller
     public function index() {
         //For some lines e.g. two lines below which are getting repeated need to apply inheritance mechanism!
         $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
-        $headTitle= __('keywords.'.$this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;       
@@ -55,7 +54,7 @@ class AdminAlbumsController extends Controller
             return view('adminpages.adminalbums')->with([
             'main_links' => $main_links->mainLinks,
             'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
-            'headTitle' => $headTitle,
+            'headTitle' => __('keywords.'.$this->current_page),
             'albums' => $albums,
             'items_amount_per_page' => $items_amount_per_page,
             //If we open just a root path of Albums we won't have any parent keyword,
@@ -76,18 +75,15 @@ class AdminAlbumsController extends Controller
         return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1);
     }
     
-    public function create($parent_keyword) {
-        
-        //Actually we do not need any head title as it is just a partial view
-        //We need it only to make the variable initialized. Othervise there will be error. 
-        $headTitle= __('keywords.'.$this->current_page);            
+    public function create($parent_keyword) {           
         if ($parent_keyword != "0") {
             $parent_info = \App\Album::select('id', 'album_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
-        }
-                      
+        }                     
         return view('adminpages.directory.create_and_edit_directory')->with([
-            'headTitle' => $headTitle,
+            //Actually we do not need any head title as it is just a partial view
+            //We need it only to make the variable initialized. Othervise there will be error.
+            'headTitle' => __('keywords.'.$this->current_page),
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
@@ -100,11 +96,7 @@ class AdminAlbumsController extends Controller
     }
     
     
-    public function store(CreateEditAlbumRequest $request) {
-        
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);         
+    public function store(CreateEditAlbumRequest $request) {      
         $this->albums->store($request);
         
         //We need to show an empty form first to close
@@ -113,22 +105,22 @@ class AdminAlbumsController extends Controller
         //javascript which closing the pop up window
         //and reloading a parent page.
         return view('adminpages.form_close')->with([
-            'headTitle' => $headTitle
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
     
-    public function edit($keyword, $parent_keyword) {
-        
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error. 
-        $headTitle= __('keywords.'.$this->current_page);                    
+    public function edit($keyword, $parent_keyword) {                 
         if ($parent_keyword != "0") {
             $parent_info = \App\Album::select('id', 'album_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
         }
         
         return view('adminpages.directory.create_and_edit_directory')->with([
-            'headTitle' => $headTitle,
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page),
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->album_name : null,
@@ -144,11 +136,7 @@ class AdminAlbumsController extends Controller
     
     //Possibly, field old_keyword is not needed as we are passing 
     //$keyword variable as the first argument and it is mentioned in routes file.
-    public function update($keyword, CreateEditAlbumRequest $request) {
-        
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);       
+    public function update($keyword, CreateEditAlbumRequest $request) {      
         $this->albums->update($keyword, $request);
 
         //We need to show an empty form first to close
@@ -157,33 +145,31 @@ class AdminAlbumsController extends Controller
         //javascript which closing the pop up window
         //and reloading a parent page.
         return view('adminpages.form_close')->with([
-            'headTitle' => $headTitle
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
     
     public function delete($keyword) {
         
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);
-            
         return view('adminpages.directory.delete_directory')->with([
-            'headTitle' => $headTitle,
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page),
             'keyword' => $keyword,
             //The line below is required for form path.
             'section' => 'albums',
             ]);
     }
     
-    public function destroy($keyword) {
-        
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);      
+    public function destroy($keyword) {    
         $this->albums->destroy($keyword);
         
         return view('adminpages.form_close')->with([
-            'headTitle' => $headTitle
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
 }

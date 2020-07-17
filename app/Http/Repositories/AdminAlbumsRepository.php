@@ -2,7 +2,7 @@
 
 namespace App\Http\Repositories;
 
-//We need the line below to use localization 
+//We need the line below to use localization. 
 use App;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;

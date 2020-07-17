@@ -28,14 +28,10 @@ class AdminPicturesController extends Controller
     }
     
     public function create() {
-        
-        //Actually we do not need any head title as it is just a partial view
-        //We need it only to make the variable initialized. Othervise there will be error. 
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        
         return view('adminpages.pictures.create_and_edit_picture')->with([
-            'headTitle' => $headTitle         
+            //Actually we do not need any head title as it is just a partial view
+            //We need it only to make the variable initialized. Othervise there will be error.
+            'headTitle' => __('keywords.'.$this->current_page)         
             ]);
     }
     
@@ -49,7 +45,7 @@ class AdminPicturesController extends Controller
         $new_name = rand() . '.' . $image->getClientOriginalExtension();
         
         $image->move(public_path('images/pages'), $new_name);
-        //File::mkdir($path);
+
         return back()->with('success', 'Image Uploaded Successfully')->with('path', $new_name);
     }
     

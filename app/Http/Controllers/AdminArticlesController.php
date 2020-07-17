@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
-use App\Http\Repositories\ArticlesRepository;
+use App\Http\Repositories\AdminArticlesRepository;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lowe case.
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 use App\Http\Requests\CreateEditFolderRequest;
 use App\Folder;
 
@@ -24,7 +23,7 @@ class AdminArticlesController extends Controller
     
     //There are some methods and variables which we will always use, so it will be better
     //if we call the and initialize in constructor
-    public function __construct(ArticlesRepository $articles) {
+    public function __construct(AdminArticlesRepository $articles) {
         
         $this->folders = $articles;
         $this->current_page = 'Articles';
@@ -41,7 +40,6 @@ class AdminArticlesController extends Controller
     public function index() {
         
         $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
-        $headTitle= __('keywords.'.$this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
@@ -57,7 +55,7 @@ class AdminArticlesController extends Controller
             return view('adminpages.adminfolders')->with([
                 'main_links' => $main_links->mainLinks,
                 'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
-                'headTitle' => $headTitle,
+                'headTitle' => __('keywords.'.$this->current_page),
                 'folders' => $folders,
                 'items_amount_per_page' => $items_amount_per_page,
                 //If we open just a root path of Folders, we won't have any parent keyword,
@@ -78,71 +76,30 @@ class AdminArticlesController extends Controller
         return $this->folders->showFolderView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1);
     }
     
-    /*public function create() {
-        
-        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
-        $headTitle= __('mainLinks.'.$this->current_page);
-        
-        return view('adminpages.adminfolders')->with([
-            'main_links' => $main_links->mainLinks,
-            'keywordsLinkStatus' => $main_links->keywordLinkIsActive,
-            'headTitle' => $headTitle
-            ]);
-    }*/
-    
-    public function create($parent_keyword) {
-        
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error. 
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        //We need this variable to find out which mode are we using Create or Edit
-        //and then to open a view accordingly with a chosen mode.
-        $create_or_edit = 'create';
-        
+    public function create($parent_keyword) {      
         if ($parent_keyword != "0") {
             $parent_info = \App\Folder::select('id', 'folder_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
         }
                       
         return view('adminpages.directory.create_and_edit_directory')->with([
-            'headTitle' => $headTitle,
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page),
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->folder_name : null,
-            'create_or_edit' => $create_or_edit,
+            //We need this variable to find out which mode are we using Create or Edit
+            //and then to open a view accordingly with a chosen mode.
+            'create_or_edit' => 'create',
             //The line below is required for form path.
             'section' => 'articles',
             ]);
     }
     
     
-    public function store(CreateEditFolderRequest $request) {
-        
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        $input = $request->all();
-        //We need to do the following if case because,
-        //if user doesn't choose any parent folder
-        //then parent folder id will be assigned 0 instead of NULL
-        //which will cause an error whilst saving a new record.
-        if ($input['included_in_folder_with_id'] == 0){
-            $input['included_in_folder_with_id'] = NULL;
-        }
-        
-        //We need the if below, because form's tickbox is not null only
-        //when it is ticked, otherwise it is null and the data from is_visible 
-        //field will be lost. In the database is_visible is not nullable field,
-        //and it keeps a boolean value.
-        if (isset($input['is_visible'])== NULL) {
-            $input['is_visible'] = 0;
-        }
-        
-        $input['created_at'] = Carbon::now();
-        $input['updated_at'] = Carbon::now();
-        Folder::create($input);
+    public function store(CreateEditFolderRequest $request) {           
+        $this->folders->store($request);
         
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
@@ -150,68 +107,36 @@ class AdminArticlesController extends Controller
         //javascript which is closing the pop up window
         //and reloading a parent page.
         return view('adminpages.form_close')->with([
-            'headTitle' => $headTitle
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
     
-    public function edit($keyword, $parent_keyword) {
-        
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error. 
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        //We need this variable to find out which mode are we using Create or Edit
-        //and then to open a view accordingly with a chosen mode.
-        $create_or_edit = 'edit';
-        
-        $edited_folder = Folder::where('keyword', '=', $keyword)->firstOrFail();
-        
+    public function edit($keyword, $parent_keyword) {            
         if ($parent_keyword != "0") {
             $parent_info = \App\Folder::select('id', 'folder_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
-        }
-        
+        }       
         return view('adminpages.directory.create_and_edit_directory')->with([
-            'headTitle' => $headTitle,
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page),
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->folder_name : null,
-            'create_or_edit' => $create_or_edit,
-            'edited_directory' => $edited_folder,
+            //We need this variable to find out which mode are we using Create or Edit
+            //and then to open a view accordingly with a chosen mode.
+            'create_or_edit' => 'edit',
+            'edited_directory' => Folder::where('keyword', '=', $keyword)->firstOrFail(),
             //The line below is required for form path.
             'section' => 'articles',
             ]);
         
     }
     
-    public function update($keyword, CreateEditFolderRequest $request) {
-        
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        $edited_folder = Folder::where('keyword', '=', $keyword)->firstOrFail();
-        
-        $input = $request->all();
-        //We need to do the following if case because,
-        //if user doesn't choose any parent folder
-        //then parent folder id will be assigned 0 instead of NULL
-        //which will cause an error when saving a new record.
-        if ($input['included_in_folder_with_id'] == 0){
-            $input['included_in_folder_with_id'] = NULL;
-        }      
- 
-        //We need the if below, because form's tickbox is not null only
-        //when it is ticked, otherwise it is null and the data from is_visible 
-        //field will be lost. In the database is_visible is not nullable field,
-        //and it keeps a boolean value.
-        if (isset($input['is_visible'])== NULL) {
-            $input['is_visible'] = 0;
-        }
-        
-        $input['updated_at'] = Carbon::now();
-        
-        $edited_folder->update($input);
+    public function update($keyword, CreateEditFolderRequest $request) {    
+        $this->folders->update($keyword, $request);
         
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
@@ -219,34 +144,29 @@ class AdminArticlesController extends Controller
         //javascript which closing the pop up window
         //and reloading a parent page.
         return view('adminpages.form_close')->with([
-            'headTitle' => $headTitle
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
     
-    public function delete($keyword) {
-        
-        //Actually we do not need any head title as it is just a partial view.
-        //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);
-        
+    public function delete($keyword) {   
         return view('adminpages.directory.delete_directory')->with([
-            'headTitle' => $headTitle,
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page),
             'keyword' => $keyword,
             //The line below is required for form path.
             'section' => 'articles',
             ]);
     }
     
-    public function destroy($keyword) {
-        
-        //Actually we do not need any head title as it is just a partial view. 
-        //We need it only to make the variable initialized. Othervise there will be an error.
-        $headTitle= __('keywords.'.$this->current_page);
-        
-        Folder::where('keyword', '=', $keyword)->delete();
-        
+    public function destroy($keyword) {     
+        Folder::where('keyword', '=', $keyword)->delete();       
         return view('adminpages.form_close')->with([
-            'headTitle' => $headTitle
+            //Actually we do not need any head title as it is just a partial view. 
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
 }
