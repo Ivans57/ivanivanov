@@ -91,7 +91,7 @@ class AdminAlbumsController extends Controller
             //and then to open a view accordingly with a chosen mode.
             'create_or_edit' => 'create',
             //The line below is required for form path.
-            'section' => 'albums',            
+            'section' => 'albums'            
             ]);
     }
     

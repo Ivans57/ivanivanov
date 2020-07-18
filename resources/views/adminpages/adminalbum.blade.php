@@ -20,16 +20,16 @@
         <h2>{{ $headTitle }}</h2>
     </div>    
     <div class="admin-panel-albums-add-picture-album-wrapper">
-        <div class="admin-panel-albums-add-picture-album-button">
-            <a href={{ App::isLocale('en') ? "/admin/pictures/create" : "/ru/admin/pictures/create" }} 
-                class="admin-panel-albums-add-picture-album-button-link" data-fancybox data-type="iframe">
+        <div class="admin-panel-albums-add-picture-button">
+            <a href={{ App::isLocale('en') ? "/admin/pictures/create/".$parent_keyword : "/ru/admin/pictures/create/".$parent_keyword }} 
+                class="admin-panel-albums-add-picture-button-link" data-fancybox data-type="iframe">
                    @lang('keywords.AddPicture')
                 </a>
         </div>
         @if ($nesting_level < 7)
-            <div class="admin-panel-albums-add-picture-album-button">
+            <div class="admin-panel-albums-add-album-button">
                 <a href={{ App::isLocale('en') ? "/admin/albums/create/".$parent_keyword : "/ru/admin/albums/create/".$parent_keyword }} 
-                class="admin-panel-albums-add-picture-album-button-link" data-fancybox data-type="iframe">
+                class="admin-panel-albums-add-album-button-link" data-fancybox data-type="iframe">
                    @lang('keywords.AddAlbum')
                 </a>
             </div>

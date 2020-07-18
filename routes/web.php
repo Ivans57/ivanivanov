@@ -189,11 +189,11 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/pictures/create', 'AdminPicturesController@create');
+    Route::get('admin/pictures/create/{parent_keyword}', 'AdminPicturesController@create');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/pictures/create', 'AdminPicturesController@create');
+    Route::get('admin/pictures/create/{parent_keyword}', 'AdminPicturesController@create');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
