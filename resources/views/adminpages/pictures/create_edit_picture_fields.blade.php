@@ -27,7 +27,15 @@
         </div> 
     </div>
     <div class="admin-panel-create-edit-directory-controls">
-        <div>{!! Form::file('image') !!}</div>
+        <div>{!! Form::button(Lang::get('keywords.Browse')."...", ['style' => "display:block; width:80px; height:25px; font-size:14px; float:left;", 
+            'id' => 'pseudo_image_select' ]) !!}
+            <!-- Need to shorten long file names with java script-->
+            <span id = 'pseudo_image_select_file_name' 
+                  style='display:inline-block; margin-left:10px; margin-top:3px; font-size:14px; width: 170px; text-overflow: ellipsis;'>
+                {{ Lang::get('keywords.NoImageChosen') }}
+            </span>
+        </div>
+        <div>{!! Form::file('image_select', ['id' => 'image_select', 'style' => 'display:none'] ) !!}</div>
     </div>
     <div class="admin-panel-create-edit-directory-controls">
         <div>
