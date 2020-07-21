@@ -43,8 +43,8 @@ class AdminPicturesController extends Controller
             //We need this variable to find out which mode are we using Create or Edit
             //and then to open a view accordingly with a chosen mode.
             'create_or_edit' => 'create',
-            //The line below is required for form path.
-            'section' => 'pictures'
+            //The line below is required for parent search and select and is being used in javascript.
+            'section' => 'albums'
             ]);
     }
     

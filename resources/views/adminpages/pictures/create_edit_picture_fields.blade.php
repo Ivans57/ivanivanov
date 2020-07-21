@@ -1,5 +1,7 @@
 <div class='admin-panel-create-edit-directory'>
     {{ $old_keyword }}
+    <!-- In case with pictures always have to be null. As we are using the same javascript with directories and pictures,
+    we have to keep this field to avoid an error (need to try to get rid of it.)-->
     {!! Form::hidden('included_in_album_with_id', 
                     $parent_id, ['id' => 'included_in_directory_with_id']) !!}              
     <div class="admin-panel-create-edit-directory-controls">              
@@ -55,7 +57,7 @@
     </div>
     <div class="admin-panel-create-edit-directory-controls">
         {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
-        'id' => 'directory_submit_button']) !!}
+        'id' => 'button_submit']) !!}
         {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
             'id' => 'button_cancel' ]) !!}
     </div>           

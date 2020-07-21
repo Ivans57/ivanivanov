@@ -46,7 +46,7 @@
     </div>
     <div class="admin-panel-create-edit-directory-controls">
         {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
-        'id' => 'directory_submit_button']) !!}
+        'id' => 'button_submit']) !!}
         {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
             'id' => 'button_cancel' ]) !!}
     </div>           

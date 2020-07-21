@@ -6,14 +6,14 @@
         {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/".$section."/" : "/ru/admin/".$section."/",
                          'data-localization' => App::isLocale('en') ? "en" : "ru",
                          'data-section' => $section,
-                         'id' => 'admin_panel_create_edit_directory_form' ]) !!}
+                         'id' => 'admin_panel_create_edit_entity_form' ]) !!}
     @else
         {!! Form::model($edited_directory, [ 'method' => 'PUT', 
                                          'url' => App::isLocale('en') ? "/admin/".$section."/".$edited_directory->keyword : 
                                          "/ru/admin/".$section."/".$edited_directory->keyword,
                                          'data-localization' => App::isLocale('en') ? "en" : "ru",
                                          'data-section' => $section,
-                                         'id' => 'admin_panel_create_edit_directory_form' ]) !!}
+                                         'id' => 'admin_panel_create_edit_entity_form' ]) !!}
     @endif
         @component('adminpages/directory/create_edit_directory_fields', ['parent_id' => $parent_id, 
                                                                         'parent_name' => $parent_name, 'section' => $section])
@@ -31,7 +31,7 @@
     <!-- Scripts -->
     @component('pages/body_scripts')
         @slot('js')
-            <script type="text/javascript" src="{{ URL::asset('js/directory_create_edit.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::asset('js/parent_search_and_select.js') }}"></script>
             <script type="text/javascript" src="{{ URL::asset('js/pop_up_window_cancel.js') }}"></script>
         @endslot
     @endcomponent

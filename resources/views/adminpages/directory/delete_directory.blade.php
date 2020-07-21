@@ -1,9 +1,7 @@
 @extends('partial')
 
 @section('partialcontent')
-    {!! Form::open([ 'method' => 'DELETE', 
-    'url' => App::isLocale('en') ? "/admin/".$section."/".$keyword : "/ru/admin/".$section."/".$keyword, 
-    'id' => 'admin_panel_delete_directory_form' ]) !!}        
+    {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/".$section."/".$keyword : "/ru/admin/".$section."/".$keyword ]) !!}        
         <div class='admin-panel-delete-directory'>
             {!! Form::hidden('keyword', $keyword) !!}
             <div class="admin-panel-delete-directory-message"><h3>

@@ -21,12 +21,12 @@ $( document ).ready(function() {
     var button_search = document.getElementById('parent_directory_search_button');
     var button_select_from_dropdown_list = document.getElementById('parent_directory_select_from_dropdown_list_button');
     var old_keyword = document.getElementById('old_keyword');
-    var parent_id =document.getElementById('included_in_directory_with_id');
+    var parent_id = document.getElementById('included_in_directory_with_id');
     var directory_list_container =document.getElementById('directory_list_container');
-    var form = document.getElementById('admin_panel_create_edit_directory_form');
+    var form = document.getElementById('admin_panel_create_edit_entity_form');
     
     //We need to make an event on this as onsubmit function is not working properly.
-    var button_submit = document.getElementById('directory_submit_button');
+    var button_submit = document.getElementById('button_submit');
 
     //We need to make this event as onsubmit function is not working properly.
     if (button_submit !== null) {   

@@ -4,18 +4,18 @@
     @include('adminpages.create_edit_errors')
     @if ($create_or_edit==='create')
         {!! Form::open([ 'method' => 'POST', 
-                         'url' => App::isLocale('en') ? "/admin/".$section."/" : "/ru/admin/".$section."/",
+                         'url' => App::isLocale('en') ? "/admin/pictures/" : "/ru/admin/pictures/",
                          'data-localization' => App::isLocale('en') ? "en" : "ru",
                          'data-section' => $section,
-                         'id' => 'admin_panel_create_edit_directory_form',
+                         'id' => 'admin_panel_create_edit_entity_form',
                          'enctype' => 'multipart/form-data' ]) !!}
     @else
         {!! Form::model($edited_directory, [ 'method' => 'PUT', 
-                                             'url' => App::isLocale('en') ? "/admin/".$section."/".$edited_picture->keyword : 
-                                             "/ru/admin/".$section."/".$edited_picture->keyword,
+                                             'url' => App::isLocale('en') ? "/admin/pictures/".$edited_picture->keyword : 
+                                             "/ru/admin/pictures/".$edited_picture->keyword,
                                              'data-localization' => App::isLocale('en') ? "en" : "ru",
                                              'data-section' => $section,
-                                             'id' => 'admin_panel_create_edit_directory_form' ]) !!}
+                                             'id' => 'admin_panel_create_edit_entity_form' ]) !!}
     @endif
         @component('adminpages/pictures/create_edit_picture_fields', ['parent_id' => $parent_id, 
                                                                       'parent_name' => $parent_name, 'section' => $section])
@@ -33,8 +33,8 @@
     <!-- Scripts -->
     @component('pages/body_scripts')
         @slot('js')
-            <script type="text/javascript" src="{{ URL::asset('js/directory_create_edit.js') }}"></script>
-            <script type="text/javascript" src="{{ URL::asset('js/temporary.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::asset('js/parent_search_and_select.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::asset('js/picture_select.js') }}"></script>
             <script type="text/javascript" src="{{ URL::asset('js/pop_up_window_cancel.js') }}"></script>
         @endslot
     @endcomponent
