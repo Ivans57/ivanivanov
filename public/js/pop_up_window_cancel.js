@@ -1,15 +1,12 @@
-/*For partial view in fancybox window we need to make separate scripts file.
-  Otherwise scipts are not working properly.*/
-/*We need the script below to make the button submitting forms.
-  I can not use submit input in that particular case, because 
-  "word-wrap: break-word" doesn't work for submit input. It works
-  only for buttons*/
-
-
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 $( document ).ready(function() {   
     //Few lines below are made for cancel button, which is closing opened window 
     //without deleting anything.
-    var button_cancel = document.getElementById('directory_cancel_button');
+    var button_cancel = document.getElementById('button_cancel');
     
     //We actually don't need the check below, but I let it just in case
     if (button_cancel !== null) {   
@@ -20,4 +17,3 @@ $( document ).ready(function() {
         };
     }
 });
-

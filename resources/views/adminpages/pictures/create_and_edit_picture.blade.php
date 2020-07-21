@@ -35,6 +35,7 @@
         @slot('js')
             <script type="text/javascript" src="{{ URL::asset('js/directory_create_edit.js') }}"></script>
             <script type="text/javascript" src="{{ URL::asset('js/temporary.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::asset('js/pop_up_window_cancel.js') }}"></script>
         @endslot
     @endcomponent
     <!-- End of scripts -->

@@ -10,18 +10,16 @@
             <div class="admin-panel-keywords-delete-keyword-controls">
                 {!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-keywords-delete-keyword-controls-button' ]) !!}               
                 {!! Form::button(Lang::get('keywords.Cancel'), 
-                ['class' => 'admin-panel-keywords-delete-keyword-controls-button', 'id' => 'keywords_button_cancel']) !!}
+                ['class' => 'admin-panel-keywords-delete-keyword-controls-button', 'id' => 'button_cancel']) !!}
             </div>
-        </div>
-    
-    {!! Form::close() !!}
-   
+        </div>   
+    {!! Form::close() !!}   
 @stop
 @section('scripts')
     <!-- Scripts -->
     @component('pages/body_scripts')
         @slot('js')
-            <script type="text/javascript" src="{{ URL::asset('js/keyword_create_edit_delete.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::asset('js/pop_up_window_cancel.js') }}"></script>
         @endslot
     @endcomponent
     <!-- End of scripts -->

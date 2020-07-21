@@ -57,6 +57,6 @@
         {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
         'id' => 'directory_submit_button']) !!}
         {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
-            'id' => 'directory_cancel_button' ]) !!}
+            'id' => 'button_cancel' ]) !!}
     </div>           
 </div>

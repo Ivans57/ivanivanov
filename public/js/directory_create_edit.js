@@ -15,19 +15,6 @@ $( document ).ready(function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-   
-    //Few lines below are made for cancel button, which is closing opened window 
-    //without saving anything.
-    var button_cancel = document.getElementById('directory_cancel_button');
-    
-    //We actually don't need the check below, but I let it just in case
-    if (button_cancel !== null) {   
-        button_cancel.onclick = function() {
-            if (typeof window.parent.$.fancybox!=='undefined'){
-                window.parent.$.fancybox.close();
-            }
-        };
-    }
     
     //Below we are making a functionality for Search button
     var parent_search =document.getElementById('included_in_directory_with_name');

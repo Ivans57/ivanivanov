@@ -31,7 +31,7 @@ to translate keywords via javascript as I am taking my keywords from the databas
                 <div class="admin-panel-keywords-create-edit-keyword-controls">
                     {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button']) !!}
                     {!! Form::button(Lang::get('keywords.Cancel'), 
-                    ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button', 'id' => 'keywords_button_cancel']) !!}
+                    ['class' => 'admin-panel-keywords-create-edit-keyword-controls-button', 'id' => 'button_cancel']) !!}
                 </div>
             </div>
     
@@ -42,7 +42,7 @@ to translate keywords via javascript as I am taking my keywords from the databas
     <!-- Scripts -->
     @component('pages/body_scripts')
         @slot('js')
-            <script type="text/javascript" src="{{ URL::asset('js/keyword_create_edit_delete.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::asset('js/pop_up_window_cancel.js') }}"></script>
         @endslot
     @endcomponent
     <!-- End of scripts -->
