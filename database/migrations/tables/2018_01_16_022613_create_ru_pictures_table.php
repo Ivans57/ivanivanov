@@ -20,7 +20,7 @@ class CreateRuPicturesTable extends Migration
             $table->integer('album_id')->unsigned();
             $table->foreign('album_id')->references('id')->on('ru_albums')->onDelete('cascade');
             $table->timestamps();
-            $table->string('file_extension');
+            $table->string('file_name');
         });
     }
 
