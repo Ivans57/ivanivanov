@@ -17,10 +17,11 @@ class CreateEnPicturesTable extends Migration
             $table->increments('id');
             $table->string('keyword', 50)->unique();
             $table->string('picture_caption', 50);
-            $table->integer('album_id')->unsigned();
-            $table->foreign('album_id')->references('id')->on('en_albums')->onDelete('cascade');
+            $table->integer('included_in_album_with_id')->unsigned();
+            $table->foreign('included_in_album_with_id')->references('id')->on('en_albums')->onDelete('cascade');
             $table->timestamps();
             $table->string('file_name');
+            $table->boolean('is_visible');
         });
     }
 
@@ -32,8 +33,8 @@ class CreateEnPicturesTable extends Migration
     public function down()
     {
         Schema::table('en_pictures', function (Blueprint $table) {
-            $table->dropForeign('en_pictures_album_id_foreign');
-            $table->dropColumn('album_id');
+            $table->dropForeign('en_pictures_included_in_album_with_id_foreign');
+            $table->dropColumn('included_in_album_with_id');
         });
         Schema::dropIfExists('en_pictures');
     }

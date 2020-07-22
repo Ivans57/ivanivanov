@@ -79,12 +79,12 @@ class AlbumsRepository {
         //Here we are calling method which will merge all pictures and albums from selected album into one array
         if ($including_invisible) {
             $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', 
-                                        $album->id)->orderBy('created_at','DESC')->get(), \App\Picture::where('album_id', $album->id)
+                                        $album->id)->orderBy('created_at','DESC')->get(), \App\Picture::where('included_in_album_with_id', $album->id)
                                         ->orderBy('created_at','DESC')->get());
         } else {
             $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', 
                                         $album->id)->where('is_visible', '=', 1)->orderBy('created_at','DESC')->get(), 
-                                        \App\Picture::where('album_id', $album->id)->orderBy('created_at','DESC')->get());
+                                        \App\Picture::where('included_in_album_with_id', $album->id)->orderBy('created_at','DESC')->get());
         }
         //As we don't need to show all the items from the array above on the 
         //same page, we will take only first 20 items to show

@@ -12,7 +12,7 @@ class Picture extends Model {
     
     protected $table;
     
-    protected $fillable = ['keyword', 'picture_caption'];
+    protected $fillable = ['keyword', 'picture_caption', 'included_in_folder_with_id', 'created_at', 'updated_at', 'file_name', 'is_visible'];
     
     //Here we are making a method which according to a current language 
     //will select a proper table.

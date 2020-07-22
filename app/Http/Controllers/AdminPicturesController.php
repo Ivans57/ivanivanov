@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+//We need the line below to use localization. 
+use App;
+use Carbon\Carbon;
+use App\Picture;
 use App\Http\Repositories\CommonRepository;
 use Illuminate\Http\Request;
 
@@ -50,16 +54,41 @@ class AdminPicturesController extends Controller
     
     public function store(Request $request) {
         $this->validate($request, [
-            'select_file'  => 'required|image|mimes:jpg,jpeg,png,gif|max:2048'
+            'image_select'  => 'required|image|mimes:jpg,jpeg,png,gif|max:2048'
             ]);
 
-        $image = $request->file('select_file');
-
+        if (App::isLocale('en')) {
+            $root_path = storage_path('app/public/albums/en');
+        } else {
+            $root_path = storage_path('app/public/albums/ru');
+        }
+        
+        $image = $request->file('image_select');
         $new_name = rand() . '.' . $image->getClientOriginalExtension();
         
-        $image->move(public_path('images/pages'), $new_name);
+        $input = $request->all();      
+        /*if ($input['included_in_album_with_id'] == 0) {
+            $input['included_in_album_with_id'] = NULL;
+        }*/
+        $input['included_in_album_with_id'] = 464;
+        if (isset($input['is_visible'])== NULL) {
+            $input['is_visible'] = 0;
+        }       
+        $input['created_at'] = Carbon::now();
+        $input['updated_at'] = Carbon::now();
+        $input['file_name'] = $new_name;
+        Picture::create($input);
+        
+            
+        $image->move($root_path, $new_name);
 
-        return back()->with('success', 'Image Uploaded Successfully')->with('path', $new_name);
+        //The line below is left only for example
+        //return back()->with('success', 'Image Uploaded Successfully')->with('path', $new_name);
+        return view('adminpages.form_close')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page)
+            ]);
     }
     
 }

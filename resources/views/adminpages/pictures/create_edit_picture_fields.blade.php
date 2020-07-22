@@ -45,9 +45,9 @@
     </div>                
     <div class="admin-panel-create-edit-directory-regulations"><span>@lang('keywords.AlbumKeywordRegulations')</span></div>
     <div class="admin-panel-create-edit-directory-controls">
-        <div>{!! Form::label('album_name', Lang::get('keywords.AlbumName').':', ['class' => 'admin-panel-create-edit-directory-controls-label']) !!}
+        <div>{!! Form::label('picture_caption', Lang::get('keywords.AlbumName').':', ['class' => 'admin-panel-create-edit-directory-controls-label']) !!}
         </div>
-        <div>{!! Form::text('album_name', null, ['class' => 'admin-panel-create-edit-directory-controls-input' ]) !!}</div>
+        <div>{!! Form::text('picture_caption', null, ['class' => 'admin-panel-create-edit-directory-controls-input' ]) !!}</div>
     </div>
     <div class="admin-panel-create-edit-directory-controls">
         {!! Form::label('is_visible', Lang::get('keywords.IsVisible').':', ['class' => 'admin-panel-create-edit-directory-controls-label']) !!}
@@ -55,7 +55,7 @@
     </div>
     <div class="admin-panel-create-edit-directory-controls">
         {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
-        'id' => 'button_submit']) !!}
+        'name' => 'upload', 'id' => 'button_submit' ]) !!}
         {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
             'id' => 'button_cancel' ]) !!}
     </div>           
