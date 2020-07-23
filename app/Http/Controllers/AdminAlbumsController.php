@@ -23,8 +23,7 @@ class AdminAlbumsController extends Controller
     
     //There are some methods and variables which we will always use, so it will be better
     //if we call the and initialize in constructor
-    public function __construct(AdminAlbumsRepository $albums) {
-        
+    public function __construct(AdminAlbumsRepository $albums) {       
         $this->albums = $albums;
         $this->current_page = 'Albums';
         //The line below is making an object of repository which contains

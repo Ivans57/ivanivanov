@@ -45,7 +45,7 @@
     </div>                
     <div class="admin-panel-create-edit-directory-regulations"><span>@lang('keywords.AlbumKeywordRegulations')</span></div>
     <div class="admin-panel-create-edit-directory-controls">
-        <div>{!! Form::label('picture_caption', Lang::get('keywords.AlbumName').':', ['class' => 'admin-panel-create-edit-directory-controls-label']) !!}
+        <div>{!! Form::label('picture_caption', Lang::get('keywords.PictureCaption').':', ['class' => 'admin-panel-create-edit-directory-controls-label']) !!}
         </div>
         <div>{!! Form::text('picture_caption', null, ['class' => 'admin-panel-create-edit-directory-controls-input' ]) !!}</div>
     </div>

@@ -125,7 +125,7 @@ class AdminAlbumsRepository extends AlbumsRepository {
         $album_to_remove->delete();
     }
     
-    //This function is needed only to call function get_full_directory_path from AlbumParentsRepository.
+    //This function is required only to call function get_full_directory_path from AlbumParentsRepository.
     //It is needed to form a path for newly created folder for albums and pictures in a file system.
     public function getDirectoryPath($directory_id) {
         $to_get_full_directory_path = new AlbumParentsRepository();
