@@ -93,6 +93,7 @@ return [
     'album_keyword_uniqueness_check' => 'Ключевое слово альбома не уникально.',
     'folder_keyword_uniqueness_check' => 'Ключевое слово папки не уникально.',
     'keyword_uniqueness_check' => 'Ключевое слово не уникально.',
+    'picture_keyword_uniqueness_check' => 'Ключевое слово изображения не уникально.',
 
     /*
     |--------------------------------------------------------------------------
@@ -109,6 +110,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'image_select' => [
+            'required' => 'Пожалуйста, выберите изображение.',
+            'image' => 'Выбранный файл не является изображением.',
+            'mimes' => 'Загружаемый файл может иметь только расширения: jpg, jpeg, png, gif.',
+            'max' => 'Загружаемое изображение не должно превышать :max килобайт.',
+        ],
     ],
 
     /*
@@ -123,6 +130,6 @@ return [
     */
 
     'attributes' => ['keyword' => __('keywords.Keyword'), 'text' => __('keywords.Text'), 'album_name' => __('keywords.AlbumName'),
-                    'folder_name' => __('keywords.FolderName'),],
+                    'folder_name' => __('keywords.FolderName'), 'picture_caption' => __('keywords.PictureCaption')],
 
 ];

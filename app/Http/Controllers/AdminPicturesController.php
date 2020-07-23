@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AdminPicturesRepository;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreatePictureRequest;
 
 class AdminPicturesController extends Controller
 {
@@ -50,10 +50,7 @@ class AdminPicturesController extends Controller
             ]);
     }
     
-    public function store(Request $request) {
-        $this->validate($request, [
-            'image_select'  => 'required|image|mimes:jpg,jpeg,png,gif|max:2048'
-            ]);
+    public function store(CreatePictureRequest $request) {
         
         $this->pictures->store($request);
         

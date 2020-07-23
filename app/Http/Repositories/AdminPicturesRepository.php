@@ -12,7 +12,6 @@ class AdminPicturesRepository {
     
     //Stores an album in database and saves its folder in a File System.
     public function store($request) {
-        //$input = $request->all();
         $new_name = $this->save_picture_in_file_system($request);
         $this->create_database_record($request, $new_name);       
     }
@@ -55,5 +54,18 @@ class AdminPicturesRepository {
         $to_get_full_directory_path = new AlbumParentsRepository();
         $full_path = $to_get_full_directory_path->get_full_directory_path($directory_id, "", "keyword");       
         return $full_path;
+    }
+    
+    //We need this to make a check for keyword uniqueness when adding a new
+    //picture keyword or editing existing.
+    public function get_all_pictures_keywords() {
+        
+        $all_pictures_keywords = \App\Picture::all('keyword');       
+        $pictures_keywords_array = array();
+        
+        foreach ($all_pictures_keywords as $picture_keyword) {
+            array_push($pictures_keywords_array, $picture_keyword->keyword);
+        }    
+        return $pictures_keywords_array;   
     }
 }

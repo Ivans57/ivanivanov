@@ -93,6 +93,7 @@ return [
     'album_keyword_uniqueness_check' => 'Album keyword is not unique.',
     'folder_keyword_uniqueness_check' => 'Folder keyword is not unique.',
     'keyword_uniqueness_check' => 'The keyword is not unique.',
+    'picture_keyword_uniqueness_check' => 'Picture keyword is not unique.',
 
     /*
     |--------------------------------------------------------------------------
@@ -109,6 +110,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'image_select' => [
+            'required' => 'Please choose a picture.',
+            'image' => 'Chosen file is not an image.',
+            'mimes' => 'The uploaded file must be a file of type: jpg, jpeg, png, gif.',
+            'max' => 'The uploaded picture may not be greater than :max kilobytes.',
+        ],
     ],
 
     /*
@@ -123,6 +130,6 @@ return [
     */
 
     'attributes' => ['keyword' => __('keywords.Keyword'), 'text' => __('keywords.Text'), 'album_name' => __('keywords.AlbumName'), 
-                    'folder_name' => __('keywords.FolderName'),],
+                    'folder_name' => __('keywords.FolderName'), 'picture_caption' => __('keywords.PictureCaption')],
 
 ];

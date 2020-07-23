@@ -24,8 +24,9 @@ class CreatePictureRequest extends FormRequest
     public function rules()
     {
         return [
-            'keyword' => 'required|bail|prohibited_characters|space_check|album_keyword_uniqueness_check:'.$this->request->get('old_keyword').'|max:50',
-            'album_name' => 'required|max:50'
+            'image_select'  => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'keyword' => 'required|bail|prohibited_characters|space_check|picture_keyword_uniqueness_check:'.$this->request->get('old_keyword').'|max:50',
+            'picture_caption' => 'required|max:50'
         ];
     }
 }
