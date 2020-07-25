@@ -2,6 +2,8 @@
 
 namespace App\Http\Repositories;
 
+//We need the line below to use localization. 
+use App;
 use App\Http\Repositories\CommonRepository;
 
 
@@ -14,11 +16,11 @@ class AlbumAndPictureForView {
     public $keyWord;
     public $caption;
     public $type;
-    public $fileExtension;
+    public $fileName;
 }
 
 class AlbumAndPictureForViewFullInfoForPage {
-    public $album_name;
+    public $path_to_file;
     public $head_title;
     public $albumsAndPictures;
     public $albumParents;
@@ -104,8 +106,19 @@ class AlbumsRepository {
             $albums_and_pictures_full_info->albumParents = array_reverse($this->get_albums_parents_for_view($album
                                                             ->included_in_album_with_id));
         }
+        $to_get_album_path = new AdminPicturesRepository();
         
-        $albums_and_pictures_full_info->album_name = $album->keyword;
+        //The root path will look like like this, because we are getting pictures 
+        //from storage folder via link in public folder.
+        if (App::isLocale('en')) {
+            $root_path = 'storage/albums/en';
+        } else {
+            $root_path = 'storage/albums/ru';
+        }
+        
+        $file_path = $to_get_album_path->getDirectoryPath($album->id);
+        $albums_and_pictures_full_info->path_to_file = $root_path.$file_path."/";
+        
         $albums_and_pictures_full_info->head_title = $album->album_name;
         $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_full);
 
@@ -145,8 +158,7 @@ class AlbumsRepository {
             $albums_and_pictures_full[$i] = new AlbumAndPictureForView();
             $albums_and_pictures_full[$i]->keyWord = $included_albums[$i]->keyword;
             $albums_and_pictures_full[$i]->caption = $included_albums[$i]->album_name;
-            $albums_and_pictures_full[$i]->type = 'album';
-            //$albums_and_pictures_full[$i]->fileExtension = 0;   
+            $albums_and_pictures_full[$i]->type = 'album';   
         }
                         
         for($i = $included_albums_count; $i < count($pictures)+$included_albums_count; $i++) {
@@ -154,7 +166,7 @@ class AlbumsRepository {
             $albums_and_pictures_full[$i]->keyWord = $pictures[$i-$included_albums_count]->keyword;
             $albums_and_pictures_full[$i]->caption = $pictures[$i-$included_albums_count]->picture_caption;
             $albums_and_pictures_full[$i]->type = 'picture';
-            $albums_and_pictures_full[$i]->fileExtension = $pictures[$i-$included_albums_count]->file_extension;
+            $albums_and_pictures_full[$i]->fileName = $pictures[$i-$included_albums_count]->file_name;
         }
         
         return $albums_and_pictures_full;
@@ -192,7 +204,7 @@ class AlbumsRepository {
                 'main_links' => $main_links->mainLinks,
                 'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
                 'headTitle' => $albums_and_pictures_full_info->head_title,
-                'albumName' => $albums_and_pictures_full_info->album_name,           
+                'pathToFile' => $albums_and_pictures_full_info->path_to_file,           
                 'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
                 'parents' => $albums_and_pictures_full_info->albumParents,
                 'nesting_level' => $albums_and_pictures_full_info->albumNestingLevel,
@@ -206,7 +218,7 @@ class AlbumsRepository {
             return view('pages.album')->with([
                 'main_links' => $main_links,
                 'headTitle' => $albums_and_pictures_full_info->head_title,
-                'albumName' => $albums_and_pictures_full_info->album_name,           
+                'pathToFile' => $albums_and_pictures_full_info->path_to_file,           
                 'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
                 'parents' => $albums_and_pictures_full_info->albumParents,
                 'pagination_info' => $albums_and_pictures_full_info->paginator_info,

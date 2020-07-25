@@ -40,11 +40,15 @@
             <div class="admin-panel-albums-pictures-and-albums-wrapper">          
                 @foreach ($albums_and_pictures as $album_or_picture)   
                     <div class="admin-panel-albums-picture-and-album-item">
-                        <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
-                            <img src="{{ $album_or_picture->type == 'album' ? 
-                                URL::asset('images/icons/album_folder.png') : URL::asset('images/pages/albums/'.$albumName.'/'.$album_or_picture->keyWord.$album_or_picture->fileExtension) }}"
-                                 class="admin-panel-albums-picture-and-album-picture">
-                            <span class="admin-panel-albums-picture-and-album-title">{{ $album_or_picture->caption }}</span>
+                        <div class="admin-panel-albums-picture-and-album-picture-wrapper">
+                            <div {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-picture' : 'class=admin-panel-albums-pictures-picture' }}>
+                                <img src="{{ $album_or_picture->type == 'album' ? 
+                                URL::asset('images/icons/album_folder.png') : URL::asset($pathToFile.$album_or_picture->fileName) }}"
+                                 {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-picture-image' : 'class=admin-panel-albums-pictures-picture-image' }}>
+                            </div>
+                        </div>
+                        <div {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-title' : 'class=admin-panel-albums-pictures-title' }}>
+                            <span {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-title-text' : 'class=admin-panel-albums-pictures-title-text' }} >{{ $album_or_picture->caption }}</span>
                         </div>
                         <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
                             <div class="admin-panel-albums-picture-and-album-control-buttons">
@@ -74,7 +78,7 @@
                                 @elseif ($album_or_picture->type == 'picture') 
                                     <div class="admin-panel-albums-picture-and-album-control-button">
                                          <!--We need class admin-panel-albums-picture-control-button-link-open only for identification in javascript -->
-                                        <a href='{{ URL::asset('images/pages/albums/'.$albumName.'/'.$album_or_picture->keyWord.$album_or_picture->fileExtension) }}' 
+                                        <a href='{{ URL::asset($pathToFile.$album_or_picture->fileName) }}' 
                                            data-fancybox="group" data-caption="{{ $album_or_picture->caption }}" title="{{ $album_or_picture->caption }}" 
                                            class="admin-panel-albums-picture-and-album-control-button-link
                                            admin-panel-albums-picture-control-button-link-open">@lang('keywords.Open')</a>

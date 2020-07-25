@@ -37,12 +37,11 @@
                         </div>
                     @else
                         <div class="album-picture">
-                            <a class="album_picture_link" 
-                               href="{{ URL::asset('images/pages/albums/'.$albumName.'/'.$album_or_picture->keyWord.$album_or_picture->fileExtension) }}" 
+                            <a class="album-picture-link" 
+                               href="{{ URL::asset($pathToFile.$album_or_picture->fileName) }}" 
                                data-fancybox="group" data-caption="{{ $album_or_picture->caption }}" title="{{ $album_or_picture->caption }}">
-                                <img src="{{ URL::asset('images/pages/albums/'.$albumName.'/small/'
-                                            .$album_or_picture->keyWord.$album_or_picture->fileExtension) }}" 
-                                            alt="{{ $album_or_picture->caption }}" class="album-picture-big">
+                                <img src="{{ URL::asset($pathToFile.$album_or_picture->fileName) }}" 
+                                            alt="{{ $album_or_picture->caption }}" class="album-picture-link-picture">
                             </a>
                         </div>
                     @endif

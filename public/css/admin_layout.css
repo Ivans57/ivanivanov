@@ -277,46 +277,85 @@ main {
 .admin-panel-albums-picture-and-album-item {
     display: flex;
     justify-content: space-between;
-    min-height: 40px;
+    height: 40px;
     background-color: #cccccc;
     padding-left: 5px;
     padding-right: 5px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-title-and-picture-wrapper {
-    /*As we might have different lenght description, this wrapper should not have fixed width value*/
-    max-width: 380px;
-    overflow-wrap: break-word;
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-albums-title,
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-pictures-title {
+    display: inline-block;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-title-and-picture-wrapper 
-.admin-panel-albums-picture-and-album-picture {
-    /*Pictures' width should have fixed value in px, as wrapper's width value must be flexible*/
-    width: 35px;
-    height: 35px;
-    margin-bottom: 0px;
-    margin-top: 3px;
-    vertical-align: -7px;
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-albums-title,
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-pictures-title {
+    margin-left: 5px;
+    height: 40px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-title-and-picture-wrapper 
-.admin-panel-albums-picture-and-album-title {
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-albums-title .admin-panel-albums-albums-title-text,
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-pictures-title .admin-panel-albums-pictures-title-text {
+    display: inline-block;
     font-size: 15px;
-    margin-top: 5px;
+    margin-top: 13px;
+    margin-left: -180px;
+    
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item:hover .admin-panel-albums-albums-title .admin-panel-albums-albums-title-text,
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item:hover .admin-panel-albums-pictures-title .admin-panel-albums-pictures-title-text {
+    font-weight: bold;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-wrapper {
+    width: 40px;
+    height: 40px;
+    overflow-wrap: break-word;
+    /*We need this for pictures which cannot fit container. Part which cannot fit is becoming invisible. 
+    In this case pictures keep their proper view.*/
+    overflow: hidden;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-wrapper .admin-panel-albums-albums-picture,
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-wrapper .admin-panel-albums-pictures-picture {
+    display: inline-block;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-wrapper .admin-panel-albums-albums-picture,
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-wrapper .admin-panel-albums-pictures-picture {
+    width: 40px;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-wrapper .admin-panel-albums-albums-picture
+.admin-panel-albums-albums-picture-image,
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-wrapper .admin-panel-albums-pictures-picture
+.admin-panel-albums-pictures-picture-image {
+    width: 90%;
+    height: 90%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    vertical-align: -7px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-item:hover {
     filter: brightness(0.97);
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper 
-.admin-panel-albums-picture-and-album-title {
-    font-weight: bold;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 

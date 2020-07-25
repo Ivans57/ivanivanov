@@ -84,7 +84,7 @@ $( document ).ready(function() {
         protect         : true
     });
     
-    $(".album_picture_link").fancybox({
+    $(".album-picture-link").fancybox({
         loop            : false,
         protect         : true,
         transitionEffect	: 'slide',

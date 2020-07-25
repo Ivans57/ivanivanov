@@ -145,6 +145,16 @@ class CustomValidationServiceProvider extends ServiceProvider
             return true;
             }
         });
+        
+        Validator::extend('item_has_directory', function ($attribute, $value, $parameters, $validator) {
+            //It is not allowed to store any picture in a root album (out of any album).
+            //Below is a check for it. 
+            if ($value == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        });
     }
     
     /**

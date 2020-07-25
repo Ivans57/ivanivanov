@@ -94,6 +94,7 @@ return [
     'folder_keyword_uniqueness_check' => 'Folder keyword is not unique.',
     'keyword_uniqueness_check' => 'The keyword is not unique.',
     'picture_keyword_uniqueness_check' => 'Picture keyword is not unique.',
+    'item_has_directory' => 'Picture keyword is not unique.',
 
     /*
     |--------------------------------------------------------------------------
@@ -115,6 +116,9 @@ return [
             'image' => 'Chosen file is not an image.',
             'mimes' => 'The uploaded file must be a file of type: jpg, jpeg, png, gif.',
             'max' => 'The uploaded picture may not be greater than :max kilobytes.',
+        ],
+        'included_in_album_with_id' => [
+            'item_has_directory' => 'Picture should be saved within an album.',
         ],
     ],
 

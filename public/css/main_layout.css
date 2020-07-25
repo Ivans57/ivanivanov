@@ -1092,16 +1092,20 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     margin-right: 10px;
     margin-left: 10px;
     margin-top: 10px;
-    margin-bottom: 10px;   
+    margin-bottom: 10px;
+    max-height: 130px;
+    max-width: 130px;
+    overflow: hidden;
 }
 
-.albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture img {
+.albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture .album-picture-link .album-picture-link-picture {
     box-shadow: 0 0 2px 0px grey;
+    width: 90%;
 }
 
-.albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture img:hover {
+.albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture .album-picture-link .album-picture-link-picture:hover {
     box-shadow: 0 0 0px 0px grey;
-    filter: brightness(115%);
+    filter: brightness(105%);
 }
 
 .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title .album-folder-title {
