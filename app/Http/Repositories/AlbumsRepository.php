@@ -73,68 +73,45 @@ class AlbumsRepository {
         //to give us a collection of items. But in this case as keyword is unique
         //for every single record we will always have only one item, which is
         //the first one and the last one.
-        //We are choosing the album we are working with at the current moment 
+        //We are choosing the album we are working with at the current moment.
         $album = \App\Album::where('keyword', $keyword)->firstOrFail();
-        
-        $nesting_level = \App\AlbumData::where('items_id', $album->id)->select('nesting_level')->firstOrFail();
-            
-        //Here we are calling method which will merge all pictures and albums from selected album into one array
-        if ($including_invisible) {
-            $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', 
-                                        $album->id)->orderBy('created_at','DESC')->get(), \App\Picture::where('included_in_album_with_id', $album->id)
-                                        ->orderBy('created_at','DESC')->get());
-        } else {
-            $albums_and_pictures_full = $this->get_included_albums_and_pictures(\App\Album::where('included_in_album_with_id', '=', 
-                                        $album->id)->where('is_visible', '=', 1)->orderBy('created_at','DESC')->get(), 
-                                        \App\Picture::where('included_in_album_with_id', $album->id)->orderBy('created_at','DESC')->get());
-        }
+                   
+        $albums_and_pictures_full = $this->get_included_albums_and_pictures($including_invisible, $album->id);
         //As we don't need to show all the items from the array above on the 
         //same page, we will take only first 20 items to show
-        //Also we will need some variables for paginator
-        
+        //Also we will need some variables for paginator.           
+        return $this->get_included_albums_and_pictures_with_info($album, $albums_and_pictures_full, $page, $items_amount_per_page);
+    }
+    
+    //This function adds some nacessary (e.g. pagination) information to an array of albums and pictures.
+    private function get_included_albums_and_pictures_with_info($album, $albums_and_pictures_array, $page, $items_amount_per_page) {
         //We need the object below which will contain an array of needed folders 
         //and pictures and also some necessary data for pagination, which we will 
         //pass with this object's properties.
         $albums_and_pictures_full_info = new AlbumAndPictureForViewFullInfoForPage();
         
-        $albums_and_pictures_full_info->albumNestingLevel = $nesting_level->nesting_level;
+        $albums_and_pictures_full_info->albumNestingLevel = \App\AlbumData::where('items_id', $album->id)->select('nesting_level')->firstOrFail()->nesting_level;
         
-        if($album->included_in_album_with_id === NULL) {
-            $albums_and_pictures_full_info->albumParents = 0;
-        }
-        else {
-            $albums_and_pictures_full_info->albumParents = array_reverse($this->get_albums_parents_for_view($album
-                                                            ->included_in_album_with_id));
-        }
-        $to_get_album_path = new AdminPicturesRepository();
-        
-        //The root path will look like like this, because we are getting pictures 
-        //from storage folder via link in public folder.
-        if (App::isLocale('en')) {
-            $root_path = 'storage/albums/en';
-        } else {
-            $root_path = 'storage/albums/ru';
-        }
-        
-        $file_path = $to_get_album_path->getDirectoryPath($album->id);
-        $albums_and_pictures_full_info->path_to_file = $root_path.$file_path."/";
+        $albums_and_pictures_full_info->albumParents = (($album->included_in_album_with_id) ? 
+                                                        array_reverse($this->get_albums_parents_for_view($album->included_in_album_with_id)) : 0);
+                    
+        //The root path will look like like this, because we are getting pictures from storage folder via link in public folder.
+        $albums_and_pictures_full_info->path_to_file = (App::isLocale('en') ? 
+                                                        'storage/albums/en' : 'storage/albums/ru').((new AdminPicturesRepository())->getDirectoryPath($album->id))."/";
         
         $albums_and_pictures_full_info->head_title = $album->album_name;
-        $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_full);
+        $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_array);
 
         //The following information we can have only if we have at least one item in selected folder
-        if(count($albums_and_pictures_full) > 0) {
+        if(count($albums_and_pictures_array) > 0) {
             //The line below cuts all data into pages
             //We can do it only if we have at least one item in the array of the full data
-            $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_full, $items_amount_per_page, false);
-            $albums_and_pictures_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, 
-                                                                $albums_and_pictures_full_cut_into_pages);
+            $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_array, $items_amount_per_page, false);
+            $albums_and_pictures_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, $albums_and_pictures_full_cut_into_pages);
             //We need to do the check below in case user enters a page number more tha actual number of pages,
             //so we can avoid an error.
-            if ($albums_and_pictures_full_info->paginator_info->number_of_pages >= $page) {
-                //The line below selects the page we need, as computer counts from 0, we need to subtract 1
-                $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_cut_into_pages[$page-1];
-            }           
+            $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_info->paginator_info->number_of_pages >= $page ? 
+                                                                $albums_and_pictures_full_cut_into_pages[$page-1] : null;
         } else {
             //As we need to know paginator_info->number_of_pages to check the condition
             //in showAlbumView() method we need to make paginator_info object
@@ -143,13 +120,28 @@ class AlbumsRepository {
             $albums_and_pictures_full_info->paginator_info = new Paginator();
             $albums_and_pictures_full_info->paginator_info->number_of_pages = 1;
         }
-               
+        
         return $albums_and_pictures_full_info;
+    }
+    
+    //We need this function to shorten getAlbum function.
+    private function get_included_albums_and_pictures($including_invisible, $album_id) {
+        //Here we are calling method which will merge all pictures and albums from selected album into one array
+        if ($including_invisible) {
+            $albums_and_pictures_full = $this->get_included_albums_and_pictures_array(\App\Album::where('included_in_album_with_id', '=', 
+                                        $album_id)->orderBy('created_at','DESC')->get(), \App\Picture::where('included_in_album_with_id', $album_id)
+                                        ->orderBy('created_at','DESC')->get());
+        } else {
+            $albums_and_pictures_full = $this->get_included_albums_and_pictures_array(\App\Album::where('included_in_album_with_id', '=', 
+                                        $album_id)->where('is_visible', '=', 1)->orderBy('created_at','DESC')->get(), 
+                                        \App\Picture::where('included_in_album_with_id', $album_id)->orderBy('created_at','DESC')->get());
+        }
+        return $albums_and_pictures_full;
     }
     
     //We need this function to make our own array which will contain all included
     //in some chosen folder folders and pictures
-    private function get_included_albums_and_pictures($included_albums, $pictures) {
+    private function get_included_albums_and_pictures_array($included_albums, $pictures) {
         //After that we need to merge our albums and pictures to show them in selected album on the same page
         $albums_and_pictures_full = array();       
         $included_albums_count = count($included_albums);

@@ -296,6 +296,7 @@ main {
 .admin-panel-albums-picture-and-album-item .admin-panel-albums-pictures-title {
     margin-left: 5px;
     height: 40px;
+    position: absolute;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
@@ -305,8 +306,7 @@ main {
     display: inline-block;
     font-size: 15px;
     margin-top: 13px;
-    margin-left: -180px;
-    
+    margin-left: 35px;   
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
