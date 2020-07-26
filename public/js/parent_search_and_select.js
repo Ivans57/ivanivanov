@@ -48,15 +48,15 @@ $( document ).ready(function() {
     
     //Simple button_search.onclick function is not working properly, that's why we are going to do via event listener.
     button_search.addEventListener('click', function() {
-        get_parents(form.dataset.localization, parent_search.value, old_keyword.value, url_to_find_parent, form.dataset.section, 1);
+        get_parents(form.dataset.localization, parent_search.value, old_keyword.value, url_to_find_parent, form.dataset.section, 1, form.dataset.mode);
     });
     
     //Here is a function for create or edit window parent search in database.
-    function get_parents(localization, parent_name, keyword, url, section, page) {
+    function get_parents(localization, parent_name, keyword, url, section, page, mode) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page, parent_search: parent_name, keyword: keyword, section: section},
+                data: {localization: localization, page: page, parent_search: parent_name, keyword: keyword, section: section, mode: mode},
                 success:function(data) {
                         //We will always assign it, because if we don't do that,
                         //after turning pages, that value will always disappear from search field.
@@ -107,7 +107,7 @@ $( document ).ready(function() {
                                 //I will leave like this, because this function is not working with a variable.
                                 $("#directory_list_container").empty();
                                 get_parents(localization, parent_name, keyword, url, section, 
-                                            data.pagination_info.previousPage);
+                                            data.pagination_info.previousPage, form.dataset.mode);
                             });
                         }
                         
@@ -118,7 +118,7 @@ $( document ).ready(function() {
                                 //I will leave like this, because this function is not working with a variable.
                                 $("#directory_list_container").empty();
                                 get_parents(localization, parent_name, keyword, url, section, 
-                                            data.pagination_info.nextPage);
+                                            data.pagination_info.nextPage, form.dataset.mode);
                             });
                         }
                         
@@ -167,15 +167,15 @@ $( document ).ready(function() {
         if (old_keyword.value == "" && parent_search.value == "") {
             parent_id.value = 0;
         }
-        get_parent_list(form.dataset.localization, url_for_parent_list, parent_id.value, 1, old_keyword.value, form.dataset.section);
+        get_parent_list(form.dataset.localization, url_for_parent_list, parent_id.value, 1, old_keyword.value, form.dataset.section, form.dataset.mode);
     });
     
     //Here is a function for create or edit window parent dropdown list.
-    function get_parent_list(localization, url, parent_id, page, old_keyword_value, section) {
+    function get_parent_list(localization, url, parent_id, page, old_keyword_value, section, mode) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {localization: localization, page: page, parent_id: parent_id, keyword_of_directory_to_exclude: old_keyword_value, section: section},
+                data: {localization: localization, page: page, parent_id: parent_id, keyword_of_directory_to_exclude: old_keyword_value, section: section, mode: mode},
                 success:function(data) {
                     //In case we need to get an opened list, all elements of data array 
                     //will be arrays. If we get a closed list, all elements of data array
@@ -274,12 +274,12 @@ $( document ).ready(function() {
     
     //This function is working when user is clicking on the caret to get what is
     //included in its item.
-    function get_included_parent_list(localization, url, page, line_id, parent_node_id, old_keyword_value, section) {
+    function get_included_parent_list(localization, url, page, line_id, parent_node_id, old_keyword_value, section, mode) {
         $.ajax({
                 type: "POST",
                 url: url,
                 data: {localization: localization, page: page, parent_node_id: parent_node_id, 
-                    keyword_of_directory_to_exclude: old_keyword_value, section: section},
+                    keyword_of_directory_to_exclude: old_keyword_value, section: section, mode: mode},
                 success:function(data) {                     
                         make_included_parent_list(localization, url, line_id, parent_node_id, data.parent_list_data, 
                                                 data.pagination_info.previousPage, data.pagination_info.nextPage, old_keyword_value, section);
@@ -371,7 +371,7 @@ $( document ).ready(function() {
             //Here we need to remove nested list (ul) from DOM.
             element.parentNode.removeChild(element);
             //Here we need to turn the next page.
-            get_included_parent_list(localization, url, previous_page, line_id, parent_node_id, old_keyword_value, section);
+            get_included_parent_list(localization, url, previous_page, line_id, parent_node_id, old_keyword_value, section, form.dataset.mode);
             });
         }
                     
@@ -381,7 +381,7 @@ $( document ).ready(function() {
             //Here we need to remove nested list (ul) from DOM.
             element.parentNode.removeChild(element);
             //Here we need to turn the next page.
-            get_included_parent_list(localization, url, next_page, line_id, parent_node_id, old_keyword_value, section);
+            get_included_parent_list(localization, url, next_page, line_id, parent_node_id, old_keyword_value, section, form.dataset.mode);
             });
         }
     }
@@ -459,7 +459,7 @@ $( document ).ready(function() {
         //Taking id from caret (this) instead of line. Can pass line's id in caret's data.
         get_included_parent_list(event.currentTarget.localization, event.currentTarget.url, 
                         event.currentTarget.page, event.currentTarget.dataset.line_id, event.currentTarget.dataset.record_id, 
-                        event.currentTarget.old_keyword_value, event.currentTarget.section);
+                        event.currentTarget.old_keyword_value, event.currentTarget.section, form.dataset.mode);
     }
     
     //This functions returns a caret to its noraml position and removes items children from the list.

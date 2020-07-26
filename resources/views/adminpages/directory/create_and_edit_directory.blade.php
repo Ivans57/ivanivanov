@@ -6,6 +6,7 @@
         {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/".$section."/" : "/ru/admin/".$section."/",
                          'data-localization' => App::isLocale('en') ? "en" : "ru",
                          'data-section' => $section,
+                         'data-mode' => $mode,
                          'id' => 'admin_panel_create_edit_entity_form' ]) !!}
     @else
         {!! Form::model($edited_directory, [ 'method' => 'PUT', 
@@ -13,6 +14,7 @@
                                          "/ru/admin/".$section."/".$edited_directory->keyword,
                                          'data-localization' => App::isLocale('en') ? "en" : "ru",
                                          'data-section' => $section,
+                                         'data-mode' => $mode,
                                          'id' => 'admin_panel_create_edit_entity_form' ]) !!}
     @endif
         @component('adminpages/directory/create_edit_directory_fields', ['parent_id' => $parent_id, 

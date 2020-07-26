@@ -38,12 +38,12 @@ class DirectoryData extends DirectoryBasic {
 
 class AlbumParentsRepository {
     //We need this function for Directory Parent search field when create or edit directory.
-    public function getParents($localization, $page, $directory_to_find, $directory_to_exclude_keyword) {//-
+    public function getParents($localization, $page, $directory_to_find, $directory_to_exclude_keyword, $mode) {//-
               
         $parents = new DirectoryParentsData();
         
         $records_to_show = 10;    
-        $parents_from_query = $this->get_parents_from_query($localization, $page, $directory_to_find, $directory_to_exclude_keyword, 
+        $parents_from_query = $this->get_parents_from_query($localization, $mode, $page, $directory_to_find, $directory_to_exclude_keyword, 
                                                             $records_to_show);
         $parents->paginationInfo = $this->get_pagination_info($parents_from_query);
         $parents->parentsDataArray = array();
@@ -79,11 +79,11 @@ class AlbumParentsRepository {
     }
     
     //We need this function to simplify getParents function.
-    protected function get_parents_from_query($localization, $page, $directory_to_find, $directory_to_exclude_keyword, $records_to_show) {//+
+    protected function get_parents_from_query($localization, $mode, $page, $directory_to_find, $directory_to_exclude_keyword, $records_to_show) {//+
         
         $items_children = $this->get_directory_children_array($directory_to_exclude_keyword);
         
-        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($directory_to_exclude_keyword);
+        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($mode, $directory_to_exclude_keyword);
         
         if ($localization === "en") {
             $parents = \App\Album::select('en_albums.id', 'en_albums.keyword', 'en_albums.album_name')
@@ -128,7 +128,7 @@ class AlbumParentsRepository {
     }
     
     //We need this function for Directory Parent dropdown list when create or edit directory.
-    public function getParentList($localization, $page, $parent_id, $parent_node_id, $keyword_of_directory_to_exclude) {//-
+    public function getParentList($localization, $page, $parent_id, $parent_node_id, $keyword_of_directory_to_exclude, $mode) {//-
         
         $parents = new DirectoryParentsData();        
         $records_to_show = 10;
@@ -137,21 +137,21 @@ class AlbumParentsRepository {
         //0 nesting level directories are easier to process.
         if ($parent_id == 0 || $parent_node_id !== null) {
             //Getting closed parent list only when creating or editing an album in root album.
-            $parents = $this->get_closed_parent_list($localization, $page, $records_to_show, 
+            $parents = $this->get_closed_parent_list($localization, $mode, $page, $records_to_show, 
                                                     ($parent_node_id == 0 ? $parent_node_id = null : $parent_node_id), 
                                                     $keyword_of_directory_to_exclude);
             
         } else {
             //Getting opened parent list only when creating or editing a directory 
             //in any directory except of the root directory.
-            $parents = $this->get_opened_parent_list($localization, $records_to_show, $parent_id, $keyword_of_directory_to_exclude);
+            $parents = $this->get_opened_parent_list($localization, $mode, $records_to_show, $parent_id, $keyword_of_directory_to_exclude);
         }       
         return $parents;
     }
     
     //This function will be called when user is creating a new directory on level 0,
     //or when is editing a directory which is located on level 0.
-    private function get_closed_parent_list($localization, $page, $records_to_show, $parent_node_id, $keyword_of_directory_to_exclude) {//-
+    private function get_closed_parent_list($localization, $mode, $page, $records_to_show, $parent_node_id, $keyword_of_directory_to_exclude) {//-
         $parents = new DirectoryParentsData();
         
         //We need this for additional check whether a being checked item has children.
@@ -161,7 +161,7 @@ class AlbumParentsRepository {
         }
         //Below we need to get some information which will help to filter albums with unacceptable nesting level
         //as nesting levels amount is limited.
-        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($keyword_of_directory_to_exclude);
+        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($mode, $keyword_of_directory_to_exclude);
         
         $parent_list_from_query = $this->get_parent_list_from_query($localization, $page, $parent_node_id,
                                                                                 $keyword_of_directory_to_exclude, 
@@ -207,7 +207,7 @@ class AlbumParentsRepository {
     
     //This function will be called when user is creating a new directory on level 0,
     //or when is editing a directory which is located on level 0.
-    private function get_opened_parent_list($localization, $records_to_show, $parent_id, $keyword_of_directory_to_exclude) {//-
+    private function get_opened_parent_list($localization, $mode, $records_to_show, $parent_id, $keyword_of_directory_to_exclude) {//-
         $parents = new DirectoryParentsData();
         //First of all need to make an array of all ancestors of the item.
         //There is a special field for them in data table, but their sequence might be wrong.
@@ -224,7 +224,7 @@ class AlbumParentsRepository {
         $parentsPaginationInfoReversed = array();
         
         for ($i = 0; $i < count($parent_ids); $i++) {
-            $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($localization, 
+            $parents_and_pagination_info_for_array = $this->get_parents_and_pagination_info_for_array($localization, $mode, 
                                                                                                     $parent_ids[$i]->ParentId, 
                                                                                                     $records_to_show, $i,
                                                                                                     $keyword_of_directory_to_exclude);
@@ -251,14 +251,14 @@ class AlbumParentsRepository {
     //This function will get parent information and pagination information for
     //parents and their pagination information array, which will be required for
     //parent dropdown list for Directory edit window.
-    private function get_parents_and_pagination_info_for_array($localization, $parent_id, $records_to_show, $iteration, 
+    private function get_parents_and_pagination_info_for_array($localization, $mode, $parent_id, $records_to_show, $iteration, 
                                                             $keyword_of_directory_to_exclude) {//-
         $parents_for_array = new DirectoryParentsData();
         $parent_id_of_parent = $this->get_id_of_parent($parent_id);
         
         //Below we need to get some information which will help to filter directories with unacceptable nesting level
         //as nesting levels amount is limited.
-        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($keyword_of_directory_to_exclude);
+        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($mode, $keyword_of_directory_to_exclude);
         
         //We need an id of directory which we need to exclude from parents list to find all its direct children.
         $id_of_directory_to_exclude = null;
@@ -464,9 +464,9 @@ class AlbumParentsRepository {
     }
     
     //We need this function to shorten getParents function.
-    protected function get_max_acceptable_nest_level($directory_to_exclude_keyword = NULL) {//-
-               
-        $max_acceptable_nest_level = 7;
+    protected function get_max_acceptable_nest_level($mode, $directory_to_exclude_keyword = NULL) {//-
+                     
+        $max_acceptable_nest_level = ($mode == "directory") ? 7 : 8;
         
         if ($directory_to_exclude_keyword != NULL) {
             $items_id = $this->get_directory_id_by_keyword($directory_to_exclude_keyword);

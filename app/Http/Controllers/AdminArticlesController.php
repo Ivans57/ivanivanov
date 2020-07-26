@@ -80,8 +80,7 @@ class AdminArticlesController extends Controller
         if ($parent_keyword != "0") {
             $parent_info = \App\Folder::select('id', 'folder_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
-        }
-                      
+        }                     
         return view('adminpages.directory.create_and_edit_directory')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
@@ -94,6 +93,12 @@ class AdminArticlesController extends Controller
             'create_or_edit' => 'create',
             //The line below is required for form path.
             'section' => 'articles',
+            //The last variable is required for parents search.
+            //It will work when creating or editing album or folder in a directory mode,
+            //when user won't see the full list of directories due to some restrictions
+            //and it work when creating or editing picture or articles in a file mode,
+            //when user will see a full list of all albums and folders.
+            'mode' => 'directory'
             ]);
     }
     
@@ -131,6 +136,12 @@ class AdminArticlesController extends Controller
             'edited_directory' => Folder::where('keyword', '=', $keyword)->firstOrFail(),
             //The line below is required for form path.
             'section' => 'articles',
+            //The last variable is required for parents search.
+            //It will work when creating or editing album or folder in a directory mode,
+            //when user won't see the full list of directories due to some restrictions
+            //and it work when creating or editing picture or articles in a file mode,
+            //when user will see a full list of all albums and folders.
+            'mode' => 'directory'
             ]);
         
     }

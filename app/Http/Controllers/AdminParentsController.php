@@ -9,16 +9,15 @@ use App\Http\Repositories\FolderParentsRepository;
 //This controller is required for parent search in database or to give possible parents dropdown list to select a parent for albums or folders.
 class AdminParentsController extends Controller
 {
-    public function findParents(Request $request) {
+    public function findParents(Request $request) {  
         
         if ($request->input('section') == "albums") {
             $create_or_edit_window = new AlbumParentsRepository();
         } else {
             $create_or_edit_window = new FolderParentsRepository();
-        }
-        
+        }        
         $parents = $create_or_edit_window->getParents($request->input('localization'), $request->input('page'), 
-                $request->input('parent_search'), $request->input('keyword'));
+                $request->input('parent_search'), $request->input('keyword'), $request->input('mode'));
                    
         if (count($parents->parentsDataArray) > 0) {              
             return response()->json(['directories_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
@@ -30,18 +29,17 @@ class AdminParentsController extends Controller
         }
     }
     
-    public function getParentList(Request $request) {
+    public function getParentList(Request $request) {   
         
         if ($request->input('section') == "albums") {
             $create_or_edit_window = new AlbumParentsRepository();
         } else {
             $create_or_edit_window = new FolderParentsRepository();
         }
-        
         //parent_id is an id of parent of the item being edited or when user wants to create a new album in already existing album.
         //parent_node_id is an id of album whcih is getting opened id parent dropdown list to get its nested albums.
         $parents = $create_or_edit_window->getParentList($request->input('localization'), $request->input('page'), $request->input('parent_id'), 
-                                $request->input('parent_node_id'), $request->input('keyword_of_directory_to_exclude'));
+                                $request->input('parent_node_id'), $request->input('keyword_of_directory_to_exclude'), $request->input('mode'));
              
         return response()->json(['parent_list_data' => $parents->parentsDataArray, 'pagination_info' => $parents->paginationInfo]);
     }

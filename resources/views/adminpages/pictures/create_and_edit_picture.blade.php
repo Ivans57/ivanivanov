@@ -7,6 +7,7 @@
                          'url' => App::isLocale('en') ? "/admin/pictures/" : "/ru/admin/pictures/",
                          'data-localization' => App::isLocale('en') ? "en" : "ru",
                          'data-section' => $section,
+                         'data-mode' => $mode,
                          'id' => 'admin_panel_create_edit_entity_form',
                          'enctype' => 'multipart/form-data' ]) !!}
     @else

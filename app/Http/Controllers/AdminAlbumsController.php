@@ -90,7 +90,13 @@ class AdminAlbumsController extends Controller
             //and then to open a view accordingly with a chosen mode.
             'create_or_edit' => 'create',
             //The line below is required for form path.
-            'section' => 'albums'            
+            'section' => 'albums',
+            //The last variable is required for parents search.
+            //It will work when creating or editing album or folder in a directory mode,
+            //when user won't see the full list of directories due to some restrictions
+            //and it work when creating or editing picture or articles in a file mode,
+            //when user will see a full list of all albums and folders.
+            'mode' => 'directory'
             ]);
     }
     
@@ -129,6 +135,12 @@ class AdminAlbumsController extends Controller
             'edited_directory' => Album::where('keyword', '=', $keyword)->firstOrFail(),
             //The line below is required for form path.
             'section' => 'albums',
+            //The last variable is required for parents search.
+            //It will work when creating or editing album or folder in a directory mode,
+            //when user won't see the full list of directories due to some restrictions
+            //and it work when creating or editing picture or articles in a file mode,
+            //when user will see a full list of all albums and folders.
+            'mode' => 'directory'
             ]);
         
     }
