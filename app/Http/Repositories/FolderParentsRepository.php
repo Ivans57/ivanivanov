@@ -8,11 +8,11 @@ use App\Http\Repositories\AlbumParentsRepository;
 class FolderParentsRepository extends AlbumParentsRepository {
     
     //We need this function to simplify getParents function.
-    protected function get_parents_from_query($localization, $page, $directory_to_find, $directory_to_exclude_keyword, $records_to_show) {//+
+    protected function get_parents_from_query($localization, $mode, $page, $directory_to_find, $directory_to_exclude_keyword, $records_to_show) {//+
         
         $items_children = $this->get_directory_children_array($directory_to_exclude_keyword);
         
-        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($directory_to_exclude_keyword);
+        $max_acceptable_nest_level = $this->get_max_acceptable_nest_level($mode, $directory_to_exclude_keyword);
         
         if ($localization === "en") {
             $parents = \App\Folder::select('en_folders.id', 'en_folders.keyword', 'en_folders.folder_name')
