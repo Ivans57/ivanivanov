@@ -84,7 +84,11 @@
                                            admin-panel-albums-picture-control-button-link-open">@lang('keywords.Open')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
-                                        <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Edit')</a>
+                                        <a href={{ App::isLocale('en') ? "/admin/pictures/".$album_or_picture->keyWord."/edit/".$parent_keyword : 
+                                            "/ru/admin/pictures/".$album_or_picture->keyWord."/edit/".$parent_keyword }} 
+                                            class="admin-panel-albums-picture-and-album-control-button-link 
+                                            admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">
+                                            @lang('keywords.Edit')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
                                         <a href='#' class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Delete')</a>

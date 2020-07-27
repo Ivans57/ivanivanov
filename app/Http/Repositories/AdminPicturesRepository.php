@@ -48,6 +48,51 @@ class AdminPicturesRepository {
         Picture::create($input);
     }
     
+    //Updates a picture in a database and updates its file location in a File System.
+    public function update($keyword, $request) {
+        $edited_picture = Picture::where('keyword', '=', $keyword)->firstOrFail();       
+        $input = $request->all();
+        
+        //Moving a picture in a file system.
+        $this->move_picture_in_file_system($input, $edited_picture);
+        
+        //Changing picture record in a database.
+        $this->update_database_record($input, $edited_picture);       
+    }
+    
+    private function move_picture_in_file_system($input, $edited_picture) {      
+        if (App::isLocale('en')) {
+            $root_path = storage_path('app/public/albums/en');
+        } else {
+            $root_path = storage_path('app/public/albums/ru');
+        }     
+        if ($edited_picture->included_in_album_with_id) {
+            $path_before = $this->getDirectoryPath($edited_picture->included_in_album_with_id);
+            $path_before = $root_path.$path_before."/";
+        } else {
+            $path_before = $root_path."/";
+        }      
+        if ($input['included_in_album_with_id']) {
+            $path_after = $this->getDirectoryPath($input['included_in_album_with_id']);
+            $path_after = $root_path.$path_after."/";
+        } else {
+            $path_after = $root_path."/";
+        }        
+        //rename($path_before.$input['old_keyword'], $path_after.$input['keyword']);
+    }
+    
+    private function update_database_record($input, $edited_picture) {     
+        //We need the if below, because form's tickbox is not null only
+        //when it is ticked, otherwise it is null and the data from is_visible 
+        //field will be lost. In the database is_visible is not nullable field,
+        //and it keeps a boolean value.
+        if (isset($input['is_visible'])== NULL) {
+            $input['is_visible'] = 0;
+        }       
+        $input['updated_at'] = Carbon::now();       
+        //$edited_picture->update($input);
+    }
+    
     //This function is required only to call function get_full_directory_path from AlbumParentsRepository.
     //It is needed to form a path for newly created folder for albums and pictures in a file system.
     public function getDirectoryPath($directory_id) {

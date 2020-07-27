@@ -145,8 +145,6 @@ class AdminAlbumsController extends Controller
         
     }
     
-    //Possibly, field old_keyword is not needed as we are passing 
-    //$keyword variable as the first argument and it is mentioned in routes file.
     public function update($keyword, CreateEditAlbumRequest $request) {      
         $this->albums->update($keyword, $request);
 

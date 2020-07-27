@@ -205,6 +205,22 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/pictures/{keyword}/edit/{parent_keyword}', 'AdminPicturesController@edit');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/pictures/{keyword}/edit/{parent_keyword}', 'AdminPicturesController@edit');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::put('admin/pictures/{keyword}', 'AdminPicturesController@update');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::put('admin/pictures/{keyword}', 'AdminPicturesController@update');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
 

@@ -109,7 +109,7 @@ $( document ).ready(function() {
 		preload : false,
                 css : {
                     'width' : '330px',
-                    'height' : '470px',
+                    'height' : '482px',
                     'margin-bottom' : '200px'
                 }
 	},

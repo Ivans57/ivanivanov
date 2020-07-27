@@ -101,8 +101,7 @@ class AdminArticlesController extends Controller
             'mode' => 'directory'
             ]);
     }
-    
-    
+       
     public function store(CreateEditFolderRequest $request) {           
         $this->folders->store($request);
         

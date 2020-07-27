@@ -26,20 +26,22 @@
              data-root="{{ Lang::get('keywords.Albums') }}">
         </div> 
     </div>
-    <div class="admin-panel-create-edit-directory-controls">
-        <div>{!! Form::button(Lang::get('keywords.Browse')."...", ['style' => "display:block; width:80px; height:25px; font-size:14px; float:left;", 
-            'id' => 'pseudo_image_select' ]) !!}
-            <!-- Need to shorten long file names with java script-->
-            <span id = 'pseudo_image_select_file_name' 
-                  style='display:inline-block; margin-left:10px; margin-top:3px; font-size:14px; width: 170px; text-overflow: ellipsis;'>
-                {{ Lang::get('keywords.NoImageChosen') }}
-            </span>
+    @if ($create_or_edit==='create')
+        <div class="admin-panel-create-edit-directory-controls">
+            <div>{!! Form::button(Lang::get('keywords.Browse')."...", ['style' => "display:block; width:80px; height:25px; font-size:14px; float:left;", 
+                'id' => 'pseudo_image_select' ]) !!}
+                <!-- Need to shorten long file names with java script-->
+                <span id = 'pseudo_image_select_file_name' 
+                      style='display:inline-block; margin-left:10px; margin-top:3px; font-size:14px; width: 170px; text-overflow: ellipsis;'>
+                    {{ Lang::get('keywords.NoImageChosen') }}
+                </span>
+            </div>
+            <div>{!! Form::file('image_select', ['id' => 'image_select', 'style' => 'display:none'] ) !!}</div>
         </div>
-        <div>{!! Form::file('image_select', ['id' => 'image_select', 'style' => 'display:none'] ) !!}</div>
-    </div>
+    @endif
     <div class="admin-panel-create-edit-directory-controls">
         <div>
-            {!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-create-edit-directory-controls-label']) !!}
+            {!! Form::label('keyword', Lang::get('keywords.PictureKeyword').':', ['class' => 'admin-panel-create-edit-directory-controls-label']) !!}
         </div>
         <div>{!! Form::text('keyword', null, ['class' => 'admin-panel-create-edit-directory-controls-input']) !!}</div>
     </div>                
@@ -55,7 +57,7 @@
     </div>
     <div class="admin-panel-create-edit-directory-controls">
         {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
-        'name' => 'upload', 'id' => 'button_submit' ]) !!}
+        'name' => $create_or_edit==='create' ? 'upload' : 'save', 'id' => 'button_submit' ]) !!}
         {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-create-edit-directory-controls-button', 
             'id' => 'button_cancel' ]) !!}
     </div>           

@@ -43,7 +43,10 @@ class AlbumParentsRepository {
         $parents = new DirectoryParentsData();
         
         $records_to_show = 10;    
-        $parents_from_query = $this->get_parents_from_query($localization, $mode, $page, $directory_to_find, $directory_to_exclude_keyword, 
+        $parents_from_query = $this->get_parents_from_query($localization, $mode, $page, $directory_to_find, 
+                                                            //As need to show all directories when creating or editing in a file mode,
+                                                            //then need to exclude $keyword_of_directory_to_exclude variable.
+                                                            $mode == "file" ? $directory_to_exclude_keyword = null : $directory_to_exclude_keyword, 
                                                             $records_to_show);
         $parents->paginationInfo = $this->get_pagination_info($parents_from_query);
         $parents->parentsDataArray = array();
@@ -132,19 +135,24 @@ class AlbumParentsRepository {
         
         $parents = new DirectoryParentsData();        
         $records_to_show = 10;
-        
+  
         //parent_id is an indicator whether a directory is located on 0 nestenig level or no.
         //0 nesting level directories are easier to process.
         if ($parent_id == 0 || $parent_node_id !== null) {
             //Getting closed parent list only when creating or editing an album in root album.
             $parents = $this->get_closed_parent_list($localization, $mode, $page, $records_to_show, 
-                                                    ($parent_node_id == 0 ? $parent_node_id = null : $parent_node_id), 
-                                                    $keyword_of_directory_to_exclude);
+                                                    ($parent_node_id == 0 ? $parent_node_id = null : $parent_node_id),
+                                                    //As need to show all directories when creating or editing in a file mode,
+                                                    //then need to exclude $keyword_of_directory_to_exclude variable.
+                                                    $mode == "file" ? $keyword_of_directory_to_exclude = null : $keyword_of_directory_to_exclude);
             
         } else {
             //Getting opened parent list only when creating or editing a directory 
             //in any directory except of the root directory.
-            $parents = $this->get_opened_parent_list($localization, $mode, $records_to_show, $parent_id, $keyword_of_directory_to_exclude);
+            $parents = $this->get_opened_parent_list($localization, $mode, $records_to_show, $parent_id,
+                                                    //As need to show all directories when creating or editing in a file mode,
+                                                    //then need to exclude $keyword_of_directory_to_exclude variable.
+                                                    $mode == "file" ? $keyword_of_directory_to_exclude = null : $keyword_of_directory_to_exclude);
         }       
         return $parents;
     }
@@ -389,8 +397,7 @@ class AlbumParentsRepository {
                 $parent_data = $this->check_if_open_or_in_focus($directory->DirectoryId, $parent_id, $iteration);
                 $parent_data_array->inFocus = $parent_data->inFocus;
                 $parent_data_array->isOpened = $parent_data->isOpened;
-            }
-            
+            }           
             array_push($parent_list_array, $parent_data_array);
         }
         return $parent_list_array;
@@ -468,7 +475,7 @@ class AlbumParentsRepository {
                      
         $max_acceptable_nest_level = ($mode == "directory") ? 7 : 8;
         
-        if ($directory_to_exclude_keyword != NULL) {
+        if ($directory_to_exclude_keyword != NULL && $mode == "directory") {
             $items_id = $this->get_directory_id_by_keyword($directory_to_exclude_keyword);
             
             $items_nesting_level_and_children = $this->get_directory_data($items_id);
