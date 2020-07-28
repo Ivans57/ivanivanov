@@ -60,25 +60,13 @@ class AdminPicturesRepository {
         $this->update_database_record($input, $edited_picture);       
     }
     
-    private function move_picture_in_file_system($input, $edited_picture) {      
-        if (App::isLocale('en')) {
-            $root_path = storage_path('app/public/albums/en');
-        } else {
-            $root_path = storage_path('app/public/albums/ru');
-        }     
-        if ($edited_picture->included_in_album_with_id) {
-            $path_before = $this->getDirectoryPath($edited_picture->included_in_album_with_id);
-            $path_before = $root_path.$path_before."/";
-        } else {
-            $path_before = $root_path."/";
-        }      
-        if ($input['included_in_album_with_id']) {
-            $path_after = $this->getDirectoryPath($input['included_in_album_with_id']);
-            $path_after = $root_path.$path_after."/";
-        } else {
-            $path_after = $root_path."/";
-        }        
-        //rename($path_before.$input['old_keyword'], $path_after.$input['keyword']);
+    private function move_picture_in_file_system($input, $edited_picture) {
+        $root_path = (App::isLocale('en')) ? storage_path('app/public/albums/en') : storage_path('app/public/albums/ru'); 
+        
+        $full_name_before = $root_path.$this->getDirectoryPath($edited_picture->included_in_album_with_id)."/".$edited_picture->file_name;     
+        $full_name_after = $root_path.$this->getDirectoryPath($input['included_in_album_with_id'])."/".$edited_picture->file_name;
+       
+        rename($full_name_before, $full_name_after);
     }
     
     private function update_database_record($input, $edited_picture) {     
@@ -90,7 +78,7 @@ class AdminPicturesRepository {
             $input['is_visible'] = 0;
         }       
         $input['updated_at'] = Carbon::now();       
-        //$edited_picture->update($input);
+        $edited_picture->update($input);
     }
     
     //This function is required only to call function get_full_directory_path from AlbumParentsRepository.

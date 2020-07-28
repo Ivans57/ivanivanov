@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AdminPicturesRepository;
 use App\Http\Requests\CreatePictureRequest;
+use App\Http\Requests\EditPictureRequest;
 use App\Album;
 use App\Picture;
 
@@ -99,7 +100,7 @@ class AdminPicturesController extends Controller
     }
     
     public function update($keyword, EditPictureRequest $request) {      
-        $this->albums->update($keyword, $request);
+        $this->pictures->update($keyword, $request);
 
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
