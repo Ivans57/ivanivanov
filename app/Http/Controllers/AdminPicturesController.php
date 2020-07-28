@@ -113,4 +113,24 @@ class AdminPicturesController extends Controller
             'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
+    
+    public function delete($keyword) {
+        
+        return view('adminpages.pictures.delete_picture')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page),
+            'keyword' => $keyword,
+            ]);
+    }
+    
+    public function destroy($keyword) {    
+        $this->pictures->destroy($keyword);
+        
+        return view('adminpages.form_close')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page)
+            ]);
+    }
 }

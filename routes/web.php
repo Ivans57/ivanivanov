@@ -221,6 +221,22 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/pictures/{keyword}/delete', 'AdminPicturesController@delete');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/pictures/{keyword}/delete', 'AdminPicturesController@delete');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::delete('admin/pictures/{keyword}', 'AdminPicturesController@destroy');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::delete('admin/pictures/{keyword}', 'AdminPicturesController@destroy');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
 

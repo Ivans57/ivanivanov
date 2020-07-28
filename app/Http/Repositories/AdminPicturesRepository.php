@@ -10,7 +10,7 @@ use App\Http\Repositories\AlbumParentsRepository;
 
 class AdminPicturesRepository {
     
-    //Stores an album in database and saves its folder in a File System.
+    //Stores an album in the database and saves its folder in the File System.
     public function store($request) {
         $new_name = $this->save_picture_in_file_system($request);
         $this->create_database_record($request, $new_name);       
@@ -32,7 +32,7 @@ class AdminPicturesRepository {
         $full_path = $root_path.$full_path;      
         $image->move($full_path, $new_name);
         
-        //This function is returning a new file name, because we need to save this name in a database.
+        //This function is returning a new file name, because we need to save this name in the database.
         return $new_name;
     }
     
@@ -48,7 +48,7 @@ class AdminPicturesRepository {
         Picture::create($input);
     }
     
-    //Updates a picture in a database and updates its file location in a File System.
+    //Updates a picture in the database and updates its file location in the File System.
     public function update($keyword, $request) {
         $edited_picture = Picture::where('keyword', '=', $keyword)->firstOrFail();       
         $input = $request->all();
@@ -79,6 +79,17 @@ class AdminPicturesRepository {
         }       
         $input['updated_at'] = Carbon::now();       
         $edited_picture->update($input);
+    }
+    
+    //Removes picture's record from the database and deletes its file from the file system.
+    public function destroy($keyword) {
+        $picture_to_remove = Picture::select('id', 'file_name', 'included_in_album_with_id')->where('keyword', '=', $keyword)->firstOrFail();
+
+        //Removes from File System.
+        unlink(storage_path('app/public/'.((App::isLocale('en')) ? 'albums/en' : 'albums/ru').
+                                $this->getDirectoryPath($picture_to_remove->included_in_album_with_id).'/').$picture_to_remove->file_name);     
+        //Removes from Database.
+        $picture_to_remove->delete();
     }
     
     //This function is required only to call function get_full_directory_path from AlbumParentsRepository.

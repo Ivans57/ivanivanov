@@ -13,7 +13,7 @@ use App\Http\Repositories\AlbumsRepository;
 
 class AdminAlbumsRepository extends AlbumsRepository {
     
-    //Stores an album in database and saves its folder in a File System.
+    //Stores an album in the database and saves its folder in the File System.
     public function store($request) {
         $input = $request->all();      
         $this->create_database_record($input);       
@@ -55,7 +55,7 @@ class AdminAlbumsRepository extends AlbumsRepository {
         Storage::disk('public')->makeDirectory($full_path.$input['keyword'], 0777, true);
     }
     
-    //Updates an album in database and updates its folder in a File System.
+    //Updates an album in database and updates its folder in the File System.
     public function update($keyword, $request) {
         $edited_album = Album::where('keyword', '=', $keyword)->firstOrFail();       
         $input = $request->all();
