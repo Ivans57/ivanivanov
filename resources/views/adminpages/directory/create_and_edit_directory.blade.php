@@ -1,6 +1,6 @@
-@extends('partial')
+@extends('create_edit_delete_window')
 
-@section('partialcontent')
+@section('create_edit_delete_window_content')
     @include('adminpages.create_edit_errors')
     @if ($create_or_edit==='create')
         {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/".$section."/" : "/ru/admin/".$section."/",

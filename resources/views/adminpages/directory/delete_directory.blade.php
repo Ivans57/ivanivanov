@@ -1,19 +1,19 @@
-@extends('partial')
+@extends('create_edit_delete_window')
 
-@section('partialcontent')
+@section('create_edit_delete_window_content')
     {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/".$section."/".$keyword : "/ru/admin/".$section."/".$keyword ]) !!}        
-        <div class='admin-panel-delete-directory'>
+        <div class='admin-panel-delete-entity'>
             {!! Form::hidden('keyword', $keyword) !!}
-            <div class="admin-panel-delete-directory-message"><h3>
+            <div class="admin-panel-delete-entity-message"><h3>
                 {!! ($section === 'albums') ? Lang::get('keywords.DeleteAlbum').'?' : Lang::get('keywords.DeleteFolder').'?' !!}
             </h3></div>
-            <div class="admin-panel-delete-directory-regulations"><span>
+            <div class="admin-panel-delete-entity-regulations"><span>
                 {!! ($section === 'albums') ? Lang::get('keywords.AlbumDeleteRules') : Lang::get('keywords.FolderDeleteRules') !!}
             </span></div>
-            <div class="admin-panel-delete-directory-controls">
-                <div>{!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-delete-directory-controls-button' ]) !!}</div>
+            <div class="admin-panel-delete-entity-controls">
+                <div>{!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-delete-entity-controls-button' ]) !!}</div>
 
-                <div>{!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-delete-directory-controls-button', 
+                <div>{!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-delete-entity-controls-button', 
                         'id' => 'button_cancel' ]) !!}</div>                      
             </div>
         </div>    

@@ -6,13 +6,13 @@
                 @lang('keywords.AdministrationPanel') | {!! $headTitle !!}
             @endslot
             @slot('css')
-                <link href="{{ URL::asset('css/admin_layout.css') }}" rel="stylesheet">
+                <link href="{{ URL::asset('css/pop_up_window_layout.css') }}" rel="stylesheet">
             @endslot
         @endcomponent     
     </head>
     <body>
         <div>
-            @yield('partialcontent')
+            @yield('create_edit_delete_window_content')
         </div>
         @yield('scripts')
     </body>

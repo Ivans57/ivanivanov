@@ -63,7 +63,7 @@ $( document ).ready(function() {
                         parent_search.value = parent_name;
                         //Making empty drop down list with directory links.
                         directory_list_container.insertAdjacentHTML("beforeend", "<div \n\
-                                                                class='admin-panel-create-edit-directory-directory-list'\n\
+                                                                class='admin-panel-create-edit-entity-directory-list'\n\
                                                                 id='directory_list'> \n\
                                                                 </div>");
                     
@@ -72,27 +72,27 @@ $( document ).ready(function() {
                         
                         if (data.pagination_info.previousPage !== null) {
                             directory_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                              class='admin-panel-create-edit-directory-directory-list-button'> \n\
+                                                              class='admin-panel-create-edit-entity-directory-list-button'> \n\
                                                               <a href='#' \n\
-                                                              class='admin-panel-create-edit-directory-directory-list-button-link' \n\
+                                                              class='admin-panel-create-edit-entity-directory-list-button-link' \n\
                                                               id='parents_previous_page'>" + directory_list_container.dataset.previous_page +
                                                               "</a> \n\
                                                               </div>");
                         }                       
                         data.directories_data.forEach(function(directory_data) {
                             directory_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                          class='admin-panel-create-edit-directory-directory-list-element'> \n\
+                                                          class='admin-panel-create-edit-entity-directory-list-element'> \n\
                                                           <a href='#' \n\
-                                                          class='admin-panel-create-edit-directory-directory-list-element-link' \n\
+                                                          class='admin-panel-create-edit-entity-directory-list-element-link' \n\
                                                           data-id='" + directory_data[0] +"'>" 
                                                           + directory_data[1] + "</a> \n\
                                                           </div>");
                         });                     
                         if (data.pagination_info.nextPage !== null) {
                         directory_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                          class='admin-panel-create-edit-directory-directory-list-button'> \n\
+                                                          class='admin-panel-create-edit-entity-directory-list-button'> \n\
                                                           <a href='#' \n\
-                                                          class='admin-panel-create-edit-directory-directory-list-element-button-link' \n\
+                                                          class='admin-panel-create-edit-entity-directory-list-element-button-link' \n\
                                                           id='parents_next_page'>" + directory_list_container.dataset.next_page +
                                                           "</a> \n\
                                                           </div>");
@@ -124,7 +124,7 @@ $( document ).ready(function() {
                         
                         //Need to attach an event which will select keyword and name and assign them to proper form fields.
                         var directory_list_element_links = 
-                                document.getElementsByClassName("admin-panel-create-edit-directory-directory-list-element-link");
+                                document.getElementsByClassName("admin-panel-create-edit-entity-directory-list-element-link");
                         
                         for (i = 0; i < directory_list_element_links.length; i++) {
                             directory_list_element_links[i].addEventListener ("click", assignIDAndName, false);
@@ -198,7 +198,7 @@ $( document ).ready(function() {
         //directory_list_element in this case will always have some children.
         //If it doesn't, make_closed_parent_list will be called.
         directory_list_element.insertAdjacentHTML("afterbegin", 
-                                            "<span class='admin-panel-create-edit-directory-drop-down-list-item-caret-down' \n\
+                                            "<span class='admin-panel-create-edit-entity-drop-down-list-item-caret-down' \n\
                                             data-line_id='" + line_id + "' data-record_id=0></span>");
         
         var parent_node_id = 0;
@@ -239,11 +239,11 @@ $( document ).ready(function() {
         var directory_list_element = document.getElementById('element_0');
         if (data.parent_list_data.length > 0) {
             directory_list_element.insertAdjacentHTML("afterbegin", 
-            "<span class='admin-panel-create-edit-directory-drop-down-list-item-caret' \n\
+            "<span class='admin-panel-create-edit-entity-drop-down-list-item-caret' \n\
             data-line_id='" + line_id + "' data-record_id=0></span>");
         } else {
             directory_list_element.insertAdjacentHTML("afterbegin", 
-            "<span class='admin-panel-create-edit-directory-drop-down-list-item-empty-caret'></span>");
+            "<span class='admin-panel-create-edit-entity-drop-down-list-item-empty-caret'></span>");
         }
                         
         //Below we are assigning an event for that cse when user is pressing on a caret.
@@ -257,13 +257,13 @@ $( document ).ready(function() {
         //We need this variable to identify a line which will open a new list of included directories.
         var line_id = "line_0";
         directory_list_container.insertAdjacentHTML("beforeend", "<ul \n\
-                                                class='admin-panel-create-edit-directory-drop-down-list'> \n\
+                                                class='admin-panel-create-edit-entity-drop-down-list'> \n\
                                                     <li id='" + line_id + "'>\n\
                                                         <span \n\
-                                                        class='admin-panel-create-edit-directory-drop-down-list-item' \n\
+                                                        class='admin-panel-create-edit-entity-drop-down-list-item' \n\
                                                         id='element_0'> \n\
                                                             <span \n\
-                                                            class='admin-panel-create-edit-directory-drop-down-list-item-name' \n\
+                                                            class='admin-panel-create-edit-entity-drop-down-list-item-name' \n\
                                                             data-directory_id=0>" 
                                                             + directory_list_container.dataset.root + 
                                                             "</span></span>\n\
@@ -293,7 +293,7 @@ $( document ).ready(function() {
         var nested_directory_lists_parent = document.getElementById(line_id);
                         
         nested_directory_lists_parent.insertAdjacentHTML("beforeend", "<ul \n\
-                                                    class='admin-panel-create-edit-directory-drop-down-list-nested'\n\
+                                                    class='admin-panel-create-edit-entity-drop-down-list-nested'\n\
                                                     id='directory_dropdown_list_for_" + line_id +
                                                     "'></ul>");
                                                         
@@ -303,9 +303,9 @@ $( document ).ready(function() {
         //Here we need to draw pagination button in case there is more than one page of records.
         if (previous_page !== null) {
             directory_list.insertAdjacentHTML("beforeend", "<div \n\
-                                        class='admin-panel-create-edit-directory-drop-down-list-button'> \n\
+                                        class='admin-panel-create-edit-entity-drop-down-list-button'> \n\
                                             <a href='#' \n\
-                                            class='admin-panel-create-edit-directory-drop-down-list-button-link' \n\
+                                            class='admin-panel-create-edit-entity-drop-down-list-button-link' \n\
                                             id='parents_previous_page_for_" + line_id + "'>"
                                                 + directory_list_container.dataset.previous_page +
                                             "</a> \n\
@@ -315,9 +315,9 @@ $( document ).ready(function() {
         parent_list_data.forEach(function(directory_data) {
             directory_list.insertAdjacentHTML("beforeend", 
                                         "<li id='line_" + directory_data.DirectoryId + "'> \n\
-                                            <span class='admin-panel-create-edit-directory-drop-down-list-item' \n\
+                                            <span class='admin-panel-create-edit-entity-drop-down-list-item' \n\
                                             id='element_" + directory_data.DirectoryId +"'> \n\
-                                                <span class='admin-panel-create-edit-directory-drop-down-list-item-name' \n\
+                                                <span class='admin-panel-create-edit-entity-drop-down-list-item-name' \n\
                                                 data-directory_id=" + directory_data.DirectoryId +">"
                                                     + directory_data.DirectoryName +
                                             "</span></span></li>");
@@ -325,22 +325,22 @@ $( document ).ready(function() {
         var directory_list_element = document.getElementById('element_' + directory_data.DirectoryId);
         if (directory_data.HasChildren === true && directory_data.isOpened === true) {
             directory_list_element.insertAdjacentHTML("afterbegin", 
-                                                "<span class='admin-panel-create-edit-directory-drop-down-list-item-caret-down' \n\
+                                                "<span class='admin-panel-create-edit-entity-drop-down-list-item-caret-down' \n\
                                                 data-line_id='line_" + directory_data.DirectoryId + "' \n\
                                                 data-record_id=" + directory_data.DirectoryId + "></span>");
         } else if (directory_data.HasChildren === true) {
             directory_list_element.insertAdjacentHTML("afterbegin", 
-                                                "<span class='admin-panel-create-edit-directory-drop-down-list-item-caret' \n\
+                                                "<span class='admin-panel-create-edit-entity-drop-down-list-item-caret' \n\
                                                 data-line_id='line_" + directory_data.DirectoryId + "' \n\
                                                 data-record_id=" + directory_data.DirectoryId + "></span>");
         } else {
             directory_list_element.insertAdjacentHTML("afterbegin", 
-                                                "<span class='admin-panel-create-edit-directory-drop-down-list-item-empty-caret'> \n\
+                                                "<span class='admin-panel-create-edit-entity-drop-down-list-item-empty-caret'> \n\
                                                 </span>");
         }
         //Need to make parent element visible. For opened dropdown list only.
         if (directory_data.inFocus) {
-            directory_list_element.classList.add("admin-panel-create-edit-directory-drop-down-list-item-selected");
+            directory_list_element.classList.add("admin-panel-create-edit-entity-drop-down-list-item-selected");
         }
         });
                         
@@ -353,9 +353,9 @@ $( document ).ready(function() {
                                                                      
         if (next_page !== null) {
             directory_list.insertAdjacentHTML("beforeend", "<div \n\
-                                                        class='admin-panel-create-edit-directory-drop-down-list-button'> \n\
+                                                        class='admin-panel-create-edit-entity-drop-down-list-button'> \n\
                                                             <a href='#' \n\
-                                                            class='admin-panel-create-edit-directory-drop-down-list-button-link' \n\
+                                                            class='admin-panel-create-edit-entity-drop-down-list-button-link' \n\
                                                             id='parents_next_page_for_" + line_id + "'>" 
                                                                 + directory_list_container.dataset.next_page +
                                                             "</a> \n\
@@ -392,7 +392,7 @@ $( document ).ready(function() {
     function select_from_dropdown_list(parent_container) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
-        var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-directory-drop-down-list-item-name");
+        var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-entity-drop-down-list-item-name");
         var i;
 
         for (i = 0; i < current_item.length; i++) {
@@ -417,7 +417,7 @@ $( document ).ready(function() {
     function caret_turn_and_request(localization, url, page, parent_container, old_keyword_value, section) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
-        var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-directory-drop-down-list-item-caret");
+        var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-entity-drop-down-list-item-caret");
         var i;
 
         for (i = 0; i < current_item.length; i++) {
@@ -435,7 +435,7 @@ $( document ).ready(function() {
     function caret_turn_back(localization, url, page, parent_container, old_keyword_value, section) {
         //Need to assign events only for new elelements, otherwise system will call the same event for more than one time,
         //which will cause errors.
-        var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-directory-drop-down-list-item-caret-down");
+        var current_item = parent_container.getElementsByClassName("admin-panel-create-edit-entity-drop-down-list-item-caret-down");
         var i;
 
         for (i = 0; i < current_item.length; i++) {
@@ -450,8 +450,8 @@ $( document ).ready(function() {
     
     //If we use a function with events, we cannot pass arguments as normal.
     function turn_caret_and_get_children(event) {
-        event.currentTarget.classList.remove("admin-panel-create-edit-directory-drop-down-list-item-caret");
-        event.currentTarget.classList.add("admin-panel-create-edit-directory-drop-down-list-item-caret-down");
+        event.currentTarget.classList.remove("admin-panel-create-edit-entity-drop-down-list-item-caret");
+        event.currentTarget.classList.add("admin-panel-create-edit-entity-drop-down-list-item-caret-down");
         //After an element is open, need to remove its onclick event listener, otherwise dropdown list won't work properly.
         //Need to assign it again when closing an element.
         event.currentTarget.removeEventListener("click", turn_caret_and_get_children);
@@ -464,8 +464,8 @@ $( document ).ready(function() {
     
     //This functions returns a caret to its noraml position and removes items children from the list.
     function turn_caret_back_and_remove_children(event) {
-        event.currentTarget.classList.remove("admin-panel-create-edit-directory-drop-down-list-item-caret-down");
-        event.currentTarget.classList.add("admin-panel-create-edit-directory-drop-down-list-item-caret");
+        event.currentTarget.classList.remove("admin-panel-create-edit-entity-drop-down-list-item-caret-down");
+        event.currentTarget.classList.add("admin-panel-create-edit-entity-drop-down-list-item-caret");
         event.currentTarget.addEventListener("click", turn_caret_and_get_children, false);
         event.currentTarget.removeEventListener("click", turn_caret_back_and_remove_children);
         var children_to_remove = document.getElementById("directory_dropdown_list_for_" + event.currentTarget.dataset.line_id);

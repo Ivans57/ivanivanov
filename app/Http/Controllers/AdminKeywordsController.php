@@ -47,7 +47,7 @@ class AdminKeywordsController extends Controller
             return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $keywords->lastPage(), 
                                                                                 $this->is_admin_panel);
         } else {
-            return view('adminpages.keywords.adminkeywords')->with([
+            return view('adminpages.adminkeywords')->with([
                 'main_links' => $main_links->mainLinks,
                 'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
                 'headTitle' => __('keywords.'.$this->current_page),
