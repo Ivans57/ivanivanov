@@ -27,6 +27,9 @@
         </div> 
     </div>
     @if ($create_or_edit==='create')
+        <!-- <div class="admin-panel-create-edit-directory-controls">
+            <div></div>
+        </div> -->
         <div class="admin-panel-create-edit-directory-controls">
             <div>{!! Form::button(Lang::get('keywords.Browse')."...", ['style' => "display:block; width:80px; height:25px; font-size:14px; float:left;", 
                 'id' => 'pseudo_image_select' ]) !!}
