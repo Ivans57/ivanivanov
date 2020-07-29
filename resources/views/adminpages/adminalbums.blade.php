@@ -31,16 +31,17 @@
                                        class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
                                 </div>
                                 <div class="admin-panel-albums-picture-and-album-control-button">
-                                    <!--We need class admin-panel-albums-picture-and-album-control-button-link-edit only to identify edit button -->
+                                    <!--We need class admin-panel-albums-album-control-button-link-edit only to identify edit button -->
                                     <a href='albums/{{ $album->keyword }}/edit/{{ $parent_keyword }}'
                                        class="admin-panel-albums-picture-and-album-control-button-link 
-                                       admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">
+                                       admin-panel-albums-album-control-button-link-edit" data-fancybox data-type="iframe">
                                         @lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-albums-picture-and-album-control-button">
+                                    <!--We need class admin-panel-albums-album-control-button-link-delete only to identify edit button -->
                                     <a href='albums/{{ $album->keyword }}/delete'
                                        class="admin-panel-albums-picture-and-album-control-button-link 
-                                       admin-panel-albums-picture-and-album-control-button-link-delete" data-fancybox data-type="iframe">
+                                       admin-panel-albums-album-control-button-link-delete" data-fancybox data-type="iframe">
                                         @lang('keywords.Delete')</a>
                                 </div>
                             </div>

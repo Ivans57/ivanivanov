@@ -152,7 +152,7 @@ $( document ).ready(function() {
     }
     
     //We need this script to open existing Album edit page in fancy box window.
-    $(".admin-panel-albums-picture-and-album-control-button-link-edit").fancybox({
+    $(".admin-panel-albums-album-control-button-link-edit").fancybox({
 	toolbar  : false,
 	smallBtn : true,
 	iframe : {
@@ -170,8 +170,27 @@ $( document ).ready(function() {
         }
     });
     
+    //We need this script to open existing Picture edit page in fancy box window.
+    $(".admin-panel-albums-picture-control-button-link-edit").fancybox({
+	toolbar  : false,
+	smallBtn : true,
+	iframe : {
+		preload : false,
+                css : {
+                    'width' : '330px',
+                    'height' : '462px',
+                    'margin-bottom' : '200px'
+                }
+	},
+        //Also we will need a function which will recover add button's view after
+        //closing pop up's window without adding a new keyword.
+        afterClose: function() {
+            control_button_view_change_after_fancybox_close();
+        }
+    });
+    
     //We need this script to open Album delete page in fancy box window.
-    $(".admin-panel-albums-picture-and-album-control-button-link-delete").fancybox({
+    $(".admin-panel-albums-album-control-button-link-delete").fancybox({
 	toolbar  : false,
 	smallBtn : true,
 	iframe : {
@@ -179,6 +198,25 @@ $( document ).ready(function() {
                 css : {
                     'width' : '380px',
                     'height' : '265px',
+                    'margin-bottom' : '200px'
+                }
+	},
+        //Also we will need a function which will recover add button's view after
+        //closing pop up's window without adding a new keyword.
+        afterClose: function() {
+            control_button_view_change_after_fancybox_close();
+        }
+    });
+    
+    //We need this script to open Album delete page in fancy box window.
+    $(".admin-panel-albums-picture-control-button-link-delete").fancybox({
+	toolbar  : false,
+	smallBtn : true,
+	iframe : {
+		preload : false,
+                css : {
+                    'width' : '380px',
+                    'height' : '205px',
                     'margin-bottom' : '200px'
                 }
 	},

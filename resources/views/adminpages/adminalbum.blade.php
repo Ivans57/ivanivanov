@@ -61,18 +61,20 @@
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
                                         <!--We need to provide absolute path below as otherwise links are not working correctly -->
-                                        <!--We need class admin-panel-albums-picture-and-album-control-button-link-edit only to identify edit button -->
+                                        <!--We need class admin-panel-albums-album-control-button-link-edit only to identify edit button -->
                                         <a href={{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyWord."/edit/".$parent_keyword : 
                                             "/ru/admin/albums/".$album_or_picture->keyWord."/edit/".$parent_keyword }} 
                                             class="admin-panel-albums-picture-and-album-control-button-link 
-                                            admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">
+                                            admin-panel-albums-album-control-button-link-edit" data-fancybox data-type="iframe">
                                             @lang('keywords.Edit')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
+                                        <!--We need to provide absolute path below as otherwise links are not working correctly -->
+                                        <!--We need class admin-panel-albums-album-control-button-link-delete only to identify edit button -->
                                         <a href={{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyWord."/delete" : 
                                             "/ru/admin/albums/".$album_or_picture->keyWord."/delete" }} 
                                             class="admin-panel-albums-picture-and-album-control-button-link 
-                                            admin-panel-albums-picture-and-album-control-button-link-delete" data-fancybox data-type="iframe">
+                                            admin-panel-albums-album-control-button-link-delete" data-fancybox data-type="iframe">
                                             @lang('keywords.Delete')</a>
                                     </div>
                                 @elseif ($album_or_picture->type == 'picture') 
@@ -84,17 +86,21 @@
                                            admin-panel-albums-picture-control-button-link-open">@lang('keywords.Open')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
+                                        <!--We need to provide absolute path below as otherwise links are not working correctly -->
+                                        <!--We need class admin-panel-albums-picture-control-button-link-edit only to identify edit button -->
                                         <a href={{ App::isLocale('en') ? "/admin/pictures/".$album_or_picture->keyWord."/edit/".$parent_keyword : 
                                             "/ru/admin/pictures/".$album_or_picture->keyWord."/edit/".$parent_keyword }} 
                                             class="admin-panel-albums-picture-and-album-control-button-link 
-                                            admin-panel-albums-picture-and-album-control-button-link-edit" data-fancybox data-type="iframe">
+                                            admin-panel-albums-picture-control-button-link-edit" data-fancybox data-type="iframe">
                                             @lang('keywords.Edit')</a>
                                     </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
+                                        <!--We need to provide absolute path below as otherwise links are not working correctly -->
+                                        <!--We need class admin-panel-albums-picture-control-button-link-delete only to identify edit button -->
                                         <a href={{ App::isLocale('en') ? "/admin/pictures/".$album_or_picture->keyWord."/delete" : 
                                             "/ru/admin/pictures/".$album_or_picture->keyWord."/delete" }} 
                                             class="admin-panel-albums-picture-and-album-control-button-link 
-                                            admin-panel-albums-picture-and-album-control-button-link-delete" data-fancybox data-type="iframe">
+                                            admin-panel-albums-picture-control-button-link-delete" data-fancybox data-type="iframe">
                                             @lang('keywords.Delete')</a>
                                     </div>
                                 @endif
