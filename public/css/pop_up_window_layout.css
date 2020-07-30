@@ -57,12 +57,12 @@ and open the template in the editor.
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-input {
-    width: 260px;
+    width: 280px;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-input-parent {
-    width: 210px;
+    width: 230px;
     font-size: 17px;
     border: 1px solid grey;
     float: left;
@@ -90,7 +90,7 @@ and open the template in the editor.
 .admin-panel-create-edit-entity-controls-button-drop-down-search {
     position: absolute;
     top: 58px;
-    left: 250px;
+    left: 269px;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
@@ -104,7 +104,7 @@ and open the template in the editor.
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
-    width: 260px;
+    width: 280px;
     border: 1px solid grey;
     background-color: white;
     max-height: 330px;
@@ -188,7 +188,7 @@ and open the template in the editor.
 .admin-panel-create-edit-entity-controls-button-drop-down-caret {
     position: absolute;
     top: 64px;
-    left: 273px;
+    left: 293px;
     width: 0;
     height: 0;
     border-style: solid;
@@ -208,7 +208,7 @@ and open the template in the editor.
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
-    width: 260px;
+    width: 280px;
     border: 1px solid grey;
     background-color: white;
     max-height: 330px;
@@ -328,6 +328,25 @@ and open the template in the editor.
 
 /*End for parent drop down*/
 /*End of parent search and drop down for Album create, edit and delete window*/
+
+.admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
+.admin-panel-create-edit-entity-controls-browse-picture-button {
+    display: block; 
+    width: 80px; 
+    height: 25px; 
+    font-size: 14px; 
+    float: left;
+}
+
+.admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
+.admin-panel-create-edit-entity-controls-browse-picture-text {
+    display: inline-block; 
+    margin-left: 10px; 
+    margin-top: 3px; 
+    font-size: 14px; 
+    width: 170px; 
+    text-overflow: ellipsis;
+}
 
 .admin-panel-albums-create-notification-wrapper {
     position: absolute;

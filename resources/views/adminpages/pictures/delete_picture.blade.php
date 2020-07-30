@@ -4,9 +4,7 @@
     {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/pictures/".$keyword : "/ru/admin/pictures/".$keyword ]) !!}        
         <div class='admin-panel-delete-entity'>
             {!! Form::hidden('keyword', $keyword) !!}
-            <div class="admin-panel-delete-entity-message"><h3>
-                {!! Lang::get('keywords.DeletePicture') !!}?
-            </h3></div>
+            <div class="admin-panel-delete-entity-message"><h3 style="color:#cf1b0e;">@lang('keywords.DeletePicture')?</h3></div>
             <div class="admin-panel-delete-entity-controls">
                 <div>{!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-delete-entity-controls-button' ]) !!}</div>
 

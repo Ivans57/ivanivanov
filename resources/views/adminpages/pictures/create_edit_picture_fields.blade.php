@@ -28,14 +28,13 @@
     </div>
     @if ($create_or_edit==='create')
         <!-- <div class="admin-panel-create-edit-entity-controls">
-            <div></div>
+            <div></div>admin-panel-create-edit-entity-controls-
         </div> -->
         <div class="admin-panel-create-edit-entity-controls">
-            <div>{!! Form::button(Lang::get('keywords.Browse')."...", ['style' => "display:block; width:80px; height:25px; font-size:14px; float:left;", 
+            <div>{!! Form::button(Lang::get('keywords.Browse')."...", ['class' => 'admin-panel-create-edit-entity-controls-browse-picture-button', 
                 'id' => 'pseudo_image_select' ]) !!}
-                <!-- Need to shorten long file names with java script-->
                 <span id = 'pseudo_image_select_file_name' 
-                      style='display:inline-block; margin-left:10px; margin-top:3px; font-size:14px; width: 170px; text-overflow: ellipsis;'>
+                      class = 'admin-panel-create-edit-entity-controls-browse-picture-text'>
                     {{ Lang::get('keywords.NoImageChosen') }}
                 </span>
             </div>

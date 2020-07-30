@@ -64,7 +64,7 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '330px',
+                    'width' : '350px',
                     'height' : '430px',
                     'margin-bottom' : '200px'
                 }
@@ -95,7 +95,7 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '330px',
+                    'width' : '350px',
                     'height' : '482px',
                     'margin-bottom' : '200px'
                 }
@@ -142,7 +142,7 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '330px',
+                    'width' : '350px',
                     'height' : '430px',
                     'margin-bottom' : '200px'
                 }
@@ -161,7 +161,7 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '330px',
+                    'width' : '350px',
                     'height' : '462px',
                     'margin-bottom' : '200px'
                 }
@@ -282,7 +282,7 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '330px',
+                    'width' : '350px',
                     'height' : '430px',
                     'margin-bottom' : '200px'
                 }
@@ -329,7 +329,7 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '330px',
+                    'width' : '350px',
                     'height' : '430px',
                     'margin-bottom' : '200px'
                 }
@@ -408,8 +408,8 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '330px',
-                    'height' : '370px',
+                    'width' : '350px',
+                    'height' : '360px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -439,8 +439,8 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '330px',
-                    'height' : '370px',
+                    'width' : '350px',
+                    'height' : '360px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -470,7 +470,7 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '330px',
+                    'width' : '380px',
                     'height' : '180px',
                     'margin-bottom' : '200px'
                 }

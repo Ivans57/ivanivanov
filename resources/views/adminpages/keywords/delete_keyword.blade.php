@@ -6,11 +6,12 @@
     The same approcah can be used for update as well.-->
     {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords/".$keyword : "/ru/admin/keywords/".$keyword, 'method' => 'DELETE']) !!}      
         <div class='admin-panel-delete-entity'>
-            <div class="admin-panel-delete-entity-message"><h3>@lang('keywords.DeleteKeyword')?</h3></div>
+            <div class="admin-panel-delete-entity-message"><h3 style="color:#cf1b0e;">@lang('keywords.DeleteKeyword')?</h3></div>
             <div class="admin-panel-delete-entity-controls">
-                {!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-delete-entity-controls-button' ]) !!}               
-                {!! Form::button(Lang::get('keywords.Cancel'), 
-                ['class' => 'admin-panel-delete-entity-controls-button', 'id' => 'button_cancel']) !!}
+                <div>{!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-delete-entity-controls-button' ]) !!}</div>
+                
+                <div>{!! Form::button(Lang::get('keywords.Cancel'), 
+                ['class' => 'admin-panel-delete-entity-controls-button', 'id' => 'button_cancel']) !!}</div>
             </div>
         </div>   
     {!! Form::close() !!}   
