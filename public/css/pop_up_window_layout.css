@@ -330,10 +330,25 @@ and open the template in the editor.
 /*End of parent search and drop down for Album create, edit and delete window*/
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
+.admin-panel-create-edit-entity-controls-preview-picture {
+    height: 80px;
+    width:80px;
+    background-color: #dedfe0;
+    overflow: hidden;
+}
+
+.admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
+.admin-panel-create-edit-entity-controls-preview-picture img {
+    width: 100%;
+    height: 100%;
+}
+
+.admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-browse-picture-button {
     display: block; 
     width: 80px; 
-    height: 25px; 
+    height: 25px;
+    margin-top: 10px;
     font-size: 14px; 
     float: left;
 }
@@ -342,7 +357,7 @@ and open the template in the editor.
 .admin-panel-create-edit-entity-controls-browse-picture-text {
     display: inline-block; 
     margin-left: 10px; 
-    margin-top: 3px; 
+    margin-top: 13px; 
     font-size: 14px; 
     width: 170px; 
     text-overflow: ellipsis;

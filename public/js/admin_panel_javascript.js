@@ -96,7 +96,7 @@ $( document ).ready(function() {
 		preload : false,
                 css : {
                     'width' : '350px',
-                    'height' : '482px',
+                    'height' : '545px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -162,7 +162,7 @@ $( document ).ready(function() {
 		preload : false,
                 css : {
                     'width' : '350px',
-                    'height' : '462px',
+                    'height' : '515px',
                     'margin-bottom' : '200px'
                 }
 	},

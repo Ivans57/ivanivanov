@@ -25,22 +25,21 @@
              data-next_page="{{ Lang::get('keywords.NextPage') }}" 
              data-root="{{ Lang::get('keywords.Albums') }}">
         </div> 
-    </div>
-    @if ($create_or_edit==='create')
-        <!-- <div class="admin-panel-create-edit-entity-controls">
-            <div></div>admin-panel-create-edit-entity-controls-
-        </div> -->
-        <div class="admin-panel-create-edit-entity-controls">
+    </div>   
+    <div class="admin-panel-create-edit-entity-controls">
+        <!-- Need to wrap an image by div, if don't do that, the image will be deformed.-->
+        <div class="admin-panel-create-edit-entity-controls-preview-picture"><div><img id = "image_preview"></div></div>
+        @if ($create_or_edit==='create')
             <div>{!! Form::button(Lang::get('keywords.Browse')."...", ['class' => 'admin-panel-create-edit-entity-controls-browse-picture-button', 
-                'id' => 'pseudo_image_select' ]) !!}
+                    'id' => 'pseudo_image_select' ]) !!}
                 <span id = 'pseudo_image_select_file_name' 
-                      class = 'admin-panel-create-edit-entity-controls-browse-picture-text'>
+                        class = 'admin-panel-create-edit-entity-controls-browse-picture-text'>
                     {{ Lang::get('keywords.NoImageChosen') }}
                 </span>
             </div>
             <div>{!! Form::file('image_select', ['id' => 'image_select', 'style' => 'display:none'] ) !!}</div>
-        </div>
-    @endif
+        @endif
+    </div>  
     <div class="admin-panel-create-edit-entity-controls">
         <div>
             {!! Form::label('keyword', Lang::get('keywords.PictureKeyword').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}

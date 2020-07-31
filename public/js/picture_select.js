@@ -22,6 +22,7 @@ $( document ).ready(function() {
     
         var image_select = document.getElementById('image_select');
         var file_caption = document.getElementById('pseudo_image_select_file_name');
+        var image_preview = document.getElementById('image_preview');
 
         image_select.addEventListener('change', function() {
             //There might be a file with very long name, in that case on a view we will shorten its name.
@@ -35,6 +36,7 @@ $( document ).ready(function() {
                 new_file_name = new_file_name.concat(new_file_name_end);
             }      
             file_caption.innerHTML = new_file_name;
+            image_preview.src = URL.createObjectURL(this.files[0]);
         });   
     }
 });
