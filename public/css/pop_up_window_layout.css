@@ -331,10 +331,24 @@ and open the template in the editor.
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-preview-picture {
-    height: 80px;
-    width:80px;
-    background-color: #dedfe0;
+    min-height: 40px;
+    max-height: 100px;
+    min-width: 40px;
+    max-width: 100px;
     overflow: hidden;
+}
+
+.admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
+.admin-panel-create-edit-entity-controls-preview-picture .admin-panel-create-edit-entity-controls-preview-picture-template {
+    height: 50px;
+    width: 80px;
+    background-color: #dedfe0;
+    border-style: dotted;
+    border-width: 1px;
+    border-color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 

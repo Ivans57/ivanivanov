@@ -22,7 +22,9 @@ $( document ).ready(function() {
     
         var image_select = document.getElementById('image_select');
         var file_caption = document.getElementById('pseudo_image_select_file_name');
-        var image_preview = document.getElementById('image_preview');
+        var image_select_preview = document.getElementById('image_select_preview');
+        //var image_preview = document.getElementById('image_preview');
+        //var image_preview_link = document.getElementById('image_preview_link');
 
         image_select.addEventListener('change', function() {
             //There might be a file with very long name, in that case on a view we will shorten its name.
@@ -36,7 +38,17 @@ $( document ).ready(function() {
                 new_file_name = new_file_name.concat(new_file_name_end);
             }      
             file_caption.innerHTML = new_file_name;
+            image_select_preview.innerHTML = "";
+            //Image should be wrapped with div, because otherwise its getting deformed.
+            image_select_preview.insertAdjacentHTML("afterbegin", "<div>\n\
+                                                                        <a href='' data-fancybox='group' id='image_preview_link'>\n\
+                                                                            <img id='image_preview'>\n\
+                                                                        </a>\n\
+                                                                   </div>");                                                                
+            var image_preview = document.getElementById('image_preview');
+            var image_preview_link = document.getElementById('image_preview_link');
             image_preview.src = URL.createObjectURL(this.files[0]);
+            image_preview_link.href = URL.createObjectURL(this.files[0]);
         });   
     }
 });

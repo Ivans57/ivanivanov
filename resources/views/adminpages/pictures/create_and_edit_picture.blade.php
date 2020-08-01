@@ -19,8 +19,10 @@
                                              'data-mode' => $mode,
                                              'id' => 'admin_panel_create_edit_entity_form' ]) !!}
     @endif
-        @component('adminpages/pictures/create_edit_picture_fields', ['parent_id' => $parent_id, 
-                                                                      'parent_name' => $parent_name, 'section' => $section, 'create_or_edit' => $create_or_edit])
+        @component('adminpages/pictures/create_edit_picture_fields', ['parent_id' => $parent_id, 'parent_name' => $parent_name, 
+                                                                      'path_to_file' => ($create_or_edit==='edit') ? $path_to_file : null,
+                                                                      'file_name' => ($create_or_edit==='edit') ? $edited_picture->file_name : null, 
+                                                                      'section' => $section, 'create_or_edit' => $create_or_edit])
             @slot('old_keyword')
                 <!-- We need to pass an old keyword to validation because we need to compare it with a new keyword to avoid any misunderstanding 
                 when do keyword uniqueness check. When we edit existing record we might change something without changing a keyword. 

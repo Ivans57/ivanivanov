@@ -27,9 +27,10 @@
         </div> 
     </div>   
     <div class="admin-panel-create-edit-entity-controls">
-        <!-- Need to wrap an image by div, if don't do that, the image will be deformed.-->
-        <div class="admin-panel-create-edit-entity-controls-preview-picture"><div><img id = "image_preview"></div></div>
         @if ($create_or_edit==='create')
+        <div class='admin-panel-create-edit-entity-controls-preview-picture' id="image_select_preview">
+            <div class='admin-panel-create-edit-entity-controls-preview-picture-template'><span>{{ Lang::get('keywords.Sketch') }}</span></div>
+        </div>
             <div>{!! Form::button(Lang::get('keywords.Browse')."...", ['class' => 'admin-panel-create-edit-entity-controls-browse-picture-button', 
                     'id' => 'pseudo_image_select' ]) !!}
                 <span id = 'pseudo_image_select_file_name' 
@@ -38,6 +39,14 @@
                 </span>
             </div>
             <div>{!! Form::file('image_select', ['id' => 'image_select', 'style' => 'display:none'] ) !!}</div>
+        @else
+            <div class='admin-panel-create-edit-entity-controls-preview-picture' id="image_select_preview">
+                <div>
+                    <a href="{{ URL::asset($path_to_file.$file_name) }}" data-fancybox="group" id="image_preview_link">
+                        <img id='image_preview' src="{{ URL::asset($path_to_file.$file_name) }}">
+                    </a>
+                </div>
+            </div>
         @endif
     </div>  
     <div class="admin-panel-create-edit-entity-controls">

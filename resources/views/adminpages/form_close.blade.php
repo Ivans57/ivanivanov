@@ -1,6 +1,6 @@
-@extends('partial')
+@extends('create_edit_delete_window')
 
-@section('partialcontent')
+@section('create_edit_delete_window_content')
 
 @stop
 

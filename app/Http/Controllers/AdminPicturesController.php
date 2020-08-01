@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+//We need the line below to use localization. 
+use App;
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AdminPicturesRepository;
 use App\Http\Requests\CreatePictureRequest;
@@ -72,7 +74,9 @@ class AdminPicturesController extends Controller
             ]);
     }
     
-    public function edit($keyword, $parent_keyword) {                 
+    public function edit($keyword, $parent_keyword) {
+        $edited_picture = Picture::where('keyword', '=', $keyword)->firstOrFail();
+        
         if ($parent_keyword != "0") {
             $parent_info = Album::select('id', 'album_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
@@ -87,7 +91,9 @@ class AdminPicturesController extends Controller
             //We need this variable to find out which mode are we using Create or Edit
             //and then to open a view accordingly with a chosen mode.
             'create_or_edit' => 'edit',
-            'edited_picture' => Picture::where('keyword', '=', $keyword)->firstOrFail(),
+            'edited_picture' => $edited_picture,
+            'path_to_file' => (App::isLocale('en') ? 'storage/albums/en' : 'storage/albums/ru').
+                                $this->pictures->getDirectoryPath($edited_picture->included_in_album_with_id)."/",
             //The line below is required for form path.
             'section' => 'albums',
             //The last variable is required for parents search.
