@@ -88,9 +88,9 @@ and open the template in the editor.
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-button-search-and-drop-down
 .admin-panel-create-edit-entity-controls-button-drop-down-search {
-    position: absolute;
-    top: 58px;
-    left: 269px;
+    position: relative;
+    top: 3px;
+    left: -2px;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
@@ -186,15 +186,10 @@ and open the template in the editor.
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-button-drop-down 
 .admin-panel-create-edit-entity-controls-button-drop-down-caret {
-    position: absolute;
-    top: 64px;
-    left: 293px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 10px 10px 10px;
-    border-color: white transparent transparent transparent;
-    transform: scale(0.7, 1.5);
+    position: relative;
+    top: 0px;
+    left: -3px;
+    color: white;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
@@ -386,7 +381,7 @@ and open the template in the editor.
 
 .admin-panel-albums-create-notification-wrapper .admin-panel-albums-create-notification {
     margin-bottom: 0px;
-    width: 330px;
+    width: 350px;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 

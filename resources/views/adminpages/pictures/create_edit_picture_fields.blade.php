@@ -8,19 +8,8 @@
             Lang::get('keywords.ParentAlbum').':', 
             ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
         </div>
-        <div>
-            {!! Form::text('included_in_directory_with_name', $parent_name, 
-            ['class' => 'admin-panel-create-edit-entity-controls-input-parent', 
-            'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'search']) !!}
-            {!! Form::button('<span class="glyphicon glyphicon-search admin-panel-create-edit-entity-controls-button-drop-down-search">
-                </span>', ['class' => 'admin-panel-create-edit-entity-controls-button-search-and-drop-down', 
-                'id' => 'parent_directory_search_button', 'title' => Lang::get('keywords.FindInDataBase') ]) !!}
-                {!! Form::button('<div class="admin-panel-create-edit-entity-controls-button-drop-down-caret"></div>', 
-                ['class' => 'admin-panel-create-edit-entity-controls-button-search-and-drop-down 
-                admin-panel-create-edit-entity-controls-button-drop-down', 
-                'id' => 'parent_directory_select_from_dropdown_list_button', 'title' => Lang::get('keywords.SelectFromDropDownList') ]) !!}
-            </button>
-        </div>
+        @component('adminpages/create_edit_parent_search', ['parent_name' => $parent_name])
+        @endcomponent
         <div id="directory_list_container" data-previous_page="{{ Lang::get('keywords.PreviousPage') }}"
              data-next_page="{{ Lang::get('keywords.NextPage') }}" 
              data-root="{{ Lang::get('keywords.Albums') }}">
