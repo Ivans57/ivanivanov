@@ -227,19 +227,35 @@ $( document ).ready(function() {
 
 $( document ).ready(function() {
     //Making list of all elements with our class.
-    var add_article_folder_buttons = document.querySelectorAll('.admin-panel-articles-add-article-folder-button');
-    var add_article_folder_links = document.querySelectorAll('.admin-panel-articles-add-article-folder-button-link');
+    var add_folder_buttons = document.querySelectorAll('.admin-panel-articles-add-folder-button');
+    var add_folder_links = document.querySelectorAll('.admin-panel-articles-add-folder-button-link');
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
-    for (var i = 0; i < add_article_folder_buttons.length; i++) {
-        clickArticleFolderButton(add_article_folder_buttons[i], add_article_folder_links[i]);
+    for (var i = 0; i < add_folder_buttons.length; i++) {
+        clickAddFolderButton(add_folder_buttons[i], add_folder_links[i]);
     }
-    function clickArticleFolderButton(button, link) {
+    function clickAddFolderButton(button, link) {
         button.addEventListener('click', function() {
-            button.classList.remove('admin-panel-articles-add-article-folder-button');
-            button.classList.add('admin-panel-articles-add-article-folder-button-pressed');
-            link.classList.remove('admin-panel-articles-add-article-folder-button-link');
-            link.classList.add('admin-panel-articles-add-article-folder-button-link-pressed');
+            button.classList.remove('admin-panel-articles-add-folder-button');
+            button.classList.add('admin-panel-articles-add-folder-button-pressed');
+            link.classList.remove('admin-panel-articles-add-folder-button-link');
+            link.classList.add('admin-panel-articles-add-folder-button-link-pressed');
+        });
+    }
+
+    var add_article_buttons = document.querySelectorAll('.admin-panel-articles-add-article-button');
+    var add_article_links = document.querySelectorAll('.admin-panel-articles-add-article-button-link');
+    //getting through the array of elements and applying required function
+    //for all of them. We don't need these elements id anymore.
+    for (var i = 0; i < add_article_buttons.length; i++) {
+        clickAddArticleButton(add_article_buttons[i], add_article_links[i]);
+    }
+    function clickAddArticleButton(button, link) {
+        button.addEventListener('click', function() {
+            button.classList.remove('admin-panel-articles-add-article-button');
+            button.classList.add('admin-panel-articles-add-article-button-pressed');
+            link.classList.remove('admin-panel-articles-add-article-button-link');
+            link.classList.add('admin-panel-articles-add-article-button-link-pressed');
         });
     }
 
@@ -276,7 +292,7 @@ $( document ).ready(function() {
     }   
 
     //We need this script to open new Folder create page in fancy box window.
-    $(".admin-panel-articles-add-article-folder-button-link").fancybox({
+    $(".admin-panel-articles-add-folder-button-link").fancybox({
 	toolbar  : false,
 	smallBtn : true,
 	iframe : {
@@ -292,16 +308,16 @@ $( document ).ready(function() {
         afterClose: function() {
             //We don't need an array here as in previous examples, because there will be
             //always only one pressed element.
-            var button = document.querySelector('.admin-panel-articles-add-article-folder-button-pressed');
-            var link = document.querySelector('.admin-panel-articles-add-article-folder-button-link-pressed');
+            var button = document.querySelector('.admin-panel-articles-add-folder-button-pressed');
+            var link = document.querySelector('.admin-panel-articles-add-folder-button-link-pressed');
 
             unclickButton(button, link);
 
             function unclickButton(button, link) {
-                button.classList.remove('admin-panel-articles-add-article-folder-button-pressed');
-                button.classList.add('admin-panel-articles-add-article-folder-button');
-                link.classList.remove('admin-panel-articles-add-article-folder-button-link-pressed');
-                link.classList.add('admin-panel-articles-add-article-folder-button-link');
+                button.classList.remove('admin-panel-articles-add-folder-button-pressed');
+                button.classList.add('admin-panel-articles-add-folder-button');
+                link.classList.remove('admin-panel-articles-add-folder-button-link-pressed');
+                link.classList.add('admin-panel-articles-add-folder-button-link');
             }
         }
     });

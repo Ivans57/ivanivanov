@@ -231,6 +231,12 @@ class ArticlesRepository {
         }
     }
     
+    //This function is required when make a new article or edit existing one
+    //to show the article's path.
+    public function getArticlesParentsForPath($parent_folders_id) {
+        return array_reverse($this->get_folders_and_articles_parents_for_view($parent_folders_id));;
+    }
+    
     //We need this to make a check for keyword uniqueness when adding a new
     //folder keyword or editing existing.
     public function get_all_folders_keywords() {

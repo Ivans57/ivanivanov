@@ -4,8 +4,8 @@
 
 <article class="admin-panel-main-article">
     <div class="admin-panel-articles-add-article-folder-wrapper">
-        <div class="admin-panel-articles-add-article-folder-button">
-            <a href='articles/create/{{ $parent_keyword }}' class="admin-panel-articles-add-article-folder-button-link"
+        <div class="admin-panel-articles-add-folder-button">
+            <a href='articles/create/{{ $parent_keyword }}' class="admin-panel-articles-add-folder-button-link"
                data-fancybox data-type="iframe">@lang('keywords.AddFolder')</a>
         </div>
     </div>         

@@ -24,6 +24,7 @@ class CreateRuArticlesTable extends Migration
             $table->integer('folder_id')->unsigned();
             $table->foreign('folder_id')->references('id')->on('ru_folders')->onDelete('cascade');
             $table->timestamps();
+            $table->boolean('is_visible');
         });
     }
 

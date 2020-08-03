@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 //We need the line below to use localization. 
 use App;
-use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AdminPicturesRepository;
 use App\Http\Requests\CreatePictureRequest;
 use App\Http\Requests\EditPictureRequest;
@@ -15,24 +14,12 @@ class AdminPicturesController extends Controller
 {
     protected $pictures;
     protected $current_page;
-    protected $navigation_bar_obj;
-    //We need this variable to identify whether we are using a normal site
-    //option or admin panel, as we have common repositories for the normal 
-    //site and admin panel.
-    protected $is_admin_panel;
     
     //There are some methods and variables which we will always use, so it will be better
     //if we call the and initialize in constructor
     public function __construct(AdminPicturesRepository $pictures) {
         $this->pictures = $pictures;        
         $this->current_page = 'Albums';
-        //The line below is making an object of repository which contains
-        //a method for making navigation bar main links
-        //We can't get all these links in constructor as localiztion is applied 
-        //only when we call some certain method in a route. We need to call the
-        //method for main links using made main links object in controller's methods.
-        $this->navigation_bar_obj = new CommonRepository();
-        $this->is_admin_panel = true;
     }
     
     public function create($parent_keyword) {

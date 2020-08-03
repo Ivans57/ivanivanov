@@ -20,13 +20,16 @@
         <h2>{{ $headTitle }}</h2>
     </div>
     <div class="admin-panel-articles-add-article-folder-wrapper">
-        <div class="admin-panel-articles-add-article-folder-button">
-            <a href='#' class="admin-panel-articles-add-article-folder-button-link">@lang('keywords.AddArticle')</a>
+        <div class="admin-panel-articles-add-article-button">
+            <a href={{ App::isLocale('en') ? "/admin/article/create/".$parent_keyword : "/ru/admin/article/create/".$parent_keyword }} 
+                class="admin-panel-articles-add-article-button-link">
+                   @lang('keywords.AddArticle')
+            </a>
         </div>
         @if ($nesting_level < 7)
-            <div class="admin-panel-articles-add-article-folder-button">
+            <div class="admin-panel-articles-add-folder-button">
                 <a href={{ App::isLocale('en') ? "/admin/articles/create/".$parent_keyword : "/ru/admin/articles/create/".$parent_keyword }} 
-                class="admin-panel-articles-add-article-folder-button-link" data-fancybox data-type="iframe">
+                class="admin-panel-articles-add-folder-button-link" data-fancybox data-type="iframe">
                    @lang('keywords.AddFolder')
                 </a>
             </div>

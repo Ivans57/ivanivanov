@@ -22,8 +22,14 @@
 //necessary experiments
 Route::get('test', 'TestController@index');
 
+//******************************************************************************
+//Website
+//******************************************************************************
+
+//Home
 
 //We use Route::group ... because our website has two languages
+
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('/', 'HomeController@index');
 });
@@ -32,6 +38,9 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('/', 'HomeController@index');
 });
 
+//------------------------------------------------------------------------------
+
+//About me
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('about-me', 'AboutMeController@index');
@@ -40,6 +49,10 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::get('about-me', 'AboutMeController@index');
 });
+
+//------------------------------------------------------------------------------
+
+//Albums
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('albums', 'AlbumsController@index');
@@ -56,6 +69,10 @@ Route::group(['middleware' => 'locale'], function() {
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('albums/{keyword}/page/{page}', 'AlbumsController@show');
 });
+
+//------------------------------------------------------------------------------
+
+//Articles
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('articles', 'ArticlesController@index');
@@ -80,6 +97,8 @@ Route::group(['middleware' => 'locale'], function() {
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('articles/{keyword}', 'ArticlesController@showArticle');
 });
+
+//------------------------------------------------------------------------------
 
 /*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('testik', 'AlbumsController@test');
@@ -99,7 +118,14 @@ Route::group(['prefix' => 'ru', 'middleware' => ['web'], 'locale'], function() {
     Route::post('testik', 'AlbumsController@testik');
 });
 
-//This is for Admin Panel
+//==============================================================================
+
+//******************************************************************************
+//Admin Panel
+//******************************************************************************
+
+//Home
+
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin', 'AdminController@index');
 });
@@ -108,6 +134,11 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('admin', 'AdminController@index');
 });
 
+//------------------------------------------------------------------------------
+
+//Albums and Pictures
+
+//Albums
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/albums', 'AdminAlbumsController@index');
 });
@@ -122,22 +153,6 @@ Route::group(['middleware' => 'locale'], function() {
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/albums/{keyword}/page/{page}', 'AdminAlbumsController@show');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/findParents', 'AdminParentsController@findParents');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/findParents', 'AdminParentsController@findParents');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/getParentList', 'AdminParentsController@getParentList');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/getParentList', 'AdminParentsController@getParentList');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
@@ -187,7 +202,9 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::delete('admin/albums/{keyword}', 'AdminAlbumsController@destroy');
 });
+//End of Albums
 
+//Pictures
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/pictures/create/{parent_keyword}', 'AdminPicturesController@create');
 });
@@ -235,7 +252,13 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::delete('admin/pictures/{keyword}', 'AdminPicturesController@destroy');
 });
+//End of Pictures
 
+//------------------------------------------------------------------------------
+
+//Articles and Folders
+
+//Folders
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
@@ -299,6 +322,29 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::delete('admin/articles/{keyword}', 'AdminArticlesController@destroy');
 });
+//End of Folders
+
+//Articles
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/article/create/{parent_keyword}', 'AdminArticleController@create');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/article/create/{parent_keyword}', 'AdminArticleController@create');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/article', 'AdminArticleController@store');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/article', 'AdminArticleController@store');
+});
+//End of Articles
+
+//------------------------------------------------------------------------------
+
+//Keywords
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/keywords', 'AdminKeywordsController@index');
@@ -355,3 +401,27 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::delete('admin/keywords/{keyword}', 'AdminKeywordsController@destroy');
 });
+
+//------------------------------------------------------------------------------
+
+//Parent Search
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/findParents', 'AdminParentsController@findParents');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/findParents', 'AdminParentsController@findParents');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/getParentList', 'AdminParentsController@getParentList');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/getParentList', 'AdminParentsController@getParentList');
+});
+
+//------------------------------------------------------------------------------
+
+//==============================================================================

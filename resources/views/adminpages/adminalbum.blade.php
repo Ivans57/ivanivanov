@@ -24,7 +24,7 @@
             <a href={{ App::isLocale('en') ? "/admin/pictures/create/".$parent_keyword : "/ru/admin/pictures/create/".$parent_keyword }} 
                 class="admin-panel-albums-add-picture-button-link" data-fancybox data-type="iframe">
                    @lang('keywords.AddPicture')
-                </a>
+            </a>
         </div>
         @if ($nesting_level < 7)
             <div class="admin-panel-albums-add-album-button">
