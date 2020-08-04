@@ -64,8 +64,8 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '350px',
-                    'height' : '430px',
+                    'width' : '355px',
+                    'height' : '440px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -95,7 +95,7 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '350px',
+                    'width' : '355px',
                     'height' : '545px',
                     'margin-bottom' : '200px'
                 }
@@ -142,8 +142,8 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '350px',
-                    'height' : '430px',
+                    'width' : '355px',
+                    'height' : '440px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -161,7 +161,7 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '350px',
+                    'width' : '355px',
                     'height' : '515px',
                     'margin-bottom' : '200px'
                 }
@@ -298,8 +298,8 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '350px',
-                    'height' : '430px',
+                    'width' : '355px',
+                    'height' : '440px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -345,8 +345,8 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '350px',
-                    'height' : '430px',
+                    'width' : '355px',
+                    'height' : '440px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -424,8 +424,8 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '350px',
-                    'height' : '360px',
+                    'width' : '355px',
+                    'height' : '370px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -455,8 +455,8 @@ $( document ).ready(function() {
 	iframe : {
 		preload : false,
                 css : {
-                    'width' : '350px',
-                    'height' : '360px',
+                    'width' : '355px',
+                    'height' : '370px',
                     'margin-bottom' : '200px'
                 }
 	},

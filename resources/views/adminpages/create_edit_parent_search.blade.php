@@ -3,9 +3,11 @@
             ['class' => 'admin-panel-create-edit-entity-controls-input-parent', 
             'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'search']) !!}
             {!! Form::button('<span class="glyphicon glyphicon-search admin-panel-create-edit-entity-controls-button-drop-down-search">
-                </span>', ['class' => 'admin-panel-create-edit-entity-controls-button-search-and-drop-down', 
+                </span>', 
+                ['class' => 'admin-panel-create-edit-entity-controls-button-search-and-drop-down
+                admin-panel-create-edit-entity-controls-button-search',
                 'id' => 'parent_directory_search_button', 'title' => Lang::get('keywords.FindInDataBase') ]) !!}
-                {!! Form::button('<span class="glyphicon glyphicon-triangle-bottom admin-panel-create-edit-entity-controls-button-drop-down-caret">
+            {!! Form::button('<span class="glyphicon glyphicon-triangle-bottom admin-panel-create-edit-entity-controls-button-drop-down-caret">
                 </span>', 
                 ['class' => 'admin-panel-create-edit-entity-controls-button-search-and-drop-down 
                 admin-panel-create-edit-entity-controls-button-drop-down', 

@@ -7,6 +7,7 @@
             @endslot
             @slot('css')
                 <link href="{{ URL::asset('css/admin_layout.css') }}" rel="stylesheet">
+                <link href="{{ URL::asset('css/pop_up_window_layout.css') }}" rel="stylesheet">
             @endslot
         @endcomponent 
     </head>
@@ -31,6 +32,7 @@
         @component('pages/body_scripts')
             @slot('js')
                 <script type="text/javascript" src="{{ URL::asset('js/admin_panel_javascript.js') }}"></script>
+                <script type="text/javascript" src="{{ URL::asset('js/parent_search_and_select.js') }}"></script>
             @endslot
         @endcomponent
         <!-- End of scripts -->

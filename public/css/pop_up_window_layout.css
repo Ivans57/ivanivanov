@@ -57,15 +57,14 @@ and open the template in the editor.
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-input {
-    width: 280px;
+    width: 285px;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-input-parent {
-    width: 230px;
+    width: 232px;
     font-size: 17px;
     border: 1px solid grey;
-    float: left;
     background: #f1f1f1;
 }
 
@@ -74,9 +73,9 @@ and open the template in the editor.
 /*Begigining for parent search*/
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-button-search-and-drop-down {
-    width: 25px;
+    display: inline-block;
+    width: 26px;
     height: 28px;
-    padding-right: 4px;
     background: #2196F3;
     color: white;
     font-size: 17px;
@@ -86,10 +85,16 @@ and open the template in the editor.
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
+.admin-panel-create-edit-entity-controls-button-search {
+    margin-left: -4px;
+}
+
+/*admin-panel-create-edit-entity-controls-button-search*/
+.admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-button-search-and-drop-down
 .admin-panel-create-edit-entity-controls-button-drop-down-search {
     position: relative;
-    top: 3px;
+    top: 4px;
     left: -2px;
 }
 
@@ -104,7 +109,7 @@ and open the template in the editor.
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
-    width: 280px;
+    width: 283px;
     border: 1px solid grey;
     background-color: white;
     max-height: 330px;
@@ -171,11 +176,9 @@ and open the template in the editor.
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-button-drop-down {
     width: 24px;
-    float: right;
     cursor: pointer;
     height: 28px;
-    padding-top: 5px;
-    padding-right: 5px;
+    margin-left: -3px;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
@@ -187,7 +190,7 @@ and open the template in the editor.
 .admin-panel-create-edit-entity-controls-button-drop-down 
 .admin-panel-create-edit-entity-controls-button-drop-down-caret {
     position: relative;
-    top: 0px;
+    top: 4px;
     left: -3px;
     color: white;
 }
@@ -203,7 +206,7 @@ and open the template in the editor.
     position: absolute;
     top: 80.1px; 
     left: 34.5px;
-    width: 280px;
+    width: 283px;
     border: 1px solid grey;
     background-color: white;
     max-height: 330px;
@@ -381,7 +384,7 @@ and open the template in the editor.
 
 .admin-panel-albums-create-notification-wrapper .admin-panel-albums-create-notification {
     margin-bottom: 0px;
-    width: 350px;
+    width: 355px;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
