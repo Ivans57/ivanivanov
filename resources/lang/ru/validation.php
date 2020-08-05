@@ -89,11 +89,13 @@ return [
     //Additional validations added by developer
     'prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
     'keywords_prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
+    'articles_prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
     'space_check' => 'Поле :attribute не должно содержать пробелы.',
     'album_keyword_uniqueness_check' => 'Ключевое слово альбома не уникально.',
     'folder_keyword_uniqueness_check' => 'Ключевое слово папки не уникально.',
     'keyword_uniqueness_check' => 'Ключевое слово не уникально.',
     'picture_keyword_uniqueness_check' => 'Ключевое слово изображения не уникально.',
+    'article_keyword_uniqueness_check' => 'Ключевое слово статьи не уникально.',
 
     /*
     |--------------------------------------------------------------------------
@@ -119,6 +121,9 @@ return [
         'included_in_album_with_id' => [
             'item_has_directory' => 'Изображение должно быть сохранено внутри какого-то альбома.',
         ],
+        'folder_id' => [
+            'item_has_directory' => 'Статья должна быть сохранена внутри какого-то альбома.',
+        ],
     ],
 
     /*
@@ -133,6 +138,7 @@ return [
     */
 
     'attributes' => ['keyword' => __('keywords.Keyword'), 'text' => __('keywords.Text'), 'album_name' => __('keywords.AlbumName'),
-                    'folder_name' => __('keywords.FolderName'), 'picture_caption' => __('keywords.PictureCaption')],
+                    'folder_name' => __('keywords.FolderName'), 'picture_caption' => __('keywords.PictureCaption'), 
+                    'article_keyword' => __('keywords.ArticleKeyword'), 'article_title' => __('keywords.ArticleTitle'), 'article_body' => __('keywords.ArticleText')],
 
 ];

@@ -12,7 +12,8 @@ class Article extends Model {
     
     protected $table;
     
-    protected $fillable = ['keyword', 'article_title','article_description', 'article_body', 'article_author', 'article_source', 'is_visible'];
+    protected $fillable = ['keyword', 'article_title','article_description', 'article_body', 'article_author', 'article_source', 
+                            'folder_id', 'created_at', 'updated_at', 'is_visible'];
     
     //Here we are making a method which according to a current language 
     //will select a proper table.

@@ -4,7 +4,7 @@
 <script src="{{ URL::asset('bootstrap-3.3.7-dist/js/bootstrap.min.js') }}"></script>
 
 
-<!-- We need this to use our scripts -->
+<!-- We need this to use our own scripts -->
 {{ $js }}
     
 <!-- We need the code below to implement fancyBox in our project -->

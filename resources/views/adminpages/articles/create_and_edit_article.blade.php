@@ -37,17 +37,16 @@
     <div>
         <h2>{{ $headTitle }}</h2>
     </div>
-        @component('adminpages/articles/create_edit_article_fields', ['parent_id' => $parent_id, 'parent_name' => $parent_name,
+        @component('adminpages/articles/create_edit_article_fields', ['parent_id' => $parent_id, 'parent_name' => $parent_name, 'parent_keyword' => $parent_keyword,
                                                                       'section' => $section, 'create_or_edit' => $create_or_edit])
             @slot('old_keyword')
                 <!-- We need to pass an old keyword to validation because we need to compare it with a new keyword to avoid any misunderstanding 
                 when do keyword uniqueness check. When we edit existing record we might change something without changing a keyword. 
                 If we don't compare new keyword with its previous value, the system might think keyword 
                 is not unique as user is trying to assign already existing keyword. -->
-                {!! Form::hidden('old_keyword', $create_or_edit==='create' ? null : $edited_picture->keyword, ['id' => 'old_keyword']) !!}
+                {!! Form::hidden('old_keyword', $create_or_edit==='create' ? null : $edited_article->keyword, ['id' => 'old_keyword']) !!}
             @endslot
         @endcomponent                 
         {!! Form::close() !!}
 </article>
-
 @stop

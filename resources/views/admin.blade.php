@@ -32,7 +32,11 @@
         @component('pages/body_scripts')
             @slot('js')
                 <script type="text/javascript" src="{{ URL::asset('js/admin_panel_javascript.js') }}"></script>
-                <script type="text/javascript" src="{{ URL::asset('js/parent_search_and_select.js') }}"></script>
+                <!-- This check is required because the file which is mentioned below will be used only when making a new article. -->
+                @if (isset($section, $mode))
+                    <script type="text/javascript" src="{{ URL::asset('js/parent_search_and_select.js') }}"></script>
+                    <script type="text/javascript" src="{{ URL::asset('js/article_create_edit_cancel.js') }}"></script>
+                @endif
             @endslot
         @endcomponent
         <!-- End of scripts -->

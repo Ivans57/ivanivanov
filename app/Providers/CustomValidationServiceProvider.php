@@ -5,14 +5,16 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
-//We need AlbumsRepository to provide Album Keyword's uniqueness check
+//We need AlbumsRepository to provide Album Keyword's uniqueness check.
 use App\Http\Repositories\AlbumsRepository;
-//We need ArticlesRepository to provide Folder Keyword's uniqueness check
+//We need ArticlesRepository to provide Folder Keyword's uniqueness check.
 use App\Http\Repositories\ArticlesRepository;
-//We need ArticlesRepository to provide Keyword's uniqueness check
+//We need ArticlesRepository to provide Keyword's uniqueness check.
 use App\Http\Repositories\KeywordsRepository;
-//We need AlbumsRepository to provide Picture Keyword's uniqueness check
+//We need AlbumsRepository to provide Picture Keyword's uniqueness check.
 use App\Http\Repositories\AdminPicturesRepository;
+//We need AdminArticleRepository to provide Articles Keyword's uniqueness check.
+use App\Http\Repositories\AdminArticleRepository;
 
 class CustomValidationServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,23 @@ class CustomValidationServiceProvider extends ServiceProvider
             $allowed_characters = array("A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g", "H", "h", "I", "i", "J", "j", "K", "k", "L", "l", "M", "m", 
             "N", "n", "O", "o", "P", "p", "Q", "q", "R", "r", "S", "s", "T", "t", "U", "u", "V", "v", "W", "w", 
                 "X", "x", "Y", "y", "Z", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " ");
+            $characters_to_check = str_split($value, 1);
+            foreach ($characters_to_check as $character_to_check) {
+                if (in_array($character_to_check, $allowed_characters)) {
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        });
+        
+        Validator::extend('articles_prohibited_characters', function ($attribute, $value, $parameters, $validator) {
+            //I have added space to the array of allowed characters only for the purpose to show an error message
+            //just once, so we don't have two messages for prohibited characters and for spaces detection.
+            //We just need only one message telling that spaces are not allowed.
+            $allowed_characters = array("A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g", "H", "h", "I", "i", "J", "j", "K", "k", "L", "l", "M", "m", 
+            "N", "n", "O", "o", "P", "p", "Q", "q", "R", "r", "S", "s", "T", "t", "U", "u", "V", "v", "W", "w", 
+                "X", "x", "Y", "y", "Z", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " ", "-", "_");
             $characters_to_check = str_split($value, 1);
             foreach ($characters_to_check as $character_to_check) {
                 if (in_array($character_to_check, $allowed_characters)) {
@@ -75,8 +94,7 @@ class CustomValidationServiceProvider extends ServiceProvider
             if ((strcmp($value, $parameters[0])) == 0) {
                 return true;
             } else {
-                $albums = new AlbumsRepository();
-                $all_keywords = $albums->get_all_albums_keywords();
+                $all_keywords = (new AlbumsRepository())->get_all_albums_keywords();
                 foreach ($all_keywords as $keyword) {
                     if ((strcmp(strtolower($keyword), strtolower($value))) == 0){
                         return false;
@@ -95,8 +113,7 @@ class CustomValidationServiceProvider extends ServiceProvider
             if ((strcmp($value, $parameters[0])) == 0) {
                 return true;
             } else {
-                $folders = new ArticlesRepository();
-                $all_keywords = $folders->get_all_folders_keywords();
+                $all_keywords = (new ArticlesRepository())->get_all_folders_keywords();
                 foreach ($all_keywords as $keyword) {
                     if ((strcmp(strtolower($keyword), strtolower($value))) == 0){
                         return false;
@@ -115,8 +132,7 @@ class CustomValidationServiceProvider extends ServiceProvider
             if ((strcmp($value, $parameters[0])) == 0) {
                 return true;
             } else {
-                $keywords = new KeywordsRepository();
-                $all_keywords = $keywords->get_all_keywords();
+                $all_keywords = (new KeywordsRepository())->get_all_keywords();
                 foreach ($all_keywords as $keyword) {
                     if ((strcmp(strtolower($keyword), strtolower($value))) == 0){
                         return false;
@@ -135,8 +151,26 @@ class CustomValidationServiceProvider extends ServiceProvider
             if ((strcmp($value, $parameters[0])) == 0) {
                 return true;
             } else {
-                $albums = new AdminPicturesRepository();
-                $all_keywords = $albums->get_all_pictures_keywords();
+                $all_keywords = (new AdminPicturesRepository())->get_all_pictures_keywords();
+                foreach ($all_keywords as $keyword) {
+                    if ((strcmp(strtolower($keyword), strtolower($value))) == 0){
+                        return false;
+                    }
+                }
+            return true;
+            }
+        });
+        
+        Validator::extend('article_keyword_uniqueness_check', function ($attribute, $value, $parameters, $validator) {
+            //We need to compare an old keyword (from parameters[0]) with a new keyword ($value) 
+            //to avoid any misunderstanding when do keyword uniqueness check.
+            //When we edit existing record we might change something without changing
+            //a keyword. If we don't compare new keyword with its previous value, the system
+            //might think keyword is not unique as user is trying to assign already existing keyword.
+            if ((strcmp($value, $parameters[0])) == 0) {
+                return true;
+            } else {
+                $all_keywords = (new AdminArticleRepository())->get_all_articles_keywords();
                 foreach ($all_keywords as $keyword) {
                     if ((strcmp(strtolower($keyword), strtolower($value))) == 0){
                         return false;

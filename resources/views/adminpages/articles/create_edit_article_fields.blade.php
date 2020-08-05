@@ -1,6 +1,6 @@
 <div class='admin-panel-create-edit-entity' style="padding-top: 5px;">
     {{ $old_keyword }}
-    {!! Form::hidden('included_in_folder_with_id', 
+    {!! Form::hidden('folder_id', 
                     $parent_id, ['id' => 'included_in_directory_with_id']) !!}              
     <div class="admin-panel-create-edit-entity-controls">              
         <div>
@@ -12,14 +12,14 @@
         @endcomponent
         <div id="directory_list_container" data-previous_page="{{ Lang::get('keywords.PreviousPage') }}"
              data-next_page="{{ Lang::get('keywords.NextPage') }}" 
-             data-root="{{ Lang::get('keywords.Albums') }}">
+             data-root="{{ Lang::get('keywords.Articles') }}">
         </div> 
     </div>    
     <div class="admin-panel-create-edit-entity-controls">
         <div>
-            {!! Form::label('keyword', Lang::get('keywords.ArticleKeyword').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
+            {!! Form::label('article_keyword', Lang::get('keywords.ArticleKeyword').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
         </div>
-        <div>{!! Form::text('keyword', null, ['class' => 'admin-panel-create-edit-entity-controls-input', 'style' => 'width:555px;']) !!}</div>
+        <div>{!! Form::text('article_keyword', null, ['class' => 'admin-panel-create-edit-entity-controls-input', 'style' => 'width:555px;']) !!}</div>
     </div>                
     <div class="admin-panel-create-edit-entity-regulations"><span>@lang('keywords.AlbumKeywordRegulations')</span></div>
     <div class="admin-panel-create-edit-entity-controls">
@@ -64,6 +64,6 @@
         {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-create-edit-entity-controls-button', 
         'name' => 'save', 'id' => 'button_submit' ]) !!}
         {!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-create-edit-entity-controls-button', 
-            'id' => 'button_cancel' ]) !!}
+            'id' => 'button_cancel', 'data-parent_keyword' => $parent_keyword ]) !!}
     </div>           
 </div>

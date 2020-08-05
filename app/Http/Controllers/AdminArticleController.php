@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+//We need the line below to use localization. 
+use App;
+use Carbon\Carbon;
 //use Illuminate\Http\Request;
+use App\Http\Requests\CreateEditArticleRequest;
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\ArticlesRepository;
 use App\Folder;
+use App\Article;
 
 class AdminArticleController extends Controller
 {
@@ -44,6 +49,9 @@ class AdminArticleController extends Controller
             'headTitle' => __('keywords.NewArticle'),
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
+            //The variable below is required when user needs to cancel creating or editing 
+            //an article and wants to return to a previous page.
+            'parent_keyword' => $parent_keyword,
             'parent_name' => ($parent_keyword != "0") ? $parent_info->folder_name : null,
             'parents' => $parents,
             //We need this variable to find out which mode are we using Create or Edit
@@ -58,5 +66,27 @@ class AdminArticleController extends Controller
             //when user will see a full list of all albums and folders.
             'mode' => 'file'
             ]);
+    }
+    
+    public function store(CreateEditArticleRequest $request) {         
+        $input = $request->all();
+        
+        //We need the if below, because form's tickbox is not null only
+        //when it is ticked, otherwise it is null and the data from is_visible 
+        //field will be lost. In the database is_visible is not nullable field,
+        //and it keeps a boolean value.
+        if (isset($input['is_visible'])== NULL) {
+            $input['is_visible'] = 0;
+        }       
+        $input['created_at'] = Carbon::now();
+        $input['updated_at'] = Carbon::now();
+        $input['keyword'] = $input['article_keyword'];
+        Article::create($input);
+        $parent_keyword = Folder::select('keyword')
+                    ->where('id', $input['folder_id'])->firstOrFail();
+        
+        //return redirect()->route('/admin/articles');
+        return App::isLocale('en') ? redirect('/admin/articles/'.$parent_keyword->keyword.'/page/1') : 
+                                     redirect('/ru/admin/articles/'.$parent_keyword->keyword.'/page/1');
     }
 }
