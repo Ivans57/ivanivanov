@@ -17,10 +17,10 @@ class CreateRuArticlesTable extends Migration
             $table->increments('id');
             $table->string('keyword', 50)->unique();
             $table->string('article_title', 50);
-            $table->text('article_description');
+            $table->text('article_description')->nullable();
             $table->text('article_body');
-            $table->string('article_author', 50);
-            $table->string('article_source');
+            $table->string('article_author', 50)->nullable();
+            $table->string('article_source')->nullable();
             $table->integer('folder_id')->unsigned();
             $table->foreign('folder_id')->references('id')->on('ru_folders')->onDelete('cascade');
             $table->timestamps();

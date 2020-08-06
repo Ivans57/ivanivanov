@@ -19,7 +19,7 @@ class CreateTriggerCheckKeywordBeforeEnArticlesUpdate extends Migration
                 
                 DECLARE specialty CONDITION FOR SQLSTATE "45000";
 
-                CALL CheckFolderKeyword(NEW.keyword, @word_check_result);
+                CALL CheckArticleKeyword(NEW.keyword, @word_check_result);
 
                 IF (!@word_check_result) THEN
                     SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "New keyword contains restricted characters";

@@ -19,6 +19,8 @@ class CreateTriggerCheckKeywordBeforeRuPicturesUpdate extends Migration
                 
                 DECLARE specialty CONDITION FOR SQLSTATE "45000";
 
+                #As the same Kyeword Check rules will be applied for Albums, Folders and Pictires,
+                #the same procedure will be used for all three of them.
                 CALL CheckFolderKeyword(NEW.keyword, @word_check_result);
 
                 IF (!@word_check_result) THEN

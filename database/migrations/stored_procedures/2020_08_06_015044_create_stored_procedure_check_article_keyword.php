@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStoredProcedureCheckFolderKeyword extends Migration
+class CreateStoredProcedureCheckArticleKeyword extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class CreateStoredProcedureCheckFolderKeyword extends Migration
         DB::unprepared('
         #As the same Kyeword Check rules will be applied for Albums, Folders and Pictires,
         #the same procedure will be used for all three of them.
-        CREATE PROCEDURE CheckFolderKeyword(IN _word nvarchar(55), OUT _word_check_result bool)
+        CREATE PROCEDURE CheckArticleKeyword(IN _word nvarchar(55), OUT _word_check_result bool)
             BEGIN
                 DECLARE _word_length int DEFAULT LENGTH(_word);
 
@@ -32,7 +32,7 @@ class CreateStoredProcedureCheckFolderKeyword extends Migration
     
                 SET _character = SUBSTRING(_word FROM (_counter-_word_length) FOR 1);
 
-                CALL CheckKeywordCharacterNumbersAllowed(_character, @character_check_result);
+                CALL CheckKeywordCharacterNumbersDashUndscrAllowed(_character, @character_check_result);
 
                 IF (!@character_check_result) THEN SET _word_check_result = false;
                 LEAVE wordloop;
@@ -52,6 +52,6 @@ class CreateStoredProcedureCheckFolderKeyword extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP PROCEDURE CheckFolderKeyword');
+        DB::unprepared('DROP PROCEDURE CheckArticleKeyword');
     }
 }
