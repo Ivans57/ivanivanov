@@ -31,7 +31,7 @@
             {!! Form::label('article_description', Lang::get('keywords.ArticleDescription').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
         </div>
         <div>
-            {!! Form::textarea('article_description', $create_or_edit==='create' ? null : $description, 
+            {!! Form::textarea('article_description', null, 
                            ['class' => 'admin-panel-create-edit-entity-controls-input', 'rows' => 4, 'style' => 'width:555px;']) !!}
         </div>
     </div>
@@ -40,7 +40,7 @@
             {!! Form::label('article_body', Lang::get('keywords.ArticleText').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
         </div>
         <div>
-            {!! Form::textarea('article_body', $create_or_edit==='create' ? null : $description, 
+            {!! Form::textarea('article_body', null, 
                            ['class' => 'admin-panel-create-edit-entity-controls-input', 'rows' => 20, 'style' => 'width:555px;']) !!}
         </div>
     </div>

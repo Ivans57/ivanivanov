@@ -339,7 +339,7 @@ $( document ).ready(function() {
     }
     
     //We need this script to open existing Folder edit page in fancy box window.
-    $(".admin-panel-articles-article-and-folder-control-button-link-edit").fancybox({
+    $(".admin-panel-articles-folder-control-button-link-edit").fancybox({
 	toolbar  : false,
 	smallBtn : true,
 	iframe : {

@@ -340,6 +340,22 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::post('admin/article', 'AdminArticleController@store');
 });
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/article/{parent_keyword}/edit/{keyword}', 'AdminArticleController@edit');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/article/{parent_keyword}/edit/{keyword}', 'AdminArticleController@edit');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::put('admin/article/{keyword}', 'AdminArticleController@update');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::put('admin/article/{keyword}', 'AdminArticleController@update');
+});
 //End of Articles
 
 //------------------------------------------------------------------------------

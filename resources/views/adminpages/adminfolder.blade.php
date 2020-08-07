@@ -58,23 +58,29 @@
                                     </div>
                                     <div class="admin-panel-articles-article-and-folder-control-button">
                                         <!--We need to provide absolute path below as otherwise links are not working correctly -->
-                                        <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
+                                        <!--We need class admin-panel-articles-folder-control-button-link-edit only to identify edit button -->
                                         <a href={{ App::isLocale('en') ? "/admin/articles/".$folder_or_article->keyWord."/edit/".$parent_keyword : 
                                             "/ru/admin/articles/".$folder_or_article->keyWord."/edit/".$parent_keyword }} 
                                             class="admin-panel-articles-article-and-folder-control-button-link 
-                                            admin-panel-articles-article-and-folder-control-button-link-edit" data-fancybox data-type="iframe">
-                                            @lang('keywords.Edit')</a>
+                                            admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
+                                            @lang('keywords.Edit')
+                                        </a>
                                     </div>
                                     <div class="admin-panel-articles-article-and-folder-control-button">
                                         <a href={{ App::isLocale('en') ? "/admin/articles/".$folder_or_article->keyWord."/delete" : 
                                             "/ru/admin/articles/".$folder_or_article->keyWord."/delete" }} 
                                             class="admin-panel-articles-article-and-folder-control-button-link 
                                             admin-panel-articles-article-and-folder-control-button-link-delete" data-fancybox data-type="iframe">
-                                            @lang('keywords.Delete')</a>
+                                            @lang('keywords.Delete')
+                                        </a>
                                     </div>                                    
                                 @else                                    
                                     <div class="admin-panel-articles-article-control-button">
-                                        <a href='#' class="admin-panel-articles-article-control-button-link">@lang('keywords.Edit')</a>
+                                        <a href={{ App::isLocale('en') ? "/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord : 
+                                            "/ru/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord }}
+                                            class="admin-panel-articles-article-control-button-link">
+                                            @lang('keywords.Edit')
+                                        </a>
                                     </div>
                                     <div class="admin-panel-articles-article-control-button">
                                         <a href='#' class="admin-panel-articles-article-control-button-link">@lang('keywords.Delete')</a>
