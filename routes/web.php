@@ -356,6 +356,22 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::put('admin/article/{keyword}', 'AdminArticleController@update');
 });
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/article/{keyword}/delete', 'AdminArticleController@delete');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/article/{keyword}/delete', 'AdminArticleController@delete');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::delete('admin/article/{keyword}', 'AdminArticleController@destroy');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::delete('admin/article/{keyword}', 'AdminArticleController@destroy');
+});
 //End of Articles
 
 //------------------------------------------------------------------------------

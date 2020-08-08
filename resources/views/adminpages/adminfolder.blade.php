@@ -83,7 +83,12 @@
                                         </a>
                                     </div>
                                     <div class="admin-panel-articles-article-control-button">
-                                        <a href='#' class="admin-panel-articles-article-control-button-link">@lang('keywords.Delete')</a>
+                                        <a href={{ App::isLocale('en') ? "/admin/article/".$folder_or_article->keyWord."/delete" : 
+                                            "/ru/admin/article/".$folder_or_article->keyWord."/delete" }} 
+                                            class="admin-panel-articles-article-control-button-link 
+                                            admin-panel-articles-article-and-folder-control-button-link-delete" data-fancybox data-type="iframe">
+                                            @lang('keywords.Delete')
+                                        </a>
                                     </div>                                    
                                 @endif                                   
                             </div>

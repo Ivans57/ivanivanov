@@ -338,6 +338,27 @@ $( document ).ready(function() {
         }
     }
     
+    //We need a separate function for article delete control button, becauae articles
+    //will have two control buttons instead of three, like another elements, so
+    //there are a bit different styles and only delete control button will open a fancy box 
+    //and will require to change its view back. That's why function control_button_view_change_after_fancybox_close
+    //cannot be applied.
+    function article_control_button_view_change_after_fancybox_close(){
+        //We don't need an array here as in previous examples, because there will be
+        //always only one pressed element.
+        var button = document.querySelector('.admin-panel-articles-article-control-button-pressed');
+        var link = document.querySelector('.admin-panel-articles-article-control-button-link-pressed');
+
+        unclickButton(button, link);
+
+        function unclickButton(button, link) {
+            button.classList.remove('admin-panel-articles-article-control-button-pressed');
+            button.classList.add('admin-panel-articles-article-control-button');
+            link.classList.remove('admin-panel-articles-article-control-button-link-pressed');
+            link.classList.add('admin-panel-articles-article-control-button-link');
+        }
+    }
+    
     //We need this script to open existing Folder edit page in fancy box window.
     $(".admin-panel-articles-folder-control-button-link-edit").fancybox({
 	toolbar  : false,
@@ -372,7 +393,7 @@ $( document ).ready(function() {
         //Also we will need a function which will recover add button's view after
         //closing pop up's window without adding a new keyword.
         afterClose: function() {
-            control_button_view_change_after_fancybox_close();
+            article_control_button_view_change_after_fancybox_close();
         }
     });
 });
