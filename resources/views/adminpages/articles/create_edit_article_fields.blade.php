@@ -36,6 +36,9 @@
         </div>
     </div>
     <div class="admin-panel-create-edit-entity-controls">
+        <textarea id="example" style="height:300px;width:600px;"></textarea>
+    </div>
+    <div class="admin-panel-create-edit-entity-controls">
         <div>
             {!! Form::label('article_body', Lang::get('keywords.ArticleText').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
         </div>

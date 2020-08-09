@@ -35,7 +35,11 @@ We will activate this when we make our logo. -->
     
 <!-- This link we need to provide a nice font for main title in a russian version-->
 <link href="http://allfont.ru/allfont.css?fonts=bikham-cyr-script" rel="stylesheet" type="text/css" />
-    
+
+<link rel="stylesheet" href="{{ URL::asset('sceditor-2.1.3/minified/themes/default.min.css') }}" id="theme-style" />
+		     
 <!-- End of styles -->
 
-
+<script type="text/javascript" src="{{ URL::asset('sceditor-2.1.3/minified/sceditor.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('sceditor-2.1.3/minified/icons/monocons.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('sceditor-2.1.3/minified/formats/bbcode.js') }}"></script>

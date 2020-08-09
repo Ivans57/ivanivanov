@@ -3,7 +3,6 @@
 <script type="text/javascript" src="{{ URL::asset('js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('bootstrap-3.3.7-dist/js/bootstrap.min.js') }}"></script>
 
-
 <!-- We need this to use our own scripts -->
 {{ $js }}
     

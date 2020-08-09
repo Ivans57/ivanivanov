@@ -36,6 +36,8 @@
                 @if (isset($section, $mode))
                     <script type="text/javascript" src="{{ URL::asset('js/parent_search_and_select.js') }}"></script>
                     <script type="text/javascript" src="{{ URL::asset('js/article_create_edit_cancel.js') }}"></script>
+                    <script type="text/javascript" src="{{ URL::asset('sceditor-2.1.3/minified/sceditor.min.js') }}"></script>
+                    <script type="text/javascript" src="{{ URL::asset('js/wysiwyg_panel.js') }}"></script>
                 @endif
             @endslot
         @endcomponent
