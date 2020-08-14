@@ -4,17 +4,16 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+//Depending on localization, some particular set of tables will be used,
+//that's why need to extend Model adding language check function into constructor.
+use App\BasicModel;
 
 //We need this for localization. 
 //Particulary here we need to check what language do we have, so we can choose 
 //a proper table. Look at App::isLocale('en')
 use App;
 
-//As we are using database and localization in our project 
-//our models will be a bit compilated.
-
-class ArticleContent extends Model {
+class ArticleContent extends BasicModel {
     
     //We need these variables to make necessary settings for our model.
     
