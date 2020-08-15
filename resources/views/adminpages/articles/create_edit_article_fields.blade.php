@@ -36,15 +36,13 @@
         </div>
     </div>
     <div class="admin-panel-create-edit-entity-controls">
-        <textarea id="example" style="height:300px;width:600px;"></textarea>
-    </div>
-    <div class="admin-panel-create-edit-entity-controls">
         <div>
             {!! Form::label('article_body', Lang::get('keywords.ArticleText').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
         </div>
         <div>
             {!! Form::textarea('article_body', null, 
-                           ['class' => 'admin-panel-create-edit-entity-controls-input', 'rows' => 20, 'style' => 'width:555px;']) !!}
+                           ['class' => 'admin-panel-create-edit-entity-controls-input', 'id' => 'article_create_edit_text_area', 
+                           'rows' => 20, 'style' => 'width:555px;']) !!}
         </div>
     </div>
     <div class="admin-panel-create-edit-entity-controls">
