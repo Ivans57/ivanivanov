@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BasicModel extends Model
 {
-    public function __construct(){
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
         $this->check_lang();
     }
 }
