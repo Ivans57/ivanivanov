@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 use App\Http\Repositories\CommonRepository;
+use ChrisKonnertz\BBCode\BBCode;
 
 class FolderLinkForView {
     public $keyWord;
@@ -177,6 +178,56 @@ class ArticlesRepository {
         $articles_full_info = new ArticleForView();
         
         $articles_full_info->article = \App\Article::where('keyword', '=', $keyword)->first();
+        
+        /*$articles_full_info->article->article_body = str_replace("[ul]","<ul>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("[/ul]","</ul>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("[li]","<li>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("[/li]","</li>",$articles_full_info->article->article_body);*/
+
+        $articles_full_info->article->article_body = str_replace("[ul]","[list]",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("[/ul]","[/list]",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("[ol]","[list=1]",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("[/ol]","[/list]",$articles_full_info->article->article_body);
+        
+        $bbcode = new BBCode();
+        
+        /*$bbcode->ignoreTag('ul');
+        $bbcode->ignoreTag('ol');
+        $bbcode->ignoreTag('li');
+        
+        $bbcode->ignoreTag('table');
+        $bbcode->ignoreTag('tr');
+        $bbcode->ignoreTag('td');*/
+        
+        /*$bbcode->addTag('ul', function($tag, &$html, $openingTag) {
+            if ($tag->opening) {
+                return '<ul>';
+            } else {
+                return '</ul>';
+            }
+        });
+        $bbcode->addTag('ol', function($tag, &$html, $openingTag) {
+            if ($tag->opening) {
+                return '<ol>';
+            } else {
+                return '</ol>';
+            }
+        });
+        $bbcode->addTag('li', function($tag, &$html, $openingTag) {
+            if ($tag->opening) {
+                return '<li>';
+            } else {
+                return '</li>';
+            }
+        });*/
+        
+        
+        //On the line below converting regular text format to html.
+        $articles_full_info->article->article_body = $bbcode->render($articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("</li><br/>","</li>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("<ul><br/>","<ul>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("<ol><br/>","<ol>",$articles_full_info->article->article_body);
+             
         $articles_full_info->articleParents = array_reverse($this->get_folders_and_articles_parents_for_view($articles_full_info->article->folder_id));
         
         return $articles_full_info;
