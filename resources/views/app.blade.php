@@ -31,6 +31,7 @@
         @component('pages/body_scripts')
             @slot('js')
                 <script type="text/javascript" src="{{ URL::asset('js/main_javascript.js') }}"></script>
+                <script type="text/javascript" src="{{ URL::asset('js/article_javascript.js') }}"></script>
             @endslot
         @endcomponent
         <!-- End of scripts -->    

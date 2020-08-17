@@ -190,43 +190,66 @@ class ArticlesRepository {
         $articles_full_info->article->article_body = str_replace("[/ol]","[/list]",$articles_full_info->article->article_body);
         
         $bbcode = new BBCode();
-        
-        /*$bbcode->ignoreTag('ul');
-        $bbcode->ignoreTag('ol');
-        $bbcode->ignoreTag('li');
-        
-        $bbcode->ignoreTag('table');
-        $bbcode->ignoreTag('tr');
-        $bbcode->ignoreTag('td');*/
-        
-        /*$bbcode->addTag('ul', function($tag, &$html, $openingTag) {
+                
+        $bbcode->addTag('table', function($tag, &$html, $openingTag) {
             if ($tag->opening) {
-                return '<ul>';
+                return '<table>';
             } else {
-                return '</ul>';
+                return '</table>';
             }
         });
-        $bbcode->addTag('ol', function($tag, &$html, $openingTag) {
+        $bbcode->addTag('tr', function($tag, &$html, $openingTag) {
             if ($tag->opening) {
-                return '<ol>';
+                return '<tr>';
             } else {
-                return '</ol>';
+                return '</tr>';
             }
         });
-        $bbcode->addTag('li', function($tag, &$html, $openingTag) {
+        $bbcode->addTag('td', function($tag, &$html, $openingTag) {
             if ($tag->opening) {
-                return '<li>';
+                return '<td>';
             } else {
-                return '</li>';
+                return '</td>';
             }
-        });*/
-        
-        
+        });
+        $bbcode->addTag('sub', function($tag, &$html, $openingTag) {
+            if ($tag->opening) {
+                return '<sub>';
+            } else {
+                return '</sub>';
+            }
+        });
+        $bbcode->addTag('sup', function($tag, &$html, $openingTag) {
+            if ($tag->opening) {
+                return '<sup>';
+            } else {
+                return '</sup>';
+            }
+        });
+        //This part should be disabled in BBCode file which is in Vendor\ChrisKonnertz\BBCode folder.
+        $bbcode->addTag('img', function($tag, &$html, $openingTag) {
+            if ($tag->opening) {
+                return '<a href="#" id="my_img" data-fancybox="group" title="Knights"><img src="';
+            } else {
+                return '" alt="alternate text" style="width:35%;height:35%;"/></a>';
+            }
+        });
+            
         //On the line below converting regular text format to html.
         $articles_full_info->article->article_body = $bbcode->render($articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("</li><br/>","</li>",$articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("<ul><br/>","<ul>",$articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("<ol><br/>","<ol>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("</tr><br/>","</tr>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("</td><br/>","</td>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = 
+                str_replace("<blockquote>","<blockquote style='filter:brightness(55%);background:rgba(0,0,0,0.04);'>",$articles_full_info->article->article_body);
+        
+        $articles_full_info->article->article_body = 
+                str_replace("<table>","<table style='width:100%;border-collapse:collapse;'>",$articles_full_info->article->article_body);
+        
+        $articles_full_info->article->article_body = 
+                str_replace("<td>","<td style='border:1px solid black;text-align:left;padding:8px;'>",$articles_full_info->article->article_body);
              
         $articles_full_info->articleParents = array_reverse($this->get_folders_and_articles_parents_for_view($articles_full_info->article->folder_id));
         
