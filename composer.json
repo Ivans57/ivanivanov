@@ -10,7 +10,8 @@
         "genert/bbcode": "^1.1",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "^5.3.0"
+        "laravelcollective/html": "^5.3.0",
+        "simplehtmldom/simplehtmldom": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

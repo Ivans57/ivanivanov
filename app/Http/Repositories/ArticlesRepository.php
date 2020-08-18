@@ -3,6 +3,9 @@
 namespace App\Http\Repositories;
 use App\Http\Repositories\CommonRepository;
 use ChrisKonnertz\BBCode\BBCode;
+use App\Picture;
+//We need the line below to change html code by php.
+use simplehtmldom\HtmlDocument;
 
 class FolderLinkForView {
     public $keyWord;
@@ -229,7 +232,7 @@ class ArticlesRepository {
         //This part should be disabled in BBCode file which is in Vendor\ChrisKonnertz\BBCode folder.
         $bbcode->addTag('img', function($tag, &$html, $openingTag) {
             if ($tag->opening) {
-                return '<a href="#" id="my_img" data-fancybox="group" title="Knights"><img src="';
+                return '<a href="#" class="article-body-image-link" data-fancybox="group" data-caption="any" title="any"><img class="article-body-image" src="';
             } else {
                 return '" alt="alternate text" style="width:35%;height:35%;"/></a>';
             }
@@ -250,9 +253,41 @@ class ArticlesRepository {
         
         $articles_full_info->article->article_body = 
                 str_replace("<td>","<td style='border:1px solid black;text-align:left;padding:8px;'>",$articles_full_info->article->article_body);
-             
-        $articles_full_info->articleParents = array_reverse($this->get_folders_and_articles_parents_for_view($articles_full_info->article->folder_id));
+              
+        $html_parser = new HtmlDocument();
         
+        $html = $html_parser->load($articles_full_info->article->article_body);
+        
+        $all_images = $html->find('.article-body-image');
+        
+        $images_sources = array();
+        
+        $images_names = array();
+        
+        $image_count = sizeof($all_images);
+        
+        for ($i = 0; $i < $image_count; $i++) {
+            $images_sources[$i] = $all_images[$i]->src;
+        }
+        for ($i = 0; $i < $image_count; $i++) {
+            //We need to get file name and using it we can find picture caption.
+            //As file's name always will be the last element of its path, 
+            //we can easy access it after making it zero element by reversing an array.
+            $file_path = array_reverse(explode("/", $images_sources[$i]));           
+            $images_names[$i] = Picture::select('picture_caption')->where('file_name', '=', $file_path[0])->firstOrFail()->picture_caption;
+        }
+        $counter = 0;
+        foreach($html->find('.article-body-image-link') as $element) {
+            $element->href = $images_sources[$counter];
+            $element->title = $images_names[$counter];
+            //data-caption will be assigned using javascript as we cannot do it here due to error reasons.
+            $counter++;
+        }
+        
+        $articles_full_info->article->article_body = $html->save();
+        
+        $articles_full_info->articleParents = array_reverse($this->get_folders_and_articles_parents_for_view($articles_full_info->article->folder_id));
+               
         return $articles_full_info;
     }
     
