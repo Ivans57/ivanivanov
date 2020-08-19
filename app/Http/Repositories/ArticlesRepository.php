@@ -182,15 +182,25 @@ class ArticlesRepository {
         
         $articles_full_info->article = \App\Article::where('keyword', '=', $keyword)->first();
         
-        /*$articles_full_info->article->article_body = str_replace("[ul]","<ul>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("[/ul]","</ul>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("[li]","<li>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("[/li]","</li>",$articles_full_info->article->article_body);*/
-
         $articles_full_info->article->article_body = str_replace("[ul]","[list]",$articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("[/ul]","[/list]",$articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("[ol]","[list=1]",$articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("[/ol]","[/list]",$articles_full_info->article->article_body);
+        
+        //First, from the BBCode need to extract all [img] tags with their attributes.
+        preg_match_all("/\[img=.*?\]/i", $articles_full_info->article->article_body, $image_sizes_attributes);
+        
+        $images_dimesions = array();
+        
+        //Need to make an array containing images widths and heights.
+        foreach ($image_sizes_attributes[0] as $image_size_attribute) {
+            $image_size_attribute = preg_replace('/img=/i', '',trim($image_size_attribute,'[]'));
+            $image_dimesions = explode("x", $image_size_attribute);
+            //No need for any loop as diamensions always will be only two.
+            $image_dimesions[0] = intval($image_dimesions[0]);
+            $image_dimesions[1] = intval($image_dimesions[1]);
+            array_push($images_dimesions, $image_dimesions);
+        }
         
         $bbcode = new BBCode();
                 
@@ -234,7 +244,7 @@ class ArticlesRepository {
             if ($tag->opening) {
                 return '<a href="#" class="article-body-image-link" data-fancybox="group" data-caption="any" title="any"><img class="article-body-image" src="';
             } else {
-                return '" alt="alternate text" style="width:35%;height:35%;"/></a>';
+                return '" alt="alternate text" width="100" height="100"/></a>';
             }
         });
             
@@ -273,8 +283,17 @@ class ArticlesRepository {
             //We need to get file name and using it we can find picture caption.
             //As file's name always will be the last element of its path, 
             //we can easy access it after making it zero element by reversing an array.
-            $file_path = array_reverse(explode("/", $images_sources[$i]));           
-            $images_names[$i] = Picture::select('picture_caption')->where('file_name', '=', $file_path[0])->firstOrFail()->picture_caption;
+            $file_path = array_reverse(explode("/", $images_sources[$i]));
+            //Normally all articles pictures are supposed to be uploaded to the website albums first
+            //and then to be used in articles. In this case a caption of the picture can be found in database.
+            //If the picture is located on another website, we cannot get its caption from the database.
+            //In this case just need to get its name from the link, removing its extension. That what is getting done in else case.
+            $image_name = Picture::select('picture_caption')->where('file_name', '=', $file_path[0])->first();//if (!empty($user)) {}
+            if (!empty($image_name)) {
+                $images_names[$i] = $image_name->picture_caption;
+            } else {
+                $images_names[$i] = preg_replace("/\..*/", "", $file_path[0]);
+            }
         }
         $counter = 0;
         foreach($html->find('.article-body-image-link') as $element) {
@@ -283,6 +302,15 @@ class ArticlesRepository {
             //data-caption will be assigned using javascript as we cannot do it here due to error reasons.
             $counter++;
         }
+        //Need to zero the counter below after the first usage.
+        $counter = 0;
+        foreach($html->find('.article-body-image') as $element) {
+            $element->width = $images_dimesions[$counter][0];
+            $element->height = $images_dimesions[$counter][1];
+            $element->alt = $images_names[$counter];
+            $counter++;
+        }
+        
         
         $articles_full_info->article->article_body = $html->save();
         
