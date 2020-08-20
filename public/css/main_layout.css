@@ -1689,6 +1689,9 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 }
 
 .articles-article .article-description, .articles-article .article-body, .articles-article .article-author, .articles-article .article-source, .articles-article .article-creation-time {
+    /*If I don't do the line below, if there is one picture and just a bit text, text author's and source's fild will stand next to the picture 
+    instead of being in the bottom.*/
+    clear: both;
     font-family: "Times New Roman", "Arial";
     font-style: italic;
     font-size: 17px;

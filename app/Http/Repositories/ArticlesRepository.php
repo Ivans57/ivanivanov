@@ -176,7 +176,7 @@ class ArticlesRepository {
         return $folders_and_articles_full_info;
     }
     
-    public function getArticle($keyword){
+    public function getArticle($keyword) {
         
         $articles_full_info = new ArticleForView();
         
@@ -311,9 +311,25 @@ class ArticlesRepository {
             $counter++;
         }
         
+        //Below we need to make pictures floated by text if they are aligned to the left or to the right.
+        $links = $html->find('.article-body-image-link');      
+        foreach($links as $link) {
+            if (!empty($link->parent()->style)) {
+                //Below need to extract the side from the string of element's style.
+                $link_style_splitted = explode(": ", $link->parent()->style);
+                if ($link_style_splitted[1] === "left" || $link_style_splitted[1] === "right") {
+                    $link->parent()->style="float:".$link_style_splitted[1];
+                }
+            }      
+        }
+        
+        //Need to remove all <br> tags as with them a text doesn't look nice.       
+        foreach($html->find('br') as $item) {
+            $item->outertext = '';
+        }
         
         $articles_full_info->article->article_body = $html->save();
-        
+      
         $articles_full_info->articleParents = array_reverse($this->get_folders_and_articles_parents_for_view($articles_full_info->article->folder_id));
                
         return $articles_full_info;
