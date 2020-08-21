@@ -350,10 +350,37 @@ class ArticlesRepository {
             }      
         }
         
-        //Need to remove all <br> tags as with them a text doesn't look nice.       
-        /*foreach($html->find('br') as $item) {
-            $item->outertext = '';
-        }*/
+        //Below we need to make font size if user specified it.
+        foreach($html->find('span[style^=font-size:]') as $element) {
+            //Below extracting from the string line's dimensions.
+            $element_style = explode(": ", $element->style);
+            switch ($element_style[1]) {
+                //Every size number (1-7 from editor) will match some normal font size.
+                case 1:
+                    $element->style = "font-size: 14px";
+                    break;
+                case 2:
+                    $element->style = "font-size: 16px";
+                    break;
+                case 3:
+                    $element->style = "font-size: 18px";
+                    break;
+                case 4:
+                    $element->style = "font-size: 21px";
+                    break;
+                case 5:
+                    $element->style = "font-size: 25px";
+                    break;
+                case 6:
+                    $element->style = "font-size: 35px";
+                    break;
+                case 7:
+                    $element->style = "font-size: 45px";
+                    break;
+                default:
+                    $element->style = "font-size: 17px";
+            }          
+        }
         
         $articles_full_info->article->article_body = $html->save();
       
