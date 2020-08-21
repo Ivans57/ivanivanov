@@ -10,7 +10,7 @@ $( document ).ready(function() {
     sceditor.create(textarea, {
         format: 'bbcode',
         style: '/sceditor-2.1.3/minified/themes/content/default.min.css',
-        toolbar: "bold,italic,underline,strike|subscript,superscript|left,center,right,justify|font,size,color,removeformat|cut,copy,paste,pastetext|bulletlist,orderedlist|table|code,quote|horizontalrule|image|email,link,unlink|emoticon|date,time|maximize,source",
+        toolbar: "bold,italic,underline,strike|subscript,superscript|left,center,right,justify|font,size,color,removeformat|cut,copy,paste,pastetext|bulletlist,orderedlist|table|code,quote|image|email,link,unlink|emoticon|date,time|maximize,source",
         locale: form.dataset.localization
     });
 });

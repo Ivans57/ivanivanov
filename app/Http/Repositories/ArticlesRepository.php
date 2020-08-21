@@ -249,6 +249,7 @@ class ArticlesRepository {
         });
             
         //On the line below converting regular text format to html.
+        //Need to add some styles, so elements are not too close together.
         $articles_full_info->article->article_body = $bbcode->render($articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("</li><br/>","</li>",$articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("<ul><br/>","<ul>",$articles_full_info->article->article_body);
@@ -256,14 +257,38 @@ class ArticlesRepository {
         $articles_full_info->article->article_body = str_replace("</tr><br/>","</tr>",$articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("</td><br/>","</td>",$articles_full_info->article->article_body);
         $articles_full_info->article->article_body = 
-                str_replace("<blockquote>","<blockquote style='filter:brightness(55%);background:rgba(0,0,0,0.04);'>",$articles_full_info->article->article_body);
+                str_replace("<blockquote>","<blockquote style='filter:brightness(55%);background:rgba(0,0,0,0.04);margin-top:5px;margin-bottom:5px;'>",
+                        $articles_full_info->article->article_body);
         
         $articles_full_info->article->article_body = 
-                str_replace("<table>","<table style='width:100%;border-collapse:collapse;'>",$articles_full_info->article->article_body);
+                str_replace("<table>","<table style='width:100%;border-collapse:collapse;margin-top:5px;margin-bottom:10px;'>",$articles_full_info->article->article_body);
         
         $articles_full_info->article->article_body = 
                 str_replace("<td>","<td style='border:1px solid black;text-align:left;padding:8px;'>",$articles_full_info->article->article_body);
-              
+        
+        $articles_full_info->article->article_body = 
+                str_replace("<pre>","<pre style='margin-top:5px;margin-bottom:5px;'>",$articles_full_info->article->article_body);
+        
+        //We cannot remove all <br>, because sometimes they are required, e.g. for lyrics.
+        //Need to remove all <br> tags before and after <div>s as with them a text doesn't look nice.
+        $articles_full_info->article->article_body = str_replace("<br/>\n<div","<div",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("</div><br/>","</div>",$articles_full_info->article->article_body);
+        
+        //Need to remove margin-bottom from lists.
+        $articles_full_info->article->article_body = str_replace("<ol>","<ol style='margin-bottom:0px;'>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("<ul>","<ul style='margin-bottom:0px;'>",$articles_full_info->article->article_body);
+        
+        //Need to remove all <br> tags before lists as with them a text doesn't look nice.
+        $articles_full_info->article->article_body = str_replace("<br/><ul>","<ul>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("<br/><ol>","<ol>",$articles_full_info->article->article_body);
+        
+        //Need to remove all <br> tags after lists, tables, codes and quotes as with them a text doesn't look nice.
+        $articles_full_info->article->article_body = str_replace("</ul><br/>","</ul>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("</ol><br/>","</ol>",$articles_full_info->article->article_body);       
+        $articles_full_info->article->article_body = str_replace("</table><br/>","</table>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("</pre><br/>","</pre>",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = str_replace("</blockquote><br/>","</blockquote>",$articles_full_info->article->article_body);       
+        
         $html_parser = new HtmlDocument();
         
         $html = $html_parser->load($articles_full_info->article->article_body);
@@ -288,7 +313,7 @@ class ArticlesRepository {
             //and then to be used in articles. In this case a caption of the picture can be found in database.
             //If the picture is located on another website, we cannot get its caption from the database.
             //In this case just need to get its name from the link, removing its extension. That what is getting done in else case.
-            $image_name = Picture::select('picture_caption')->where('file_name', '=', $file_path[0])->first();//if (!empty($user)) {}
+            $image_name = Picture::select('picture_caption')->where('file_name', '=', $file_path[0])->first();
             if (!empty($image_name)) {
                 $images_names[$i] = $image_name->picture_caption;
             } else {
@@ -317,16 +342,18 @@ class ArticlesRepository {
             if (!empty($link->parent()->style)) {
                 //Below need to extract the side from the string of element's style.
                 $link_style_splitted = explode(": ", $link->parent()->style);
-                if ($link_style_splitted[1] === "left" || $link_style_splitted[1] === "right") {
-                    $link->parent()->style="float:".$link_style_splitted[1];
+                if ($link_style_splitted[1] === "left") {
+                    $link->parent()->style="float:".$link_style_splitted[1].";margin-right:15px;";
+                } else if ($link_style_splitted[1] === "right") {
+                    $link->parent()->style="float:".$link_style_splitted[1].";margin-left:15px;";
                 }
             }      
         }
         
         //Need to remove all <br> tags as with them a text doesn't look nice.       
-        foreach($html->find('br') as $item) {
+        /*foreach($html->find('br') as $item) {
             $item->outertext = '';
-        }
+        }*/
         
         $articles_full_info->article->article_body = $html->save();
       
