@@ -187,6 +187,43 @@ class ArticlesRepository {
         $articles_full_info->article->article_body = str_replace("[ol]","[list=1]",$articles_full_info->article->article_body);
         $articles_full_info->article->article_body = str_replace("[/ol]","[/list]",$articles_full_info->article->article_body);
         
+        //Adding smiley faces.
+        $articles_full_info->article->article_body = str_replace(":)","&#128578;",$articles_full_info->article->article_body);//1+
+        $articles_full_info->article->article_body = str_replace(":angel:","&#128519;",$articles_full_info->article->article_body);//2+
+        $articles_full_info->article->article_body = str_replace(":angry:","&#128544;",$articles_full_info->article->article_body);//3+
+        $articles_full_info->article->article_body = str_replace("8-)","&#128526;",$articles_full_info->article->article_body);//4+
+        $articles_full_info->article->article_body = str_replace(":'(","&#128552;",$articles_full_info->article->article_body);//5+
+        
+        $articles_full_info->article->article_body = str_replace(":ermm:","&#128527;",$articles_full_info->article->article_body);//6+
+        $articles_full_info->article->article_body = str_replace(":D","&#128513;",$articles_full_info->article->article_body);//7+
+        //$articles_full_info->article->article_body = str_replace(":)","&#128578;",$articles_full_info->article->article_body);//8-Heart?
+        $articles_full_info->article->article_body = str_replace(":(","&#128577;",$articles_full_info->article->article_body);//9+
+        $articles_full_info->article->article_body = str_replace(":O","&#128558;",$articles_full_info->article->article_body);//10+
+        
+        $articles_full_info->article->article_body = str_replace(":P","&#128523;",$articles_full_info->article->article_body);//11+
+        $articles_full_info->article->article_body = str_replace(";)","&#128521;",$articles_full_info->article->article_body);//12+
+        $articles_full_info->article->article_body = str_replace(":blink:","&#128580;",$articles_full_info->article->article_body);//13+
+        $articles_full_info->article->article_body = str_replace(":blush:","&#128522;",$articles_full_info->article->article_body);//14+
+        $articles_full_info->article->article_body = str_replace(":cheerful:","&#128539;",$articles_full_info->article->article_body);//15+
+        
+        $articles_full_info->article->article_body = str_replace(":devil:","&#128520;",$articles_full_info->article->article_body);//16+
+        $articles_full_info->article->article_body = str_replace(":dizzy:","&#128565;",$articles_full_info->article->article_body);//17+
+        $articles_full_info->article->article_body = str_replace(":getlost:","&#128533;",$articles_full_info->article->article_body);//18+
+        $articles_full_info->article->article_body = str_replace(":happy:","&#128516;",$articles_full_info->article->article_body);//19+happy?
+        $articles_full_info->article->article_body = str_replace(":kissing:","&#128535;",$articles_full_info->article->article_body);//20+
+        
+        //$articles_full_info->article->article_body = str_replace(":ninja:","&#128578;",$articles_full_info->article->article_body);//21-ninja
+        $articles_full_info->article->article_body = str_replace(":pinch:","&#128534;",$articles_full_info->article->article_body);//22+
+        $articles_full_info->article->article_body = str_replace(":pouty:","&#128528;",$articles_full_info->article->article_body);//23+
+        $articles_full_info->article->article_body = str_replace(":sick:","&#129314;",$articles_full_info->article->article_body);//24+
+        //$articles_full_info->article->article_body = str_replace(":sideways:","&#128578;",$articles_full_info->article->article_body);//25-sideways?
+        
+        $articles_full_info->article->article_body = str_replace(":silly:","&#128579;",$articles_full_info->article->article_body);//26+
+        $articles_full_info->article->article_body = str_replace(":sleeping:","&#128564;",$articles_full_info->article->article_body);//27+
+        $articles_full_info->article->article_body = str_replace(":unsure:","&#128527;",$articles_full_info->article->article_body);//28+
+        $articles_full_info->article->article_body = str_replace(":woot:","&#128515;",$articles_full_info->article->article_body);//29+
+        $articles_full_info->article->article_body = str_replace(":wassat:","&#129320;",$articles_full_info->article->article_body);//30+
+        
         //First, from the BBCode need to extract all [img] tags with their attributes.
         preg_match_all("/\[img=.*?\]/i", $articles_full_info->article->article_body, $image_sizes_attributes);
         
