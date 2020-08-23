@@ -182,52 +182,26 @@ class ArticlesRepository {
         
         $articles_full_info->article = \App\Article::where('keyword', '=', $keyword)->first();
         
-        $articles_full_info->article->article_body = str_replace("[ul]","[list]",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("[/ul]","[/list]",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("[ol]","[list=1]",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("[/ol]","[/list]",$articles_full_info->article->article_body);
+        $articles_full_info->article->article_body = $this->article_code_processing($articles_full_info->article->article_body);
+      
+        $articles_full_info->articleParents = array_reverse($this->get_folders_and_articles_parents_for_view($articles_full_info->article->folder_id));
+               
+        return $articles_full_info;
+    }
+    
+    //This function is required to process a code of an article, becuase it is getting created and stored in BBCode.
+    //Before displaying an article on the website, its code should be converted to html.
+    private function article_code_processing($article_body_code){ 
+        $article_body_code = str_replace("[ul]","[list]",$article_body_code);
+        $article_body_code = str_replace("[/ul]","[/list]",$article_body_code);
+        $article_body_code = str_replace("[ol]","[list=1]",$article_body_code);
+        $article_body_code = str_replace("[/ol]","[/list]",$article_body_code);
         
         //Adding smiley faces.
-        $articles_full_info->article->article_body = str_replace(":)","&#128578;",$articles_full_info->article->article_body);//1+
-        $articles_full_info->article->article_body = str_replace(":angel:","&#128519;",$articles_full_info->article->article_body);//2+
-        $articles_full_info->article->article_body = str_replace(":angry:","&#128544;",$articles_full_info->article->article_body);//3+
-        $articles_full_info->article->article_body = str_replace("8-)","&#128526;",$articles_full_info->article->article_body);//4+
-        $articles_full_info->article->article_body = str_replace(":'(","&#128552;",$articles_full_info->article->article_body);//5+
-        
-        $articles_full_info->article->article_body = str_replace(":ermm:","&#128527;",$articles_full_info->article->article_body);//6+
-        $articles_full_info->article->article_body = str_replace(":D","&#128513;",$articles_full_info->article->article_body);//7+
-        $articles_full_info->article->article_body = str_replace("<3","&#x1F9E1;",$articles_full_info->article->article_body);//8+
-        $articles_full_info->article->article_body = str_replace(":(","&#128577;",$articles_full_info->article->article_body);//9+
-        $articles_full_info->article->article_body = str_replace(":O","&#128558;",$articles_full_info->article->article_body);//10+
-        
-        $articles_full_info->article->article_body = str_replace(":P","&#128523;",$articles_full_info->article->article_body);//11+
-        $articles_full_info->article->article_body = str_replace(";)","&#128521;",$articles_full_info->article->article_body);//12+
-        $articles_full_info->article->article_body = str_replace(":alien:","&#128125;",$articles_full_info->article->article_body);//13+
-        $articles_full_info->article->article_body = str_replace(":blink:","&#128580;",$articles_full_info->article->article_body);//14+
-        $articles_full_info->article->article_body = str_replace(":blush:","&#128563;",$articles_full_info->article->article_body);//15+
-        
-        $articles_full_info->article->article_body = str_replace(":cheerful:","&#128539;",$articles_full_info->article->article_body);//16+       
-        $articles_full_info->article->article_body = str_replace(":devil:","&#128520;",$articles_full_info->article->article_body);//17+
-        $articles_full_info->article->article_body = str_replace(":dizzy:","&#128565;",$articles_full_info->article->article_body);//18+
-        $articles_full_info->article->article_body = str_replace(":getlost:","&#128533;",$articles_full_info->article->article_body);//19+
-        $articles_full_info->article->article_body = str_replace(":happy:","&#128522;",$articles_full_info->article->article_body);//20+
-        
-        $articles_full_info->article->article_body = str_replace(":kissing:","&#128535;",$articles_full_info->article->article_body);//21+       
-        $articles_full_info->article->article_body = str_replace(":ninja:","&#9865;",$articles_full_info->article->article_body);//22+
-        $articles_full_info->article->article_body = str_replace(":pinch:","&#128534;",$articles_full_info->article->article_body);//23+
-        $articles_full_info->article->article_body = str_replace(":pouty:","&#128528;",$articles_full_info->article->article_body);//24+
-        $articles_full_info->article->article_body = str_replace(":sick:","&#129314;",$articles_full_info->article->article_body);//25+
-        
-        $articles_full_info->article->article_body = str_replace(":sideways:","&#13025;",$articles_full_info->article->article_body);//26+      
-        $articles_full_info->article->article_body = str_replace(":silly:","&#128579;",$articles_full_info->article->article_body);//27+
-        $articles_full_info->article->article_body = str_replace(":sleeping:","&#128564;",$articles_full_info->article->article_body);//28+
-        $articles_full_info->article->article_body = str_replace(":unsure:","&#128527;",$articles_full_info->article->article_body);//29+
-        $articles_full_info->article->article_body = str_replace(":woot:","&#128515;",$articles_full_info->article->article_body);//30+
-        
-        $articles_full_info->article->article_body = str_replace(":wassat:","&#129320;",$articles_full_info->article->article_body);//31+
+        $article_body_code = $this->add_smiley_faces($article_body_code);
         
         //First, from the BBCode need to extract all [img] tags with their attributes.
-        preg_match_all("/\[img=.*?\]/i", $articles_full_info->article->article_body, $image_sizes_attributes);
+        preg_match_all("/\[img=.*?\]/i", $article_body_code, $image_sizes_attributes);
         
         $images_dimesions = array();
         
@@ -289,48 +263,48 @@ class ArticlesRepository {
             
         //On the line below converting regular text format to html.
         //Need to add some styles, so elements are not too close together.
-        $articles_full_info->article->article_body = $bbcode->render($articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("</li><br/>","</li>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("<ul><br/>","<ul>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("<ol><br/>","<ol>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("</tr><br/>","</tr>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("</td><br/>","</td>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = 
+        $article_body_code = $bbcode->render($article_body_code);
+        $article_body_code = str_replace("</li><br/>","</li>",$article_body_code);
+        $article_body_code = str_replace("<ul><br/>","<ul>",$article_body_code);
+        $article_body_code = str_replace("<ol><br/>","<ol>",$article_body_code);
+        $article_body_code = str_replace("</tr><br/>","</tr>",$article_body_code);
+        $article_body_code = str_replace("</td><br/>","</td>",$article_body_code);
+        $article_body_code = 
                 str_replace("<blockquote>","<blockquote style='filter:brightness(55%);background:rgba(0,0,0,0.04);margin-top:5px;margin-bottom:5px;'>",
-                        $articles_full_info->article->article_body);
+                        $article_body_code);
         
-        $articles_full_info->article->article_body = 
-                str_replace("<table>","<table style='width:100%;border-collapse:collapse;margin-top:5px;margin-bottom:10px;'>",$articles_full_info->article->article_body);
+        $article_body_code = 
+                str_replace("<table>","<table style='width:100%;border-collapse:collapse;margin-top:5px;margin-bottom:10px;'>",$article_body_code);
         
-        $articles_full_info->article->article_body = 
-                str_replace("<td>","<td style='border:1px solid black;text-align:left;padding:8px;'>",$articles_full_info->article->article_body);
+        $article_body_code = 
+                str_replace("<td>","<td style='border:1px solid black;text-align:left;padding:8px;'>",$article_body_code);
         
-        $articles_full_info->article->article_body = 
-                str_replace("<pre>","<pre style='margin-top:5px;margin-bottom:5px;'>",$articles_full_info->article->article_body);
+        $article_body_code = 
+                str_replace("<pre>","<pre style='margin-top:5px;margin-bottom:5px;'>",$article_body_code);
         
         //We cannot remove all <br>, because sometimes they are required, e.g. for lyrics.
         //Need to remove all <br> tags before and after <div>s as with them a text doesn't look nice.
-        $articles_full_info->article->article_body = str_replace("<br/>\n<div","<div",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("</div><br/>","</div>",$articles_full_info->article->article_body);
+        $article_body_code = str_replace("<br/>\n<div","<div",$article_body_code);
+        $article_body_code = str_replace("</div><br/>","</div>",$article_body_code);
         
         //Need to remove margin-bottom from lists.
-        $articles_full_info->article->article_body = str_replace("<ol>","<ol style='margin-bottom:0px;'>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("<ul>","<ul style='margin-bottom:0px;'>",$articles_full_info->article->article_body);
+        $article_body_code = str_replace("<ol>","<ol style='margin-bottom:0px;'>",$article_body_code);
+        $article_body_code = str_replace("<ul>","<ul style='margin-bottom:0px;'>",$article_body_code);
         
         //Need to remove all <br> tags before lists as with them a text doesn't look nice.
-        $articles_full_info->article->article_body = str_replace("<br/><ul>","<ul>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("<br/><ol>","<ol>",$articles_full_info->article->article_body);
+        $article_body_code = str_replace("<br/><ul>","<ul>",$article_body_code);
+        $article_body_code = str_replace("<br/><ol>","<ol>",$article_body_code);
         
         //Need to remove all <br> tags after lists, tables, codes and quotes as with them a text doesn't look nice.
-        $articles_full_info->article->article_body = str_replace("</ul><br/>","</ul>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("</ol><br/>","</ol>",$articles_full_info->article->article_body);       
-        $articles_full_info->article->article_body = str_replace("</table><br/>","</table>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("</pre><br/>","</pre>",$articles_full_info->article->article_body);
-        $articles_full_info->article->article_body = str_replace("</blockquote><br/>","</blockquote>",$articles_full_info->article->article_body);       
+        $article_body_code = str_replace("</ul><br/>","</ul>",$article_body_code);
+        $article_body_code = str_replace("</ol><br/>","</ol>",$article_body_code);       
+        $article_body_code = str_replace("</table><br/>","</table>",$article_body_code);
+        $article_body_code = str_replace("</pre><br/>","</pre>",$article_body_code);
+        $article_body_code = str_replace("</blockquote><br/>","</blockquote>",$article_body_code);       
         
         $html_parser = new HtmlDocument();
         
-        $html = $html_parser->load($articles_full_info->article->article_body);
+        $html = $html_parser->load($article_body_code);
         
         $all_images = $html->find('.article-body-image');
         
@@ -373,8 +347,7 @@ class ArticlesRepository {
             $element->height = $images_dimesions[$counter][1];
             $element->alt = $images_names[$counter];
             $counter++;
-        }
-        
+        }       
         //Below we need to make pictures floated by text if they are aligned to the left or to the right.
         $links = $html->find('.article-body-image-link');      
         foreach($links as $link) {
@@ -387,8 +360,7 @@ class ArticlesRepository {
                     $link->parent()->style="float:".$link_style_splitted[1].";margin-left:15px;";
                 }
             }      
-        }
-        
+        }        
         //Below we need to make font size if user specified it.
         foreach($html->find('span[style^=font-size:]') as $element) {
             //Below extracting from the string line's dimensions.
@@ -420,12 +392,25 @@ class ArticlesRepository {
                     $element->style = "font-size: 17px";
             }          
         }
+        return $html->save();
+    }
+    
+    //The function below is required for adding smiley faces to an article.
+    private function add_smiley_faces($article_body_code){  
+        //There will be an array of smiley faces. Array will contain two elements arrays.
+        //The first element will have s.f. abbreviation, the second element will have their dec. encoding.
+        $smiley_faces = [[":)", "&#128578;"],[":angel:", "&#128519;"],[":angry:", "&#128544;"],["8-)", "&#128526;"],[":'(", "&#128552;"],
+                         [":ermm:", "&#128527;"],[":D", "&#128513;"],["<3", "&#x1F9E1;"],[":(", "&#128577;"],[":O", "&#128558;"],
+                         [":P", "&#128523;"],[";)", "&#128521;"],[":alien:", "&#128125;"],[":blink:", "&#128580;"],[":blush:", "&#128563;"],
+                         [":cheerful:", "&#128539;"],[":devil:", "&#128520;"],[":dizzy:", "&#128565;"],[":getlost:", "&#128533;"],[":happy:", "&#128522;"],
+                         [":kissing:", "&#128535;"],[":ninja:", "&#9865;"],[":pinch:", "&#128534;"],[":pouty:", "&#128528;"],[":sick:", "&#129314;"],
+                         [":sideways:", "&#13025;"],[":silly:", "&#128579;"],[":sleeping:", "&#128564;"],[":unsure:", "&#128527;"],[":woot:", "&#128515;"],
+                         [":wassat:", "&#129320;"]];
         
-        $articles_full_info->article->article_body = $html->save();
-      
-        $articles_full_info->articleParents = array_reverse($this->get_folders_and_articles_parents_for_view($articles_full_info->article->folder_id));
-               
-        return $articles_full_info;
+        for ($i = 0; $i < count($smiley_faces); $i++) {
+            $article_body_code = str_replace($smiley_faces[$i][0],$smiley_faces[$i][1],$article_body_code);
+        }     
+        return $article_body_code;
     }
     
     //We need this function to make our own array which will contain all included
