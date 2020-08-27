@@ -1688,13 +1688,63 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     box-shadow: 0 0 5px 0px black;
 }
 
-.articles-article .article-description, .articles-article .article-body, .articles-article .article-author, .articles-article .article-source, .articles-article .article-creation-time {
+.articles-article .article-description, 
+.articles-article .article-body, .articles-article .article-author, 
+.articles-article .article-source, .articles-article .article-creation-time {
     /*If I don't do the line below, if there is one picture and just a bit text, text author's and source's fild will stand next to the picture 
     instead of being in the bottom.*/
     clear: both;
     font-family: "Times New Roman", "Arial";
     font-style: italic;
     font-size: 17px;
+}
+
+/*There are some styles below for articles to make them look better after being converted from BBCode.*/
+.articles-article .article-body ol, .articles-article .article-body ul {
+    margin-bottom: 0px;
+}
+
+.articles-article .article-body table {
+    width:100%;
+    border-collapse:collapse;
+    margin-top:5px;
+    margin-bottom:10px;
+}
+
+.articles-article .article-body td {
+    border:1px solid black;
+    text-align:left;
+    padding:8px;
+}
+
+.articles-article .article-body .article-body-image-item {
+    margin-bottom:15px;
+}
+
+.articles-article .article-body .article-body-image-item-left-floated {
+    float:left;
+    margin-right:15px;
+}
+
+.articles-article .article-body .article-body-image-item-right-floated {
+    float:right;
+    margin-left:15px;
+}
+
+.articles-article .article-body pre {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.articles-article .article-body blockquote {
+    filter:brightness(55%);
+    background:rgba(0,0,0,0.04);
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.articles-article .article-author {
+    margin-top: 10px;
 }
 
 .articles-article .article-body {

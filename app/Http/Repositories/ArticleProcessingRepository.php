@@ -116,7 +116,8 @@ class ArticleProcessingRepository {
         //This part should be disabled in BBCode file which is in Vendor\ChrisKonnertz\BBCode folder.
         $bbcode->addTag('img', function($tag, &$html, $openingTag) {
             if ($tag->opening) {
-                return '<a href="#" class="article-body-image-link" data-fancybox="group" data-caption="any" title="any"><img class="article-body-image" src="';
+                return '<a href="#" class="article-body-image-link" data-fancybox="group" data-caption="'
+                        .__('keywords.NoCaption').'" title="'.__('keywords.NoCaption').'"><img class="article-body-image" src="';
             } else {
                 return '" alt="alternate text" width="100" height="100"/></a>';
             }
@@ -135,12 +136,8 @@ class ArticleProcessingRepository {
         //3. Need to remove all <br> tags before lists as with them a text doesn't look nice.
         //4. Need to remove all <br> tags after lists, tables, codes and quotes as with them a text doesn't look nice.      
         $html_tags = [["</li><br/>", "</li>"],["<ul><br/>", "<ul>"],["<ol><br/>", "<ol>"],["</tr><br/>", "</tr>"],["</td><br/>", "</td>"],
-                      ["<blockquote>", "<blockquote style='filter:brightness(55%);background:rgba(0,0,0,0.04);margin-top:5px;margin-bottom:5px;'>"],
-                      ["<table>", "<table style='width:100%;border-collapse:collapse;margin-top:5px;margin-bottom:10px;'>"],
-                      ["<td>", "<td style='border:1px solid black;text-align:left;padding:8px;'>"],
-                      ["<pre>", "<pre style='margin-top:5px;margin-bottom:5px;'>"],["<br/>\n<div", "<div"],["</div><br/>", "</div>"],
-                      ["<ol>", "<ol style='margin-bottom:0px;'>"],["<ul>", "<ul style='margin-bottom:0px;'>"],["<br/><ul>", "<ul>"],["<br/><ol>", "<ol>"],
-                      ["</ul><br/>", "</ul>"],["</ol><br/>", "</ol>"],["</table><br/>", "</table>"],["</pre><br/>", "</pre>"],["</blockquote><br/>", "</blockquote>"]];
+                      ["<br/>\n<div", "<div"],["</div><br/>", "</div>"],["<br/><ul>", "<ul>"],["<br/><ol>", "<ol>"],["</ul><br/>", "</ul>"],
+                      ["</ol><br/>", "</ol>"],["</table><br/>", "</table>"],["</pre><br/>", "</pre>"],["</blockquote><br/>", "</blockquote>"]];
         
         for ($i = 0; $i < count($html_tags); $i++) {
             $article_body_code = str_replace($html_tags[$i][0],$html_tags[$i][1],$article_body_code);
@@ -219,9 +216,12 @@ class ArticleProcessingRepository {
                 //Below need to extract the side from the string of element's style.
                 $link_style_splitted = explode(": ", $link->parent()->style);
                 if ($link_style_splitted[1] === "left") {
-                    $link->parent()->style="float:".$link_style_splitted[1].";margin-right:15px;";
+                    //margin-bottom has been added, because if the last picture has propery float left or right,
+                    //that picture is falling out of its container and the next div (class article-author) which is not a part of div 
+                    //with class articly_body is too close to article body.
+                    $link->parent()->class="article-body-image-item article-body-image-item-left-floated";
                 } else if ($link_style_splitted[1] === "right") {
-                    $link->parent()->style="float:".$link_style_splitted[1].";margin-left:15px;";
+                    $link->parent()->class="article-body-image-item article-body-image-item-right-floated";
                 }
             }      
         }
