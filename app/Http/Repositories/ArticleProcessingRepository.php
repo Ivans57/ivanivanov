@@ -237,28 +237,37 @@ class ArticleProcessingRepository {
             switch ($element_style[1]) {
                 //Every size number (1-7 from editor) will match some normal font size.
                 case 1:
-                    $element->style = "font-size: 14px";
+                    //Need to make styles empty, otherwise there might be assigned wrong font value.
+                    $element->style = "";
+                    $element->class = "font-size-one";
                     break;
                 case 2:
-                    $element->style = "font-size: 16px";
+                    $element->style = "";
+                    $element->class = "font-size-two";
                     break;
                 case 3:
-                    $element->style = "font-size: 18px";
+                    $element->style = "";
+                    $element->class = "font-size-three";
                     break;
                 case 4:
-                    $element->style = "font-size: 21px";
+                    $element->style = "";
+                    $element->class = "font-size-four";
                     break;
                 case 5:
-                    $element->style = "font-size: 25px";
+                    $element->style = "";
+                    $element->class = "font-size-five";
                     break;
                 case 6:
-                    $element->style = "font-size: 35px";
+                    $element->style = "";
+                    $element->class = "font-size-six";
                     break;
                 case 7:
-                    $element->style = "font-size: 45px";
+                    $element->style = "";
+                    $element->class = "font-size-seven";
                     break;
                 default:
-                    $element->style = "font-size: 17px";
+                    $element->style = "";
+                    $element->class = "font-size-default";
             }          
         }
         return $html;

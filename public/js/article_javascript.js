@@ -8,13 +8,12 @@ $( document ).ready(function() {
         for (var i = 0; i < picture_link.length; i++) {
             picture_link[i].dataset.caption = picture_link[i].title;
         }       
-    }
-    
+    }  
     $(".article-body-image-link").fancybox({
         loop            : false,
         protect         : true,
         transitionEffect	: 'slide',
         transitionDuration : 866,
         wheel : 'auto'
-    });
+    });   
 });

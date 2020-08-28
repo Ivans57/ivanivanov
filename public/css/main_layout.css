@@ -619,7 +619,7 @@ main {
     will be different so I override them below.*/
     box-shadow: 0 0 20px 2px black;
     padding: 40px;
-    max-width: 700px;
+    max-width: 800px;
     min-width: 200px;
     min-height: 600px;
     border-radius: 10px;
@@ -701,6 +701,7 @@ main {
     padding-left: 70px;
     padding-right: 70px;
     padding-bottom: 60px;
+    width: 700px;
 }
 
 .home-article h2 {
@@ -957,6 +958,10 @@ our javascript function adds a new class to a piece of html.*/
 }
 
 /*About Me part*/
+
+.about-me-article {
+    width: 700px;
+}
 
 .about-me-article p {
     font-size: 16px;
@@ -1528,7 +1533,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 but I will keep them in case we need them to have diferent properties.
 If we don't need both of them, their view can be simplified as in admin panel.*/
 .articles-article-folders {
-    min-width: 700px;
+    width: 700px;
     min-height: 610px;
 }
 
@@ -1538,7 +1543,7 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
 }
 
 .articles-article {
-    width: 700px;
+    width: 800px;
     min-height: 610px;
 }
 
@@ -1715,6 +1720,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     border:1px solid black;
     text-align:left;
     padding:8px;
+    height:30px;
 }
 
 .articles-article .article-body .article-body-image-item {
@@ -1755,6 +1761,38 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     text-align: right;
 }
 
+/*Below we are specifying font sizes for article different cases.*/
+.articles-article .article-body .font-size-one {
+    font-size: 14px;
+}
+
+.articles-article .article-body .font-size-two {
+    font-size: 16px;
+}
+
+.articles-article .article-body .font-size-three {
+    font-size: 18px;
+}
+
+.articles-article .article-body .font-size-four {
+    font-size: 21px;
+}
+
+.articles-article .article-body .font-size-five {
+    font-size: 25px;
+}
+
+.articles-article .article-body .font-size-six {
+    font-size: 35px;
+}
+
+.articles-article .article-body .font-size-seven {
+    font-size: 45px;
+}
+
+.articles-article .article-body .font-size-default {
+    font-size: 17px;
+}
 /*Articles for mobile devices.*/
 
 @media (max-width: 850px) {
@@ -1802,8 +1840,47 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         transform: scale(0.95);
 }
     
-    .articles-article .article-description, .articles-article .article-body, .articles-article .article-author, .articles-article .article-source, .articles-article .article-creation-time {
+    .articles-article .article-description, .articles-article .article-body, 
+    .articles-article .article-body .font-size-default, 
+    .articles-article .article-author, .articles-article .article-source, 
+    .articles-article .article-creation-time {
         font-size: 16px;
+    }
+    
+    .articles-article .article-body td {
+        padding:5px;
+        padding-left:7px;
+        padding-right:7px;
+        height:28px;
+    }
+    
+    /*Below we are specifying font sizes for article different cases.*/
+    .articles-article .article-body .font-size-one {
+        font-size: 13px;
+    }
+
+    .articles-article .article-body .font-size-two {
+        font-size: 15px;
+    }
+
+    .articles-article .article-body .font-size-three {
+        font-size: 17px;
+    }
+
+    .articles-article .article-body .font-size-four {
+        font-size: 20px;
+    }
+
+    .articles-article .article-body .font-size-five {
+        font-size: 24px;
+    }
+
+    .articles-article .article-body .font-size-six {
+        font-size: 33px;
+    }
+
+    .articles-article .article-body .font-size-seven {
+        font-size: 41px;
     }
 }
 
@@ -1874,6 +1951,18 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .articles-article-folders-and-articles .folders-and-articles-wrapper {
         min-height: 435px;
     }
+    
+    .articles-article .article-body .article-body-image-item {
+        margin-bottom:10px;
+    }
+    
+    .articles-article .article-body .article-body-image-item-left-floated {
+        margin-right:10px;
+    }
+
+    .articles-article .article-body .article-body-image-item-right-floated {
+        margin-left:10px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -1894,6 +1983,30 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .articles-article {
         width: 490px;
+    }
+    
+    .articles-article .article-body .article-body-image {
+        height:33% !important;
+        width:33% !important;
+    }
+    
+    .articles-article .article-body td {
+        padding:3px;
+        padding-left:7px;
+        padding-right:7px;
+        height:26px;
+    }
+    
+    .articles-article .article-body .article-body-image-item {
+        margin-bottom:8px;
+    }
+    
+    .articles-article .article-body .article-body-image-item-left-floated {
+        margin-right:8px;
+    }
+
+    .articles-article .article-body .article-body-image-item-right-floated {
+        margin-left:8px;
     }
 }
 
@@ -1985,16 +2098,68 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         width: 380px;
     }
     
-    .articles-article .article-description, .articles-article .article-body, .articles-article .article-author, .articles-article .article-source, .articles-article .article-creation-time {
+    .articles-article .article-description, .articles-article .article-body, 
+    .articles-article .article-body .font-size-default,
+    .articles-article .article-author, .articles-article .article-source, 
+    .articles-article .article-creation-time {
         font-size: 15px;
     }
     
+    /*We might nor need it.*/
     .articles-article .article-picture {
         margin-right: 0px;
         margin-left: -20px;
         margin-bottom: -10px;
         margin-top: -10px;
         transform: scale(0.80);
+    }
+    
+    .articles-article .article-body td {
+        padding:2px;
+        padding-left:6px;
+        padding-right:6px;
+        height:24px;
+    }
+    
+    .articles-article .article-body .article-body-image-item {
+        margin-bottom:6px;
+    }
+    
+    .articles-article .article-body .article-body-image-item-left-floated {
+        margin-right:6px;
+    }
+
+    .articles-article .article-body .article-body-image-item-right-floated {
+        margin-left:6px;
+    }
+    
+    /*Below we are specifying font sizes for article different cases.*/
+    .articles-article .article-body .font-size-one {
+        font-size: 12px;
+    }
+
+    .articles-article .article-body .font-size-two {
+        font-size: 14px;
+    }
+
+    .articles-article .article-body .font-size-three {
+        font-size: 16px;
+    }
+
+    .articles-article .article-body .font-size-four {
+        font-size: 18px;
+    }
+
+    .articles-article .article-body .font-size-five {
+        font-size: 22px;
+    }
+
+    .articles-article .article-body .font-size-six {
+        font-size: 28px;
+    }
+
+    .articles-article .article-body .font-size-seven {
+        font-size: 36px;
     }
 }
 
@@ -2124,6 +2289,18 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .articles-article-folders .external-folders-wrapper {
         min-height: 310px;
     }
+    
+    .articles-article .article-body .article-body-image-item {
+        margin-bottom:6px;
+    }
+    
+    .articles-article .article-body .article-body-image-item-left-floated {
+        margin-right:6px;
+    }
+
+    .articles-article .article-body .article-body-image-item-right-floated {
+        margin-left:6px;
+    }
 }
 
 @media (max-width: 300px) {
@@ -2206,6 +2383,18 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-top: -40px;
         transform: scale(0.50);
     }
+    
+    .articles-article .article-body .article-body-image-item {
+        margin-bottom:4px;
+    }
+    
+    .articles-article .article-body .article-body-image-item-left-floated {
+        margin-right:4px;
+    }
+
+    .articles-article .article-body .article-body-image-item-right-floated {
+        margin-left:4px;
+    }
 }
 
 @media (max-width: 245px) {
@@ -2217,12 +2406,62 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         font-size: 22px;
     }
     
-    .articles-article .article-description, .articles-article .article-body, .articles-article .article-author, .articles-article .article-source, .articles-article .article-creation-time {
+    .articles-article .article-description, .articles-article .article-body, 
+    .articles-article .article-author, .articles-article .article-source, 
+    .articles-article .article-creation-time {
         font-size: 14px;
     }
     
     .articles-article .article-picture {
         margin-bottom: -45px;
+    }
+    
+    .articles-article .article-body td {
+        padding:1px;
+        padding-left:4px;
+        padding-right:4px;
+        height:20px;
+    }
+    
+    /*Below we are specifying font sizes for article different cases.*/
+    .articles-article .article-body .font-size-one {
+        font-size: 10px;
+    }
+
+    .articles-article .article-body .font-size-two {
+        font-size: 12px;
+    }
+
+    .articles-article .article-body .font-size-three {
+        font-size: 15px;
+    }
+
+    .articles-article .article-body .font-size-four {
+        font-size: 16px;
+    }
+
+    .articles-article .article-body .font-size-five {
+        font-size: 18px;
+    }
+
+    .articles-article .article-body .font-size-six {
+        font-size: 22px;
+    }
+
+    .articles-article .article-body .font-size-seven {
+        font-size: 28px;
+    }
+    
+    .articles-article .article-body .article-body-image-item {
+        margin-bottom:2px;
+    }
+    
+    .articles-article .article-body .article-body-image-item-left-floated {
+        margin-right:2px;
+    }
+
+    .articles-article .article-body .article-body-image-item-right-floated {
+        margin-left:2px;
     }
 }
 
@@ -2270,9 +2509,21 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
         margin-left: 1px;
     }
+    
+    .articles-article .article-body .article-body-image-item {
+        margin-bottom:1px;
+    }
+    
+    .articles-article .article-body .article-body-image-item-left-floated {
+        margin-right:1px;
+    }
+
+    .articles-article .article-body .article-body-image-item-right-floated {
+        margin-left:1px;
+    }
 }
 
-/*200px is a minimal width of our Website!*/
+/*200px is a minimal width of the Website!*/
 @media (max-width: 200px) {
     .articles-article-folders {
         min-width: 160px;
