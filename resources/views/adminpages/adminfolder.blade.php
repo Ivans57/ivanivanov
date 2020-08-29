@@ -70,11 +70,13 @@
                                         <a href={{ App::isLocale('en') ? "/admin/articles/".$folder_or_article->keyWord."/delete" : 
                                             "/ru/admin/articles/".$folder_or_article->keyWord."/delete" }} 
                                             class="admin-panel-articles-article-and-folder-control-button-link 
-                                            admin-panel-articles-article-and-folder-control-button-link-delete" data-fancybox data-type="iframe">
+                                            admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
                                             @lang('keywords.Delete')
                                         </a>
                                     </div>                                    
-                                @else                                    
+                                @else
+                                    <!-- Delete buttons for folders and articles will have to separate ...-delete classes,
+                                    because these two buttons have to draw different size windows.-->
                                     <div class="admin-panel-articles-article-control-button">
                                         <a href={{ App::isLocale('en') ? "/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord : 
                                             "/ru/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord }}
@@ -86,7 +88,7 @@
                                         <a href={{ App::isLocale('en') ? "/admin/article/".$folder_or_article->keyWord."/delete" : 
                                             "/ru/admin/article/".$folder_or_article->keyWord."/delete" }} 
                                             class="admin-panel-articles-article-control-button-link 
-                                            admin-panel-articles-article-and-folder-control-button-link-delete" data-fancybox data-type="iframe">
+                                            admin-panel-articles-article-control-button-link-delete" data-fancybox data-type="iframe">
                                             @lang('keywords.Delete')
                                         </a>
                                     </div>                                    

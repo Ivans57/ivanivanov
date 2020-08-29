@@ -1730,11 +1730,15 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 .articles-article .article-body .article-body-image-item-left-floated {
     float:left;
     margin-right:15px;
+    margin-top:2px;
+    padding-top:8px;
 }
 
 .articles-article .article-body .article-body-image-item-right-floated {
     float:right;
     margin-left:15px;
+    margin-top:2px;
+    padding-top:8px;
 }
 
 .articles-article .article-body pre {

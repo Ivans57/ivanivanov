@@ -2,6 +2,7 @@
 
 @section('admincontent')
 
+<!-- All ids will stay the same as for albums and folders, because all of these entities use the same scripts -->
 <article class="admin-panel-main-article admin-panel-main-article-article">  
     <div class="path-panel">
         <span class="path-panel-text">@lang('keywords.Path'):</span>

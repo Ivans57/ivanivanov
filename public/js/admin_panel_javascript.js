@@ -162,7 +162,7 @@ $( document ).ready(function() {
 		preload : false,
                 css : {
                     'width' : '355px',
-                    'height' : '515px',
+                    'height' : '545px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -379,7 +379,7 @@ $( document ).ready(function() {
     });
     
     //We need this script to open Folder delete page in fancy box window.
-    $(".admin-panel-articles-article-and-folder-control-button-link-delete").fancybox({
+    $(".admin-panel-articles-folder-control-button-link-delete").fancybox({
 	toolbar  : false,
 	smallBtn : true,
 	iframe : {
@@ -387,6 +387,25 @@ $( document ).ready(function() {
                 css : {
                     'width' : '380px',
                     'height' : '245px',
+                    'margin-bottom' : '200px'
+                }
+	},
+        //Also we will need a function which will recover add button's view after
+        //closing pop up's window without adding a new keyword.
+        afterClose: function() {
+            control_button_view_change_after_fancybox_close();
+        }
+    });
+    
+    //We need this script to open Article delete page in fancy box window.
+    $(".admin-panel-articles-article-control-button-link-delete").fancybox({
+	toolbar  : false,
+	smallBtn : true,
+	iframe : {
+		preload : false,
+                css : {
+                    'width' : '380px',
+                    'height' : '205px',
                     'margin-bottom' : '200px'
                 }
 	},

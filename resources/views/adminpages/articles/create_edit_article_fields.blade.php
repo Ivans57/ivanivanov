@@ -21,14 +21,14 @@
             ['class' => 'admin-panel-create-edit-article-controls-label']) !!}
         </div>
         <div>{!! Form::text('article_keyword', null, 
-            ['class' => 'admin-panel-create-edit-article-controls-input-short', 'title' => Lang::get('keywords.MaximumLengthFifty')]) !!}</div>
+            ['class' => 'admin-panel-create-edit-article-controls-input', 'title' => Lang::get('keywords.MaximumLengthFifty')]) !!}</div>
     </div>                
     <div class="admin-panel-create-edit-article-regulations"><span>@lang('keywords.ArticleKeywordRegulations')</span></div>
     <div class="admin-panel-create-edit-article-controls">
         <div>{!! Form::label('article_title', Lang::get('keywords.ArticleTitle').':', 
              ['class' => 'admin-panel-create-edit-article-controls-label']) !!}</div>
         <div>{!! Form::text('article_title', null, 
-            ['class' => 'admin-panel-create-edit-article-controls-input-short', 'title' => Lang::get('keywords.MaximumLengthFifty')]) !!}</div>
+            ['class' => 'admin-panel-create-edit-article-controls-input', 'title' => Lang::get('keywords.MaximumLengthFifty')]) !!}</div>
     </div>
     <div class="admin-panel-create-edit-article-controls">
         <div>

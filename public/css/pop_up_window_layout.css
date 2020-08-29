@@ -325,7 +325,7 @@ and open the template in the editor.
 }
 
 /*End for parent drop down*/
-/*End of parent search and drop down for Album create, edit and delete window*/
+/*End of parent search and drop down for Album (Folder) create, edit and delete window*/
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-preview-picture {
@@ -375,14 +375,14 @@ and open the template in the editor.
     text-overflow: ellipsis;
 }
 
-.admin-panel-albums-create-notification-wrapper {
+.admin-panel-entity-create-edit-notification-wrapper {
     position: absolute;
     /*Need to add this z-index, otherwise through these notifications could be visible some
     elements (e.g. arrovs and triangles), whic are supposed to be behind.*/
     z-index: 1;
 }
 
-.admin-panel-albums-create-notification-wrapper .admin-panel-albums-create-notification {
+.admin-panel-entity-create-edit-notification-wrapper .admin-panel-entity-create-edit-notification {
     margin-bottom: 0px;
     width: 355px;
 }
