@@ -180,6 +180,16 @@ main {
 
 /*Admin Panel Albums part*/
 
+.admin-panel-wrapper .admin-panel-main-article-article {
+    padding: 40px;
+    padding-top: 30px;
+    padding-top: 30px;
+    width: 800px;
+    min-height: 630px;
+    border-radius: 10px;
+    background-color: #dedede;
+}
+
 .admin-panel-main-article .admin-panel-albums-empty-albums-text-wrapper {
     text-align: center;
     margin-top: 170px;
@@ -731,6 +741,359 @@ article's button, because article has only two control buttons instead of three*
 .admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
 .admin-panel-articles-article-control-button:hover {
     filter: brightness(0.95);
+}
+
+/*--------------------------------------------------------*/
+
+/*Admin Panel Article Create or Edit part*/
+
+.admin-panel-create-edit-article {/**/
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-regulations {/**/
+    margin-bottom: 10px;
+    width: 430px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-regulations span {/**/
+    font-family: "Arial";
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+}
+
+.admin-panel-create-edit-article > div:first-child {/**/
+    margin-bottom: 2px;
+}
+
+.admin-panel-create-edit-article > div:nth-child(3), .admin-panel-create-edit-article > div:nth-child(4),
+.admin-panel-create-edit-article > div:nth-child(6), .admin-panel-create-edit-article > div:nth-child(7),
+.admin-panel-create-edit-article > div:nth-child(8), .admin-panel-create-edit-article > div:nth-child(9),
+.admin-panel-create-edit-article > div:nth-child(10) {/**/
+    margin-bottom: 10px;
+}
+
+.admin-panel-create-edit-article > div:last-child {/**/
+    display: flex;
+    justify-content: space-between;
+    min-width: 250px;
+    margin-top: 30px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-article-controls-label {/**/
+    font-family: "Arial";
+    font-size: 16px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-article-controls-input {/**/
+    width: 665px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-article-controls-input-short {/**/
+    width: 430px;
+}
+
+/*This is a side developer's class, below it has been overriden, 
+because all field should have the same width.'*/
+.sceditor-container {
+    width: 665px !important;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-controls-input-parent {
+    width: 376px;
+    font-size: 17px;
+    border: 1px solid grey;
+    background: #f1f1f1;
+}
+
+/*Begining of parent search and drop down for Article create, edit and delete window*/
+
+/*Begigining for parent search*/
+/*Some classes will contain an entity as a part of their names, because it is a universal
+component used through many sections.*/
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-controls-button-search-and-drop-down {/**/
+    display: inline-block;
+    width: 26px;
+    height: 28px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none; /* Prevent double borders */
+    cursor: pointer;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-controls-button-search {/**/
+    margin-left: -4px;
+}
+
+/*admin-panel-create-edit-article-controls-button-search*/
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-controls-button-search-and-drop-down
+.admin-panel-create-edit-entity-controls-button-drop-down-search {/**/
+    position: relative;
+    top: 4px;
+    left: -2px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-article-controls-button-search-and-drop-down:hover
+.admin-panel-create-edit-entity-controls-button-drop-down-search {/**/
+    filter: brightness(90%);
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list {/**/
+    position: absolute;
+    top: 80.1px; 
+    left: 34.5px;
+    width: 283px;
+    border: 1px solid grey;
+    background-color: white;
+    max-height: 330px;
+    overflow: auto;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list .admin-panel-create-edit-entity-directory-list-element {/**/
+    border-bottom: 1px solid grey;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list .admin-panel-create-edit-entity-directory-list-button {/**/
+    border: 1px solid grey;
+    border-bottom: 2px solid grey;
+    background-color: #dedede;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list .admin-panel-create-edit-entity-directory-list-element a,
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list .admin-panel-create-edit-entity-directory-list-button a {/**/
+    display: block;
+    text-decoration: none;
+    color: #0d95e8;
+    padding-left: 5px;
+    padding-top: 3px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list .admin-panel-create-edit-entity-directory-list-button a {/**/
+    text-decoration: underline;
+    color: #1a7dd9;
+    padding-left: 0px;
+    padding-top: 0px;
+    text-align: center;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list .admin-panel-create-edit-entity-directory-list-element a:hover {/**/
+    background-color: #0d95e8;
+    color: white;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list .admin-panel-create-edit-entity-directory-list-button a:hover {/**/
+    color: red;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list .admin-panel-create-edit-entity-directory-list-element:last-child {/**/
+    border-bottom: 0px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-directory-list .admin-panel-create-edit-entity-directory-list-button:last-child {/**/
+    border-bottom: 0px;
+    border: 1px solid grey;
+}
+
+/*End for parent search*/
+/*Begigining for parent drop down*/
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-controls-button-drop-down {/**/
+    width: 24px;
+    cursor: pointer;
+    height: 28px;
+    margin-left: -3px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-controls-button-search-and-drop-down:hover {/**/
+    background: #0b7dda;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-controls-button-drop-down 
+.admin-panel-create-edit-entity-controls-button-drop-down-caret {/**/
+    position: relative;
+    top: 4px;
+    left: -3px;
+    color: white;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-controls-button-search-and-drop-down:hover
+.admin-panel-create-edit-entity-controls-button-drop-down-caret {/**/
+    filter: brightness(90%);
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list {/**/
+    position: absolute;
+    top: 80.1px; 
+    left: 34.5px;
+    width: 283px;
+    border: 1px solid grey;
+    background-color: white;
+    max-height: 330px;
+    overflow: auto;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 5px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list-nested {/**/
+    background-color: white;
+    overflow: auto;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 5px;
+    border: 1px solid #dcdfe3;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list .admin-panel-create-edit-entity-drop-down-list-item {/**/
+    display: block;
+    user-select: none; /* Prevent text selection */
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list .admin-panel-create-edit-entity-drop-down-list-item-selected {/**/
+    background-color: #e3e3e3;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list .admin-panel-create-edit-entity-drop-down-list-item:hover {/**/
+    background-color: #e3e3e3;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list .admin-panel-create-edit-entity-drop-down-list-item 
+.admin-panel-create-edit-entity-drop-down-list-item-name {/**/
+    display: inline-block;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list .admin-panel-create-edit-entity-drop-down-list-item 
+.admin-panel-create-edit-entity-drop-down-list-item-name:hover {/**/
+    cursor: pointer;
+}
+
+/* Style the caret/arrow */
+/* Create the caret/arrow with a unicode, and style it */
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list 
+.admin-panel-create-edit-entity-drop-down-list-item-caret::before {/**/
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list 
+.admin-panel-create-edit-entity-drop-down-list-item-caret:hover,
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list 
+.admin-panel-create-edit-entity-drop-down-list-item-caret-down:hover {/**/
+    cursor: pointer;
+}
+
+/*For elemnts without a caret we need to create an empty "caret" to even out elements list*/
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list 
+.admin-panel-create-edit-entity-drop-down-list-item-empty-caret::before {/**/
+    content: "\25B6";
+    /*Element made by ::before can't exist without actual caret, so we will make it, 
+    but the clor will be transparent.*/
+    color: transparent;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list 
+.admin-panel-create-edit-entity-drop-down-list-item-caret-down::before {/**/
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+    transform: rotate(90deg);
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list 
+.admin-panel-create-edit-entity-drop-down-list-button {/**/
+    border: 1px solid grey;
+    background-color: #dedede;
+    margin-left: -4px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list 
+.admin-panel-create-edit-entity-drop-down-list-button a {/**/
+    display: block;
+    text-decoration: underline;
+    color: #1a7dd9;
+    padding-left: 0px;
+    padding-top: 0px;
+    text-align: center;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-entity-drop-down-list 
+.admin-panel-create-edit-entity-drop-down-list-button a:hover {/**/
+    color: red;
+}
+
+/*End for parent drop down*/
+/*End of parent search and drop down for Album create, edit and delete window*/
+
+.admin-panel-albums-create-notification-wrapper {
+    position: absolute;
+    /*Need to add this z-index, otherwise through these notifications could be visible some
+    elements (e.g. arrovs and triangles), whic are supposed to be behind.*/
+    z-index: 1;
+}
+
+.admin-panel-albums-create-notification-wrapper .admin-panel-albums-create-notification {
+    margin-bottom: 0px;
+    width: 355px;
+}
+
+.admin-panel-create-edit-article .admin-panel-create-edit-article-controls 
+.admin-panel-create-edit-article-controls-button {
+    width: 100px;
+    font-size: 16px;
+    font-weight: bold;
+    word-wrap: break-word;
+    padding: 2px;
 }
 
 /*--------------------------------------------------------*/

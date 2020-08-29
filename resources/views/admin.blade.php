@@ -9,7 +9,6 @@
                 <link href="{{ URL::asset('css/admin_layout.css') }}" rel="stylesheet">
                 <!-- This check is required, because the css files which are mentioned below will be used only when making a new article. -->
                 @if (isset($section, $mode))
-                    <link href="{{ URL::asset('css/pop_up_window_layout.css') }}" rel="stylesheet">
                     <link rel="stylesheet" href="{{ URL::asset('sceditor-2.1.3/minified/themes/default.min.css') }}" id="theme-style" />
                 @endif
             @endslot

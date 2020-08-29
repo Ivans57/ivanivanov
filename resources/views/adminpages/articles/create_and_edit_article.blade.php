@@ -2,7 +2,7 @@
 
 @section('admincontent')
 
-<article class="admin-panel-main-article">  
+<article class="admin-panel-main-article admin-panel-main-article-article">  
     <div class="path-panel">
         <span class="path-panel-text">@lang('keywords.Path'):</span>
         <a href={{ App::isLocale('en') ? "/admin/articles" : "/ru/admin/articles" }} class="path-panel-text">@lang('keywords.Articles')</a>
