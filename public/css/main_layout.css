@@ -1621,7 +1621,6 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 }
 
 .articles-article-folders .folder-item .folder-body .article-folder {
-    /*box-shadow: 0 0 5px 0px black;*/
     filter: drop-shadow(0 0 7px black);
 }
 
@@ -1739,6 +1738,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     margin-left:15px;
     margin-top:2px;
     padding-top:8px;
+}
+
+.articles-article .article-body .article-body-image-item .article-body-image {
+    border-radius: 10px;
 }
 
 .articles-article .article-body pre {
@@ -1967,6 +1970,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .articles-article .article-body .article-body-image-item-right-floated {
         margin-left:10px;
     }
+    
+    .articles-article .article-body .article-body-image-item .article-body-image {
+        border-radius: 8px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -1989,9 +1996,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         width: 490px;
     }
     
-    .articles-article .article-body .article-body-image {
+    .articles-article .article-body .article-body-image-item .article-body-image {
         height:33% !important;
         width:33% !important;
+        border-radius: 6px;
     }
     
     .articles-article .article-body td {
@@ -2135,6 +2143,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
     .articles-article .article-body .article-body-image-item-right-floated {
         margin-left:6px;
+    }
+    
+    .articles-article .article-body .article-body-image-item .article-body-image {
+        border-radius: 4px;
     }
     
     /*Below we are specifying font sizes for article different cases.*/
@@ -2305,6 +2317,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .articles-article .article-body .article-body-image-item-right-floated {
         margin-left:6px;
     }
+    
+    .articles-article .article-body .article-body-image-item .article-body-image {
+        border-radius: 3px;
+    }
 }
 
 @media (max-width: 300px) {
@@ -2398,6 +2414,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
     .articles-article .article-body .article-body-image-item-right-floated {
         margin-left:4px;
+    }
+    
+    .articles-article .article-body .article-body-image-item .article-body-image {
+        border-radius: 2px;
     }
 }
 
@@ -2524,6 +2544,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
     .articles-article .article-body .article-body-image-item-right-floated {
         margin-left:1px;
+    }
+    
+    .articles-article .article-body .article-body-image-item .article-body-image {
+        border-radius: 1px;
     }
 }
 
@@ -2792,4 +2816,4 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     }
 }
 
-/*-----------------------------------------*/                                                                                 
+/*-----------------------------------------*/
