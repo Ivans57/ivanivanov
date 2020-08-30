@@ -100,8 +100,6 @@ but the main content of the page on the background should be static
     display: flex;
     justify-content: flex-end;
     min-height: 70px;
-    /*For test.*/
-    /*background-color: green;*/
 }
 
 .website-wrapper .website-header .website-language-and-title .website-language-select a {
@@ -270,16 +268,6 @@ stretched it on the full size of its container (div).*/
     box-shadow: 0 0 5px 1px black;    
 }
 
-/*I made separate classes specialy for js function so it can understand which 
-element exactly shall it change. May be in a future I will write an universal 
-js function and this will let me simplify my code.*/
-/*.menu-home-button-link, 
-.menu-about-me-button-link,
-.menu-albums-button-link {
-    background-image: linear-gradient(grey 0%, white 45%, grey 100%);
-    box-shadow: 0 0 5px 1px black;
-}*/
-
 .website-wrapper .website-header .website-menu .website-menu-normal-view-button .website-menu-button-link:hover {
     /*The next line is for example to remind me how I can correctly combine 
     filters.*/
@@ -299,10 +287,8 @@ reorganize this code in a future!*/
 
 .pop-up-menu {
     width: 100%;
-    /*height: 100%;*/
     background-color: rgba(128,128,128, 0.97);
     display: none;
-    /*z-index: 1;*/
 }
 
 /*Header for mobile devices.*/
@@ -959,74 +945,8 @@ our javascript function adds a new class to a piece of html.*/
 
 /*About Me part*/
 
-.about-me-article {
-    width: 700px;
-}
-
-.about-me-article p {
-    font-size: 16px;
-    font-family: "Georgia", "Verdana", "Arial";
-    line-height: 1.5;
-}
-
-.about-me-article .ivan-ivanov-main-picture {
-    height: 300px;
-    width: 200px;
-    float: left;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px 0px black;
-}
-
-/*About Me for mobile devices.*/
-
-@media (max-width: 950px) {
-    .about-me-article .ivan-ivanov-main-picture {
-       height: 270px;
-       width: 180px;
-    }
-}
-
-@media (max-width: 600px) {
-    .about-me-article p {
-       font-size: 15px;
-    }
-}
-
-@media (max-width: 400px) {  
-    .about-me-article .ivan-ivanov-main-picture {
-       height: 240px;
-       width: 160px;
-    }
-}
-
-@media (max-width: 325px) {
-    .about-me-article .ivan-ivanov-main-picture {
-        float: none;
-        margin-right: 0px;
-        margin-bottom: 10px;
-        margin-top: 0px;
-        border-radius: 10px;
-    }
-    .about-me-article p {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 275px) {   
-    .about-me-article p {
-       font-size: 14px;
-    }
-}
-
-@media (max-width: 220px) {
-    .about-me-article .ivan-ivanov-main-picture {
-        height: 210px;
-        width: 140px;
-    }
-}
+/*Will be applied classes of articles, because in this section the normal article
+will be shown, just excluding some components.*/
 
 /*-----------------------------------------*/
 
@@ -1729,8 +1649,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 .articles-article .article-body .article-body-image-item-left-floated {
     float:left;
     margin-right:15px;
-    margin-top:2px;
-    padding-top:8px;
+    padding-top:5px;
 }
 
 .articles-article .article-body .article-body-image-item-right-floated {

@@ -2,23 +2,37 @@
 
 namespace App\Http\Repositories;
 
+use \App\Article;
+//The repository below is required for converting BBCode to HTML 
+//and processing these codes when opening an article.
+use App\Http\Repositories\ArticleProcessingRepository;
 
-class MyPictureForView {
-        public $keyWord;
-        public $pictureCaption;
+
+class AboutMeArticle {
+    public $articleTitle;
+    public $articleBody;
 }
 
 class AboutMeRepository {
     
-    public function getMyPictureInfo($current_page){
-        $my_picture = \App\Picture::where('keyword', $current_page)->first();
+    public function getAboutMeArticle($current_page) {
+
+        $about_me = Article::where('keyword', '=', $current_page)->first();
         
-        $my_picture_info = new MyPictureForView();
+        //If there is no article with keyword "AboutMe", then need to add one.    
         
-        $my_picture_info->keyWord = $my_picture->keyword;
-        $my_picture_info->pictureCaption = $my_picture->picture_caption;
-        
-        return $my_picture_info;
+        $about_me_article = new AboutMeArticle();
+        //The code below won't allow any error happen in case there is no article with keyword "AboutMe". 
+        if (is_null($about_me)) {
+            $about_me_article->articleTitle = __('keywords.'.$current_page);
+            $about_me_article->articleBody = "";
+        } else {
+            //Because in About Me section will be displayed a normal article, its code processing should be applied.
+            $about_me_processed_body = (new ArticleProcessingRepository())->articleCodeProcessing($about_me->article_body);
+            $about_me_article->articleTitle = $about_me->article_title;
+            $about_me_article->articleBody = $about_me_processed_body;
+        }
+        return $about_me_article;
     }
     
 }

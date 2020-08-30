@@ -2,7 +2,7 @@
 
 @section('content')
 <article class="website-main-article home-article">
-        <h2>{{ $headTitle }}</h2>
+        <h2>{{ $article_title }}</h2>
         <p>{{ $article_body }}</p>
         
         @if (App::isLocale('en'))

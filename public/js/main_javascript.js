@@ -126,36 +126,3 @@ $( document ).ready(function() {
         });
 }
 });
-
-//Just for test:
-//Need to try different ajax request syntax
-$( "#press" ).click(function() {   
-    //ajax request below I left for example how to make it differently.
-    /*$.ajax({
-            //the line below is for get request
-            //url: 'testik/{name}',
-            type: 'POST',    
-            url: 'testik',
-            data: { name: "Ivan" },           
-            success:function(data) {
-                    alert(data.response);
-                },
-            dataType: 'json',
-            });*/
-    $.post( "testik", { name: "Ivan" }, function( data ) {
-        //alert(data.response);
-        $("#ajaxResponse").empty();
-        $("#ajaxResponse").append(data.response);
-    });
-});
-
-/*$( "#height-button" ).click(function() {
-    var test = $('#website-wrapper').height();
-    alert(test);
-});*/
-
-/*This function I saved just for example*/
-/*
-$( document ).ready(function() {
-    alert('Hello World!!!');
-});*/

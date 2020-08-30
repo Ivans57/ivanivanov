@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
-
-//We don't need the line below. May be we will need it in a future.
-//use Illuminate\Http\Request;
+use \App\Article;
 
 //This can be used for localization implementation.
 //I have shown this just for example. We don't need it.
 //There is a different way to do localiztion as well.
-//Please check bookmarks in a GCh browser!
+//Please check bookmarks in a Google Chrome browser!
 //use Illuminate\Support\Facades\Lang;
 
 class HomeController extends Controller
@@ -40,19 +38,31 @@ class HomeController extends Controller
         //!Need to think is it possible still to apply localization in constructor!    
         $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
         
-        //Request supposed to be in repository, but as we have just a single line, I left it in the controller
-        $home = \App\Article::where('keyword', '=', $this->current_page)->get();
+        //The code below is supposed to be in repository, but as there is only one method 
+        //in this controller and just few lines of code, I left it in the controller.
+        $home = Article::where('keyword', '=', $this->current_page)->first();
         
+        //If there is no article with keyword "Home", then need to add one, no formatting is required,
+        //because all styles for that article have been already written in the website css file.
+        
+        //The code below won't allow any error happen in case there is no article with keyword "Home". 
+        if (is_null($home)) {
+            $article_title = "";
+            $article_body = "";
+        } else {
+            $article_title = $home->article_title;
+            $article_body = $home->article_body;
+        }  
         //We don't need it. This is just an example how we can pass one variable
         // to the view.
         //return view('pages.home')->with('headTitle', $headTitle);
         
         return view('pages.home')->with([
             'main_links' => $main_links,
-            'headTitle' => $home[0]->article_title,
-            'article_body' => $home[0]->article_body
-            ]);
-        
+            'headTitle' => __('keywords.'.$this->current_page),
+            'article_title' => $article_title,
+            'article_body' => $article_body
+            ]);    
     }
     
 }

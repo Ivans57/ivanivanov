@@ -13,8 +13,10 @@
     <body>
         <div class="website-wrapper" id="website-wrapper">
             <header class="website-header">
-                @component('pages/body_header', ['main_links' => $main_links])
-                @endcomponent
+                @if ($main_links !== null)
+                    @component('pages/body_header', ['main_links' => $main_links])
+                    @endcomponent
+                @endif
             </header>
             <main>
                 <!-- Here we are embedding necessary content which is dependent on the selected link -->
@@ -25,8 +27,10 @@
                 @endcomponent
             </footer>
         </div>
-        @component('pages/body_pop_up_menu', ['main_links' => $main_links])
-        @endcomponent
+        @if ($main_links !== null)
+            @component('pages/body_pop_up_menu', ['main_links' => $main_links])
+            @endcomponent
+        @endif
         <!-- Scripts -->
         @component('pages/body_scripts')
             @slot('js')
