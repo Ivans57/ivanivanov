@@ -34,13 +34,13 @@
                                     <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
                                     <a href='articles/{{ $folder->keyword }}/edit/{{ $parent_keyword }}' 
                                        class="admin-panel-articles-article-and-folder-control-button-link 
-                                       admin-panel-articles-article-and-folder-control-button-link-edit" data-fancybox data-type="iframe">
+                                       admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
                                         @lang('keywords.Edit')</a>
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-control-button">
                                     <a href='articles/{{ $folder->keyword }}/delete' 
                                        class="admin-panel-articles-article-and-folder-control-button-link 
-                                       admin-panel-articles-article-and-folder-control-button-link-delete" data-fancybox data-type="iframe">
+                                       admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
                                         @lang('keywords.Delete')</a>
                                 </div>
                             </div>
