@@ -18,7 +18,8 @@
                     <div class="admin-panel-articles-article-and-folder-item">
                         <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
                             <div>
-                                <img src="{{ URL::asset('images/icons/regular_folder_small.png') }}">
+                                <img src="{{ ($folder->is_visible==1) ? URL::asset('images/icons/regular_folder_small.png') : 
+                                            URL::asset('images/icons/regular_folder_small_bnw.png') }}">                                
                             </div>
                             <div class="admin-panel-articles-article-and-folder-title">
                                 <p>{{ $folder->folder_name }}</p>

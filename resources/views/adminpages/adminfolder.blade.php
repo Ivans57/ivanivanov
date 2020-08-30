@@ -42,7 +42,12 @@
                     <div class="admin-panel-articles-article-and-folder-item">
                         <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
                             <div>
-                                <img src="{{ $folder_or_article->type == 'folder' ? URL::asset('images/icons/regular_folder_small.png') : URL::asset('images/icons/article.png') }}">
+                            @if ($folder_or_article->type == 'folder')
+                                <img src="{{ ($folder_or_article->isVisible==1) ? 
+                                    URL::asset('images/icons/regular_folder_small.png') : URL::asset('images/icons/regular_folder_small_bnw.png') }}">
+                            @else
+                                <img src="{{ URL::asset('images/icons/article.png') }}">
+                            @endif
                             </div>
                             <div class="admin-panel-articles-article-and-folder-title">
                                 <p>{{ $folder_or_article->caption }}</p>

@@ -15,6 +15,7 @@ class AlbumLinkForView {
 class AlbumAndPictureForView {
     public $keyWord;
     public $caption;
+    public $isVisible;
     public $type;
     public $fileName;
 }
@@ -150,6 +151,7 @@ class AlbumsRepository {
             $albums_and_pictures_full[$i] = new AlbumAndPictureForView();
             $albums_and_pictures_full[$i]->keyWord = $included_albums[$i]->keyword;
             $albums_and_pictures_full[$i]->caption = $included_albums[$i]->album_name;
+            $albums_and_pictures_full[$i]->isVisible = $included_albums[$i]->is_visible;
             $albums_and_pictures_full[$i]->type = 'album';   
         }
                         

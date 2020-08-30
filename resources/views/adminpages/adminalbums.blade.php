@@ -19,8 +19,11 @@
                     <div class="admin-panel-albums-picture-and-album-item">
                         <div class="admin-panel-albums-picture-and-album-picture-wrapper">
                             <div class="admin-panel-albums-albums-picture">
-                                <img src="{{ URL::asset('images/icons/album_folder.png') }}" class="admin-panel-albums-albums-picture-image">
+                                <img src="{{ ($album->is_visible==1) ? URL::asset('images/icons/album_folder.png') : 
+                                            URL::asset('images/icons/album_folder_bnw.png') }}" 
+                                            class="admin-panel-albums-albums-picture-image">
                             </div>
+                            
                         </div>
                         <div class="admin-panel-albums-albums-title">
                             <span class="admin-panel-albums-albums-title-text">{{ $album->album_name }}</span>

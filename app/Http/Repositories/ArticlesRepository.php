@@ -14,6 +14,7 @@ class FolderLinkForView {
 class FolderAndArticleForView {
     public $keyWord;
     public $caption;
+    public $isVisible;
     public $type;
 }
 
@@ -198,6 +199,7 @@ class ArticlesRepository {
             $folders_and_articles_full[$i] = new FolderAndArticleForView();
             $folders_and_articles_full[$i]->keyWord = $included_folders[$i]->keyword;
             $folders_and_articles_full[$i]->caption = $included_folders[$i]->folder_name;
+            $folders_and_articles_full[$i]->isVisible = $included_folders[$i]->is_visible;
             $folders_and_articles_full[$i]->type = 'folder';
         }           
         

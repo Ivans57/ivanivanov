@@ -41,11 +41,18 @@
                 @foreach ($albums_and_pictures as $album_or_picture)   
                     <div class="admin-panel-albums-picture-and-album-item">
                         <div class="admin-panel-albums-picture-and-album-picture-wrapper">
-                            <div {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-picture' : 'class=admin-panel-albums-pictures-picture' }}>
-                                <img src="{{ $album_or_picture->type == 'album' ? 
-                                URL::asset('images/icons/album_folder.png') : URL::asset($pathToFile.$album_or_picture->fileName) }}"
-                                 {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-picture-image' : 'class=admin-panel-albums-pictures-picture-image' }}>
-                            </div>
+                            @if ($album_or_picture->type == 'album')
+                                <div class='admin-panel-albums-albums-picture'>
+                                    <img src="{{ ($album_or_picture->isVisible==1) ? 
+                                    URL::asset('images/icons/album_folder.png') : URL::asset('images/icons/album_folder_bnw.png') }}"
+                                    class='admin-panel-albums-albums-picture-image'>
+                                </div>
+                            @elseif ($album_or_picture->type == 'picture')
+                                <div class='admin-panel-albums-pictures-picture'>
+                                    <img src="{{ URL::asset($pathToFile.$album_or_picture->fileName) }}"
+                                    class='admin-panel-albums-pictures-picture-image'>
+                                </div>
+                            @endif
                         </div>
                         <div {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-title' : 'class=admin-panel-albums-pictures-title' }}>
                             <span {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-title-text' : 'class=admin-panel-albums-pictures-title-text' }} >{{ $album_or_picture->caption }}</span>
