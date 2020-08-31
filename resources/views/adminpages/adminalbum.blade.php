@@ -43,14 +43,14 @@
                         <div class="admin-panel-albums-picture-and-album-picture-wrapper">
                             @if ($album_or_picture->type == 'album')
                                 <div class='admin-panel-albums-albums-picture'>
-                                    <img src="{{ ($album_or_picture->isVisible==1) ? 
-                                    URL::asset('images/icons/album_folder.png') : URL::asset('images/icons/album_folder_bnw.png') }}"
+                                    <img src=""
                                     class='admin-panel-albums-albums-picture-image'>
                                 </div>
                             @elseif ($album_or_picture->type == 'picture')
                                 <div class='admin-panel-albums-pictures-picture'>
                                     <img src="{{ URL::asset($pathToFile.$album_or_picture->fileName) }}"
-                                    class='admin-panel-albums-pictures-picture-image'>
+                                    class='admin-panel-albums-pictures-picture-image'  style="{{ ($album_or_picture->isVisible==1) ? 
+                                    'opacity:1' : 'opacity:0.45' }}">
                                 </div>
                             @endif
                         </div>

@@ -5,6 +5,9 @@ namespace App\Http\Repositories;
 //We need the line below to use localization. 
 use App;
 use App\Http\Repositories\CommonRepository;
+use \App\Album;
+use \App\Picture;
+use \App\AlbumData;
 
 
 class AlbumLinkForView {
@@ -39,10 +42,10 @@ class AlbumsRepository {
     public function getAllAlbums($items_amount_per_page, $including_invisible) {
         
         if ($including_invisible) {
-            $album_links = \App\Album::where('included_in_album_with_id', '=', NULL)->orderBy('created_at','DESC')
+            $album_links = Album::where('included_in_album_with_id', '=', NULL)->orderBy('created_at','DESC')
                             ->paginate($items_amount_per_page);
         } else {
-            $album_links = \App\Album::where('included_in_album_with_id', '=', NULL)->where('is_visible', '=', 1)
+            $album_links = Album::where('included_in_album_with_id', '=', NULL)->where('is_visible', '=', 1)
                             ->orderBy('created_at','DESC')->paginate($items_amount_per_page);
         }
         return $album_links;
@@ -75,7 +78,7 @@ class AlbumsRepository {
         //for every single record we will always have only one item, which is
         //the first one and the last one.
         //We are choosing the album we are working with at the current moment.
-        $album = \App\Album::where('keyword', $keyword)->firstOrFail();
+        $album = Album::where('keyword', $keyword)->firstOrFail();
                    
         $albums_and_pictures_full = $this->get_included_albums_and_pictures($including_invisible, $album->id);
         //As we don't need to show all the items from the array above on the 
@@ -91,7 +94,7 @@ class AlbumsRepository {
         //pass with this object's properties.
         $albums_and_pictures_full_info = new AlbumAndPictureForViewFullInfoForPage();
         
-        $albums_and_pictures_full_info->albumNestingLevel = \App\AlbumData::where('items_id', $album->id)->select('nesting_level')->firstOrFail()->nesting_level;
+        $albums_and_pictures_full_info->albumNestingLevel = AlbumData::where('items_id', $album->id)->select('nesting_level')->firstOrFail()->nesting_level;
         
         $albums_and_pictures_full_info->albumParents = (($album->included_in_album_with_id) ? 
                                                         array_reverse($this->get_albums_parents_for_view($album->included_in_album_with_id)) : 0);
@@ -129,13 +132,14 @@ class AlbumsRepository {
     private function get_included_albums_and_pictures($including_invisible, $album_id) {
         //Here we are calling method which will merge all pictures and albums from selected album into one array
         if ($including_invisible) {
-            $albums_and_pictures_full = $this->get_included_albums_and_pictures_array(\App\Album::where('included_in_album_with_id', '=', 
-                                        $album_id)->orderBy('created_at','DESC')->get(), \App\Picture::where('included_in_album_with_id', $album_id)
+            $albums_and_pictures_full = $this->get_included_albums_and_pictures_array(Album::where('included_in_album_with_id', '=', 
+                                        $album_id)->orderBy('created_at','DESC')->get(), Picture::where('included_in_album_with_id', $album_id)
                                         ->orderBy('created_at','DESC')->get());
         } else {
-            $albums_and_pictures_full = $this->get_included_albums_and_pictures_array(\App\Album::where('included_in_album_with_id', '=', 
+            $albums_and_pictures_full = $this->get_included_albums_and_pictures_array(Album::where('included_in_album_with_id', '=', 
                                         $album_id)->where('is_visible', '=', 1)->orderBy('created_at','DESC')->get(), 
-                                        \App\Picture::where('included_in_album_with_id', $album_id)->orderBy('created_at','DESC')->get());
+                                        Picture::where('included_in_album_with_id', $album_id)->where('is_visible', '=', 1)
+                                        ->orderBy('created_at','DESC')->get());
         }
         return $albums_and_pictures_full;
     }
@@ -159,6 +163,7 @@ class AlbumsRepository {
             $albums_and_pictures_full[$i] = new AlbumAndPictureForView();
             $albums_and_pictures_full[$i]->keyWord = $pictures[$i-$included_albums_count]->keyword;
             $albums_and_pictures_full[$i]->caption = $pictures[$i-$included_albums_count]->picture_caption;
+            $albums_and_pictures_full[$i]->isVisible = $pictures[$i-$included_albums_count]->is_visible;
             $albums_and_pictures_full[$i]->type = 'picture';
             $albums_and_pictures_full[$i]->fileName = $pictures[$i-$included_albums_count]->file_name;
         }
@@ -168,7 +173,7 @@ class AlbumsRepository {
     
     private function get_albums_parents_for_view($id) {
         
-        $parent_album = \App\Album::where('id', $id)->firstOrFail();
+        $parent_album = Album::where('id', $id)->firstOrFail();
         
         $parent_album_for_view = new AlbumLinkForView();
         
@@ -227,7 +232,7 @@ class AlbumsRepository {
     //album keyword or editing existing.
     public function get_all_albums_keywords() {
         
-        $all_albums_keywords = \App\Album::all('keyword');       
+        $all_albums_keywords = Album::all('keyword');       
         $albums_keywords_array = array();
         
         foreach ($all_albums_keywords as $album_keyword) {

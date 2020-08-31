@@ -46,7 +46,8 @@
                                 <img src="{{ ($folder_or_article->isVisible==1) ? 
                                     URL::asset('images/icons/regular_folder_small.png') : URL::asset('images/icons/regular_folder_small_bnw.png') }}">
                             @else
-                                <img src="{{ URL::asset('images/icons/article.png') }}">
+                                <img src="{{ URL::asset('images/icons/article.png') }}" style="{{ ($folder_or_article->isVisible==1) ? 
+                                    'opacity:1' : 'opacity:0.45' }}">
                             @endif
                             </div>
                             <div class="admin-panel-articles-article-and-folder-title">

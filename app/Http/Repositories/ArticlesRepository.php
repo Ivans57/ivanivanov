@@ -5,6 +5,9 @@ use App\Http\Repositories\CommonRepository;
 //The repository below is required for converting BBCode to HTML 
 //and processing these codes when opening an article.
 use App\Http\Repositories\ArticleProcessingRepository;
+use \App\Article;
+use \App\Folder;
+use \App\FolderData;
 
 class FolderLinkForView {
     public $keyWord;
@@ -38,10 +41,10 @@ class ArticlesRepository {
     
     public function getAllFolders($items_amount_per_page, $including_invisible){     
         if ($including_invisible) {
-            $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->orderBy('created_at','DESC')
+            $folder_links = Folder::where('included_in_folder_with_id', '=', NULL)->orderBy('created_at','DESC')
                             ->paginate($items_amount_per_page);
         } else {
-            $folder_links = \App\Folder::where('included_in_folder_with_id', '=', NULL)->where('is_visible', '=', 1)
+            $folder_links = Folder::where('included_in_folder_with_id', '=', NULL)->where('is_visible', '=', 1)
                             ->orderBy('created_at','DESC')->paginate($items_amount_per_page);
         }      
         return $folder_links;
@@ -105,20 +108,25 @@ class ArticlesRepository {
         //for every single record we will always have only one item, which is
         //the first one and the last one.
         //We are choosing the album we are working with at the current moment 
-        $folder = \App\Folder::where('keyword', $keyword)->first();
+        $folder = Folder::where('keyword', $keyword)->first();
         
-        $nesting_level = \App\FolderData::where('items_id', $folder->id)->select('nesting_level')->firstOrFail();
-        
-        $included_articles = \App\Article::where('folder_id', $folder->id)->orderBy('created_at','DESC')->get();
+        $nesting_level = FolderData::where('items_id', $folder->id)->select('nesting_level')->firstOrFail();
+               
+        if ($including_invisible) {
+            $included_articles = Article::where('folder_id', $folder->id)->orderBy('created_at','DESC')->get();
+        } else {
+            $included_articles = Article::where('folder_id', $folder->id)->where('is_visible', '=', 1)
+                    ->orderBy('created_at','DESC')->get();
+        }
         
         //Here we are calling method which will merge all articles and folders from selected folder into one array.
         if ($including_invisible) {
             $folders_and_articles_full = $this->get_included_folders_and_articles(
-                    \App\Folder::where('included_in_folder_with_id', '=', $folder->id)
+                    Folder::where('included_in_folder_with_id', '=', $folder->id)
                     ->orderBy('created_at','DESC')->get(), $included_articles);
         } else {
             $folders_and_articles_full = $this->get_included_folders_and_articles(
-                    \App\Folder::where('included_in_folder_with_id', '=', $folder->id)->where('is_visible', '=', 1)
+                    Folder::where('included_in_folder_with_id', '=', $folder->id)->where('is_visible', '=', 1)
                     ->orderBy('created_at','DESC')->get(), $included_articles);
         }
         
@@ -179,7 +187,7 @@ class ArticlesRepository {
     public function getArticle($keyword) {
         
         $articles_full_info = new ArticleForView();       
-        $articles_full_info->article = \App\Article::where('keyword', '=', $keyword)->first();
+        $articles_full_info->article = Article::where('keyword', '=', $keyword)->first();
         
         //Below before assigning a value to article_body, need to process it, as an article code is getting saved and stored as BBCode and
         //it is supposed to be converted to html.
@@ -207,6 +215,7 @@ class ArticlesRepository {
             $folders_and_articles_full[$i] = new FolderAndArticleForView();
             $folders_and_articles_full[$i]->keyWord = $articles[$i-$included_folders_count]->keyword;
             $folders_and_articles_full[$i]->caption = $articles[$i-$included_folders_count]->article_title;
+            $folders_and_articles_full[$i]->isVisible = $articles[$i-$included_folders_count]->is_visible;
             $folders_and_articles_full[$i]->type = 'article';
         }
         
@@ -215,7 +224,7 @@ class ArticlesRepository {
     
     private function get_folders_and_articles_parents_for_view($id) {
         
-        $parent_folder = \App\Folder::where('id', $id)->first();
+        $parent_folder = Folder::where('id', $id)->first();
         
         $parent_folder_for_view = new FolderLinkForView();
         
@@ -248,7 +257,7 @@ class ArticlesRepository {
     //folder keyword or editing existing.
     public function get_all_folders_keywords() {
         
-        $all_folders_keywords = \App\Folder::all('keyword');       
+        $all_folders_keywords = Folder::all('keyword');       
         $folders_keywords_array = array();
         
         foreach ($all_folders_keywords as $folder_keyword) {
