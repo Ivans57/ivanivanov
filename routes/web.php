@@ -136,6 +136,18 @@ Route::group(['middleware' => 'locale'], function() {
 
 //------------------------------------------------------------------------------
 
+//About me
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/about-me', 'AdminAboutMeController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/about-me', 'AdminAboutMeController@index');
+});
+
+//------------------------------------------------------------------------------
+
 //Albums and Pictures
 
 //Albums

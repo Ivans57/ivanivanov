@@ -95,7 +95,7 @@ and open the template in the editor.
     align-items: center;
     flex-wrap: wrap;
     min-width: 200px;
-    padding-right: 5%;
+    padding-right: 4.4%;
     padding-left: 5%;
     min-height: 45px;
 }
@@ -112,10 +112,10 @@ and open the template in the editor.
 }
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keywords-menu-link {
-    margin-left: 10px;
-    border-left: 3px solid black;
+    margin-right: 0px;
+    border-right: 3px solid black;
     min-width: 0px;
-    padding-left: 10px;
+    padding-right: 25px;
     color: #535389;
 }
 
@@ -174,6 +174,20 @@ main {
     padding-left: 70px;
     padding-right: 70px;
     padding-bottom: 60px;
+}
+
+/*--------------------------------------------------------*/
+
+/*Admin Panel About Me part*/
+
+.admin-panel-main-article .admin-panel-albums-empty-section-text-wrapper {
+    text-align: center;
+    margin-top: 170px;
+}
+
+.admin-panel-main-article .admin-panel-albums-empty-section-text-wrapper p {
+    font-family: Arial;
+    font-size: 16px;
 }
 
 /*--------------------------------------------------------*/

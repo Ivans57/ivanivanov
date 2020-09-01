@@ -26,19 +26,14 @@
         <h1>@lang('keywords.AdministrationPanel')</h1>
     </div>
 </div>
-<nav class="admin-panel-menu">              
-    @foreach ($main_links as $main_link)
-        @if ($main_link->isActive == true)
-            <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link admin-panel-menu-link-pressed">{{ $main_link->linkName }}</a>
-        @else
-            <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link">{{ $main_link->linkName }}</a>
-        @endif
-    @endforeach
+<nav class="admin-panel-menu">
     @if ($keywordsLinkIsActive)
         @if (App::isLocale('en'))
-            <a class="admin-panel-menu-link admin-panel-keywords-menu-link admin-panel-keywords-menu-link-pressed" href='/admin/keywords'>@lang('keywords.Keywords')</a>
+            <a class="admin-panel-menu-link admin-panel-keywords-menu-link admin-panel-keywords-menu-link-pressed" 
+               href='/admin/keywords'>@lang('keywords.Keywords')</a>
         @else
-            <a class="admin-panel-menu-link admin-panel-keywords-menu-link admin-panel-keywords-menu-link-pressed" href='/ru/admin/keywords'>@lang('keywords.Keywords')</a>
+            <a class="admin-panel-menu-link admin-panel-keywords-menu-link admin-panel-keywords-menu-link-pressed" 
+               href='/ru/admin/keywords'>@lang('keywords.Keywords')</a>
         @endif
     @else
         @if (App::isLocale('en'))
@@ -47,4 +42,11 @@
             <a class="admin-panel-menu-link admin-panel-keywords-menu-link" href='/ru/admin/keywords'>@lang('keywords.Keywords')</a>
         @endif
     @endif
+    @foreach ($main_links as $main_link)
+        @if ($main_link->isActive == true)
+            <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link admin-panel-menu-link-pressed">{{ $main_link->linkName }}</a>
+        @else
+            <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link">{{ $main_link->linkName }}</a>
+        @endif
+    @endforeach    
 </nav>

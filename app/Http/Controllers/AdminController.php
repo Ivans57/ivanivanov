@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 
-//We don't need the line below. May be we will need it in a future.
-//use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
