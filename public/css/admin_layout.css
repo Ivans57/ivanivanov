@@ -170,7 +170,6 @@ main {
 .admin-panel-wrapper .admin-panel-main-article {
     padding: 40px;
     padding-top: 30px;
-    padding-top: 30px;
     width: 700px;
     min-height: 630px;
     border-radius: 10px;
@@ -179,7 +178,248 @@ main {
 
 /*--------------------------------------------------------*/
 
-/*Admin Panel Main Home part*/
+/*Admin Panel Start part*/
+
+.admin-panel-wrapper .admin-panel-main-article .admin-panel-start-text-wrapper {
+    padding-top: 30px;
+}
+
+.admin-panel-wrapper .admin-panel-main-article .admin-panel-start-text-wrapper p {
+    margin-top: 100px;
+    font-size: 17px;
+    text-align: center;
+}
+
+/*--------------------------------------------------------*/
+
+/*Admin Panel Keywords part*/
+
+.admin-panel-wrapper .admin-panel-main-article-keywords {
+    width: 730px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-empty-text-wrapper {
+    text-align: center;
+    margin-top: 170px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-empty-text-wrapper p {
+    font-family: Arial;
+    font-size: 16px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button,
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed {
+    display: inline-block;
+    height: 26px;
+    min-width: 74px;
+    border: #a8a8a8 1px solid;
+    margin-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button:hover {
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button 
+.admin-panel-keywords-add-keyword-button-link,
+.admin-panel-keywords-add-keyword-button-pressed 
+.admin-panel-keywords-add-keyword-button-link-pressed {
+    display: block;
+    min-width: 74px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button 
+.admin-panel-keywords-add-keyword-button-link {
+    color: black;
+}
+
+.admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed 
+.admin-panel-keywords-add-keyword-button-link-pressed {
+    color: grey;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper {
+    min-height: 500px;  
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
+.admin-panel-keywords-keywords-header, 
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword {
+    background-color: black;
+    min-height: 26px;
+    width: 200px;
+    margin-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword {
+    background-color: #cccccc;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper:hover 
+.admin-panel-keywords-keyword {
+    filter: brightness(0.97);
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
+.admin-panel-keywords-keywords-header:last-child,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword:last-child {
+    width: 240px;
+    margin-right: 0px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
+.admin-panel-keywords-keywords-header h3,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword p {
+    display: block;
+    font-family: Arial;
+    font-size: 15px;
+    color: white;
+    /*We need margins below, otherwise they will be adjusted automatically and 
+    the text won't look right' */
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 26px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
+.admin-panel-keywords-keyword p {
+    color: black;
+    word-wrap: break-word;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper {
+    display: flex;
+    /*We need to have flex-direction: column to show group of buttons in the 
+    middle of Y axis of the container*/
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button:last-child,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button-pressed:last-child {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button-pressed {
+    height: 26px;
+    min-width: 56px;
+    border: #a8a8a8 1px solid;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
+.admin-panel-keywords-keyword-control-button-pressed {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button .admin-panel-keywords-keyword-control-button-link,
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
+.admin-panel-keywords-keyword-control-button-pressed .admin-panel-keywords-keyword-control-button-link-pressed {
+    display: block;
+    min-width: 56px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
+.admin-panel-keywords-keyword-control-button .admin-panel-keywords-keyword-control-button-link {
+    color: black;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
+.admin-panel-keywords-keyword-control-button-pressed .admin-panel-keywords-keyword-control-button-link-pressed {
+    color: grey;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
+.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
+.admin-panel-keywords-keyword-control-button:hover {
+    filter: brightness(0.95);
+}
+
+/*--------------------------------------------------------*/
+
+/*Admin Panel Home part*/
 
 .admin-panel-wrapper .admin-panel-home-article {
     padding-top: 60px;
@@ -192,12 +432,12 @@ main {
 
 /*Admin Panel About Me part*/
 
-.admin-panel-main-article .admin-panel-albums-empty-section-text-wrapper {
+.admin-panel-main-article .admin-panel-articles-empty-section-text-wrapper {
     text-align: center;
     margin-top: 170px;
 }
 
-.admin-panel-main-article .admin-panel-albums-empty-section-text-wrapper p {
+.admin-panel-main-article .admin-panel-articles-empty-section-text-wrapper p {
     font-family: Arial;
     font-size: 16px;
 }
@@ -1122,233 +1362,6 @@ component used through many sections.*/
     font-weight: bold;
     word-wrap: break-word;
     padding: 2px;
-}
-
-/*--------------------------------------------------------*/
-
-/*Keywords part*/
-
-.admin-panel-wrapper .admin-panel-main-article-keywords {
-    width: 730px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-empty-text-wrapper {
-    text-align: center;
-    margin-top: 170px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-empty-text-wrapper p {
-    font-family: Arial;
-    font-size: 16px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-add-keyword-button,
-.admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed {
-    display: inline-block;
-    height: 26px;
-    min-width: 74px;
-    border: #a8a8a8 1px solid;
-    margin-bottom: 5px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-add-keyword-button {
-    background-image: linear-gradient(white, #d6d6d6);
-}
-
-.admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed {
-    background-image: linear-gradient(#d6d6d6, white);
-    transform: scale(0.98);
-    filter: brightness(0.95);
-}
-
-.admin-panel-main-article .admin-panel-keywords-add-keyword-button:hover {
-    filter: brightness(0.95);
-}
-
-.admin-panel-main-article .admin-panel-keywords-add-keyword-button 
-.admin-panel-keywords-add-keyword-button-link,
-.admin-panel-keywords-add-keyword-button-pressed 
-.admin-panel-keywords-add-keyword-button-link-pressed {
-    display: block;
-    min-width: 74px;
-    padding-left: 5px;
-    padding-right: 5px;
-    text-decoration: none;
-    text-align: center;
-    line-height: 25px;
-    vertical-align: middle;
-}
-
-.admin-panel-main-article .admin-panel-keywords-add-keyword-button 
-.admin-panel-keywords-add-keyword-button-link {
-    color: black;
-}
-
-.admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed 
-.admin-panel-keywords-add-keyword-button-link-pressed {
-    color: grey;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper {
-    min-height: 500px;  
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper {
-    display: flex;
-    margin-bottom: 5px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
-.admin-panel-keywords-keywords-header, 
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword {
-    background-color: black;
-    min-height: 26px;
-    width: 200px;
-    margin-right: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword {
-    background-color: #cccccc;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper:hover 
-.admin-panel-keywords-keyword {
-    filter: brightness(0.97);
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
-.admin-panel-keywords-keywords-header:last-child,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword:last-child {
-    width: 240px;
-    margin-right: 0px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
-.admin-panel-keywords-keywords-header h3,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword p {
-    display: block;
-    font-family: Arial;
-    font-size: 15px;
-    color: white;
-    /*We need margins below, otherwise they will be adjusted automatically and 
-    the text won't look right' */
-    margin-top: 0px;
-    margin-bottom: 0px;
-    line-height: 26px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword p {
-    color: black;
-    word-wrap: break-word;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper {
-    display: flex;
-    /*We need to have flex-direction: column to show group of buttons in the 
-    middle of Y axis of the container*/
-    flex-direction: column;
-    justify-content: center;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button:last-child,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button-pressed:last-child {
-    margin-left: 20px;
-    margin-right: 10px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button-pressed {
-    height: 26px;
-    min-width: 56px;
-    border: #a8a8a8 1px solid;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button {
-    background-image: linear-gradient(white, #d6d6d6);
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
-.admin-panel-keywords-keyword-control-button-pressed {
-    background-image: linear-gradient(#d6d6d6, white);
-    transform: scale(0.98);
-    filter: brightness(0.95);
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button .admin-panel-keywords-keyword-control-button-link,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
-.admin-panel-keywords-keyword-control-button-pressed .admin-panel-keywords-keyword-control-button-link-pressed {
-    display: block;
-    min-width: 56px;
-    padding-left: 5px;
-    padding-right: 5px;
-    text-decoration: none;
-    text-align: center;
-    line-height: 25px;
-    vertical-align: middle;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
-.admin-panel-keywords-keyword-control-button .admin-panel-keywords-keyword-control-button-link {
-    color: black;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
-.admin-panel-keywords-keyword-control-button-pressed .admin-panel-keywords-keyword-control-button-link-pressed {
-    color: grey;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button:hover {
-    filter: brightness(0.95);
 }
 
 /*--------------------------------------------------------*/

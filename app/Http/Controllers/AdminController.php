@@ -14,7 +14,7 @@ class AdminController extends Controller
     //There are some methods and variables which we will always use, so it will be better
     //if we call the and initialize in constructor
     public function __construct(){
-        $this->current_page = 'Home';
+        $this->current_page = 'Start';
         //The line below is making an object of repository which contains
         //a method for making navigation bar main links
         //We can't get all these links in constructor as localiztion is applied 
@@ -28,7 +28,7 @@ class AdminController extends Controller
         
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
         
-        return view('adminpages.adminhome')->with([
+        return view('adminpages.adminstart')->with([
             //Below main website links.
             'main_ws_links' => $main_links->mainWSLinks,
             //Below main admin panel links.

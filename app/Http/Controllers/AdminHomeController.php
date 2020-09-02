@@ -7,8 +7,14 @@ use App;
 use App\Article;
 use App\Http\Repositories\CommonRepository;
 
+//This can be used for localization implementation.
+//I have shown this just for example. We don't need it.
+//There is a different way to do localiztion as well. 
+//Please check bookmarks in a GCh browser!
+//use Illuminate\Support\Facades\Lang;
 
-class AdminAboutMeController extends Controller
+
+class AdminHomeController extends Controller
 {
     protected $current_page;
     protected $navigation_bar_obj;
@@ -16,7 +22,7 @@ class AdminAboutMeController extends Controller
     //There are some methods and variables which we will always use, so it will be better
     //if we call the and initialize in constructor
     public function __construct() {
-        $this->current_page = 'AboutMe';
+        $this->current_page = 'Home';
         //The line below is making an object of repository which contains
         //a method for making navigation bar main links
         //We can't get all these links in constructor as localiztion is applied 
@@ -34,7 +40,7 @@ class AdminAboutMeController extends Controller
         //If it doesn't exist, there will be an empty page with a small manual what to do.
         //If it exists, then a user will be redirected to its edit page.
         if (is_null($about_me)) {
-            return view('adminpages.adminAboutMe')->with([
+            return view('adminpages.adminHome')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.

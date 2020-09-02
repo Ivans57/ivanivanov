@@ -124,7 +124,7 @@ Route::group(['prefix' => 'ru', 'middleware' => ['web'], 'locale'], function() {
 //Admin Panel
 //******************************************************************************
 
-//Home
+//Start
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin', 'AdminController@index');
@@ -132,6 +132,18 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 
 Route::group(['middleware' => 'locale'], function() {
     Route::get('admin', 'AdminController@index');
+});
+
+//------------------------------------------------------------------------------
+
+//Home
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/home', 'AdminHomeController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/home', 'AdminHomeController@index');
 });
 
 //------------------------------------------------------------------------------
