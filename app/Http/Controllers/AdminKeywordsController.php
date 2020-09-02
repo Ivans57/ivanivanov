@@ -37,7 +37,7 @@ class AdminKeywordsController extends Controller
 
     //
     public function index() {      
-        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);       
+        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);       
         $items_amount_per_page = 14;       
         $keywords = Keyword::latest()->paginate($items_amount_per_page);
 
@@ -48,8 +48,10 @@ class AdminKeywordsController extends Controller
                                                                                 $this->is_admin_panel);
         } else {
             return view('adminpages.adminkeywords')->with([
-                'main_links' => $main_links->mainLinks,
-                'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+                //Below main website links.
+                'main_ws_links' => $main_links->mainWSLinks,
+                //Below main admin panel links.
+                'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => __('keywords.'.$this->current_page),
                 'keywords' => $keywords,
                 'items_amount_per_page' => $items_amount_per_page

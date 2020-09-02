@@ -37,7 +37,7 @@ class AdminArticlesController extends Controller
     
     public function index() {
         
-        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
+        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
@@ -51,8 +51,10 @@ class AdminArticlesController extends Controller
             return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $folders->lastPage(), $this->is_admin_panel);
         } else {
             return view('adminpages.adminfolders')->with([
-                'main_links' => $main_links->mainLinks,
-                'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+                //Below main website links.
+                'main_ws_links' => $main_links->mainWSLinks,
+                //Below main admin panel links.
+                'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => __('keywords.'.$this->current_page),
                 'folders' => $folders,
                 'items_amount_per_page' => $items_amount_per_page,
@@ -65,13 +67,14 @@ class AdminArticlesController extends Controller
     
     public function showFolder($keyword, $page) {
         
-        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
+        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
               
         //We need to call the method below to clutter down current method in controller
-        return $this->folders->showFolderView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1);
+        return $this->folders->showFolderView(Str::lower($this->current_page), 
+                                                $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1);
     }
     
     public function create($parent_keyword) {      

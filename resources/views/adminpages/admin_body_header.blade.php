@@ -27,26 +27,25 @@
     </div>
 </div>
 <nav class="admin-panel-menu">
-    @if ($keywordsLinkIsActive)
-        @if (App::isLocale('en'))
-            <a class="admin-panel-menu-link admin-panel-keywords-menu-link admin-panel-keywords-menu-link-pressed" 
-               href='/admin/keywords'>@lang('keywords.Keywords')</a>
+    @for ($i = 0; $i < count($main_ap_links); $i++)
+        @if ($main_ap_links[$i]->isActive == true)
+            <a href='{{ $main_ap_links[$i]->adminWebLinkName }}' 
+               class="admin-panel-menu-link admin-panel-menu-link-pressed admin-panel-ap-only-menu-link-pressed 
+               {{ ($i < (count($main_ap_links)-1)) ? '' : 'admin-panel-ap-only-menu-link-last' }}">
+                {{ $main_ap_links[$i]->linkName }}</a>
         @else
-            <a class="admin-panel-menu-link admin-panel-keywords-menu-link admin-panel-keywords-menu-link-pressed" 
-               href='/ru/admin/keywords'>@lang('keywords.Keywords')</a>
-        @endif
-    @else
-        @if (App::isLocale('en'))
-            <a class="admin-panel-menu-link admin-panel-keywords-menu-link" href='/admin/keywords'>@lang('keywords.Keywords')</a>
+            <a href='{{ $main_ap_links[$i]->adminWebLinkName }}' 
+               class="admin-panel-menu-link admin-panel-ap-only-menu-link 
+               {{ ($i < (count($main_ap_links)-1)) ? '' : 'admin-panel-ap-only-menu-link-last' }}">
+                {{ $main_ap_links[$i]->linkName }}</a>
+        @endif       
+    @endfor
+    <div class="admin-panel-menu-separator"></div>
+    @foreach ($main_ws_links as $main_ws_link)
+        @if ($main_ws_link->isActive == true)
+            <a href='{{ $main_ws_link->adminWebLinkName }}' class="admin-panel-menu-link admin-panel-menu-link-pressed">{{ $main_ws_link->linkName }}</a>
         @else
-            <a class="admin-panel-menu-link admin-panel-keywords-menu-link" href='/ru/admin/keywords'>@lang('keywords.Keywords')</a>
+            <a href='{{ $main_ws_link->adminWebLinkName }}' class="admin-panel-menu-link">{{ $main_ws_link->linkName }}</a>
         @endif
-    @endif
-    @foreach ($main_links as $main_link)
-        @if ($main_link->isActive == true)
-            <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link admin-panel-menu-link-pressed">{{ $main_link->linkName }}</a>
-        @else
-            <a href='{{ $main_link->adminWebLinkName }}' class="admin-panel-menu-link">{{ $main_link->linkName }}</a>
-        @endif
-    @endforeach    
+    @endforeach
 </nav>

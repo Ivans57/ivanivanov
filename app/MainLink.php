@@ -23,20 +23,16 @@ class MainLink extends BasicModel {
     
     //Here we are making a method which according to a current language 
     //will select a proper table.
-    //This method is called from main parent model's constructor.
-    //This method is called from main Model which is inherited
-    //Need to be carefull because main Model is ignored by Git.
-    //Possibly this problem can be solved using interfaces as we can' t inherit several classes
-    public function check_lang(){
+    //This method is called from BasicModel constructor.
+    public function check_lang() {
         
         if (App::isLocale('en')) {
+            
+        $this->table = 'en_main_links'; 
         
-        $this->table = 'en_main_links';
-    
-    } else {
-        
-        $this->table = 'ru_main_links';
-        
-    }
+        } else {
+            
+            $this->table = 'ru_main_links';
+        }
     }   
 }

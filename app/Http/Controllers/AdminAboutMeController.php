@@ -28,7 +28,7 @@ class AdminAboutMeController extends Controller
     //
     public function index(){
         
-        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
+        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
 
         $about_me =  Article::where('keyword', '=', $this->current_page)->first();
         
@@ -37,8 +37,10 @@ class AdminAboutMeController extends Controller
         //If it exists, then a user will be redirected to its edit page.
         if (is_null($about_me)) {
             return view('adminpages.adminAboutMe')->with([
-                'main_links' => $main_links->mainLinks,
-                'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+                //Below main website links.
+                'main_ws_links' => $main_links->mainWSLinks,
+                //Below main admin panel links.
+                'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => __('keywords.'.$this->current_page)
                 ]);
         } else {

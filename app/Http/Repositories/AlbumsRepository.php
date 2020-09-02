@@ -200,8 +200,10 @@ class AlbumsRepository {
     private function get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, $items_amount_per_page) {
         if ($is_admin_panel) {
             return view('adminpages.adminalbum')->with([
-                'main_links' => $main_links->mainLinks,
-                'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+                //Below main website links.
+                'main_ws_links' => $main_links->mainWSLinks,
+                //Below main admin panel links.
+                'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => $albums_and_pictures_full_info->head_title,
                 'pathToFile' => $albums_and_pictures_full_info->path_to_file,           
                 'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,

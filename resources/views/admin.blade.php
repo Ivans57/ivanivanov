@@ -17,10 +17,7 @@
     <body>
         <div class="admin-panel-wrapper">
             <header class="admin-panel-header">
-                @component('adminpages/admin_body_header', ['main_links' => $main_links])
-                    @slot('keywordsLinkIsActive')
-                        {!! $keywordsLinkIsActive !!}
-                    @endslot
+                @component('adminpages/admin_body_header', ['main_ws_links' => $main_ws_links, 'main_ap_links' => $main_ap_links])
                 @endcomponent
             </header>
             <main>

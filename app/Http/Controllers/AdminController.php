@@ -24,25 +24,16 @@ class AdminController extends Controller
     }
     
     //
-    public function index(){
+    public function index() {
         
-        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);
+        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
         
         return view('adminpages.adminhome')->with([
-            'main_links' => $main_links->mainLinks,
-            'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+            //Below main website links.
+            'main_ws_links' => $main_links->mainWSLinks,
+            //Below main admin panel links.
+            'main_ap_links' => $main_links->mainAPLinks,
             'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
-    
-    /*public function editHome() {
-        
-        $main_links = $this->navigation_bar_obj->get_main_links($this->current_page);
-        
-        return view('adminpages.adminhome')->with([
-            'main_links' => $main_links,
-            'headTitle' => __('mainLinks.'.$this->current_page)
-            ]);
-        
-    }*/
 }

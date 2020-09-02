@@ -23,7 +23,7 @@ class LangLink extends BasicModel {
       
     //Here we are making a method which according to a current language 
     //will select a proper table.
-    //This method is called from main parent model's constructor.
+    //This method is called from BasicModel constructor.
     public function check_lang(){
         
         if (App::isLocale('en')) {

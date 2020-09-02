@@ -5,12 +5,11 @@ namespace App\Http\Repositories;
 //We need the line below to use localization 
 use App;
 use \App\MainLink;
+use \App\AdminLink;
 use \App\Keyword;
 
-//We need the class below to make an array of this class objects which will 
-//contain only database data we need for the relevant view.
-//Need to check if I met all rules about writing the class below and its properties.
-//For example of all small and capital letters
+
+//Below is a class for main links of the website and admin panel.
 class MainLinkForView {
     public $keyWord;
     public $linkName;
@@ -22,9 +21,10 @@ class MainLinkForView {
 //We need the class below to make an object which will contain an array of all main links
 //for navigation menu and also will show the status of additional keywords link.
 //We use this only for Administration Panel.     
-class MainLinksAndKeywordLinkCheck {
-    public $mainLinks;
-    public $keywordsLinkIsActive;
+class AllMainLinks {
+    public $mainWSLinks;
+    //public $keywordsLinkIsActive;
+    public $mainAPLinks;
 }
 
 class Paginator {
@@ -36,9 +36,8 @@ class Paginator {
 
 class CommonRepository {
     
-    //This method we need to use only when we are working with website, as we 
-    //don't show there keywords link
-    public function get_main_links ($current_page) {
+    //This method we need to use only when we are working with website.
+    public function get_main_website_links ($current_page) {
         
         //On the line below we can see an old example of using my localization.
         //We don't need it. I left it for information purposes.        
@@ -84,27 +83,67 @@ class CommonRepository {
         return $main_links_info;
     }
     
+    //This function we need to use only when we are working with admin panel.
+    private function get_main_admin_panel_links ($current_page) {
+             
+        //Here we are fetching from the database full information about admin panel main links.      
+        $main_links_full = AdminLink::all();
+        
+        //The code in the if condition is required to make the admin panel work even the database is empty.
+        if (is_null($main_links_full)){
+            return null;
+        }
+        
+        //Here we are making an empty dynamic array
+        $main_links_info = array();
+        
+        //Here we are filling our dynamic array with MainLinkForView class elements
+        //and saving in there the data which we will need to use in our view
+        for ($i = 0; $i < count($main_links_full); $i++) {
+            $main_links_info[$i] = new MainLinkForView();
+            $main_links_info[$i]->keyWord = $main_links_full[$i]->keyword;
+            $main_links_info[$i]->linkName = $this->get_link_name($main_links_full[$i]->keyword);
+            $main_links_info[$i]->adminWebLinkName = $main_links_full[$i]->admin_web_link_name;
+        }
+                
+        //In the loop below we are checking every single element of main_links_info
+        //array for containing in its keyWord property a certain keyword we are passing.
+        //If it does we are setting its isActive property to true.
+        foreach($main_links_info as $main_link_info) {
+            if ($main_link_info->keyWord == $current_page){
+                $main_link_info->isActive = true;
+            }
+        }
+      
+        return $main_links_info;
+    }
+    
     //This method allows to get an actual text for the link from keywords table
-    //knowing its keyword
+    //knowing its keyword.
     public function get_link_name ($link_keyword) {
         $link_name = Keyword::where('keyword', $link_keyword)->first();
+        //The if condition below is preventing an error if there is no keyword
+        //added for a main link.
+        if (is_null($link_name)){
+            return $link_keyword;
+        }
         return $link_name->text;
     }
       
-    //This method we need to use only when we are working with admin panel, as we 
-    //need to show there keywords link. This method is getting all main links for navigation menu
-    //and also checking whether keywords link is active 
-    public function get_main_links_and_keywords_link_status ($current_page) {
+    //The function below is required to get all necessary main links for admin panel.
+    //Including pure admin panel main links and pure website main links.
+    public function get_main_links_for_admin_panel_and_website ($current_page) {
         
-        $main_links_and_keywords_link_status = new MainLinksAndKeywordLinkCheck();        
-        $main_links_and_keywords_link_status->mainLinks = $this->get_main_links($current_page);        
-        $main_links_and_keywords_link_status->keywordsLinkIsActive = $this->active_link_search($main_links_and_keywords_link_status->mainLinks);
+        $all_main_links = new AllMainLinks();        
+        $all_main_links->mainWSLinks = $this->get_main_website_links($current_page);
+        $all_main_links->mainAPLinks = $this->get_main_admin_panel_links($current_page);
+        //$main_links_and_keywords_link_status->keywordsLinkIsActive = $this->active_link_search($main_links_and_keywords_link_status->mainLinks);
         
-        return $main_links_and_keywords_link_status;
+        return $all_main_links;
         
     }
     
-    //This method gets all necessary information for paginator
+    //This method gets all necessary information for paginator.
     public function get_paginator_info($page, $all_items_collection_cut_into_pages) {
         
         $paginator_info = new Paginator();
@@ -170,15 +209,4 @@ class CommonRepository {
             }
         }
     }
-    
-    private function active_link_search($all_main_links) {
-        $array_does_not_have_active_links = true;
-        foreach($all_main_links as $main_link) {
-            if ($main_link->isActive == true){
-                $array_does_not_have_active_links = false;
-                return $array_does_not_have_active_links;                
-            }            
-            }
-        return $array_does_not_have_active_links;            
-            }
-    }
+}

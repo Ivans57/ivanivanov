@@ -35,7 +35,7 @@ class AdminArticleController extends Controller
     }
     
     public function create($parent_keyword) {     
-        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page);    
+        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);    
         
         if ($parent_keyword != "0") {
             $parent_info = Folder::select('id', 'folder_name')
@@ -44,8 +44,10 @@ class AdminArticleController extends Controller
         $parents = (new ArticlesRepository())->getArticlesParentsForPath($parent_info->id);
         
         return view('adminpages.articles.create_and_edit_article')->with([
-            'main_links' => $main_links->mainLinks,
-            'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+            //Below main website links.
+            'main_ws_links' => $main_links->mainWSLinks,
+            //Below main admin panel links.
+            'main_ap_links' => $main_links->mainAPLinks,
             'headTitle' => __('keywords.NewArticle'),
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,
@@ -95,7 +97,7 @@ class AdminArticleController extends Controller
     }
     
     public function edit($parent_keyword, $keyword) {
-        $main_links = $this->navigation_bar_obj->get_main_links_and_keywords_link_status($this->current_page); 
+        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page); 
         
         $edited_article = Article::where('keyword', '=', $keyword)->firstOrFail();
         //As there is a field "article_keyword" instead of field "keyword" on a form,
@@ -107,8 +109,10 @@ class AdminArticleController extends Controller
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
         }       
         return view('adminpages.articles.create_and_edit_article')->with([
-            'main_links' => $main_links->mainLinks,
-            'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+            //Below main website links.
+            'main_ws_links' => $main_links->mainWSLinks,
+            //Below main admin panel links.
+            'main_ap_links' => $main_links->mainAPLinks,
             'headTitle' => $edited_article->article_title,
             //We need to know parent keyword to fill up Parent Search field.
             'parent_id' => ($parent_keyword != "0") ? $parent_info->id : $parent_keyword,

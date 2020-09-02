@@ -73,8 +73,10 @@ class ArticlesRepository {
     private function get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
         if ($is_admin_panel) {
             return view('adminpages.adminfolder')->with([
-                'main_links' => $main_links->mainLinks,
-                'keywordsLinkIsActive' => $main_links->keywordsLinkIsActive,
+                //Below main website links.
+                'main_ws_links' => $main_links->mainWSLinks,
+                //Below main admin panel links.
+                'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => $folders_and_articles_full_info->head_title,
                 'folderName' => $folders_and_articles_full_info->folder_name,           
                 'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,

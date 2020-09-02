@@ -111,24 +111,32 @@ and open the template in the editor.
     font-size: 18px;
 }
 
-.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keywords-menu-link {
-    margin-right: 0px;
-    border-right: 3px solid black;
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-ap-only-menu-link {
+    color: #1e3f75;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-ap-only-menu-link-last {
+    margin-right: 3px;
     min-width: 0px;
     padding-right: 25px;
-    color: #535389;
+    color: #1e3f75;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-separator {
+    height: 25px;
+    border-right: 3px solid black;
 }
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link:hover {
     color: blue;
 }
 
-.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keywords-menu-link:hover {
-    color: red;
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-ap-only-menu-link:hover {
+    color: #a31818;
 }
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-menu-link-pressed,
-.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keywords-menu-link-pressed {
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-ap-only-menu-link-pressed {
     font-weight: bold;
     font-size: 19px;
 }
@@ -137,8 +145,12 @@ and open the template in the editor.
     color: black;
 }
 
-.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-keywords-menu-link-pressed:hover {
-    color: #535389;
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-ap-only-menu-link-pressed {
+    color: #1e3f75;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-menu .admin-panel-ap-only-menu-link-pressed:hover {
+    color: #1e3f75;
 }
 
 /*--------------------------------------------------------*/
