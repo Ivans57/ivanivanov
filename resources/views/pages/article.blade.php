@@ -30,13 +30,13 @@
             <p>{!! $article_body !!}</p>
         </div>
         <div class="article-author">
-            <p>@lang('articleContent.Author'): <b>{{ $article_author }}</b></p>
+            <p>@lang('keywords.ArticleAuthor'): <b>{{ $article_author }}</b></p>
         </div>
         <div class="article-source">
-            <p>@lang('articleContent.Source'): <b>{{ $article_source }}</b></p>
+            <p>@lang('keywords.ArticleSource'): <b>{{ $article_source }}</b></p>
         </div>
         <div class="article-creation-time">
-            <p>@lang('articleContent.Time'): <b>{{ $created_at }}</b></p>
+            <p>@lang('keywords.DateAndTime'): <b>{{ $created_at }}</b></p>
         </div>
     </div>
 </article>

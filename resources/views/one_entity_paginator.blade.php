@@ -9,22 +9,22 @@ code in repository.-->
     @if ($items->currentPage() == 1)
         <span class="first-inactive"></span>
     @else
-        <a href="{{ $items->url(1) }}" class="first-active" title="@lang('pagination.ToFirstPage')"></a>
+        <a href="{{ $items->url(1) }}" class="first-active" title="@lang('keywords.ToFirstPage')"></a>
     @endif
     @if ($items->currentPage() == 1)
         <span class="previous-inactive"></span>
     @else
-        <a href="{{ $items->previousPageUrl() }}" class="previous-active" title="@lang('pagination.ToPreviousPage')"></a>
+        <a href="{{ $items->previousPageUrl() }}" class="previous-active" title="@lang('keywords.ToPreviousPage')"></a>
     @endif
-    <span class="pagination-info">{{ $items->currentPage() }} @lang('pagination.Of') {{ $items->lastPage() }}</span>
+    <span class="pagination-info">{{ $items->currentPage() }} @lang('keywords.Of') {{ $items->lastPage() }}</span>
     @if ($items->currentPage() == $items->lastPage())
         <span class="next-inactive"></span>
     @else
-        <a href="{{ $items->nextPageUrl() }}" class="next-active" title="@lang('pagination.ToNextPage')"></a>
+        <a href="{{ $items->nextPageUrl() }}" class="next-active" title="@lang('keywords.ToNextPage')"></a>
     @endif
     @if ($items->currentPage() == $items->lastPage())
         <span class="last-inactive"></span>
     @else
-        <a href="{{ $items->url($items->lastPage()) }}" class="last-active" title="@lang('pagination.ToLastPage')"></a>
+        <a href="{{ $items->url($items->lastPage()) }}" class="last-active" title="@lang('keywords.ToLastPage')"></a>
     @endif
 </div>

@@ -12,7 +12,7 @@ position).-->
         </svg>
     </div>
     <div class="pop-up-menu-body">
-        <h1>@lang('mainTitle.PersonalWebPageOfIvanIvanov')</h1>
+        <h1>@lang('keywords.PersonalWebPageOfIvanIvanov')</h1>
         <ul>
             @foreach ($main_links as $main_link)
                 <li>

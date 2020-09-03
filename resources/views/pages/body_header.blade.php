@@ -3,24 +3,28 @@
         <div>
             <a href='{{ action('HomeController@index') }}'>
                 @if (App::isLocale('en'))
-                    <img src="{{ URL::asset('images/icons/uk.png') }}" alt="uk" title=@lang('langLinks.English') class="website-en-laguage-select-button website-laguage-select-button-pressed" id="en-laguage-button">
+                    <img src="{{ URL::asset('images/icons/uk.png') }}" alt="uk" title=@lang('langLinks.English') 
+                         class="website-en-laguage-select-button website-laguage-select-button-pressed" id="en-laguage-button">
                 @else
-                    <img src="{{ URL::asset('images/icons/uk.png') }}" alt="uk" title=@lang('langLinks.English') class="website-en-laguage-select-button" id="en-laguage-button">
+                    <img src="{{ URL::asset('images/icons/uk.png') }}" alt="uk" title=@lang('langLinks.English') 
+                         class="website-en-laguage-select-button" id="en-laguage-button">
                 @endif
             </a>
         </div>
         <div>
             <a href='/ru'>
                 @if (App::isLocale('en'))
-                    <img src="{{ URL::asset('images/icons/rus.png') }}" alt="rus" title=@lang('langLinks.Russian') class="website-rus-laguage-select-button" id="rus-laguage-button">
+                    <img src="{{ URL::asset('images/icons/rus.png') }}" alt="rus" title=@lang('langLinks.Russian') 
+                         class="website-rus-laguage-select-button" id="rus-laguage-button">
                 @else
-                    <img src="{{ URL::asset('images/icons/rus.png') }}" alt="rus" title=@lang('langLinks.Russian') class="website-rus-laguage-select-button website-laguage-select-button-pressed" id="rus-laguage-button">
+                    <img src="{{ URL::asset('images/icons/rus.png') }}" alt="rus" title=@lang('langLinks.Russian') 
+                         class="website-rus-laguage-select-button website-laguage-select-button-pressed" id="rus-laguage-button">
                 @endif
             </a>
         </div>    
     </div>   
     <div class="website-title">
-        <h1>@lang('mainTitle.PersonalWebPageOfIvanIvanov')</h1>
+        <h1>@lang('keywords.PersonalWebPageOfIvanIvanov')</h1>
     </div>
 </div>
 <nav class="website-menu">              

@@ -69,7 +69,7 @@
         @endif
     @else
         <div class="empty-folders-text-wrapper">
-            <p>@lang('folderContent.EmptySection')</p>
+            <p>@lang('keywords.EmptyFolder')</p>
         </div>     
     @endif   
 </article>

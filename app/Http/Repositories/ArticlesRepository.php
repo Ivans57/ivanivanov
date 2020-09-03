@@ -112,7 +112,7 @@ class ArticlesRepository {
         //We are choosing the album we are working with at the current moment 
         $folder = Folder::where('keyword', $keyword)->first();
         
-        $nesting_level = FolderData::where('items_id', $folder->id)->select('nesting_level')->firstOrFail();
+        $nesting_level = FolderData::where('items_id', $folder->id)->select('nesting_level')->first();
                
         if ($including_invisible) {
             $included_articles = Article::where('folder_id', $folder->id)->orderBy('created_at','DESC')->get();

@@ -55,7 +55,7 @@
         @endif
     @else
         <div class="empty-albums-text-wrapper">
-            <p>@lang('albumContent.EmptyAlbum')</p>
+            <p>@lang('keywords.EmptyAlbum')</p>
         </div>
     @endif
 </article>

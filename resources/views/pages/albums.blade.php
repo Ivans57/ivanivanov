@@ -26,7 +26,7 @@
         @endif
     @else
         <div class="empty-albums-text-wrapper">
-            <p>@lang('folderContent.EmptySection')</p>
+            <p>@lang('keywords.EmptySection')</p>
         </div>
     @endif
 </article>

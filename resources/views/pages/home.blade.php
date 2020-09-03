@@ -7,11 +7,11 @@
         
         @if (App::isLocale('en'))
         <div class="home-know-more-button" id="know-more-button">
-            <a href='{{ action('AboutMeController@index') }}' class="home-know-more-button-link">@lang('homeContent.KnowMore')</a>
+            <a href='{{ action('AboutMeController@index') }}' class="home-know-more-button-link">@lang('keywords.KnowMore')</a>
         <div>
         @else
         <div class="home-know-more-button" id="know-more-button">
-            <a href='/ru/about-me' class="home-know-more-button-link">@lang('homeContent.KnowMore')</a>
+            <a href='/ru/about-me' class="home-know-more-button-link">@lang('keywords.KnowMore')</a>
         </div>
         @endif
 </article>           
