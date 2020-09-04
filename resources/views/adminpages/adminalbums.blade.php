@@ -17,23 +17,20 @@
             <div class="admin-panel-albums-pictures-and-albums-wrapper">
                 @foreach ($albums as $album)
                     <div class="admin-panel-albums-picture-and-album-item">
-                        <div class="admin-panel-albums-picture-and-album-picture-wrapper">
-                            <div class="admin-panel-albums-albums-picture">
-                                <img src="{{ ($album->is_visible==1) ? URL::asset('images/icons/album_folder.png') : 
-                                            URL::asset('images/icons/album_folder_bnw.png') }}" 
-                                            class="admin-panel-albums-albums-picture-image">
-                            </div>
-                            
-                        </div>
-                        <div class="admin-panel-albums-albums-title">
-                            <span class="admin-panel-albums-albums-title-text">{{ $album->album_name }}</span>
+                        <div class="admin-panel-albums-picture-and-album-picture-and-text-wrapper">
+                            <a href="albums/{{ $album->keyword }}/page/1">
+                                <div class="admin-panel-albums-albums-picture">
+                                    <img src="{{ ($album->is_visible==1) ? URL::asset('images/icons/album_folder.png') : 
+                                                URL::asset('images/icons/album_folder_bnw.png') }}" 
+                                                class="admin-panel-albums-albums-picture-image">
+                                </div>
+                                <div class="admin-panel-albums-albums-title">
+                                    <span class="admin-panel-albums-albums-title-text">{{ $album->album_name }}</span>
+                                </div>
+                            </a>
                         </div>
                         <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
                             <div class="admin-panel-albums-picture-and-album-control-buttons">
-                                <div class="admin-panel-albums-picture-and-album-control-button">
-                                    <a href='albums/{{ $album->keyword }}/page/1' 
-                                       class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
-                                </div>
                                 <div class="admin-panel-albums-picture-and-album-control-button">
                                     <!--We need class admin-panel-albums-album-control-button-link-edit only to identify edit button -->
                                     <a href='albums/{{ $album->keyword }}/edit/{{ $parent_keyword }}'

@@ -40,32 +40,37 @@
             <div class="admin-panel-albums-pictures-and-albums-wrapper">          
                 @foreach ($albums_and_pictures as $album_or_picture)   
                     <div class="admin-panel-albums-picture-and-album-item">
-                        <div class="admin-panel-albums-picture-and-album-picture-wrapper">
+                        <div class="admin-panel-albums-picture-and-album-picture-and-text-wrapper">
                             @if ($album_or_picture->type == 'album')
-                                <div class='admin-panel-albums-albums-picture'>
-                                    <img src=""
-                                    class='admin-panel-albums-albums-picture-image'>
-                                </div>
+                                <a href="{{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyWord."/page/1" : 
+                                            "/ru/admin/albums/".$album_or_picture->keyWord."/page/1" }}">
+                                    <div class='admin-panel-albums-albums-picture'>
+                                        <img src="{{ ($album_or_picture->isVisible==1) ? URL::asset('images/icons/album_folder.png') : 
+                                                URL::asset('images/icons/album_folder_bnw.png') }}"
+                                        class='admin-panel-albums-albums-picture-image'>
+                                    </div>
+                                    <div class='admin-panel-albums-albums-title'>
+                                        <span class='admin-panel-albums-albums-title-text'>{{ $album_or_picture->caption }}</span>
+                                    </div>
+                                </a>
                             @elseif ($album_or_picture->type == 'picture')
-                                <div class='admin-panel-albums-pictures-picture'>
-                                    <img src="{{ URL::asset($pathToFile.$album_or_picture->fileName) }}"
-                                    class='admin-panel-albums-pictures-picture-image'  style="{{ ($album_or_picture->isVisible==1) ? 
-                                    'opacity:1' : 'opacity:0.45' }}">
-                                </div>
+                                <a href='{{ URL::asset($pathToFile.$album_or_picture->fileName) }}' 
+                                        data-fancybox="group" data-caption="{{ $album_or_picture->caption }}" title="{{ $album_or_picture->caption }}" 
+                                        class="admin-panel-albums-picture-control-button-link-open">
+                                    <div class='admin-panel-albums-pictures-picture'>
+                                        <img src="{{ URL::asset($pathToFile.$album_or_picture->fileName) }}"
+                                            class='admin-panel-albums-pictures-picture-image'  style="{{ ($album_or_picture->isVisible==1) ? 
+                                            'opacity:1' : 'opacity:0.45' }}">
+                                    </div>
+                                    <div class='admin-panel-albums-pictures-title'>
+                                        <span class='admin-panel-albums-pictures-title-text'>{{ $album_or_picture->caption }}</span>
+                                    </div>
+                                </a>
                             @endif
-                        </div>
-                        <div {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-title' : 'class=admin-panel-albums-pictures-title' }}>
-                            <span {{ $album_or_picture->type == 'album' ? 'class=admin-panel-albums-albums-title-text' : 'class=admin-panel-albums-pictures-title-text' }} >{{ $album_or_picture->caption }}</span>
                         </div>
                         <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
                             <div class="admin-panel-albums-picture-and-album-control-buttons">
                                 @if ($album_or_picture->type == 'album')
-                                    <div class="admin-panel-albums-picture-and-album-control-button">
-                                        <!--We need to provide absolute path below as otherwise links are not working correctly -->
-                                        <a href={{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyWord."/page/1" : 
-                                            "/ru/admin/albums/".$album_or_picture->keyWord."/page/1" }} 
-                                            class="admin-panel-albums-picture-and-album-control-button-link">@lang('keywords.Open')</a>
-                                    </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
                                         <!--We need to provide absolute path below as otherwise links are not working correctly -->
                                         <!--We need class admin-panel-albums-album-control-button-link-edit only to identify edit button -->
@@ -85,13 +90,6 @@
                                             @lang('keywords.Delete')</a>
                                     </div>
                                 @elseif ($album_or_picture->type == 'picture') 
-                                    <div class="admin-panel-albums-picture-and-album-control-button">
-                                         <!--We need class admin-panel-albums-picture-control-button-link-open only for identification in javascript -->
-                                        <a href='{{ URL::asset($pathToFile.$album_or_picture->fileName) }}' 
-                                           data-fancybox="group" data-caption="{{ $album_or_picture->caption }}" title="{{ $album_or_picture->caption }}" 
-                                           class="admin-panel-albums-picture-and-album-control-button-link
-                                           admin-panel-albums-picture-control-button-link-open">@lang('keywords.Open')</a>
-                                    </div>
                                     <div class="admin-panel-albums-picture-and-album-control-button">
                                         <!--We need to provide absolute path below as otherwise links are not working correctly -->
                                         <!--We need class admin-panel-albums-picture-control-button-link-edit only to identify edit button -->
