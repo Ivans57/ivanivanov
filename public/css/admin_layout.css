@@ -850,39 +850,75 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item {
+.admin-panel-articles-article-and-folder-header-row,
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-body-row {
     display: flex;
     justify-content: space-between;
     min-height: 26px;
-    background-color: #cccccc;
     padding-left: 5px;
     padding-right: 5px;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item a {
+.admin-panel-articles-article-and-folder-header-row {
+    margin-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field {
+    display: flex;
+    width: 210px;
+    margin-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #cccccc;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field {
+    display: flex;
+    width: 210px;
+    margin-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: black;
+    color: white;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field:first-child,
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field:first-child {
+    width: 40px;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field a {
     color: black;
     text-decoration: none;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item a:hover {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field a:hover {
     text-decoration: none;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item a:hover .admin-panel-articles-article-and-folder-title-and-picture-wrapper img {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+a:hover .admin-panel-articles-article-and-folder-title-and-picture-wrapper img {
     filter: drop-shadow(0 0 1px grey);
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-title-and-picture-wrapper {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-title-and-picture-wrapper {
     display: flex;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-title-and-picture-wrapper 
-.admin-panel-articles-article-and-folder-title {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-title-and-picture-wrapper .admin-panel-articles-article-and-folder-title {
     max-width: 370px;
     margin-left: 5px;
     padding-top: 5px;
@@ -890,120 +926,125 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item:hover {
+.admin-panel-articles-article-and-folder-body-row:hover {
     filter: brightness(0.97);
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item:hover .admin-panel-articles-article-and-folder-title-and-picture-wrapper 
+.admin-panel-articles-article-and-folder-body-row:hover .admin-panel-articles-article-and-folder-body-field .admin-panel-articles-article-and-folder-title-and-picture-wrapper 
 .admin-panel-articles-article-and-folder-title {
     font-weight: bold;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item:not(:last-child) {
+.admin-panel-articles-article-and-folder-body-row:not(:last-child) {
     margin-bottom: 5px;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-title-and-picture-wrapper .admin-panel-articles-article-and-folder-title {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-title-and-picture-wrapper .admin-panel-articles-article-and-folder-title {
     font-size: 15px;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons {
     display: flex;
     justify-content: space-between;
 }
 
-/*.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button:first-child,
-.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button-pressed:first-child {
-    margin-left: 10px;
-}*/
-
 /*Here we are doing the same for the second folder's button and for the first 
 article's button, because article has only two control buttons instead of three*/
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button:first-child,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button:first-child,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button-pressed:first-child,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-pressed:first-child,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button:first-child,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button:first-child,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button-pressed:first-child {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button-pressed:first-child {
     margin-left: 10px;
     margin-right: 10px;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button-pressed,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-pressed,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button-pressed {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button-pressed {
     height: 26px;
     min-width: 56px;
     border: #a8a8a8 1px solid;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button {
     background-image: linear-gradient(white, #d6d6d6);
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button-pressed,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-pressed,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button-pressed {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button-pressed {
     background-image: linear-gradient(#d6d6d6, white);
     transform: scale(0.98);
     filter: brightness(0.95);
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button 
-.admin-panel-articles-article-and-folder-control-button-link,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button .admin-panel-articles-article-and-folder-control-button-link,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button-pressed 
-.admin-panel-articles-article-and-folder-control-button-link-pressed,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-pressed .admin-panel-articles-article-and-folder-control-button-link-pressed,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button 
-.admin-panel-articles-article-control-button-link,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button .admin-panel-articles-article-control-button-link,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button-pressed 
-.admin-panel-articles-article-control-button-link-pressed {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button-pressed .admin-panel-articles-article-control-button-link-pressed {
     display: block;
     min-width: 56px;
     padding-left: 5px;
@@ -1015,33 +1056,35 @@ article's button, because article has only two control buttons instead of three*
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button 
-.admin-panel-articles-article-and-folder-control-button-link,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button .admin-panel-articles-article-and-folder-control-button-link,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button 
-.admin-panel-articles-article-control-button-link {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button .admin-panel-articles-article-control-button-link {
     color: black;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button-pressed 
-.admin-panel-articles-article-and-folder-control-button-link-pressed,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-pressed .admin-panel-articles-article-and-folder-control-button-link-pressed,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button-pressed 
-.admin-panel-articles-article-control-button-link-pressed {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button-pressed .admin-panel-articles-article-control-button-link-pressed {
     color: grey;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-and-folder-control-button:hover,
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button:hover,
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-item .admin-panel-articles-article-and-folder-control-buttons-wrapper 
-.admin-panel-articles-article-and-folder-control-buttons .admin-panel-articles-article-control-button:hover {
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-control-buttons-wrapper .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-control-button:hover {
     filter: brightness(0.95);
 }
 

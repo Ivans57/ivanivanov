@@ -14,36 +14,58 @@
         in case we don't have full page-->
         <div class="admin-panel-articles-external-articles-and-folders-wrapper">
             <div class="admin-panel-articles-articles-and-folders-wrapper">
+                <div class="admin-panel-articles-article-and-folder-header-row">
+                    <div class="admin-panel-articles-article-and-folder-header-field" title="Select all">
+                        {!! Form::checkbox('name', 'value', false); !!}
+                    </div>
+                    <div class="admin-panel-articles-article-and-folder-header-field">
+                        <p>Name</p>
+                    </div>
+                    <div class="admin-panel-articles-article-and-folder-header-field">
+                        <p>Date and Time when created</p>
+                    </div>
+                    <div class="admin-panel-articles-article-and-folder-header-field">
+                        <p>Date and Time when updated</p>
+                    </div>
+                </div>
                 @foreach ($folders as $folder)
-                    <div class="admin-panel-articles-article-and-folder-item">
-                        <a href="articles/{{ $folder->keyword }}/page/1">
-                            <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
-                                <div>
-                                    <img src="{{ ($folder->is_visible==1) ? URL::asset('images/icons/regular_folder_small.png') : 
-                                                URL::asset('images/icons/regular_folder_small_bnw.png') }}">                                
-                                </div>
-                                <div class="admin-panel-articles-article-and-folder-title">
-                                    <p>{{ $folder->folder_name }}</p>
-                                </div>
-                            </div>
-                        </a>    
-                        <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
-                            <div class="admin-panel-articles-article-and-folder-control-buttons">
-                                <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
-                                    <a href='articles/{{ $folder->keyword }}/edit/{{ $parent_keyword }}' 
-                                       class="admin-panel-articles-article-and-folder-control-button-link 
-                                       admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
-                                        @lang('keywords.Edit')</a>
-                                </div>
-                                <div class="admin-panel-articles-article-and-folder-control-button">
-                                    <a href='articles/{{ $folder->keyword }}/delete' 
-                                       class="admin-panel-articles-article-and-folder-control-button-link 
-                                       admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
-                                        @lang('keywords.Delete')</a>
-                                </div>
-                            </div>
+                    <div class="admin-panel-articles-article-and-folder-body-row">
+                        <div class="admin-panel-articles-article-and-folder-body-field">
+                            {!! Form::checkbox('name', 'value', false); !!}
                         </div>
+                        <div class="admin-panel-articles-article-and-folder-body-field">
+                            <a href="articles/{{ $folder->keyword }}/page/1">
+                                <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
+                                    <div>
+                                        <img src="{{ ($folder->is_visible==1) ? URL::asset('images/icons/regular_folder_small.png') : 
+                                                    URL::asset('images/icons/regular_folder_small_bnw.png') }}">                                
+                                    </div>
+                                    <div class="admin-panel-articles-article-and-folder-title">
+                                        <p>{{ $folder->folder_name }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="admin-panel-articles-article-and-folder-body-field"></div>
+                        <div class="admin-panel-articles-article-and-folder-body-field">
+                            <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
+                                <div class="admin-panel-articles-article-and-folder-control-buttons">
+                                    <div class="admin-panel-articles-article-and-folder-control-button">
+                                        <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
+                                        <a href='articles/{{ $folder->keyword }}/edit/{{ $parent_keyword }}' 
+                                           class="admin-panel-articles-article-and-folder-control-button-link 
+                                           admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
+                                            @lang('keywords.Edit')</a>
+                                    </div>
+                                    <div class="admin-panel-articles-article-and-folder-control-button">
+                                        <a href='articles/{{ $folder->keyword }}/delete' 
+                                           class="admin-panel-articles-article-and-folder-control-button-link 
+                                           admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
+                                            @lang('keywords.Delete')</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
                     </div>
                 @endforeach
             </div>
