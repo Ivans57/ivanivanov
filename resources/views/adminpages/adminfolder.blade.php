@@ -20,20 +20,39 @@
         <h2>{{ $headTitle }}</h2>
     </div>
     <div class="admin-panel-articles-add-article-folder-wrapper">
-        <div class="admin-panel-articles-add-article-button">
-            <a href={{ App::isLocale('en') ? "/admin/article/create/".$parent_keyword : "/ru/admin/article/create/".$parent_keyword }} 
-                class="admin-panel-articles-add-article-button-link">
-                   @lang('keywords.AddArticle')
-            </a>
-        </div>
-        @if ($nesting_level < 7)
-            <div class="admin-panel-articles-add-folder-button">
-                <a href={{ App::isLocale('en') ? "/admin/articles/create/".$parent_keyword : "/ru/admin/articles/create/".$parent_keyword }} 
-                class="admin-panel-articles-add-folder-button-link" data-fancybox data-type="iframe">
-                   @lang('keywords.AddFolder')
-                </a>
+        <div class="admin-panel-articles-cotrol-buttons">
+            <div class="admin-panel-articles-add-article-folder-wrapper">
+                <div class="admin-panel-articles-add-article-button">
+                    <a href={{ App::isLocale('en') ? "/admin/article/create/".$parent_keyword : "/ru/admin/article/create/".$parent_keyword }} 
+                        class="admin-panel-articles-add-article-button-link">
+                           @lang('keywords.AddArticle')
+                    </a>
+                </div>
+                @if ($nesting_level < 7)
+                    <div class="admin-panel-articles-add-folder-button">
+                        <a href={{ App::isLocale('en') ? "/admin/articles/create/".$parent_keyword : "/ru/admin/articles/create/".$parent_keyword }} 
+                        class="admin-panel-articles-add-folder-button-link" data-fancybox data-type="iframe">
+                           @lang('keywords.AddFolder')
+                        </a>
+                    </div>
+                @endif
             </div>
-        @endif
+            <div class="admin-panel-articles-article-and-folder-control-buttons">
+                <div class="admin-panel-articles-article-and-folder-control-button">
+                    <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
+                    <a href='#' 
+                        class="admin-panel-articles-article-and-folder-control-button-link 
+                        admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
+                        @lang('keywords.Edit')</a>
+                </div>
+                <div class="admin-panel-articles-article-and-folder-control-button">
+                    <a href='#' 
+                        class="admin-panel-articles-article-and-folder-control-button-link 
+                        admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
+                        @lang('keywords.Delete')</a>
+                </div>
+            </div>
+        </div>
     </div>
     @if ($total_number_of_items > 0)
         <div class="admin-panel-articles-external-articles-and-folders-wrapper">
@@ -55,7 +74,20 @@
                 @foreach ($folders_and_articles as $folder_or_article)
                     <div class="admin-panel-articles-article-and-folder-body-row">
                         <div class="admin-panel-articles-article-and-folder-body-field">
-                            {!! Form::checkbox('name', 'value', false); !!}
+                            @if ($folder_or_article->type == 'folder')
+                                {!! Form::checkbox('item_select', 1, false, 
+                                ['data-edit-href' => App::isLocale('en') ? 
+                                                    '/admin/articles/'.$folder_or_article->keyWord.'/edit/'.$parent_keyword : 
+                                                    '/ru/admin/articles/'.$folder_or_article->keyWord.'/edit/'.$parent_keyword, 
+                                 'data-delete-href' => App::isLocale('en') ? '/admin/articles/'.$folder_or_article->keyWord.'/delete' : 
+                                                       '/ru/admin/articles/'.$folder_or_article->keyWord.'/delete']); !!}
+                            @else
+                                {!! Form::checkbox('item_select', 1, false, 
+                                ['data-edit-href' => App::isLocale('en') ? '/admin/article/'.$parent_keyword.'/edit/'.$folder_or_article->keyWord : 
+                                                    '/ru/admin/article/'.$parent_keyword.'/edit/'.$folder_or_article->keyWord, 
+                                 'data-delete-href' => App::isLocale('en') ? '/admin/article/'.$folder_or_article->keyWord.'/delete' : 
+                                                       '/ru/admin/article/'.$folder_or_article->keyWord.'/delete']); !!}
+                            @endif
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
                             @if ($folder_or_article->type == 'folder')
@@ -86,50 +118,11 @@
                                 </a>
                             @endif
                         </div>
-                        <div class="admin-panel-articles-article-and-folder-body-field"></div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
-                            <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
-                                <div class="admin-panel-articles-article-and-folder-control-buttons">                                    
-                                    @if ($folder_or_article->type == 'folder')                                    
-                                        <div class="admin-panel-articles-article-and-folder-control-button">
-                                            <!--We need to provide absolute path below as otherwise links are not working correctly -->
-                                            <!--We need class admin-panel-articles-folder-control-button-link-edit only to identify edit button -->
-                                            <a href={{ App::isLocale('en') ? "/admin/articles/".$folder_or_article->keyWord."/edit/".$parent_keyword : 
-                                                "/ru/admin/articles/".$folder_or_article->keyWord."/edit/".$parent_keyword }} 
-                                                class="admin-panel-articles-article-and-folder-control-button-link 
-                                                admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
-                                                @lang('keywords.Edit')
-                                            </a>
-                                        </div>
-                                        <div class="admin-panel-articles-article-and-folder-control-button">
-                                            <a href={{ App::isLocale('en') ? "/admin/articles/".$folder_or_article->keyWord."/delete" : 
-                                                "/ru/admin/articles/".$folder_or_article->keyWord."/delete" }} 
-                                                class="admin-panel-articles-article-and-folder-control-button-link 
-                                                admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
-                                                @lang('keywords.Delete')
-                                            </a>
-                                        </div>                                    
-                                    @else
-                                        <!-- Delete buttons for folders and articles will have to separate ...-delete classes,
-                                        because these two buttons have to draw different size windows.-->
-                                        <div class="admin-panel-articles-article-control-button">
-                                            <a href={{ App::isLocale('en') ? "/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord : 
-                                                "/ru/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord }}
-                                                class="admin-panel-articles-article-control-button-link">
-                                                @lang('keywords.Edit')
-                                            </a>
-                                        </div>
-                                        <div class="admin-panel-articles-article-control-button">
-                                            <a href={{ App::isLocale('en') ? "/admin/article/".$folder_or_article->keyWord."/delete" : 
-                                                "/ru/admin/article/".$folder_or_article->keyWord."/delete" }} 
-                                                class="admin-panel-articles-article-control-button-link 
-                                                admin-panel-articles-article-control-button-link-delete" data-fancybox data-type="iframe">
-                                                @lang('keywords.Delete')
-                                            </a>
-                                        </div>                                    
-                                    @endif                                   
-                                </div>
-                            </div>
+                            <p>{{ $folder_or_article->createdAt }}</p>
+                        </div>
+                        <div class="admin-panel-articles-article-and-folder-body-field">
+                            <p>{{ $folder_or_article->updatedAt }}</p>
                         </div>    
                     </div>
                 @endforeach     

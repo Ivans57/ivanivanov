@@ -17,7 +17,9 @@ class FolderLinkForView {
 class FolderAndArticleForView {
     public $keyWord;
     public $caption;
-    public $isVisible;
+    public $createdAt;
+    public $updatedAt;
+    public $isVisible;    
     public $type;
 }
 
@@ -209,6 +211,8 @@ class ArticlesRepository {
             $folders_and_articles_full[$i] = new FolderAndArticleForView();
             $folders_and_articles_full[$i]->keyWord = $included_folders[$i]->keyword;
             $folders_and_articles_full[$i]->caption = $included_folders[$i]->folder_name;
+            $folders_and_articles_full[$i]->createdAt = $included_folders[$i]->created_at;
+            $folders_and_articles_full[$i]->updatedAt = $included_folders[$i]->updated_at;
             $folders_and_articles_full[$i]->isVisible = $included_folders[$i]->is_visible;
             $folders_and_articles_full[$i]->type = 'folder';
         }           
@@ -217,6 +221,8 @@ class ArticlesRepository {
             $folders_and_articles_full[$i] = new FolderAndArticleForView();
             $folders_and_articles_full[$i]->keyWord = $articles[$i-$included_folders_count]->keyword;
             $folders_and_articles_full[$i]->caption = $articles[$i-$included_folders_count]->article_title;
+            $folders_and_articles_full[$i]->createdAt = $articles[$i-$included_folders_count]->created_at;
+            $folders_and_articles_full[$i]->updatedAt = $articles[$i-$included_folders_count]->updated_at;
             $folders_and_articles_full[$i]->isVisible = $articles[$i-$included_folders_count]->is_visible;
             $folders_and_articles_full[$i]->type = 'article';
         }

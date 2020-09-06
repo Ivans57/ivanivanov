@@ -3,12 +3,29 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article">
-    <div class="admin-panel-articles-add-article-folder-wrapper">
-        <div class="admin-panel-articles-add-folder-button">
-            <a href='articles/create/{{ $parent_keyword }}' class="admin-panel-articles-add-folder-button-link"
-               data-fancybox data-type="iframe">@lang('keywords.AddFolder')</a>
+    <div class="admin-panel-articles-cotrol-buttons">
+        <div class="admin-panel-articles-add-article-folder-wrapper">
+            <div class="admin-panel-articles-add-folder-button">
+                <a href='articles/create/{{ $parent_keyword }}' class="admin-panel-articles-add-folder-button-link"
+                   data-fancybox data-type="iframe">@lang('keywords.AddFolder')</a>
+            </div>
         </div>
-    </div>         
+        <div class="admin-panel-articles-article-and-folder-control-buttons">
+            <div class="admin-panel-articles-article-and-folder-control-button">
+                <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
+                <a href='#' 
+                    class="admin-panel-articles-article-and-folder-control-button-link 
+                    admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
+                    @lang('keywords.Edit')</a>
+            </div>
+            <div class="admin-panel-articles-article-and-folder-control-button">
+                <a href='#' 
+                    class="admin-panel-articles-article-and-folder-control-button-link 
+                    admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
+                    @lang('keywords.Delete')</a>
+            </div>
+        </div>
+    </div>
     @if ($folders->count() > 0)
         <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
         in case we don't have full page-->
@@ -31,7 +48,9 @@
                 @foreach ($folders as $folder)
                     <div class="admin-panel-articles-article-and-folder-body-row">
                         <div class="admin-panel-articles-article-and-folder-body-field">
-                            {!! Form::checkbox('name', 'value', false); !!}
+                            {!! Form::checkbox('item_select', 1, false, 
+                            ['data-edit-href' => 'articles/'.$folder->keyword.'/edit/'.$parent_keyword, 
+                             'data-delete-href' => 'articles/'.$folder->keyword.'/delete']); !!}
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
                             <a href="articles/{{ $folder->keyword }}/page/1">
@@ -46,24 +65,12 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="admin-panel-articles-article-and-folder-body-field"></div>
+                        <div class="admin-panel-articles-article-and-folder-body-field">
+                            <p>{{ $folder->created_at }}</p>
+                        </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
                             <div class="admin-panel-articles-article-and-folder-control-buttons-wrapper">
-                                <div class="admin-panel-articles-article-and-folder-control-buttons">
-                                    <div class="admin-panel-articles-article-and-folder-control-button">
-                                        <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
-                                        <a href='articles/{{ $folder->keyword }}/edit/{{ $parent_keyword }}' 
-                                           class="admin-panel-articles-article-and-folder-control-button-link 
-                                           admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
-                                            @lang('keywords.Edit')</a>
-                                    </div>
-                                    <div class="admin-panel-articles-article-and-folder-control-button">
-                                        <a href='articles/{{ $folder->keyword }}/delete' 
-                                           class="admin-panel-articles-article-and-folder-control-button-link 
-                                           admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
-                                            @lang('keywords.Delete')</a>
-                                    </div>
-                                </div>
+                                <p>{{ $folder->updated_at }}</p>
                             </div>
                         </div>    
                     </div>
