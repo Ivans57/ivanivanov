@@ -38,18 +38,13 @@
                 @endif
             </div>
             <div class="admin-panel-articles-article-and-folder-control-buttons">
-                <div class="admin-panel-articles-article-and-folder-control-button">
-                    <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
-                    <a href='#' 
-                        class="admin-panel-articles-article-and-folder-control-button-link 
-                        admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
-                        @lang('keywords.Edit')</a>
+                <div>    
+                    {!! Form::button(Lang::get('keywords.Edit'), [ 'class' => 'admin-panel-articles-article-and-folder-control-button', 
+                    'id' => 'button_edit' ]) !!}
                 </div>
-                <div class="admin-panel-articles-article-and-folder-control-button">
-                    <a href='#' 
-                        class="admin-panel-articles-article-and-folder-control-button-link 
-                        admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
-                        @lang('keywords.Delete')</a>
+                <div>
+                    {!! Form::button(Lang::get('keywords.Delete'), [ 'class' => 'admin-panel-articles-article-and-folder-control-button', 
+                    'id' => 'button_delete' ]) !!}
                 </div>
             </div>
         </div>
@@ -80,13 +75,17 @@
                                                     '/admin/articles/'.$folder_or_article->keyWord.'/edit/'.$parent_keyword : 
                                                     '/ru/admin/articles/'.$folder_or_article->keyWord.'/edit/'.$parent_keyword, 
                                  'data-delete-href' => App::isLocale('en') ? '/admin/articles/'.$folder_or_article->keyWord.'/delete' : 
-                                                       '/ru/admin/articles/'.$folder_or_article->keyWord.'/delete']); !!}
+                                                       '/ru/admin/articles/'.$folder_or_article->keyWord.'/delete', 
+                                 'data-keyword' => $folder_or_article->keyWord,
+                                 'data-parent-keyword' => $parent_keyword ]); !!}
                             @else
                                 {!! Form::checkbox('item_select', 1, false, 
                                 ['data-edit-href' => App::isLocale('en') ? '/admin/article/'.$parent_keyword.'/edit/'.$folder_or_article->keyWord : 
                                                     '/ru/admin/article/'.$parent_keyword.'/edit/'.$folder_or_article->keyWord, 
                                  'data-delete-href' => App::isLocale('en') ? '/admin/article/'.$folder_or_article->keyWord.'/delete' : 
-                                                       '/ru/admin/article/'.$folder_or_article->keyWord.'/delete']); !!}
+                                                       '/ru/admin/article/'.$folder_or_article->keyWord.'/delete', 
+                                 'data-keyword' => $folder_or_article->keyWord, 
+                                 'data-parent-keyword' => $parent_keyword ]) !!}
                             @endif
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">

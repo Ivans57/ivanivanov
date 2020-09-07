@@ -11,19 +11,14 @@
             </div>
         </div>
         <div class="admin-panel-articles-article-and-folder-control-buttons">
-            <div class="admin-panel-articles-article-and-folder-control-button">
-                <!--We need class admin-panel-articles-article-and-folder-control-button-link-edit only to identify edit button -->
-                <a href='#' 
-                    class="admin-panel-articles-article-and-folder-control-button-link 
-                    admin-panel-articles-folder-control-button-link-edit" data-fancybox data-type="iframe">
-                    @lang('keywords.Edit')</a>
+            <div>    
+                {!! Form::button(Lang::get('keywords.Edit'), [ 'class' => 'admin-panel-articles-article-and-folder-control-button', 
+                'id' => 'button_edit' ]) !!}
             </div>
-            <div class="admin-panel-articles-article-and-folder-control-button">
-                <a href='#' 
-                    class="admin-panel-articles-article-and-folder-control-button-link 
-                    admin-panel-articles-folder-control-button-link-delete" data-fancybox data-type="iframe">
-                    @lang('keywords.Delete')</a>
-            </div>
+            <div>
+                {!! Form::button(Lang::get('keywords.Delete'), [ 'class' => 'admin-panel-articles-article-and-folder-control-button', 
+                'id' => 'button_delete' ]) !!}
+            </div>           
         </div>
     </div>
     @if ($folders->count() > 0)
@@ -50,7 +45,9 @@
                         <div class="admin-panel-articles-article-and-folder-body-field">
                             {!! Form::checkbox('item_select', 1, false, 
                             ['data-edit-href' => 'articles/'.$folder->keyword.'/edit/'.$parent_keyword, 
-                             'data-delete-href' => 'articles/'.$folder->keyword.'/delete']); !!}
+                             'data-delete-href' => 'articles/'.$folder->keyword.'/delete','data-keyword' => $folder->keyword,
+                             'data-parent-keyword' => $parent_keyword,
+                             'class' => 'admin-panel-articles-article-and-folder-checkbox' ]); !!}
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
                             <a href="articles/{{ $folder->keyword }}/page/1">
