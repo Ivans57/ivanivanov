@@ -284,6 +284,14 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Folders
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/articles/delete', 'AdminArticlesController@delete');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/articles/delete', 'AdminArticlesController@delete');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
 
@@ -329,14 +337,6 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 
 Route::group(['middleware' => 'locale'], function() {
     Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/delete', 'AdminArticlesController@delete');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/delete', 'AdminArticlesController@delete');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

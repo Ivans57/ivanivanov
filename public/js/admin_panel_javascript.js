@@ -7,6 +7,13 @@
 /*Scripts for Admin Panel Albums*/
 
 $( document ).ready(function() {
+    //Need the few lines below, otherwise POST requests for ajax won't work.
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
     //Making list of all elements with our class.
     var add_album_buttons = document.querySelectorAll('.admin-panel-albums-add-album-button');
     var add_album_links = document.querySelectorAll('.admin-panel-albums-add-album-button-link');
@@ -381,8 +388,82 @@ $( document ).ready(function() {
                 selected_checkbox.push(all_checkboxes[i]);
             }
         }
-        alert( "Handler for .click() called." );
+        if (selected_checkbox.length === 1) {
+            var url = 'articles/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword;
+            edit_item(url);
+        }
     });
+    
+    function edit_item(url) {
+        /*$.ajax({
+                type: "GET",
+                url: url,
+                sucess: function(data) {
+                    var test = data;
+                }
+            }).done(
+	    function(data) {
+	        //$('.container').html(data.html);
+                //alert(data.html);
+                //$.fancybox($("button.fancybox"));
+                $.fancybox.open({
+        type: 'iframe',
+        //src: 'http://..../form-messagerie.php?to=' + to,
+        toolbar  : false,
+        smallBtn : true,
+        iframe : {
+            preload : false,
+            scrolling: 'auto'
+        }
+    });
+	    }
+	);*/
+        //We need this script to open existing Folder edit page in fancy box window.
+        $.fancybox.open({
+            type: 'iframe',
+            src: url,
+            toolbar  : false,
+            smallBtn : true,
+            iframe : {
+		preload : false,
+                css : {
+                    'width' : '355px',
+                    'height' : '440px',
+                    'margin-bottom' : '200px'
+                }
+            },
+            //Also we will need a function which will recover add button's view after
+            //closing pop up's window without adding a new keyword.
+            afterClose: function() {
+                control_button_view_change_after_fancybox_close();
+            }
+        });
+    }
+    
+    $( "#button_delete" ).click(function() {
+        //var test = document.querySelector('.admin-panel-articles-article-and-folder-checkbox');
+        //var check = test.length;
+        //var test = document.getElementsByClassName(".admin-panel-articles-article-and-folder-checkbox");
+        var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
+        var selected_checkbox = [];
+        for (i = 0; i < all_checkboxes.length; i++) {
+            if (all_checkboxes[i].checked === true) {
+                selected_checkbox.push(all_checkboxes[i]);
+            }
+        }
+        if (selected_checkbox.length > 0) {
+            var url = 'articles/delete';
+            delete_item(url);
+        }
+    });
+    
+    function delete_item(url) {
+        $.ajax({
+                type: "POST",
+                url: url,
+                //data: {url: url}
+            });
+    }
     
     //We need this script to open Folder delete page in fancy box window.
     $(".admin-panel-articles-folder-control-button-link-delete").fancybox({

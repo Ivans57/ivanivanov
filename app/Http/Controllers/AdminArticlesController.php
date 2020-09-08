@@ -143,7 +143,7 @@ class AdminArticlesController extends Controller
             //when user will see a full list of all albums and folders.
             'mode' => 'directory'
             ]);
-        
+        //return response()->json(['html'=>$view]);
     }
     
     public function update($keyword, CreateEditFolderRequest $request) {    
@@ -161,12 +161,13 @@ class AdminArticlesController extends Controller
             ]);
     }
     
-    public function delete($keyword) {   
+    public function delete() {//$keyword
+        $test = 'Keyword';
         return view('adminpages.directory.delete_directory')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
             'headTitle' => __('keywords.'.$this->current_page),
-            'keyword' => $keyword,
+            'keyword' => $test,//$keyword,
             //The line below is required for form path.
             'section' => 'articles',
             ]);

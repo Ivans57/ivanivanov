@@ -46,7 +46,7 @@
                             {!! Form::checkbox('item_select', 1, false, 
                             ['data-edit-href' => 'articles/'.$folder->keyword.'/edit/'.$parent_keyword, 
                              'data-delete-href' => 'articles/'.$folder->keyword.'/delete','data-keyword' => $folder->keyword,
-                             'data-parent-keyword' => $parent_keyword,
+                             'data-parent_keyword' => $parent_keyword,
                              'class' => 'admin-panel-articles-article-and-folder-checkbox' ]); !!}
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
