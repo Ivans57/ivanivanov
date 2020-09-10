@@ -28,7 +28,7 @@
             <div class="admin-panel-articles-articles-and-folders-wrapper">
                 <div class="admin-panel-articles-article-and-folder-header-row">
                     <div class="admin-panel-articles-article-and-folder-header-field" title="Select all">
-                        {!! Form::checkbox('name', 'value', false); !!}
+                        {!! Form::checkbox('all_items_select', 'value', false, ['id' => 'all_items_select']); !!}
                     </div>
                     <div class="admin-panel-articles-article-and-folder-header-field">
                         <p>Name</p>

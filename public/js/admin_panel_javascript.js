@@ -398,6 +398,21 @@ $( document ).ready(function() {
             }
         });
     }
+    
+    //The Code Below is required if user needs to select or unselect all records by ticking one checkbox.
+    $('#all_items_select').click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
+        if ($(this).is(':checked')) {         
+            all_checkboxes.forEach(function(checkbox) {
+                checkbox.checked = true;
+            });
+        } else {
+            all_checkboxes.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+        }
+    });
+    
 });
 
 /*--------------------------------------------------------*/
