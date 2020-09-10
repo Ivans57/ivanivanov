@@ -257,37 +257,20 @@ $( document ).ready(function() {
         });
     }
 
-    //Making list of all elements with our class.
+    //Making list of all elements with selected class.
     var control_buttons = document.querySelectorAll('.admin-panel-articles-article-and-folder-control-button');
-    //var folder_links = document.querySelectorAll('.admin-panel-articles-article-and-folder-control-button-link');
-    
-    //var article_buttons = document.querySelectorAll('.admin-panel-articles-article-control-button');
-    //var article_links = document.querySelectorAll('.admin-panel-articles-article-control-button-link');
     
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
     for (var i = 0; i < control_buttons.length; i++) {
-        clickFolderButton(control_buttons[i]/*, folder_links[i]*/);
+        clickFolderButton(control_buttons[i]);
     }    
-    //for (var i = 0; i < article_buttons.length; i++) {
-        //clickArticleButton(article_buttons[i]/*, article_links[i]*/);
-    //} 
-    function clickFolderButton(control_button/*, folder_link*/) {
+    function clickFolderButton(control_button) {
         control_button.addEventListener('click', function() {
             control_button.classList.remove('admin-panel-articles-article-and-folder-control-button');
             control_button.classList.add('admin-panel-articles-article-and-folder-control-button-pressed');
-            //folder_link.classList.remove('admin-panel-articles-article-and-folder-control-button-link');
-            //folder_link.classList.add('admin-panel-articles-article-and-folder-control-button-link-pressed');
         });
-    }   
-    //function clickArticleButton(article_button/*, article_link*/) {
-        //article_button.addEventListener('click', function() {
-            //article_button.classList.remove('admin-panel-articles-article-control-button');
-            //article_button.classList.add('admin-panel-articles-article-control-button-pressed');
-            //article_link.classList.remove('admin-panel-articles-article-control-button-link');
-            //article_link.classList.add('admin-panel-articles-article-control-button-link-pressed');
-        //});
-    //}   
+    }
 
     //We need this script to open new Folder create page in fancy box window.
     $(".admin-panel-articles-add-folder-button-link").fancybox({
@@ -324,63 +307,16 @@ $( document ).ready(function() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
         var button = document.querySelector('.admin-panel-articles-article-and-folder-control-button-pressed');
-        //var link = document.querySelector('.admin-panel-articles-article-and-folder-control-button-link-pressed');
 
-        unclickButton(button/*, link*/);
+        unclickButton(button);
 
         function unclickButton(button/*, link*/) {
             button.classList.remove('admin-panel-articles-article-and-folder-control-button-pressed');
             button.classList.add('admin-panel-articles-article-and-folder-control-button');
-            //link.classList.remove('admin-panel-articles-article-and-folder-control-button-link-pressed');
-            //link.classList.add('admin-panel-articles-article-and-folder-control-button-link');
         }
     }
-    
-    //We need a separate function for article delete control button, becauae articles
-    //will have two control buttons instead of three, like another elements, so
-    //there are a bit different styles and only delete control button will open a fancy box 
-    //and will require to change its view back. That's why function control_button_view_change_after_fancybox_close
-    //cannot be applied.
-    function article_control_button_view_change_after_fancybox_close(){
-        //We don't need an array here as in previous examples, because there will be
-        //always only one pressed element.
-        var button = document.querySelector('.admin-panel-articles-article-control-button-pressed');
-        //var link = document.querySelector('.admin-panel-articles-article-control-button-link-pressed');
-
-        unclickButton(button/*, link*/);
-
-        function unclickButton(button/*, link*/) {
-            button.classList.remove('admin-panel-articles-article-control-button-pressed');
-            button.classList.add('admin-panel-articles-article-control-button');
-            //link.classList.remove('admin-panel-articles-article-control-button-link-pressed');
-            //link.classList.add('admin-panel-articles-article-control-button-link');
-        }
-    }
-    
-    //We need this script to open existing Folder edit page in fancy box window.
-    /*$("#button_edit").fancybox({
-	toolbar  : false,
-	smallBtn : true,
-	iframe : {
-		preload : false,
-                css : {
-                    'width' : '355px',
-                    'height' : '440px',
-                    'margin-bottom' : '200px'
-                }
-	},
-        //Also we will need a function which will recover add button's view after
-        //closing pop up's window without adding a new keyword.
-        afterClose: function() {
-            control_button_view_change_after_fancybox_close();
-        }
-    });*/
-    //var test = document.querySelector('.admin-panel-articles-article-and-folder-checkbox');
-    //var test = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
+       
     $( "#button_edit" ).click(function() {
-        //var test = document.querySelector('.admin-panel-articles-article-and-folder-checkbox');
-        //var check = test.length;
-        //var test = document.getElementsByClassName(".admin-panel-articles-article-and-folder-checkbox");
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var selected_checkbox = [];
         for (i = 0; i < all_checkboxes.length; i++) {
@@ -388,36 +324,21 @@ $( document ).ready(function() {
                 selected_checkbox.push(all_checkboxes[i]);
             }
         }
+        //We need to make a condition below, becuase we can edit only one item at the same time.
         if (selected_checkbox.length === 1) {
-            var url = 'articles/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword;
-            edit_item(url);
+            if (selected_checkbox[0].dataset.entity_type === "directory") {
+                var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
+                var url = localization+'/admin/articles/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword;
+                edit_folder(url);
+            } else {
+                var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
+                var url = localization+'/admin/article/'+selected_checkbox[0].dataset.parent_keyword+'/edit/'+selected_checkbox[0].dataset.keyword;
+                window.location.href = url;
+            }
         }
     });
     
-    function edit_item(url) {
-        /*$.ajax({
-                type: "GET",
-                url: url,
-                sucess: function(data) {
-                    var test = data;
-                }
-            }).done(
-	    function(data) {
-	        //$('.container').html(data.html);
-                //alert(data.html);
-                //$.fancybox($("button.fancybox"));
-                $.fancybox.open({
-        type: 'iframe',
-        //src: 'http://..../form-messagerie.php?to=' + to,
-        toolbar  : false,
-        smallBtn : true,
-        iframe : {
-            preload : false,
-            scrolling: 'auto'
-        }
-    });
-	    }
-	);*/
+    function edit_folder(url) {
         //We need this script to open existing Folder edit page in fancy box window.
         $.fancybox.open({
             type: 'iframe',
@@ -425,7 +346,7 @@ $( document ).ready(function() {
             toolbar  : false,
             smallBtn : true,
             iframe : {
-		preload : false,
+                preload : false,
                 css : {
                     'width' : '355px',
                     'height' : '440px',
@@ -441,67 +362,42 @@ $( document ).ready(function() {
     }
     
     $( "#button_delete" ).click(function() {
-        //var test = document.querySelector('.admin-panel-articles-article-and-folder-checkbox');
-        //var check = test.length;
-        //var test = document.getElementsByClassName(".admin-panel-articles-article-and-folder-checkbox");
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
-        var selected_checkbox = [];
+        var selected_checkbox_data = "";//In this variable we keep items entity type (directory or file) and keyword.
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
-                selected_checkbox.push(all_checkboxes[i]);
+                var entity_type_and_keyword = all_checkboxes[i].dataset.entity_type+'+'+all_checkboxes[i].dataset.keyword+';';
+                selected_checkbox_data = selected_checkbox_data+entity_type_and_keyword;
             }
         }
-        if (selected_checkbox.length > 0) {
-            var url = 'articles/delete';
+        if (selected_checkbox_data.length > 0) {
+            var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
+            var url = localization+'/admin/articles/'+selected_checkbox_data;
             delete_item(url);
         }
     });
     
     function delete_item(url) {
-        $.ajax({
-                type: "POST",
-                url: url,
-                //data: {url: url}
-            });
-    }
-    
-    //We need this script to open Folder delete page in fancy box window.
-    $(".admin-panel-articles-folder-control-button-link-delete").fancybox({
-	toolbar  : false,
-	smallBtn : true,
-	iframe : {
-		preload : false,
+        $.fancybox.open({
+            type: 'iframe',
+            src: url,
+            toolbar  : false,
+            smallBtn : true,
+            iframe : {
+                preload : false,
                 css : {
                     'width' : '380px',
                     'height' : '245px',
                     'margin-bottom' : '200px'
                 }
-	},
-        //Also we will need a function which will recover add button's view after
-        //closing pop up's window without adding a new keyword.
-        afterClose: function() {
-            control_button_view_change_after_fancybox_close();
-        }
-    });
-    
-    //We need this script to open Article delete page in fancy box window.
-    $(".admin-panel-articles-article-control-button-link-delete").fancybox({
-	toolbar  : false,
-	smallBtn : true,
-	iframe : {
-		preload : false,
-                css : {
-                    'width' : '380px',
-                    'height' : '205px',
-                    'margin-bottom' : '200px'
-                }
-	},
-        //Also we will need a function which will recover add button's view after
-        //closing pop up's window without adding a new keyword.
-        afterClose: function() {
-            article_control_button_view_change_after_fancybox_close();
-        }
-    });
+            },
+            //Also we will need a function which will recover add button's view after
+            //closing pop up's window without adding a new keyword.
+            afterClose: function() {
+                control_button_view_change_after_fancybox_close();
+            }
+        });
+    }
 });
 
 /*--------------------------------------------------------*/

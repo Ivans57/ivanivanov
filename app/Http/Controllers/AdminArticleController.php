@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 //We need the line below to use localization. 
 use App;
 use Carbon\Carbon;
-//use Illuminate\Http\Request;
 use App\Http\Requests\CreateEditArticleRequest;
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\ArticlesRepository;
@@ -161,7 +160,7 @@ class AdminArticleController extends Controller
                                      redirect('/ru/admin/articles/'.$parent_keyword->keyword.'/page/1');
     }
     
-    public function delete($keyword) {
+    /*public function delete($keyword) {
         
         return view('adminpages.articles.delete_article')->with([
             //Actually we do not need any head title as it is just a partial view.
@@ -180,5 +179,5 @@ class AdminArticleController extends Controller
             //We need it only to make the variable initialized. Othervise there will be an error.
             'headTitle' => __('keywords.'.$this->current_page)
             ]);
-    }
+    }*/
 }

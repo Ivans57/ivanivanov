@@ -9,6 +9,7 @@ use App\Http\Repositories\AdminArticlesRepository;
 use Illuminate\Support\Str;
 use App\Http\Requests\CreateEditFolderRequest;
 use App\Folder;
+use App\Article;
 
 
 class AdminArticlesController extends Controller
@@ -161,20 +162,50 @@ class AdminArticlesController extends Controller
             ]);
     }
     
-    public function delete() {//$keyword
-        $test = 'Keyword';
+    public function delete($entity_types_and_keywords) {
         return view('adminpages.directory.delete_directory')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
             'headTitle' => __('keywords.'.$this->current_page),
-            'keyword' => $test,//$keyword,
+            'keyword' => $entity_types_and_keywords,
             //The line below is required for form path.
             'section' => 'articles',
             ]);
     }
     
-    public function destroy($keyword) {     
-        Folder::where('keyword', '=', $keyword)->delete();       
+    //Need to move the code to repository.
+    public function destroy($entity_types_and_keywords) {
+        //Alll keywords are coming as one string. They are separated by ";"
+        $directories_and_files = explode(";", $entity_types_and_keywords);
+        //The function below removes the last (empty) element of the array.
+        array_pop($directories_and_files);
+        
+        $directories = array();
+        $files = array();
+        
+        foreach ($directories_and_files as $directory_or_file) {
+            //Apart of keywords string in incoming parameter has indicators,
+            //their purpose is to identify does this keyword belongs to foldre or article.
+            //Keyword is separated from its indicator by "+".
+            $directory_or_file_array = explode("+", $directory_or_file);
+            //Depends what is in array, it needs to go to its own array.
+            //Folders and Articles should be separate.
+            if ($directory_or_file_array[0] == "directory") {
+                array_push($directories ,$directory_or_file_array[1]);
+            } else {
+                array_push($files ,$directory_or_file_array[1]);
+            }
+        }
+        if (sizeof($directories) > 0) {
+            foreach ($directories as $keyword) {
+                Folder::where('keyword', '=', $keyword)->delete();
+            }
+        }      
+        if (sizeof($files) > 0) {
+            foreach ($files as $keyword) {
+                Article::where('keyword', '=', $keyword)->delete();
+            }
+        }              
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view. 
             //We need it only to make the variable initialized. Othervise there will be an error.

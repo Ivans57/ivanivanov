@@ -54,7 +54,7 @@
             <div class="admin-panel-articles-articles-and-folders-wrapper">
                 <div class="admin-panel-articles-article-and-folder-header-row">
                     <div class="admin-panel-articles-article-and-folder-header-field" title="Select all">
-                        {!! Form::checkbox('name', 'value', false); !!}
+                        {!! Form::checkbox('item_select', 'value', false); !!}
                     </div>
                     <div class="admin-panel-articles-article-and-folder-header-field">
                         <p>Name</p>
@@ -71,21 +71,14 @@
                         <div class="admin-panel-articles-article-and-folder-body-field">
                             @if ($folder_or_article->type == 'folder')
                                 {!! Form::checkbox('item_select', 1, false, 
-                                ['data-edit-href' => App::isLocale('en') ? 
-                                                    '/admin/articles/'.$folder_or_article->keyWord.'/edit/'.$parent_keyword : 
-                                                    '/ru/admin/articles/'.$folder_or_article->keyWord.'/edit/'.$parent_keyword, 
-                                 'data-delete-href' => App::isLocale('en') ? '/admin/articles/'.$folder_or_article->keyWord.'/delete' : 
-                                                       '/ru/admin/articles/'.$folder_or_article->keyWord.'/delete', 
-                                 'data-keyword' => $folder_or_article->keyWord,
-                                 'data-parent_keyword' => $parent_keyword ]); !!}
+                                ['data-keyword' => $folder_or_article->keyWord, 'data-parent_keyword' => $parent_keyword, 
+                                 'data-entity_type' => 'directory', 'data-localization' => App::isLocale('en') ? 'en' : 'ru',
+                                 'class' => 'admin-panel-articles-article-and-folder-checkbox' ]); !!}
                             @else
                                 {!! Form::checkbox('item_select', 1, false, 
-                                ['data-edit-href' => App::isLocale('en') ? '/admin/article/'.$parent_keyword.'/edit/'.$folder_or_article->keyWord : 
-                                                    '/ru/admin/article/'.$parent_keyword.'/edit/'.$folder_or_article->keyWord, 
-                                 'data-delete-href' => App::isLocale('en') ? '/admin/article/'.$folder_or_article->keyWord.'/delete' : 
-                                                       '/ru/admin/article/'.$folder_or_article->keyWord.'/delete', 
-                                 'data-keyword' => $folder_or_article->keyWord, 
-                                 'data-parent_keyword' => $parent_keyword ]) !!}
+                                ['data-keyword' => $folder_or_article->keyWord, 'data-parent_keyword' => $parent_keyword, 
+                                 'data-entity_type' => 'file',  'data-localization' => App::isLocale('en') ? 'en' : 'ru',
+                                 'class' => 'admin-panel-articles-article-and-folder-checkbox' ]) !!}
                             @endif
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">

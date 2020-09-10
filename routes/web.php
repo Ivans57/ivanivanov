@@ -284,14 +284,6 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Folders
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/articles/delete', 'AdminArticlesController@delete');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/articles/delete', 'AdminArticlesController@delete');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles', 'AdminArticlesController@index');
 });
 
@@ -340,11 +332,19 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/articles/{keyword}', 'AdminArticlesController@destroy');
+    Route::get('admin/articles/{entity_types_and_keywords}', 'AdminArticlesController@delete');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/articles/{keyword}', 'AdminArticlesController@destroy');
+    Route::get('admin/articles/{entity_types_and_keywords}', 'AdminArticlesController@delete');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::delete('admin/articles/{entity_types_and_keywords}', 'AdminArticlesController@destroy');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::delete('admin/articles/{entity_types_and_keywords}', 'AdminArticlesController@destroy');
 });
 //End of Folders
 
@@ -381,7 +381,7 @@ Route::group(['middleware' => 'locale'], function() {
     Route::put('admin/article/{keyword}', 'AdminArticleController@update');
 });
 
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+/*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/article/{keyword}/delete', 'AdminArticleController@delete');
 });
 
@@ -395,7 +395,7 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 
 Route::group(['middleware' => 'locale'], function() {
     Route::delete('admin/article/{keyword}', 'AdminArticleController@destroy');
-});
+});*/
 //End of Articles
 
 //------------------------------------------------------------------------------

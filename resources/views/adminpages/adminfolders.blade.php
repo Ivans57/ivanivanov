@@ -44,10 +44,9 @@
                     <div class="admin-panel-articles-article-and-folder-body-row">
                         <div class="admin-panel-articles-article-and-folder-body-field">
                             {!! Form::checkbox('item_select', 1, false, 
-                            ['data-edit-href' => 'articles/'.$folder->keyword.'/edit/'.$parent_keyword, 
-                             'data-delete-href' => 'articles/'.$folder->keyword.'/delete','data-keyword' => $folder->keyword,
-                             'data-parent_keyword' => $parent_keyword,
-                             'class' => 'admin-panel-articles-article-and-folder-checkbox' ]); !!}
+                            ['data-keyword' => $folder->keyword, 'data-parent_keyword' => $parent_keyword,
+                             'data-entity_type' => 'directory',  'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
+                             'class' => 'admin-panel-articles-article-and-folder-checkbox']); !!}
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
                             <a href="articles/{{ $folder->keyword }}/page/1">
