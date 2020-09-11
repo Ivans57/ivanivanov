@@ -1,9 +1,10 @@
 @extends('create_edit_delete_window')
 
 @section('create_edit_delete_window_content')
-    {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/".$section."/".$keyword : "/ru/admin/".$section."/".$keyword ]) !!}        
+    {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/".$section."/".$entity_types_and_keywords : 
+                    "/ru/admin/".$section."/".$entity_types_and_keywords ]) !!}        
         <div class='admin-panel-delete-entity'>
-            {!! Form::hidden('keyword', $keyword) !!}
+            {!! Form::hidden('keyword', $entity_types_and_keywords) !!}
             <div class="admin-panel-delete-entity-message"><h3>
                 {!! ($section === 'albums') ? Lang::get('keywords.DeleteAlbum').'?' : Lang::get('keywords.DeleteFolder').'?' !!}
             </h3></div>

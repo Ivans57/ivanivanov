@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use Carbon\Carbon;
 use App\Folder;
+use App\Article;
 use App\Http\Repositories\ArticlesRepository;
 
 class AdminArticlesRepository extends ArticlesRepository {
@@ -48,5 +49,48 @@ class AdminArticlesRepository extends ArticlesRepository {
         }     
         $input['updated_at'] = Carbon::now();        
         $edited_folder->update($input);
+    }
+    
+    public function destroy($entity_types_and_keywords) {
+        
+        $directories_and_files = $this->get_directories_and_files_from_string($entity_types_and_keywords);
+        
+        //The first element is directories array, the second element is files array.
+        if (sizeof($directories_and_files[0]) > 0) {
+            foreach ($directories_and_files[0] as $keyword) {
+                Folder::where('keyword', '=', $keyword)->delete();
+            }
+        }      
+        if (sizeof($directories_and_files[1]) > 0) {
+            foreach ($directories_and_files[1] as $keyword) {
+                Article::where('keyword', '=', $keyword)->delete();
+            }
+        }
+    }
+    
+    private function get_directories_and_files_from_string($entity_types_and_keywords) {
+        //All keywords are coming as one string. They are separated by ";"
+        $directories_and_files = explode(";", $entity_types_and_keywords);
+        //The function below removes the last (empty) element of the array.
+        array_pop($directories_and_files);
+        
+        $directories = array();
+        $files = array();
+        
+        foreach ($directories_and_files as $directory_or_file) {
+            //Apart of keywords string in incoming parameter has indicators,
+            //their purpose is to identify does this keyword belongs to foldre or article.
+            //Keyword is separated from its indicator by "+".
+            $directory_or_file_array = explode("+", $directory_or_file);
+            //Depends what is in array, it needs to go to its own array.
+            //Folders and Articles should be separate.
+            if ($directory_or_file_array[0] == "directory") {
+                array_push($directories ,$directory_or_file_array[1]);
+            } else {
+                array_push($files ,$directory_or_file_array[1]);
+            }
+        }
+        
+        return $directories_and_files_array = [$directories, $files];
     }
 }
