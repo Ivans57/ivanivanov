@@ -310,7 +310,7 @@ $( document ).ready(function() {
 
         unclickButton(button);
 
-        function unclickButton(button/*, link*/) {
+        function unclickButton(button) {
             button.classList.remove('admin-panel-articles-article-and-folder-control-button-pressed');
             button.classList.add('admin-panel-articles-article-and-folder-control-button');
         }
@@ -399,20 +399,77 @@ $( document ).ready(function() {
         });
     }
     
-    //The Code Below is required if user needs to select or unselect all records by ticking one checkbox.
+    //The Code below is required if user needs to select or unselect all records by ticking one checkbox.
+    //This code also changes a view of control buttons (delete and edit). The control buttons are getting enabled and disabled.
     $('#all_items_select').click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
+        var button_edit = document.querySelector('#button_edit');
+        var button_delete = document.querySelector('#button_delete');
         if ($(this).is(':checked')) {         
             all_checkboxes.forEach(function(checkbox) {
                 checkbox.checked = true;
             });
+            button_delete.classList.remove('admin-panel-articles-article-and-folder-control-button-disabled');
+            button_delete.classList.add('admin-panel-articles-article-and-folder-control-button-enabled');
+            button_delete.removeAttribute('disabled');
+            //Three lines below are required to avoid bug when can check one item first and then check "Select All".
+            //If I don't do the three lines below, even I check "Select All", button "Edit" still will be enabled.
+            button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-enabled');
+            button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
         } else {
             all_checkboxes.forEach(function(checkbox) {
                 checkbox.checked = false;
             });
+            button_delete.classList.remove('admin-panel-articles-article-and-folder-control-button-enabled');            
+            button_delete.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
+            button_delete.setAttribute('disabled', '');
         }
     });
-    
+     
+    //The Code below is making some changes when user is checking separate checkboxes.
+    //This way control buttons (delete and edit) view is getting changed. The control buttons are getting enabled and disabled.
+    $('.admin-panel-articles-article-and-folder-checkbox').click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
+        var all_checkboxes_select = document.querySelector('#all_items_select');
+        var selected_checkbox = [];
+        for (i = 0; i < all_checkboxes.length; i++) {
+            if (all_checkboxes[i].checked === true) {
+                selected_checkbox.push(all_checkboxes[i]);
+            }
+        }
+        //In case we check all boxes, "Select All" box will be checked automatically.
+        //In case user checked the box "Select All" and then untick one of the checkboxes,
+        //"Select All" checkbox will be unticked automatically
+        if (all_checkboxes.length === selected_checkbox.length) {
+            all_checkboxes_select.checked = true;
+        } else {
+            all_checkboxes_select.checked = false;
+        }
+              
+        var button_edit = document.querySelector('#button_edit');
+        var button_delete = document.querySelector('#button_delete');
+        if (selected_checkbox.length === 1) {
+            button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-disabled');
+            button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-enabled');
+            button_edit.removeAttribute('disabled');
+            button_delete.classList.remove('admin-panel-articles-article-and-folder-control-button-disabled');
+            button_delete.classList.add('admin-panel-articles-article-and-folder-control-button-enabled');
+            button_delete.removeAttribute('disabled');
+        } else if (selected_checkbox.length === 0) {
+            button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-enabled');
+            button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
+            button_delete.classList.remove('admin-panel-articles-article-and-folder-control-button-enabled');
+            button_delete.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
+            button_delete.setAttribute('disabled', '');
+        } else if (selected_checkbox.length > 1) {
+            button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-enabled');
+            button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
+        }
+     });
+     
 });
 
 /*--------------------------------------------------------*/

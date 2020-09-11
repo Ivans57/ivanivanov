@@ -12,12 +12,16 @@
         </div>
         <div class="admin-panel-articles-article-and-folder-control-buttons">
             <div>    
-                {!! Form::button(Lang::get('keywords.Edit'), [ 'class' => 'admin-panel-articles-article-and-folder-control-button', 
-                'id' => 'button_edit' ]) !!}
+                {!! Form::button(Lang::get('keywords.Edit'), 
+                [ 'class' => 'admin-panel-articles-article-and-folder-control-button 
+                admin-panel-articles-article-and-folder-control-button-disabled', 
+                'id' => 'button_edit', 'disabled' ]) !!}
             </div>
             <div>
-                {!! Form::button(Lang::get('keywords.Delete'), [ 'class' => 'admin-panel-articles-article-and-folder-control-button', 
-                'id' => 'button_delete' ]) !!}
+                {!! Form::button(Lang::get('keywords.Delete'), 
+                [ 'class' => 'admin-panel-articles-article-and-folder-control-button 
+                admin-panel-articles-article-and-folder-control-button-disabled', 
+                'id' => 'button_delete', 'disabled' ]) !!}
             </div>           
         </div>
     </div>
