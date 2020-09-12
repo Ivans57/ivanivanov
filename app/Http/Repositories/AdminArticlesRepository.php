@@ -51,6 +51,59 @@ class AdminArticlesRepository extends ArticlesRepository {
         $edited_folder->update($input);
     }
     
+    //There might be three types of views for return depends what user needs to delete,
+    //folder(s), article(s), both folders and articles.
+    public function return_delete_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page) {
+        //This case is for folders.
+        if (sizeof($direcotries_and_files_array[0]) > 0 && sizeof($direcotries_and_files_array[1]) == 0) {
+            return $this->return_delete_folder_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page);
+            //This case is for articles.    
+        } else if (sizeof($direcotries_and_files_array[1]) > 0 && sizeof($direcotries_and_files_array[0]) == 0) {
+            return $this->return_delete_article_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page);
+        //This case is for both folders and articles.    
+        } else if (sizeof($direcotries_and_files_array[0]) > 0 && sizeof($direcotries_and_files_array[1]) > 0) {
+            return $this->return_delete_folder_and_article_view($entity_types_and_keywords, $current_page);
+        }
+    }
+    
+    //This delete view is for folders.
+    private function return_delete_folder_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page) {
+        return view('adminpages.directory.delete_directory')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$current_page),
+            'entity_types_and_keywords' => $entity_types_and_keywords,
+            //The line below is required for form path.
+            'section' => 'articles',
+            'plural_or_singular' => (sizeof($direcotries_and_files_array[0]) > 1) ? 'plural' : 'singular'   
+            ]);
+    }
+    
+    //This delete view is for articles.
+    private function return_delete_article_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page) {
+        return view('adminpages.articles.delete_article')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$current_page),
+            'entity_types_and_keywords' => $entity_types_and_keywords,
+            //The line below is required for form path.
+            'section' => 'articles',
+            'plural_or_singular' => (sizeof($direcotries_and_files_array[1]) > 1) ? 'plural' : 'singular'   
+            ]);
+    }
+    
+    //This delete view is for both folders and articles.
+    private function return_delete_folder_and_article_view($entity_types_and_keywords, $current_page) {
+        return view('adminpages.directory.delete_directories_and_files')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$current_page),
+            'entity_types_and_keywords' => $entity_types_and_keywords,
+            //The line below is required for form path.
+            'section' => 'articles' 
+            ]);
+    }
+    
     public function destroy($entity_types_and_keywords) {
         
         $directories_and_files = $this->get_directories_and_files_from_string($entity_types_and_keywords);
@@ -68,7 +121,9 @@ class AdminArticlesRepository extends ArticlesRepository {
         }
     }
     
-    private function get_directories_and_files_from_string($entity_types_and_keywords) {
+    //As it is not possible to send an array in get request, all keywords and types of entities
+    //are sent in one string, after this string comes to controller it needs to be split to get necessary data.
+    public function get_directories_and_files_from_string($entity_types_and_keywords) {
         //All keywords are coming as one string. They are separated by ";"
         $directories_and_files = explode(";", $entity_types_and_keywords);
         //The function below removes the last (empty) element of the array.

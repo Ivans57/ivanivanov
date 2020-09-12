@@ -5,21 +5,13 @@
                     "/ru/admin/".$section."/".$entity_types_and_keywords ]) !!}        
         <div class='admin-panel-delete-entity'>
             {!! Form::hidden('entity_types_and_keywords', $entity_types_and_keywords) !!}
-            @if ($plural_or_singular==='singular')
-                <div class="admin-panel-delete-entity-message"><h3>
-                    {!! ($section === 'albums') ? Lang::get('keywords.DeleteAlbum').'?' : Lang::get('keywords.DeleteFolder').'?' !!}
-                </h3></div>
-                <div class="admin-panel-delete-entity-regulations"><span>
-                    {!! ($section === 'albums') ? Lang::get('keywords.AlbumDeleteRules') : Lang::get('keywords.FolderDeleteRules') !!}
-                </span></div>
-            @else
-                <div class="admin-panel-delete-entity-message"><h3>
-                    {!! ($section === 'albums') ? Lang::get('keywords.DeleteAlbums').'?' : Lang::get('keywords.DeleteFolders').'?' !!}
-                </h3></div>
-                <div class="admin-panel-delete-entity-regulations"><span>
-                    {!! ($section === 'albums') ? Lang::get('keywords.AlbumsDeleteRules') : Lang::get('keywords.FoldersDeleteRules') !!}
-                </span></div>
-            @endif
+            <div class="admin-panel-delete-entity-message"><h3>
+                {!! ($section === 'albums') ? Lang::get('keywords.DeleteAlbumsAndPictures').'?' 
+                : Lang::get('keywords.DeleteFoldersAndArticles').'?' !!}
+            </h3></div>
+            <div class="admin-panel-delete-entity-regulations"><span>
+                {!! ($section === 'albums') ? Lang::get('keywords.AlbumDeleteRules') : Lang::get('keywords.FoldersAndArticlesDeleteRules') !!}
+            </span></div>
             <div class="admin-panel-delete-entity-controls">
                 <div>{!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-delete-entity-controls-button' ]) !!}</div>
 
