@@ -364,20 +364,75 @@ $( document ).ready(function() {
     $( "#button_delete" ).click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var selected_checkbox_data = "";//In this variable we keep items entity type (directory or file) and keyword.
+        
+        //Depends what kind of items are getting deleted, we need to provide windows with different height,
+        //because there will be diffrernt legth messages. Some of them shorter, some of them longer and they will
+        //require lees or more space in window.      
+        var directories = [];
+        var files = [];
+        
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
                 var entity_type_and_keyword = all_checkboxes[i].dataset.entity_type+'+'+all_checkboxes[i].dataset.keyword+';';
                 selected_checkbox_data = selected_checkbox_data+entity_type_and_keyword;
+                //This is required for check to provide proper height window.
+                if (all_checkboxes[i].dataset.entity_type === 'directory') {
+                    directories.push(all_checkboxes[i].dataset.keyword);
+                } else {
+                    files.push(all_checkboxes[i].dataset.keyword);
+                }
             }
         }
         if (selected_checkbox_data.length > 0) {
             var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
-            var url = localization+'/admin/articles/'+selected_checkbox_data;
-            delete_item(url);
+            var url = localization+'/admin/articles/'+selected_checkbox_data;  
+            
+            //Delete window will have different heights depends on what entites and how many of them are in there.
+            var window_height = get_delete_window_height(directories, files, localization);                      
+                      
+            delete_item(url, window_height);
         }
     });
     
-    function delete_item(url) {
+    function get_delete_window_height(directories, files, localization) {
+        var window_height;
+        //For english localization localization variable should be empty, because it is used for making links.
+        if ((directories.length === 1) && (files.length === 0) && (localization === "")) {//en
+            //For one directory only, english localization.
+            window_height = '230px';
+        } else if ((directories.length > 1) && (files.length === 0) && (localization === "")) {
+            //For many directories only, english localization.
+            window_height = '255px';
+        } else if ((directories.length === 0) && (files.length === 1) && (localization === "")) {
+            //For one file only, english localization.
+            window_height = '205px';
+        } else if ((directories.length === 0) && (files.length > 1) && (localization === "")) {
+            //For many files only, english localization.
+            window_height = '205px';
+        } else if ((directories.length > 0) && (files.length > 0) && (localization === "")) {
+            //For both directories and files only, english localization.
+            window_height = '275px';
+        //In localization variable before ru is "/", because this part also is used for making links.
+        } else if ((directories.length === 1) && (files.length === 0) && (localization === "/ru")) {
+            //For one directory only, russian localization.
+            window_height = '250px';
+        } else if ((directories.length > 1) && (files.length === 0) && (localization === "/ru")) {
+            //For many directories only, russian localization.
+            window_height = '250px';
+        } else if ((directories.length === 0) && (files.length === 1) && (localization === "/ru")) {
+            //For one file only, russian localization.
+            window_height = '205px';
+        } else if ((directories.length === 0) && (files.length > 1) && (localization === "/ru")) {
+            //For many files only, russian localization.
+            window_height = '205px';
+        } else if ((directories.length > 0) && (files.length > 0) && (localization === "/ru")) {
+            //For both directories and files only, russian localization.
+            window_height = '270px';
+        }
+        return window_height;    
+    }
+    
+    function delete_item(url, window_height) {
         $.fancybox.open({
             type: 'iframe',
             src: url,
@@ -387,7 +442,7 @@ $( document ).ready(function() {
                 preload : false,
                 css : {
                     'width' : '380px',
-                    'height' : '245px',
+                    'height' : window_height, //'245px',
                     'margin-bottom' : '200px'
                 }
             },
