@@ -57,17 +57,41 @@
         <div class="admin-panel-articles-external-articles-and-folders-wrapper">
             <div class="admin-panel-articles-articles-and-folders-wrapper">
                 <div class="admin-panel-articles-article-and-folder-header-row">
-                    <div class="admin-panel-articles-article-and-folder-header-field" title="Select all">
-                        {!! Form::checkbox('all_items_select', 'value', false, ['id' => 'all_items_select']); !!}
+                    <div class="admin-panel-articles-article-and-folder-header-field" id="all_items_select_wrapper" 
+                         title='{{ Lang::get("keywords.SelectAll") }}' 
+                         data-select='{{ Lang::get("keywords.SelectAll") }}' data-unselect='{{ Lang::get("keywords.UnselectAll") }}'>
+                        {!! Form::checkbox('all_items_select', 'value', false, ['id' => 'all_items_select', 
+                        'class' => 'admin-panel-articles-article-and-folder-header-checkbox']); !!}
                     </div>
                     <div class="admin-panel-articles-article-and-folder-header-field">
-                        <p>Name</p>
+                        <div class="admin-panel-articles-article-and-folder-header-text-and-caret-wrapper">
+                            <div class="admin-panel-articles-article-and-folder-header-text">
+                                <p>@lang('keywords.Name')</p>
+                            </div>
+                            <div class="admin-panel-articles-article-and-folder-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="admin-panel-articles-article-and-folder-header-field">
-                        <p>Date and Time when created</p>
+                        <div class="admin-panel-articles-article-and-folder-header-text-and-caret-wrapper">
+                            <div class="admin-panel-articles-article-and-folder-header-text">
+                                <p>@lang('keywords.DateAndTimeCreated')</p>
+                            </div>
+                            <div class="admin-panel-articles-article-and-folder-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="admin-panel-articles-article-and-folder-header-field">
-                        <p>Date and Time when updated</p>
+                        <div class="admin-panel-articles-article-and-folder-header-text-and-caret-wrapper">
+                            <div class="admin-panel-articles-article-and-folder-header-text">
+                                <p>@lang('keywords.DateAndTimeUpdate')</p>
+                            </div>
+                            <div class="admin-panel-articles-article-and-folder-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @foreach ($folders_and_articles as $folder_or_article)
@@ -115,10 +139,14 @@
                             @endif
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
-                            <p>{{ $folder_or_article->createdAt }}</p>
+                            <div class="admin-panel-articles-article-and-folder-body-field-content">
+                                <p>{{ $folder_or_article->createdAt }}</p>    
+                            </div>    
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
-                            <p>{{ $folder_or_article->updatedAt }}</p>
+                            <div class="admin-panel-articles-article-and-folder-body-field-content">
+                                <p>{{ $folder_or_article->updatedAt }}</p>
+                            </div>
                         </div>    
                     </div>
                 @endforeach     

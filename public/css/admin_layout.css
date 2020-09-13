@@ -771,6 +771,12 @@ main {
     justify-content: space-between;
 }
 
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -885,24 +891,65 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 210px;
+    min-height: 26px;
+    margin-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: black;
+    color: white;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
+.admin-panel-articles-article-and-folder-header-text-and-caret-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
 .admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field {
     display: flex;
     width: 210px;
+    min-height: 26px;
     margin-right: 2px;
     padding-left: 10px;
     padding-right: 10px;
     background-color: #cccccc;
+    word-break: break-all;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field {
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
+.admin-panel-articles-article-and-folder-header-text-and-caret-wrapper .admin-panel-articles-article-and-folder-header-text p {
+    margin: 0px; 
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
+.admin-panel-articles-article-and-folder-header-text-and-caret-wrapper .admin-panel-articles-article-and-folder-header-caret {
+    margin-left: 10px;
     display: flex;
-    width: 210px;
-    margin-right: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: black;
-    color: white;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
+.admin-panel-articles-article-and-folder-header-text-and-caret-wrapper .admin-panel-articles-article-and-folder-header-caret span {
+    margin-top: 2px; 
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
+.admin-panel-articles-article-and-folder-header-text-and-caret-wrapper .admin-panel-articles-article-and-folder-header-caret:hover {
+    cursor: pointer;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
@@ -910,6 +957,20 @@ main {
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
 .admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field:first-child {
     width: 40px;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field:first-child 
+.admin-panel-articles-article-and-folder-header-checkbox {
+    margin-top: 0px;
+    margin-left: 2px;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
@@ -921,6 +982,13 @@ main {
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
 .admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field a:hover {
     text-decoration: none;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-checkbox {
+    margin-top: 9px;
+    margin-left: 2px;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
@@ -950,8 +1018,8 @@ a:hover .admin-panel-articles-article-and-folder-title-and-picture-wrapper img {
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-body-row:hover .admin-panel-articles-article-and-folder-body-field .admin-panel-articles-article-and-folder-title-and-picture-wrapper 
-.admin-panel-articles-article-and-folder-title {
+.admin-panel-articles-article-and-folder-body-row:hover .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-title-and-picture-wrapper .admin-panel-articles-article-and-folder-title {
     font-weight: bold;
 }
 
@@ -968,15 +1036,17 @@ a:hover .admin-panel-articles-article-and-folder-title-and-picture-wrapper img {
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
 .admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
-.admin-panel-articles-article-and-folder-control-buttons-wrapper {
+.admin-panel-articles-article-and-folder-body-field-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons {
-    display: flex;
-    justify-content: space-between;
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field 
+.admin-panel-articles-article-and-folder-body-field-content p {
+    margin-top:5px;
+    font-style: italic;
 }
 
 /*Here we are doing the same for the second folder's button and for the first 

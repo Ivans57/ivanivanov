@@ -388,12 +388,13 @@ $( document ).ready(function() {
             var url = localization+'/admin/articles/'+selected_checkbox_data;  
             
             //Delete window will have different heights depends on what entites and how many of them are in there.
-            var window_height = get_delete_window_height(directories, files, localization);                      
-                      
+            var window_height = get_delete_window_height(directories, files, localization);                                            
             delete_item(url, window_height);
         }
     });
     
+    //This function is required to adjust delete window's height.
+    //Delete window will have different heights depends on what entites and how many of them are in there.
     function get_delete_window_height(directories, files, localization) {
         var window_height;
         //For english localization localization variable should be empty, because it is used for making links.
@@ -458,9 +459,11 @@ $( document ).ready(function() {
     //This code also changes a view of control buttons (delete and edit). The control buttons are getting enabled and disabled.
     $('#all_items_select').click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
+        var all_checkboxes_select = document.querySelector('#all_items_select_wrapper');
         var button_edit = document.querySelector('#button_edit');
         var button_delete = document.querySelector('#button_delete');
-        if ($(this).is(':checked')) {         
+        if ($(this).is(':checked')) {
+            all_checkboxes_select.title = all_checkboxes_select.dataset.unselect;
             all_checkboxes.forEach(function(checkbox) {
                 checkbox.checked = true;
             });
@@ -473,6 +476,7 @@ $( document ).ready(function() {
             button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
             button_edit.setAttribute('disabled', '');
         } else {
+             all_checkboxes_select.title = all_checkboxes_select.dataset.select;
             all_checkboxes.forEach(function(checkbox) {
                 checkbox.checked = false;
             });
