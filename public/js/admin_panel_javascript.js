@@ -49,18 +49,18 @@ $( document ).ready(function() {
     }
 
     var folder_buttons = document.querySelectorAll('.admin-panel-albums-picture-and-album-control-button');
-    var folder_links = document.querySelectorAll('.admin-panel-albums-picture-and-album-control-button-link');    
+    //var folder_links = document.querySelectorAll('.admin-panel-albums-picture-and-album-control-button-link');    
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
     for (var i = 0; i < folder_buttons.length; i++) {
-        clickFolderButton(folder_buttons[i], folder_links[i]);
+        clickFolderButton(folder_buttons[i]/*, folder_links[i]*/);
     }
-    function clickFolderButton(folder_button, folder_link) {
+    function clickFolderButton(folder_button/*, folder_link*/) {
         folder_button.addEventListener('click', function() {
             folder_button.classList.remove('admin-panel-albums-picture-and-album-control-button');
             folder_button.classList.add('admin-panel-albums-picture-and-album-control-button-pressed');
-            folder_link.classList.remove('admin-panel-albums-picture-and-album-control-button-link');
-            folder_link.classList.add('admin-panel-albums-picture-and-album-control-button-link-pressed');
+            //folder_link.classList.remove('admin-panel-albums-picture-and-album-control-button-link');
+            //folder_link.classList.add('admin-panel-albums-picture-and-album-control-button-link-pressed');
         });
     }
     
@@ -130,20 +130,20 @@ $( document ).ready(function() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
         var control_button = document.querySelector('.admin-panel-albums-picture-and-album-control-button-pressed');
-        var control_link = document.querySelector('.admin-panel-albums-picture-and-album-control-button-link-pressed');
+        //var control_link = document.querySelector('.admin-panel-albums-picture-and-album-control-button-link-pressed');
 
-        unclickButton(control_button, control_link);
+        unclickButton(control_button/*, control_link*/);
 
-        function unclickButton(button, link) {
+        function unclickButton(button/*, link*/) {
             button.classList.remove('admin-panel-albums-picture-and-album-control-button-pressed');
             button.classList.add('admin-panel-albums-picture-and-album-control-button');
-            link.classList.remove('admin-panel-albums-picture-and-album-control-button-link-pressed');
-            link.classList.add('admin-panel-albums-picture-and-album-control-button-link');
+            //link.classList.remove('admin-panel-albums-picture-and-album-control-button-link-pressed');
+            //link.classList.add('admin-panel-albums-picture-and-album-control-button-link');
         }
     }
     
     //We need this script to open existing Album edit page in fancy box window.
-    $(".admin-panel-albums-album-control-button-link-edit").fancybox({
+    /*$(".admin-panel-albums-album-control-button-link-edit").fancybox({
 	toolbar  : false,
 	smallBtn : true,
 	iframe : {
@@ -159,7 +159,7 @@ $( document ).ready(function() {
         afterClose: function() {
             control_button_view_change_after_fancybox_close();
         }
-    });
+    });*/
     
     //We need this script to open existing Picture edit page in fancy box window.
     $(".admin-panel-albums-picture-control-button-link-edit").fancybox({
@@ -181,7 +181,7 @@ $( document ).ready(function() {
     });
     
     //We need this script to open Album delete page in fancy box window.
-    $(".admin-panel-albums-album-control-button-link-delete").fancybox({
+    /*$(".admin-panel-albums-album-control-button-link-delete").fancybox({
 	toolbar  : false,
 	smallBtn : true,
 	iframe : {
@@ -197,7 +197,7 @@ $( document ).ready(function() {
         afterClose: function() {
             control_button_view_change_after_fancybox_close();
         }
-    });
+    });*/
     
     //We need this script to open Album delete page in fancy box window.
     $(".admin-panel-albums-picture-control-button-link-delete").fancybox({

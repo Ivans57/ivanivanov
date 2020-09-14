@@ -466,54 +466,79 @@ main {
     font-size: 16px;
 }
 
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper {
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper {
     padding-top: 5px;
     padding-bottom: 5px;
     margin-bottom: 5px;
 }
 
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button-pressed,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button-pressed {
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button-pressed,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button-pressed {
     display: inline-block;
     height: 26px;
     min-width: 74px;
     border: #a8a8a8 1px solid;
 }
 
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button:first-child,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button-pressed:first-child,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button:first-child,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button-pressed:first-child {
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button:first-child,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button-pressed:first-child,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button:first-child,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button-pressed:first-child {
     margin-right: 5px;
 }
 
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button{
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button {
     background-image: linear-gradient(white, #d6d6d6);
 }
 
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button-pressed,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button-pressed {
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button-pressed,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button-pressed {
     background-image: linear-gradient(#d6d6d6, white);
     transform: scale(0.98);
     filter: brightness(0.95);
 }
 
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button:hover,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button:hover {
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button:hover,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button:hover {
     filter: brightness(0.95);
 }
 
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button 
-.admin-panel-albums-add-album-button-link,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button-pressed 
-.admin-panel-albums-add-album-button-link-pressed,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button 
-.admin-panel-albums-add-picture-button-link,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button-pressed 
-.admin-panel-albums-add-picture-button-link-pressed {
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button .admin-panel-albums-add-album-button-link,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button-pressed .admin-panel-albums-add-album-button-link-pressed,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button .admin-panel-albums-add-picture-button-link,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button-pressed .admin-panel-albums-add-picture-button-link-pressed {
     display: block;
     min-width: 74px;
     padding-left: 5px;
@@ -524,18 +549,55 @@ main {
     vertical-align: middle;
 }
 
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button 
-.admin-panel-albums-add-album-button-link,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button 
-.admin-panel-albums-add-picture-button-link {
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button .admin-panel-albums-add-album-button-link,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button .admin-panel-albums-add-picture-button-link {
     color: black;
 }
 
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-album-button-pressed 
-.admin-panel-albums-add-album-button-link-pressed,
-.admin-panel-main-article .admin-panel-albums-add-picture-album-wrapper .admin-panel-albums-add-picture-button-pressed 
-.admin-panel-albums-add-picture-button-link-pressed {
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-album-button-pressed .admin-panel-albums-add-album-button-link-pressed,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-albums-add-picture-button-pressed .admin-panel-albums-add-picture-button-link-pressed {
     color: grey;
+}
+
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
+.admin-panel-albums-pictures-and-albums-cotrol-button:first-child,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
+.admin-panel-albums-pictures-and-albums-cotrol-button-pressed:first-child {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
+.admin-panel-albums-pictures-and-albums-cotrol-button,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
+.admin-panel-albums-pictures-and-albums-cotrol-button-pressed {
+    height: 26px;
+    min-width: 56px;
+    border: #a8a8a8 1px solid;
+}
+
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
+.admin-panel-albums-pictures-and-albums-cotrol-button-enabled {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
+.admin-panel-albums-pictures-and-albums-cotrol-button-pressed,
+.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
+.admin-panel-albums-pictures-and-albums-cotrol-button-disabled {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+    color: grey;
+}
+
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
+.admin-panel-albums-pictures-and-albums-cotrol-button-enabled:hover {
+    filter: brightness(0.95);
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper {
@@ -550,197 +612,200 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item {
+.admin-panel-albums-picture-and-album-header-row,
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row {
     display: flex;
     justify-content: space-between;
-    height: 40px;
-    background-color: #cccccc;
+    min-height: 26px;
     padding-left: 5px;
     padding-right: 5px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-albums-title,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-pictures-title {
-    display: inline-block;
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-albums-title,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-pictures-title {
-    margin-left: -33px;
-    height: 40px;
-    position: absolute;
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-albums-title .admin-panel-albums-albums-title-text,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-pictures-title .admin-panel-albums-pictures-title-text {
-    display: inline-block;
-    font-size: 15px;
-    margin-top: 13px;
-    margin-left: 35px;   
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item:hover .admin-panel-albums-albums-title .admin-panel-albums-albums-title-text,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item:hover .admin-panel-albums-pictures-title .admin-panel-albums-pictures-title-text {
-    font-weight: bold;
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper {
-    width: 40px;
-    height: 40px;
-    overflow-wrap: break-word;
-    /*We need this for pictures which cannot fit container. Part which cannot fit is becoming invisible. 
-    In this case pictures keep their proper view.*/
-    overflow: hidden;
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper a {
-    color: black;
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper a:hover 
-.admin-panel-albums-albums-picture .admin-panel-albums-albums-picture-image {
-    filter: drop-shadow(0 0 1px grey);
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper a:hover 
-.admin-panel-albums-pictures-picture .admin-panel-albums-pictures-picture-image {
-    filter: brightness(120%); 
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper .admin-panel-albums-albums-picture,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper .admin-panel-albums-pictures-picture {
-    display: inline-block;
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper .admin-panel-albums-albums-picture,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper .admin-panel-albums-pictures-picture {
-    width: 40px;
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper .admin-panel-albums-albums-picture
-.admin-panel-albums-albums-picture-image,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-picture-and-text-wrapper .admin-panel-albums-pictures-picture
-.admin-panel-albums-pictures-picture-image {
-    width: 90%;
-    height: 90%;
-    margin-bottom: 0px;
-    margin-top: 0px;
-    vertical-align: -7px;
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item:hover {
-    filter: brightness(0.97);
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item:not(:last-child) {
+.admin-panel-albums-picture-and-album-header-row {
     margin-bottom: 5px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper {
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 210px;
+    min-height: 26px;
+    margin-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: black;
+    color: white;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field 
+.admin-panel-albums-picture-and-album-header-text-and-caret-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field 
+.admin-panel-albums-picture-and-album-header-text-and-caret-wrapper .admin-panel-albums-picture-and-album-header-text p {
+    margin: 0px; 
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field 
+.admin-panel-albums-picture-and-album-header-text-and-caret-wrapper .admin-panel-albums-picture-and-album-header-caret {
+    margin-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons {
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field 
+.admin-panel-albums-picture-and-album-header-text-and-caret-wrapper .admin-panel-albums-picture-and-album-header-caret span {
+    margin-top: 2px; 
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field 
+.admin-panel-albums-picture-and-album-header-text-and-caret-wrapper .admin-panel-albums-picture-and-album-header-caret:hover {
+    cursor: pointer;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field:first-child,
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field:first-child {
+    width: 40px;
+    width: 40px;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field:first-child {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button:first-child,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button-pressed:first-child {
-    margin-right: 10px;
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field:first-child 
+.admin-panel-albums-picture-and-album-header-checkbox {
+    margin-top: 0px;
+    margin-left: 2px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button-pressed {
-    height: 26px;
-    min-width: 56px;
-    border: #a8a8a8 1px solid;
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field {
+    display: flex;
+    width: 210px;
+    min-height: 26px;
+    margin-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    background-color: #cccccc;
+    word-break: break-all;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button {
-    background-image: linear-gradient(white, #d6d6d6);
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button-pressed {
-    background-image: linear-gradient(#d6d6d6, white);
-    transform: scale(0.98);
-    filter: brightness(0.95);
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button 
-.admin-panel-albums-picture-and-album-control-button-link,
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button-pressed 
-.admin-panel-albums-picture-and-album-control-button-link-pressed {
-    display: block;
-    min-width: 56px;
-    padding-left: 5px;
-    padding-right: 5px;
-    text-decoration: none;
-    text-align: center;
-    line-height: 25px;
-    vertical-align: middle;
-}
-
-.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button 
-.admin-panel-albums-picture-and-album-control-button-link {
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field a {
     color: black;
+    text-decoration: none;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button-pressed 
-.admin-panel-albums-picture-and-album-control-button-link-pressed {
-    color: grey;
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field a:hover {
+    text-decoration: none;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-item .admin-panel-albums-picture-and-album-control-buttons-wrapper 
-.admin-panel-albums-picture-and-album-control-buttons .admin-panel-albums-picture-and-album-control-button:hover {
-    filter: brightness(0.95);
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-checkbox {
+    margin-top: 9px;
+    margin-left: 2px;
 }
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-title-and-picture-wrapper {
+    display: flex;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-title-and-picture-wrapper img {
+    width: 35px;
+    height: 35px;
+    margin-top: -5px;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper img {
+    filter: drop-shadow(0 0 1px grey);
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-albums-picture-and-album-title {
+    max-width: 370px;
+    margin-left: 5px;
+    padding-top: 5px;
+    overflow-wrap: break-word;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row:hover {
+    filter: brightness(0.97);
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row:hover .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-albums-picture-and-album-title {
+    font-weight: bold;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-albums-picture-and-album-title {
+    font-size: 15px;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-body-field-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-body-field-content p {
+    margin-top:5px;
+    font-style: italic;
+}
+
+/*Left for example*/
+/*.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-picture-and-text-wrapper {
+    width: 40px;
+    height: 40px;
+    overflow-wrap: break-word;*/
+    /*!We need this for pictures which cannot fit container. Part which cannot fit is becoming invisible! 
+    In this case pictures keep their proper view.*/
+    /*overflow: hidden;
+}*/
 
 /*--------------------------------------------------------*/
 
@@ -861,6 +926,43 @@ main {
 .admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button-pressed .admin-panel-articles-add-article-button-link-pressed {
     color: grey;
+}
+
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button:first-child,
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-pressed:first-child {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button,
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-pressed {
+    height: 26px;
+    min-width: 56px;
+    border: #a8a8a8 1px solid;
+}
+
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-enabled {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-pressed,
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-disabled {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+    color: grey;
+}
+
+.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-articles-article-and-folder-control-button-enabled:hover {
+    filter: brightness(0.95);
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper {
@@ -1047,45 +1149,6 @@ a:hover .admin-panel-articles-article-and-folder-title-and-picture-wrapper img {
 .admin-panel-articles-article-and-folder-body-field-content p {
     margin-top:5px;
     font-style: italic;
-}
-
-/*Here we are doing the same for the second folder's button and for the first 
-article's button, because article has only two control buttons instead of three*/
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
-.admin-panel-articles-article-and-folder-control-button:first-child,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
-.admin-panel-articles-article-and-folder-control-button-pressed:first-child {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
-.admin-panel-articles-article-and-folder-control-button,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
-.admin-panel-articles-article-and-folder-control-button-pressed {
-    height: 26px;
-    min-width: 56px;
-    border: #a8a8a8 1px solid;
-}
-
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
-.admin-panel-articles-article-and-folder-control-button-enabled {
-    background-image: linear-gradient(white, #d6d6d6);
-}
-
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
-.admin-panel-articles-article-and-folder-control-button-pressed,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
-.admin-panel-articles-article-and-folder-control-button-disabled {
-    background-image: linear-gradient(#d6d6d6, white);
-    transform: scale(0.98);
-    filter: brightness(0.95);
-    color: grey;
-}
-
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
-.admin-panel-articles-article-and-folder-control-button-enabled:hover {
-    filter: brightness(0.95);
 }
 
 /*--------------------------------------------------------*/

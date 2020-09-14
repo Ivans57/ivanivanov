@@ -3,50 +3,103 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article">
-    <div class="admin-panel-albums-add-picture-album-wrapper">
-        <div class="admin-panel-albums-add-album-button">
-            <a href='albums/create/{{ $parent_keyword }}' class="admin-panel-albums-add-album-button-link" 
-               data-fancybox data-type="iframe">@lang('keywords.AddAlbum')
-            </a>
+    <div class="admin-panel-albums-cotrol-buttons">
+        <div class="admin-panel-albums-add-picture-album-wrapper">
+            <div class="admin-panel-albums-add-album-button">
+                <a href='albums/create/{{ $parent_keyword }}' class="admin-panel-albums-add-album-button-link" 
+                   data-fancybox data-type="iframe">@lang('keywords.AddAlbum')
+                </a>
+            </div>
         </div>
-    </div>         
+        <div class="admin-panel-albums-pictures-and-albums-cotrol-buttons">
+            <div>    
+                {!! Form::button(Lang::get('keywords.Edit'), 
+                [ 'class' => 'admin-panel-albums-pictures-and-albums-cotrol-button 
+                admin-panel-albums-pictures-and-albums-cotrol-button-disabled', 
+                'id' => 'button_edit', 'disabled' ]) !!}
+            </div>
+            <div>
+                {!! Form::button(Lang::get('keywords.Delete'), 
+                [ 'class' => 'admin-panel-albums-pictures-and-albums-cotrol-button 
+                admin-panel-albums-pictures-and-albums-cotrol-button-disabled', 
+                'id' => 'button_delete', 'disabled' ]) !!}
+            </div>           
+        </div>
+    </div>
     @if ($albums->count() > 0)
         <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
         in case we don't have full page-->
         <div class="admin-panel-albums-external-pictures-and-albums-wrapper">
             <div class="admin-panel-albums-pictures-and-albums-wrapper">
+                <div class="admin-panel-albums-picture-and-album-header-row">
+                    <div class="admin-panel-albums-picture-and-album-header-field" id="all_items_select_wrapper" 
+                         title='{{ Lang::get("keywords.SelectAll") }}' 
+                         data-select='{{ Lang::get("keywords.SelectAll") }}' data-unselect='{{ Lang::get("keywords.UnselectAll") }}'>
+                        {!! Form::checkbox('all_items_select', 'value', false, ['id' => 'all_items_select', 
+                        'class' => 'admin-panel-albums-picture-and-album-header-checkbox']); !!}
+                    </div>
+                    <div class="admin-panel-albums-picture-and-album-header-field">
+                        <div class="admin-panel-albums-picture-and-album-header-text-and-caret-wrapper">
+                            <div class="admin-panel-albums-picture-and-album-header-text">
+                                <p>@lang('keywords.Name')</p>
+                            </div>
+                            <div class="admin-panel-albums-picture-and-album-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="admin-panel-albums-picture-and-album-header-field">
+                        <div class="admin-panel-albums-picture-and-album-header-text-and-caret-wrapper">
+                            <div class="admin-panel-albums-picture-and-album-header-text">
+                                <p>@lang('keywords.DateAndTimeCreated')</p>
+                            </div>
+                            <div class="admin-panel-albums-picture-and-album-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="admin-panel-albums-picture-and-album-header-field">
+                        <div class="admin-panel-albums-picture-and-album-header-text-and-caret-wrapper">
+                            <div class="admin-panel-albums-picture-and-album-header-text">
+                                <p>@lang('keywords.DateAndTimeUpdate')</p>
+                            </div>
+                            <div class="admin-panel-albums-picture-and-album-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @foreach ($albums as $album)
-                    <div class="admin-panel-albums-picture-and-album-item">
-                        <div class="admin-panel-albums-picture-and-album-picture-and-text-wrapper">
+                    <div class="admin-panel-albums-picture-and-album-body-row">
+                        <div class="admin-panel-albums-picture-and-album-body-field">
+                            {!! Form::checkbox('item_select', 1, false, 
+                            ['data-keyword' => $album->keyword, 'data-parent_keyword' => $parent_keyword,
+                             'data-entity_type' => 'directory',  'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
+                             'class' => 'admin-panel-albums-picture-and-album-checkbox']); !!}
+                        </div>
+                        <div class="admin-panel-albums-picture-and-album-body-field">
                             <a href="albums/{{ $album->keyword }}/page/1">
-                                <div class="admin-panel-albums-albums-picture">
-                                    <img src="{{ ($album->is_visible==1) ? URL::asset('images/icons/album_folder.png') : 
-                                                URL::asset('images/icons/album_folder_bnw.png') }}" 
-                                                class="admin-panel-albums-albums-picture-image">
-                                </div>
-                                <div class="admin-panel-albums-albums-title">
-                                    <span class="admin-panel-albums-albums-title-text">{{ $album->album_name }}</span>
+                                <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
+                                    <div>
+                                        <img src="{{ ($album->is_visible==1) ? URL::asset('images/icons/album_folder.png') : 
+                                                    URL::asset('images/icons/album_folder_bnw.png') }}">                                
+                                    </div>
+                                    <div class="admin-panel-albums-picture-and-album-title">
+                                        <p>{{ $album->album_name }}</p>
+                                    </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="admin-panel-albums-picture-and-album-control-buttons-wrapper">
-                            <div class="admin-panel-albums-picture-and-album-control-buttons">
-                                <div class="admin-panel-albums-picture-and-album-control-button">
-                                    <!--We need class admin-panel-albums-album-control-button-link-edit only to identify edit button -->
-                                    <a href='albums/{{ $album->keyword }}/edit/{{ $parent_keyword }}'
-                                       class="admin-panel-albums-picture-and-album-control-button-link 
-                                       admin-panel-albums-album-control-button-link-edit" data-fancybox data-type="iframe">
-                                        @lang('keywords.Edit')</a>
-                                </div>
-                                <div class="admin-panel-albums-picture-and-album-control-button">
-                                    <!--We need class admin-panel-albums-album-control-button-link-delete only to identify edit button -->
-                                    <a href='albums/{{ $album->keyword }}/delete'
-                                       class="admin-panel-albums-picture-and-album-control-button-link 
-                                       admin-panel-albums-album-control-button-link-delete" data-fancybox data-type="iframe">
-                                        @lang('keywords.Delete')</a>
-                                </div>
+                        <div class="admin-panel-albums-picture-and-album-body-field">
+                            <div class="admin-panel-albums-picture-and-album-body-field-content">
+                                <p>{{ $album->created_at }}</p>
                             </div>
                         </div>
+                        <div class="admin-panel-albums-picture-and-album-body-field">
+                            <div class="admin-panel-albums-picture-and-album-body-field-content">
+                                <p>{{ $album->updated_at }}</p>
+                            </div>
+                        </div>    
                     </div>
                 @endforeach
             </div>
