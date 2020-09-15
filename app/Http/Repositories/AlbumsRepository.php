@@ -18,6 +18,8 @@ class AlbumLinkForView {
 class AlbumAndPictureForView {
     public $keyWord;
     public $caption;
+    public $createdAt;
+    public $updatedAt;
     public $isVisible;
     public $type;
     public $fileName;
@@ -155,6 +157,8 @@ class AlbumsRepository {
             $albums_and_pictures_full[$i] = new AlbumAndPictureForView();
             $albums_and_pictures_full[$i]->keyWord = $included_albums[$i]->keyword;
             $albums_and_pictures_full[$i]->caption = $included_albums[$i]->album_name;
+            $albums_and_pictures_full[$i]->createdAt = $included_albums[$i]->created_at;
+            $albums_and_pictures_full[$i]->updatedAt = $included_albums[$i]->updated_at;
             $albums_and_pictures_full[$i]->isVisible = $included_albums[$i]->is_visible;
             $albums_and_pictures_full[$i]->type = 'album';   
         }
@@ -163,6 +167,8 @@ class AlbumsRepository {
             $albums_and_pictures_full[$i] = new AlbumAndPictureForView();
             $albums_and_pictures_full[$i]->keyWord = $pictures[$i-$included_albums_count]->keyword;
             $albums_and_pictures_full[$i]->caption = $pictures[$i-$included_albums_count]->picture_caption;
+            $albums_and_pictures_full[$i]->createdAt = $pictures[$i-$included_albums_count]->created_at;
+            $albums_and_pictures_full[$i]->updatedAt = $pictures[$i-$included_albums_count]->updated_at;
             $albums_and_pictures_full[$i]->isVisible = $pictures[$i-$included_albums_count]->is_visible;
             $albums_and_pictures_full[$i]->type = 'picture';
             $albums_and_pictures_full[$i]->fileName = $pictures[$i-$included_albums_count]->file_name;

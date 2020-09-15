@@ -738,7 +738,7 @@ main {
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
-.admin-panel-albums-picture-and-album-title-and-picture-wrapper img {
+.admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-albums-albums-picture-image {
     width: 35px;
     height: 35px;
     margin-top: -5px;
@@ -746,7 +746,30 @@ main {
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
-a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper img {
+.admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-albums-pictures-picture {
+    max-width: 35px;
+    max-height: 30px;
+    margin-top: 1px;
+    overflow: hidden;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-albums-pictures-picture 
+.admin-panel-albums-pictures-picture-image {
+    width: 90%;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+.admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-albums-pictures-picture:hover 
+.admin-panel-albums-pictures-picture-image {
+    filter: brightness(1.20);
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field 
+a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-panel-albums-albums-picture-image {
     filter: drop-shadow(0 0 1px grey);
 }
 
@@ -795,17 +818,6 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper img {
     margin-top:5px;
     font-style: italic;
 }
-
-/*Left for example*/
-/*.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
-.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-picture-and-text-wrapper {
-    width: 40px;
-    height: 40px;
-    overflow-wrap: break-word;*/
-    /*!We need this for pictures which cannot fit container. Part which cannot fit is becoming invisible! 
-    In this case pictures keep their proper view.*/
-    /*overflow: hidden;
-}*/
 
 /*--------------------------------------------------------*/
 
