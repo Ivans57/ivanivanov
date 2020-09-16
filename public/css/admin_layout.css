@@ -466,30 +466,30 @@ main {
     font-size: 16px;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons {
+.admin-panel-main-article .admin-panel-albums-control-buttons {
     display: flex;
     justify-content: space-between;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons {
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons {
     padding-top: 5px;
     display: flex;
     justify-content: space-between;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper {
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper {
     padding-top: 5px;
     padding-bottom: 5px;
     margin-bottom: 5px;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button-pressed,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button-pressed {
     display: inline-block;
     height: 26px;
@@ -497,47 +497,47 @@ main {
     border: #a8a8a8 1px solid;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button:first-child,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button-pressed:first-child,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button:first-child,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button-pressed:first-child {
     margin-right: 5px;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button {
     background-image: linear-gradient(white, #d6d6d6);
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button-pressed,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button-pressed {
     background-image: linear-gradient(#d6d6d6, white);
     transform: scale(0.98);
     filter: brightness(0.95);
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button:hover,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button:hover {
     filter: brightness(0.95);
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button .admin-panel-albums-add-album-button-link,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button-pressed .admin-panel-albums-add-album-button-link-pressed,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button .admin-panel-albums-add-picture-button-link,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button-pressed .admin-panel-albums-add-picture-button-link-pressed {
     display: block;
     min-width: 74px;
@@ -549,54 +549,54 @@ main {
     vertical-align: middle;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button .admin-panel-albums-add-album-button-link,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button .admin-panel-albums-add-picture-button-link {
     color: black;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-album-button-pressed .admin-panel-albums-add-album-button-link-pressed,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-add-picture-album-wrapper 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
 .admin-panel-albums-add-picture-button-pressed .admin-panel-albums-add-picture-button-link-pressed {
     color: grey;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
-.admin-panel-albums-pictures-and-albums-cotrol-button:first-child,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
-.admin-panel-albums-pictures-and-albums-cotrol-button-pressed:first-child {
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
+.admin-panel-albums-pictures-and-albums-control-button:first-child,
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
+.admin-panel-albums-pictures-and-albums-control-button-pressed:first-child {
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
-.admin-panel-albums-pictures-and-albums-cotrol-button,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
-.admin-panel-albums-pictures-and-albums-cotrol-button-pressed {
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
+.admin-panel-albums-pictures-and-albums-control-button,
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
+.admin-panel-albums-pictures-and-albums-control-button-pressed {
     height: 26px;
     min-width: 56px;
     border: #a8a8a8 1px solid;
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
-.admin-panel-albums-pictures-and-albums-cotrol-button-enabled {
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
+.admin-panel-albums-pictures-and-albums-control-button-enabled {
     background-image: linear-gradient(white, #d6d6d6);
 }
 
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
-.admin-panel-albums-pictures-and-albums-cotrol-button-pressed,
-.admin-panel-main-article .admin-panel-albums-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
-.admin-panel-albums-pictures-and-albums-cotrol-button-disabled {
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
+.admin-panel-albums-pictures-and-albums-control-button-pressed,
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
+.admin-panel-albums-pictures-and-albums-control-button-disabled {
     background-image: linear-gradient(#d6d6d6, white);
     transform: scale(0.98);
     filter: brightness(0.95);
     color: grey;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-albums-pictures-and-albums-cotrol-buttons 
-.admin-panel-albums-pictures-and-albums-cotrol-button-enabled:hover {
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
+.admin-panel-albums-pictures-and-albums-control-button-enabled:hover {
     filter: brightness(0.95);
 }
 
@@ -843,30 +843,30 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
     font-family: "Times New Roman", "Arial";
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons {
+.admin-panel-main-article .admin-panel-articles-control-buttons {
     display: flex;
     justify-content: space-between;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons {
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-article-and-folder-control-buttons {
     padding-top: 5px;
     display: flex;
     justify-content: space-between;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper {
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper {
     padding-top: 5px;
     padding-bottom: 5px;
     margin-bottom: 5px;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button-pressed,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button-pressed {
     display: inline-block;
     height: 26px;
@@ -874,47 +874,47 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
     border: #a8a8a8 1px solid;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button:first-child,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button-pressed:first-child,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button:first-child,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button-pressed:first-child {
     margin-right: 5px;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button {
     background-image: linear-gradient(white, #d6d6d6);
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button-pressed,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button-pressed {
     background-image: linear-gradient(#d6d6d6, white);
     transform: scale(0.98);
     filter: brightness(0.95);
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button:hover,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button:hover {
     filter: brightness(0.95);
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button .admin-panel-articles-add-folder-button-link,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button-pressed .admin-panel-articles-add-folder-button-link-pressed,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button .admin-panel-articles-add-article-button-link,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button-pressed .admin-panel-articles-add-article-button-link-pressed {
     display: block;
     min-width: 74px;
@@ -926,45 +926,45 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
     vertical-align: middle;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button .admin-panel-articles-add-folder-button-link,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button .admin-panel-articles-add-article-button-link {
     color: black;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-folder-button-pressed .admin-panel-articles-add-folder-button-link-pressed,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-add-article-folder-wrapper 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
 .admin-panel-articles-add-article-button-pressed .admin-panel-articles-add-article-button-link-pressed {
     color: grey;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-article-and-folder-control-buttons 
 .admin-panel-articles-article-and-folder-control-button:first-child,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-article-and-folder-control-buttons 
 .admin-panel-articles-article-and-folder-control-button-pressed:first-child {
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-article-and-folder-control-buttons 
 .admin-panel-articles-article-and-folder-control-button,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-article-and-folder-control-buttons 
 .admin-panel-articles-article-and-folder-control-button-pressed {
     height: 26px;
     min-width: 56px;
     border: #a8a8a8 1px solid;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-article-and-folder-control-buttons 
 .admin-panel-articles-article-and-folder-control-button-enabled {
     background-image: linear-gradient(white, #d6d6d6);
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-article-and-folder-control-buttons 
 .admin-panel-articles-article-and-folder-control-button-pressed,
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-article-and-folder-control-buttons 
 .admin-panel-articles-article-and-folder-control-button-disabled {
     background-image: linear-gradient(#d6d6d6, white);
     transform: scale(0.98);
@@ -972,7 +972,7 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
     color: grey;
 }
 
-.admin-panel-main-article .admin-panel-articles-cotrol-buttons .admin-panel-articles-article-and-folder-control-buttons 
+.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-article-and-folder-control-buttons 
 .admin-panel-articles-article-and-folder-control-button-enabled:hover {
     filter: brightness(0.95);
 }

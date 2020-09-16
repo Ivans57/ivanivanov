@@ -3,7 +3,7 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article">
-    <div class="admin-panel-albums-cotrol-buttons">
+    <div class="admin-panel-albums-control-buttons">
         <div class="admin-panel-albums-add-picture-album-wrapper">
             <div class="admin-panel-albums-add-album-button">
                 <a href='albums/create/{{ $parent_keyword }}' class="admin-panel-albums-add-album-button-link" 
@@ -11,18 +11,18 @@
                 </a>
             </div>
         </div>
-        <div class="admin-panel-albums-pictures-and-albums-cotrol-buttons">
+        <div class="admin-panel-albums-pictures-and-albums-control-buttons">
             <div>    
                 {!! Form::button(Lang::get('keywords.Edit'), 
-                [ 'class' => 'admin-panel-albums-pictures-and-albums-cotrol-button 
-                admin-panel-albums-pictures-and-albums-cotrol-button-disabled', 
-                'id' => 'button_edit', 'disabled' ]) !!}
+                [ 'class' => 'admin-panel-albums-pictures-and-albums-control-button 
+                admin-panel-albums-pictures-and-albums-control-button-disabled', 
+                'id' => 'albums_button_edit', 'disabled' ]) !!}
             </div>
             <div>
                 {!! Form::button(Lang::get('keywords.Delete'), 
-                [ 'class' => 'admin-panel-albums-pictures-and-albums-cotrol-button 
-                admin-panel-albums-pictures-and-albums-cotrol-button-disabled', 
-                'id' => 'button_delete', 'disabled' ]) !!}
+                [ 'class' => 'admin-panel-albums-pictures-and-albums-control-button 
+                admin-panel-albums-pictures-and-albums-control-button-disabled', 
+                'id' => 'albums_button_delete', 'disabled' ]) !!}
             </div>           
         </div>
     </div>
@@ -32,10 +32,10 @@
         <div class="admin-panel-albums-external-pictures-and-albums-wrapper">
             <div class="admin-panel-albums-pictures-and-albums-wrapper">
                 <div class="admin-panel-albums-picture-and-album-header-row">
-                    <div class="admin-panel-albums-picture-and-album-header-field" id="all_items_select_wrapper" 
+                    <div class="admin-panel-albums-picture-and-album-header-field" id="albums_all_items_select_wrapper" 
                          title='{{ Lang::get("keywords.SelectAll") }}' 
                          data-select='{{ Lang::get("keywords.SelectAll") }}' data-unselect='{{ Lang::get("keywords.UnselectAll") }}'>
-                        {!! Form::checkbox('all_items_select', 'value', false, ['id' => 'all_items_select', 
+                        {!! Form::checkbox('albums_all_items_select', 'value', false, ['id' => 'albums_all_items_select', 
                         'class' => 'admin-panel-albums-picture-and-album-header-checkbox']); !!}
                     </div>
                     <div class="admin-panel-albums-picture-and-album-header-field">

@@ -48,17 +48,17 @@ $( document ).ready(function() {
         });
     }
 
-    var folder_buttons = document.querySelectorAll('.admin-panel-albums-picture-and-album-control-button');
+    var albums_control_buttons = document.querySelectorAll('.admin-panel-albums-pictures-and-albums-control-button');
     //var folder_links = document.querySelectorAll('.admin-panel-albums-picture-and-album-control-button-link');    
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
-    for (var i = 0; i < folder_buttons.length; i++) {
-        clickFolderButton(folder_buttons[i]/*, folder_links[i]*/);
+    for (var i = 0; i < albums_control_buttons.length; i++) {
+        clickAlbumButton(albums_control_buttons[i]/*, folder_links[i]*/);
     }
-    function clickFolderButton(folder_button/*, folder_link*/) {
+    function clickAlbumButton(folder_button/*, folder_link*/) {
         folder_button.addEventListener('click', function() {
-            folder_button.classList.remove('admin-panel-albums-picture-and-album-control-button');
-            folder_button.classList.add('admin-panel-albums-picture-and-album-control-button-pressed');
+            folder_button.classList.remove('admin-panel-albums-pictures-and-albums-control-button');
+            folder_button.classList.add('admin-panel-albums-pictures-and-albums-control-button-pressed');
             //folder_link.classList.remove('admin-panel-albums-picture-and-album-control-button-link');
             //folder_link.classList.add('admin-panel-albums-picture-and-album-control-button-link-pressed');
         });
@@ -126,97 +126,236 @@ $( document ).ready(function() {
         }
     });
   
-    function control_button_view_change_after_fancybox_close(){
+    function albums_control_button_view_change_after_fancybox_close() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
-        var control_button = document.querySelector('.admin-panel-albums-picture-and-album-control-button-pressed');
+        var control_button = document.querySelector('.admin-panel-albums-pictures-and-albums-control-button-pressed');
         //var control_link = document.querySelector('.admin-panel-albums-picture-and-album-control-button-link-pressed');
 
         unclickButton(control_button/*, control_link*/);
 
         function unclickButton(button/*, link*/) {
-            button.classList.remove('admin-panel-albums-picture-and-album-control-button-pressed');
-            button.classList.add('admin-panel-albums-picture-and-album-control-button');
+            button.classList.remove('admin-panel-albums-pictures-and-albums-control-button-pressed');
+            button.classList.add('admin-panel-albums-pictures-and-albums-control-button');
             //link.classList.remove('admin-panel-albums-picture-and-album-control-button-link-pressed');
             //link.classList.add('admin-panel-albums-picture-and-album-control-button-link');
         }
     }
     
-    //We need this script to open existing Album edit page in fancy box window.
-    /*$(".admin-panel-albums-album-control-button-link-edit").fancybox({
-	toolbar  : false,
-	smallBtn : true,
-	iframe : {
-		preload : false,
-                css : {
-                    'width' : '355px',
-                    'height' : '440px',
-                    'margin-bottom' : '200px'
-                }
-	},
-        //Also we will need a function which will recover add button's view after
-        //closing pop up's window without adding a new keyword.
-        afterClose: function() {
-            control_button_view_change_after_fancybox_close();
+    $( "#albums_button_edit" ).click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');
+        var selected_checkbox = [];
+        for (i = 0; i < all_checkboxes.length; i++) {
+            if (all_checkboxes[i].checked === true) {
+                selected_checkbox.push(all_checkboxes[i]);
+            }
         }
-    });*/
-    
-    //We need this script to open existing Picture edit page in fancy box window.
-    $(".admin-panel-albums-picture-control-button-link-edit").fancybox({
-	toolbar  : false,
-	smallBtn : true,
-	iframe : {
-		preload : false,
-                css : {
-                    'width' : '355px',
-                    'height' : '545px',
-                    'margin-bottom' : '200px'
-                }
-	},
-        //Also we will need a function which will recover add button's view after
-        //closing pop up's window without adding a new keyword.
-        afterClose: function() {
-            control_button_view_change_after_fancybox_close();
+        //We need to make a condition below, becuase we can edit only one item at the same time.
+        if (selected_checkbox.length === 1) {
+            if (selected_checkbox[0].dataset.entity_type === "directory") {
+                var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
+                var url = localization+'/admin/albums/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword;
+                edit_album(url, '440px');
+            } else {
+                var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
+                var url = localization+'/admin/pictures/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword;
+                edit_album(url, '545px');
+            }
         }
     });
     
-    //We need this script to open Album delete page in fancy box window.
-    /*$(".admin-panel-albums-album-control-button-link-delete").fancybox({
-	toolbar  : false,
-	smallBtn : true,
-	iframe : {
-		preload : false,
+    function edit_album(url, height) {
+        //We need this script to open existing Album edit page in fancy box window.
+        //Also we need this script to open existing Picture edit page in fancy box window.
+        $.fancybox.open({
+            type: 'iframe',
+            src: url,
+            toolbar  : false,
+            smallBtn : true,
+            iframe : {
+                preload : false,
                 css : {
-                    'width' : '380px',
-                    'height' : '265px',
+                    'width' : '355px',
+                    'height' : height,//'440px',
                     'margin-bottom' : '200px'
                 }
-	},
-        //Also we will need a function which will recover add button's view after
-        //closing pop up's window without adding a new keyword.
-        afterClose: function() {
-            control_button_view_change_after_fancybox_close();
-        }
-    });*/
+            },
+            //Also we will need a function which will recover add button's view after
+            //closing pop up's window without adding a new keyword.
+            afterClose: function() {
+                albums_control_button_view_change_after_fancybox_close();
+            }
+        });
+    }
     
-    //We need this script to open Album delete page in fancy box window.
-    $(".admin-panel-albums-picture-control-button-link-delete").fancybox({
-	toolbar  : false,
-	smallBtn : true,
-	iframe : {
-		preload : false,
-                css : {
-                    'width' : '380px',
-                    'height' : '205px',
-                    'margin-bottom' : '200px'
+    $( "#albums_button_delete" ).click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');
+        var selected_checkbox_data = "";//In this variable we keep items entity type (directory or file) and keyword.
+        
+        //Depends what kind of items are getting deleted, we need to provide windows with different height,
+        //because there will be diffrernt legth messages. Some of them shorter, some of them longer and they will
+        //require lees or more space in window.      
+        var directories = [];
+        var files = [];
+        
+        for (i = 0; i < all_checkboxes.length; i++) {
+            if (all_checkboxes[i].checked === true) {
+                var entity_type_and_keyword = all_checkboxes[i].dataset.entity_type+'+'+all_checkboxes[i].dataset.keyword+';';
+                selected_checkbox_data = selected_checkbox_data+entity_type_and_keyword;
+                //This is required for check to provide proper height window.
+                if (all_checkboxes[i].dataset.entity_type === 'directory') {
+                    directories.push(all_checkboxes[i].dataset.keyword);
+                } else {
+                    files.push(all_checkboxes[i].dataset.keyword);
                 }
-	},
-        //Also we will need a function which will recover add button's view after
-        //closing pop up's window without adding a new keyword.
-        afterClose: function() {
-            control_button_view_change_after_fancybox_close();
+            }
+        }
+        if (selected_checkbox_data.length > 0) {
+            var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
+            var url = localization+'/admin/albums/'+selected_checkbox_data;  
+            
+            //Delete window will have different heights depends on what entites and how many of them are in there.
+            var window_height = get_delete_album_and_picture_window_height(directories, files, localization);
+            delete_album_or_picture(url, window_height);
         }
     });
+    
+    //This function is required to adjust delete window's height.
+    //Delete window will have different heights depends on what entites and how many of them are in there.
+    function get_delete_album_and_picture_window_height(directories, files, localization) {
+        var window_height;
+        //For english localization localization variable should be empty, because it is used for making links.
+        if ((directories.length === 1) && (files.length === 0) && (localization === "")) {//en
+            //For one directory only, english localization.
+            window_height = '250px';
+        } else if ((directories.length > 1) && (files.length === 0) && (localization === "")) {
+            //For many directories only, english localization.
+            window_height = '255px';
+        } else if ((directories.length === 0) && (files.length === 1) && (localization === "")) {
+            //For one file only, english localization.
+            window_height = '205px';
+        } else if ((directories.length === 0) && (files.length > 1) && (localization === "")) {
+            //For many files only, english localization.
+            window_height = '205px';
+        } else if ((directories.length > 0) && (files.length > 0) && (localization === "")) {
+            //For both directories and files only, english localization.
+            window_height = '275px';
+        //In localization variable before ru is "/", because this part also is used for making links.
+        } else if ((directories.length === 1) && (files.length === 0) && (localization === "/ru")) {
+            //For one directory only, russian localization.
+            window_height = '275px';
+        } else if ((directories.length > 1) && (files.length === 0) && (localization === "/ru")) {
+            //For many directories only, russian localization.
+            window_height = '275px';
+        } else if ((directories.length === 0) && (files.length === 1) && (localization === "/ru")) {
+            //For one file only, russian localization.
+            window_height = '205px';
+        } else if ((directories.length === 0) && (files.length > 1) && (localization === "/ru")) {
+            //For many files only, russian localization.
+            window_height = '205px';
+        } else if ((directories.length > 0) && (files.length > 0) && (localization === "/ru")) {
+            //For both directories and files only, russian localization.
+            window_height = '300px';
+        }
+        return window_height;    
+    }
+    
+    //We need this script to open Album or Picture delete page in fancy box window.
+    function delete_album_or_picture(url, window_height) {
+        $.fancybox.open({
+            type: 'iframe',
+            src: url,
+            toolbar  : false,
+            smallBtn : true,
+            iframe : {
+                preload : false,
+                css : {
+                    'width' : '380px',
+                    'height' : window_height,
+                    'margin-bottom' : '200px'
+                }
+            },
+            //Also we will need a function which will recover add button's view after
+            //closing pop up's window without adding a new keyword.
+            afterClose: function() {
+                albums_control_button_view_change_after_fancybox_close();
+            }
+        });
+    }
+    
+    //The Code below is required if user needs to select or unselect all records by ticking one checkbox.
+    //This code also changes a view of control buttons (delete and edit). The control buttons are getting enabled and disabled.
+    $('#albums_all_items_select').click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');
+        var all_checkboxes_select = document.querySelector('#albums_all_items_select_wrapper');
+        var button_edit = document.querySelector('#albums_button_edit');
+        var button_delete = document.querySelector('#albums_button_delete');
+        if ($(this).is(':checked')) {
+            all_checkboxes_select.title = all_checkboxes_select.dataset.unselect;
+            all_checkboxes.forEach(function(checkbox) {
+                checkbox.checked = true;
+            });
+            button_delete.classList.remove('admin-panel-albums-pictures-and-albums-control-button-disabled');
+            button_delete.classList.add('admin-panel-albums-pictures-and-albums-control-button-enabled');
+            button_delete.removeAttribute('disabled');
+            //Three lines below are required to avoid bug when can check one item first and then check "Select All".
+            //If I don't do the three lines below, even I check "Select All", button "Edit" still will be enabled.
+            button_edit.classList.remove('admin-panel-albums-pictures-and-albums-control-button-enabled');
+            button_edit.classList.add('admin-panel-albums-pictures-and-albums-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
+        } else {
+             all_checkboxes_select.title = all_checkboxes_select.dataset.select;
+            all_checkboxes.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+            button_delete.classList.remove('admin-panel-albums-pictures-and-albums-control-button-enabled');            
+            button_delete.classList.add('admin-panel-albums-pictures-and-albums-control-button-disabled');
+            button_delete.setAttribute('disabled', '');
+        }
+    });
+    
+    //The Code below is making some changes when user is checking separate checkboxes.
+    //This way control buttons (delete and edit) view is getting changed. The control buttons are getting enabled and disabled.
+    $('.admin-panel-albums-picture-and-album-checkbox').click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');
+        var all_checkboxes_select = document.querySelector('#albums_all_items_select');
+        var selected_checkbox = [];
+        for (i = 0; i < all_checkboxes.length; i++) {
+            if (all_checkboxes[i].checked === true) {
+                selected_checkbox.push(all_checkboxes[i]);
+            }
+        }
+        //In case we check all boxes, "Select All" box will be checked automatically.
+        //In case user checked the box "Select All" and then untick one of the checkboxes,
+        //"Select All" checkbox will be unticked automatically
+        if (all_checkboxes.length === selected_checkbox.length) {
+            all_checkboxes_select.checked = true;
+        } else {
+            all_checkboxes_select.checked = false;
+        }
+        
+        var button_edit = document.querySelector('#albums_button_edit');
+        var button_delete = document.querySelector('#albums_button_delete');
+        if (selected_checkbox.length === 1) {
+            button_edit.classList.remove('admin-panel-albums-pictures-and-albums-control-button-disabled');
+            button_edit.classList.add('admin-panel-albums-pictures-and-albums-control-button-enabled');
+            button_edit.removeAttribute('disabled');
+            button_delete.classList.remove('admin-panel-albums-pictures-and-albums-control-button-disabled');
+            button_delete.classList.add('admin-panel-albums-pictures-and-albums-control-button-enabled');
+            button_delete.removeAttribute('disabled');
+        } else if (selected_checkbox.length === 0) {
+            button_edit.classList.remove('admin-panel-albums-pictures-and-albums-control-button-enabled');
+            button_edit.classList.add('admin-panel-albums-pictures-and-albums-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
+            button_delete.classList.remove('admin-panel-albums-pictures-and-albums-control-button-enabled');
+            button_delete.classList.add('admin-panel-albums-pictures-and-albums-control-button-disabled');
+            button_delete.setAttribute('disabled', '');
+        } else if (selected_checkbox.length > 1) {
+            button_edit.classList.remove('admin-panel-albums-pictures-and-albums-control-button-enabled');
+            button_edit.classList.add('admin-panel-albums-pictures-and-albums-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
+        }
+     });
 });
 
 /*--------------------------------------------------------*/
@@ -258,12 +397,12 @@ $( document ).ready(function() {
     }
 
     //Making list of all elements with selected class.
-    var control_buttons = document.querySelectorAll('.admin-panel-articles-article-and-folder-control-button');
+    var articles_control_buttons = document.querySelectorAll('.admin-panel-articles-article-and-folder-control-button');
     
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
-    for (var i = 0; i < control_buttons.length; i++) {
-        clickFolderButton(control_buttons[i]);
+    for (var i = 0; i < articles_control_buttons.length; i++) {
+        clickFolderButton(articles_control_buttons[i]);
     }    
     function clickFolderButton(control_button) {
         control_button.addEventListener('click', function() {
@@ -303,7 +442,7 @@ $( document ).ready(function() {
         }
     });
     
-    function control_button_view_change_after_fancybox_close(){
+    function articles_control_button_view_change_after_fancybox_close() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
         var button = document.querySelector('.admin-panel-articles-article-and-folder-control-button-pressed');
@@ -316,7 +455,7 @@ $( document ).ready(function() {
         }
     }
        
-    $( "#button_edit" ).click(function() {
+    $( "#articles_button_edit" ).click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var selected_checkbox = [];
         for (i = 0; i < all_checkboxes.length; i++) {
@@ -356,12 +495,12 @@ $( document ).ready(function() {
             //Also we will need a function which will recover add button's view after
             //closing pop up's window without adding a new keyword.
             afterClose: function() {
-                control_button_view_change_after_fancybox_close();
+                articles_control_button_view_change_after_fancybox_close();
             }
         });
     }
     
-    $( "#button_delete" ).click(function() {
+    $( "#articles_button_delete" ).click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var selected_checkbox_data = "";//In this variable we keep items entity type (directory or file) and keyword.
         
@@ -388,14 +527,14 @@ $( document ).ready(function() {
             var url = localization+'/admin/articles/'+selected_checkbox_data;  
             
             //Delete window will have different heights depends on what entites and how many of them are in there.
-            var window_height = get_delete_window_height(directories, files, localization);                                            
-            delete_item(url, window_height);
+            var window_height = get_delete_folder_and_article_window_height(directories, files, localization);                                            
+            delete_folder_or_article(url, window_height);
         }
     });
     
     //This function is required to adjust delete window's height.
     //Delete window will have different heights depends on what entites and how many of them are in there.
-    function get_delete_window_height(directories, files, localization) {
+    function get_delete_folder_and_article_window_height(directories, files, localization) {
         var window_height;
         //For english localization localization variable should be empty, because it is used for making links.
         if ((directories.length === 1) && (files.length === 0) && (localization === "")) {//en
@@ -433,7 +572,7 @@ $( document ).ready(function() {
         return window_height;    
     }
     
-    function delete_item(url, window_height) {
+    function delete_folder_or_article(url, window_height) {
         $.fancybox.open({
             type: 'iframe',
             src: url,
@@ -443,25 +582,25 @@ $( document ).ready(function() {
                 preload : false,
                 css : {
                     'width' : '380px',
-                    'height' : window_height, //'245px',
+                    'height' : window_height,
                     'margin-bottom' : '200px'
                 }
             },
             //Also we will need a function which will recover add button's view after
             //closing pop up's window without adding a new keyword.
             afterClose: function() {
-                control_button_view_change_after_fancybox_close();
+                articles_control_button_view_change_after_fancybox_close();
             }
         });
     }
     
     //The Code below is required if user needs to select or unselect all records by ticking one checkbox.
     //This code also changes a view of control buttons (delete and edit). The control buttons are getting enabled and disabled.
-    $('#all_items_select').click(function() {
+    $('#articles_all_items_select').click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
-        var all_checkboxes_select = document.querySelector('#all_items_select_wrapper');
-        var button_edit = document.querySelector('#button_edit');
-        var button_delete = document.querySelector('#button_delete');
+        var all_checkboxes_select = document.querySelector('#articles_all_items_select_wrapper');
+        var button_edit = document.querySelector('#articles_button_edit');
+        var button_delete = document.querySelector('#articles_button_delete');
         if ($(this).is(':checked')) {
             all_checkboxes_select.title = all_checkboxes_select.dataset.unselect;
             all_checkboxes.forEach(function(checkbox) {
@@ -490,7 +629,7 @@ $( document ).ready(function() {
     //This way control buttons (delete and edit) view is getting changed. The control buttons are getting enabled and disabled.
     $('.admin-panel-articles-article-and-folder-checkbox').click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
-        var all_checkboxes_select = document.querySelector('#all_items_select');
+        var all_checkboxes_select = document.querySelector('#articles_all_items_select');
         var selected_checkbox = [];
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
@@ -506,8 +645,8 @@ $( document ).ready(function() {
             all_checkboxes_select.checked = false;
         }
               
-        var button_edit = document.querySelector('#button_edit');
-        var button_delete = document.querySelector('#button_delete');
+        var button_edit = document.querySelector('#articles_button_edit');
+        var button_delete = document.querySelector('#articles_button_delete');
         if (selected_checkbox.length === 1) {
             button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-disabled');
             button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-enabled');
@@ -527,8 +666,7 @@ $( document ).ready(function() {
             button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
             button_edit.setAttribute('disabled', '');
         }
-     });
-     
+     });     
 });
 
 /*--------------------------------------------------------*/

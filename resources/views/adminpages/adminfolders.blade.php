@@ -3,7 +3,7 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article">
-    <div class="admin-panel-articles-cotrol-buttons">
+    <div class="admin-panel-articles-control-buttons">
         <div class="admin-panel-articles-add-article-folder-wrapper">
             <div class="admin-panel-articles-add-folder-button">
                 <a href='articles/create/{{ $parent_keyword }}' class="admin-panel-articles-add-folder-button-link"
@@ -15,13 +15,13 @@
                 {!! Form::button(Lang::get('keywords.Edit'), 
                 [ 'class' => 'admin-panel-articles-article-and-folder-control-button 
                 admin-panel-articles-article-and-folder-control-button-disabled', 
-                'id' => 'button_edit', 'disabled' ]) !!}
+                'id' => 'articles_button_edit', 'disabled' ]) !!}
             </div>
             <div>
                 {!! Form::button(Lang::get('keywords.Delete'), 
                 [ 'class' => 'admin-panel-articles-article-and-folder-control-button 
                 admin-panel-articles-article-and-folder-control-button-disabled', 
-                'id' => 'button_delete', 'disabled' ]) !!}
+                'id' => 'articles_button_delete', 'disabled' ]) !!}
             </div>           
         </div>
     </div>
@@ -31,10 +31,10 @@
         <div class="admin-panel-articles-external-articles-and-folders-wrapper">
             <div class="admin-panel-articles-articles-and-folders-wrapper">
                 <div class="admin-panel-articles-article-and-folder-header-row">
-                    <div class="admin-panel-articles-article-and-folder-header-field" id="all_items_select_wrapper" 
+                    <div class="admin-panel-articles-article-and-folder-header-field" id="articles_all_items_select_wrapper" 
                          title='{{ Lang::get("keywords.SelectAll") }}' 
                          data-select='{{ Lang::get("keywords.SelectAll") }}' data-unselect='{{ Lang::get("keywords.UnselectAll") }}'>
-                        {!! Form::checkbox('all_items_select', 'value', false, ['id' => 'all_items_select', 
+                        {!! Form::checkbox('articles_all_items_select', 'value', false, ['id' => 'articles_all_items_select', 
                         'class' => 'admin-panel-articles-article-and-folder-header-checkbox']); !!}
                     </div>
                     <div class="admin-panel-articles-article-and-folder-header-field">

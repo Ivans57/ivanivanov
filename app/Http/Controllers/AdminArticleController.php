@@ -159,25 +159,4 @@ class AdminArticleController extends Controller
         return App::isLocale('en') ? redirect('/admin/articles/'.$parent_keyword->keyword.'/page/1') : 
                                      redirect('/ru/admin/articles/'.$parent_keyword->keyword.'/page/1');
     }
-    
-    /*public function delete($keyword) {
-        
-        return view('adminpages.articles.delete_article')->with([
-            //Actually we do not need any head title as it is just a partial view.
-            //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page),
-            'keyword' => $keyword,
-            ]);
-    }
-    
-    public function destroy($keyword) {     
-        $article_to_remove = Article::where('keyword', '=', $keyword)->firstOrFail();
-        $article_to_remove->delete();
-        
-        return view('adminpages.form_close')->with([
-            //Actually we do not need any head title as it is just a partial view.
-            //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
-            ]);
-    }*/
 }

@@ -118,7 +118,7 @@ class AdminAlbumsController extends Controller
             ]);
     }
     
-    public function edit($keyword, $parent_keyword) {                 
+    public function edit($entity_types_and_keywords) {                 
         if ($parent_keyword != "0") {
             $parent_info = \App\Album::select('id', 'album_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
@@ -161,17 +161,16 @@ class AdminAlbumsController extends Controller
             'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
-    
-    public function delete($keyword) {
+    //!Need to fix bug with checkboxes!
+    public function delete($entity_types_and_keywords) {
+        //Getting an array of arrays of directories (albums) and files (pictures).
+        //This is required for view when need to mention proper entity names 
+        //(folders and articles, or both, single and plural), rules.
+        $direcotries_and_files = $this->albums->get_directories_and_files_from_string($entity_types_and_keywords);
         
-        return view('adminpages.directory.delete_directory')->with([
-            //Actually we do not need any head title as it is just a partial view.
-            //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page),
-            'keyword' => $keyword,
-            //The line below is required for form path.
-            'section' => 'albums',
-            ]);
+        //There might be three types of views for return depends what user needs to delete,
+        //folder(s), article(s), both folders and articles.
+        return $this->albums->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page);
     }
     
     public function destroy($keyword) {    

@@ -162,4 +162,105 @@ class AdminAlbumsRepository extends AlbumsRepository {
             $this->deleteDirectory($current_item);
         }
     }
+    
+    //*****************************************
+    
+    //There might be three types of views for return depends what user needs to delete,
+    //album(s), picture(s), both albums and pictures.
+    public function return_delete_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page) {
+        //This case is for albums.
+        if (sizeof($direcotries_and_files_array[0]) > 0 && sizeof($direcotries_and_files_array[1]) == 0) {
+            return $this->return_delete_album_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page);
+            //This case is for pictures.    
+        } else if (sizeof($direcotries_and_files_array[1]) > 0 && sizeof($direcotries_and_files_array[0]) == 0) {
+            return $this->return_delete_picture_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page);
+        //This case is for both albums and pictures.    
+        } else if (sizeof($direcotries_and_files_array[0]) > 0 && sizeof($direcotries_and_files_array[1]) > 0) {
+            return $this->return_delete_album_and_picture_view($entity_types_and_keywords, $current_page);
+        }
+    }
+    
+    //This delete view is for folders.
+    private function return_delete_album_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page) {
+        return view('adminpages.directory.delete_directory')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$current_page),
+            'entity_types_and_keywords' => $entity_types_and_keywords,
+            //The line below is required for form path.
+            'section' => 'albums',
+            'plural_or_singular' => (sizeof($direcotries_and_files_array[0]) > 1) ? 'plural' : 'singular'   
+            ]);
+    }
+    
+    //This delete view is for articles.
+    private function return_delete_picture_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page) {
+        return view('adminpages.pictures.delete_picture')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$current_page),
+            'entity_types_and_keywords' => $entity_types_and_keywords,
+            //The line below is required for form path.
+            'section' => 'albums',
+            'plural_or_singular' => (sizeof($direcotries_and_files_array[1]) > 1) ? 'plural' : 'singular'   
+            ]);
+    }
+    
+    //This delete view is for both folders and articles.
+    private function return_delete_album_and_picture_view($entity_types_and_keywords, $current_page) {
+        return view('adminpages.directory.delete_directories_and_files')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$current_page),
+            'entity_types_and_keywords' => $entity_types_and_keywords,
+            //The line below is required for form path.
+            'section' => 'albums' 
+            ]);
+    }
+    
+    /*public function destroy($entity_types_and_keywords) {
+        
+        $directories_and_files = $this->get_directories_and_files_from_string($entity_types_and_keywords);
+        
+        //The first element is directories array, the second element is files array.
+        if (sizeof($directories_and_files[0]) > 0) {
+            foreach ($directories_and_files[0] as $keyword) {
+                Folder::where('keyword', '=', $keyword)->delete();
+            }
+        }      
+        if (sizeof($directories_and_files[1]) > 0) {
+            foreach ($directories_and_files[1] as $keyword) {
+                Article::where('keyword', '=', $keyword)->delete();
+            }
+        }
+    }*/
+    
+    //!Need to move this method to common repository!
+    //As it is not possible to send an array in get request, all keywords and types of entities
+    //are sent in one string, after this string comes to controller it needs to be split to get necessary data.
+    public function get_directories_and_files_from_string($entity_types_and_keywords) {
+        //All keywords are coming as one string. They are separated by ";"
+        $directories_and_files = explode(";", $entity_types_and_keywords);
+        //The function below removes the last (empty) element of the array.
+        array_pop($directories_and_files);
+        
+        $directories = array();
+        $files = array();
+        
+        foreach ($directories_and_files as $directory_or_file) {
+            //Apart of keywords string in incoming parameter has indicators,
+            //their purpose is to identify does this keyword belongs to foldre or article.
+            //Keyword is separated from its indicator by "+".
+            $directory_or_file_array = explode("+", $directory_or_file);
+            //Depends what is in array, it needs to go to its own array.
+            //Folders and Articles should be separate.
+            if ($directory_or_file_array[0] == "directory") {
+                array_push($directories ,$directory_or_file_array[1]);
+            } else {
+                array_push($files ,$directory_or_file_array[1]);
+            }
+        }
+        
+        return $directories_and_files_array = [$directories, $files];
+    }
 }

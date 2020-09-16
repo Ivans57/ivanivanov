@@ -10,11 +10,11 @@
                 : Lang::get('keywords.DeleteFoldersAndArticles').'?' !!}
             </h3></div>
             <div class="admin-panel-delete-entity-regulations"><span>
-                {!! ($section === 'albums') ? Lang::get('keywords.AlbumDeleteRules') : Lang::get('keywords.FoldersAndArticlesDeleteRules') !!}
+                {!! ($section === 'albums') ? Lang::get('keywords.AlbumsAndPicturesDeleteRules') : 
+                Lang::get('keywords.FoldersAndArticlesDeleteRules') !!}
             </span></div>
             <div class="admin-panel-delete-entity-controls">
                 <div>{!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-delete-entity-controls-button' ]) !!}</div>
-
                 <div>{!! Form::button(Lang::get('keywords.Cancel'), ['class' => 'admin-panel-delete-entity-controls-button', 
                         'id' => 'button_cancel' ]) !!}</div>                      
             </div>

@@ -212,19 +212,19 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/albums/{keyword}/delete', 'AdminAlbumsController@delete');
+    Route::get('admin/albums/{entity_types_and_keywords}', 'AdminAlbumsController@delete');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/albums/{keyword}/delete', 'AdminAlbumsController@delete');
+    Route::get('admin/albums/{entity_types_and_keywords}', 'AdminAlbumsController@delete');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/albums/{keyword}', 'AdminAlbumsController@destroy');
+    Route::delete('admin/albums/{entity_types_and_keywords}', 'AdminAlbumsController@destroy');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/albums/{keyword}', 'AdminAlbumsController@destroy');
+    Route::delete('admin/albums/{entity_types_and_keywords}', 'AdminAlbumsController@destroy');
 });
 //End of Albums
 
@@ -261,21 +261,21 @@ Route::group(['middleware' => 'locale'], function() {
     Route::put('admin/pictures/{keyword}', 'AdminPicturesController@update');
 });
 
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/pictures/{keyword}/delete', 'AdminPicturesController@delete');
+/*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/pictures/{entity_types_and_keywords}', 'AdminPicturesController@delete');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/pictures/{keyword}/delete', 'AdminPicturesController@delete');
+    Route::get('admin/pictures/{entity_types_and_keywords}', 'AdminPicturesController@delete');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/pictures/{keyword}', 'AdminPicturesController@destroy');
+    Route::delete('admin/pictures/{entity_types_and_keywords}', 'AdminPicturesController@destroy');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/pictures/{keyword}', 'AdminPicturesController@destroy');
-});
+    Route::delete('admin/pictures/{entity_types_and_keywords}', 'AdminPicturesController@destroy');
+});*/
 //End of Pictures
 
 //------------------------------------------------------------------------------
@@ -380,22 +380,6 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::put('admin/article/{keyword}', 'AdminArticleController@update');
 });
-
-/*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/article/{keyword}/delete', 'AdminArticleController@delete');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/article/{keyword}/delete', 'AdminArticleController@delete');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/article/{keyword}', 'AdminArticleController@destroy');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/article/{keyword}', 'AdminArticleController@destroy');
-});*/
 //End of Articles
 
 //------------------------------------------------------------------------------

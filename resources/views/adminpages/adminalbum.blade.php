@@ -19,7 +19,7 @@
     <div>
         <h2>{{ $headTitle }}</h2>
     </div>
-    <div class="admin-panel-albums-cotrol-buttons">
+    <div class="admin-panel-albums-control-buttons">
         <div class="admin-panel-albums-add-picture-album-wrapper">
             <div class="admin-panel-albums-add-picture-button">
                 <a href={{ App::isLocale('en') ? "/admin/pictures/create/".$parent_keyword : "/ru/admin/pictures/create/".$parent_keyword }} 
@@ -36,18 +36,18 @@
                 </div>
             @endif
         </div>
-        <div class="admin-panel-albums-pictures-and-albums-cotrol-buttons">
+        <div class="admin-panel-albums-pictures-and-albums-control-buttons">
             <div>    
                 {!! Form::button(Lang::get('keywords.Edit'), 
-                [ 'class' => 'admin-panel-albums-pictures-and-albums-cotrol-button 
-                admin-panel-albums-pictures-and-albums-cotrol-button-disabled', 
-                'id' => 'button_edit', 'disabled' ]) !!}
+                [ 'class' => 'admin-panel-albums-pictures-and-albums-control-button 
+                admin-panel-albums-pictures-and-albums-control-button-disabled', 
+                'id' => 'albums_button_edit', 'disabled' ]) !!}
             </div>
             <div>
                 {!! Form::button(Lang::get('keywords.Delete'), 
-                [ 'class' => 'admin-panel-albums-pictures-and-albums-cotrol-button 
-                admin-panel-albums-pictures-and-albums-cotrol-button-disabled', 
-                'id' => 'button_delete', 'disabled' ]) !!}
+                [ 'class' => 'admin-panel-albums-pictures-and-albums-control-button 
+                admin-panel-albums-pictures-and-albums-control-button-disabled', 
+                'id' => 'albums_button_delete', 'disabled' ]) !!}
             </div>           
         </div>
     </div>    
@@ -55,10 +55,10 @@
         <div class="admin-panel-albums-external-pictures-and-albums-wrapper">
             <div class="admin-panel-albums-pictures-and-albums-wrapper">
                 <div class="admin-panel-albums-picture-and-album-header-row">
-                    <div class="admin-panel-albums-picture-and-album-header-field" id="all_items_select_wrapper" 
+                    <div class="admin-panel-albums-picture-and-album-header-field" id="albums_all_items_select_wrapper" 
                          title='{{ Lang::get("keywords.SelectAll") }}' 
                          data-select='{{ Lang::get("keywords.SelectAll") }}' data-unselect='{{ Lang::get("keywords.UnselectAll") }}'>
-                        {!! Form::checkbox('all_items_select', 'value', false, ['id' => 'all_items_select', 
+                        {!! Form::checkbox('albums_all_items_select', 'value', false, ['id' => 'albums_all_items_select', 
                         'class' => 'admin-panel-albums-picture-and-album-header-checkbox']); !!}
                     </div>
                     <div class="admin-panel-albums-picture-and-album-header-field">
@@ -114,7 +114,7 @@
                                     <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
                                         <img src="{{ ($album_or_picture->isVisible==1) ? 
                                             URL::asset('images/icons/album_folder.png') : 
-                                                    URL::asset('images/icons/album_folder_bnw.pn') }}" 
+                                                    URL::asset('images/icons/album_folder_bnw.png') }}" 
                                                     class="admin-panel-albums-albums-picture-image">                  
                                         <div class="admin-panel-albums-picture-and-album-title">
                                             <p>{{ $album_or_picture->caption }}</p>
