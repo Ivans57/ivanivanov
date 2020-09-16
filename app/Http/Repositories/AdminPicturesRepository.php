@@ -81,22 +81,10 @@ class AdminPicturesRepository {
         $edited_picture->update($input);
     }
     
-    //Removes picture's record from the database and deletes its file from the file system.
-    public function destroy($keyword) {
-        $picture_to_remove = Picture::select('id', 'file_name', 'included_in_album_with_id')->where('keyword', '=', $keyword)->firstOrFail();
-
-        //Removes from File System.
-        unlink(storage_path('app/public/'.((App::isLocale('en')) ? 'albums/en' : 'albums/ru').
-                                $this->getDirectoryPath($picture_to_remove->included_in_album_with_id).'/').$picture_to_remove->file_name);     
-        //Removes from Database.
-        $picture_to_remove->delete();
-    }
-    
     //This function is required only to call function get_full_directory_path from AlbumParentsRepository.
     //It is needed to form a path for newly created folder for albums and pictures in a file system.
     public function getDirectoryPath($directory_id) {
-        $to_get_full_directory_path = new AlbumParentsRepository();
-        $full_path = $to_get_full_directory_path->get_full_directory_path($directory_id, "", "keyword");       
+        $full_path = (new AlbumParentsRepository())->get_full_directory_path($directory_id, "", "keyword");       
         return $full_path;
     }
     

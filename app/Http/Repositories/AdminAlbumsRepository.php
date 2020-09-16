@@ -7,6 +7,7 @@ use App;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Album;
+use App\Picture;
 use App\Http\Repositories\AlbumParentsRepository;
 use App\Http\Repositories\AlbumsRepository;
 
@@ -108,63 +109,6 @@ class AdminAlbumsRepository extends AlbumsRepository {
         //Album::update($input);
     }
     
-    public function destroy($keyword) {
-        $album_to_remove = Album::select('id')->where('keyword', '=', $keyword)->firstOrFail();
-        
-        if (App::isLocale('en')) {
-            $root_path = 'albums/en';
-        } else {
-            $root_path = 'albums/ru';
-        }
-        $path = $this->getDirectoryPath($album_to_remove->id);
-        $full_path = storage_path('app/public/'.$root_path.$path);
-        //Removes from File System.
-        $this->deleteDirectory($full_path);
-        
-        //Removes from Database.
-        $album_to_remove->delete();
-    }
-    
-    //This function is required only to call function get_full_directory_path from AlbumParentsRepository.
-    //It is needed to form a path for newly created folder for albums and pictures in a file system.
-    public function getDirectoryPath($directory_id) {
-        $to_get_full_directory_path = new AlbumParentsRepository();
-        $full_path = $to_get_full_directory_path->get_full_directory_path($directory_id, "", "keyword");       
-        return $full_path;
-    }
-    
-    //As the basic php function cannot delete not empty folder and Laravel functions are not working,
-    //we will make our own function, based on basic php functions.
-    public function deleteDirectory($full_path) {
-        $contents = scandir($full_path);
-        
-        if (count($contents) < 3) {
-            rmdir($full_path);
-        } else {
-            //Need to remove first to elements of an array, 
-            //because scandir function includes in a directory's contents signs "." and "..".
-            unset($contents[0]);
-            unset($contents[1]);
-            foreach ($contents as $content) {
-                //First of all need to delete all contents.
-                $this->deleteFileOrDirectory($full_path."/".$content);               
-            }
-            //Then can remove a parent directory.
-            rmdir($full_path);
-        }       
-    }
-    
-    //The function below is needed to simplify deleteDirectory function.
-    private function deleteFileOrDirectory($current_item) {
-        if (is_file($current_item) === true) {
-            unlink($current_item); 
-        } else if (is_dir($current_item) === true) {
-            $this->deleteDirectory($current_item);
-        }
-    }
-    
-    //*****************************************
-    
     //There might be three types of views for return depends what user needs to delete,
     //album(s), picture(s), both albums and pictures.
     public function return_delete_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page) {
@@ -218,49 +162,79 @@ class AdminAlbumsRepository extends AlbumsRepository {
             ]);
     }
     
-    /*public function destroy($entity_types_and_keywords) {
-        
-        $directories_and_files = $this->get_directories_and_files_from_string($entity_types_and_keywords);
+    public function destroy($entity_types_and_keywords) {       
+        $directories_and_files = (new CommonRepository())->get_directories_and_files_from_string($entity_types_and_keywords);
         
         //The first element is directories array, the second element is files array.
         if (sizeof($directories_and_files[0]) > 0) {
             foreach ($directories_and_files[0] as $keyword) {
-                Folder::where('keyword', '=', $keyword)->delete();
+                $this->destroy_album($keyword);
             }
         }      
         if (sizeof($directories_and_files[1]) > 0) {
             foreach ($directories_and_files[1] as $keyword) {
-                Article::where('keyword', '=', $keyword)->delete();
+                $this->destroy_picture($keyword);
             }
         }
-    }*/
+    }
     
-    //!Need to move this method to common repository!
-    //As it is not possible to send an array in get request, all keywords and types of entities
-    //are sent in one string, after this string comes to controller it needs to be split to get necessary data.
-    public function get_directories_and_files_from_string($entity_types_and_keywords) {
-        //All keywords are coming as one string. They are separated by ";"
-        $directories_and_files = explode(";", $entity_types_and_keywords);
-        //The function below removes the last (empty) element of the array.
-        array_pop($directories_and_files);
+    private function destroy_album($keyword) {
+        $album_to_remove = Album::select('id')->where('keyword', '=', $keyword)->firstOrFail();
         
-        $directories = array();
-        $files = array();
+        $path = $this->getDirectoryPath($album_to_remove->id);
+        $full_path = storage_path('app/public/'.((App::isLocale('en')) ? 'albums/en' : 'albums/ru').$path);
+        //Removes from File System.
+        $this->deleteDirectory($full_path);
         
-        foreach ($directories_and_files as $directory_or_file) {
-            //Apart of keywords string in incoming parameter has indicators,
-            //their purpose is to identify does this keyword belongs to foldre or article.
-            //Keyword is separated from its indicator by "+".
-            $directory_or_file_array = explode("+", $directory_or_file);
-            //Depends what is in array, it needs to go to its own array.
-            //Folders and Articles should be separate.
-            if ($directory_or_file_array[0] == "directory") {
-                array_push($directories ,$directory_or_file_array[1]);
-            } else {
-                array_push($files ,$directory_or_file_array[1]);
+        //Removes from Database.
+        $album_to_remove->delete();
+    }
+    
+    //Removes picture's record from the database and deletes its file from the file system.
+    private function destroy_picture($keyword) {
+        $picture_to_remove = Picture::select('id', 'file_name', 'included_in_album_with_id')->where('keyword', '=', $keyword)->firstOrFail();
+
+        //Removes from File System.
+        unlink(storage_path('app/public/'.((App::isLocale('en')) ? 'albums/en' : 'albums/ru').
+                                $this->getDirectoryPath($picture_to_remove->included_in_album_with_id).'/').$picture_to_remove->file_name);     
+        //Removes from Database.
+        $picture_to_remove->delete();
+    }
+    
+    //This function is required only to call function get_full_directory_path from AlbumParentsRepository.
+    //It is needed to form a path for newly created folder for albums and pictures in a file system.
+    public function getDirectoryPath($directory_id) {
+        $full_path = (new AlbumParentsRepository())->get_full_directory_path($directory_id, "", "keyword");       
+        return $full_path;
+    }
+    
+    //As the basic php function cannot delete not empty folder and Laravel functions are not working,
+    //we will make our own function, based on basic php functions.
+    private function deleteDirectory($full_path) {
+        $contents = scandir($full_path);
+        
+        if (count($contents) < 3) {
+            rmdir($full_path);
+        } else {
+            //Need to remove first to elements of an array, 
+            //because scandir function includes in a directory's contents signs "." and "..".
+            unset($contents[0]);
+            unset($contents[1]);
+            foreach ($contents as $content) {
+                //First of all need to delete all contents.
+                $this->deleteFileOrDirectory($full_path."/".$content);               
             }
+            //Then can remove a parent directory.
+            rmdir($full_path);
+        }       
+    }
+    
+    //The function below is needed to simplify deleteDirectory function.
+    private function deleteFileOrDirectory($current_item) {
+        if (is_file($current_item) === true) {
+            unlink($current_item); 
+        } else if (is_dir($current_item) === true) {
+            $this->deleteDirectory($current_item);
         }
-        
-        return $directories_and_files_array = [$directories, $files];
     }
 }

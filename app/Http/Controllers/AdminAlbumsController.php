@@ -118,7 +118,7 @@ class AdminAlbumsController extends Controller
             ]);
     }
     
-    public function edit($entity_types_and_keywords) {                 
+    public function edit($keyword, $parent_keyword) {                 
         if ($parent_keyword != "0") {
             $parent_info = \App\Album::select('id', 'album_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
@@ -166,15 +166,16 @@ class AdminAlbumsController extends Controller
         //Getting an array of arrays of directories (albums) and files (pictures).
         //This is required for view when need to mention proper entity names 
         //(folders and articles, or both, single and plural), rules.
-        $direcotries_and_files = $this->albums->get_directories_and_files_from_string($entity_types_and_keywords);
+        //There is nothing to do with a navigation bar, it is just a name of variable for Common Repository.
+        $direcotries_and_files = $this->navigation_bar_obj->get_directories_and_files_from_string($entity_types_and_keywords);
         
         //There might be three types of views for return depends what user needs to delete,
         //folder(s), article(s), both folders and articles.
         return $this->albums->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page);
     }
     
-    public function destroy($keyword) {    
-        $this->albums->destroy($keyword);
+    public function destroy($entity_types_and_keywords) {    
+        $this->albums->destroy($entity_types_and_keywords);
         
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view.

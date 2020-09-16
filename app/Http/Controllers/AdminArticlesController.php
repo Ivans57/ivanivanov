@@ -165,7 +165,8 @@ class AdminArticlesController extends Controller
         //Getting an array of arrays of directories (folders) and files (articles).
         //This is required for view when need to mention proper entity names 
         //(folders and articles, or both, single and plural), rules.
-        $direcotries_and_files = $this->folders->get_directories_and_files_from_string($entity_types_and_keywords);
+        //There is nothing to do with a navigation bar, it is just a name of variable for Common Repository.
+        $direcotries_and_files = $this->navigation_bar_obj->get_directories_and_files_from_string($entity_types_and_keywords);
         
         //There might be three types of views for return depends what user needs to delete,
         //folder(s), article(s), both folders and articles.
