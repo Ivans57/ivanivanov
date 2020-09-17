@@ -53,14 +53,12 @@ $( document ).ready(function() {
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
     for (var i = 0; i < albums_control_buttons.length; i++) {
-        clickAlbumButton(albums_control_buttons[i]/*, folder_links[i]*/);
+        clickAlbumButton(albums_control_buttons[i]);
     }
-    function clickAlbumButton(folder_button/*, folder_link*/) {
+    function clickAlbumButton(folder_button) {
         folder_button.addEventListener('click', function() {
             folder_button.classList.remove('admin-panel-albums-pictures-and-albums-control-button');
             folder_button.classList.add('admin-panel-albums-pictures-and-albums-control-button-pressed');
-            //folder_link.classList.remove('admin-panel-albums-picture-and-album-control-button-link');
-            //folder_link.classList.add('admin-panel-albums-picture-and-album-control-button-link-pressed');
         });
     }
     
@@ -130,15 +128,12 @@ $( document ).ready(function() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
         var control_button = document.querySelector('.admin-panel-albums-pictures-and-albums-control-button-pressed');
-        //var control_link = document.querySelector('.admin-panel-albums-picture-and-album-control-button-link-pressed');
 
-        unclickButton(control_button/*, control_link*/);
+        unclickButton(control_button);
 
         function unclickButton(button/*, link*/) {
             button.classList.remove('admin-panel-albums-pictures-and-albums-control-button-pressed');
             button.classList.add('admin-panel-albums-pictures-and-albums-control-button');
-            //link.classList.remove('admin-panel-albums-picture-and-album-control-button-link-pressed');
-            //link.classList.add('admin-panel-albums-picture-and-album-control-button-link');
         }
     }
     
@@ -298,16 +293,21 @@ $( document ).ready(function() {
             button_delete.classList.remove('admin-panel-albums-pictures-and-albums-control-button-disabled');
             button_delete.classList.add('admin-panel-albums-pictures-and-albums-control-button-enabled');
             button_delete.removeAttribute('disabled');
-            //Three lines below are required to avoid bug when can check one item first and then check "Select All".
-            //If I don't do the three lines below, even I check "Select All", button "Edit" still will be enabled.
-            button_edit.classList.remove('admin-panel-albums-pictures-and-albums-control-button-enabled');
-            button_edit.classList.add('admin-panel-albums-pictures-and-albums-control-button-disabled');
-            button_edit.setAttribute('disabled', '');
+            //In case there is only one element in the list, still both button should be activated.
+            if (all_checkboxes.length === 1) {
+                button_edit.classList.remove('admin-panel-albums-pictures-and-albums-control-button-disabled');
+                button_edit.classList.add('admin-panel-albums-pictures-and-albums-control-button-enabled');
+                button_edit.removeAttribute('disabled');
+            }
         } else {
              all_checkboxes_select.title = all_checkboxes_select.dataset.select;
             all_checkboxes.forEach(function(checkbox) {
                 checkbox.checked = false;
             });
+            //We need to have to disable edit button as well in case there is only one element in the list.
+            button_edit.classList.remove('admin-panel-albums-pictures-and-albums-control-button-enabled');            
+            button_edit.classList.add('admin-panel-albums-pictures-and-albums-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
             button_delete.classList.remove('admin-panel-albums-pictures-and-albums-control-button-enabled');            
             button_delete.classList.add('admin-panel-albums-pictures-and-albums-control-button-disabled');
             button_delete.setAttribute('disabled', '');
@@ -317,8 +317,11 @@ $( document ).ready(function() {
     //The Code below is making some changes when user is checking separate checkboxes.
     //This way control buttons (delete and edit) view is getting changed. The control buttons are getting enabled and disabled.
     $('.admin-panel-albums-picture-and-album-checkbox').click(function() {
+        var button_edit = document.querySelector('#albums_button_edit');
+        var button_delete = document.querySelector('#albums_button_delete');
         var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');
         var all_checkboxes_select = document.querySelector('#albums_all_items_select');
+        var all_checkboxes_select_wrapper = document.querySelector('#albums_all_items_select_wrapper');
         var selected_checkbox = [];
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
@@ -330,12 +333,12 @@ $( document ).ready(function() {
         //"Select All" checkbox will be unticked automatically
         if (all_checkboxes.length === selected_checkbox.length) {
             all_checkboxes_select.checked = true;
+            all_checkboxes_select_wrapper.title = all_checkboxes_select_wrapper.dataset.unselect;
         } else {
             all_checkboxes_select.checked = false;
+            all_checkboxes_select_wrapper.title = all_checkboxes_select_wrapper.dataset.select;
         }
         
-        var button_edit = document.querySelector('#albums_button_edit');
-        var button_delete = document.querySelector('#albums_button_delete');
         if (selected_checkbox.length === 1) {
             button_edit.classList.remove('admin-panel-albums-pictures-and-albums-control-button-disabled');
             button_edit.classList.add('admin-panel-albums-pictures-and-albums-control-button-enabled');
@@ -609,16 +612,21 @@ $( document ).ready(function() {
             button_delete.classList.remove('admin-panel-articles-article-and-folder-control-button-disabled');
             button_delete.classList.add('admin-panel-articles-article-and-folder-control-button-enabled');
             button_delete.removeAttribute('disabled');
-            //Three lines below are required to avoid bug when can check one item first and then check "Select All".
-            //If I don't do the three lines below, even I check "Select All", button "Edit" still will be enabled.
-            button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-enabled');
-            button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
-            button_edit.setAttribute('disabled', '');
+            //In case there is only one element in the list, still both button should be activated.
+            if (all_checkboxes.length === 1) {
+                button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-disabled');
+                button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-enabled');
+                button_edit.removeAttribute('disabled');
+            }
         } else {
              all_checkboxes_select.title = all_checkboxes_select.dataset.select;
             all_checkboxes.forEach(function(checkbox) {
                 checkbox.checked = false;
             });
+            //We need to have to disable edit button as well in case there is only one element in the list.
+            button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-enabled');            
+            button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
             button_delete.classList.remove('admin-panel-articles-article-and-folder-control-button-enabled');            
             button_delete.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
             button_delete.setAttribute('disabled', '');
@@ -630,6 +638,7 @@ $( document ).ready(function() {
     $('.admin-panel-articles-article-and-folder-checkbox').click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var all_checkboxes_select = document.querySelector('#articles_all_items_select');
+        var all_checkboxes_select_wrapper = document.querySelector('#articles_all_items_select_wrapper');
         var selected_checkbox = [];
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
@@ -641,8 +650,10 @@ $( document ).ready(function() {
         //"Select All" checkbox will be unticked automatically
         if (all_checkboxes.length === selected_checkbox.length) {
             all_checkboxes_select.checked = true;
+            all_checkboxes_select_wrapper.title = all_checkboxes_select_wrapper.dataset.unselect;
         } else {
             all_checkboxes_select.checked = false;
+            all_checkboxes_select_wrapper.title = all_checkboxes_select_wrapper.dataset.select;
         }
               
         var button_edit = document.querySelector('#articles_button_edit');

@@ -261,21 +261,6 @@ Route::group(['middleware' => 'locale'], function() {
     Route::put('admin/pictures/{keyword}', 'AdminPicturesController@update');
 });
 
-/*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/pictures/{entity_types_and_keywords}', 'AdminPicturesController@delete');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/pictures/{entity_types_and_keywords}', 'AdminPicturesController@delete');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/pictures/{entity_types_and_keywords}', 'AdminPicturesController@destroy');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/pictures/{entity_types_and_keywords}', 'AdminPicturesController@destroy');
-});*/
 //End of Pictures
 
 //------------------------------------------------------------------------------

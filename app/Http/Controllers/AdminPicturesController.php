@@ -107,8 +107,7 @@ class AdminPicturesController extends Controller
             ]);
     }
     
-    public function delete($keyword) {
-        
+    public function delete($keyword) {        
         return view('adminpages.pictures.delete_picture')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
