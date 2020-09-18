@@ -54,10 +54,14 @@
                             <p>{{ $keyword->section }}</p>
                         </div>
                         <div class="admin-panel-keywords-keywords-body-field">
-                            <p>{{ $keyword->created_at }}</p>
+                            <div class="admin-panel-keywords-keywords-body-field-content">
+                                <p>{{ $keyword->created_at }}</p>
+                            </div>
                         </div>
                         <div class="admin-panel-keywords-keywords-body-field">
-                            <p>{{ $keyword->updated_at }}</p>
+                            <div class="admin-panel-keywords-keywords-body-field-content">
+                                <p>{{ $keyword->updated_at }}</p>
+                            </div>
                         </div>
                     </div>
                 @endforeach
