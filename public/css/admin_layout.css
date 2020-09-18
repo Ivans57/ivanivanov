@@ -195,7 +195,7 @@ main {
 /*Admin Panel Keywords part*/
 
 .admin-panel-wrapper .admin-panel-main-article-keywords {
-    width: 730px;
+    width: 975px;
 }
 
 .admin-panel-main-article .admin-panel-keywords-empty-text-wrapper {
@@ -266,55 +266,99 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper,
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row,
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper {
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row {
     display: flex;
     margin-bottom: 5px;
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
-.admin-panel-keywords-keywords-header, 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field, 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword {
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field {
     background-color: black;
     min-height: 26px;
     width: 200px;
-    margin-right: 5px;
+    margin-right: 2px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword {
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field:first-child, 
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field:first-child {
+    width: 30px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field:nth-child(2), 
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field:nth-child(2) {
+    width: 180px;
+    overflow-wrap: break-word;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field:nth-child(4), 
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field:nth-child(4) {
+    width: 140px;
+    overflow-wrap: break-word;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field:nth-child(5), 
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field:nth-child(5), 
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field:nth-child(6), 
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field:nth-child(6){
+    width: 165px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field {
     background-color: #cccccc;
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper:hover 
-.admin-panel-keywords-keyword {
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row:hover 
+.admin-panel-keywords-keywords-body-field {
     filter: brightness(0.97);
 }
 
+/*.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field:last-child,
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
-.admin-panel-keywords-keywords-header:last-child,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword:last-child {
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field:last-child {
     width: 240px;
     margin-right: 0px;
-}
+}*/
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-wrapper 
-.admin-panel-keywords-keywords-header h3,
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field h3,
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword p {
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field p {
     display: block;
     font-family: Arial;
     font-size: 15px;
@@ -327,10 +371,9 @@ main {
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keyword-wrapper 
-.admin-panel-keywords-keyword p {
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
+.admin-panel-keywords-keywords-body-field p {
     color: black;
-    word-wrap: break-word;
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 

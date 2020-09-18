@@ -93,6 +93,7 @@ class AdminKeywordsController extends Controller
             'headTitle' => __('keywords.'.$this->current_page),
             'keyword' => $keyword_to_edit->keyword,
             'text' => $keyword_to_edit->text,
+            'section' => $keyword_to_edit->section,
             //We are going to use one view for create and edit
             //thats why we will nedd kind of indicator to know which option do we use create or edit.
             'create_or_edit' => 'edit'

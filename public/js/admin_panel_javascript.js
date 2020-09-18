@@ -728,7 +728,7 @@ $( document ).ready(function() {
 		preload : false,
                 css : {
                     'width' : '355px',
-                    'height' : '370px',
+                    'height' : '420px',
                     'margin-bottom' : '200px'
                 }
 	},
@@ -759,7 +759,7 @@ $( document ).ready(function() {
 		preload : false,
                 css : {
                     'width' : '355px',
-                    'height' : '370px',
+                    'height' : '420px',
                     'margin-bottom' : '200px'
                 }
 	},

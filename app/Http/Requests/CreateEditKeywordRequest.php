@@ -30,6 +30,7 @@ class CreateEditKeywordRequest extends FormRequest
         //might think keyword is not unique as user is trying to assign already existing keyword.
         return [
             'keyword' => 'required|bail|keywords_prohibited_characters|space_check|keyword_uniqueness_check:'.$this->request->get('old_keyword').'|max:50',
+            'section' => 'max:50',
             'text' => 'required'
         ];
     }

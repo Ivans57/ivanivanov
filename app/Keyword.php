@@ -19,7 +19,7 @@ class Keyword extends BasicModel {
     
     protected $table;
     
-    protected $fillable = ['keyword', 'text', 'created_at', 'updated_at'];
+    protected $fillable = ['keyword', 'text', 'created_at', 'updated_at', 'section'];
        
     //Here we are making a method which according to a current language 
     //will select a proper table.

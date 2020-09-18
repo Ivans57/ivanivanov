@@ -139,6 +139,7 @@ return [
 //article_title
     'attributes' => ['keyword' => __('keywords.Keyword'), 'text' => __('keywords.Text'), 'album_name' => __('keywords.AlbumName'), 
                     'folder_name' => __('keywords.FolderName'), 'picture_caption' => __('keywords.PictureCaption'), 
-                    'article_keyword' => __('keywords.ArticleKeyword'), 'article_title' => __('keywords.ArticleTitle'), 'article_body' => __('keywords.ArticleText')],
+                    'article_keyword' => __('keywords.ArticleKeyword'), 'article_title' => __('keywords.ArticleTitle'), 
+                    'article_body' => __('keywords.ArticleText'), 'keyword' => __('keywords.Section')],
 
 ];

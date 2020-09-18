@@ -19,6 +19,14 @@
                 </div>
                 <div class="admin-panel-create-edit-entity-regulations"><span>@lang('keywords.KeywordRegulations')</span></div>
                 <div class="admin-panel-create-edit-entity-controls">
+                    <div>{!! Form::label('section', Lang::get('keywords.Section').':', 
+                            ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
+                    </div>
+                    <div>{!! Form::text('section', $create_or_edit==='create' ? null : $section, 
+                        ['class' => 'admin-panel-create-edit-entity-controls-input']) !!}
+                    </div>
+                </div>
+                <div class="admin-panel-create-edit-entity-controls">
                     <div>{!! Form::label('text', Lang::get('keywords.Text').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}</div>
                     <div>{!! Form::textarea('text', $create_or_edit==='create' ? null : $text, 
                             ['class' => 'admin-panel-create-edit-entity-controls-input', 'rows' => 3]) !!}
