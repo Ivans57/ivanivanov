@@ -208,6 +208,19 @@ main {
     font-size: 16px;
 }
 
+.admin-panel-main-article .admin-panel-keywords-control-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-add-keyword-wrapper {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
 .admin-panel-main-article .admin-panel-keywords-add-keyword-button,
 .admin-panel-main-article .admin-panel-keywords-add-keyword-button-pressed {
     display: inline-block;
@@ -255,6 +268,48 @@ main {
     color: grey;
 }
 
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-edit-delete-control-buttons {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-edit-delete-control-buttons 
+.admin-panel-keywords-edit-delete-control-button:first-child,
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-edit-delete-control-buttons 
+.admin-panel-keywords-edit-delete-control-button-pressed:first-child {
+    margin-left: 10px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-edit-delete-control-buttons 
+.admin-panel-keywords-edit-delete-control-button,
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-edit-delete-control-buttons 
+.admin-panel-keywords-edit-delete-control-button-pressed {
+    height: 26px;
+    min-width: 56px;
+    border: #a8a8a8 1px solid;
+}
+
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-edit-delete-control-buttons 
+.admin-panel-keywords-edit-delete-control-button-enabled {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-edit-delete-control-buttons 
+.admin-panel-keywords-edit-delete-control-button-pressed,
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-edit-delete-control-buttons 
+.admin-panel-keywords-edit-delete-control-button-disabled {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+    color: grey;
+}
+
+.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-edit-delete-control-buttons 
+.admin-panel-keywords-edit-delete-control-button-enabled:hover {
+    filter: brightness(0.95);
+}
+
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper {
     min-height: 500px;  
 }
@@ -287,6 +342,54 @@ main {
     padding-right: 10px;
     padding-top: 3px;
     padding-bottom: 3px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field:first-child 
+.admin-panel-keywords-keywords-header-checkbox {
+    margin-top: -3px;
+    margin-left: -1px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field .admin-panel-keywords-keywords-header-text-and-caret-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field .admin-panel-keywords-keywords-header-text-and-caret-wrapper 
+.admin-panel-keywords-keywords-header-caret {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field .admin-panel-keywords-keywords-header-text-and-caret-wrapper 
+.admin-panel-keywords-keywords-header-caret span {
+    margin-top: 2px; 
+    color: white;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field .admin-panel-keywords-keywords-header-text-and-caret-wrapper 
+.admin-panel-keywords-keywords-header-caret:hover {
+    cursor: pointer;
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
@@ -367,16 +470,6 @@ main {
     filter: brightness(0.97);
 }
 
-/*.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
-.admin-panel-keywords-keywords-header-field:last-child,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
-.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
-.admin-panel-keywords-keywords-body-field:last-child {
-    width: 240px;
-    margin-right: 0px;
-}*/
-
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
 .admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
 .admin-panel-keywords-keywords-header-field h3,
@@ -398,90 +491,6 @@ main {
 .admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-body-row 
 .admin-panel-keywords-keywords-body-field p {
     color: black;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper {
-    display: flex;
-    /*We need to have flex-direction: column to show group of buttons in the 
-    middle of Y axis of the container*/
-    flex-direction: column;
-    justify-content: center;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button:last-child,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button-pressed:last-child {
-    margin-left: 20px;
-    margin-right: 10px;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button-pressed {
-    height: 26px;
-    min-width: 56px;
-    border: #a8a8a8 1px solid;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button {
-    background-image: linear-gradient(white, #d6d6d6);
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
-.admin-panel-keywords-keyword-control-button-pressed {
-    background-image: linear-gradient(#d6d6d6, white);
-    transform: scale(0.98);
-    filter: brightness(0.95);
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button .admin-panel-keywords-keyword-control-button-link,
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
-.admin-panel-keywords-keyword-control-button-pressed .admin-panel-keywords-keyword-control-button-link-pressed {
-    display: block;
-    min-width: 56px;
-    padding-left: 5px;
-    padding-right: 5px;
-    text-decoration: none;
-    text-align: center;
-    line-height: 25px;
-    vertical-align: middle;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
-.admin-panel-keywords-keyword-control-button .admin-panel-keywords-keyword-control-button-link {
-    color: black;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons
-.admin-panel-keywords-keyword-control-button-pressed .admin-panel-keywords-keyword-control-button-link-pressed {
-    color: grey;
-}
-
-.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper .admin-panel-keywords-keywords-wrapper 
-.admin-panel-keywords-keyword-control-buttons-wrapper .admin-panel-keywords-keyword-control-buttons 
-.admin-panel-keywords-keyword-control-button:hover {
-    filter: brightness(0.95);
 }
 
 /*--------------------------------------------------------*/
@@ -1140,13 +1149,6 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
 .admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field:first-child {
     width: 40px;
-}
-
-.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
-.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field:first-child {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 

@@ -704,19 +704,19 @@ $( document ).ready(function() {
 
     //Making list of all elements with our class.
     var keyword_buttons = document.querySelectorAll('.admin-panel-keywords-keyword-control-button');
-    var keyword_links = document.querySelectorAll('.admin-panel-keywords-keyword-control-button-link');
+    //var keyword_links = document.querySelectorAll('.admin-panel-keywords-keyword-control-button-link');
     
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
     for (var i = 0; i < keyword_buttons.length; i++) {
-        clickKeywordButton(keyword_buttons[i], keyword_links[i]);
+        clickKeywordButton(keyword_buttons[i]/*, keyword_links[i]*/);
     }  
-    function clickKeywordButton(button, link) {
+    function clickKeywordButton(button/*, link*/) {
         button.addEventListener('click', function() {
             button.classList.remove('admin-panel-keywords-keyword-control-button');
             button.classList.add('admin-panel-keywords-keyword-control-button-pressed');
-            link.classList.remove('admin-panel-keywords-keyword-control-button-link');
-            link.classList.add('admin-panel-keywords-keyword-control-button-link-pressed');
+            //link.classList.remove('admin-panel-keywords-keyword-control-button-link');
+            //link.classList.add('admin-panel-keywords-keyword-control-button-link-pressed');
         });
     }
 
@@ -752,7 +752,7 @@ $( document ).ready(function() {
     });
 
     //We need this script to open keyword edit page in fancy box window.
-    $(".admin-panel-keywords-keyword-edit-button-link").fancybox({
+    /*$(".admin-panel-keywords-keyword-edit-button-link").fancybox({
 	toolbar  : false,
 	smallBtn : true,
 	iframe : {
@@ -769,21 +769,21 @@ $( document ).ready(function() {
             //We don't need an array here as in previous examples, because there will be
             //always only one pressed element.
             var button = document.querySelector('.admin-panel-keywords-keyword-control-button-pressed');
-            var link = document.querySelector('.admin-panel-keywords-keyword-control-button-link-pressed');
+            //var link = document.querySelector('.admin-panel-keywords-keyword-control-button-link-pressed');
 
             unclickButton(button, link);
 
             function unclickButton(button, link) {
                 button.classList.remove('admin-panel-keywords-keyword-control-button-pressed');
                 button.classList.add('admin-panel-keywords-keyword-control-button');
-                link.classList.remove('admin-panel-keywords-keyword-control-button-link-pressed');
-                link.classList.add('admin-panel-keywords-keyword-control-button-link');
+                //link.classList.remove('admin-panel-keywords-keyword-control-button-link-pressed');
+                //link.classList.add('admin-panel-keywords-keyword-control-button-link');
             }
         }
-    });
+    });*/
 
     //We need this script to open keyword delete confirmation page in fancy box window.
-    $(".admin-panel-keywords-keyword-delete-button-link").fancybox({
+    /*$(".admin-panel-keywords-keyword-delete-button-link").fancybox({
 	toolbar  : false,
 	smallBtn : true,
 	iframe : {
@@ -800,18 +800,18 @@ $( document ).ready(function() {
             //We don't need an array here as in previous examples, because there will be
             //always only one pressed element.
             var button = document.querySelector('.admin-panel-keywords-keyword-control-button-pressed');
-            var link = document.querySelector('.admin-panel-keywords-keyword-control-button-link-pressed');
+            //var link = document.querySelector('.admin-panel-keywords-keyword-control-button-link-pressed');
 
             unclickButton(button, link);
 
             function unclickButton(button, link) {
                 button.classList.remove('admin-panel-keywords-keyword-control-button-pressed');
                 button.classList.add('admin-panel-keywords-keyword-control-button');
-                link.classList.remove('admin-panel-keywords-keyword-control-button-link-pressed');
-                link.classList.add('admin-panel-keywords-keyword-control-button-link');
+                //link.classList.remove('admin-panel-keywords-keyword-control-button-link-pressed');
+                //link.classList.add('admin-panel-keywords-keyword-control-button-link');
             }
         }
-    });
+    });*/
 });
 
 /*--------------------------------------------------------*/

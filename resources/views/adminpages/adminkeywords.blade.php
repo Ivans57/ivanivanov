@@ -3,11 +3,29 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article admin-panel-main-article-keywords">
-    <div class="admin-panel-keywords-add-keyword-button">
-        <a href={{ App::isLocale('en') ? "/admin/keywords/create" : "/ru/admin/keywords/create" }} 
-        class="admin-panel-keywords-add-keyword-button-link" data-fancybox data-type="iframe">
-            @lang('keywords.AddKeyword')
-        </a>   
+    <div class="admin-panel-keywords-control-buttons">
+        <div class="admin-panel-keywords-add-keyword-wrapper">
+            <div class="admin-panel-keywords-add-keyword-button">
+                <a href={{ App::isLocale('en') ? "/admin/keywords/create" : "/ru/admin/keywords/create" }} 
+                class="admin-panel-keywords-add-keyword-button-link" data-fancybox data-type="iframe">
+                    @lang('keywords.AddKeyword')
+                </a>   
+            </div>
+        </div>
+        <div class="admin-panel-keywords-edit-delete-control-buttons">
+            <div>    
+                {!! Form::button(Lang::get('keywords.Edit'), 
+                [ 'class' => 'admin-panel-keywords-edit-delete-control-button 
+                admin-panel-keywords-edit-delete-control-button-disabled', 
+                'id' => 'keywords_button_edit', 'disabled' ]) !!}
+            </div>
+            <div>
+                {!! Form::button(Lang::get('keywords.Delete'), 
+                [ 'class' => 'admin-panel-keywords-edit-delete-control-button 
+                admin-panel-keywords-edit-delete-control-button-disabled', 
+                'id' => 'keywords_button_delete', 'disabled' ]) !!}
+            </div>           
+        </div>
     </div>
     @if ($keywords->count() > 0)
         <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
@@ -22,19 +40,54 @@
                         'class' => 'admin-panel-keywords-keywords-header-checkbox']); !!}
                     </div>
                     <div class="admin-panel-keywords-keywords-header-field">
-                        <h3>@lang('keywords.Keyword')</h3>
+                        <div class="admin-panel-keywords-keywords-header-text-and-caret-wrapper">
+                            <div class="admin-panel-keywords-keywords-header-text">
+                                <h3>@lang('keywords.Keyword')</h3>
+                            </div>
+                            <div class="admin-panel-keywords-keywords-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="admin-panel-keywords-keywords-header-field">
-                        <h3>@lang('keywords.Text')</h3>
+                        <div class="admin-panel-keywords-keywords-header-text-and-caret-wrapper">
+                            <div class="admin-panel-keywords-keywords-header-text">
+                                <h3>@lang('keywords.Text')</h3>
+                            </div>
+                            <div class="admin-panel-keywords-keywords-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="admin-panel-keywords-keywords-header-field">
-                        <h3>@lang('keywords.Section')</h3>
+                        <div class="admin-panel-keywords-keywords-header-text-and-caret-wrapper">
+                            <div class="admin-panel-keywords-keywords-header-text">
+                                <h3>@lang('keywords.Section')</h3>
+                            </div>
+                            <div class="admin-panel-keywords-keywords-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="admin-panel-keywords-keywords-header-field">
-                        <h3>@lang('keywords.DateAndTimeCreated')</h3>
+                        <div class="admin-panel-keywords-keywords-header-text-and-caret-wrapper">
+                            <div class="admin-panel-keywords-keywords-header-text">
+                                <h3>@lang('keywords.DateAndTimeCreated')</h3>
+                            </div>
+                            <div class="admin-panel-keywords-keywords-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="admin-panel-keywords-keywords-header-field">
-                        <h3>@lang('keywords.DateAndTimeUpdate')</h3>
+                        <div class="admin-panel-keywords-keywords-header-text-and-caret-wrapper">
+                            <div class="admin-panel-keywords-keywords-header-text">
+                                <h3>@lang('keywords.DateAndTimeUpdate')</h3>
+                            </div>
+                            <div class="admin-panel-keywords-keywords-header-caret">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @foreach ($keywords as $keyword)
