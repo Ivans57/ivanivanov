@@ -330,7 +330,7 @@ $( document ).ready(function() {
         }
         //In case we check all boxes, "Select All" box will be checked automatically.
         //In case user checked the box "Select All" and then untick one of the checkboxes,
-        //"Select All" checkbox will be unticked automatically
+        //"Select All" checkbox will be unticked automatically.
         if (all_checkboxes.length === selected_checkbox.length) {
             all_checkboxes_select.checked = true;
             all_checkboxes_select_wrapper.title = all_checkboxes_select_wrapper.dataset.unselect;
@@ -750,6 +750,113 @@ $( document ).ready(function() {
             }
         }
     });
+    
+    //Making list of all elements with selected class.
+    var keywords_control_buttons = document.querySelectorAll('.admin-panel-keywords-edit-delete-control-button');
+    
+    //getting through the array of elements and applying required function
+    //for all of them. We don't need these elements id anymore.
+    for (var i = 0; i < keywords_control_buttons.length; i++) {
+        clickFolderButton(keywords_control_buttons[i]);
+    }    
+    function clickFolderButton(control_button) {
+        control_button.addEventListener('click', function() {
+            control_button.classList.remove('admin-panel-keywords-edit-delete-control-button');
+            control_button.classList.add('admin-panel-keywords-edit-delete-control-button-pressed');
+        });
+    }
+    
+    function keywords_control_button_view_change_after_fancybox_close() {
+        //We don't need an array here as in previous examples, because there will be
+        //always only one pressed element.
+        var button = document.querySelector('.admin-panel-keywords-edit-delete-control-button-pressed');
+        unclickButton(button);
+
+        function unclickButton(button) {
+            button.classList.remove('admin-panel-keywords-edit-delete-control-button-pressed');
+            button.classList.add('admin-panel-keywords-edit-delete-control-button');
+        }
+    }
+
+    $( "#keywords_button_edit" ).click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-keywords-keywords-checkbox');
+        var selected_checkbox = [];
+        for (i = 0; i < all_checkboxes.length; i++) {
+            if (all_checkboxes[i].checked === true) {
+                selected_checkbox.push(all_checkboxes[i]);
+            }
+        }
+        //We need to make a condition below, becuase we can edit only one item at the same time.
+        if (selected_checkbox.length === 1) {
+            var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
+            var url = localization+'/admin/keywords/'+selected_checkbox[0].dataset.keyword+'/edit/';
+            edit_keyword(url);
+        }
+    });
+    
+    function edit_keyword(url) {
+        //We need this script to open existing Keyword edit page in fancy box window.
+        $.fancybox.open({
+            type: 'iframe',
+            src: url,
+            toolbar  : false,
+            smallBtn : true,
+            iframe : {
+                preload : false,
+                css : {
+                    'width' : '355px',
+                    'height' : '420px',
+                    'margin-bottom' : '200px'
+                }
+            },
+            //Also we will need a function which will recover add button's view after
+            //closing pop up's window without adding a new keyword.
+            afterClose: function() {
+                keywords_control_button_view_change_after_fancybox_close();
+            }
+        });
+    }
+
+    $( "#keywords_button_delete" ).click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-keywords-keywords-checkbox');
+        var selected_checkbox_data = "";//In this variable we keep items (keywords) separated by ";" sign.            
+        
+        for (i = 0; i < all_checkboxes.length; i++) {
+            if (all_checkboxes[i].checked === true) {
+                var keyword = all_checkboxes[i].dataset.keyword+';';
+                selected_checkbox_data = selected_checkbox_data+keyword;
+            }
+        }
+        if (selected_checkbox_data.length > 0) {
+            var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
+            //For different localization will be different height.
+            var height = (all_checkboxes[0].dataset.localization === "en") ? "170px" : "200px";
+            var url = localization+'/admin/keywords/'+selected_checkbox_data;                                                       
+            delete_keywords(url, height);
+        }
+    });
+
+    function delete_keywords(url, height) {
+        $.fancybox.open({
+            type: 'iframe',
+            src: url,
+            toolbar  : false,
+            smallBtn : true,
+            iframe : {
+                preload : false,
+                css : {
+                    'width' : '380px',
+                    'height' : height,
+                    'margin-bottom' : '200px'
+                }
+            },
+            //Also we will need a function which will recover add button's view after
+            //closing pop up's window without adding a new keyword.
+            afterClose: function() {
+                keywords_control_button_view_change_after_fancybox_close();
+            }
+        });
+    }
 
     //We need this script to open keyword edit page in fancy box window.
     /*$(".admin-panel-keywords-keyword-edit-button-link").fancybox({
@@ -769,15 +876,12 @@ $( document ).ready(function() {
             //We don't need an array here as in previous examples, because there will be
             //always only one pressed element.
             var button = document.querySelector('.admin-panel-keywords-keyword-control-button-pressed');
-            //var link = document.querySelector('.admin-panel-keywords-keyword-control-button-link-pressed');
 
-            unclickButton(button, link);
+            unclickButton(button);
 
-            function unclickButton(button, link) {
+            function unclickButton(button) {
                 button.classList.remove('admin-panel-keywords-keyword-control-button-pressed');
                 button.classList.add('admin-panel-keywords-keyword-control-button');
-                //link.classList.remove('admin-panel-keywords-keyword-control-button-link-pressed');
-                //link.classList.add('admin-panel-keywords-keyword-control-button-link');
             }
         }
     });*/
@@ -800,18 +904,97 @@ $( document ).ready(function() {
             //We don't need an array here as in previous examples, because there will be
             //always only one pressed element.
             var button = document.querySelector('.admin-panel-keywords-keyword-control-button-pressed');
-            //var link = document.querySelector('.admin-panel-keywords-keyword-control-button-link-pressed');
 
             unclickButton(button, link);
 
-            function unclickButton(button, link) {
+            function unclickButton(button) {
                 button.classList.remove('admin-panel-keywords-keyword-control-button-pressed');
                 button.classList.add('admin-panel-keywords-keyword-control-button');
-                //link.classList.remove('admin-panel-keywords-keyword-control-button-link-pressed');
-                //link.classList.add('admin-panel-keywords-keyword-control-button-link');
             }
         }
     });*/
+    
+    //The Code below is required if user needs to select or unselect all records by ticking one checkbox.
+    //This code also changes a view of control buttons (delete and edit). The control buttons are getting enabled and disabled.
+    $('#keywords_all_items_select').click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-keywords-keywords-checkbox');
+        var all_checkboxes_select = document.querySelector('#keywords_all_items_select_wrapper');
+        var button_edit = document.querySelector('#keywords_button_edit');
+        var button_delete = document.querySelector('#keywords_button_delete');
+        if ($(this).is(':checked')) {
+            all_checkboxes_select.title = all_checkboxes_select.dataset.unselect;
+            all_checkboxes.forEach(function(checkbox) {
+                checkbox.checked = true;
+            });
+            button_delete.classList.remove('admin-panel-keywords-edit-delete-control-button-disabled');
+            button_delete.classList.add('admin-panel-keywords-edit-delete-control-button-enabled');
+            button_delete.removeAttribute('disabled');
+            //In case there is only one element in the list, still both button should be activated.
+            if (all_checkboxes.length === 1) {
+                button_edit.classList.remove('admin-panel-keywords-edit-delete-control-button-disabled');
+                button_edit.classList.add('admin-panel-keywords-edit-delete-control-button-enabled');
+                button_edit.removeAttribute('disabled');
+            }
+        } else {
+             all_checkboxes_select.title = all_checkboxes_select.dataset.select;
+            all_checkboxes.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+            //We need to have to disable edit button as well in case there is only one element in the list.
+            button_edit.classList.remove('admin-panel-keywords-edit-delete-control-button-enabled');            
+            button_edit.classList.add('admin-panel-keywords-edit-delete-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
+            button_delete.classList.remove('admin-panel-keywords-edit-delete-control-button-enabled');            
+            button_delete.classList.add('admin-panel-keywords-edit-delete-control-button-disabled');
+            button_delete.setAttribute('disabled', '');
+        }
+    });
+    
+    //The Code below is making some changes when user is checking separate checkboxes.
+    //This way control buttons (delete and edit) view is getting changed. The control buttons are getting enabled and disabled.
+    $('.admin-panel-keywords-keywords-checkbox').click(function() {
+        var all_checkboxes = document.querySelectorAll('.admin-panel-keywords-keywords-checkbox');
+        var all_checkboxes_select = document.querySelector('#keywords_all_items_select');
+        var all_checkboxes_select_wrapper = document.querySelector('#keywords_all_items_select_wrapper');
+        var selected_checkbox = [];
+        for (i = 0; i < all_checkboxes.length; i++) {
+            if (all_checkboxes[i].checked === true) {
+                selected_checkbox.push(all_checkboxes[i]);
+            }
+        }
+        //In case we check all boxes, "Select All" box will be checked automatically.
+        //In case user checked the box "Select All" and then untick one of the checkboxes,
+        //"Select All" checkbox will be unticked automatically.
+        if (all_checkboxes.length === selected_checkbox.length) {
+            all_checkboxes_select.checked = true;
+            all_checkboxes_select_wrapper.title = all_checkboxes_select_wrapper.dataset.unselect;
+        } else {
+            all_checkboxes_select.checked = false;
+            all_checkboxes_select_wrapper.title = all_checkboxes_select_wrapper.dataset.select;
+        }
+              
+        var button_edit = document.querySelector('#keywords_button_edit');
+        var button_delete = document.querySelector('#keywords_button_delete');
+        if (selected_checkbox.length === 1) {
+            button_edit.classList.remove('admin-panel-keywords-edit-delete-control-button-disabled');
+            button_edit.classList.add('admin-panel-keywords-edit-delete-control-button-enabled');
+            button_edit.removeAttribute('disabled');
+            button_delete.classList.remove('admin-panel-keywords-edit-delete-control-button-disabled');
+            button_delete.classList.add('admin-panel-keywords-edit-delete-control-button-enabled');
+            button_delete.removeAttribute('disabled');
+        } else if (selected_checkbox.length === 0) {
+            button_edit.classList.remove('admin-panel-keywords-edit-delete-control-button-enabled');
+            button_edit.classList.add('admin-panel-keywords-edit-delete-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
+            button_delete.classList.remove('admin-panel-keywords-edit-delete-control-button-enabled');
+            button_delete.classList.add('admin-panel-keywords-edit-delete-control-button-disabled');
+            button_delete.setAttribute('disabled', '');
+        } else if (selected_checkbox.length > 1) {
+            button_edit.classList.remove('admin-panel-keywords-edit-delete-control-button-enabled');
+            button_edit.classList.add('admin-panel-keywords-edit-delete-control-button-disabled');
+            button_edit.setAttribute('disabled', '');
+        }
+     });
 });
 
 /*--------------------------------------------------------*/

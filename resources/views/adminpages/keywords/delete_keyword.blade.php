@@ -4,9 +4,11 @@
     <!--Need to find out is it possible to pass id using just a variable in
     url, so we can get rid of the hidden field.
     The same approcah can be used for update as well.-->
-    {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords/".$keyword : "/ru/admin/keywords/".$keyword, 'method' => 'DELETE']) !!}      
+    {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/keywords/".$keywords : "/ru/admin/keywords/".$keywords, 'method' => 'DELETE']) !!}      
         <div class='admin-panel-delete-entity'>
-            <div class="admin-panel-delete-entity-message"><h3 style="color:#cf1b0e;">@lang('keywords.DeleteKeyword')?</h3></div>
+            <div class="admin-panel-delete-entity-message"><h3 style="color:#cf1b0e;">
+                    {!! ($plural_or_singular === 'singular') ? Lang::get('keywords.DeleteKeyword').'?' : Lang::get('keywords.DeleteKeywords').'?' !!}
+                </h3></div>
             <div class="admin-panel-delete-entity-controls">
                 <div>{!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-delete-entity-controls-button' ]) !!}</div>
                 

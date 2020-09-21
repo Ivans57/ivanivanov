@@ -116,19 +116,20 @@ class AdminKeywordsController extends Controller
             ]);
     }
     
-    public function remove($keyword) {            
+    public function remove($keywords) {
+        $keywords_array = $this->keywords->get_keywords_from_string($keywords);
         return view('adminpages.keywords.delete_keyword')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
             'headTitle' => __('keywords.'.$this->current_page),
-            'keyword' => $keyword,
+            'keywords' => $keywords,
+            'plural_or_singular' => (sizeof($keywords_array) > 1) ? 'plural' : 'singular'
             ]);
                
     }
     
-    public function destroy($keyword) {      
-        Keyword::where('keyword', '=', $keyword)->delete();
-        
+    public function destroy($keywords) {
+        $this->keywords->destroy($keywords);        
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.

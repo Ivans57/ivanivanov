@@ -211,7 +211,6 @@ main {
 .admin-panel-main-article .admin-panel-keywords-control-buttons {
     display: flex;
     justify-content: space-between;
-    padding-left: 5px;
     padding-right: 5px;
 }
 

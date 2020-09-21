@@ -412,19 +412,19 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword}', 'AdminKeywordsController@remove');
+    Route::get('admin/keywords/{keywords}', 'AdminKeywordsController@remove');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword}', 'AdminKeywordsController@remove');
+    Route::get('admin/keywords/{keywords}', 'AdminKeywordsController@remove');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/keywords/{keyword}', 'AdminKeywordsController@destroy');
+    Route::delete('admin/keywords/{keywords}', 'AdminKeywordsController@destroy');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/keywords/{keyword}', 'AdminKeywordsController@destroy');
+    Route::delete('admin/keywords/{keywords}', 'AdminKeywordsController@destroy');
 });
 
 //------------------------------------------------------------------------------
