@@ -112,7 +112,6 @@ $( document ).ready(function() {
             //always only one pressed element.
             var button = document.querySelector('.admin-panel-albums-add-picture-button-pressed');
             var link = document.querySelector('.admin-panel-albums-add-picture-button-link-pressed');
-
             unclickButton(button, link);
 
             function unclickButton(button, link) {
@@ -128,7 +127,6 @@ $( document ).ready(function() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
         var control_button = document.querySelector('.admin-panel-albums-pictures-and-albums-control-button-pressed');
-
         unclickButton(control_button);
 
         function unclickButton(button/*, link*/) {
@@ -433,7 +431,6 @@ $( document ).ready(function() {
             //always only one pressed element.
             var button = document.querySelector('.admin-panel-articles-add-folder-button-pressed');
             var link = document.querySelector('.admin-panel-articles-add-folder-button-link-pressed');
-
             unclickButton(button, link);
 
             function unclickButton(button, link) {
@@ -449,7 +446,6 @@ $( document ).ready(function() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
         var button = document.querySelector('.admin-panel-articles-article-and-folder-control-button-pressed');
-
         unclickButton(button);
 
         function unclickButton(button) {
@@ -711,12 +707,10 @@ $( document ).ready(function() {
     for (var i = 0; i < keyword_buttons.length; i++) {
         clickKeywordButton(keyword_buttons[i]/*, keyword_links[i]*/);
     }  
-    function clickKeywordButton(button/*, link*/) {
+    function clickKeywordButton(button) {
         button.addEventListener('click', function() {
             button.classList.remove('admin-panel-keywords-keyword-control-button');
             button.classList.add('admin-panel-keywords-keyword-control-button-pressed');
-            //link.classList.remove('admin-panel-keywords-keyword-control-button-link');
-            //link.classList.add('admin-panel-keywords-keyword-control-button-link-pressed');
         });
     }
 
@@ -857,62 +851,6 @@ $( document ).ready(function() {
             }
         });
     }
-
-    //We need this script to open keyword edit page in fancy box window.
-    /*$(".admin-panel-keywords-keyword-edit-button-link").fancybox({
-	toolbar  : false,
-	smallBtn : true,
-	iframe : {
-		preload : false,
-                css : {
-                    'width' : '355px',
-                    'height' : '420px',
-                    'margin-bottom' : '200px'
-                }
-	},
-        //Also we will need a function which will recover add button's view after
-        //closing pop up's window without adding a new keyword.
-        afterClose: function() {
-            //We don't need an array here as in previous examples, because there will be
-            //always only one pressed element.
-            var button = document.querySelector('.admin-panel-keywords-keyword-control-button-pressed');
-
-            unclickButton(button);
-
-            function unclickButton(button) {
-                button.classList.remove('admin-panel-keywords-keyword-control-button-pressed');
-                button.classList.add('admin-panel-keywords-keyword-control-button');
-            }
-        }
-    });*/
-
-    //We need this script to open keyword delete confirmation page in fancy box window.
-    /*$(".admin-panel-keywords-keyword-delete-button-link").fancybox({
-	toolbar  : false,
-	smallBtn : true,
-	iframe : {
-		preload : false,
-                css : {
-                    'width' : '380px',
-                    'height' : '180px',
-                    'margin-bottom' : '200px'
-                }
-	},
-        //Also we will need a function which will recover add button's view after
-        //closing pop up's window without adding a new keyword.
-        afterClose: function() {
-            //We don't need an array here as in previous examples, because there will be
-            //always only one pressed element.
-            var button = document.querySelector('.admin-panel-keywords-keyword-control-button-pressed');
-
-            unclickButton(button, link);
-
-            function unclickButton(button) {
-                button.classList.remove('admin-panel-keywords-keyword-control-button-pressed');
-                button.classList.add('admin-panel-keywords-keyword-control-button');
-            }
-        }
-    });*/
     
     //The Code below is required if user needs to select or unselect all records by ticking one checkbox.
     //This code also changes a view of control buttons (delete and edit). The control buttons are getting enabled and disabled.
@@ -995,6 +933,40 @@ $( document ).ready(function() {
             button_edit.setAttribute('disabled', '');
         }
      });
+    
+    //Sorting by keyword.
+    $( "#keywords_sort_by_keyword" ).click(function() {
+        keywords_sort("keywords_sort_by_keyword");
+    });
+    
+    //Sorting by text.
+    $( "#keywords_sort_by_text" ).click(function() {
+        keywords_sort("keywords_sort_by_text");
+    });
+    
+    //Sorting by section.
+    $( "#keywords_sort_by_section" ).click(function() {
+        keywords_sort("keywords_sort_by_section");
+    });
+    
+    //Sorting by creation date and time.
+    $( "#keywords_sort_by_creation" ).click(function() {
+        keywords_sort("keywords_sort_by_creation");
+    });
+    
+    //Sorting by update date and time.
+    $( "#keywords_sort_by_update" ).click(function() {
+        keywords_sort("keywords_sort_by_update");
+    });
+    
+    function keywords_sort(sorting_method) {
+        var checkbox = document.querySelector('.admin-panel-keywords-keywords-checkbox');
+        //If it is an english localization, we don't need to show it, because it is a default localization.
+        var localization = (checkbox.dataset.localization === "en") ? "" : "/ru";
+        var current_sorting_method = document.querySelector('#'+sorting_method);
+        var url = localization+"/admin/keywords/sort/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
+        window.location.href = url;
+    }
 });
 
 /*--------------------------------------------------------*/

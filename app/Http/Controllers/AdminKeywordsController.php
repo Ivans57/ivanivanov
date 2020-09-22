@@ -38,7 +38,11 @@ class AdminKeywordsController extends Controller
     //
     public function index() {      
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);       
-        $items_amount_per_page = 14;       
+        $items_amount_per_page = 14;
+        
+        //This array is required to show sorting arrows properly.
+        $sorting_asc_or_desc = ["Keyword" => "desc", "Text" => "desc", "Section" => "desc", "Creation" => "asc","Update" => "desc",];
+        
         $keywords = Keyword::latest()->paginate($items_amount_per_page);
 
         //Below we need to do the check if entered page number is more than
@@ -54,7 +58,82 @@ class AdminKeywordsController extends Controller
                 'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => __('keywords.'.$this->current_page),
                 'keywords' => $keywords,
-                'items_amount_per_page' => $items_amount_per_page
+                'items_amount_per_page' => $items_amount_per_page,
+                'sorting_asc_or_desc' => $sorting_asc_or_desc
+            ]);
+        }
+    }
+    
+    public function sort($sorting) {      
+        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);       
+        $items_amount_per_page = 14;
+        
+        //This array is required to show sorting arrows properly.
+        $sorting_asc_or_desc = ["Keyword" => "desc", "Text" => "desc", "Section" => "desc", "Creation" => "asc","Update" => "desc",];
+        
+        $keywords = null;
+        
+        switch ($sorting) {
+            case ('keywords_sort_by_keyword_desc'):
+                $keywords = Keyword::orderBy('keyword', 'desc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Keyword"] = "asc";
+                break;
+            case ('keywords_sort_by_keyword_asc'):
+                $keywords = Keyword::orderBy('keyword', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Keyword"] = "desc";
+                break;
+            case ('keywords_sort_by_text_desc'):
+                $keywords = Keyword::orderBy('text', 'desc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Text"] = "asc";
+                break;
+            case ('keywords_sort_by_text_asc'):
+                $keywords = Keyword::orderBy('text', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Text"] = "desc";
+                break;
+            case ('keywords_sort_by_section_desc'):
+                $keywords = Keyword::orderBy('section', 'desc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Section"] = "asc";
+                break;
+            case ('keywords_sort_by_section_asc'):
+                $keywords = Keyword::orderBy('section', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Section"] = "desc";
+                break;
+            case ('keywords_sort_by_creation_desc'):
+                $keywords = Keyword::latest()->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Creation"] = "asc";
+                break;
+            case ('keywords_sort_by_creation_asc'):
+                $keywords = Keyword::orderBy('created_at', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Creation"] = "desc";
+                break;
+            case ('keywords_sort_by_update_desc'):
+                $keywords = Keyword::orderBy('updated_at', 'desc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Update"] = "asc";
+                break;
+            case ('keywords_sort_by_update_asc'):
+                $keywords = Keyword::orderBy('updated_at', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Update"] = "desc";
+                break;
+            default:
+                $keywords = Keyword::latest()->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Creation"] = "asc";
+        }
+
+        //Below we need to do the check if entered page number is more than
+        //actual number of pages, we redirect the user to the last page
+        if ($keywords->currentPage() > $keywords->lastPage()) {
+            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $keywords->lastPage(), 
+                                                                                $this->is_admin_panel);
+        } else {
+            return view('adminpages.adminkeywords')->with([
+                //Below main website links.
+                'main_ws_links' => $main_links->mainWSLinks,
+                //Below main admin panel links.
+                'main_ap_links' => $main_links->mainAPLinks,
+                'headTitle' => __('keywords.'.$this->current_page),
+                'keywords' => $keywords,
+                'items_amount_per_page' => $items_amount_per_page,
+                'sorting_asc_or_desc' => $sorting_asc_or_desc
             ]);
         }
     }

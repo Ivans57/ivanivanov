@@ -372,11 +372,19 @@ Route::group(['middleware' => 'locale'], function() {
 //Keywords
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/keywords', 'AdminKeywordsController@index');
+    Route::get('admin/keywords/', 'AdminKeywordsController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/keywords', 'AdminKeywordsController@index');
+    Route::get('admin/keywords/', 'AdminKeywordsController@index');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/keywords/sort/{sorting}', 'AdminKeywordsController@sort');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/keywords/sort/{sorting}', 'AdminKeywordsController@sort');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
