@@ -825,7 +825,7 @@ $( document ).ready(function() {
             var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
             //For different localization will be different height.
             var height = (all_checkboxes[0].dataset.localization === "en") ? "170px" : "200px";
-            var url = localization+'/admin/keywords/'+selected_checkbox_data;                                                       
+            var url = localization+'/admin/keywords/delete/'+selected_checkbox_data;                                                       
             delete_keywords(url, height);
         }
     });
@@ -959,12 +959,13 @@ $( document ).ready(function() {
         keywords_sort("keywords_sort_by_update");
     });
     
+    //The function below is making a link to do sorting and going to it.
     function keywords_sort(sorting_method) {
         var checkbox = document.querySelector('.admin-panel-keywords-keywords-checkbox');
         //If it is an english localization, we don't need to show it, because it is a default localization.
         var localization = (checkbox.dataset.localization === "en") ? "" : "/ru";
         var current_sorting_method = document.querySelector('#'+sorting_method);
-        var url = localization+"/admin/keywords/sort/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
+        var url = localization+"/admin/keywords/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
         window.location.href = url;
     }
 });

@@ -43,6 +43,61 @@ class KeywordsRepository {
         return $keywords_array;
     }
     
+    //The method below is to sort keywords in different modes.
+    public function sort($items_amount_per_page, $sorting_mode) {
+        //This array is required to show sorting arrows properly.
+        $sorting_asc_or_desc = ["Keyword" => ["desc" , 0], "Text" => ["desc" , 0], "Section" => ["desc" , 0], 
+                                "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];             
+        $keywords = null;
+        
+        switch ($sorting_mode) {
+            case ('keywords_sort_by_keyword_desc'):
+                $keywords = Keyword::orderBy('keyword', 'desc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Keyword"] = ["asc" , 1];
+                break;
+            case ('keywords_sort_by_keyword_asc'):
+                $keywords = Keyword::orderBy('keyword', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Keyword"] = ["desc" , 1];
+                break;
+            case ('keywords_sort_by_text_desc'):
+                $keywords = Keyword::orderBy('text', 'desc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Text"] = ["asc" , 1];
+                break;
+            case ('keywords_sort_by_text_asc'):
+                $keywords = Keyword::orderBy('text', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Text"] = ["desc" , 1];
+                break;
+            case ('keywords_sort_by_section_desc'):
+                $keywords = Keyword::orderBy('section', 'desc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Section"] = ["asc" , 1];
+                break;
+            case ('keywords_sort_by_section_asc'):
+                $keywords = Keyword::orderBy('section', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Section"] = ["desc" , 1];
+                break;
+            case ('keywords_sort_by_creation_desc'):
+                $keywords = Keyword::latest()->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
+                break;
+            case ('keywords_sort_by_creation_asc'):
+                $keywords = Keyword::orderBy('created_at', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Creation"] = ["desc" , 1];
+                break;
+            case ('keywords_sort_by_update_desc'):
+                $keywords = Keyword::orderBy('updated_at', 'desc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Update"] = ["asc" , 1];
+                break;
+            case ('keywords_sort_by_update_asc'):
+                $keywords = Keyword::orderBy('updated_at', 'asc')->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Update"] = ["desc" , 1];
+                break;
+            default:
+                $keywords = Keyword::latest()->paginate($items_amount_per_page);
+                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
+        }     
+        return ["keywords" => $keywords, "sorting_asc_or_desc" => $sorting_asc_or_desc];
+    }
+    
     //We need this to make a check for keyword uniqueness.
     public function get_all_keywords() {
         

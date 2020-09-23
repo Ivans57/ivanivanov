@@ -380,8 +380,28 @@ main {
 .admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
 .admin-panel-keywords-keywords-header-field .admin-panel-keywords-keywords-header-text-and-caret-wrapper 
 .admin-panel-keywords-keywords-header-caret span {
-    margin-top: 2px; 
+    margin-top: 2px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field .admin-panel-keywords-keywords-header-text-and-caret-wrapper 
+.admin-panel-keywords-keywords-header-caret .admin-panel-keywords-keywords-header-caret-used {
     color: white;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field .admin-panel-keywords-keywords-header-text-and-caret-wrapper 
+.admin-panel-keywords-keywords-header-caret .admin-panel-keywords-keywords-header-caret-unused {
+    color: #87888c;
+}
+
+.admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 
+.admin-panel-keywords-keywords-wrapper .admin-panel-keywords-keywords-header-row 
+.admin-panel-keywords-keywords-header-field .admin-panel-keywords-keywords-header-text-and-caret-wrapper 
+.admin-panel-keywords-keywords-header-caret .admin-panel-keywords-keywords-header-caret-unused:hover  {
+    color: #afccfa;
 }
 
 .admin-panel-main-article .admin-panel-keywords-external-keywords-wrapper 

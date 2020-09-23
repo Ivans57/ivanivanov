@@ -45,12 +45,18 @@
                                 <h3>@lang('keywords.Keyword')</h3>
                             </div>
                             <div class="admin-panel-keywords-keywords-header-caret">
-                                @if ($sorting_asc_or_desc["Keyword"] == "desc")
-                                    <span class="glyphicon glyphicon-triangle-bottom" id="keywords_sort_by_keyword" 
-                                          data-sorting_mode="desc" title='{{ Lang::get("keywords.SortByKeywordDesc") }}'></span>
+                                @if ($sorting_asc_or_desc["Keyword"][0] == "desc")
+                                    <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Keyword"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_keyword" data-sorting_mode="desc" 
+                                          title='{{ Lang::get("keywords.SortByKeywordDesc") }}'></span>
                                 @else
-                                    <span class="glyphicon glyphicon-triangle-top" id="keywords_sort_by_keyword" 
-                                      data-sorting_mode="asc" title='{{ Lang::get("keywords.SortByKeywordAsc") }}'></span>
+                                    <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Keyword"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_keyword" data-sorting_mode="asc" 
+                                          title='{{ Lang::get("keywords.SortByKeywordAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
@@ -61,12 +67,18 @@
                                 <h3>@lang('keywords.Text')</h3>
                             </div>
                             <div class="admin-panel-keywords-keywords-header-caret">
-                                @if ($sorting_asc_or_desc["Text"] == "desc")
-                                    <span class="glyphicon glyphicon-triangle-bottom" id="keywords_sort_by_text" 
-                                          data-sorting_mode="desc" title='{{ Lang::get("keywords.SortByTextDesc") }}'></span>
+                                @if ($sorting_asc_or_desc["Text"][0] == "desc")
+                                    <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Text"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_text" data-sorting_mode="desc" 
+                                          title='{{ Lang::get("keywords.SortByTextDesc") }}'></span>
                                 @else
-                                    <span class="glyphicon glyphicon-triangle-top" id="keywords_sort_by_text" 
-                                          data-sorting_mode="asc" title='{{ Lang::get("keywords.SortByTextAsc") }}'></span>
+                                    <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Text"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_text" data-sorting_mode="asc" 
+                                          title='{{ Lang::get("keywords.SortByTextAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
@@ -77,12 +89,18 @@
                                 <h3>@lang('keywords.Section')</h3>
                             </div>
                             <div class="admin-panel-keywords-keywords-header-caret">
-                                @if ($sorting_asc_or_desc["Section"] == "desc")
-                                    <span class="glyphicon glyphicon-triangle-bottom" id="keywords_sort_by_section" 
-                                          data-sorting_mode="desc" title='{{ Lang::get("keywords.SortBySectionDesc") }}'></span>
+                                @if ($sorting_asc_or_desc["Section"][0] == "desc")
+                                    <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Section"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_section" data-sorting_mode="desc" 
+                                          title='{{ Lang::get("keywords.SortBySectionDesc") }}'></span>
                                 @else
-                                    <span class="glyphicon glyphicon-triangle-top" id="keywords_sort_by_section" 
-                                      data-sorting_mode="asc" title='{{ Lang::get("keywords.SortBySectionAsc") }}'></span>
+                                    <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Section"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_section" data-sorting_mode="asc" 
+                                          title='{{ Lang::get("keywords.SortBySectionAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
@@ -93,12 +111,18 @@
                                 <h3>@lang('keywords.DateAndTimeCreated')</h3>
                             </div>
                             <div class="admin-panel-keywords-keywords-header-caret">
-                                @if ($sorting_asc_or_desc["Creation"] == "desc")
-                                    <span class="glyphicon glyphicon-triangle-bottom" id="keywords_sort_by_creation" 
-                                          data-sorting_mode="desc" title='{{ Lang::get("keywords.SortByCreationDateAndTimeDesc") }}'></span>
+                                @if ($sorting_asc_or_desc["Creation"][0] == "desc")
+                                    <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_creation" data-sorting_mode="desc" 
+                                          title='{{ Lang::get("keywords.SortByCreationDateAndTimeDesc") }}'></span>
                                 @else
-                                    <span class="glyphicon glyphicon-triangle-top" id="keywords_sort_by_creation" 
-                                      data-sorting_mode="asc" title='{{ Lang::get("keywords.SortByCreationDateAndTimeAsc") }}'></span>
+                                    <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_creation" data-sorting_mode="asc" 
+                                          title='{{ Lang::get("keywords.SortByCreationDateAndTimeAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
@@ -109,12 +133,18 @@
                                 <h3>@lang('keywords.DateAndTimeUpdate')</h3>
                             </div>
                             <div class="admin-panel-keywords-keywords-header-caret">
-                                @if ($sorting_asc_or_desc["Update"] == "desc")
-                                    <span class="glyphicon glyphicon-triangle-bottom" id="keywords_sort_by_update" 
-                                          data-sorting_mode="desc" title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
+                                @if ($sorting_asc_or_desc["Update"][0] == "desc")
+                                    <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_update" data-sorting_mode="desc" 
+                                          title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
                                 @else
-                                    <span class="glyphicon glyphicon-triangle-top" id="keywords_sort_by_update" 
-                                          data-sorting_mode="asc" title='{{ Lang::get("keywords.SortByUpdateDateAndTimeAsc") }}'></span>
+                                    <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
+                                          "admin-panel-keywords-keywords-header-caret-used" : 
+                                          "admin-panel-keywords-keywords-header-caret-unused" }}'
+                                          id="keywords_sort_by_update" data-sorting_mode="asc" 
+                                          title='{{ Lang::get("keywords.SortByUpdateDateAndTimeAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
