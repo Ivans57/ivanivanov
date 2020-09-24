@@ -35,20 +35,24 @@ class AdminArticlesController extends Controller
     }
     
     
-    public function index() {
+    public function index($sorting_mode = null) {
         
-        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
-        
-        //We need the variable below to display how many items we need to show per one page
+        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);        
+        //We need the variable below to display how many items we need to show per one page.
         $items_amount_per_page = 14;
-        //On the line below we are fetching all articles from the database
-        $folders = $this->folders->getAllFolders($items_amount_per_page, 1);
+        
+        //In the next line the data are getting extracted from the database and sorted.
+        $sorting_data = $this->folders->sort($items_amount_per_page, $sorting_mode, 1);
+        
+        //On the line below we are fetching all articles from the database.
+        //$folders = $this->folders->getAllFolders($items_amount_per_page, 1);
         
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
-        if ($folders[0] && ($folders->currentPage() > $folders->lastPage())) {
-            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $folders->lastPage(), $this->is_admin_panel);
+        if ($sorting_data["folders"][0] && ($sorting_data["folders"]->currentPage() > $sorting_data["folders"]->lastPage())) {
+            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
+                    $sorting_data["folders"]->lastPage(), $this->is_admin_panel);
         } else {
             return view('adminpages.adminfolders')->with([
                 //Below main website links.
@@ -56,8 +60,9 @@ class AdminArticlesController extends Controller
                 //Below main admin panel links.
                 'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => __('keywords.'.$this->current_page),
-                'folders' => $folders,
+                'folders' => $sorting_data["folders"],
                 'items_amount_per_page' => $items_amount_per_page,
+                'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
                 //If we open just a root path of Folders, we won't have any parent keyword,
                 //to avoid an exception we will assign it 0.
                 'parent_keyword' => "0",

@@ -41,15 +41,61 @@ class ArticleForView {
 
 class ArticlesRepository {
     
-    public function getAllFolders($items_amount_per_page, $including_invisible){     
+    //Apparently this method has to become private later!
+    //The null below for the last two arguments is just temporary!
+    public function getAllFolders($items_amount_per_page, $including_invisible, $sort_by_field = null, $asc_desc = null){     
         if ($including_invisible) {
-            $folder_links = Folder::where('included_in_folder_with_id', '=', NULL)->orderBy('created_at','DESC')
+            //The condition below is just temporary!
+            $folder_links = Folder::where('included_in_folder_with_id', '=', NULL)
+                            ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')
                             ->paginate($items_amount_per_page);
         } else {
+            //The condition below is just temporary!
             $folder_links = Folder::where('included_in_folder_with_id', '=', NULL)->where('is_visible', '=', 1)
-                            ->orderBy('created_at','DESC')->paginate($items_amount_per_page);
+                            ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->paginate($items_amount_per_page);
         }      
         return $folder_links;
+    }
+    
+    //The method below is to sort folders in different modes.
+    public function sort($items_amount_per_page, $sorting_mode, $including_invisible) {
+        //This array is required to show sorting arrows properly.
+        $sorting_asc_or_desc = ["Name" => ["desc" , 0], "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];
+        
+        $folders = null;
+        
+        switch ($sorting_mode) {
+            case ('articles_sort_by_name_desc'):
+                $folders = $this->getAllFolders($items_amount_per_page, $including_invisible, 'folder_name', 'desc');
+                $sorting_asc_or_desc["Name"] = ["asc" , 1];
+                break;
+            case ('articles_sort_by_name_asc'):
+                $folders = $this->getAllFolders($items_amount_per_page, $including_invisible, 'folder_name', 'asc');
+                $sorting_asc_or_desc["Name"] = ["desc" , 1];
+                break;
+            case ('articles_sort_by_creation_desc'):
+                $folders = $this->getAllFolders($items_amount_per_page, $including_invisible, 'created_at', 'desc');
+                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
+                break;
+            case ('articles_sort_by_creation_asc'):
+                $folders = $this->getAllFolders($items_amount_per_page, $including_invisible, 'created_at', 'asc');
+                $sorting_asc_or_desc["Creation"] = ["desc" , 1];
+                break;
+            case ('articles_sort_by_update_desc'):
+                $folders = $this->getAllFolders($items_amount_per_page, $including_invisible, 'updated_at', 'desc');
+                $sorting_asc_or_desc["Update"] = ["asc" , 1];
+                break;
+            case ('articles_sort_by_update_asc'):
+                $folders = $this->getAllFolders($items_amount_per_page, $including_invisible, 'updated_at', 'asc');
+                $sorting_asc_or_desc["Update"] = ["desc" , 1];
+                break;
+            default:
+                $folders = $this->getAllFolders($items_amount_per_page, $including_invisible, 'created_at', 'desc');
+                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
+        }     
+        return ["folders" => $folders, "sorting_asc_or_desc" => $sorting_asc_or_desc];
     }
     
     //We need the method below to clutter down the method in controller, which

@@ -1159,6 +1159,27 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
 .admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
+.admin-panel-articles-article-and-folder-header-text-and-caret-wrapper .admin-panel-articles-article-and-folder-header-caret 
+.admin-panel-articles-article-and-folder-header-caret-used {
+    color: white;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
+.admin-panel-articles-article-and-folder-header-text-and-caret-wrapper .admin-panel-articles-article-and-folder-header-caret 
+.admin-panel-articles-article-and-folder-header-caret-unused {
+    color: #87888c;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
+.admin-panel-articles-article-and-folder-header-text-and-caret-wrapper .admin-panel-articles-article-and-folder-header-caret 
+.admin-panel-articles-article-and-folder-header-caret-unused:hover  {
+    color: #afccfa;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
 .admin-panel-articles-article-and-folder-header-text-and-caret-wrapper .admin-panel-articles-article-and-folder-header-caret:hover {
     cursor: pointer;
 }

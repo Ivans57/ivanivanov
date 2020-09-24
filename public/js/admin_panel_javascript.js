@@ -676,6 +676,31 @@ $( document ).ready(function() {
      });     
 });
 
+    //Sorting by name.
+    $( "#articles_sort_by_name" ).click(function() {
+        articles_sort("articles_sort_by_name");
+    });
+    
+    //Sorting by creation date and time.
+    $( "#articles_sort_by_creation" ).click(function() {
+        articles_sort("articles_sort_by_creation");
+    });
+    
+    //Sorting by update date and time.
+    $( "#articles_sort_by_update" ).click(function() {
+        articles_sort("articles_sort_by_update");
+    });
+    
+    //The function below is making a link to do sorting and going to it.
+    function articles_sort(sorting_method) {
+        var checkbox = document.querySelector('.admin-panel-articles-article-and-folder-checkbox');
+        //If it is an english localization, we don't need to show it, because it is a default localization.
+        var localization = (checkbox.dataset.localization === "en") ? "" : "/ru";
+        var current_sorting_method = document.querySelector('#'+sorting_method);
+        var url = localization+"/admin/articles/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
+        window.location.href = url;
+    }
+
 /*--------------------------------------------------------*/
 
 /*Scripts for Admin Panel Keywords*/

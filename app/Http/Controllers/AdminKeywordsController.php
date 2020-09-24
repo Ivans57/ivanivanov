@@ -39,7 +39,8 @@ class AdminKeywordsController extends Controller
     public function index($sorting_mode = null) {      
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);       
         $items_amount_per_page = 14;
-               
+        
+        //In the next line the data are getting extracted from the database and sorted.
         $sorting_data = $this->keywords->sort($items_amount_per_page, $sorting_mode);
 
         //Below we need to do the check if entered page number is more than
@@ -54,9 +55,9 @@ class AdminKeywordsController extends Controller
                 //Below main admin panel links.
                 'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => __('keywords.'.$this->current_page),
-                'keywords' => $sorting_data["keywords"],//$keywords,
+                'keywords' => $sorting_data["keywords"],
                 'items_amount_per_page' => $items_amount_per_page,
-                'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"]//$sorting_asc_or_desc
+                'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"]
             ]);
         }
     }

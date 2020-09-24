@@ -269,11 +269,11 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Folders
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles', 'AdminArticlesController@index');
+    Route::get('admin/articles/{sorting_mode?}', 'AdminArticlesController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles', 'AdminArticlesController@index');
+    Route::get('admin/articles/{sorting_mode?}', 'AdminArticlesController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {
