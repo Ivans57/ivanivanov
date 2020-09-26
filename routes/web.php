@@ -277,11 +277,11 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/page/{page}', 'AdminArticlesController@showFolder');
+    Route::get('admin/articles/{keyword}/page/{page}/{sorting_mode?}', 'AdminArticlesController@showFolder');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/page/{page}', 'AdminArticlesController@showFolder');
+    Route::get('admin/articles/{keyword}/page/{page}/{sorting_mode?}', 'AdminArticlesController@showFolder');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

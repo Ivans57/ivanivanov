@@ -42,7 +42,7 @@ class AdminArticlesController extends Controller
         $items_amount_per_page = 14;
         
         //In the next line the data are getting extracted from the database and sorted.
-        $sorting_data = $this->folders->sort($items_amount_per_page, $sorting_mode, 1);
+        $sorting_data = $this->folders->sort($items_amount_per_page, $sorting_mode, 1, 'folders');
         
         //On the line below we are fetching all articles from the database.
         //$folders = $this->folders->getAllFolders($items_amount_per_page, 1);
@@ -70,7 +70,7 @@ class AdminArticlesController extends Controller
         }
     }
     
-    public function showFolder($keyword, $page) {
+    public function showFolder($keyword, $page, $sorting_mode = null) {
         
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
         
@@ -79,7 +79,7 @@ class AdminArticlesController extends Controller
               
         //We need to call the method below to clutter down current method in controller
         return $this->folders->showFolderView(Str::lower($this->current_page), 
-                                                $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1);
+                                            $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1, $sorting_mode);
     }
     
     public function create($parent_keyword) {      
