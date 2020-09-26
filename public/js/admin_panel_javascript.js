@@ -523,7 +523,7 @@ $( document ).ready(function() {
         }
         if (selected_checkbox_data.length > 0) {
             var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
-            var url = localization+'/admin/articles/'+selected_checkbox_data;  
+            var url = localization+'/admin/articles/delete/'+selected_checkbox_data;  
             
             //Delete window will have different heights depends on what entites and how many of them are in there.
             var window_height = get_delete_folder_and_article_window_height(directories, files, localization);                                            

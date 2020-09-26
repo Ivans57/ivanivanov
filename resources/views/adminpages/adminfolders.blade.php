@@ -6,8 +6,8 @@
     <div class="admin-panel-articles-control-buttons">
         <div class="admin-panel-articles-add-article-folder-wrapper">
             <div class="admin-panel-articles-add-folder-button">
-                <a href='articles/create/{{ $parent_keyword }}' class="admin-panel-articles-add-folder-button-link"
-                   data-fancybox data-type="iframe">@lang('keywords.AddFolder')</a>
+                <a href='{{ App::isLocale('en') ? "/admin/articles/create/".$parent_keyword : "/ru/admin/articles/create/".$parent_keyword }}' 
+                   class="admin-panel-articles-add-folder-button-link" data-fancybox data-type="iframe">@lang('keywords.AddFolder')</a>
             </div>
         </div>
         <div class="admin-panel-articles-article-and-folder-control-buttons">
@@ -113,7 +113,8 @@
                              'class' => 'admin-panel-articles-article-and-folder-checkbox']); !!}
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
-                            <a href="articles/{{ $folder->keyword }}/page/1">
+                            <a href='{{ App::isLocale('en') ? "/admin/articles/".$folder->keyword."/page/1" : 
+                                        "/ru/admin/articles/".$folder->keyword."/page/1" }}'>
                                 <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
                                     <div>
                                         <img src="{{ ($folder->is_visible==1) ? URL::asset('images/icons/regular_folder_small.png') : 

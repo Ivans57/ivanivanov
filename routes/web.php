@@ -268,6 +268,9 @@ Route::group(['middleware' => 'locale'], function() {
 //Articles and Folders
 
 //Folders
+
+
+//sorting_mode argument is optional. It is required only for sorting.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles/{sorting_mode?}', 'AdminArticlesController@index');
 });
@@ -316,12 +319,13 @@ Route::group(['middleware' => 'locale'], function() {
     Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
 });
 
+//Delete will be the same for folders and articles.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/{entity_types_and_keywords}', 'AdminArticlesController@delete');
+    Route::get('admin/articles/delete/{entity_types_and_keywords}', 'AdminArticlesController@delete');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{entity_types_and_keywords}', 'AdminArticlesController@delete');
+    Route::get('admin/articles/delete/{entity_types_and_keywords}', 'AdminArticlesController@delete');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
