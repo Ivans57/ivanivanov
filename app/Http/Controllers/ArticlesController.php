@@ -73,12 +73,6 @@ class ArticlesController extends Controller
         
         $article = $this->folders->getArticle($keyword);
         
-        //We will always take zero element from the array below, because we will always
-        //have only one element in the array as the keyword is unique.
-        
-        //Here I unsuccesfully attempted to use html tags which I kept in text in database.
-        //$article_body = htmlspecialchars_decode($article[0]->article_body, ENT_HTML5);
-        
         return view('pages.article')->with([
             'main_links' => $main_links,
             'headTitle' => $article->article->article_title,

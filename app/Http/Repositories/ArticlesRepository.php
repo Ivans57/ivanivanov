@@ -46,10 +46,7 @@ class ArticlesRepository {
     //The null below for the last two arguments is just temporary!
     public function getAllLevelZeroFolders($items_amount_per_page, $including_invisible, $sort_by_field = null, $asc_desc = null){     
         if ($including_invisible) {
-            //The condition below is just temporary!
-            /*Folder::where('included_in_folder_with_id', '=', $folder->id)
-                    ->orderBy('created_at','DESC')->get(), $included_articles);*/
-            
+            //The condition below is just temporary!            
             $folder_links = Folder::where('included_in_folder_with_id', '=', NULL)
                             ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
                             ($asc_desc) ? $asc_desc : 'desc')
@@ -68,116 +65,68 @@ class ArticlesRepository {
         //This array is required to show sorting arrows properly.
         $sorting_asc_or_desc = ["Name" => ["desc" , 0], "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];
         
-        //Need to rename this variable to entity(?).
-        $folders = null;
+        $folders_or_articles = null;
         
         switch ($sorting_mode) {
             case ('articles_sort_by_name_desc'):
-                switch ($what_to_sort) {
-                    case ('folders'):
-                        $folders = $this->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, 'folder_name', 'desc');
-                        break;
-                    case ('included_folders'):
-                        $folders = $this->getIncludedFolders($parent_folder, $including_invisible, 'folder_name', 'desc');
-                        break;
-                    case ('included_articles'):
-                        $folders = $this->getIncludedArticles($parent_folder, $including_invisible, 'article_title', 'desc');
-                        break;
-                }
+                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'desc', $parent_folder);
                 $sorting_asc_or_desc["Name"] = ["asc" , 1];
                 break;
             case ('articles_sort_by_name_asc'):
-                switch ($what_to_sort) {
-                    case ('folders'):
-                        $folders = $this->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, 'folder_name', 'asc');
-                        break;
-                    case ('included_folders'):
-                        $folders = $this->getIncludedFolders($parent_folder, $including_invisible, 'folder_name', 'asc');
-                        break;
-                    case ('included_articles'):
-                        $folders = $this->getIncludedArticles($parent_folder, $including_invisible, 'article_title', 'asc');
-                        break;
-                }
+                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'asc', $parent_folder);
                 $sorting_asc_or_desc["Name"] = ["desc" , 1];
                 break;
             case ('articles_sort_by_creation_desc'):
-                switch ($what_to_sort) {
-                    case ('folders'):
-                        $folders = $this->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, 'created_at', 'desc');
-                        break;
-                    case ('included_folders'):
-                        $folders = $this->getIncludedFolders($parent_folder, $including_invisible, 'created_at', 'desc');
-                        break;
-                    case ('included_articles'):
-                        $folders = $this->getIncludedArticles($parent_folder, $including_invisible, 'created_at', 'desc');
-                        break;
-                }
+                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'desc', $parent_folder);
                 $sorting_asc_or_desc["Creation"] = ["asc" , 1];
                 break;
             case ('articles_sort_by_creation_asc'):
-                switch ($what_to_sort) {
-                    case ('folders'):
-                        $folders = $this->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, 'created_at', 'asc');
-                        break;
-                    case ('included_folders'):
-                        $folders = $this->getIncludedFolders($parent_folder, $including_invisible, 'created_at', 'asc');
-                        break;
-                    case ('included_articles'):
-                        $folders = $this->getIncludedArticles($parent_folder, $including_invisible, 'created_at', 'asc');
-                        break;
-                }
+                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'asc', $parent_folder);
                 $sorting_asc_or_desc["Creation"] = ["desc" , 1];
                 break;
             case ('articles_sort_by_update_desc'):
-                switch ($what_to_sort) {
-                    case ('folders'):
-                        $folders = $this->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, 'updated_at', 'desc');
-                        break;
-                    case ('included_folders'):
-                        $folders = $this->getIncludedFolders($parent_folder, $including_invisible, 'updated_at', 'desc');
-                        break;
-                    case ('included_articles'):
-                        $folders = $this->getIncludedArticles($parent_folder, $including_invisible, 'updated_at', 'desc');
-                        break;
-                }
+                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'updated_at', 'desc', $parent_folder);
                 $sorting_asc_or_desc["Update"] = ["asc" , 1];
                 break;
             case ('articles_sort_by_update_asc'):
-                switch ($what_to_sort) {
-                    case ('folders'):
-                        $folders = $this->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, 'updated_at', 'asc');
-                        break;
-                    case ('included_folders'):
-                        $folders = $this->getIncludedFolders($parent_folder, $including_invisible, 'updated_at', 'asc');
-                        break;
-                    case ('included_articles'):
-                        $folders = $this->getIncludedArticles($parent_folder, $including_invisible, 'updated_at', 'asc');
-                        break;
-                }
+                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'updated_at', 'asc', $parent_folder);
                 $sorting_asc_or_desc["Update"] = ["desc" , 1];
                 break;
             default:
-                switch ($what_to_sort) {
-                    case ('folders'):
-                        $folders = $this->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, 'created_at', 'desc');
-                        break;
-                    case ('included_folders'):
-                        $folders = $this->getIncludedFolders($parent_folder, $including_invisible, 'created_at', 'desc');
-                        break;
-                    case ('included_articles'):
-                        $folders = $this->getIncludedArticles($parent_folder, $including_invisible, 'created_at', 'desc');
-                        break;
-                }
+                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'desc', $parent_folder);
                 $sorting_asc_or_desc["Creation"] = ["asc" , 1];
         }     
-        return ["folders" => $folders, "sorting_asc_or_desc" => $sorting_asc_or_desc];
+        return ["folders_or_articles" => $folders_or_articles, "sorting_asc_or_desc" => $sorting_asc_or_desc];
+    }
+    
+    //This function is required to simplify sort function.
+    public function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_folder = null) {
+        $folders_or_articles = null;
+        switch ($what_to_sort) {
+            case ('folders'):
+                $folders_or_articles = $this->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('included_folders'):
+                $folders_or_articles = $this->getIncludedFolders($parent_folder, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('included_articles'):
+                $folders_or_articles = $this->getIncludedArticles($parent_folder, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+        }
+        return $folders_or_articles;
     }
     
     //We need the method below to clutter down the method in controller, which
     //is responsible for showing some separate album.
     public function showFolderView($section, $page, $keyword, $items_amount_per_page, $main_links, 
-                                    $is_admin_panel, $including_invisible, $sorting_mode = null) {
-        
+                                    $is_admin_panel, $including_invisible, $sorting_mode = null) {       
         $common_repository = new CommonRepository();
         //The condition below fixs a problem when user enters as a number of page some number less then 1.
         if ($page < 1) {
@@ -196,13 +145,20 @@ class ArticlesRepository {
     //We need the method below to clutter down showFolderView method
     private function get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
         if ($is_admin_panel) {
-            return view('adminpages.adminfolder')->with([
+            return $this->get_view_for_admin_panel($keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);
+        } else {
+            return $this->get_view_for_website($section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);                   
+        }
+    }
+    
+    //The function below is required to simplify get_view function.
+    private function get_view_for_admin_panel($keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
+        return view('adminpages.adminfolder')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.
                 'main_ap_links' => $main_links->mainAPLinks,
-                'headTitle' => $folders_and_articles_full_info->head_title,
-                //'folderName' => $folders_and_articles_full_info->folder_name,           
+                'headTitle' => $folders_and_articles_full_info->head_title,          
                 'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
                 'sorting_asc_or_desc' => $folders_and_articles_full_info->sorting_asc_or_desc,
                 'parents' => $folders_and_articles_full_info->folderParents,
@@ -213,8 +169,11 @@ class ArticlesRepository {
                 'section' => $section,
                 'parent_keyword' => $keyword
                 ]);
-        } else {
-            return view('pages.folder')->with([
+    }
+    
+    //The function below is required to simplify get_view function.
+    private function get_view_for_website($section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
+        return view('pages.folder')->with([
                 'main_links' => $main_links,
                 'headTitle' => $folders_and_articles_full_info->head_title,
                 'folderName' => $folders_and_articles_full_info->folder_name,           
@@ -225,8 +184,7 @@ class ArticlesRepository {
                 'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
                 'section' => $section
-                ]);                   
-        }
+                ]);
     }
     
     //This function returns all folders of some level elements except for 0 level elements.
@@ -258,45 +216,22 @@ class ArticlesRepository {
         //for every single record we will always have only one item, which is
         //the first one and the last one.
         //We are choosing the album we are working with at the current moment 
-        $folder = Folder::where('keyword', $keyword)->first();
-        
+        $folder = Folder::where('keyword', $keyword)->first();       
         $nesting_level = FolderData::where('items_id', $folder->id)->select('nesting_level')->first();
-               
-        /*if ($including_invisible) {
-            $included_articles = Article::where('folder_id', $folder->id)->orderBy('created_at','DESC')->get();
-        } else {
-            $included_articles = Article::where('folder_id', $folder->id)->where('is_visible', '=', 1)
-                    ->orderBy('created_at','DESC')->get();
-        }*/
         
-        $included_folders = $this->sort($items_amount_per_page, $sorting_mode, $including_invisible, 'included_folders', $folder);
-        
+        $included_folders = $this->sort($items_amount_per_page, $sorting_mode, $including_invisible, 'included_folders', $folder);        
         $included_articles = $this->sort($items_amount_per_page, $sorting_mode, $including_invisible, 'included_articles', $folder);
         
-        $folders_and_articles_full = $this->get_included_folders_and_articles($included_folders["folders"], $included_articles["folders"]);
-        
         //Here we are calling method which will merge all articles and folders from selected folder into one array.
-        /*if ($including_invisible) {
-            $folders_and_articles_full = $this->get_included_folders_and_articles(
-                    Folder::where('included_in_folder_with_id', '=', $folder->id)
-                    ->orderBy('created_at','DESC')->get(), $included_articles);
-        } else {
-            $folders_and_articles_full = $this->get_included_folders_and_articles(
-                    Folder::where('included_in_folder_with_id', '=', $folder->id)->where('is_visible', '=', 1)
-                    ->orderBy('created_at','DESC')->get(), $included_articles);
-        }*/
-        
-        //As we don't need to show all the items from the array above on the 
-        //same page, we will take only first 20 items to show
-        //Also we will need some variables for paginator
-        
+        $folders_and_articles_full = $this->get_included_folders_and_articles($included_folders["folders_or_articles"], 
+                                        $included_articles["folders_or_articles"]);
+         
         //We need the object below which will contatin an array of needed folders 
         //and pictures and also some necessary data for pagination, which we will 
         //pass with this object's properties.
         $folders_and_articles_full_info = new FolderAndArticleForViewFullInfoForPage();
         $folders_and_articles_full_info->sorting_asc_or_desc = $included_folders["sorting_asc_or_desc"];
-        
-        
+                
         $folders_and_articles_full_info->folderNestingLevel = $nesting_level->nesting_level;
         
         //Below we need to check if the folder has any parent folder.
@@ -308,7 +243,8 @@ class ArticlesRepository {
             $folders_and_articles_full_info->folderParents = 0;
         }
         else {
-            $folders_and_articles_full_info->folderParents = array_reverse($this->get_folders_and_articles_parents_for_view($folder->included_in_folder_with_id));
+            $folders_and_articles_full_info->folderParents = array_reverse(
+                    $this->get_folders_and_articles_parents_for_view($folder->included_in_folder_with_id));
         }
         
         //We need this to know if we will have any article on the page.

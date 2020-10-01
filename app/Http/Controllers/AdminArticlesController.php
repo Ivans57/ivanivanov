@@ -50,8 +50,9 @@ class AdminArticlesController extends Controller
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
-        if ($sorting_data["folders"][0] && ($sorting_data["folders"]->currentPage() > $sorting_data["folders"]->lastPage())) {
-            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
+        if ($sorting_data["folders_or_articles"][0] && 
+                ($sorting_data["folders_or_articles"]->currentPage() > $sorting_data["folders_or_articles"]->lastPage())) {
+                    return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
                     $sorting_data["folders"]->lastPage(), $this->is_admin_panel);
         } else {
             return view('adminpages.adminfolders')->with([
@@ -60,7 +61,7 @@ class AdminArticlesController extends Controller
                 //Below main admin panel links.
                 'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => __('keywords.'.$this->current_page),
-                'folders' => $sorting_data["folders"],
+                'folders' => $sorting_data["folders_or_articles"],
                 'items_amount_per_page' => $items_amount_per_page,
                 'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
                 //If we open just a root path of Folders, we won't have any parent keyword,
