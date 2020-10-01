@@ -137,22 +137,26 @@ class ArticlesRepository {
             if ($page > $folders_and_articles_full_info->paginator_info->number_of_pages) {
                 return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $folders_and_articles_full_info->paginator_info->number_of_pages, $is_admin_panel);
             } else {                
-                return $this->get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);
+                return $this->get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
+                                        $items_amount_per_page, $sorting_mode);
             }
         }
     }
     
     //We need the method below to clutter down showFolderView method
-    private function get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
+    private function get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
+                                $items_amount_per_page, $sorting_mode = null) {
         if ($is_admin_panel) {
-            return $this->get_view_for_admin_panel($keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);
+            return $this->get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
+                                                    $items_amount_per_page, $sorting_mode);
         } else {
-            return $this->get_view_for_website($section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);                   
+            return $this->get_view_for_website($is_admin_panel, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);                   
         }
     }
     
     //The function below is required to simplify get_view function.
-    private function get_view_for_admin_panel($keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
+    private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
+                                                $items_amount_per_page, $sorting_mode = null) {
         return view('adminpages.adminfolder')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
@@ -167,12 +171,15 @@ class ArticlesRepository {
                 'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
                 'section' => $section,
-                'parent_keyword' => $keyword
+                'parent_keyword' => $keyword,
+                'sorting_mode' => $sorting_mode,
+                //is_admin_panel is required for paginator.
+                'is_admin_panel' => $is_admin_panel
                 ]);
     }
     
     //The function below is required to simplify get_view function.
-    private function get_view_for_website($section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
+    private function get_view_for_website($is_admin_panel, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
         return view('pages.folder')->with([
                 'main_links' => $main_links,
                 'headTitle' => $folders_and_articles_full_info->head_title,
@@ -183,7 +190,11 @@ class ArticlesRepository {
                 'pagination_info' => $folders_and_articles_full_info->paginator_info,
                 'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
-                'section' => $section
+                'section' => $section,
+                //Variable below needs to be corrected later.
+                'sorting_mode' => null,
+                //is_admin_panel is required for paginator.
+                'is_admin_panel' => $is_admin_panel
                 ]);
     }
     
@@ -259,7 +270,8 @@ class ArticlesRepository {
             //The line below cuts all data into pages
             //We can do it only if we have at least one item in the array of the full data
             $folders_and_articles_full_cut_into_pages = array_chunk($folders_and_articles_full, $items_amount_per_page, false);
-            $folders_and_articles_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, $folders_and_articles_full_cut_into_pages);
+            $folders_and_articles_full_info->paginator_info = (new CommonRepository())
+                                                                ->get_paginator_info($page, $folders_and_articles_full_cut_into_pages);
             //We need to do the check below in case user enters a page number more tha actual number of pages,
             //so we can avoid an error.
             if ($folders_and_articles_full_info->paginator_info->number_of_pages >= $page) {

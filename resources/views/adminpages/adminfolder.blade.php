@@ -190,7 +190,8 @@
         </div>
         @if ($total_number_of_items > $items_amount_per_page)
             <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
-            @component('multy_entity_paginator', ['pagination_info' => $pagination_info])
+            @component('multy_entity_paginator', ['pagination_info' => $pagination_info, 'section' => $section, 
+                       'parent_keyword' => $parent_keyword, 'sorting_mode' => $sorting_mode, 'is_admin_panel' => $is_admin_panel])
             @endcomponent
         @endif
     @else
