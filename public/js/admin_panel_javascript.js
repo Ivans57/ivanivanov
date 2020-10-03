@@ -703,7 +703,7 @@ $( document ).ready(function() {
         var current_sorting_method = document.querySelector('#'+sorting_method);
         if (is_level_zero === "1") {
             var url = localization+"/admin/articles/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
-        } else {//admin/articles/{keyword}/page/{page}
+        } else {
             var url = localization+"/admin/articles/"+keyword+"/page/1/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
         }
         window.location.href = url;

@@ -203,7 +203,8 @@ class AlbumsRepository {
     }
     
     //We need the method below to clutter down showAlbumView method
-    private function get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, $items_amount_per_page) {
+    private function get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, 
+                                $items_amount_per_page, $sorting_mode = null) {
         if ($is_admin_panel) {
             return view('adminpages.adminalbum')->with([
                 //Below main website links.
@@ -219,7 +220,10 @@ class AlbumsRepository {
                 'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
                 'section' => $section,
-                'parent_keyword' => $keyword
+                'parent_keyword' => $keyword,
+                'sorting_mode' => $sorting_mode,
+                //is_admin_panel is required for paginator.
+                'is_admin_panel' => $is_admin_panel
                 ]);
         } else {
             return view('pages.album')->with([
@@ -231,7 +235,12 @@ class AlbumsRepository {
                 'pagination_info' => $albums_and_pictures_full_info->paginator_info,
                 'total_number_of_items' => $albums_and_pictures_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
-                'section' => $section
+                'section' => $section,
+                'parent_keyword' => $keyword,
+                //Variable below needs to be corrected later.
+                'sorting_mode' => null,
+                //is_admin_panel is required for paginator.
+                'is_admin_panel' => $is_admin_panel
                 ]);                   
         }
     }
