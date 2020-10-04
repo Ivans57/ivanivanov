@@ -40,19 +40,86 @@ class AlbumAndPictureForViewFullInfoForPage {
 
 
 class AlbumsRepository {
-    
-    public function getAllAlbums($items_amount_per_page, $including_invisible) {
-        
+       
+    //Apparently this method has to become private later!
+    //The null below for the last two arguments is just temporary!
+    public function getAllLevelZeroAlbums($items_amount_per_page, $including_invisible, $sort_by_field = null, $asc_desc = null) {      
         if ($including_invisible) {
-            $album_links = Album::where('included_in_album_with_id', '=', NULL)->orderBy('created_at','DESC')
-                            ->paginate($items_amount_per_page);
+            $album_links = Album::where('included_in_album_with_id', '=', NULL)
+                           ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                           ($asc_desc) ? $asc_desc : 'desc')
+                           ->paginate($items_amount_per_page);
         } else {
             $album_links = Album::where('included_in_album_with_id', '=', NULL)->where('is_visible', '=', 1)
-                            ->orderBy('created_at','DESC')->paginate($items_amount_per_page);
+                           ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                           ($asc_desc) ? $asc_desc : 'desc')->paginate($items_amount_per_page);
         }
         return $album_links;
     }
-       
+    
+    //The method below is to sort albums and pictures in different modes.
+    public function sort($items_amount_per_page, $sorting_mode, $including_invisible, $what_to_sort, $parent_album = null) {
+        //This array is required to show sorting arrows properly.
+        $sorting_asc_or_desc = ["Name" => ["desc" , 0], "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];
+        
+        $albums_or_pictures = null;
+        
+        switch ($sorting_mode) {
+            case ('albums_sort_by_name_desc'):
+                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'desc', $parent_album);
+                $sorting_asc_or_desc["Name"] = ["asc" , 1];
+                break;
+            case ('albums_sort_by_name_asc'):
+                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'asc', $parent_album);
+                $sorting_asc_or_desc["Name"] = ["desc" , 1];
+                break;
+            case ('albums_sort_by_creation_desc'):
+                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'desc', $parent_album);
+                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
+                break;
+            case ('albums_sort_by_creation_asc'):
+                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'asc', $parent_album);
+                $sorting_asc_or_desc["Creation"] = ["desc" , 1];
+                break;
+            case ('albums_sort_by_update_desc'):
+                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'updated_at', 'desc', $parent_album);
+                $sorting_asc_or_desc["Update"] = ["asc" , 1];
+                break;
+            case ('albums_sort_by_update_asc'):
+                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'updated_at', 'asc', $parent_album);
+                $sorting_asc_or_desc["Update"] = ["desc" , 1];
+                break;
+            default:
+                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'desc', $parent_album);
+                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
+        }     
+        return ["albums_or_pictures" => $albums_or_pictures, "sorting_asc_or_desc" => $sorting_asc_or_desc];
+    }
+    
+    //This function is required to simplify sort function.
+    public function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_album = null) {
+        $albums_or_pictures = null;
+        switch ($what_to_sort) {
+            case ('albums'):
+                $albums_or_pictures = $this->getAllLevelZeroAlbums($items_amount_per_page, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('included_albums'):
+                $albums_or_pictures = $this->getIncludedAlbums($parent_album, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('included_pictures'):
+                $albums_or_pictures = $this->getIncludedPictures($parent_album, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+        }
+        return $albums_or_pictures;
+    }
+    
     //We need the method below to clutter down the method in controller, which
     //is responsible for showing some separate album
     public function showAlbumView($section, $page, $keyword, $items_amount_per_page, $main_links, $is_admin_panel, $including_invisible) {

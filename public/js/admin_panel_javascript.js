@@ -205,7 +205,7 @@ $( document ).ready(function() {
         }
         if (selected_checkbox_data.length > 0) {
             var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
-            var url = localization+'/admin/albums/'+selected_checkbox_data;  
+            var url = localization+'/admin/albums/delete/'+selected_checkbox_data;  
             
             //Delete window will have different heights depends on what entites and how many of them are in there.
             var window_height = get_delete_album_and_picture_window_height(directories, files, localization);
@@ -359,6 +359,42 @@ $( document ).ready(function() {
      });
 });
 
+//Sorting by name.
+$( "#albums_sort_by_name" ).click(function() {
+    var current_element = document.querySelector('#albums_sort_by_name');
+    //The last parameter have only included items.
+    albums_sort("albums_sort_by_name", current_element.dataset.is_level_zero, current_element.dataset.parent_keyword);
+});
+    
+//Sorting by creation date and time.
+$( "#albums_sort_by_creation" ).click(function() {
+    var current_element = document.querySelector('#albums_sort_by_creation');
+    //The last parameter have only included items.
+    albums_sort("albums_sort_by_creation", current_element.dataset.is_level_zero, current_element.dataset.parent_keyword);
+});
+    
+//Sorting by update date and time.
+$( "#albums_sort_by_update" ).click(function() {
+    var current_element = document.querySelector('#albums_sort_by_update');
+    //The last parameter have only included items.
+    albums_sort("albums_sort_by_update", current_element.dataset.is_level_zero, current_element.dataset.parent_keyword);
+});
+    
+//The function below is making a link to do sorting and going to it.
+//For elements on level 0 and for different level elements will be different links, for that reason we need that parameter.
+//The last parameter have only included items.
+function albums_sort(sorting_method, is_level_zero, keyword) {
+    var checkbox = document.querySelector('.admin-panel-albums-picture-and-album-checkbox');
+    //If it is an english localization, we don't need to show it, because it is a default localization.
+    var localization = (checkbox.dataset.localization === "en") ? "" : "/ru";
+    var current_sorting_method = document.querySelector('#'+sorting_method);
+    if (is_level_zero === "1") {
+        var url = localization+"/admin/albums/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
+    } else {
+        var url = localization+"/admin/albums/"+keyword+"/page/1/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
+    }
+    window.location.href = url;
+}
 /*--------------------------------------------------------*/
 
 /*Scripts for Admin Panel Articles*/
@@ -676,38 +712,42 @@ $( document ).ready(function() {
      });     
 });
 
-    //Sorting by name.
-    $( "#articles_sort_by_name" ).click(function() {
-        var current_element = document.querySelector('#articles_sort_by_name');
-        articles_sort("articles_sort_by_name", current_element.dataset.is_level_zero, current_element.dataset.parent_keyword);
-    });
+//Sorting by name.
+$( "#articles_sort_by_name" ).click(function() {
+    var current_element = document.querySelector('#articles_sort_by_name');
+    //The last parameter have only included items.
+    articles_sort("articles_sort_by_name", current_element.dataset.is_level_zero, current_element.dataset.parent_keyword);
+});
     
-    //Sorting by creation date and time.
-    $( "#articles_sort_by_creation" ).click(function() {
-        var current_element = document.querySelector('#articles_sort_by_name');
-        articles_sort("articles_sort_by_creation", current_element.dataset.is_level_zero, current_element.dataset.parent_keyword);
-    });
+//Sorting by creation date and time.
+$( "#articles_sort_by_creation" ).click(function() {
+    var current_element = document.querySelector('#articles_sort_by_creation');
+    //The last parameter have only included items.
+    articles_sort("articles_sort_by_creation", current_element.dataset.is_level_zero, current_element.dataset.parent_keyword);
+});
     
-    //Sorting by update date and time.
-    $( "#articles_sort_by_update" ).click(function() {
-        var current_element = document.querySelector('#articles_sort_by_name');
-        articles_sort("articles_sort_by_update", current_element.dataset.is_level_zero, current_element.dataset.parent_keyword);
-    });
+//Sorting by update date and time.
+$( "#articles_sort_by_update" ).click(function() {
+    var current_element = document.querySelector('#articles_sort_by_creation');
+    //The last parameter have only included items.
+    articles_sort("articles_sort_by_update", current_element.dataset.is_level_zero, current_element.dataset.parent_keyword);
+});
     
-    //The function below is making a link to do sorting and going to it.
-    //For elements on level 0 and for different level elements will be different links, for that reason we need that parameter.
-    function articles_sort(sorting_method, is_level_zero, keyword) {
-        var checkbox = document.querySelector('.admin-panel-articles-article-and-folder-checkbox');
-        //If it is an english localization, we don't need to show it, because it is a default localization.
-        var localization = (checkbox.dataset.localization === "en") ? "" : "/ru";
-        var current_sorting_method = document.querySelector('#'+sorting_method);
-        if (is_level_zero === "1") {
-            var url = localization+"/admin/articles/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
-        } else {
-            var url = localization+"/admin/articles/"+keyword+"/page/1/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
-        }
-        window.location.href = url;
+//The function below is making a link to do sorting and going to it.
+//For elements on level 0 and for different level elements will be different links, for that reason we need that parameter.
+//The last parameter have only included items.
+function articles_sort(sorting_method, is_level_zero, keyword) {
+    var checkbox = document.querySelector('.admin-panel-articles-article-and-folder-checkbox');
+    //If it is an english localization, we don't need to show it, because it is a default localization.
+    var localization = (checkbox.dataset.localization === "en") ? "" : "/ru";
+    var current_sorting_method = document.querySelector('#'+sorting_method);
+    if (is_level_zero === "1") {
+        var url = localization+"/admin/articles/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
+    } else {
+        var url = localization+"/admin/articles/"+keyword+"/page/1/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
     }
+    window.location.href = url;
+}
 
 /*--------------------------------------------------------*/
 

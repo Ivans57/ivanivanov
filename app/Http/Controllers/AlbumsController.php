@@ -47,7 +47,7 @@ class AlbumsController extends Controller {
         $main_links = $this->navigation_bar_obj->get_main_website_links($this->current_page);
         
         $items_amount_per_page = 16;        
-        $album_links = $this->albums->getAllAlbums($items_amount_per_page, 0);
+        $album_links = $this->albums->getAllLevelZeroAlbums($items_amount_per_page, 0);
         
         //$check = $album_links[0];
 

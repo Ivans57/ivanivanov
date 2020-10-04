@@ -35,20 +35,24 @@ class AdminAlbumsController extends Controller
         $this->is_admin_panel = true;
     }
     
-    public function index() {
+    public function index($sorting_mode = null) {
         //For some lines e.g. two lines below which are getting repeated need to apply inheritance mechanism!
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
-        $items_amount_per_page = 14;       
-        //On the line below we are fetching all articles from the database
-        $albums = $this->albums->getAllAlbums($items_amount_per_page, 1);
+        $items_amount_per_page = 14;
+        
+        //In the next line the data are getting extracted from the database and sorted.
+        //The fourth parameter is 'albums', because currently we are working with level 0 albums.
+        $sorting_data = $this->albums->sort($items_amount_per_page, $sorting_mode, 1, 'albums');
       
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
-        if ($albums[0] && ($albums->currentPage() > $albums->lastPage())) {
-            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $albums->lastPage(), $this->is_admin_panel);
+        if ($sorting_data["albums_or_pictures"][0] && 
+                ($sorting_data["albums_or_pictures"]->currentPage() > $sorting_data["albums_or_pictures"]->lastPage())) {
+                    return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
+                    $sorting_data["albums_or_pictures"]->lastPage(), $this->is_admin_panel);
         } else {
             return view('adminpages.adminalbums')->with([
             //Below main website links.
@@ -56,11 +60,12 @@ class AdminAlbumsController extends Controller
             //Below main admin panel links.
             'main_ap_links' => $main_links->mainAPLinks,    
             'headTitle' => __('keywords.'.$this->current_page),
-            'albums' => $albums,
+            'albums' => $sorting_data["albums_or_pictures"],
             'items_amount_per_page' => $items_amount_per_page,
+            'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
             //If we open just a root path of Albums we won't have any parent keyword,
             //to avoid an exception we will assign it 0.
-            'parent_keyword' => "0",
+            'parent_keyword' => "0"
             ]);
         }    
     }

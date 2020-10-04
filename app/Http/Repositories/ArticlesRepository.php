@@ -60,7 +60,7 @@ class ArticlesRepository {
         return $folder_links;
     }
     
-    //The method below is to sort folders in different modes.
+    //The method below is to sort folders and articles in different modes.
     public function sort($items_amount_per_page, $sorting_mode, $including_invisible, $what_to_sort, $parent_folder = null) {
         //This array is required to show sorting arrows properly.
         $sorting_asc_or_desc = ["Name" => ["desc" , 0], "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];

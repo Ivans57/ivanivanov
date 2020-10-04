@@ -758,13 +758,34 @@ main {
     margin-left: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; 
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
 .admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field 
 .admin-panel-albums-picture-and-album-header-text-and-caret-wrapper .admin-panel-albums-picture-and-album-header-caret span {
     margin-top: 2px; 
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field 
+.admin-panel-albums-picture-and-album-header-text-and-caret-wrapper .admin-panel-albums-picture-and-album-header-caret 
+.admin-panel-albums-picture-and-album-header-caret-used {
+    color: white;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field 
+.admin-panel-albums-picture-and-album-header-text-and-caret-wrapper .admin-panel-albums-picture-and-album-header-caret 
+.admin-panel-albums-picture-and-album-header-caret-unused {
+    color: #87888c;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field 
+.admin-panel-albums-picture-and-album-header-text-and-caret-wrapper .admin-panel-albums-picture-and-album-header-caret 
+.admin-panel-albums-picture-and-album-header-caret-unused:hover  {
+    color: #afccfa;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
