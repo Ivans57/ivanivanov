@@ -67,7 +67,19 @@
                                 <p>@lang('keywords.Name')</p>
                             </div>
                             <div class="admin-panel-albums-picture-and-album-header-caret">
-                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                                @if ($sorting_asc_or_desc["Name"][0] == "desc")
+                                    <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
+                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                          id="albums_sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
+                                          data-sorting_mode="desc" title='{{ Lang::get("keywords.SortByNameDesc") }}'></span>
+                                @else
+                                    <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
+                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                          id="albums_sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
+                                          data-sorting_mode="asc" title='{{ Lang::get("keywords.SortByNameAsc") }}'></span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -77,7 +89,19 @@
                                 <p>@lang('keywords.DateAndTimeCreated')</p>
                             </div>
                             <div class="admin-panel-albums-picture-and-album-header-caret">
-                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                                @if ($sorting_asc_or_desc["Creation"][0] == "desc")
+                                    <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
+                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                          id="albums_sort_by_creation" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
+                                          data-sorting_mode="desc" title='{{ Lang::get("keywords.SortByCreationDateAndTimeDesc") }}'></span>
+                                @else
+                                    <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
+                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                          id="albums_sort_by_creation" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
+                                          data-sorting_mode="asc" title='{{ Lang::get("keywords.SortByCreationDateAndTimeAsc") }}'></span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -87,7 +111,19 @@
                                 <p>@lang('keywords.DateAndTimeUpdate')</p>
                             </div>
                             <div class="admin-panel-albums-picture-and-album-header-caret">
-                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                                @if ($sorting_asc_or_desc["Update"][0] == "desc")
+                                    <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
+                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                          id="albums_sort_by_update" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
+                                          data-sorting_mode="desc" title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
+                                @else
+                                    <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
+                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                          id="albums_sort_by_update" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
+                                          data-sorting_mode="asc" title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -128,7 +164,8 @@
                                         <div class="admin-panel-albums-pictures-picture">
                                             <div><!-- These div is required to keep normal size of image without deforming it.-->
                                                 <img src="{{ URL::asset($pathToFile.$album_or_picture->fileName) }}" 
-                                                     alt="{{ $album_or_picture->caption }}" style="{{ ($album_or_picture->isVisible==1) ? 'opacity:1' : 'opacity:0.45' }}" 
+                                                     alt="{{ $album_or_picture->caption }}" 
+                                                     style="{{ ($album_or_picture->isVisible==1) ? 'opacity:1' : 'opacity:0.45' }}" 
                                                      class="admin-panel-albums-pictures-picture-image">
                                             </div>
                                         </div>

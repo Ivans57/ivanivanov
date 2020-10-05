@@ -107,7 +107,7 @@ class ArticlesRepository {
     }
     
     //This function is required to simplify sort function.
-    public function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_folder = null) {
+    private function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_folder = null) {
         $folders_or_articles = null;
         switch ($what_to_sort) {
             case ('folders'):

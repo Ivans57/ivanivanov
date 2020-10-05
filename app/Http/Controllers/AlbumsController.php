@@ -55,7 +55,8 @@ class AlbumsController extends Controller {
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
         if ($album_links[0] && ($album_links->currentPage() > $album_links->lastPage())) {
-            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), $album_links->lastPage(), $this->is_admin_panel);
+            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
+                                                                                $album_links->lastPage(), $this->is_admin_panel);
         } else {
             return view('pages.albums')->with([
                 'headTitle' => __('keywords.'.$this->current_page),
@@ -74,7 +75,8 @@ class AlbumsController extends Controller {
         $items_amount_per_page = 20;
         
         //We need to call the method below to clutter down current method in controller
-        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 0);       
+        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, 
+                                                $this->is_admin_panel, 0);       
     }
     
     public function testik(Request $request){

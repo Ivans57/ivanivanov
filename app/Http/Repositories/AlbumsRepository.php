@@ -31,6 +31,7 @@ class AlbumAndPictureForViewFullInfoForPage {
     public $albumsAndPictures;
     public $albumParents;
     public $albumNestingLevel;
+    public $sorting_asc_or_desc;
     //It is better to keep this property here,
     //so in case of empty items array we don't need
     //to make an object.
@@ -104,7 +105,7 @@ class AlbumsRepository {
     }
     
     //This function is required to simplify sort function.
-    public function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_album = null) {
+    private function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_album = null) {
         $albums_or_pictures = null;
         switch ($what_to_sort) {
             case ('albums'):
@@ -120,36 +121,61 @@ class AlbumsRepository {
         return $albums_or_pictures;
     }
     
+    //This function returns all albums of some level elements except for 0 level elements.
+    //There is a separate function for level zero elements, because they need to be paginated.
+    //The null below for the last two arguments is just temporary!
+    private function getIncludedAlbums($album, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+        if ($including_invisible) {
+            $included_albums = Album::where('included_in_album_with_id', '=', $album->id)->orderBy($sort_by_field, $asc_desc)->get();
+        } else {
+            $included_albums = Album::where('included_in_album_with_id', '=', $album->id)
+                        ->where('is_visible', '=', 1)->orderBy($sort_by_field, $asc_desc)->get();
+        }
+        return $included_albums;
+    }
+    
+    private function getIncludedPictures($album, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+        if ($including_invisible) {
+            $included_pictures = Picture::where('included_in_album_with_id', $album->id)->orderBy($sort_by_field, $asc_desc)->get();
+        } else {
+            $included_pictures = Picture::where('included_in_album_with_id', $album->id)->where('is_visible', '=', 1)
+                    ->orderBy($sort_by_field, $asc_desc)->get();
+        }
+        return $included_pictures;
+    }
+    
     //We need the method below to clutter down the method in controller, which
     //is responsible for showing some separate album
-    public function showAlbumView($section, $page, $keyword, $items_amount_per_page, $main_links, $is_admin_panel, $including_invisible) {
+    public function showAlbumView($section, $page, $keyword, $items_amount_per_page, $main_links, 
+                                    $is_admin_panel, $including_invisible, $sorting_mode = null) {
         
         $common_repository = new CommonRepository();
         //The condition below fixs a problem when user enters as a number of page some number less then 1
         if ($page < 1) {
             return $common_repository->redirect_to_first_page_multi_entity($section, $keyword, $is_admin_panel);          
         } else {
-            $albums_and_pictures_full_info = $this->getAlbum($keyword, $page, $items_amount_per_page, $including_invisible);
+            $albums_and_pictures_full_info = $this->getAlbum($keyword, $page, $items_amount_per_page, $including_invisible, $sorting_mode);
             //We need to do the check below in case user enters a page number more than actual number of pages
             if ($page > $albums_and_pictures_full_info->paginator_info->number_of_pages) {
                 return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $albums_and_pictures_full_info
                                             ->paginator_info->number_of_pages, $is_admin_panel);
             } else {                
                 return $this->get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, 
-                                        $items_amount_per_page);
+                                        $items_amount_per_page, $sorting_mode);
             }
         }
     }
     
-    private function getAlbum($keyword, $page, $items_amount_per_page, $including_invisible) {
+    private function getAlbum($keyword, $page, $items_amount_per_page, $including_invisible, $sorting_mode) {
         //Here we take only first value, because this type of request supposed
         //to give us a collection of items. But in this case as keyword is unique
         //for every single record we will always have only one item, which is
-        //the first one and the last one.
+        //the first one and the last one.        
         //We are choosing the album we are working with at the current moment.
-        $album = Album::where('keyword', $keyword)->firstOrFail();
+        $album = Album::where('keyword', $keyword)->first();
                    
-        $albums_and_pictures_full = $this->get_included_albums_and_pictures($including_invisible, $album->id);
+        $albums_and_pictures_full = $this->get_included_albums_and_pictures_with_sort_info($including_invisible, $album, 
+                                                                                            $items_amount_per_page, $sorting_mode);
         //As we don't need to show all the items from the array above on the 
         //same page, we will take only first 20 items to show
         //Also we will need some variables for paginator.           
@@ -157,11 +183,14 @@ class AlbumsRepository {
     }
     
     //This function adds some nacessary (e.g. pagination) information to an array of albums and pictures.
-    private function get_included_albums_and_pictures_with_info($album, $albums_and_pictures_array, $page, $items_amount_per_page) {
-        //We need the object below which will contain an array of needed folders 
+    private function get_included_albums_and_pictures_with_info($album, $albums_and_pictures_array_with_sort_info, $page, 
+                                                                $items_amount_per_page) {
+        //We need the object below which will contain an array of needed albums 
         //and pictures and also some necessary data for pagination, which we will 
         //pass with this object's properties.
         $albums_and_pictures_full_info = new AlbumAndPictureForViewFullInfoForPage();
+        
+        $albums_and_pictures_full_info->sorting_asc_or_desc = $albums_and_pictures_array_with_sort_info['sorting_asc_or_desc'];
         
         $albums_and_pictures_full_info->albumNestingLevel = AlbumData::where('items_id', $album->id)->select('nesting_level')->firstOrFail()->nesting_level;
         
@@ -173,14 +202,16 @@ class AlbumsRepository {
                                                         'storage/albums/en' : 'storage/albums/ru').((new AdminPicturesRepository())->getDirectoryPath($album->id))."/";
         
         $albums_and_pictures_full_info->head_title = $album->album_name;
-        $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_array);
+        $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_array_with_sort_info['albums_or_pictures']);
 
         //The following information we can have only if we have at least one item in selected folder
-        if(count($albums_and_pictures_array) > 0) {
+        if(count($albums_and_pictures_array_with_sort_info['albums_or_pictures']) > 0) {
             //The line below cuts all data into pages
             //We can do it only if we have at least one item in the array of the full data
-            $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_array, $items_amount_per_page, false);
-            $albums_and_pictures_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, $albums_and_pictures_full_cut_into_pages);
+            $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_array_with_sort_info['albums_or_pictures'], 
+                                                                   $items_amount_per_page, false);
+            $albums_and_pictures_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, 
+                                                              $albums_and_pictures_full_cut_into_pages);
             //We need to do the check below in case user enters a page number more tha actual number of pages,
             //so we can avoid an error.
             $albums_and_pictures_full_info->albumsAndPictures = $albums_and_pictures_full_info->paginator_info->number_of_pages >= $page ? 
@@ -198,19 +229,16 @@ class AlbumsRepository {
     }
     
     //We need this function to shorten getAlbum function.
-    private function get_included_albums_and_pictures($including_invisible, $album_id) {
-        //Here we are calling method which will merge all pictures and albums from selected album into one array
-        if ($including_invisible) {
-            $albums_and_pictures_full = $this->get_included_albums_and_pictures_array(Album::where('included_in_album_with_id', '=', 
-                                        $album_id)->orderBy('created_at','DESC')->get(), Picture::where('included_in_album_with_id', $album_id)
-                                        ->orderBy('created_at','DESC')->get());
-        } else {
-            $albums_and_pictures_full = $this->get_included_albums_and_pictures_array(Album::where('included_in_album_with_id', '=', 
-                                        $album_id)->where('is_visible', '=', 1)->orderBy('created_at','DESC')->get(), 
-                                        Picture::where('included_in_album_with_id', $album_id)->where('is_visible', '=', 1)
-                                        ->orderBy('created_at','DESC')->get());
-        }
-        return $albums_and_pictures_full;
+    private function get_included_albums_and_pictures_with_sort_info($including_invisible, $album, $items_amount_per_page, $sorting_mode) {
+        $included_albums = $this->sort($items_amount_per_page, $sorting_mode, $including_invisible, 'included_albums', $album);        
+        $included_pictures = $this->sort($items_amount_per_page, $sorting_mode, $including_invisible, 'included_pictures', $album);
+        
+        //Here we are calling method which will merge all pictures and albums from selected album into one array.
+        $included_albums_and_pictures_with_sort_info["albums_or_pictures"] = $this->
+                    get_included_albums_and_pictures_array($included_albums["albums_or_pictures"], $included_pictures["albums_or_pictures"]);
+        //sorting_asc_or_desc
+        $included_albums_and_pictures_with_sort_info["sorting_asc_or_desc"] = $included_albums["sorting_asc_or_desc"];
+        return $included_albums_and_pictures_with_sort_info;
     }
     
     //We need this function to make our own array which will contain all included
@@ -269,11 +297,22 @@ class AlbumsRepository {
         }
     }
     
-    //We need the method below to clutter down showAlbumView method
+    //We need the method below to clutter down showAlbumView method.
     private function get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, 
                                 $items_amount_per_page, $sorting_mode = null) {
         if ($is_admin_panel) {
-            return view('adminpages.adminalbum')->with([
+            return $this->get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $albums_and_pictures_full_info, 
+                                                    $items_amount_per_page, $sorting_mode);
+        } else {
+            return $this->get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $albums_and_pictures_full_info, 
+                                                    $items_amount_per_page, $sorting_mode);      
+        }
+    }
+    
+    //The function below is required to simplify get_view function.
+    private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $albums_and_pictures_full_info, 
+                                                $items_amount_per_page, $sorting_mode = null) {
+        return view('adminpages.adminalbum')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.
@@ -281,6 +320,7 @@ class AlbumsRepository {
                 'headTitle' => $albums_and_pictures_full_info->head_title,
                 'pathToFile' => $albums_and_pictures_full_info->path_to_file,           
                 'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
+                'sorting_asc_or_desc' => $albums_and_pictures_full_info->sorting_asc_or_desc,
                 'parents' => $albums_and_pictures_full_info->albumParents,
                 'nesting_level' => $albums_and_pictures_full_info->albumNestingLevel,
                 'pagination_info' => $albums_and_pictures_full_info->paginator_info,
@@ -292,8 +332,12 @@ class AlbumsRepository {
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel
                 ]);
-        } else {
-            return view('pages.album')->with([
+    }
+    
+    //The function below is required to simplify get_view function.
+    private function get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $albums_and_pictures_full_info, 
+                                            $items_amount_per_page, $sorting_mode = null) {       
+        return view('pages.album')->with([
                 'main_links' => $main_links,
                 'headTitle' => $albums_and_pictures_full_info->head_title,
                 'pathToFile' => $albums_and_pictures_full_info->path_to_file,           
@@ -305,11 +349,10 @@ class AlbumsRepository {
                 'section' => $section,
                 'parent_keyword' => $keyword,
                 //Variable below needs to be corrected later.
-                'sorting_mode' => null,
+                'sorting_mode' => $sorting_mode,
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel
-                ]);                   
-        }
+                ]);
     }
     
     //We need this to make a check for keyword uniqueness when adding a new

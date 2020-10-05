@@ -113,7 +113,8 @@
                              'class' => 'admin-panel-albums-picture-and-album-checkbox']); !!}
                         </div>
                         <div class="admin-panel-albums-picture-and-album-body-field">
-                            <a href="albums/{{ $album->keyword }}/page/1">
+                            <a href='{{ App::isLocale('en') ? "/admin/albums/".$album->keyword."/page/1" : 
+                                        "/ru/admin/albums/".$album->keyword."/page/1" }}'>
                                 <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">                            
                                     <img src="{{ ($album->is_visible==1) ? URL::asset('images/icons/album_folder.png') : 
                                                 URL::asset('images/icons/album_folder_bnw.png') }}" 

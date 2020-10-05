@@ -70,7 +70,7 @@ class AdminAlbumsController extends Controller
         }    
     }
     
-    public function show($keyword, $page) {
+    public function show($keyword, $page, $sorting_mode = null) {
         
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
         
@@ -78,7 +78,8 @@ class AdminAlbumsController extends Controller
         $items_amount_per_page = 14;
         
         //We need to call the method below to clutter down current method in controller
-        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1);
+        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, 
+               $this->is_admin_panel, 1, $sorting_mode);
     }
     
     public function create($parent_keyword) {           
