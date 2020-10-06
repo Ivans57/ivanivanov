@@ -61,6 +61,7 @@ class AdminArticlesController extends Controller
                 'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => __('keywords.'.$this->current_page),
                 'folders' => $sorting_data["directories_or_files"],
+                'section' => Str::lower($this->current_page),
                 'items_amount_per_page' => $items_amount_per_page,
                 'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
                 //If we open just a root path of Folders, we won't have any parent keyword,

@@ -248,18 +248,23 @@ class CommonRepository {
         
         switch ($sorting_mode) {
             case ('sort_by_name_desc'):                
-                if ($what_to_sort == 'albums' || 'included_albums' || 'included_pictures'){
+                if ($what_to_sort == 'albums' || $what_to_sort == 'included_albums' || $what_to_sort == 'included_pictures'){
                     $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
                                         (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'desc', $parent_directory);
-                } else if ($what_to_sort == 'folders' || 'included_folders' || 'included_articles') {
+                } else if ($what_to_sort == 'folders' || $what_to_sort == 'included_folders' || $what_to_sort == 'included_articles') {
                     $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
                                         (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'desc', $parent_directory);
                 }
                 $sorting_asc_or_desc["Name"] = ["asc" , 1];
                 break;
-            case ('sort_by_name_asc'):
-                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'asc', $parent_directory);
+            case ('sort_by_name_asc'):                
+                if ($what_to_sort == 'albums' || $what_to_sort == 'included_albums' || $what_to_sort == 'included_pictures'){
+                    $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                        (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'asc', $parent_directory);
+                } else if ($what_to_sort == 'folders' || $what_to_sort == 'included_folders' || $what_to_sort == 'included_articles') {
+                    $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                        (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'asc', $parent_directory);
+                }
                 $sorting_asc_or_desc["Name"] = ["desc" , 1];
                 break;
             case ('sort_by_creation_desc'):

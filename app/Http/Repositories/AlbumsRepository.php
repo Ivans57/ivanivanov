@@ -138,13 +138,13 @@ class AlbumsRepository {
                                                         'storage/albums/en' : 'storage/albums/ru').((new AdminPicturesRepository())->getDirectoryPath($album->id))."/";
         
         $albums_and_pictures_full_info->head_title = $album->album_name;
-        $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_array_with_sort_info['albums_or_pictures']);
+        $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_array_with_sort_info['directories_or_files']);
 
         //The following information we can have only if we have at least one item in selected folder
-        if(count($albums_and_pictures_array_with_sort_info['albums_or_pictures']) > 0) {
+        if(count($albums_and_pictures_array_with_sort_info['directories_or_files']) > 0) {
             //The line below cuts all data into pages
             //We can do it only if we have at least one item in the array of the full data
-            $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_array_with_sort_info['albums_or_pictures'], 
+            $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_array_with_sort_info['directories_or_files'], 
                                                                    $items_amount_per_page, false);
             $albums_and_pictures_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, 
                                                               $albums_and_pictures_full_cut_into_pages);

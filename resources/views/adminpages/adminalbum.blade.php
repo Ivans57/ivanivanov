@@ -69,18 +69,18 @@
                             <div class="admin-panel-albums-picture-and-album-header-caret">
                                 @if ($sorting_asc_or_desc["Name"][0] == "desc")
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
-                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
-                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
-                                          data-sorting_mode="desc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
-                                          data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByNameDesc") }}'></span>
+                                        "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                        "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                        id="sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
+                                        data-sorting_mode="desc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
+                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByNameDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
-                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
-                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
-                                          data-sorting_mode="asc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
-                                          data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByNameAsc") }}'></span>
+                                        "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                        "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                        id="sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
+                                        data-sorting_mode="asc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
+                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByNameAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
@@ -93,18 +93,18 @@
                             <div class="admin-panel-albums-picture-and-album-header-caret">
                                 @if ($sorting_asc_or_desc["Creation"][0] == "desc")
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
-                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
-                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_creation" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
-                                          data-sorting_mode="desc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
-                                          data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByCreationDateAndTimeDesc") }}'></span>
+                                        "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                        "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                        id="sort_by_creation" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
+                                        data-sorting_mode="desc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
+                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByCreationDateAndTimeDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
-                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
-                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_creation" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
-                                          data-sorting_mode="asc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
-                                          data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByCreationDateAndTimeAsc") }}'></span>
+                                        "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                        "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                        id="sort_by_creation" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
+                                        data-sorting_mode="asc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
+                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByCreationDateAndTimeAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
@@ -117,18 +117,18 @@
                             <div class="admin-panel-albums-picture-and-album-header-caret">
                                 @if ($sorting_asc_or_desc["Update"][0] == "desc")
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
-                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                        "admin-panel-albums-picture-and-album-header-caret-used" : 
                                           "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_update" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
-                                          data-sorting_mode="desc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
-                                          data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
+                                        id="sort_by_update" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
+                                        data-sorting_mode="desc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
+                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
-                                          "admin-panel-albums-picture-and-album-header-caret-used" : 
-                                          "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_update" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
-                                          data-sorting_mode="asc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
-                                          data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
+                                        "admin-panel-albums-picture-and-album-header-caret-used" : 
+                                        "admin-panel-albums-picture-and-album-header-caret-unused" }}'
+                                        id="sort_by_update" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
+                                        data-sorting_mode="asc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}"
+                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
                                 @endif
                             </div>
                         </div>
