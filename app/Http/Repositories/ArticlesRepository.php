@@ -42,7 +42,6 @@ class ArticleForView {
 
 class ArticlesRepository {
     
-    //Apparently this method has to become private later!
     //The null below for the last two arguments is just temporary!
     public function getAllLevelZeroFolders($items_amount_per_page, $including_invisible, $sort_by_field = null, $asc_desc = null){     
         if ($including_invisible) {
@@ -59,70 +58,7 @@ class ArticlesRepository {
         }      
         return $folder_links;
     }
-    
-    //The method below is to sort folders and articles in different modes.
-    public function sort($items_amount_per_page, $sorting_mode, $including_invisible, $what_to_sort, $parent_folder = null) {
-        //This array is required to show sorting arrows properly.
-        $sorting_asc_or_desc = ["Name" => ["desc" , 0], "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];
-        
-        $folders_or_articles = null;
-        
-        switch ($sorting_mode) {
-            case ('articles_sort_by_name_desc'):
-                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'desc', $parent_folder);
-                $sorting_asc_or_desc["Name"] = ["asc" , 1];
-                break;
-            case ('articles_sort_by_name_asc'):
-                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'asc', $parent_folder);
-                $sorting_asc_or_desc["Name"] = ["desc" , 1];
-                break;
-            case ('articles_sort_by_creation_desc'):
-                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'created_at', 'desc', $parent_folder);
-                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
-                break;
-            case ('articles_sort_by_creation_asc'):
-                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'created_at', 'asc', $parent_folder);
-                $sorting_asc_or_desc["Creation"] = ["desc" , 1];
-                break;
-            case ('articles_sort_by_update_desc'):
-                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'updated_at', 'desc', $parent_folder);
-                $sorting_asc_or_desc["Update"] = ["asc" , 1];
-                break;
-            case ('articles_sort_by_update_asc'):
-                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'updated_at', 'asc', $parent_folder);
-                $sorting_asc_or_desc["Update"] = ["desc" , 1];
-                break;
-            default:
-                $folders_or_articles = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'created_at', 'desc', $parent_folder);
-                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
-        }     
-        return ["folders_or_articles" => $folders_or_articles, "sorting_asc_or_desc" => $sorting_asc_or_desc];
-    }
-    
-    //This function is required to simplify sort function.
-    private function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_folder = null) {
-        $folders_or_articles = null;
-        switch ($what_to_sort) {
-            case ('folders'):
-                $folders_or_articles = $this->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, $sort_by_field, $asc_or_desc);
-                break;
-            case ('included_folders'):
-                $folders_or_articles = $this->getIncludedFolders($parent_folder, $including_invisible, $sort_by_field, $asc_or_desc);
-                break;
-            case ('included_articles'):
-                $folders_or_articles = $this->getIncludedArticles($parent_folder, $including_invisible, $sort_by_field, $asc_or_desc);
-                break;
-        }
-        return $folders_or_articles;
-    }
-    
+          
     //We need the method below to clutter down the method in controller, which
     //is responsible for showing some separate album.
     public function showFolderView($section, $page, $keyword, $items_amount_per_page, $main_links, 
@@ -201,7 +137,7 @@ class ArticlesRepository {
     //This function returns all folders of some level elements except for 0 level elements.
     //There is a separate function for level zero elements, because they need to be paginated.
     //The null below for the last two arguments is just temporary!
-    private function getIncludedFolders($folder, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+    public function getIncludedFolders($folder, $including_invisible, $sort_by_field = null, $asc_desc = null) {
         if ($including_invisible) {
             $included_folders = Folder::where('included_in_folder_with_id', '=', $folder->id)->orderBy($sort_by_field, $asc_desc)->get();
         } else {
@@ -211,7 +147,7 @@ class ArticlesRepository {
         return $included_folders;
     }
     
-    private function getIncludedArticles($folder, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+    public function getIncludedArticles($folder, $including_invisible, $sort_by_field = null, $asc_desc = null) {
         if ($including_invisible) {
             $included_articles = Article::where('folder_id', $folder->id)->orderBy($sort_by_field, $asc_desc)->get();
         } else {
@@ -230,12 +166,16 @@ class ArticlesRepository {
         $folder = Folder::where('keyword', $keyword)->first();       
         $nesting_level = FolderData::where('items_id', $folder->id)->select('nesting_level')->first();
         
-        $included_folders = $this->sort($items_amount_per_page, $sorting_mode, $including_invisible, 'included_folders', $folder);        
-        $included_articles = $this->sort($items_amount_per_page, $sorting_mode, $including_invisible, 'included_articles', $folder);
+        $for_sort_and_pagination = new CommonRepository();
+        
+        $included_folders = $for_sort_and_pagination->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
+                                                                'included_folders', $folder);        
+        $included_articles = $for_sort_and_pagination->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
+                                                                'included_articles', $folder);
         
         //Here we are calling method which will merge all articles and folders from selected folder into one array.
-        $folders_and_articles_full = $this->get_included_folders_and_articles($included_folders["folders_or_articles"], 
-                                        $included_articles["folders_or_articles"]);
+        $folders_and_articles_full = $this->get_included_folders_and_articles($included_folders["directories_or_files"], 
+                                        $included_articles["directories_or_files"]);
          
         //We need the object below which will contatin an array of needed folders 
         //and pictures and also some necessary data for pagination, which we will 
@@ -270,7 +210,7 @@ class ArticlesRepository {
             //The line below cuts all data into pages
             //We can do it only if we have at least one item in the array of the full data
             $folders_and_articles_full_cut_into_pages = array_chunk($folders_and_articles_full, $items_amount_per_page, false);
-            $folders_and_articles_full_info->paginator_info = (new CommonRepository())
+            $folders_and_articles_full_info->paginator_info = $for_sort_and_pagination
                                                                 ->get_paginator_info($page, $folders_and_articles_full_cut_into_pages);
             //We need to do the check below in case user enters a page number more tha actual number of pages,
             //so we can avoid an error.

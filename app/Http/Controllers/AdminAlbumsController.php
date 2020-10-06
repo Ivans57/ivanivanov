@@ -15,7 +15,8 @@ class AdminAlbumsController extends Controller
 {
     protected $albums;
     protected $current_page;
-    protected $navigation_bar_obj;
+    //This property is required for Common Repositry where are all common functions.
+    protected $common;
     //We need this variable to identify whether we are using a normal site
     //option or admin panel, as we have common repositories for the normal 
     //site and admin panel.
@@ -31,28 +32,28 @@ class AdminAlbumsController extends Controller
         //We can't get all these links in constructor as localiztion is applied 
         //only when we call some certain method in a route. We need to call the
         //method for main links using made main links object in controller's methods.
-        $this->navigation_bar_obj = new CommonRepository();
+        $this->common = new CommonRepository();
         $this->is_admin_panel = true;
     }
     
     public function index($sorting_mode = null) {
         //For some lines e.g. two lines below which are getting repeated need to apply inheritance mechanism!
-        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
+        $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
         
         //In the next line the data are getting extracted from the database and sorted.
         //The fourth parameter is 'albums', because currently we are working with level 0 albums.
-        $sorting_data = $this->albums->sort($items_amount_per_page, $sorting_mode, 1, 'albums');
+        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 1, 'albums');
       
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
-        if ($sorting_data["albums_or_pictures"][0] && 
-                ($sorting_data["albums_or_pictures"]->currentPage() > $sorting_data["albums_or_pictures"]->lastPage())) {
-                    return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
-                    $sorting_data["albums_or_pictures"]->lastPage(), $this->is_admin_panel);
+        if ($sorting_data["directories_or_files"][0] && 
+                ($sorting_data["directories_or_files"]->currentPage() > $sorting_data["directories_or_files"]->lastPage())) {
+                    return $this->common->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
+                    $sorting_data["directories_or_files"]->lastPage(), $this->is_admin_panel);
         } else {
             return view('adminpages.adminalbums')->with([
             //Below main website links.
@@ -60,7 +61,7 @@ class AdminAlbumsController extends Controller
             //Below main admin panel links.
             'main_ap_links' => $main_links->mainAPLinks,    
             'headTitle' => __('keywords.'.$this->current_page),
-            'albums' => $sorting_data["albums_or_pictures"],
+            'albums' => $sorting_data["directories_or_files"],
             'items_amount_per_page' => $items_amount_per_page,
             'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
             //If we open just a root path of Albums we won't have any parent keyword,
@@ -72,7 +73,7 @@ class AdminAlbumsController extends Controller
     
     public function show($keyword, $page, $sorting_mode = null) {
         
-        $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
+        $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
@@ -173,7 +174,7 @@ class AdminAlbumsController extends Controller
         //This is required for view when need to mention proper entity names 
         //(folders and articles, or both, single and plural), rules.
         //There is nothing to do with a navigation bar, it is just a name of variable for Common Repository.
-        $direcotries_and_files = $this->navigation_bar_obj->get_directories_and_files_from_string($entity_types_and_keywords);
+        $direcotries_and_files = $this->common->get_directories_and_files_from_string($entity_types_and_keywords);
         
         //There might be three types of views for return depends what user needs to delete,
         //folder(s), article(s), both folders and articles.

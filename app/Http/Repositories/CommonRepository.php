@@ -7,6 +7,8 @@ use App;
 use \App\MainLink;
 use \App\AdminLink;
 use \App\Keyword;
+use App\Http\Repositories\AlbumsRepository;
+use App\Http\Repositories\ArticlesRepository;
 
 
 //Below is a class for main links of the website and admin panel.
@@ -234,5 +236,86 @@ class CommonRepository {
             }
         }       
         return $directories_and_files_array = [$directories, $files];
+    }
+    
+    //The method below is to sort albums/folders(directories) and pictures/articles(files) in different modes.
+    public function sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
+                                                    $what_to_sort, $parent_directory = null) {
+        //This array is required to show sorting arrows properly.
+        $sorting_asc_or_desc = ["Name" => ["desc" , 0], "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];
+        
+        $directories_or_files = null;
+        
+        switch ($sorting_mode) {
+            case ('sort_by_name_desc'):                
+                if ($what_to_sort == 'albums' || 'included_albums' || 'included_pictures'){
+                    $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                        (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'desc', $parent_directory);
+                } else if ($what_to_sort == 'folders' || 'included_folders' || 'included_articles') {
+                    $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                        (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'desc', $parent_directory);
+                }
+                $sorting_asc_or_desc["Name"] = ["asc" , 1];
+                break;
+            case ('sort_by_name_asc'):
+                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'asc', $parent_directory);
+                $sorting_asc_or_desc["Name"] = ["desc" , 1];
+                break;
+            case ('sort_by_creation_desc'):
+                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'desc', $parent_directory);
+                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
+                break;
+            case ('sort_by_creation_asc'):
+                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'asc', $parent_directory);
+                $sorting_asc_or_desc["Creation"] = ["desc" , 1];
+                break;
+            case ('sort_by_update_desc'):
+                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'updated_at', 'desc', $parent_directory);
+                $sorting_asc_or_desc["Update"] = ["asc" , 1];
+                break;
+            case ('sort_by_update_asc'):
+                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'updated_at', 'asc', $parent_directory);
+                $sorting_asc_or_desc["Update"] = ["desc" , 1];
+                break;
+            default:
+                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'desc', $parent_directory);
+                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
+        }     
+        return ["directories_or_files" => $directories_or_files, "sorting_asc_or_desc" => $sorting_asc_or_desc];
+    }
+    
+    //This function is required to simplify sort_for_albums_or_articles function.
+    private function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_directory = null) {
+        $for_albums_and_pictures = new AlbumsRepository();
+        $for_folders_and_articles = new ArticlesRepository();
+        
+        $directories_or_files = null;
+        switch ($what_to_sort) {
+            case ('albums'):
+                $directories_or_files = $for_albums_and_pictures->getAllLevelZeroAlbums($items_amount_per_page, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('included_albums'):
+                $directories_or_files = $for_albums_and_pictures->getIncludedAlbums($parent_directory, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('included_pictures'):
+                $directories_or_files = $for_albums_and_pictures->getIncludedPictures($parent_directory, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('folders'):
+                $directories_or_files = $for_folders_and_articles->getAllLevelZeroFolders($items_amount_per_page, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('included_folders'):
+                $directories_or_files = $for_folders_and_articles->getIncludedFolders($parent_directory, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('included_articles'):
+                $directories_or_files = $for_folders_and_articles->getIncludedArticles($parent_directory, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+        }
+        return $directories_or_files;
     }
 }

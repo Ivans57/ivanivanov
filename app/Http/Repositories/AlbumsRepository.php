@@ -42,7 +42,6 @@ class AlbumAndPictureForViewFullInfoForPage {
 
 class AlbumsRepository {
        
-    //Apparently this method has to become private later!
     //The null below for the last two arguments is just temporary!
     public function getAllLevelZeroAlbums($items_amount_per_page, $including_invisible, $sort_by_field = null, $asc_desc = null) {      
         if ($including_invisible) {
@@ -58,73 +57,10 @@ class AlbumsRepository {
         return $album_links;
     }
     
-    //The method below is to sort albums and pictures in different modes.
-    public function sort($items_amount_per_page, $sorting_mode, $including_invisible, $what_to_sort, $parent_album = null) {
-        //This array is required to show sorting arrows properly.
-        $sorting_asc_or_desc = ["Name" => ["desc" , 0], "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];
-        
-        $albums_or_pictures = null;
-        
-        switch ($sorting_mode) {
-            case ('albums_sort_by_name_desc'):
-                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'desc', $parent_album);
-                $sorting_asc_or_desc["Name"] = ["asc" , 1];
-                break;
-            case ('albums_sort_by_name_asc'):
-                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'asc', $parent_album);
-                $sorting_asc_or_desc["Name"] = ["desc" , 1];
-                break;
-            case ('albums_sort_by_creation_desc'):
-                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'created_at', 'desc', $parent_album);
-                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
-                break;
-            case ('albums_sort_by_creation_asc'):
-                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'created_at', 'asc', $parent_album);
-                $sorting_asc_or_desc["Creation"] = ["desc" , 1];
-                break;
-            case ('albums_sort_by_update_desc'):
-                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'updated_at', 'desc', $parent_album);
-                $sorting_asc_or_desc["Update"] = ["asc" , 1];
-                break;
-            case ('albums_sort_by_update_asc'):
-                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'updated_at', 'asc', $parent_album);
-                $sorting_asc_or_desc["Update"] = ["desc" , 1];
-                break;
-            default:
-                $albums_or_pictures = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'created_at', 'desc', $parent_album);
-                $sorting_asc_or_desc["Creation"] = ["asc" , 1];
-        }     
-        return ["albums_or_pictures" => $albums_or_pictures, "sorting_asc_or_desc" => $sorting_asc_or_desc];
-    }
-    
-    //This function is required to simplify sort function.
-    private function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_album = null) {
-        $albums_or_pictures = null;
-        switch ($what_to_sort) {
-            case ('albums'):
-                $albums_or_pictures = $this->getAllLevelZeroAlbums($items_amount_per_page, $including_invisible, $sort_by_field, $asc_or_desc);
-                break;
-            case ('included_albums'):
-                $albums_or_pictures = $this->getIncludedAlbums($parent_album, $including_invisible, $sort_by_field, $asc_or_desc);
-                break;
-            case ('included_pictures'):
-                $albums_or_pictures = $this->getIncludedPictures($parent_album, $including_invisible, $sort_by_field, $asc_or_desc);
-                break;
-        }
-        return $albums_or_pictures;
-    }
-    
     //This function returns all albums of some level elements except for 0 level elements.
     //There is a separate function for level zero elements, because they need to be paginated.
     //The null below for the last two arguments is just temporary!
-    private function getIncludedAlbums($album, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+    public function getIncludedAlbums($album, $including_invisible, $sort_by_field = null, $asc_desc = null) {
         if ($including_invisible) {
             $included_albums = Album::where('included_in_album_with_id', '=', $album->id)->orderBy($sort_by_field, $asc_desc)->get();
         } else {
@@ -134,7 +70,7 @@ class AlbumsRepository {
         return $included_albums;
     }
     
-    private function getIncludedPictures($album, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+    public function getIncludedPictures($album, $including_invisible, $sort_by_field = null, $asc_desc = null) {
         if ($including_invisible) {
             $included_pictures = Picture::where('included_in_album_with_id', $album->id)->orderBy($sort_by_field, $asc_desc)->get();
         } else {
@@ -230,12 +166,16 @@ class AlbumsRepository {
     
     //We need this function to shorten getAlbum function.
     private function get_included_albums_and_pictures_with_sort_info($including_invisible, $album, $items_amount_per_page, $sorting_mode) {
-        $included_albums = $this->sort($items_amount_per_page, $sorting_mode, $including_invisible, 'included_albums', $album);        
-        $included_pictures = $this->sort($items_amount_per_page, $sorting_mode, $including_invisible, 'included_pictures', $album);
+        $for_sort = new CommonRepository();
+        
+        $included_albums = $for_sort->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
+                                                                'included_albums', $album);        
+        $included_pictures = $for_sort->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
+                                                                'included_pictures', $album);
         
         //Here we are calling method which will merge all pictures and albums from selected album into one array.
-        $included_albums_and_pictures_with_sort_info["albums_or_pictures"] = $this->
-                    get_included_albums_and_pictures_array($included_albums["albums_or_pictures"], $included_pictures["albums_or_pictures"]);
+        $included_albums_and_pictures_with_sort_info["directories_or_files"] = $this->
+                    get_included_albums_and_pictures_array($included_albums["directories_or_files"], $included_pictures["directories_or_files"]);
         //sorting_asc_or_desc
         $included_albums_and_pictures_with_sort_info["sorting_asc_or_desc"] = $included_albums["sorting_asc_or_desc"];
         return $included_albums_and_pictures_with_sort_info;

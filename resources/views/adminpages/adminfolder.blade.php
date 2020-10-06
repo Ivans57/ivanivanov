@@ -73,14 +73,16 @@
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
                                           "admin-panel-articles-article-and-folder-header-caret-used" : 
                                           "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                          id="articles_sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
-                                          data-sorting_mode="desc" title='{{ Lang::get("keywords.SortByNameDesc") }}'></span>
+                                          id="sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
+                                          data-sorting_mode="desc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" 
+                                          data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByNameDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
                                           "admin-panel-articles-article-and-folder-header-caret-used" : 
                                           "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                          id="articles_sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
-                                          data-sorting_mode="asc" title='{{ Lang::get("keywords.SortByNameAsc") }}'></span>
+                                          id="sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
+                                          data-sorting_mode="asc" data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" 
+                                          data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByNameAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
@@ -95,13 +97,15 @@
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
                                           "admin-panel-articles-article-and-folder-header-caret-used" : 
                                           "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                          id="articles_sort_by_creation" data-is_level_zero="0" data-sorting_mode="desc" 
+                                          id="sort_by_creation" data-is_level_zero="0" data-sorting_mode="desc" 
+                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}" 
                                           title='{{ Lang::get("keywords.SortByCreationDateAndTimeDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
                                           "admin-panel-articles-article-and-folder-header-caret-used" : 
                                           "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                          id="articles_sort_by_creation" data-is_level_zero="0" data-sorting_mode="asc" 
+                                          id="sort_by_creation" data-is_level_zero="0" data-sorting_mode="asc"
+                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}"
                                           title='{{ Lang::get("keywords.SortByCreationDateAndTimeAsc") }}'></span>
                                 @endif
                             </div>
@@ -117,13 +121,15 @@
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
                                           "admin-panel-articles-article-and-folder-header-caret-used" : 
                                           "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                          id="articles_sort_by_update" data-is_level_zero="0" data-sorting_mode="desc" 
+                                          id="sort_by_update" data-is_level_zero="0" data-sorting_mode="desc"
+                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}"
                                           title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
                                           "admin-panel-articles-article-and-folder-header-caret-used" : 
                                           "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                          id="articles_sort_by_update" data-is_level_zero="0" data-sorting_mode="asc" 
+                                          id="sort_by_update" data-is_level_zero="0" data-sorting_mode="asc"
+                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}"
                                           title='{{ Lang::get("keywords.SortByUpdateDateAndTimeAsc") }}'></span>
                                 @endif
                             </div>
