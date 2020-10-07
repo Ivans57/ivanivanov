@@ -45,7 +45,7 @@ class AdminArticlesController extends Controller
         //In the next line the data are getting extracted from the database and sorted.
         //The fourth parameter is 'folders', because currently we are working with level 0 folders.
         $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 1, 'folders');
-        
+               
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
@@ -77,7 +77,7 @@ class AdminArticlesController extends Controller
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
-              
+        
         //We need to call the method below to clutter down current method in controller
         return $this->folders->showFolderView(Str::lower($this->current_page), 
                                             $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1, $sorting_mode);

@@ -31,9 +31,19 @@
         <!-- Scripts -->
         @component('pages/body_scripts')
             @slot('js')
-                <script type="text/javascript" src="{{ URL::asset('js/admin_panel_javascript.js') }}"></script>
+                @if (isset($section))
+                    @if ($section == 'keywords')
+                            <script type="text/javascript" src="{{ URL::asset('js/adminkeywords.js') }}"></script>
+                    @elseif ($section == 'albums')
+                            <script type="text/javascript" src="{{ URL::asset('js/adminalbums.js') }}"></script>
+                            <script type="text/javascript" src="{{ URL::asset('js/admin_albums_and_articles_sort.js') }}"></script>
+                    @elseif ($section == 'articles')
+                            <script type="text/javascript" src="{{ URL::asset('js/adminarticles.js') }}"></script>
+                            <script type="text/javascript" src="{{ URL::asset('js/admin_albums_and_articles_sort.js') }}"></script>
+                    @endif
+                @endif
                 <!-- This check is required, because the js files which are mentioned below will be used only when making a new article. -->
-                @if (isset($section, $mode))
+                @if (isset($mode))
                     <script type="text/javascript" src="{{ URL::asset('js/parent_search_and_select.js') }}"></script>
                     <script type="text/javascript" src="{{ URL::asset('js/article_create_edit_cancel.js') }}"></script>
                     <!-- The four scripts below are required to  run WYSIWYG editor -->
