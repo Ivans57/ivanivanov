@@ -1,6 +1,6 @@
 //If scripts or CSS do not take an effect in Mozilla Firefox Chrome , press Ctrl+F5!
 
-/*Functions for pressed buttons view change:*/
+/*Functions for pressed buttons view change.*/
 
 $( "#en-laguage-button" ).click(function() {
     var control = document.querySelector('.website-en-laguage-select-button');
@@ -12,7 +12,10 @@ $( "#rus-laguage-button" ).click(function() {
     control.classList.add('website-laguage-select-button-pressed');
 });
 
-//Two functions below are functions for pop-up menu manipulation
+/*--------------------------------------------------------*/
+
+/*Two functions below are functions for pop-up menu manipulation.*/
+
 $( "#menu-compact-view" ).click(function() {
     var pop_up_menu = document.querySelector('.pop-up-menu');
     pop_up_menu.classList.add('pop-up-menu-activated');
@@ -35,7 +38,10 @@ $( "#pop-up-menu-close" ).click(function() {
     
 });
 
-//Decorations for compact view menu
+/*--------------------------------------------------------*/
+
+/*Decorations for compact view menu.*/
+
 $( document ).ready(function() {
     //making list of all elements with our class.
     var controls = document.querySelectorAll('.pop-up-menu-link');
@@ -51,7 +57,10 @@ $( document ).ready(function() {
 }
 });
 
-//Decorations for normal view menu
+/*--------------------------------------------------------*/
+
+/*Decorations for normal view menu.*/
+
 $( document ).ready(function() {
     //making list of all elements with our class.
     var controls = document.querySelectorAll('.website-menu-button-link');
@@ -72,8 +81,9 @@ $( "#know-more-button" ).click(function() {
     control.classList.add('home-know-more-button-pressed');
 });
 
+/*--------------------------------------------------------*/
 
-//Functions for picture fancyboxes
+/*Functions for picture fancyboxes.*/
 
 $( document ).ready(function() {
     $(".ivan_ivanov_main_picture").fancybox({
@@ -93,7 +103,9 @@ $( document ).ready(function() {
     });
 });
 
-//Functions for album folders.
+/*--------------------------------------------------------*/
+
+/*Functions for album folders.*/
 
 $( document ).ready(function() {
     //making list of all elements with our class.
@@ -110,7 +122,9 @@ $( document ).ready(function() {
 }
 });
 
-//Functions for article folders
+/*--------------------------------------------------------*/
+
+/*Functions for article folders.*/
 
 $( document ).ready(function() {
     //making list of all elements with our class.
@@ -126,3 +140,32 @@ $( document ).ready(function() {
         });
 }
 });
+
+/*--------------------------------------------------------*/
+
+$('select[name="sort"]').change(function(){
+    var current_element = document.querySelector('#sort');
+    //var test = $(this).val();
+    albums_or_articles_sort($(this).val(), current_element);
+    //localization, section, sorting_method
+});
+
+/*Scripts for website Albums and Articles sorting.*/
+
+//The function below is making a link to do sorting and going to it.
+//For elements on level 0 and for different level elements will be different links, for that reason we need that parameter.
+//The last parameter have only included items.
+function albums_or_articles_sort(sorting_method, current_element) {
+    //If it is an english localization, we don't need to show it, because it is a default localization.
+    var localization = (current_element.dataset.localization === "en") ? "" : "/ru";
+    
+    if (current_element.dataset.is_level_zero == "1") {
+        var url = localization+"/"+current_element.dataset.section+"/"+sorting_method;
+        //The line below need to move to the bottom later.
+        window.location.href = url;
+    } else {
+        alert('Nothing');
+    }
+}
+
+/*--------------------------------------------------------*/

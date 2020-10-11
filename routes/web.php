@@ -74,12 +74,13 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 
 //Articles
 
+//sorting_mode argument is optional. It is required only for sorting.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('articles', 'ArticlesController@index');
+    Route::get('articles/{sorting_mode?}', 'ArticlesController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('articles', 'ArticlesController@index');
+    Route::get('articles/{sorting_mode?}', 'ArticlesController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {

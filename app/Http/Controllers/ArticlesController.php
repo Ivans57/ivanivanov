@@ -13,7 +13,7 @@ class ArticlesController extends Controller
 {
     protected $folders;
     protected $current_page;
-    protected $navigation_bar_obj;
+    protected $common;
     //We need this variable to identify whether we are using a normal site
     //option or admin panel, as we have common repositories for the normal 
     //site and admin panel.
@@ -28,29 +28,35 @@ class ArticlesController extends Controller
         //We can't get all these links in constructor as localiztion is applied 
         //only when we call some certain method in a route. We need to call the
         //method for main links using made main links object in controller's methods.
-        $this->navigation_bar_obj = new CommonRepository();
+        $this->common = new CommonRepository();
         $this->is_admin_panel = false;
     }
 
-    public function index(){  
+    public function index($sorting_mode = null){  
         
-        $main_links = $this->navigation_bar_obj->get_main_website_links($this->current_page);
+        $main_links = $this->common->get_main_website_links($this->current_page);
              
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 16;
-        $folders = $this->folders->getAllLevelZeroFolders($items_amount_per_page, 0);
+        //$folders = $this->folders->getAllLevelZeroFolders($items_amount_per_page, 0);
+        
+        //In the next line the data are getting extracted from the database and sorted.
+        //The fourth parameter is 'folders', because currently we are working with level 0 folders.
+        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 1, 'folders');
         
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
-        if ($folders[0] && ($folders->currentPage() > $folders->lastPage())) {
-            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
-                    $folders->lastPage(), $this->is_admin_panel);
+        if ($sorting_data["directories_or_files"][0] && 
+                ($sorting_data["directories_or_files"]->currentPage() > $sorting_data["directories_or_files"]->lastPage())) {
+                    return $this->common->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
+                    $sorting_data["directories_or_files"]->lastPage(), $this->is_admin_panel);
         } else {
             return view('pages.folders')->with([
                 'headTitle' => __('keywords.'.$this->current_page),
                 'main_links' => $main_links,
-                'folders' => $folders,
+                'folders' => $sorting_data["directories_or_files"],
+                'section' => Str::lower($this->current_page),
                 'items_amount_per_page' => $items_amount_per_page
                 ]);
         }
@@ -58,7 +64,7 @@ class ArticlesController extends Controller
     
     public function showFolder($keyword, $page){
         
-        $main_links = $this->navigation_bar_obj->get_main_website_links($this->current_page);
+        $main_links = $this->common->get_main_website_links($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 16;
@@ -69,7 +75,7 @@ class ArticlesController extends Controller
     
     public function showArticle($keyword){
         
-        $main_links = $this->navigation_bar_obj->get_main_website_links($this->current_page);
+        $main_links = $this->common->get_main_website_links($this->current_page);
         
         $article = $this->folders->getArticle($keyword);
         
