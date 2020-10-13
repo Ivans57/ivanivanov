@@ -4,10 +4,11 @@
 <article class="website-main-article articles-article-folders">
     @if ($folders->count() > 0)
         <div class="folders-and-articles-sorting">
-            {!! Form::label('sort', 'Sorting:', 
+            {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
             ['class' => 'folders-and-articles-sorting-label']) !!}
-            {!! Form::select('sort', array('sort_by_update_desc' => 'Latest first', 'sort_by_update_asc' => 'Oldest first', 
-                             'sort_by_name_desc' => 'Sort by name descending', 'sort_by_name_asc' => 'Sort by name ascending'), 
+            {!! Form::select('sort', array(
+                             'sort_by_update_desc' => Lang::get('keywords.LatestFirst'), 'sort_by_update_asc' => Lang::get('keywords.OldestFirst'), 
+                             'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
                              'sort_by_update_desc', ['id' => 'sort', 'class' => 'form-control folders-and-articles-sorting-select', 
                              'data-section' => $section, 'data-is_level_zero' => '1', 
                              'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}
@@ -17,7 +18,7 @@
                 @foreach ($folders as $folder)
                     <div class="folder-item">
                         <div class="folder-body">
-                            <a href='articles/{{ $folder->keyword }}/page/1'>
+                            <a href='{{ App::isLocale("en") ? "/articles/".$folder->keyword."/page/1" : "/ru/articles/".$folder->keyword."/page/1" }}'>
                                 <img src="{{ URL::asset('images/icons/regular_folder.png') }}" alt="{{ $folder->folder_name }}" class="article-folder">
                             </a>
                         </div>

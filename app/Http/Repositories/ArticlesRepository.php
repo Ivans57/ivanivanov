@@ -71,7 +71,8 @@ class ArticlesRepository {
             $folders_and_articles_full_info = $this->getFolder($keyword, $page, $items_amount_per_page, $including_invisible, $sorting_mode);
             //We need to do the check below in case user enters a page number more tha actual number of pages
             if ($page > $folders_and_articles_full_info->paginator_info->number_of_pages) {
-                return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, $folders_and_articles_full_info->paginator_info->number_of_pages, $is_admin_panel);
+                return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, 
+                                                            $folders_and_articles_full_info->paginator_info->number_of_pages, $is_admin_panel);
             } else {                
                 return $this->get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
                                         $items_amount_per_page, $sorting_mode);
@@ -86,7 +87,7 @@ class ArticlesRepository {
             return $this->get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
                                                     $items_amount_per_page, $sorting_mode);
         } else {
-            return $this->get_view_for_website($is_admin_panel, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);                   
+            return $this->get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);                   
         }
     }
     
@@ -115,7 +116,7 @@ class ArticlesRepository {
     }
     
     //The function below is required to simplify get_view function.
-    private function get_view_for_website($is_admin_panel, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
+    private function get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
         return view('pages.folder')->with([
                 'main_links' => $main_links,
                 'headTitle' => $folders_and_articles_full_info->head_title,
@@ -127,6 +128,8 @@ class ArticlesRepository {
                 'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
                 'items_amount_per_page' => $items_amount_per_page,
                 'section' => $section,
+                //parent_keyword is required for sorting.
+                'parent_keyword' => $keyword,
                 //Variable below needs to be corrected later.
                 'sorting_mode' => null,
                 //is_admin_panel is required for paginator.
@@ -200,7 +203,7 @@ class ArticlesRepository {
         
         //We need this to know if we will have any article on the page.
         //Depending on if we have them or not, we will have some ceratin view of contents.
-        $folders_and_articles_full_info->articleAmount = count($included_articles);        
+        $folders_and_articles_full_info->articleAmount = count($included_articles["directories_or_files"]);        
         $folders_and_articles_full_info->folder_name = $folder->keyword;
         $folders_and_articles_full_info->head_title = $folder->folder_name;
         $folders_and_articles_full_info->total_number_of_items = count($folders_and_articles_full);

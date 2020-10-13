@@ -62,7 +62,7 @@ class ArticlesController extends Controller
         }
     }
     
-    public function showFolder($keyword, $page){
+    public function showFolder($keyword, $page, $sorting_mode = null){
         
         $main_links = $this->common->get_main_website_links($this->current_page);
         
@@ -70,7 +70,8 @@ class ArticlesController extends Controller
         $items_amount_per_page = 16;
         
         //We need to call the method below to clutter down current method in controller
-        return $this->folders->showFolderView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 0);
+        return $this->folders->showFolderView(Str::lower($this->current_page), 
+                                            $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 0, $sorting_mode);
     }
     
     public function showArticle($keyword){

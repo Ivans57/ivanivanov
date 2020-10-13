@@ -158,14 +158,13 @@ $('select[name="sort"]').change(function(){
 function albums_or_articles_sort(sorting_method, current_element) {
     //If it is an english localization, we don't need to show it, because it is a default localization.
     var localization = (current_element.dataset.localization === "en") ? "" : "/ru";
-    
-    if (current_element.dataset.is_level_zero == "1") {
-        var url = localization+"/"+current_element.dataset.section+"/"+sorting_method;
-        //The line below need to move to the bottom later.
-        window.location.href = url;
+    var url;
+    if (current_element.dataset.is_level_zero === "1") {
+        url = localization+"/"+current_element.dataset.section+"/"+sorting_method; 
     } else {
-        alert('Nothing');
+        url = localization+"/"+current_element.dataset.section+"/"+current_element.dataset.parent_keyword+"/page/1/"+sorting_method;
     }
+    window.location.href = url;
 }
 
 /*--------------------------------------------------------*/
