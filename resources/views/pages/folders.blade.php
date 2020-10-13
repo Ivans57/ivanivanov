@@ -3,10 +3,14 @@
 @section('content')
 <article class="website-main-article articles-article-folders">
     @if ($folders->count() > 0)
-        <div>{!! Form::select('sort', array('sort_by_update_desc' => 'Latest first', 'sort_by_update_asc' => 'Oldest first', 
-                              'sort_by_name_desc' => 'Sort by name descending', 'sort_by_name_asc' => 'Sort by name ascending'), 
-                               'sort_by_update_desc', ['id' => 'sort', 'data-section' => $section, 
-                               'data-is_level_zero' => '1', 'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}
+        <div class="folders-and-articles-sorting">
+            {!! Form::label('sort', 'Sorting:', 
+            ['class' => 'folders-and-articles-sorting-label']) !!}
+            {!! Form::select('sort', array('sort_by_update_desc' => 'Latest first', 'sort_by_update_asc' => 'Oldest first', 
+                             'sort_by_name_desc' => 'Sort by name descending', 'sort_by_name_asc' => 'Sort by name ascending'), 
+                             'sort_by_update_desc', ['id' => 'sort', 'class' => 'form-control folders-and-articles-sorting-select', 
+                             'data-section' => $section, 'data-is_level_zero' => '1', 
+                             'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}
         </div>
         <div class="external-folders-wrapper">
             <div class="folders-wrapper">
