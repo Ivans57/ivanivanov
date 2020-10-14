@@ -57,6 +57,7 @@ class ArticlesController extends Controller
                 'main_links' => $main_links,
                 'folders' => $sorting_data["directories_or_files"],
                 'section' => Str::lower($this->current_page),
+                'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
                 'items_amount_per_page' => $items_amount_per_page
                 ]);
         }

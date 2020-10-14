@@ -87,7 +87,8 @@ class ArticlesRepository {
             return $this->get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
                                                     $items_amount_per_page, $sorting_mode);
         } else {
-            return $this->get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page);                   
+            return $this->get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
+                                                    $items_amount_per_page, $sorting_mode);                   
         }
     }
     
@@ -116,7 +117,8 @@ class ArticlesRepository {
     }
     
     //The function below is required to simplify get_view function.
-    private function get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, $items_amount_per_page) {
+    private function get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
+                                            $items_amount_per_page, $sorting_mode = null) {
         return view('pages.folder')->with([
                 'main_links' => $main_links,
                 'headTitle' => $folders_and_articles_full_info->head_title,
@@ -130,8 +132,7 @@ class ArticlesRepository {
                 'section' => $section,
                 //parent_keyword is required for sorting.
                 'parent_keyword' => $keyword,
-                //Variable below needs to be corrected later.
-                'sorting_mode' => null,
+                'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel
                 ]);
