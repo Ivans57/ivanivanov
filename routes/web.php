@@ -84,11 +84,11 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('articles/{keyword}/page/{page}/{sorting_mode?}', 'ArticlesController@showFolder');
+    Route::get('articles/{keyword}/page/{page}/{sorting_mode?}/{folders_or_articles_first?}', 'ArticlesController@showFolder');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('articles/{keyword}/page/{page}/{sorting_mode?}', 'ArticlesController@showFolder');
+    Route::get('articles/{keyword}/page/{page}/{sorting_mode?}/{folders_or_articles_first?}', 'ArticlesController@showFolder');
 });
 
 Route::group(['middleware' => 'locale'], function() {

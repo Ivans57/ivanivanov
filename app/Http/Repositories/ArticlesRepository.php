@@ -28,6 +28,9 @@ class FolderAndArticleForViewFullInfoForPage {
     public $head_title;
     public $foldersAndArticles;
     public $articleAmount;
+    //This property is required for radio switch on view.
+    //In case this property is 0, that radio switch is not required to display.
+    public $folderAmount;
     public $folderParents;
     public $folderNestingLevel;
     public $sorting_asc_or_desc;
@@ -62,33 +65,34 @@ class ArticlesRepository {
     //We need the method below to clutter down the method in controller, which
     //is responsible for showing some separate album.
     public function showFolderView($section, $page, $keyword, $items_amount_per_page, $main_links, 
-                                    $is_admin_panel, $including_invisible, $sorting_mode = null) {       
+                                    $is_admin_panel, $including_invisible, $sorting_mode = null, $folders_or_articles_first = null) {       
         $common_repository = new CommonRepository();
         //The condition below fixs a problem when user enters as a number of page some number less then 1.
         if ($page < 1) {
             return $common_repository->redirect_to_first_page_multi_entity($section, $keyword, $is_admin_panel);          
         } else {
-            $folders_and_articles_full_info = $this->getFolder($keyword, $page, $items_amount_per_page, $including_invisible, $sorting_mode);
+            $folders_and_articles_full_info = $this->getFolder($keyword, $page, $items_amount_per_page, 
+                                                                $including_invisible, $sorting_mode, $folders_or_articles_first);
             //We need to do the check below in case user enters a page number more tha actual number of pages
             if ($page > $folders_and_articles_full_info->paginator_info->number_of_pages) {
                 return $common_repository->redirect_to_last_page_multi_entity($section, $keyword, 
                                                             $folders_and_articles_full_info->paginator_info->number_of_pages, $is_admin_panel);
             } else {                
                 return $this->get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                        $items_amount_per_page, $sorting_mode);
+                                        $items_amount_per_page, $sorting_mode, $folders_or_articles_first);
             }
         }
     }
     
     //We need the method below to clutter down showFolderView method
     private function get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                $items_amount_per_page, $sorting_mode = null) {
+                                $items_amount_per_page, $sorting_mode = null, $folders_or_articles_first = null) {
         if ($is_admin_panel) {
             return $this->get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
                                                     $items_amount_per_page, $sorting_mode);
         } else {
             return $this->get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                                    $items_amount_per_page, $sorting_mode);                   
+                                                    $items_amount_per_page, $sorting_mode, $folders_or_articles_first);                   
         }
     }
     
@@ -118,13 +122,14 @@ class ArticlesRepository {
     
     //The function below is required to simplify get_view function.
     private function get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                            $items_amount_per_page, $sorting_mode = null) {
+                                            $items_amount_per_page, $sorting_mode = null, $folders_or_articles_first = null) {
         return view('pages.folder')->with([
                 'main_links' => $main_links,
                 'headTitle' => $folders_and_articles_full_info->head_title,
                 'folderName' => $folders_and_articles_full_info->folder_name,           
                 'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
                 'articleAmount' => $folders_and_articles_full_info->articleAmount,
+                'folderAmount' => $folders_and_articles_full_info->folderAmount,
                 'parents' => $folders_and_articles_full_info->folderParents,            
                 'pagination_info' => $folders_and_articles_full_info->paginator_info,
                 'total_number_of_items' => $folders_and_articles_full_info->total_number_of_items,
@@ -133,6 +138,7 @@ class ArticlesRepository {
                 //parent_keyword is required for sorting.
                 'parent_keyword' => $keyword,
                 'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
+                'folders_or_articles_first' => ($folders_or_articles_first) ? $folders_or_articles_first : 'folders_first',
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel
                 ]);
@@ -161,7 +167,8 @@ class ArticlesRepository {
         return $included_articles;
     }
     
-    private function getFolder($keyword, $page, $items_amount_per_page, $including_invisible, $sorting_mode = null) {
+    private function getFolder($keyword, $page, $items_amount_per_page, $including_invisible, $sorting_mode = null, 
+                                                                                    $folders_or_articles_first = null) {
         //Here we take only first value, because this type of request supposed
         //to give us a collection of items. But in this case as keyword is unique
         //for every single record we will always have only one item, which is
@@ -179,7 +186,7 @@ class ArticlesRepository {
         
         //Here we are calling method which will merge all articles and folders from selected folder into one array.
         $folders_and_articles_full = $this->get_included_folders_and_articles($included_folders["directories_or_files"], 
-                                        $included_articles["directories_or_files"]);
+                                        $included_articles["directories_or_files"], $folders_or_articles_first);
          
         //We need the object below which will contatin an array of needed folders 
         //and pictures and also some necessary data for pagination, which we will 
@@ -204,7 +211,8 @@ class ArticlesRepository {
         
         //We need this to know if we will have any article on the page.
         //Depending on if we have them or not, we will have some ceratin view of contents.
-        $folders_and_articles_full_info->articleAmount = count($included_articles["directories_or_files"]);        
+        $folders_and_articles_full_info->articleAmount = count($included_articles["directories_or_files"]); 
+        $folders_and_articles_full_info->folderAmount = count($included_folders["directories_or_files"]);
         $folders_and_articles_full_info->folder_name = $folder->keyword;
         $folders_and_articles_full_info->head_title = $folder->folder_name;
         $folders_and_articles_full_info->total_number_of_items = count($folders_and_articles_full);
@@ -247,11 +255,24 @@ class ArticlesRepository {
     }
     
     //We need this function to make our own array which will contain all included
-    //in some chosen folder folders and pictures
-    private function get_included_folders_and_articles($included_folders, $articles){
-        //After that we need to merge our albums and pictures to show them in selected album on the same page
+    //in some chosen folder folders and pictures.
+    private function get_included_folders_and_articles($included_folders, $articles, $folders_or_articles_first = null) {       
+        //We need to merge included folders and articles to show them in selected folder on the same page.
+        if ($folders_or_articles_first === "articles_first") {
+            $folders_and_articles_full = array_merge($this->get_included_articles($articles, count($included_folders)), 
+                                                 $this->get_included_folders($included_folders, count($included_folders)));
+        } else {
+            $folders_and_articles_full = array_merge($this->get_included_folders($included_folders, count($included_folders)), 
+                                                 $this->get_included_articles($articles, count($included_folders)));
+        }
+        
+        return $folders_and_articles_full;
+    }
+    
+    //We need to make separate functions for folders and articles parts of common array, because depending on user wish
+    //on the website might be required to display folders before articles or opposite.
+    private function get_included_folders($included_folders, $included_folders_count) {
         $folders_and_articles_full = array();       
-        $included_folders_count = count($included_folders);
         
         for($i = 0; $i < $included_folders_count; $i++) {
             $folders_and_articles_full[$i] = new FolderAndArticleForView();
@@ -261,7 +282,14 @@ class ArticlesRepository {
             $folders_and_articles_full[$i]->updatedAt = $included_folders[$i]->updated_at;
             $folders_and_articles_full[$i]->isVisible = $included_folders[$i]->is_visible;
             $folders_and_articles_full[$i]->type = 'folder';
-        }           
+        }
+        return $folders_and_articles_full;
+    }
+    
+    //We need to make separate functions for folders and articles parts of common array, because depending on user wish
+    //on the website might be required to display folders before articles or opposite.
+    private function get_included_articles($articles, $included_folders_count) {
+        $folders_and_articles_full = array();
         
         for($i = $included_folders_count; $i < count($articles)+$included_folders_count; $i++) {
             $folders_and_articles_full[$i] = new FolderAndArticleForView();
@@ -272,7 +300,6 @@ class ArticlesRepository {
             $folders_and_articles_full[$i]->isVisible = $articles[$i-$included_folders_count]->is_visible;
             $folders_and_articles_full[$i]->type = 'article';
         }
-        
         return $folders_and_articles_full;
     }
     
