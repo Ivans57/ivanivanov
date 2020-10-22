@@ -20,35 +20,30 @@
         <h2>{{ $headTitle }}</h2>
     </div>
     @if ($total_number_of_items > 0)
-        <div class="folders-and-articles-sorting">
-            <div>
-                <div>
-                    {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
-                    ['class' => 'folders-and-articles-sorting-label']) !!}
-                    {!! Form::select('sort', array(
-                                     'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
-                                     'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
-                                     'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
-                                     'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
-                                     $sorting_mode, ['id' => 'sort', 'class' => 'form-control folders-and-articles-sorting-select', 
-                                     'data-section' => $section, 'data-parent_keyword' => $parent_keyword, 'data-is_level_zero' => '0', 
-                                     'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
-                                     'data-has_articles' => ($articleAmount > 0) ? 'true' : 'false', 
-                                     'data-has_folders' => ($folderAmount > 0) ? 'true' : 'false']) !!}
-                </div>
-                @if ($articleAmount > 0 && $folderAmount > 0)
-                    <div>
-                        {!! Form::label('folders_first', 'Folders first'.':') !!}
-                        {!! Form::radio('folders_or_articles_first', 'folders_first', 
-                                       (($folders_or_articles_first === 'folders_first') ? true : false), ['id' => 'folders_first']); !!}
-                    </div>
-                    <div>
-                        {!! Form::label('articles_first', 'Articles first'.':') !!}
-                        {!! Form::radio('folders_or_articles_first', 'articles_first', 
-                                       (($folders_or_articles_first === 'articles_first') ? true : false), ['id' => 'articles_first']); !!}
-                    </div>
-                @endif
-            </div>
+        <div class="folders-and-articles-sorting">                        
+            {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
+                           ['class' => 'folders-and-articles-sorting-label']) !!}           
+            {!! Form::select('sort', array(
+                             'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
+                             'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
+                             'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
+                             'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
+                              $sorting_mode, ['id' => 'sort', 
+                             'class' => 'form-control folders-and-articles-sorting-controls folders-and-articles-sorting-select', 
+                             'data-section' => $section, 'data-parent_keyword' => $parent_keyword, 'data-is_level_zero' => '0', 
+                             'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
+                             'data-has_articles' => ($articleAmount > 0) ? 'true' : 'false', 
+                             'data-has_folders' => ($folderAmount > 0) ? 'true' : 'false']) !!}           
+            @if ($articleAmount > 0 && $folderAmount > 0)                   
+                {!! Form::label('folders_first', Lang::get('keywords.FoldersFirst').':', ['class' => 'folders-and-articles-sorting-label']) !!}               
+                {!! Form::radio('folders_or_articles_first', 'folders_first', 
+                               (($folders_or_articles_first === 'folders_first') ? true : false), ['id' => 'folders_first', 
+                                'class' => 'folders-and-articles-sorting-controls']); !!}                    
+                {!! Form::label('articles_first', Lang::get('keywords.ArticlesFirst').':', ['class' => 'folders-and-articles-sorting-label']) !!}               
+                {!! Form::radio('folders_or_articles_first', 'articles_first', 
+                               (($folders_or_articles_first === 'articles_first') ? true : false), ['id' => 'articles_first', 
+                                'class' => 'folders-and-articles-sorting-controls']); !!}                    
+            @endif          
         </div>
         @if ($articleAmount < 1)       
             <div class="external-folders-wrapper">
