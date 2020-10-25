@@ -1458,7 +1458,7 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
 }
 
 .articles-article-folders-and-articles {
-    width: 700px;
+    width: 750px;
     min-height: 610px;
 }
 
@@ -1470,6 +1470,11 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
 .articles-article-folders .folders-and-articles-sorting,
 .articles-article-folders-and-articles .folders-and-articles-sorting {
     display: flex;
+    justify-content: flex-start;
+    /*The next line is necessary for smaller size screens,
+    if we don't use that propery, the contents of the container won't go to the next line,
+    but will fall out of the container.*/
+    flex-wrap: wrap;
     margin-bottom: 10px;
     margin-right: 15px;
 }
@@ -1540,14 +1545,13 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
 but we need our pagination tools to be in the bottom off the page. This is some kind of spacer.*/
 .articles-article-folders .external-folders-wrapper {
     min-height: 555px;
-    align-items: center;
+    padding-left: 15px;
 }
 
 .articles-article-folders .external-folders-wrapper .folders-wrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .articles-article-folders .empty-folders-text-wrapper {
@@ -1577,6 +1581,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     font-family: Arial;
     text-align: center;
     filter: drop-shadow(0 0 1px black);
+    overflow: hidden;
 }
 
 .articles-article-folders .folder-item .folder-body .article-folder {
@@ -1770,6 +1775,22 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         width: 675px;
     }
     
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-controls, 
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-controls {
+        margin-right: 12px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-label,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-label {
+        margin-right: 5px;
+        font-size: 15px;
+    }
+
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 195px;
+    }
+    
     .articles-article-folders-and-articles {
         width: 600px;
     }
@@ -1858,10 +1879,31 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         width: 590px;
     }
     
+    .articles-article-folders .external-folders-wrapper {
+        padding-left: 5px;
+    }
+    
     .articles-article-folders-and-articles {
         width: 540px;
     }
     
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-controls, 
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-controls {
+        margin-right: 10px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-label,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-label {
+        margin-right: 5px;
+        font-size: 15px;
+    }
+
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 190px;
+        padding: 3px;
+    }
+      
     .articles-article-folders h2 {
         font-size: 31px;
     }
@@ -1890,7 +1932,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     including text, but we need to keep it almost the same size. It means scale
     takes text 16px and appplies 0.8 to it.*/
     .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item .folder-title .article-folder-title {
-        font-size: 18px;
+        font-size: 16px;
         filter: drop-shadow(0 0 0px black);
     }
     
@@ -1995,6 +2037,12 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .articles-article {
         width: 440px;
         padding: 25px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 185px;
+        padding: 2px;
     }
     
     .articles-article-folders h2 {
@@ -2149,10 +2197,29 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .articles-article-folders {
         min-width: 280px;
         max-width: 310px;
+        padding-top: 20px;
     }
     
     .articles-article-folders-and-articles {
         width: 320px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-controls, 
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-controls {
+        margin-right: 8px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-label,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-label {
+        margin-right: 4px;
+        font-size: 14px;
+    }
+
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 180px;
+        height: 24px;
+        font-size: 13px;
     }
     
     .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
@@ -2217,6 +2284,28 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     }
     
     .articles-article-folders .external-folders-wrapper {
+        padding-left: 0px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-controls, 
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-controls {
+        margin-right: 5px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-label,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-label {
+        margin-right: 3px;
+        font-size: 14px;
+    }
+
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 170px;
+        height: 22px;
+        font-size: 13px;
+    }
+    
+    .articles-article-folders .external-folders-wrapper {
         min-height: 320px;
     }
     
@@ -2236,6 +2325,11 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .articles-article {
         width: 290px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        margin-bottom: 4px;
     }
     
     .articles-article-folders h2 {
@@ -2297,6 +2391,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .articles-article {
         width: 270px;
         padding: 20px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting  {
+        margin-left: 12px;
     }
     
     .articles-article-folders h2 {
@@ -2458,6 +2556,24 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         width: 200px;
     }
     
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-label,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-label {
+        margin-right: 3px;
+        font-size: 13px;
+    }
+
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 160px;
+        height: 22px;
+        padding: 1px;
+        font-size: 13px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 145px;
+    }
+    
     .articles-article h2 {
         font-size: 20px;
     }
@@ -2519,6 +2635,24 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .articles-article-folders-and-articles {
         width: 160px;
         min-height: 330px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-label,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-label {
+        margin-right: 3px;
+        font-size: 12px;
+    }
+
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select,
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 160px;
+        height: 22px;
+        padding: 1px;
+        font-size: 12px;
+    }
+    
+    .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 145px;
     }
     
     .articles-article-folders h2 {

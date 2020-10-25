@@ -49,7 +49,7 @@
             <div class="external-folders-wrapper">
                 <div class="folders-wrapper">       
                     @foreach ($folders_and_articles as $folder_or_article)
-                        <div class="folder-item">
+                        <div class="folder-item" title='{{ $folder_or_article->caption }}'>
                             <div class="folder-body">
                                 <a href={{ App::isLocale('en') ? "/articles/".$folder_or_article->keyWord."/page/1" : 
                                     "/ru/articles/".$folder_or_article->keyWord."/page/1" }}>

@@ -16,7 +16,7 @@
         <div class="external-folders-wrapper">
             <div class="folders-wrapper">
                 @foreach ($folders as $folder)
-                    <div class="folder-item">
+                    <div class="folder-item" title='{{ $folder->folder_name }}'>
                         <div class="folder-body">
                             <a href='{{ App::isLocale("en") ? "/articles/".$folder->keyword."/page/1" : "/ru/articles/".$folder->keyword."/page/1" }}'>
                                 <img src="{{ URL::asset('images/icons/regular_folder.png') }}" alt="{{ $folder->folder_name }}" class="article-folder">
