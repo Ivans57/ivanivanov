@@ -38,7 +38,6 @@ class ArticlesController extends Controller
              
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 16;
-        //$folders = $this->folders->getAllLevelZeroFolders($items_amount_per_page, 0);
         
         //In the next line the data are getting extracted from the database and sorted.
         //The fourth parameter is 'folders', because currently we are working with level 0 folders.

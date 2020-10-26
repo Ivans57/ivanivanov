@@ -14,7 +14,7 @@ class AlbumsController extends Controller {
     
     protected $albums;    
     protected $current_page;
-    protected $navigation_bar_obj;
+    protected $common;
     //We need this variable to identify whether we are using a normal site
     //option or admin panel, as we have common repositories for the normal 
     //site and admin panel.
@@ -33,35 +33,39 @@ class AlbumsController extends Controller {
         //We can't get all these links in constructor as localiztion is applied 
         //only when we call some certain method in a route. We need to call the
         //method for main links using made main links object in controller's methods.
-        $this->navigation_bar_obj = new CommonRepository();
+        $this->common = new CommonRepository();
         $this->is_admin_panel = false;
     }
     
-    public function index(){  
+    public function index($sorting_mode = null){  
         
         //We need the line below to make main navigation links
         //We can't make global variable and initialize it in constructor because
         //localization won't be applied
         //Localiztion gets applied only if we call some certaion method from any controller
         //!Need to think is it possible still to apply localization in constructor!
-        $main_links = $this->navigation_bar_obj->get_main_website_links($this->current_page);
+        $main_links = $this->common->get_main_website_links($this->current_page);
         
         $items_amount_per_page = 16;        
-        $album_links = $this->albums->getAllLevelZeroAlbums($items_amount_per_page, 0);
-        
-        //$check = $album_links[0];
 
+        //In the next line the data are getting extracted from the database and sorted.
+        //The fourth parameter is 'folders', because currently we are working with level 0 folders.
+        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 1, 'albums');
+        
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
-        if ($album_links[0] && ($album_links->currentPage() > $album_links->lastPage())) {
-            return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
-                                                                                $album_links->lastPage(), $this->is_admin_panel);
+        if ($sorting_data["directories_or_files"][0] && 
+                ($sorting_data["directories_or_files"]->currentPage() > $sorting_data["directories_or_files"]->lastPage())) {
+                    return $this->common->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
+                    $sorting_data["directories_or_files"]->lastPage(), $this->is_admin_panel);
         } else {
             return view('pages.albums')->with([
                 'headTitle' => __('keywords.'.$this->current_page),
                 'main_links' => $main_links,
-                'album_links' => $album_links,
+                'album_links' => $sorting_data["directories_or_files"],
+                'section' => Str::lower($this->current_page),
+                'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
                 'items_amount_per_page' => $items_amount_per_page
             ]);
         }
@@ -69,7 +73,7 @@ class AlbumsController extends Controller {
             
     public function show($keyword, $page){
         
-        $main_links = $this->navigation_bar_obj->get_main_website_links($this->current_page);
+        $main_links = $this->common->get_main_website_links($this->current_page);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 20;

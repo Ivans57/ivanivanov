@@ -138,7 +138,7 @@ class ArticlesRepository {
                 //parent_keyword is required for sorting.
                 'parent_keyword' => $keyword,
                 'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
-                'folders_or_articles_first' => ($folders_or_articles_first) ? $folders_or_articles_first : 'folders_first',
+                'directories_or_files_first' => ($folders_or_articles_first) ? $folders_or_articles_first : 'folders_first',
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel
                 ]);

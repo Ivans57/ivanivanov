@@ -55,11 +55,11 @@ Route::group(['middleware' => 'locale'], function() {
 //Albums
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('albums', 'AlbumsController@index');
+    Route::get('albums/{sorting_mode?}', 'AlbumsController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('albums', 'AlbumsController@index');
+    Route::get('albums/{sorting_mode?}', 'AlbumsController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {
