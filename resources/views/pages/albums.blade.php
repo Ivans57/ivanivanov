@@ -18,7 +18,7 @@
                 @foreach ($album_links as $album_link)
                     <div class="album-item">
                         <div class="album-body">
-                            <a href='albums/{{ $album_link->keyword }}/page/1'>
+                            <a href='{{ App::isLocale("en") ? "/albums/".$album_link->keyword."/page/1" : "/ru/albums/".$album_link->keyword."/page/1" }}'>
                                 <img src="{{ URL::asset('images/icons/album_folder.png') }}" alt="{{ $album_link->album_name }}" class="album-folder">
                             </a>
                         </div>
