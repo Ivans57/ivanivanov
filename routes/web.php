@@ -63,11 +63,11 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('albums/{keyword}/page/{page}', 'AlbumsController@show');
+    Route::get('albums/{keyword}/page/{page}/{sorting_mode?}/{albums_or_pictures_first?}', 'AlbumsController@show');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('albums/{keyword}/page/{page}', 'AlbumsController@show');
+    Route::get('albums/{keyword}/page/{page}/{sorting_mode?}/{albums_or_pictures_first?}', 'AlbumsController@show');
 });
 
 //------------------------------------------------------------------------------

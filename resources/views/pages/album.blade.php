@@ -19,6 +19,31 @@
         <h2>{{ $headTitle }}</h2>
     </div>
     @if ($total_number_of_items > 0)
+        <div class="albums-and-pictures-sorting" style="margin-bottom: 40px;">                        
+            {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
+                           ['class' => 'albums-and-pictures-sorting-label']) !!}           
+            {!! Form::select('sort', array(
+                             'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
+                             'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
+                             'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
+                             'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
+                              $sorting_mode, ['id' => 'sort', 
+                             'class' => 'form-control albums-and-pictures-sorting-controls albums-and-pictures-sorting-select', 
+                             'data-section' => $section, 'data-parent_keyword' => $parent_keyword, 'data-is_level_zero' => '0', 
+                             'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
+                             'data-has_files' => ($pictureAmount > 0) ? 'true' : 'false', 
+                             'data-has_directories' => ($albumAmount > 0) ? 'true' : 'false']) !!}           
+            @if ($pictureAmount > 0 && $albumAmount > 0)                   
+                {!! Form::label('albums_first', Lang::get('keywords.AlbumsFirst').':', ['class' => 'albums-and-pictures-sorting-label']) !!}               
+                {!! Form::radio('directories_or_files_first', 'albums_first', 
+                               (($directories_or_files_first === 'albums_first') ? true : false), ['id' => 'albums_first', 
+                                'class' => 'albums-and-pictures-sorting-controls']); !!}                    
+                {!! Form::label('pictures_first', Lang::get('keywords.PicturesFirst').':', ['class' => 'albums-and-pictures-sorting-label']) !!}               
+                {!! Form::radio('directories_or_files_first', 'pictures_first', 
+                               (($directories_or_files_first === 'pictures_first') ? true : false), ['id' => 'pictures_first', 
+                                'class' => 'albums-and-pictures-sorting-controls']); !!}                    
+            @endif          
+        </div>
         <div class="external-albums-picture-wrapper">
             <div class="albums-picture-wrapper">       
                 @foreach ($albums_and_pictures as $album_or_picture)

@@ -255,7 +255,7 @@ class ArticlesRepository {
     }
     
     //We need this function to make our own array which will contain all included
-    //in some chosen folder folders and pictures.
+    //in some chosen folder folders and articles.
     private function get_included_folders_and_articles($included_folders, $articles, $folders_or_articles_first = null) {       
         //We need to merge included folders and articles to show them in selected folder on the same page.
         if ($folders_or_articles_first === "articles_first") {

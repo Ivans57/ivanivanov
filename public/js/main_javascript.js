@@ -177,7 +177,7 @@ function directories_or_files_sort(sorting_method, current_element) {
 }
 
 //This function is required to show folders(albums) or articles(pictures) first.
-$("input[type='radio']").change(function(){
+$("input[type='radio']").change(function() {
     var directories_or_files_first_value = $(this).val();
     var element_with_sorting_info = document.querySelector('#sort');
     

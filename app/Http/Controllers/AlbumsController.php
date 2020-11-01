@@ -71,7 +71,7 @@ class AlbumsController extends Controller {
         }
     }
             
-    public function show($keyword, $page){
+    public function show($keyword, $page, $sorting_mode = null, $albums_or_pictures_first = null) {
         
         $main_links = $this->common->get_main_website_links($this->current_page);
         
@@ -79,8 +79,8 @@ class AlbumsController extends Controller {
         $items_amount_per_page = 20;
         
         //We need to call the method below to clutter down current method in controller
-        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, 
-                                                $this->is_admin_panel, 0);       
+        return $this->albums->showAlbumView(Str::lower($this->current_page), 
+                $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 0, $sorting_mode, $albums_or_pictures_first);
     }
     
     public function testik(Request $request){
