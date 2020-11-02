@@ -48,7 +48,7 @@
             <div class="albums-picture-wrapper">       
                 @foreach ($albums_and_pictures as $album_or_picture)
                     @if ($album_or_picture->type == 'album')
-                        <div class="album-item">
+                        <div class="album-item" title='{{ $album_or_picture->caption }}'>
                             <div class="album-body">                               
                                 <a href={{ App::isLocale('en') ? "/albums/".$album_or_picture->keyWord."/page/1" : 
                                     "/ru/albums/".$album_or_picture->keyWord."/page/1" }}>
