@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<article class="website-main-article albums-article">
+<article class="website-main-article albums-article albums-article-for-included-albums">
     <div class="path-panel">        
         <span class="path-panel-text">@lang('keywords.Path'):</span>
         <a href={{ App::isLocale('en') ? "/albums" : "/ru/albums" }} class="path-panel-text">@lang('keywords.Albums')</a>
@@ -19,7 +19,7 @@
         <h2>{{ $headTitle }}</h2>
     </div>
     @if ($total_number_of_items > 0)
-        <div class="albums-and-pictures-sorting" style="margin-bottom: 40px;">                        
+        <div class="albums-and-pictures-sorting albums-and-pictures-sorting-for-included-albums">                        
             {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
                            ['class' => 'albums-and-pictures-sorting-label']) !!}           
             {!! Form::select('sort', array(
