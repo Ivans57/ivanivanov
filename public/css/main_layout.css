@@ -1386,6 +1386,20 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-bottom: 5px;
     }
     
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+        font-size: 14px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 180px;
+        padding: 1px;
+        font-size: 14px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select option {
+        font-size: 14px;
+    }
+    
     .albums-article .external-albums-wrapper {
         padding-left: 20px;
     }
