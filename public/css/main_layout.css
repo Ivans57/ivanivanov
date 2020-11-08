@@ -1464,6 +1464,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         min-height: 405px;
     }
     
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
+        margin-right: 5px;
+    }
+    
     .albums-article .external-albums-wrapper {
         min-height: 310px;
     }
@@ -1480,7 +1484,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .albums-article .external-albums-wrapper .albums-wrapper .album-item {
         transform: scale(0.6);
         margin-right: -20px;
-        margin-left: -20px;
+        margin-left: -15px;
         margin-top: -35px;
         margin-bottom: -35px;   
     }
@@ -1512,8 +1516,9 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
 @media (max-width: 300px) {
     .albums-article {
-        max-width: 235px;
-        min-width: 200px;
+        /*If I apply only width propery it is not working, for that reason
+        I applied min-width.*/
+        min-width: 280px;
         min-height: 380px;
         padding: 25px;
     }
@@ -1528,11 +1533,15 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     }
     
     .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
-        transform: scale(0.7);
-        margin-top: -5px;
-        margin-bottom: -5px;
-        margin-right: -5px;
+        transform: scale(0.6);
+        margin-top: -10px;
+        margin-bottom: -10px;
+        margin-right: -15px;
         margin-left: -5px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title {
+        transform: scale(1.2);
     }
     
     .albums-article .empty-albums-text-wrapper {
@@ -1547,37 +1556,82 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 @media (max-width: 280px) {  
     .albums-article {
         min-width: 210px;
-        max-width: 225px;
         min-height: 360px;
         padding: 20px;
     }
     
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+        font-size: 13px;
+        margin-right: 5px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 170px;
+        padding: 0px;
+        font-size: 13px;
+        margin-bottom: 0px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting-for-included-albums .albums-and-pictures-sorting-select {
+        margin-bottom: 10px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select option {
+        font-size: 13px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
+        margin-right: 5px;
+    }
+    
     .albums-article .external-albums-wrapper {
         min-height: 265px;
+        padding-left: 10px;
     }
     
     .albums-article .external-albums-picture-wrapper {
         min-height: 310px;
     }
     
-    .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        transform: scale(0.6);
+        margin-right: -20px;
+        margin-left: -10px;
+        margin-top: -30px;
+        margin-bottom: -30px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
         transform: scale(0.6);
         margin-top: -10px;
         margin-bottom: -10px;
-        margin-right: -10px;
+        margin-right: -20px;
         margin-left: -10px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title {
+        transform: scale(1.3);
     }
 }
 
-@media (max-width: 220px) {
+@media (max-width: 250px) {
     .albums-article {
-        max-width: 200px;
-        min-width: 180px;
+        max-width: 220px;
         min-height: 350px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting {
+        margin-left: 5px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        height: 22px;
+        margin-bottom: 5px;
     }
     
     .albums-article .external-albums-wrapper {
         min-height: 250px;
+        padding-left: 10px;
     }
 
     .albums-article .external-albums-wrapper .albums-wrapper .album-item {
@@ -1588,7 +1642,58 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-bottom: -40px;   
     }
     
-    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title{
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        transform: scale(0.5);
+        margin-right: -25px;
+        margin-left: -25px;
+        margin-top: -45px;
+        margin-bottom: -40px;   
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+        transform: scale(0.55);
+        margin-top: -10px;
+        margin-bottom: -15px;
+        margin-right: -30px;
+        margin-left: -15px;
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title {
+        transform: scale(1.3);
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title {
+        transform: scale(1.5);
+    }
+}
+
+@media (max-width: 220px) {
+    .albums-article {
+        /*If I apply only width propery it is not working, for that reason
+        I applied min-width and max-width.*/
+        max-width: 200px;
+        min-width: 150px;
+        min-height: 350px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting {
+        margin-left: 0px;
+    }
+
+    .albums-article .external-albums-wrapper {
+        min-height: 250px;
+        padding-left: 0px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+        transform: scale(0.5);
+        margin-top: -15px;
+        margin-bottom: -20px;
+        margin-right: -30px;
+        margin-left: -20px;
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title {
         transform: scale(1.3);
     }
 }
@@ -1596,8 +1701,26 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 /*200px is a minimal width of the Website!*/
 @media (max-width: 200px) {
     .albums-article {
-        min-width: 160px;
+        max-width: 190px;
+        min-width: 150px;
         min-height: 330px;
+        padding: 10px;
+        padding-top: 20px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting {
+        margin-left: 0px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 170px;
+        padding: 0px;
+        font-size: 12.5px;
+        /*margin-bottom: 0px;*/
+    }    
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select option {
+        font-size: 12.5px;
     }
     
     .albums-article h2 {
@@ -1606,6 +1729,33 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .albums-article .external-albums-wrapper {
         min-height: 230px;
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item {
+        transform: scale(0.45);
+        margin-right: -25px;
+        margin-left: -25px;
+        margin-top: -55px;
+        margin-bottom: -40px;   
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        transform: scale(0.45);
+        margin-right: -25px;
+        margin-left: -25px;
+        margin-top: -55px;
+        margin-bottom: -40px;   
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title {
+        margin-top: -5px;
+        transform: scale(1.5);
+        overflow: hidden;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title {
+        transform: scale(1.6);
+        margin-top: -5px;
     }
 }
 
