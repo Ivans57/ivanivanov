@@ -54,6 +54,24 @@
         </div>
     </div>
     @if ($total_number_of_items > 0)
+        <div class="admin-panel-articles-sorting">                                   
+            @if ($articleAmount > 0 && $folderAmount > 0)                   
+                {!! Form::label('folders_first', Lang::get('keywords.FoldersFirst').':', ['class' => 'admin-panel-articles-sorting-label']) !!}               
+                {!! Form::radio('directories_or_files_first', 'folders_first', 
+                               (($directories_or_files_first === 'folders_first') ? true : false), ['id' => 'folders_first', 
+                                'class' => 'admin-panel-articles-sorting-controls', 
+                                'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
+                                'data-section' => $section, 
+                                'data-parent_keyword' => $parent_keyword]); !!}                    
+                {!! Form::label('articles_first', Lang::get('keywords.ArticlesFirst').':', ['class' => 'admin-panel-articles-sorting-label']) !!}               
+                {!! Form::radio('directories_or_files_first', 'articles_first', 
+                               (($directories_or_files_first === 'articles_first') ? true : false), ['id' => 'articles_first', 
+                                'class' => 'admin-panel-articles-sorting-controls', 
+                                'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
+                                'data-section' => $section, 
+                                'data-parent_keyword' => $parent_keyword]); !!}                    
+            @endif          
+        </div>
         <div class="admin-panel-articles-external-articles-and-folders-wrapper">
             <div class="admin-panel-articles-articles-and-folders-wrapper">
                 <div class="admin-panel-articles-article-and-folder-header-row">

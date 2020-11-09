@@ -44,4 +44,22 @@ function albums_or_articles_sort(sorting_method, current_element) {
     window.location.href = url;
 }
 
+//This function is required to show folders(albums) or articles(pictures) first.
+$("input[type='radio']").change(function() {
+    var directories_or_files_first_value = $(this).val();
+    var element_with_sorting_info = document.querySelector('#'+$(this)[0].id);
+    
+    directories_or_files_first(element_with_sorting_info, directories_or_files_first_value);
+});
+
+function directories_or_files_first(element_with_sorting_info, directories_or_files_first_value) {
+    //If it is an english localization, we don't need to show it, because it is a default localization.
+    var localization = (element_with_sorting_info.dataset.localization === "en") ? "" : "/ru";
+
+    var url = localization+"/admin/"+element_with_sorting_info.dataset.section+"/"+
+              element_with_sorting_info.dataset.parent_keyword+
+              "/page/1/"+element_with_sorting_info.value+"/"+directories_or_files_first_value;
+    window.location.href = url;
+}
+
 /*--------------------------------------------------------*/

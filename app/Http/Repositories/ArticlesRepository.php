@@ -89,7 +89,7 @@ class ArticlesRepository {
                                 $items_amount_per_page, $sorting_mode = null, $folders_or_articles_first = null) {
         if ($is_admin_panel) {
             return $this->get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                                    $items_amount_per_page, $sorting_mode);
+                                                    $items_amount_per_page, $sorting_mode, $folders_or_articles_first);
         } else {
             return $this->get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
                                                     $items_amount_per_page, $sorting_mode, $folders_or_articles_first);                   
@@ -98,7 +98,7 @@ class ArticlesRepository {
     
     //The function below is required to simplify get_view function.
     private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                                $items_amount_per_page, $sorting_mode = null) {
+                                                $items_amount_per_page, $sorting_mode = null, $folders_or_articles_first = null) {
         return view('adminpages.adminfolder')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
@@ -106,6 +106,8 @@ class ArticlesRepository {
                 'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => $folders_and_articles_full_info->head_title,          
                 'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
+                'articleAmount' => $folders_and_articles_full_info->articleAmount,
+                'folderAmount' => $folders_and_articles_full_info->folderAmount,
                 'sorting_asc_or_desc' => $folders_and_articles_full_info->sorting_asc_or_desc,
                 'parents' => $folders_and_articles_full_info->folderParents,
                 'nesting_level' => $folders_and_articles_full_info->folderNestingLevel,
@@ -114,7 +116,8 @@ class ArticlesRepository {
                 'items_amount_per_page' => $items_amount_per_page,
                 'section' => $section,
                 'parent_keyword' => $keyword,
-                'sorting_mode' => $sorting_mode,
+                'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
+                'directories_or_files_first' => ($folders_or_articles_first) ? $folders_or_articles_first : 'folders_first',
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel
                 ]);
