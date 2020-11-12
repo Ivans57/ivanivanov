@@ -10,27 +10,30 @@
 $( "#sort_by_name" ).click(function() {
     var current_element = document.querySelector('#sort_by_name');
     //The last parameter have only included items.
-    albums_or_articles_sort(current_element.id, current_element, $("input[name='directories_or_files_first']:checked").val());
+    albums_or_articles_sort(current_element.id, current_element, $("input[name='directories_or_files_first']:checked").val(), 
+                            $('input[name="show_only_visible"]').val());
 });
     
 //Sorting by creation date and time.
 $( "#sort_by_creation" ).click(function() {
     var current_element = document.querySelector('#sort_by_creation');
     //The last parameter have only included items.
-    albums_or_articles_sort(current_element.id, current_element, $("input[name='directories_or_files_first']:checked").val());
+    albums_or_articles_sort(current_element.id, current_element, $("input[name='directories_or_files_first']:checked").val(), 
+                            $('input[name="show_only_visible"]').val());
 });
     
 //Sorting by update date and time.
 $( "#sort_by_update" ).click(function() {
     var current_element = document.querySelector('#sort_by_update');   
     //The last parameter have only included items.
-    albums_or_articles_sort(current_element.id, current_element, $("input[name='directories_or_files_first']:checked").val());
+    albums_or_articles_sort(current_element.id, current_element, $("input[name='directories_or_files_first']:checked").val(), 
+                            $('input[name="show_only_visible"]').val());
 });
     
 //The function below is making a link to do sorting and going to it.
 //For elements on level 0 and for different level elements will be different links, for that reason we need that parameter.
 //The last parameter have only included items.
-function albums_or_articles_sort(sorting_method, current_element, directories_or_files_first_value) {
+function albums_or_articles_sort(sorting_method, current_element, directories_or_files_first_value, show_invisible) {
     //If it is an english localization, we don't need to show it, because it is a default localization.
     var localization = (current_element.dataset.localization === "en") ? "" : "/ru";
     var current_sorting_method = document.querySelector('#'+sorting_method);
@@ -39,7 +42,8 @@ function albums_or_articles_sort(sorting_method, current_element, directories_or
                     current_sorting_method.dataset.sorting_mode;
     } else {
         var url = localization+"/admin/"+current_element.dataset.section+"/"+current_element.dataset.parent_keyword+
-                    "/page/1/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode+"/"+directories_or_files_first_value;
+                    "/page/1/"+show_invisible+"/"+current_sorting_method.id+"_"+
+                    current_sorting_method.dataset.sorting_mode+"/"+directories_or_files_first_value;
     }
     window.location.href = url;
 }
@@ -52,16 +56,16 @@ $("input[type='radio']").change(function() {
     
     directories_or_files_first(element_with_sorting_info, 
                     current_sorting_method_element.id+"_"+current_sorting_method_element.dataset.current_sorting_mode, 
-                    directories_or_files_first_value);
+                    directories_or_files_first_value, $('input[name="show_only_visible"]').val());
 });
 
-function directories_or_files_first(element_with_sorting_info, sorting_method_and_mode, directories_or_files_first_value) {
+function directories_or_files_first(element_with_sorting_info, sorting_method_and_mode, directories_or_files_first_value, show_invisible) {
     //If it is an english localization, we don't need to show it, because it is a default localization.
     var localization = (element_with_sorting_info.dataset.localization === "en") ? "" : "/ru";
 
     var url = localization+"/admin/"+element_with_sorting_info.dataset.section+"/"+
               element_with_sorting_info.dataset.parent_keyword+
-              "/page/1/"+sorting_method_and_mode+"/"+directories_or_files_first_value;
+              "/page/1/"+show_invisible+"/"+sorting_method_and_mode+"/"+directories_or_files_first_value;
     window.location.href = url;
 }
 
