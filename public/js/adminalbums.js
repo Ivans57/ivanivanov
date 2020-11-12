@@ -169,7 +169,7 @@ $( document ).ready(function() {
                 preload : false,
                 css : {
                     'width' : '355px',
-                    'height' : height,//'440px',
+                    'height' : height,
                     'margin-bottom' : '200px'
                 }
             },

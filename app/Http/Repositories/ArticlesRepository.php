@@ -79,17 +79,17 @@ class ArticlesRepository {
                                                             $folders_and_articles_full_info->paginator_info->number_of_pages, $is_admin_panel);
             } else {                
                 return $this->get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                        $items_amount_per_page, $sorting_mode, $folders_or_articles_first);
+                                        $items_amount_per_page, $including_invisible, $sorting_mode, $folders_or_articles_first);
             }
         }
     }
     
     //We need the method below to clutter down showFolderView method
     private function get_view($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                $items_amount_per_page, $sorting_mode = null, $folders_or_articles_first = null) {
+                                $items_amount_per_page, $including_invisible, $sorting_mode = null, $folders_or_articles_first = null) {
         if ($is_admin_panel) {
             return $this->get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                                    $items_amount_per_page, $sorting_mode, $folders_or_articles_first);
+                                                    $items_amount_per_page, $including_invisible, $sorting_mode, $folders_or_articles_first);
         } else {
             return $this->get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
                                                     $items_amount_per_page, $sorting_mode, $folders_or_articles_first);                   
@@ -98,7 +98,7 @@ class ArticlesRepository {
     
     //The function below is required to simplify get_view function.
     private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                                $items_amount_per_page, $sorting_mode = null, $folders_or_articles_first = null) {
+                                                $items_amount_per_page, $including_invisible, $sorting_mode = null, $folders_or_articles_first = null) {
         return view('adminpages.adminfolder')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
@@ -118,6 +118,7 @@ class ArticlesRepository {
                 'parent_keyword' => $keyword,
                 'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
                 'directories_or_files_first' => ($folders_or_articles_first) ? $folders_or_articles_first : 'folders_first',
+                'show_invisible' => $including_invisible == 1 ? 'all' : 'only_visible',
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel
                 ]);

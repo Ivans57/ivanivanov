@@ -119,8 +119,8 @@
                              'class' => 'admin-panel-articles-article-and-folder-checkbox']); !!}
                         </div>
                         <div class="admin-panel-articles-article-and-folder-body-field">
-                            <a href='{{ App::isLocale('en') ? "/admin/articles/".$folder->keyword."/page/1" : 
-                                        "/ru/admin/articles/".$folder->keyword."/page/1" }}'>
+                            <a href='{{ App::isLocale('en') ? "/admin/articles/".$folder->keyword."/page/1/all" : 
+                                        "/ru/admin/articles/".$folder->keyword."/page/1/all" }}'>
                                 <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
                                     <div>
                                         <img src="{{ ($folder->is_visible==1) ? URL::asset('images/icons/regular_folder_small.png') : 

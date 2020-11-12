@@ -23,8 +23,6 @@ $( document ).ready(function() {
         var image_select = document.getElementById('image_select');
         var file_caption = document.getElementById('pseudo_image_select_file_name');
         var image_select_preview = document.getElementById('image_select_preview');
-        //var image_preview = document.getElementById('image_preview');
-        //var image_preview_link = document.getElementById('image_preview_link');
 
         image_select.addEventListener('change', function() {
             //There might be a file with very long name, in that case on a view we will shorten its name.

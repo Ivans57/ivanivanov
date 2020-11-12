@@ -71,7 +71,7 @@ class AdminArticlesController extends Controller
         }
     }
     
-    public function showFolder($keyword, $page, $sorting_mode = null, $folders_or_articles_first = null) {
+    public function showFolder($keyword, $page, $show_invisible, $sorting_mode = null, $folders_or_articles_first = null) {
         
         $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);
         
@@ -80,7 +80,8 @@ class AdminArticlesController extends Controller
         
         //We need to call the method below to clutter down current method in controller
         return $this->folders->showFolderView(Str::lower($this->current_page), 
-                    $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 1, $sorting_mode, $folders_or_articles_first);
+                    $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 
+                    $show_invisible == "all" ? 1 : 0, $sorting_mode, $folders_or_articles_first);
     }
     
     public function create($parent_keyword) {      

@@ -65,4 +65,24 @@ function directories_or_files_first(element_with_sorting_info, sorting_method_an
     window.location.href = url;
 }
 
+//This set of functions is required if we need to display or hide invisible items.
+$('input[name="show_only_visible"]').change(function(){
+    //Variables below contain necessary information to make a proper route.
+    var show_invisible = $(this).val();
+    var element_for_info = $("input[name='directories_or_files_first']:checked");
+    var current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');   
+    var localization = (element_for_info[0].dataset.localization === "en") ? "" : "/ru";  
+    var sorting_method_and_mode = current_sorting_method_element.id+"_"+current_sorting_method_element.dataset.current_sorting_mode;
+    
+    if (show_invisible === "all") {   
+        var url = localization+"/admin/"+element_for_info[0].dataset.section+"/"+
+            element_for_info[0].dataset.parent_keyword+
+            "/page/1/"+"only_visible"+"/"+sorting_method_and_mode+"/"+element_for_info[0].value;
+    } else {
+        var url = localization+"/admin/"+element_for_info[0].dataset.section+"/"+
+            element_for_info[0].dataset.parent_keyword+
+            "/page/1/"+"all"+"/"+sorting_method_and_mode+"/"+element_for_info[0].value;
+    } 
+    window.location.href = url;
+});
 /*--------------------------------------------------------*/
