@@ -27,8 +27,10 @@
     </div>
     @if ($folders->count() > 0)
         <div class="admin-panel-articles-sorting">
-            {!! Form::label('show_only_visible', 'Show only visible'); !!}
-            {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true); !!}       
+            {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 
+                           ['class' => 'admin-panel-articles-sorting-label']); !!}
+            {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true, 
+                              ['class' => 'admin-panel-articles-sorting-controls']); !!}       
         </div>
         <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
         in case we don't have full page-->

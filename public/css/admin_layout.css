@@ -940,6 +940,28 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
 
 /*Admin Panel Articles part*/
 
+.admin-panel-main-article .admin-panel-articles-sorting {
+    display: flex;
+    justify-content: flex-start;
+    /*The next line is necessary for smaller size screens,
+    if we don't use that propery, the contents of the container won't go to the next line,
+    but will fall out of the container.*/
+    flex-wrap: wrap;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.admin-panel-main-article .admin-panel-articles-sorting .admin-panel-articles-sorting-label {
+    margin-right: 5px;
+    font-family: Arial;
+    font-size: 15px;
+}
+
+.admin-panel-main-article .admin-panel-articles-sorting .admin-panel-articles-sorting-controls {
+    margin-right: 15px;
+}
+
 .admin-panel-main-article .admin-panel-articles-empty-folders-text-wrapper {
     text-align: center;
     margin-top: 170px;

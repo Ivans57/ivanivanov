@@ -55,14 +55,18 @@
     </div>
     @if ($total_number_of_items > 0)
         <div class="admin-panel-articles-sorting">
-            {!! Form::label('show_only_visible', 'Show only visible'); !!}
-            {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true); !!}
+            {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 
+                           ['class' => 'admin-panel-articles-sorting-label']); !!}
+            {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true, 
+                              ['class' => 'admin-panel-articles-sorting-controls']); !!}
             @if ($articleAmount > 0 && $folderAmount > 0)                   
-                {!! Form::label('folders_first', Lang::get('keywords.FoldersFirst').':', ['class' => 'admin-panel-articles-sorting-label']) !!}               
+                {!! Form::label('folders_first', Lang::get('keywords.FoldersFirst').':', 
+                               ['class' => 'admin-panel-articles-sorting-label']) !!}               
                 {!! Form::radio('directories_or_files_first', 'folders_first', 
                                (($directories_or_files_first === 'folders_first') ? true : false), ['id' => 'folders_first', 
                                 'class' => 'admin-panel-articles-sorting-controls']); !!}                    
-                {!! Form::label('articles_first', Lang::get('keywords.ArticlesFirst').':', ['class' => 'admin-panel-articles-sorting-label']) !!}               
+                {!! Form::label('articles_first', Lang::get('keywords.ArticlesFirst').':', 
+                               ['class' => 'admin-panel-articles-sorting-label']) !!}               
                 {!! Form::radio('directories_or_files_first', 'articles_first', 
                                (($directories_or_files_first === 'articles_first') ? true : false), ['id' => 'articles_first', 
                                 'class' => 'admin-panel-articles-sorting-controls']); !!}                    
