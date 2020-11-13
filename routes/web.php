@@ -276,19 +276,21 @@ Route::group(['middleware' => 'locale'], function() {
 
 //sorting_mode argument is optional. It is required only for sorting.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/{sorting_mode?}', 'AdminArticlesController@index');
+    Route::get('admin/articles/{show_invisible?}/{sorting_mode?}', 'AdminArticlesController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{sorting_mode?}', 'AdminArticlesController@index');
+    Route::get('admin/articles/{show_invisible?}/{sorting_mode?}', 'AdminArticlesController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/page/{page}/{show_invisible}/{sorting_mode?}/{folders_or_articles_first?}', 'AdminArticlesController@showFolder');
+    Route::get('admin/articles/{keyword}/page/{page}/{show_invisible}/{sorting_mode?}/{folders_or_articles_first?}', 
+                'AdminArticlesController@showFolder');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/page/{page}/{show_invisible}/{sorting_mode?}/{folders_or_articles_first?}', 'AdminArticlesController@showFolder');
+    Route::get('admin/articles/{keyword}/page/{page}/{show_invisible}/{sorting_mode?}/{folders_or_articles_first?}', 
+                'AdminArticlesController@showFolder');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

@@ -36,7 +36,7 @@ class AdminArticlesController extends Controller
     }
     
     
-    public function index($sorting_mode = null) {
+    public function index($show_invisible="all", $sorting_mode = null) {
         
         $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);        
         //We need the variable below to display how many items we need to show per one page.
@@ -44,7 +44,8 @@ class AdminArticlesController extends Controller
         
         //In the next line the data are getting extracted from the database and sorted.
         //The fourth parameter is 'folders', because currently we are working with level 0 folders.
-        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 1, 'folders');
+        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 
+                                                                    $show_invisible === "all" ? 1 : 0, 'folders');
                
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
@@ -64,6 +65,7 @@ class AdminArticlesController extends Controller
                 'section' => Str::lower($this->current_page),
                 'items_amount_per_page' => $items_amount_per_page,
                 'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
+                'show_invisible' => $show_invisible == 'all' ? 'all' : 'only_visible',
                 //If we open just a root path of Folders, we won't have any parent keyword,
                 //to avoid an exception we will assign it 0.
                 'parent_keyword' => "0"

@@ -40,14 +40,8 @@ $("input[type='radio']").change(function() {
 //This function is required if we need to display or hide invisible items.
 $('input[name="show_only_visible"]').change(function(){
     var element_with_info = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
-    var show_invisible;
-    if ($(this).val() === 'all') {
-        show_invisible = 'only_visible';
-    } else {
-        show_invisible = 'all';
-    }
       
-    sort_elements(element_with_info, element_with_info.dataset.current_sorting_mode, show_invisible, 
+    sort_elements(element_with_info, element_with_info.dataset.current_sorting_mode, (($(this).val() === 'all') ? 'only_visible' : 'all'), 
                     $("input[name='directories_or_files_first']:checked").val());
 });
 
@@ -59,7 +53,7 @@ function sort_elements(element_with_info, sorting_mode, show_invisible, director
     var current_sorting_method = document.querySelector('#'+element_with_info.id);
     var url;
     if (element_with_info.dataset.is_level_zero === "1") {
-        url = localization+"/admin/"+element_with_info.dataset.section+"/"+current_sorting_method.id+"_"+sorting_mode;
+        url = localization+"/admin/"+element_with_info.dataset.section+"/"+show_invisible+"/"+current_sorting_method.id+"_"+sorting_mode;
     } else {
         //Some directories are single entity.
         if (directories_or_files_first_value === null) {
