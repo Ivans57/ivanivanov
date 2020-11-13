@@ -61,17 +61,11 @@
                 {!! Form::label('folders_first', Lang::get('keywords.FoldersFirst').':', ['class' => 'admin-panel-articles-sorting-label']) !!}               
                 {!! Form::radio('directories_or_files_first', 'folders_first', 
                                (($directories_or_files_first === 'folders_first') ? true : false), ['id' => 'folders_first', 
-                                'class' => 'admin-panel-articles-sorting-controls', 
-                                'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
-                                'data-section' => $section, 
-                                'data-parent_keyword' => $parent_keyword]); !!}                    
+                                'class' => 'admin-panel-articles-sorting-controls']); !!}                    
                 {!! Form::label('articles_first', Lang::get('keywords.ArticlesFirst').':', ['class' => 'admin-panel-articles-sorting-label']) !!}               
                 {!! Form::radio('directories_or_files_first', 'articles_first', 
                                (($directories_or_files_first === 'articles_first') ? true : false), ['id' => 'articles_first', 
-                                'class' => 'admin-panel-articles-sorting-controls', 
-                                'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
-                                'data-section' => $section, 
-                                'data-parent_keyword' => $parent_keyword]); !!}                    
+                                'class' => 'admin-panel-articles-sorting-controls']); !!}                    
             @endif          
         </div>
         <div class="admin-panel-articles-external-articles-and-folders-wrapper">
