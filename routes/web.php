@@ -273,26 +273,6 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Folders
 
-
-//sorting_mode argument is optional. It is required only for sorting.
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/{show_invisible?}/{sorting_mode?}', 'AdminArticlesController@index');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{show_invisible?}/{sorting_mode?}', 'AdminArticlesController@index');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/page/{page}/{show_invisible}/{sorting_mode?}/{folders_or_articles_first?}', 
-                'AdminArticlesController@showFolder');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/page/{page}/{show_invisible}/{sorting_mode?}/{folders_or_articles_first?}', 
-                'AdminArticlesController@showFolder');
-});
-
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles/create/{parent_keyword}', 'AdminArticlesController@create');
 });
@@ -307,22 +287,6 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 
 Route::group(['middleware' => 'locale'], function() {
     Route::post('admin/articles', 'AdminArticlesController@store');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/edit/{parent_keyword}', 'AdminArticlesController@edit');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/edit/{parent_keyword}', 'AdminArticlesController@edit');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
 });
 
 //Delete will be the same for folders and articles.
@@ -341,6 +305,42 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::delete('admin/articles/{entity_types_and_keywords}', 'AdminArticlesController@destroy');
 });
+
+//sorting_mode argument is optional. It is required only for sorting.
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/articles/{show_invisible?}/{sorting_mode?}', 'AdminArticlesController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/articles/{show_invisible?}/{sorting_mode?}', 'AdminArticlesController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/page/{page}/{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}', 
+                'AdminArticlesController@showFolder');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/page/{page}/{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}', 
+                'AdminArticlesController@showFolder');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/edit/{parent_keyword}', 'AdminArticlesController@edit');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/articles/{keyword}/edit/{parent_keyword}', 'AdminArticlesController@edit');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
+});
+
 //End of Folders
 
 //Articles

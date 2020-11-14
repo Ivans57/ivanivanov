@@ -83,7 +83,7 @@ class AdminArticlesController extends Controller
         //We need to call the method below to clutter down current method in controller
         return $this->folders->showFolderView(Str::lower($this->current_page), 
                     $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 
-                    $show_invisible == "all" ? 1 : 0, $sorting_mode, $folders_or_articles_first);
+                    $show_invisible == "only_visible" ? 0 : 1, $sorting_mode, $folders_or_articles_first);
     }
     
     public function create($parent_keyword) {      
