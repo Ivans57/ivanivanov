@@ -36,7 +36,7 @@ class AdminAlbumsController extends Controller
         $this->is_admin_panel = true;
     }
     
-    public function index($sorting_mode = null) {
+    public function index($show_invisible="all", $sorting_mode = null) {
         //For some lines e.g. two lines below which are getting repeated need to apply inheritance mechanism!
         $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);
         
@@ -45,7 +45,8 @@ class AdminAlbumsController extends Controller
         
         //In the next line the data are getting extracted from the database and sorted.
         //The fourth parameter is 'albums', because currently we are working with level 0 albums.
-        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 1, 'albums');
+        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 
+                                                                    $show_invisible === "all" ? 1 : 0, 'albums');
         
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
@@ -65,6 +66,7 @@ class AdminAlbumsController extends Controller
             'section' => Str::lower($this->current_page),
             'items_amount_per_page' => $items_amount_per_page,
             'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
+            'show_invisible' => $show_invisible == 'all' ? 'all' : 'only_visible',
             //If we open just a root path of Albums we won't have any parent keyword,
             //to avoid an exception we will assign it 0.
             'parent_keyword' => "0"
@@ -72,7 +74,7 @@ class AdminAlbumsController extends Controller
         }    
     }
     
-    public function show($keyword, $page, $sorting_mode = null) {
+    public function show($keyword, $page, $show_invisible, $sorting_mode = null, $albums_or_pictures_first = null) {
         
         $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);
         
@@ -80,8 +82,9 @@ class AdminAlbumsController extends Controller
         $items_amount_per_page = 14;
           
         //We need to call the method below to clutter down current method in controller
-        return $this->albums->showAlbumView(Str::lower($this->current_page), $page, $keyword, $items_amount_per_page, $main_links, 
-               $this->is_admin_panel, 1, $sorting_mode);
+        return $this->albums->showAlbumView(Str::lower($this->current_page), 
+                                            $page, $keyword, $items_amount_per_page, $main_links,$this->is_admin_panel, 
+                                            $show_invisible == "only_visible" ? 0 : 1, $sorting_mode, $albums_or_pictures_first);
     }
     
     public function create($parent_keyword) {           

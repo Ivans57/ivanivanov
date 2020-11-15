@@ -541,6 +541,28 @@ main {
 
 /*Admin Panel Albums part*/
 
+/*.admin-panel-main-article .admin-panel-albums-sorting {
+    display: flex;
+    justify-content: flex-start;*/
+    /*The next line is necessary for smaller size screens,
+    if we don't use that propery, the contents of the container won't go to the next line,
+    but will fall out of the container.*/
+    /*flex-wrap: wrap;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.admin-panel-main-article .admin-panel-albums-sorting .admin-panel-albums-sorting-label {
+    margin-right: 5px;
+    font-family: Arial;
+    font-size: 15px;
+}
+
+.admin-panel-main-article .admin-panel-albums-sorting .admin-panel-albums-sorting-controls {
+    margin-right: 15px;
+}*/
+
 .admin-panel-wrapper .admin-panel-main-article-article {
     padding: 40px;
     padding-top: 30px;

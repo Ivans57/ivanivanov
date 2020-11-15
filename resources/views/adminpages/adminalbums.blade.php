@@ -26,6 +26,12 @@
         </div>
     </div>
     @if ($albums->count() > 0)
+        <div class="admin-panel-albums-sorting">
+            {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 
+                           ['class' => 'admin-panel-albums-sorting-label']); !!}
+            {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true, 
+                              ['class' => 'admin-panel-albums-sorting-controls']); !!}       
+        </div>
         <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
         in case we don't have full page-->
         <div class="admin-panel-albums-external-pictures-and-albums-wrapper">
@@ -37,7 +43,7 @@
                         {!! Form::checkbox('albums_all_items_select', 'value', false, ['id' => 'albums_all_items_select', 
                         'class' => 'admin-panel-albums-picture-and-album-header-checkbox']); !!}
                     </div>
-                    <div class="admin-panel-albums-picture-and-album-header-field">
+                    <div class="admin-panecheader-field">
                         <div class="admin-panel-albums-picture-and-album-header-text-and-caret-wrapper">
                             <div class="admin-panel-albums-picture-and-album-header-text">
                                 <p>@lang('keywords.Name')</p>
