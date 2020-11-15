@@ -33,6 +33,10 @@ $("#sort_by_update").click(function() {
 //This function is required to show folders(albums) or articles(pictures) first.
 $("input[type='radio']").change(function() {
     var element_with_info = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
+    //The lines below are required to assign the variable in case we albums section is being used.
+    if (element_with_info === null) {
+        element_with_info = document.querySelector('.admin-panel-albums-picture-and-album-header-caret-used');
+    }
     
     sort_elements(element_with_info, element_with_info.dataset.current_sorting_mode, $('input[name="show_only_visible"]').val(), $(this).val());
 });
@@ -40,6 +44,10 @@ $("input[type='radio']").change(function() {
 //This function is required if we need to display or hide invisible items.
 $('input[name="show_only_visible"]').change(function(){
     var element_with_info = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
+    //The lines below are required to assign the variable in case we albums section is being used.
+    if (element_with_info === null) {
+        element_with_info = document.querySelector('.admin-panel-albums-picture-and-album-header-caret-used');
+    }
       
     sort_elements(element_with_info, element_with_info.dataset.current_sorting_mode, (($(this).val() === 'all') ? 'only_visible' : 'all'), 
                     $("input[name='directories_or_files_first']:checked").val());

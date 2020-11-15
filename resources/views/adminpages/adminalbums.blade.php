@@ -2,7 +2,7 @@
 
 @section('admincontent')
 
-<article class="admin-panel-main-article">
+<article class="admin-panel-main-article admin-panel-main-article-albums">
     <div class="admin-panel-albums-control-buttons">
         <div class="admin-panel-albums-add-picture-album-wrapper">
             <div class="admin-panel-albums-add-album-button">
@@ -43,7 +43,7 @@
                         {!! Form::checkbox('albums_all_items_select', 'value', false, ['id' => 'albums_all_items_select', 
                         'class' => 'admin-panel-albums-picture-and-album-header-checkbox']); !!}
                     </div>
-                    <div class="admin-panecheader-field">
+                    <div class="admin-panel-albums-picture-and-album-header-field">
                         <div class="admin-panel-albums-picture-and-album-header-text-and-caret-wrapper">
                             <div class="admin-panel-albums-picture-and-album-header-text">
                                 <p>@lang('keywords.Name')</p>

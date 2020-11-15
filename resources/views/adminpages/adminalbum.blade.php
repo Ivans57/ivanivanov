@@ -2,7 +2,7 @@
 
 @section('admincontent')
 
-<article class="admin-panel-main-article">  
+<article class="admin-panel-main-article admin-panel-main-article-albums">  
     <div class="path-panel">
         <span class="path-panel-text">@lang('keywords.Path'):</span>
         <a href={{ App::isLocale('en') ? "/admin/albums" : "/ru/admin/albums" }} class="path-panel-text">@lang('keywords.Albums')</a>
@@ -57,18 +57,18 @@
                            ['class' => 'admin-panel-albums-sorting-label']); !!}
             {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true, 
                               ['class' => 'admin-panel-albums-sorting-controls']); !!}
-            @if ($articleAmount > 0 && $folderAmount > 0)                   
-                {!! Form::label('folders_first', Lang::get('keywords.FoldersFirst').':', 
+            @if ($pictureAmount > 0 && $albumAmount > 0)                   
+                {!! Form::label('folders_first', Lang::get('keywords.AlbumsFirst').':', 
                                ['class' => 'admin-panel-albums-sorting-label']) !!}               
-                {!! Form::radio('directories_or_files_first', 'folders_first', 
-                               (($directories_or_files_first === 'folders_first') ? true : false), ['id' => 'folders_first', 
+                {!! Form::radio('directories_or_files_first', 'albums_first', 
+                               (($albums_or_pictures_first === 'albums_first') ? true : false), ['id' => 'albums_first', 
                                 'class' => 'admin-panel-albums-sorting-controls']); !!}                    
-                {!! Form::label('articles_first', Lang::get('keywords.ArticlesFirst').':', 
+                {!! Form::label('articles_first', Lang::get('keywords.PicturesFirst').':', 
                                ['class' => 'admin-panel-albums-sorting-label']) !!}               
-                {!! Form::radio('directories_or_files_first', 'articles_first', 
-                               (($directories_or_files_first === 'articles_first') ? true : false), ['id' => 'articles_first', 
+                {!! Form::radio('directories_or_files_first', 'pictures_first', 
+                               (($albums_or_pictures_first === 'pictures_first') ? true : false), ['id' => 'pictures_first', 
                                 'class' => 'admin-panel-albums-sorting-controls']); !!}                    
-            @endif          
+            @endif     
         </div>
         <div class="admin-panel-albums-external-pictures-and-albums-wrapper">
             <div class="admin-panel-albums-pictures-and-albums-wrapper">

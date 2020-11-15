@@ -288,7 +288,8 @@ class AlbumsRepository {
     
     //The function below is required to simplify get_view function.
     private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $albums_and_pictures_full_info, 
-                                                $items_amount_per_page, $including_invisible, $sorting_mode = null, $albums_or_pictures_first = null) {
+                                              $items_amount_per_page, $including_invisible, $sorting_mode = null, 
+                                              $albums_or_pictures_first = null) {
         return view('adminpages.adminalbum')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
@@ -297,6 +298,8 @@ class AlbumsRepository {
                 'headTitle' => $albums_and_pictures_full_info->head_title,
                 'pathToFile' => $albums_and_pictures_full_info->path_to_file,           
                 'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
+                'pictureAmount' => $albums_and_pictures_full_info->pictureAmount,
+                'albumAmount' => $albums_and_pictures_full_info->albumAmount,
                 'sorting_asc_or_desc' => $albums_and_pictures_full_info->sorting_asc_or_desc,
                 'parents' => $albums_and_pictures_full_info->albumParents,
                 'nesting_level' => $albums_and_pictures_full_info->albumNestingLevel,

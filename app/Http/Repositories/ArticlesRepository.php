@@ -98,7 +98,8 @@ class ArticlesRepository {
     
     //The function below is required to simplify get_view function.
     private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
-                                                $items_amount_per_page, $including_invisible, $sorting_mode = null, $folders_or_articles_first = null) {
+                                              $items_amount_per_page, $including_invisible, $sorting_mode = null, 
+                                              $folders_or_articles_first = null) {
         return view('adminpages.adminfolder')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
