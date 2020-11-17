@@ -1,10 +1,11 @@
 @extends('create_edit_delete_window')
 
 @section('create_edit_delete_window_content')
-    {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/albums/".$entity_types_and_keywords : 
-    "/ru/admin/albums/".$entity_types_and_keywords ]) !!}        
+    {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/".$section."/".$entity_types_and_keywords."/".$parent_keyword : 
+    "/ru/admin/".$section."/".$entity_types_and_keywords."/".$parent_keyword ]) !!}        
         <div class='admin-panel-delete-entity'>
             {!! Form::hidden('keyword', $entity_types_and_keywords) !!}
+            {!! Form::hidden('parent_keyword_and_section', $parent_keyword, ['id' => 'parent_keyword_and_section', 'data-section' => $section]) !!}
             @if ($plural_or_singular==='singular')
                 <div class="admin-panel-delete-entity-message"><h3 style="color:#cf1b0e;">@lang('keywords.DeletePicture')?</h3></div>
             @else

@@ -25,13 +25,21 @@
             </div>           
         </div>
     </div>
-    @if ($albums->count() > 0)
-        <div class="admin-panel-albums-sorting">
+    <div class="admin-panel-albums-sorting">
             {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 
                            ['class' => 'admin-panel-albums-sorting-label']); !!}
+            <!--The variable data-old_sorting_method_and_mode is required to keep previous 
+                sorting options in case all elements are invisible and user wants to make them visible again.-->
+            <!--data-parent_keyword is required only to update page correctly after deleting elements.-->
             {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true, 
-                              ['class' => 'admin-panel-albums-sorting-controls']); !!}       
+                              ['id' => 'show_only_visible', 'class' => 'admin-panel-albums-sorting-controls', 
+                               'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
+                               'data-section' => $section, 'data-is_level_zero' => '1', 
+                               'data-parent_keyword' => "0",
+                               'data-old_sorting_method_and_mode' => $sorting_method_and_mode,
+                               ($albums->count() < 1 && $sorting_method_and_mode !== '0') ? 'disabled' : 'enabled']); !!}       
         </div>
+    @if ($albums->count() > 0)
         <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
         in case we don't have full page-->
         <div class="admin-panel-albums-external-pictures-and-albums-wrapper">
@@ -53,15 +61,13 @@
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
                                           "admin-panel-albums-picture-and-album-header-caret-used" : 
                                           "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_name" data-is_level_zero="1" data-sorting_mode="desc"
-                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}"
+                                          id="sort_by_name" data-sorting_mode="desc" data-current_sorting_mode="asc"
                                           title='{{ Lang::get("keywords.SortByNameDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
                                           "admin-panel-albums-picture-and-album-header-caret-used" : 
                                           "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_name" data-is_level_zero="1" data-sorting_mode="asc"
-                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}"
+                                          id="sort_by_name" data-sorting_mode="asc" data-current_sorting_mode="desc"
                                           title='{{ Lang::get("keywords.SortByNameAsc") }}'></span>
                                 @endif
                             </div>
@@ -77,15 +83,13 @@
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
                                           "admin-panel-albums-picture-and-album-header-caret-used" : 
                                           "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_creation" data-is_level_zero="1" data-sorting_mode="desc"
-                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}"
+                                          id="sort_by_creation" data-sorting_mode="desc" data-current_sorting_mode="asc"
                                           title='{{ Lang::get("keywords.SortByCreationDateAndTimeDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
                                           "admin-panel-albums-picture-and-album-header-caret-used" : 
                                           "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_creation" data-is_level_zero="1" data-sorting_mode="asc" 
-                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}"
+                                          id="sort_by_creation" data-sorting_mode="asc" data-current_sorting_mode="desc"
                                           title='{{ Lang::get("keywords.SortByCreationDateAndTimeAsc") }}'></span>
                                 @endif
                             </div>
@@ -101,15 +105,13 @@
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
                                           "admin-panel-albums-picture-and-album-header-caret-used" : 
                                           "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_update" data-is_level_zero="1" data-sorting_mode="desc" 
-                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}"
+                                          id="sort_by_update" data-sorting_mode="desc" data-current_sorting_mode="asc"
                                           title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
                                           "admin-panel-albums-picture-and-album-header-caret-used" : 
                                           "admin-panel-albums-picture-and-album-header-caret-unused" }}'
-                                          id="sort_by_update" data-is_level_zero="1" data-sorting_mode="asc" 
-                                          data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" data-section="{{ $section }}"
+                                          id="sort_by_update" data-sorting_mode="asc" data-current_sorting_mode="desc"
                                           title='{{ Lang::get("keywords.SortByUpdateDateAndTimeAsc") }}'></span>
                                 @endif
                             </div>

@@ -66,6 +66,9 @@ class AdminAlbumsController extends Controller
             'section' => Str::lower($this->current_page),
             'items_amount_per_page' => $items_amount_per_page,
             'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
+            //The variable below is required to keep previous 
+            //sorting options in case all elements are invisible and user wants to make them visible again.
+            'sorting_method_and_mode' => ($sorting_mode) ? $sorting_mode : "sort_by_creation_desc",
             'show_invisible' => $show_invisible == 'all' ? 'all' : 'only_visible',
             //If we open just a root path of Albums we won't have any parent keyword,
             //to avoid an exception we will assign it 0.
@@ -77,7 +80,7 @@ class AdminAlbumsController extends Controller
     public function show($keyword, $page, $show_invisible, $sorting_mode = null, $albums_or_pictures_first = null) {
         
         $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);
-        
+               
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 14;
           
@@ -173,7 +176,7 @@ class AdminAlbumsController extends Controller
             ]);
     }
     //!Need to fix bug with checkboxes!
-    public function delete($entity_types_and_keywords) {
+    public function delete($entity_types_and_keywords, $parent_keyword) {
         //Getting an array of arrays of directories (albums) and files (pictures).
         //This is required for view when need to mention proper entity names 
         //(folders and articles, or both, single and plural), rules.
@@ -182,16 +185,31 @@ class AdminAlbumsController extends Controller
         
         //There might be three types of views for return depends what user needs to delete,
         //folder(s), article(s), both folders and articles.
-        return $this->albums->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page);
+        return $this->albums->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page, $parent_keyword);
     }
     
-    public function destroy($entity_types_and_keywords) {    
+    public function destroy($section, $entity_types_and_keywords, $parent_keyword) {    
         $this->albums->destroy($entity_types_and_keywords);
+        
+        //The lines below are required to show sorting tools correctly after delete of any item.
+        $parent_id = \App\Album::select('id')->where('keyword', '=', $parent_keyword)->first();
+        
+        $albums_count = \App\Album::where('included_in_album_with_id', '=', $parent_id->id)->count();
+        $pictures_count = \App\Picture::where('included_in_album_with_id', '=', $parent_id->id)->count();
+        
+        $parent_directory_is_empty = 1;
+        
+        if ($albums_count > 0 || $pictures_count > 0) {
+            $parent_directory_is_empty = 0;    
+        }
         
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
+            'headTitle' => __('keywords.'.$this->current_page),
+            'parent_keyword' => $parent_keyword,
+            'section' => $section,
+            'parent_directory_is_empty' => $parent_directory_is_empty
             ]);
     }
 }

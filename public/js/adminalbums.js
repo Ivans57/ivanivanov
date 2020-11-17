@@ -184,6 +184,8 @@ $( document ).ready(function() {
     $( "#albums_button_delete" ).click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');
         var selected_checkbox_data = "";//In this variable we keep items entity type (directory or file) and keyword.
+        //The line below is required to get parent album's keyword, which is necessary for correct hide or show invisible elements activation.
+        var parent_keyword_info = document.querySelector('#show_only_visible');
         
         //Depends what kind of items are getting deleted, we need to provide windows with different height,
         //because there will be diffrernt legth messages. Some of them shorter, some of them longer and they will
@@ -205,7 +207,7 @@ $( document ).ready(function() {
         }
         if (selected_checkbox_data.length > 0) {
             var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
-            var url = localization+'/admin/albums/delete/'+selected_checkbox_data;  
+            var url = localization+'/admin/albums/delete/'+selected_checkbox_data+"/"+parent_keyword_info.dataset.parent_keyword;  
             
             //Delete window will have different heights depends on what entites and how many of them are in there.
             var window_height = get_delete_album_and_picture_window_height(directories, files, localization);

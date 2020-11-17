@@ -102,7 +102,8 @@ class AlbumsRepository {
                                             ->paginator_info->number_of_pages, $is_admin_panel);
             } else {                
                 return $this->get_view($is_admin_panel, $section, $keyword, $main_links, $albums_and_pictures_full_info, 
-                                        $items_amount_per_page, $including_invisible, $sorting_mode, $albums_or_pictures_first);
+                                        $items_amount_per_page, $including_invisible, 
+                                        $sorting_mode, $albums_or_pictures_first);
             }
         }
     }
@@ -288,7 +289,7 @@ class AlbumsRepository {
     
     //The function below is required to simplify get_view function.
     private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $albums_and_pictures_full_info, 
-                                              $items_amount_per_page, $including_invisible, $sorting_mode = null, 
+                                              $items_amount_per_page, $including_invisible, $sorting_mode = null,
                                               $albums_or_pictures_first = null) {
         return view('adminpages.adminalbum')->with([
                 //Below main website links.
@@ -309,6 +310,9 @@ class AlbumsRepository {
                 'section' => $section,
                 'parent_keyword' => $keyword,
                 'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
+                //The variable below is required to keep previous 
+                //sorting options in case all elements are invisible and user wants to make them visible again.
+                'sorting_method_and_mode' => ($sorting_mode) ? $sorting_mode : '0',
                 'albums_or_pictures_first' => ($albums_or_pictures_first) ? $albums_or_pictures_first : 'albums_first',
                 'show_invisible' => $including_invisible == 1 ? 'all' : 'only_visible',
                 //is_admin_panel is required for paginator.

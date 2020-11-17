@@ -183,19 +183,19 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Delete will be the same for albums and pictures.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/albums/delete/{entity_types_and_keywords}', 'AdminAlbumsController@delete');
+    Route::get('admin/albums/delete/{entity_types_and_keywords}/{parent_album}', 'AdminAlbumsController@delete');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/albums/delete/{entity_types_and_keywords}', 'AdminAlbumsController@delete');
+    Route::get('admin/albums/delete/{entity_types_and_keywords}/{parent_album}', 'AdminAlbumsController@delete');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/albums/{entity_types_and_keywords}', 'AdminAlbumsController@destroy');
+    Route::delete('admin/{section}/{entity_types_and_keywords}/{parent_album}', 'AdminAlbumsController@destroy');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/albums/{entity_types_and_keywords}', 'AdminAlbumsController@destroy');
+    Route::delete('admin/{section}/{entity_types_and_keywords}/{parent_album}', 'AdminAlbumsController@destroy');
 });
 
 //sorting_mode argument is optional. It is required only for sorting.
