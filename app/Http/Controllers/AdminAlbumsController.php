@@ -68,7 +68,7 @@ class AdminAlbumsController extends Controller
             'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
             //The variable below is required to keep previous 
             //sorting options in case all elements are invisible and user wants to make them visible again.
-            'sorting_method_and_mode' => ($sorting_mode) ? $sorting_mode : "sort_by_creation_desc",
+            'sorting_method_and_mode' => ($sorting_mode) ? $sorting_mode : '0',
             'show_invisible' => $show_invisible == 'all' ? 'all' : 'only_visible',
             //If we open just a root path of Albums we won't have any parent keyword,
             //to avoid an exception we will assign it 0.
@@ -128,7 +128,9 @@ class AdminAlbumsController extends Controller
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'store'
             ]);
     }
     
@@ -172,7 +174,9 @@ class AdminAlbumsController extends Controller
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'update'
             ]);
     }
     //!Need to fix bug with checkboxes!
@@ -192,14 +196,14 @@ class AdminAlbumsController extends Controller
         $this->albums->destroy($entity_types_and_keywords);
         
         //The lines below are required to show sorting tools correctly after delete of any item.
-        $parent_id = \App\Album::select('id')->where('keyword', '=', $parent_keyword)->first();
+        $parent = \App\Album::select('id')->where('keyword', '=', $parent_keyword)->first();
         
-        $albums_count = \App\Album::where('included_in_album_with_id', '=', $parent_id->id)->count();
-        $pictures_count = \App\Picture::where('included_in_album_with_id', '=', $parent_id->id)->count();
+        //$parent_id = ($parent) ? $parent->id : null;
         
         $parent_directory_is_empty = 1;
         
-        if ($albums_count > 0 || $pictures_count > 0) {
+        if ((\App\Album::where('included_in_album_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0 || 
+            (\App\Picture::where('included_in_album_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0) {
             $parent_directory_is_empty = 0;    
         }
         
@@ -209,7 +213,9 @@ class AdminAlbumsController extends Controller
             'headTitle' => __('keywords.'.$this->current_page),
             'parent_keyword' => $parent_keyword,
             'section' => $section,
-            'parent_directory_is_empty' => $parent_directory_is_empty
+            'parent_directory_is_empty' => $parent_directory_is_empty,
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'destroy'
             ]);
     }
 }

@@ -57,7 +57,9 @@ class AdminPicturesController extends Controller
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'store'
             ]);
     }
     
@@ -103,11 +105,13 @@ class AdminPicturesController extends Controller
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'update'
             ]);
     }
     
-    public function delete($keyword) {        
+    /*public function delete($keyword) {        
         return view('adminpages.pictures.delete_picture')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
@@ -124,5 +128,5 @@ class AdminPicturesController extends Controller
             //We need it only to make the variable initialized. Othervise there will be an error.
             'headTitle' => __('keywords.'.$this->current_page)
             ]);
-    }
+    }*/
 }

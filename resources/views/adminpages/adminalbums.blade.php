@@ -25,7 +25,10 @@
             </div>           
         </div>
     </div>
-    <div class="admin-panel-albums-sorting">
+    @if ($albums->count() < 1 && $sorting_method_and_mode == '0')
+    <!--This is the only case when nothing should be shown! -->
+    @else
+        <div class="admin-panel-albums-sorting">
             {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 
                            ['class' => 'admin-panel-albums-sorting-label']); !!}
             <!--The variable data-old_sorting_method_and_mode is required to keep previous 
@@ -36,9 +39,9 @@
                                'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
                                'data-section' => $section, 'data-is_level_zero' => '1', 
                                'data-parent_keyword' => "0",
-                               'data-old_sorting_method_and_mode' => $sorting_method_and_mode,
-                               ($albums->count() < 1 && $sorting_method_and_mode !== '0') ? 'disabled' : 'enabled']); !!}       
+                               'data-old_sorting_method_and_mode' => $sorting_method_and_mode]); !!}       
         </div>
+    @endif
     @if ($albums->count() > 0)
         <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
         in case we don't have full page-->

@@ -52,28 +52,30 @@
         </div>
     </div>
     <div class="admin-panel-albums-sorting">
+        @if ($total_number_of_items < 1 && $sorting_method_and_mode == '0')    
+        <!--This is the only case when nothing should be shown! -->
+        @else
             {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 
                            ['class' => 'admin-panel-albums-sorting-label']); !!}
             {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true, 
                               ['id' => 'show_only_visible', 'class' => 'admin-panel-albums-sorting-controls', 
                               'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
                               'data-section' => $section, 'data-is_level_zero' => '0', 'data-parent_keyword' => $parent_keyword,
-                              'data-old_sorting_method_and_mode' => $sorting_method_and_mode, 
-                              ($total_number_of_items < 1 && $sorting_method_and_mode == '0') ? 'disabled' : 'enabled']); !!}
-                              
-            @if ($pictureAmount > 0 && $albumAmount > 0)                   
-                {!! Form::label('folders_first', Lang::get('keywords.AlbumsFirst').':', 
-                               ['class' => 'admin-panel-albums-sorting-label']) !!}               
-                {!! Form::radio('directories_or_files_first', 'albums_first', 
-                               (($albums_or_pictures_first === 'albums_first') ? true : false), ['id' => 'albums_first', 
-                                'class' => 'admin-panel-albums-sorting-controls']); !!}                    
-                {!! Form::label('articles_first', Lang::get('keywords.PicturesFirst').':', 
-                               ['class' => 'admin-panel-albums-sorting-label']) !!}               
-                {!! Form::radio('directories_or_files_first', 'pictures_first', 
-                               (($albums_or_pictures_first === 'pictures_first') ? true : false), ['id' => 'pictures_first', 
-                                'class' => 'admin-panel-albums-sorting-controls']); !!}                    
-            @endif     
-        </div>
+                              'data-old_sorting_method_and_mode' => $sorting_method_and_mode]); !!}
+        @endif                      
+        @if ($pictureAmount > 0 && $albumAmount > 0)                   
+            {!! Form::label('folders_first', Lang::get('keywords.AlbumsFirst').':', 
+                           ['class' => 'admin-panel-albums-sorting-label']) !!}               
+            {!! Form::radio('directories_or_files_first', 'albums_first', 
+                           (($albums_or_pictures_first === 'albums_first') ? true : false), ['id' => 'albums_first', 
+                            'class' => 'admin-panel-albums-sorting-controls']); !!}                    
+            {!! Form::label('articles_first', Lang::get('keywords.PicturesFirst').':', 
+                           ['class' => 'admin-panel-albums-sorting-label']) !!}               
+            {!! Form::radio('directories_or_files_first', 'pictures_first', 
+                           (($albums_or_pictures_first === 'pictures_first') ? true : false), ['id' => 'pictures_first', 
+                            'class' => 'admin-panel-albums-sorting-controls']); !!}                    
+        @endif     
+    </div>
     @if ($total_number_of_items > 0)
         <div class="admin-panel-albums-external-pictures-and-albums-wrapper">
             <div class="admin-panel-albums-pictures-and-albums-wrapper">

@@ -72,16 +72,9 @@ function sort_elements(element_with_info, element_with_sorting_info_id, element_
     if (element_with_info.dataset.is_level_zero === "1") {
         //It is enough to check just element_with_sorting_info_id, because if element_with_sorting_info_id is null,
         //then element_with_sorting_info_id_sorting_mode will be null as well.
-        if (element_with_sorting_info_id !== null) {
-            url = localization+"/admin/"+element_with_info.dataset.section+"/"+show_invisible+"/"+
-                  element_with_sorting_info_id+"_"+element_with_sorting_info_sorting_mode;
-        } else {
-            url = localization+"/admin/"+element_with_info.dataset.section+"/"+show_invisible+"/"+
-                  element_with_info.dataset.old_sorting_method_and_mode;
-        }
-        /*url = (element_with_sorting_info !== null) ? (localization+"/admin/"+element_with_info.dataset.section+"/"+show_invisible+"/"+
-              element_with_sorting_info.id+"_"+element_with_sorting_info.dataset.sorting_mode) : (localization+"/admin/"+
-              element_with_info.dataset.section+"/"+show_invisible+"/"+element_with_info.dataset.old_sorting_method_and_mode);*/
+        url = (element_with_sorting_info_id !== null) ? (localization+"/admin/"+element_with_info.dataset.section+"/"+show_invisible+"/"+
+              element_with_sorting_info_id+"_"+element_with_sorting_info_sorting_mode) : (localization+"/admin/"+
+              element_with_info.dataset.section+"/"+show_invisible+"/"+element_with_info.dataset.old_sorting_method_and_mode);
     } else {
         //Some directories are single entity.
         if (directories_or_files_first_value === null) {
