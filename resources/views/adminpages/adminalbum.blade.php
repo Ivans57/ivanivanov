@@ -61,7 +61,8 @@
                               ['id' => 'show_only_visible', 'class' => 'admin-panel-albums-sorting-controls', 
                               'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
                               'data-section' => $section, 'data-is_level_zero' => '0', 'data-parent_keyword' => $parent_keyword,
-                              'data-old_sorting_method_and_mode' => $sorting_method_and_mode]); !!}
+                              'data-old_sorting_method_and_mode' => $sorting_method_and_mode,
+                              'data-old_directories_or_files_first' => $albums_or_pictures_first]); !!}
         @endif                      
         @if ($pictureAmount > 0 && $albumAmount > 0)                   
             {!! Form::label('folders_first', Lang::get('keywords.AlbumsFirst').':', 

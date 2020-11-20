@@ -54,10 +54,17 @@ $('input[name="show_only_visible"]').change(function() {
     if (element_with_sorting_info === null) {
         element_with_sorting_info = document.querySelector('.admin-panel-albums-picture-and-album-header-caret-used');
     }
-      
+    
+    var directories_or_files_first = $("input[name='directories_or_files_first']:checked").val();
+    if (typeof directories_or_files_first === 'undefined') {
+        //The line below is required to keep old_albums_or_pictures_first setting in case this elements disappear 
+        //when hiding invisible items.
+        directories_or_files_first = element_with_info.dataset.old_directories_or_files_first;
+    }
+    
     sort_elements(element_with_info, (element_with_sorting_info) ? element_with_sorting_info.id : null, 
                  (element_with_sorting_info) ? element_with_sorting_info.dataset.current_sorting_mode : null,
-                 (($(this).val() === 'all') ? 'only_visible' : 'all'), $("input[name='directories_or_files_first']:checked").val());
+                 (($(this).val() === 'all') ? 'only_visible' : 'all'), directories_or_files_first);
 });
 
 //element_with_sorting_info_id and element_with_sorting_info_sorting_mode are taken from the same element, 
