@@ -33,6 +33,9 @@ class AlbumAndPictureForViewFullInfoForPage {
     //This property is required for radio switch on view.
     //In case this property is 0, that radio switch is not required to display.
     public $albumAmount;
+    //Two properties below are required to show correctly display_invisible element.
+    public $allPicturesAmount;
+    public $allAlbumsAmount;
     public $albumParents;
     public $albumNestingLevel;
     public $sorting_asc_or_desc;
@@ -136,6 +139,10 @@ class AlbumsRepository {
         //or has only pictures or albums included.
         $albums_and_pictures_full_info->pictureAmount = $albums_and_pictures_array_with_sort_info["picture_amount"];
         $albums_and_pictures_full_info->albumAmount = $albums_and_pictures_array_with_sort_info["album_amount"];
+        
+        //Two lines below are required to show correctly display_invisible element.
+        $albums_and_pictures_full_info->allPicturesAmount = Album::where('included_in_album_with_id', '=', $album->id)->count();
+        $albums_and_pictures_full_info->allAlbumsAmount = Picture::where('included_in_album_with_id', '=', $album->id)->count();
         
         $albums_and_pictures_full_info->sorting_asc_or_desc = $albums_and_pictures_array_with_sort_info['sorting_asc_or_desc'];
         
@@ -301,6 +308,10 @@ class AlbumsRepository {
                 'albums_and_pictures' => $albums_and_pictures_full_info->albumsAndPictures,
                 'pictureAmount' => $albums_and_pictures_full_info->pictureAmount,
                 'albumAmount' => $albums_and_pictures_full_info->albumAmount,
+                //The variables below are required to display view properly depending on whether 
+                //the album has both pictures and albums included, or has only pictures or albums included.
+                'allPicturesAmount' => $albums_and_pictures_full_info->allPicturesAmount,
+                'allAlbumsAmount' => $albums_and_pictures_full_info->allAlbumsAmount,
                 'sorting_asc_or_desc' => $albums_and_pictures_full_info->sorting_asc_or_desc,
                 'parents' => $albums_and_pictures_full_info->albumParents,
                 'nesting_level' => $albums_and_pictures_full_info->albumNestingLevel,
