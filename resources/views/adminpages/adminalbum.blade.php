@@ -51,7 +51,7 @@
             </div>           
         </div>
     </div>
-    @if ($allPicturesAmount > 0 && $allAlbumsAmount > 0)
+    @if ($allPicturesAmount > 0 || $allAlbumsAmount > 0)
         <div class="admin-panel-albums-sorting">
             {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 
                            ['class' => 'admin-panel-albums-sorting-label']); !!}
