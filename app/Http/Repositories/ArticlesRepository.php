@@ -32,6 +32,9 @@ class FolderAndArticleForViewFullInfoForPage {
     //In case this property is 0, that radio switch is not required to display.
     public $folderAmount;
     public $folderParents;
+    //Two properties below are required to show correctly display_invisible element.
+    public $allArticlesAmount;
+    public $allFoldersAmount;
     public $folderNestingLevel;
     public $sorting_asc_or_desc;
     public $total_number_of_items;
@@ -105,10 +108,14 @@ class ArticlesRepository {
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.
                 'main_ap_links' => $main_links->mainAPLinks,
-                'headTitle' => $folders_and_articles_full_info->head_title,          
+                'headTitle' => $folders_and_articles_full_info->head_title,         
                 'folders_and_articles' => $folders_and_articles_full_info->foldersAndArticles,
                 'articleAmount' => $folders_and_articles_full_info->articleAmount,
                 'folderAmount' => $folders_and_articles_full_info->folderAmount,
+                //The variables below are required to display view properly depending on whether 
+                //the folder has both articles and folders included, or has only articles or folders included.
+                'allArticlesAmount' => $folders_and_articles_full_info->allArticlesAmount,
+                'allFoldersAmount' => $folders_and_articles_full_info->allFoldersAmount,
                 'sorting_asc_or_desc' => $folders_and_articles_full_info->sorting_asc_or_desc,
                 'parents' => $folders_and_articles_full_info->folderParents,
                 'nesting_level' => $folders_and_articles_full_info->folderNestingLevel,
@@ -118,13 +125,16 @@ class ArticlesRepository {
                 'section' => $section,
                 'parent_keyword' => $keyword,
                 'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
+                //The variable below is required to keep previous 
+                //sorting options in case all elements are invisible and user wants to make them visible again.
+                'sorting_method_and_mode' => ($sorting_mode) ? $sorting_mode : '0',
                 'directories_or_files_first' => ($folders_or_articles_first) ? $folders_or_articles_first : 'folders_first',
                 'show_invisible' => $including_invisible == 1 ? 'all' : 'only_visible',
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel
                 ]);
     }
-    
+       
     //The function below is required to simplify get_view function.
     private function get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
                                             $items_amount_per_page, $sorting_mode = null, $folders_or_articles_first = null) {
@@ -194,9 +204,14 @@ class ArticlesRepository {
                                         $included_articles["directories_or_files"], $folders_or_articles_first);
          
         //We need the object below which will contatin an array of needed folders 
-        //and pictures and also some necessary data for pagination, which we will 
+        //and articles and also some necessary data for pagination, which we will 
         //pass with this object's properties.
         $folders_and_articles_full_info = new FolderAndArticleForViewFullInfoForPage();
+        
+        //Two lines below are required to show correctly display_invisible elements.
+        $folders_and_articles_full_info->allArticlesAmount = Article::where('folder_id', '=', $folder->id)->count();
+        $folders_and_articles_full_info->allFoldersAmount = Folder::where('included_in_folder_with_id', '=', $folder->id)->count();
+        
         $folders_and_articles_full_info->sorting_asc_or_desc = $included_folders["sorting_asc_or_desc"];
                 
         $folders_and_articles_full_info->folderNestingLevel = $nesting_level->nesting_level;

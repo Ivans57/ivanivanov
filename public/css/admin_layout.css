@@ -567,16 +567,6 @@ main {
     margin-right: 15px;
 }
 
-/*.admin-panel-wrapper .admin-panel-main-article-article {
-    padding: 40px;
-    padding-top: 30px;
-    padding-top: 30px;
-    width: 800px;
-    min-height: 630px;
-    border-radius: 10px;
-    background-color: #dedede;
-}*/
-
 .admin-panel-main-article .admin-panel-albums-empty-albums-text-wrapper {
     text-align: center;
     margin-top: 170px;
@@ -965,6 +955,10 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
 /*--------------------------------------------------------*/
 
 /*Admin Panel Articles part*/
+
+.admin-panel-wrapper .admin-panel-main-article-articles {
+    width: 750px;
+}
 
 .admin-panel-main-article .admin-panel-articles-sorting {
     display: flex;

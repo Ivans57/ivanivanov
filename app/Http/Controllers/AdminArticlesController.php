@@ -65,10 +65,15 @@ class AdminArticlesController extends Controller
                 'section' => Str::lower($this->current_page),
                 'items_amount_per_page' => $items_amount_per_page,
                 'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
+                //The variable below is required to keep previous 
+                //sorting options in case all elements are invisible and user wants to make them visible again.
+                'sorting_method_and_mode' => ($sorting_mode) ? $sorting_mode : '0',
                 'show_invisible' => $show_invisible == 'all' ? 'all' : 'only_visible',
                 //If we open just a root path of Folders, we won't have any parent keyword,
                 //to avoid an exception we will assign it 0.
-                'parent_keyword' => "0"
+                'parent_keyword' => "0",
+                //The line below is required to show correctly display_invisible elements.
+                'all_folders_count' => Folder::where('included_in_folder_with_id', '=', null)->count()
             ]);
         }
     }

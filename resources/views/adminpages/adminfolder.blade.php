@@ -2,7 +2,7 @@
 
 @section('admincontent')
 
-<article class="admin-panel-main-article">  
+<article class="admin-panel-main-article admin-panel-main-article-articles">  
     <div class="path-panel">
         <span class="path-panel-text">@lang('keywords.Path'):</span>
         <a href={{ App::isLocale('en') ? "/admin/articles" : "/ru/admin/articles" }} class="path-panel-text">@lang('keywords.Articles')</a>
@@ -53,12 +53,16 @@
             </div>
         </div>
     </div>
-    @if ($total_number_of_items > 0)
+    @if ($allArticlesAmount > 0 || $allFoldersAmount > 0)
         <div class="admin-panel-articles-sorting">
             {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 
                            ['class' => 'admin-panel-articles-sorting-label']); !!}
             {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true, 
-                              ['class' => 'admin-panel-articles-sorting-controls']); !!}
+                              ['id' => 'show_only_visible', 'class' => 'admin-panel-articles-sorting-controls', 
+                              'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
+                              'data-section' => $section, 'data-is_level_zero' => '0', 'data-parent_keyword' => $parent_keyword,
+                              'data-old_sorting_method_and_mode' => $sorting_method_and_mode,
+                              'data-old_directories_or_files_first' => $directories_or_files_first]); !!}                              
             @if ($articleAmount > 0 && $folderAmount > 0)                   
                 {!! Form::label('folders_first', Lang::get('keywords.FoldersFirst').':', 
                                ['class' => 'admin-panel-articles-sorting-label']) !!}               
@@ -70,8 +74,10 @@
                 {!! Form::radio('directories_or_files_first', 'articles_first', 
                                (($directories_or_files_first === 'articles_first') ? true : false), ['id' => 'articles_first', 
                                 'class' => 'admin-panel-articles-sorting-controls']); !!}                    
-            @endif          
+            @endif     
         </div>
+    @endif
+    @if ($total_number_of_items > 0)
         <div class="admin-panel-articles-external-articles-and-folders-wrapper">
             <div class="admin-panel-articles-articles-and-folders-wrapper">
                 <div class="admin-panel-articles-article-and-folder-header-row">
@@ -91,18 +97,12 @@
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
                                         "admin-panel-articles-article-and-folder-header-caret-used" : 
                                         "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                        id="sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
-                                        data-sorting_mode="desc" data-current_sorting_mode="asc" 
-                                        data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" 
-                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByNameDesc") }}'></span>
+                                        id="sort_by_name" data-sorting_mode="desc" title='{{ Lang::get("keywords.SortByNameDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
                                         "admin-panel-articles-article-and-folder-header-caret-used" : 
                                         "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                        id="sort_by_name" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}'
-                                        data-sorting_mode="asc" data-current_sorting_mode="desc" 
-                                        data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" 
-                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByNameAsc") }}'></span>
+                                        id="sort_by_name" data-sorting_mode="asc" title='{{ Lang::get("keywords.SortByNameAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
@@ -117,18 +117,14 @@
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
                                         "admin-panel-articles-article-and-folder-header-caret-used" : 
                                         "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                        id="sort_by_creation" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
-                                        data-sorting_mode="desc" data-current_sorting_mode="asc" 
-                                        data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" 
-                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByCreationDateAndTimeDesc") }}'></span>
+                                        id="sort_by_creation" data-sorting_mode="desc" 
+                                        title='{{ Lang::get("keywords.SortByCreationDateAndTimeDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
                                         "admin-panel-articles-article-and-folder-header-caret-used" : 
                                         "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                        id="sort_by_creation" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
-                                        data-sorting_mode="asc" data-current_sorting_mode="desc" 
-                                        data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" 
-                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByCreationDateAndTimeAsc") }}'></span>
+                                        id="sort_by_creation" data-sorting_mode="asc" 
+                                        title='{{ Lang::get("keywords.SortByCreationDateAndTimeAsc") }}'></span>
                                 @endif
                             </div>
                         </div>
@@ -143,18 +139,14 @@
                                     <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
                                         "admin-panel-articles-article-and-folder-header-caret-used" : 
                                         "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                        id="sort_by_update" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
-                                        data-sorting_mode="desc" data-current_sorting_mode="asc" 
-                                        data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" 
-                                        data-section="{{ $section }}" title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
+                                        id="sort_by_update" data-sorting_mode="desc" 
+                                        title='{{ Lang::get("keywords.SortByUpdateDateAndTimeDesc") }}'></span>
                                 @else
                                     <span class='glyphicon glyphicon-triangle-top {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 
                                         "admin-panel-articles-article-and-folder-header-caret-used" : 
                                         "admin-panel-articles-article-and-folder-header-caret-unused" }}'
-                                        id="sort_by_update" data-is_level_zero="0" data-parent_keyword='{{ $parent_keyword }}' 
-                                        data-sorting_mode="asc" data-current_sorting_mode="desc" 
-                                        data-localization="{{ App::isLocale('en') ? 'en' : 'ru' }}" 
-                                        data-section="{{ $section }}"title='{{ Lang::get("keywords.SortByUpdateDateAndTimeAsc") }}'></span>
+                                        id="sort_by_update" data-sorting_mode="asc" 
+                                        title='{{ Lang::get("keywords.SortByUpdateDateAndTimeAsc") }}'></span>
                                 @endif
                             </div>
                         </div>

@@ -73,7 +73,7 @@ class AdminAlbumsController extends Controller
             //If we open just a root path of Albums we won't have any parent keyword,
             //to avoid an exception we will assign it 0.
             'parent_keyword' => "0",
-            //The line below is required to show correctly display_invisible element.
+            //The line below is required to show correctly display_invisible elements.
             'all_albums_count' => Album::where('included_in_album_with_id', '=', null)->count()
             ]);
         }    
