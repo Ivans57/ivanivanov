@@ -175,7 +175,7 @@ class AdminArticlesController extends Controller
             ]);
     }
     
-    public function delete($entity_types_and_keywords) {
+    public function delete($entity_types_and_keywords, $parent_folder) {
         //Getting an array of arrays of directories (folders) and files (articles).
         //This is required for view when need to mention proper entity names 
         //(folders and articles, or both, single and plural), rules.
@@ -184,16 +184,31 @@ class AdminArticlesController extends Controller
         
         //There might be three types of views for return depends what user needs to delete,
         //folder(s), article(s), both folders and articles.
-        return $this->folders->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page);    
+        return $this->folders->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page, $parent_folder);    
     }
-    
-    public function destroy($entity_types_and_keywords) {
+       
+    public function destroy($section, $entity_types_and_keywords, $parent_folder) {
         $this->folders->destroy($entity_types_and_keywords);
+        
+        //The lines below are required to show sorting tools correctly after delete of any item.
+        $parent = \App\Folder::select('id')->where('keyword', '=', $parent_folder)->first();
+        
+        $parent_directory_is_empty = 1;
+        
+        if ((\App\Folder::where('included_in_folder_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0 || 
+            (\App\Picture::where('folder_id', '=', (($parent) ? $parent->id : null))->count()) > 0) {
+            $parent_directory_is_empty = 0;    
+        }
         
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view. 
             //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
+            'headTitle' => __('keywords.'.$this->current_page),
+            'parent_keyword' => $parent_folder,
+            'section' => $section,
+            'parent_directory_is_empty' => $parent_directory_is_empty,
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'destroy'
             ]);
     }
 }

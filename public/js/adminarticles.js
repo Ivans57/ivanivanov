@@ -85,15 +85,27 @@ $( document ).ready(function() {
         }
     });
     
+    /*function albums_control_button_view_change_after_fancybox_close() {
+        //We don't need an array here as in previous examples, because there will be
+        //always only one pressed element.
+        var control_button = document.querySelector('.admin-panel-albums-pictures-and-albums-control-button-pressed');
+        unclickButton(control_button);
+
+        function unclickButton(button) {
+            button.classList.remove('admin-panel-albums-pictures-and-albums-control-button-pressed');
+            button.classList.add('admin-panel-albums-pictures-and-albums-control-button');
+        }
+    }*/
+    
     function articles_control_button_view_change_after_fancybox_close() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
-        var button = document.querySelector('.admin-panel-articles-article-and-folder-control-button-pressed');
-        unclickButton(button);
+        var control_button = document.querySelector('.admin-panel-articles-article-and-folder-control-button-pressed');
+        unclickButton(control_button);
 
-        function unclickButton(button) {
-            button.classList.remove('admin-panel-articles-article-and-folder-control-button-pressed');
-            button.classList.add('admin-panel-articles-article-and-folder-control-button');
+        function unclickButton(control_button) {
+            control_button.classList.remove('admin-panel-articles-article-and-folder-control-button-pressed');
+            control_button.classList.add('admin-panel-articles-article-and-folder-control-button');
         }
     }
        
@@ -145,13 +157,15 @@ $( document ).ready(function() {
     $( "#articles_button_delete" ).click(function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var selected_checkbox_data = "";//In this variable we keep items entity type (directory or file) and keyword.
+        //The line below is required to get parent folder's keyword, which is necessary for correct hide or show invisible elements activation.
+        var parent_keyword_info = all_checkboxes[0];
         
         //Depends what kind of items are getting deleted, we need to provide windows with different height,
         //because there will be diffrernt legth messages. Some of them shorter, some of them longer and they will
         //require lees or more space in window.      
         var directories = [];
         var files = [];
-        
+               
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
                 var entity_type_and_keyword = all_checkboxes[i].dataset.entity_type+'+'+all_checkboxes[i].dataset.keyword+';';
@@ -163,10 +177,10 @@ $( document ).ready(function() {
                     files.push(all_checkboxes[i].dataset.keyword);
                 }
             }
-        }
+        }        
         if (selected_checkbox_data.length > 0) {
             var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
-            var url = localization+'/admin/articles/delete/'+selected_checkbox_data;  
+            var url = localization+'/admin/articles/delete/'+selected_checkbox_data+"/"+parent_keyword_info.dataset.parent_keyword;  
             
             //Delete window will have different heights depends on what entites and how many of them are in there.
             var window_height = get_delete_folder_and_article_window_height(directories, files, localization);                                            
@@ -213,7 +227,7 @@ $( document ).ready(function() {
         }
         return window_height;    
     }
-    
+      
     function delete_folder_or_article(url, window_height) {
         $.fancybox.open({
             type: 'iframe',

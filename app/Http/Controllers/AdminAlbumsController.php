@@ -200,8 +200,6 @@ class AdminAlbumsController extends Controller
         //The lines below are required to show sorting tools correctly after delete of any item.
         $parent = \App\Album::select('id')->where('keyword', '=', $parent_keyword)->first();
         
-        //$parent_id = ($parent) ? $parent->id : null;
-        
         $parent_directory_is_empty = 1;
         
         if ((\App\Album::where('included_in_album_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0 || 

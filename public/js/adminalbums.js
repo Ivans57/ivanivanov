@@ -129,9 +129,9 @@ $( document ).ready(function() {
         var control_button = document.querySelector('.admin-panel-albums-pictures-and-albums-control-button-pressed');
         unclickButton(control_button);
 
-        function unclickButton(button) {
-            button.classList.remove('admin-panel-albums-pictures-and-albums-control-button-pressed');
-            button.classList.add('admin-panel-albums-pictures-and-albums-control-button');
+        function unclickButton(control_button) {
+            control_button.classList.remove('admin-panel-albums-pictures-and-albums-control-button-pressed');
+            control_button.classList.add('admin-panel-albums-pictures-and-albums-control-button');
         }
     }
     
