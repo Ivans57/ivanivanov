@@ -1,8 +1,8 @@
 @extends('create_edit_delete_window')
 
 @section('create_edit_delete_window_content')
-    {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/".$section."/".$entity_types_and_keywords."/".$parent_keyword : 
-                    "/ru/admin/".$section."/".$entity_types_and_keywords."/".$parent_keyword ]) !!}        
+    {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/".$section."/".$section."/".$entity_types_and_keywords."/".$parent_keyword : 
+                    "/ru/admin/".$section."/".$section."/".$entity_types_and_keywords."/".$parent_keyword ]) !!}        
         <div class='admin-panel-delete-entity'>
             {!! Form::hidden('entity_types_and_keywords', $entity_types_and_keywords) !!}
             {!! Form::hidden('parent_keyword_and_section', $parent_keyword, ['id' => 'parent_keyword_and_section', 'data-section' => $section]) !!}

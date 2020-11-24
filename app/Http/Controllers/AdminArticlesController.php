@@ -200,7 +200,7 @@ class AdminArticlesController extends Controller
         $parent_directory_is_empty = 1;
         
         if ((\App\Folder::where('included_in_folder_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0 || 
-            (\App\Picture::where('folder_id', '=', (($parent) ? $parent->id : null))->count()) > 0) {
+            (\App\Article::where('folder_id', '=', (($parent) ? $parent->id : null))->count()) > 0) {
             $parent_directory_is_empty = 0;    
         }
         
