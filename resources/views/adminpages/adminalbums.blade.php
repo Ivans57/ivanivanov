@@ -57,7 +57,7 @@
                             <div class="admin-panel-albums-picture-and-album-header-text">
                                 <p>@lang('keywords.Name')</p>
                             </div>
-                            @if ($albums->count() > 1)
+                            @if ($all_items_amount > 1)
                                 <div class="admin-panel-albums-picture-and-album-header-caret">
                                     @if ($sorting_asc_or_desc["Name"][0] == "desc")
                                         <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Name"][1] == "1") ? 
@@ -81,7 +81,7 @@
                             <div class="admin-panel-albums-picture-and-album-header-text">
                                 <p>@lang('keywords.DateAndTimeCreated')</p>
                             </div>
-                            @if ($albums->count() > 1)
+                            @if ($all_items_amount > 1)
                                 <div class="admin-panel-albums-picture-and-album-header-caret">
                                     @if ($sorting_asc_or_desc["Creation"][0] == "desc")
                                         <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Creation"][1] == "1") ? 
@@ -105,7 +105,7 @@
                             <div class="admin-panel-albums-picture-and-album-header-text">
                                 <p>@lang('keywords.DateAndTimeUpdate')</p>
                             </div>
-                            @if ($albums->count() > 1)
+                            @if ($all_items_amount > 1)
                                 <div class="admin-panel-albums-picture-and-album-header-caret">
                                     @if ($sorting_asc_or_desc["Update"][0] == "desc")
                                         <span class='glyphicon glyphicon-triangle-bottom {{ ($sorting_asc_or_desc["Update"][1] == "1") ? 

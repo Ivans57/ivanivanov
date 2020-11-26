@@ -46,7 +46,14 @@ class AdminArticlesController extends Controller
         //The fourth parameter is 'folders', because currently we are working with level 0 folders.
         $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 
                                                                     $show_invisible === "all" ? 1 : 0, 'folders');
-               
+        
+        //The variable below is required to show field sorting tools correctly.
+        if ($show_invisible=='all') {
+            $all_items_amount = Folder::where('included_in_folder_with_id', '=', null)->count();
+        } else {
+            $all_items_amount = Folder::where('included_in_folder_with_id', '=', null)->where('is_visible', '=', 1)->count();
+        }
+        
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
@@ -73,7 +80,8 @@ class AdminArticlesController extends Controller
                 //to avoid an exception we will assign it 0.
                 'parent_keyword' => "0",
                 //The line below is required to show correctly display_invisible elements.
-                'all_folders_count' => Folder::where('included_in_folder_with_id', '=', null)->count()
+                'all_folders_count' => Folder::where('included_in_folder_with_id', '=', null)->count(),
+                'all_items_amount' => $all_items_amount
             ]);
         }
     }
