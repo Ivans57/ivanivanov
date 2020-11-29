@@ -10,27 +10,30 @@
 $("#sort_by_name").click(function() {
     var element_with_info = document.querySelector('#show_only_visible');
     var element_with_sorting_info = document.querySelector('#sort_by_name');
+    var directories_or_files_first = get_directories_or_files_first(element_with_info.dataset.old_directories_or_files_first);
     
     sort_elements(element_with_info, element_with_sorting_info.id+"_"+element_with_sorting_info.dataset.sorting_mode, 
-                  $('input[name="show_only_visible"]').val(), $("input[name='directories_or_files_first']:checked").val());
+                  $('input[name="show_only_visible"]').val(), directories_or_files_first);
 });
     
 //Sorting by creation date and time.
 $("#sort_by_creation").click(function() {
     var element_with_info = document.querySelector('#show_only_visible');
     var element_with_sorting_info = document.querySelector('#sort_by_creation');
+    var directories_or_files_first = get_directories_or_files_first(element_with_info.dataset.old_directories_or_files_first);
     
     sort_elements(element_with_info, element_with_sorting_info.id+"_"+element_with_sorting_info.dataset.sorting_mode, 
-                  $('input[name="show_only_visible"]').val(), $("input[name='directories_or_files_first']:checked").val());
+                  $('input[name="show_only_visible"]').val(), directories_or_files_first);
 });
     
 //Sorting by update date and time.
 $("#sort_by_update").click(function() {
     var element_with_info = document.querySelector('#show_only_visible');
-    var element_with_sorting_info = document.querySelector('#sort_by_update');   
+    var element_with_sorting_info = document.querySelector('#sort_by_update');
+    var directories_or_files_first = get_directories_or_files_first(element_with_info.dataset.old_directories_or_files_first);
     
     sort_elements(element_with_info, element_with_sorting_info.id+"_"+element_with_sorting_info.dataset.sorting_mode, 
-                  $('input[name="show_only_visible"]').val(), $("input[name='directories_or_files_first']:checked").val());
+                  $('input[name="show_only_visible"]').val(), directories_or_files_first);
 });
 
 //This function is required to show folders(albums) or articles(pictures) first.
@@ -43,18 +46,23 @@ $("input[type='radio']").change(function() {
 
 //This function is required if we need to display or hide invisible items.
 $('input[name="show_only_visible"]').change(function() {
-    var element_with_info = document.querySelector('#show_only_visible');
-    
-    var directories_or_files_first = $("input[name='directories_or_files_first']:checked").val();
-    if (typeof directories_or_files_first === 'undefined') {
-        //The line below is required to keep old_albums_or_pictures_first setting in case this elements disappear 
-        //when hiding invisible items.
-        directories_or_files_first = element_with_info.dataset.old_directories_or_files_first;
-    }
+    var element_with_info = document.querySelector('#show_only_visible');    
+    var directories_or_files_first = get_directories_or_files_first(element_with_info.dataset.old_directories_or_files_first);
     
     sort_elements(element_with_info, element_with_info.dataset.old_sorting_method_and_mode,(($(this).val() === 'all') ? 'only_visible' : 'all'), 
                   directories_or_files_first);
 });
+
+//This function is required to remove extra code from sorting functions.
+function get_directories_or_files_first(old_directories_or_files_first) {
+    var directories_or_files_first = $("input[name='directories_or_files_first']:checked").val();
+    if (typeof directories_or_files_first === 'undefined') {
+        //The line below is required to keep old_directories_or_files_first setting in case this elements disappear 
+        //when hiding invisible items.
+        directories_or_files_first = old_directories_or_files_first;
+    }    
+    return directories_or_files_first;
+}
 
 //element_with_sorting_info_id and element_with_sorting_info_sorting_mode are taken from the same element, 
 //but it is required to take them as separate variables (end then merge), because depending on kind of sorting action,
