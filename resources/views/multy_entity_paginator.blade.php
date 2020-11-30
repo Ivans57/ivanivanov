@@ -11,12 +11,12 @@ code in repository.-->
     @else
         @if ($is_admin_panel == true)
             <!-- It is important to write absolute routes, otherwise there might be bugs when using the paginator. -->
-            <a href='{{ App::isLocale('en') ? "/admin/".$section."/".$parent_keyword."/page/1/".$sorting_mode : 
-                        "/ru/admin/".$section."/".$parent_keyword."/page/1/".$sorting_mode }}' 
+            <a href='{{ App::isLocale('en') ? "/admin/".$section."/".$parent_keyword."/page/1/".$show_invisible."/".$sorting_mode."/".$directories_or_files_first : 
+                        "/ru/admin/".$section."/".$parent_keyword."/page/1/".$show_invisible."/".$sorting_mode."/".$directories_or_files_first }}' 
                         class="first-active" title="@lang('keywords.ToFirstPage')"></a>
         @else
-            <a href='{{ App::isLocale('en') ? "/".$section."/".$parent_keyword."/page/1/".$sorting_mode : 
-                        "/ru/".$section."/".$parent_keyword."/page/1/".$sorting_mode }}' 
+            <a href='{{ App::isLocale('en') ? "/".$section."/".$parent_keyword."/page/1/".$sorting_mode."/".$directories_or_files_first : 
+                        "/ru/".$section."/".$parent_keyword."/page/1/".$sorting_mode."/".$directories_or_files_first }}' 
                         class="first-active" title="@lang('keywords.ToFirstPage')"></a>
         @endif
     @endif
@@ -24,12 +24,12 @@ code in repository.-->
         <span class="previous-inactive"></span>
     @else
         @if ($is_admin_panel == true)
-        <a href='{{ App::isLocale('en') ? "/admin/".$section."/".$parent_keyword."/page/".$pagination_info->previous_page."/".$sorting_mode : 
-                    "/ru/admin/".$section."/".$parent_keyword."/page/".$pagination_info->previous_page."/".$sorting_mode }}' 
+        <a href='{{ App::isLocale('en') ? "/admin/".$section."/".$parent_keyword."/page/".$pagination_info->previous_page."/".$show_invisible."/".$sorting_mode."/".$directories_or_files_first : 
+                    "/ru/admin/".$section."/".$parent_keyword."/page/".$pagination_info->previous_page."/".$show_invisible."/".$sorting_mode."/".$directories_or_files_first }}' 
                     class="previous-active" title="@lang('keywords.ToPreviousPage')"></a>
         @else
-            <a href='{{ App::isLocale('en') ? "/".$section."/".$parent_keyword."/page/".$pagination_info->previous_page."/".$sorting_mode : 
-                    "/ru/".$section."/".$parent_keyword."/page/".$pagination_info->previous_page."/".$sorting_mode }}' 
+            <a href='{{ App::isLocale('en') ? "/".$section."/".$parent_keyword."/page/".$pagination_info->previous_page."/".$sorting_mode."/".$directories_or_files_first : 
+                    "/ru/".$section."/".$parent_keyword."/page/".$pagination_info->previous_page."/".$sorting_mode."/".$directories_or_files_first }}' 
                     class="previous-active" title="@lang('keywords.ToPreviousPage')"></a>
         @endif
     @endif
@@ -38,12 +38,12 @@ code in repository.-->
         <span class="next-inactive"></span>
     @else
         @if ($is_admin_panel == true)
-            <a href='{{ App::isLocale('en') ? "/admin/".$section."/".$parent_keyword."/page/".$pagination_info->next_page."/".$sorting_mode : 
-                        "/ru/admin/".$section."/".$parent_keyword."/page/".$pagination_info->next_page."/".$sorting_mode }}' 
+            <a href='{{ App::isLocale('en') ? "/admin/".$section."/".$parent_keyword."/page/".$pagination_info->next_page."/".$show_invisible."/".$sorting_mode."/".$directories_or_files_first : 
+                        "/ru/admin/".$section."/".$parent_keyword."/page/".$pagination_info->next_page."/".$show_invisible."/".$sorting_mode."/".$directories_or_files_first }}' 
                         class="next-active" title="@lang('keywords.ToNextPage')"></a>
         @else
-            <a href='{{ App::isLocale('en') ? "/".$section."/".$parent_keyword."/page/".$pagination_info->next_page."/".$sorting_mode : 
-                        "/ru/".$section."/".$parent_keyword."/page/".$pagination_info->next_page."/".$sorting_mode }}' 
+            <a href='{{ App::isLocale('en') ? "/".$section."/".$parent_keyword."/page/".$pagination_info->next_page."/".$sorting_mode."/".$directories_or_files_first : 
+                        "/ru/".$section."/".$parent_keyword."/page/".$pagination_info->next_page."/".$sorting_mode."/".$directories_or_files_first }}' 
                         class="next-active" title="@lang('keywords.ToNextPage')"></a>
         @endif
     @endif
@@ -51,12 +51,12 @@ code in repository.-->
         <span class="last-inactive"></span>
     @else
         @if ($is_admin_panel == true)
-            <a href='{{ App::isLocale('en') ? "/admin/".$section."/".$parent_keyword."/page/".$pagination_info->number_of_pages."/".$sorting_mode : 
-                        "/ru/admin/".$section."/".$parent_keyword."/page/".$pagination_info->number_of_pages."/".$sorting_mode }}' 
+            <a href='{{ App::isLocale('en') ? "/admin/".$section."/".$parent_keyword."/page/".$pagination_info->number_of_pages."/".$show_invisible."/".$sorting_mode."/".$directories_or_files_first : 
+                        "/ru/admin/".$section."/".$parent_keyword."/page/".$pagination_info->number_of_pages."/".$show_invisible."/".$sorting_mode."/".$directories_or_files_first }}' 
                         class="last-active" title="@lang('keywords.ToLastPage')"></a>
         @else
-            <a href='{{ App::isLocale('en') ? "/".$section."/".$parent_keyword."/page/".$pagination_info->number_of_pages."/".$sorting_mode : 
-                        "/ru/".$section."/".$parent_keyword."/page/".$pagination_info->number_of_pages."/".$sorting_mode }}' 
+            <a href='{{ App::isLocale('en') ? "/".$section."/".$parent_keyword."/page/".$pagination_info->number_of_pages."/".$sorting_mode."/".$directories_or_files_first : 
+                        "/ru/".$section."/".$parent_keyword."/page/".$pagination_info->number_of_pages."/".$sorting_mode."/".$directories_or_files_first }}' 
                         class="last-active" title="@lang('keywords.ToLastPage')"></a>
         @endif
     @endif
