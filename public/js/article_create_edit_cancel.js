@@ -10,9 +10,13 @@ $( document ).ready(function() {
       
     button_cancel.onclick = function() {
         if (form.dataset.localization === "en") {
-            window.location.replace("/admin/articles/"+parent_keyword+"/page/1");
+            window.location.replace("/admin/articles/"+parent_keyword+"/page/1/"+
+                                    $('#sorting_show_invisible').val()+"/"+$('#sorting_sorting_mode').val()+
+                                    "/"+$('#sorting_folders_or_articles_first').val());
         } else {
-            window.location.replace("/ru/admin/articles/"+parent_keyword+"/page/1");
+            window.location.replace("/ru/admin/articles/"+parent_keyword+"/page/1/"+
+                                    $('#sorting_show_invisible').val()+"/"+$('#sorting_sorting_mode').val()+
+                                    "/"+$('#sorting_folders_or_articles_first').val());
         }
     };
 });

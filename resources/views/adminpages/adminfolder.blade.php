@@ -192,8 +192,10 @@
                                     </div>
                                 </a>
                             @else
-                                <a href={{ App::isLocale('en') ? "/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord : 
-                                            "/ru/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord }}>
+                                <a href={{ App::isLocale('en') ? "/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord."/".
+                                                                 $show_invisible."/".$sorting_method_and_mode."/".$directories_or_files_first : 
+                                                                 "/ru/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyWord."/".
+                                                                 $show_invisible."/".$sorting_method_and_mode."/".$directories_or_files_first }}>
                                     <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
                                         <div>
                                             <img src="{{ URL::asset('images/icons/article.png') }}" style="{{ ($folder_or_article->isVisible==1) ? 

@@ -366,11 +366,13 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/article/{parent_keyword}/edit/{keyword}', 'AdminArticleController@edit');
+    Route::get('admin/article/{parent_keyword}/edit/{keyword}/{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}', 
+               'AdminArticleController@edit');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/article/{parent_keyword}/edit/{keyword}', 'AdminArticleController@edit');
+    Route::get('admin/article/{parent_keyword}/edit/{keyword}/{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}', 
+               'AdminArticleController@edit');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

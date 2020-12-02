@@ -85,18 +85,6 @@ $( document ).ready(function() {
         }
     });
     
-    /*function albums_control_button_view_change_after_fancybox_close() {
-        //We don't need an array here as in previous examples, because there will be
-        //always only one pressed element.
-        var control_button = document.querySelector('.admin-panel-albums-pictures-and-albums-control-button-pressed');
-        unclickButton(control_button);
-
-        function unclickButton(button) {
-            button.classList.remove('admin-panel-albums-pictures-and-albums-control-button-pressed');
-            button.classList.add('admin-panel-albums-pictures-and-albums-control-button');
-        }
-    }*/
-    
     function articles_control_button_view_change_after_fancybox_close() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
@@ -124,8 +112,13 @@ $( document ).ready(function() {
                 var url = localization+'/admin/articles/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword;
                 edit_folder(url);
             } else {
+                //The variable below is required to keep an element with sorting settings.
+                var sorting_settings = document.querySelector('#show_only_visible');
+                
                 var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
-                var url = localization+'/admin/article/'+selected_checkbox[0].dataset.parent_keyword+'/edit/'+selected_checkbox[0].dataset.keyword;
+                var url = localization+'/admin/article/'+selected_checkbox[0].dataset.parent_keyword+'/edit/'+
+                          selected_checkbox[0].dataset.keyword+"/"+sorting_settings.value+"/"+
+                          sorting_settings.dataset.old_sorting_method_and_mode+"/"+sorting_settings.dataset.old_directories_or_files_first;
                 window.location.href = url;
             }
         }

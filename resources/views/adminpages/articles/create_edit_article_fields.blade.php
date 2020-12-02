@@ -1,6 +1,6 @@
 <div class='admin-panel-create-edit-article'>
     {{ $old_keyword }}
-    <!-- In the element below will be kept some useful information about parent and previous sorting options in it. -->
+    <!-- In the elements below will be kept some useful information about parent and previous sorting options in it. -->
     {!! Form::hidden('folder_id', $parent_id, ['id' => 'included_in_directory_with_id']) !!}
     {!! Form::hidden('sorting_show_invisible', $show_invisible, ['id' => 'sorting_show_invisible']) !!}
     {!! Form::hidden('sorting_sorting_mode', $sorting_mode, ['id' => 'sorting_sorting_mode']) !!}
