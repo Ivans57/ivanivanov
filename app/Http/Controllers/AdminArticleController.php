@@ -33,7 +33,9 @@ class AdminArticleController extends Controller
         $this->is_admin_panel = true;
     }
     
-    public function create($parent_keyword) {     
+    public function create($parent_keyword, $show_invisible, $sorting_mode = null, $folders_or_articles_first = null) {
+        //Three the last parameters are required to keep previous sorting options.
+        //Without them after creation of a new article, previous sorting options will be lost.
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);    
         
         if ($parent_keyword != "0") {
@@ -65,7 +67,10 @@ class AdminArticleController extends Controller
             //when user won't see the full list of directories due to some restrictions
             //and it work when creating or editing picture or articles in a file mode,
             //when user will see a full list of all albums and folders.
-            'mode' => 'file'
+            'mode' => 'file',
+            'show_invisible' => $show_invisible,
+            'sorting_mode' => $sorting_mode,
+            'folders_or_articles_first' => $folders_or_articles_first
             ]);
     }
     
@@ -90,9 +95,13 @@ class AdminArticleController extends Controller
         //after has done with an article.
         $parent_keyword = Folder::select('keyword')
                     ->where('id', $input['folder_id'])->firstOrFail();
-        
-        return App::isLocale('en') ? redirect('/admin/articles/'.$parent_keyword->keyword.'/page/1') : 
-                                     redirect('/ru/admin/articles/'.$parent_keyword->keyword.'/page/1');
+        //{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}
+        return App::isLocale('en') ? redirect('/admin/articles/'.$parent_keyword->keyword.'/page/1/'.
+                                     $input['sorting_show_invisible']."/".$input['sorting_sorting_mode']."/".
+                                     $input['sorting_folders_or_articles_first']) : 
+                                     redirect('/ru/admin/articles/'.$parent_keyword->keyword.'/page/1'.
+                                     $input['sorting_show_invisible']."/".$input['sorting_sorting_mode']."/".
+                                     $input['sorting_folders_or_articles_first']);
     }
     
     public function edit($parent_keyword, $keyword) {

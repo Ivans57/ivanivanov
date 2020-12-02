@@ -320,12 +320,12 @@ Route::group(['middleware' => 'locale'], function() {
 
 Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/articles/{keyword}/page/{page}/{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}', 
-                'AdminArticlesController@showFolder');
+               'AdminArticlesController@showFolder');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('admin/articles/{keyword}/page/{page}/{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}', 
-                'AdminArticlesController@showFolder');
+               'AdminArticlesController@showFolder');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
@@ -348,11 +348,13 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Articles
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/article/create/{parent_keyword}', 'AdminArticleController@create');
+    Route::get('admin/article/create/{parent_keyword}/{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}', 
+               'AdminArticleController@create');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/article/create/{parent_keyword}', 'AdminArticleController@create');
+    Route::get('admin/article/create/{parent_keyword}/{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}', 
+               'AdminArticleController@create');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

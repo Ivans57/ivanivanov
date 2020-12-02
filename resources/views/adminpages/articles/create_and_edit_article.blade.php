@@ -40,7 +40,9 @@
     </div>
         @component('adminpages/articles/create_edit_article_fields', ['parent_id' => $parent_id, 'parent_name' => $parent_name, 
                                                                       'parent_keyword' => $parent_keyword,    
-                                                                      'section' => $section, 'create_or_edit' => $create_or_edit])
+                                                                      'section' => $section, 'create_or_edit' => $create_or_edit,
+                                                                      'show_invisible' => $show_invisible, 'sorting_mode' => $sorting_mode, 
+                                                                      'folders_or_articles_first' => $folders_or_articles_first])
             @slot('old_keyword')
                 <!-- We need to pass an old keyword to validation because we need to compare it with a new keyword to avoid any misunderstanding 
                 when do keyword uniqueness check. When we edit existing record we might change something without changing a keyword. 

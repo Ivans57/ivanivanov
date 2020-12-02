@@ -23,7 +23,10 @@
         <div class="admin-panel-articles-control-buttons">
             <div class="admin-panel-articles-add-article-folder-wrapper">
                 <div class="admin-panel-articles-add-article-button">
-                    <a href={{ App::isLocale('en') ? "/admin/article/create/".$parent_keyword : "/ru/admin/article/create/".$parent_keyword }} 
+                    <a href={{ App::isLocale('en') ? "/admin/article/create/".$parent_keyword."/".
+                                                      $show_invisible."/".$sorting_method_and_mode."/".$directories_or_files_first : 
+                                                      "/ru/admin/article/create/".$parent_keyword."/".
+                                                      $show_invisible."/".$sorting_method_and_mode."/".$directories_or_files_first }} 
                         class="admin-panel-articles-add-article-button-link">
                            @lang('keywords.AddArticle')
                     </a>
