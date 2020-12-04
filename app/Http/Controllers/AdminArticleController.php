@@ -100,7 +100,7 @@ class AdminArticleController extends Controller
         return App::isLocale('en') ? redirect('/admin/articles/'.$parent_keyword->keyword.'/page/1/'.
                                      $input['sorting_show_invisible']."/".$input['sorting_sorting_mode']."/".
                                      $input['sorting_folders_or_articles_first']) : 
-                                     redirect('/ru/admin/articles/'.$parent_keyword->keyword.'/page/1'.
+                                     redirect('/ru/admin/articles/'.$parent_keyword->keyword.'/page/1/'.
                                      $input['sorting_show_invisible']."/".$input['sorting_sorting_mode']."/".
                                      $input['sorting_folders_or_articles_first']);
     }
@@ -173,7 +173,7 @@ class AdminArticleController extends Controller
         return App::isLocale('en') ? redirect('/admin/articles/'.$parent_keyword->keyword.'/page/1/'.
                                      $input['sorting_show_invisible']."/".$input['sorting_sorting_mode']."/".
                                      $input['sorting_folders_or_articles_first']) : 
-                                     redirect('/ru/admin/articles/'.$parent_keyword->keyword.'/page/1'.
+                                     redirect('/ru/admin/articles/'.$parent_keyword->keyword.'/page/1/'.
                                      $input['sorting_show_invisible']."/".$input['sorting_sorting_mode']."/".
                                      $input['sorting_folders_or_articles_first']);
     }
