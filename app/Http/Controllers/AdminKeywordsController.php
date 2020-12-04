@@ -42,7 +42,7 @@ class AdminKeywordsController extends Controller
         
         //In the next line the data are getting extracted from the database and sorted.
         $sorting_data = $this->keywords->sort($items_amount_per_page, $sorting_mode);
-        
+                       
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page
         if ($sorting_data["keywords"]->currentPage() > $sorting_data["keywords"]->lastPage()) {
@@ -59,7 +59,11 @@ class AdminKeywordsController extends Controller
                 'section' => Str::lower($this->current_page),
                 'keywords' => $sorting_data["keywords"],
                 'items_amount_per_page' => $items_amount_per_page,
-                'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"]
+                'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
+                //The variable below is required to show field sorting tools correctly.
+                //We cannot just stick to $keywords->total(), because on the second page, if there is only one keyword,
+                //no sorting arrows will be shown.
+                'all_keywords_amount' => Keyword::count()
             ]);
         }
     }
