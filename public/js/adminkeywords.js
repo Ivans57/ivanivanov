@@ -7,6 +7,15 @@
 /*Scripts for Admin Panel Keywords*/
 
 $( document ).ready(function() {
+    //We need the following lines to make ajax requests work.
+    //There are special tokens used for security. We need to add them in all heads
+    //and also ajax should be set up to pass them.
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
     //Making list of all elements with our class.
     var add_keyword_buttons = document.querySelectorAll('.admin-panel-keywords-add-keyword-button');
     var add_keyword_links = document.querySelectorAll('.admin-panel-keywords-add-keyword-button-link');
@@ -294,6 +303,27 @@ $( document ).ready(function() {
         var url = localization+"/admin/keywords/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
         window.location.href = url;
     }
+    
+    //Keyword Search.
+    $( "#keyword_search_button" ).click(function() {
+        var find_keywords_by_text = $( "#keyword_search" ).val();
+        var url = "/admin/keywords/search";
+        keyword_search(url, find_keywords_by_text);
+    });
+    
+    //The function below is calling search function.
+    function keyword_search(url, find_keywords_by_text) {
+        $.ajax({
+                type: "POST",
+                url: url,
+                data: {find_keywords_by_text: find_keywords_by_text},
+                success:function(data) {
+                    //window.location.href = '/admin/keywords/';
+                    $('.admin-panel-keywords-keywords-wrapper').html(data.html);
+                }
+            });
+    }
+    
 });
 
 /*--------------------------------------------------------*/

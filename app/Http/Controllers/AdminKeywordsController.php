@@ -6,6 +6,8 @@ use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\KeywordsRepository;
 use App\Keyword;
 use App\Http\Requests\CreateEditKeywordRequest;
+//The reuqtes below is required for search.
+use Illuminate\Http\Request;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
 use Illuminate\Support\Str;
@@ -41,7 +43,7 @@ class AdminKeywordsController extends Controller
         $items_amount_per_page = 14;
         
         //In the next line the data are getting extracted from the database and sorted.
-        $sorting_data = $this->keywords->sort($items_amount_per_page, $sorting_mode);
+        $sorting_data = $this->keywords->sort(0, $items_amount_per_page, $sorting_mode);
                        
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page
@@ -66,6 +68,27 @@ class AdminKeywordsController extends Controller
                 'all_keywords_amount' => Keyword::count()
             ]);
         }
+    }
+    
+    public function searchKeyword(Request $request) {
+        
+        $keywords_text = $request->input('find_keywords_by_text');
+        
+        //$html = view('partials.table', compact('view'))->render();
+               
+        $items_amount_per_page = 14;
+        
+        //In the next line the data are getting extracted from the database and sorted.
+        $sorting_data = $this->keywords->sort(1, $items_amount_per_page, null, $keywords_text);
+        
+        $keywords = $sorting_data["keywords"];
+        $sorting_asc_or_desc = $sorting_data["sorting_asc_or_desc"];
+        $all_keywords_amount = Keyword::count();    
+        
+        $html = view('adminpages.adminkeywords_table', compact("keywords", "sorting_asc_or_desc", "all_keywords_amount"))->render();      
+        
+        //return response()->json(['some_data' => $keywords_text]);
+        return response()->json(compact('html'));
     }
     
     public function create() {   

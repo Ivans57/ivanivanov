@@ -406,6 +406,14 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/keywords/search', 'AdminKeywordsController@searchKeyword');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/keywords/search', 'AdminKeywordsController@searchKeyword');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::post('admin/keywords', 'AdminKeywordsController@store');
 });
 
