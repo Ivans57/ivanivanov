@@ -56,22 +56,22 @@ class KeywordsRepository {
         switch ($sorting_mode) {
             case ('keywords_sort_by_keyword_desc'):
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::orderBy('keyword', 'desc')->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->orderBy('keyword', 'desc')->paginate($items_amount_per_page));
+                            (Keyword::where('text', '=', '%'.$keywords_text.'%')->orderBy('keyword', 'desc')->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Keyword"] = ["asc" , 1];
                 break;
             case ('keywords_sort_by_keyword_asc'):
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::orderBy('keyword', 'asc')->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->orderBy('keyword', 'asc')->paginate($items_amount_per_page));
+                            (Keyword::where('text', '=', '%'.$keywords_text.'%')->orderBy('keyword', 'asc')->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Keyword"] = ["desc" , 1];
                 break;
             case ('keywords_sort_by_text_desc'):
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::orderBy('text', 'desc')->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->orderBy('text', 'desc')->paginate($items_amount_per_page));
+                            (Keyword::where('text', '=', '%'.$keywords_text.'%')->orderBy('text', 'desc')->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Text"] = ["asc" , 1];
                 break;
             case ('keywords_sort_by_text_asc'):
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::orderBy('text', 'asc')->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->orderBy('text', 'asc')->paginate($items_amount_per_page));
+                            (Keyword::where('text', '=', '%'.$keywords_text.'%')->orderBy('text', 'asc')->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Text"] = ["desc" , 1];
                 break;
             case ('keywords_sort_by_section_desc'):
@@ -81,32 +81,32 @@ class KeywordsRepository {
                 break;
             case ('keywords_sort_by_section_asc'):
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::orderBy('section', 'asc')->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->orderBy('section', 'asc')->paginate($items_amount_per_page));
+                            (Keyword::where('text', '=', '%'.$keywords_text.'%')->orderBy('section', 'asc')->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Section"] = ["desc" , 1];
                 break;
             case ('keywords_sort_by_creation_desc'):
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::latest()->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->latest()->paginate($items_amount_per_page));
+                            (Keyword::where('text', '=', '%'.$keywords_text.'%')->latest()->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Creation"] = ["asc" , 1];
                 break;
             case ('keywords_sort_by_creation_asc'):
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::orderBy('created_at', 'asc')->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->orderBy('created_at', 'asc')->paginate($items_amount_per_page));
+                            (Keyword::where('text', '=', '%'.$keywords_text.'%')->orderBy('created_at', 'asc')->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Creation"] = ["desc" , 1];
                 break;
             case ('keywords_sort_by_update_desc'):
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::orderBy('updated_at', 'desc')->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->orderBy('updated_at', 'desc')->paginate($items_amount_per_page));
+                            (Keyword::where('text', '=', '%'.$keywords_text.'%')->orderBy('updated_at', 'desc')->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Update"] = ["asc" , 1];
                 break;
             case ('keywords_sort_by_update_asc'):
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::orderBy('updated_at', 'asc')->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->orderBy('updated_at', 'asc')->paginate($items_amount_per_page));
+                            (Keyword::where('text', '=', '%'.$keywords_text.'%')->orderBy('updated_at', 'asc')->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Update"] = ["desc" , 1];
                 break;
             default:
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::latest()->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', '=', $keywords_text)->latest()->paginate($items_amount_per_page));
+                            (Keyword::where('text', 'LIKE', '%'.$keywords_text.'%')->latest()->paginate($items_amount_per_page));
                 $sorting_asc_or_desc["Creation"] = ["asc" , 1];
         }     
         return ["keywords" => $keywords, "sorting_asc_or_desc" => $sorting_asc_or_desc];

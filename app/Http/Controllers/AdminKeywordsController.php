@@ -85,7 +85,8 @@ class AdminKeywordsController extends Controller
         $sorting_asc_or_desc = $sorting_data["sorting_asc_or_desc"];
         $all_keywords_amount = Keyword::count();    
         
-        $html = view('adminpages.adminkeywords_table', compact("keywords", "sorting_asc_or_desc", "all_keywords_amount"))->render();      
+        $html = view('adminpages.adminkeywords_content', 
+                compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page"))->render();      
         
         //return response()->json(['some_data' => $keywords_text]);
         return response()->json(compact('html'));

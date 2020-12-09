@@ -319,7 +319,7 @@ $( document ).ready(function() {
                 data: {find_keywords_by_text: find_keywords_by_text},
                 success:function(data) {
                     //window.location.href = '/admin/keywords/';
-                    $('.admin-panel-keywords-keywords-wrapper').html(data.html);
+                    $('.admin-panel-keywords-content').html(data.html);
                 }
             });
     }

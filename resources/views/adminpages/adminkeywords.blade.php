@@ -34,24 +34,10 @@
         {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
                 ['class' => 'some-class', 'id' => 'keyword_search_button', 'title' => Lang::get('keywords.FindInDataBase') ]) !!}
     </div>
-    @if ($keywords->count() > 0)
-        <!-- We need external wrapper to keep pagination buttons in the bottom of article sectional
-        in case we don't have full page-->
-        <div class="admin-panel-keywords-external-keywords-wrapper">
-            <div class="admin-panel-keywords-keywords-wrapper">
-                @include('adminpages.adminkeywords_table')
-            </div>        
-        </div>
-        @if ($keywords->total() > $items_amount_per_page)
-            <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
-            @component('one_entity_paginator', ['items' => $keywords])
-            @endcomponent
-        @endif
-    @else
-        <div class="admin-panel-keywords-empty-text-wrapper">
-            <p>@lang('keywords.EmptySection')</p>
-        </div>
-    @endif
+    <!-- The class below is required only for JavaScript purposes.-->
+    <div class="admin-panel-keywords-content">
+        @include('adminpages.adminkeywords_content')
+    </div>
 </article>
 
 @stop
