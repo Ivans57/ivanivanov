@@ -38,13 +38,15 @@ class AdminKeywordsController extends Controller
     }  
 
     //Optional argument is required for sorting.
+    //The second parameter is required when user is searching something and there is more than one page of something found,
+    //that will enable to turn pages of items found normaly, without dropping search.
     public function index($sorting_mode = null) {      
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);       
         $items_amount_per_page = 14;
         
         //In the next line the data are getting extracted from the database and sorted.
         $sorting_data = $this->keywords->sort(0, $items_amount_per_page, $sorting_mode);
-                       
+                      
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page
         if ($sorting_data["keywords"]->currentPage() > $sorting_data["keywords"]->lastPage()) {
@@ -73,8 +75,6 @@ class AdminKeywordsController extends Controller
     public function searchKeyword(Request $request) {
         
         $keywords_text = $request->input('find_keywords_by_text');
-        
-        //$html = view('partials.table', compact('view'))->render();
                
         $items_amount_per_page = 14;
         
@@ -85,8 +85,8 @@ class AdminKeywordsController extends Controller
         $sorting_asc_or_desc = $sorting_data["sorting_asc_or_desc"];
         $all_keywords_amount = Keyword::count();    
         
-        $html = view('adminpages.adminkeywords_content', 
-                compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page"))->render();      
+        $html = view('adminpages.adminkeywords_searchcontent', 
+                compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page"))->render();
         
         //return response()->json(['some_data' => $keywords_text]);
         return response()->json(compact('html'));
