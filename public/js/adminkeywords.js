@@ -316,9 +316,8 @@ $( document ).ready(function() {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {find_keywords_by_text: find_keywords_by_text},
+                data: {find_keywords_by_text: find_keywords_by_text, page_number: 1},
                 success:function(data) {
-                    //window.location.href = '/admin/keywords/';
                     $('.admin-panel-keywords-content').html(data.html);
                 }
             });

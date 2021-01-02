@@ -72,21 +72,20 @@ class AdminKeywordsController extends Controller
         }
     }
     
-    public function searchKeyword(Request $request) {
-        
-        $keywords_text = $request->input('find_keywords_by_text');
-               
+    public function searchKeyword(Request $request) {        
         $items_amount_per_page = 14;
         
-        //In the next line the data are getting extracted from the database and sorted.
-        $sorting_data = $this->keywords->sort(1, $items_amount_per_page, null, $keywords_text);
-        
-        $keywords = $sorting_data["keywords"];
-        $sorting_asc_or_desc = $sorting_data["sorting_asc_or_desc"];
-        $all_keywords_amount = Keyword::count();    
+        //!Need to sort out with a page number!
+        $keywords_with_info = $this->keywords->getKeywordsFromSearch($request->input('find_keywords_by_text'), 
+                                                                     $request->input('page_number'), $items_amount_per_page);
+               
+        $keywords = $keywords_with_info->keywords_on_page;
+        $sorting_asc_or_desc = $keywords_with_info->sorting_asc_or_desc;
+        $all_keywords_amount = $keywords_with_info->all_keywords_count;
+        $pagination_info = $keywords_with_info->paginator_info;
         
         $html = view('adminpages.adminkeywords_searchcontent', 
-                compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page"))->render();
+                compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page", "pagination_info"))->render();
         
         //return response()->json(['some_data' => $keywords_text]);
         return response()->json(compact('html'));

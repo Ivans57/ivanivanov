@@ -5,6 +5,17 @@ namespace App\Http\Repositories;
 use Carbon\Carbon;
 use App\Keyword;
 
+class KeywordsWithPaginationInfo {
+    public $all_keywords_count;
+    public $keywords_on_page;
+    public $sorting_asc_or_desc;
+    //It is better to keep this property here,
+    //so in case of empty items array we don't need
+    //to make an object.
+    //public $total_number_of_items;
+    public $paginator_info;   
+}
+
 class KeywordsRepository {
     
     public function store($request) {
@@ -106,7 +117,7 @@ class KeywordsRepository {
                 break;
             default:
                 $keywords = ($search_mode_is_on === 0) ? (Keyword::latest()->paginate($items_amount_per_page)) : 
-                            (Keyword::where('text', 'LIKE', '%'.$keywords_text.'%')->latest()->paginate($items_amount_per_page));
+                            (Keyword::where('text', 'LIKE', '%'.$keywords_text.'%')->latest()->get());
                 $sorting_asc_or_desc["Creation"] = ["asc" , 1];
         }     
         return ["keywords" => $keywords, "sorting_asc_or_desc" => $sorting_asc_or_desc];
@@ -122,5 +133,48 @@ class KeywordsRepository {
             array_push($keywords_array, $keyword->keyword);
         }    
         return $keywords_array;   
+    }
+    
+    //This function is used for search.
+    public function getKeywordsFromSearch($keywords_text, $page, $items_amount_per_page) {
+        //!Need to pass a page number!!!
+        $keywords_with_pagination = new KeywordsWithPaginationInfo();
+        
+        //In the next line the data are getting extracted from the database and sorted.        
+        $all_keywords = $this->sort(1, $items_amount_per_page, null, $keywords_text);
+        
+        $keywords_with_pagination->all_keywords_count = sizeof($all_keywords["keywords"]);
+        
+        $keywords_with_pagination->sorting_asc_or_desc = $all_keywords["sorting_asc_or_desc"];
+        
+        //Later keywords array has to be chunked to separate pieces for pagination.
+        //When getting data from the database it is not a pure array, it is an object and it cannot be chunked.
+        //For that reason these data need to be converted to an array.
+        $all_keywords_array = [];
+        
+        foreach ($all_keywords["keywords"] as $one_keyword){
+           array_push($all_keywords_array, $one_keyword); 
+        }
+        
+        //The following information we can have only if we have at least one item.
+        if($keywords_with_pagination->all_keywords_count > 0) {
+            //The line below cuts all data into pages.
+            //We can do it only if we have at least one item in the array of the full data.
+            $keywords_cut_into_pages = array_chunk($all_keywords_array, $items_amount_per_page, false);
+            $keywords_with_pagination->paginator_info = (new CommonRepository())->get_paginator_info($page, $keywords_cut_into_pages);
+            //We need to do the check below in case user enters a page number more tha actual number of pages,
+            //so we can avoid an error.
+            $keywords_with_pagination->keywords_on_page = $keywords_with_pagination->paginator_info->number_of_pages >= $page ? 
+                                                                $keywords_cut_into_pages[$page-1] : null;
+        } else {
+            //As we need to know paginator_info->number_of_pages to check the condition
+            //in showAlbumView() method we need to make paginator_info object
+            //and assign its number_of_pages variable. Otherwise we will have an error
+            //if we have any empty folder
+            $keywords_with_pagination->paginator_info = new Paginator();
+            $keywords_with_pagination->paginator_info->number_of_pages = 1;
+        }
+        
+        return $keywords_with_pagination;
     }
 }

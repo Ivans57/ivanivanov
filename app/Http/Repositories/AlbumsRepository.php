@@ -93,7 +93,7 @@ class AlbumsRepository {
                                     $is_admin_panel, $including_invisible, $sorting_mode = null, $albums_or_pictures_first = null) {
         
         $common_repository = new CommonRepository();
-        //The condition below fixs a problem when user enters as a number of page some number less then 1
+        //The condition below fixes a problem when user enters as a number of page some number less then 1
         if ($page < 1) {
             return $common_repository->redirect_to_first_page_multi_entity($section, $keyword, $is_admin_panel);          
         } else {
@@ -158,10 +158,10 @@ class AlbumsRepository {
         $albums_and_pictures_full_info->head_title = $album->album_name;
         $albums_and_pictures_full_info->total_number_of_items = count($albums_and_pictures_array_with_sort_info['directories_or_files']);
 
-        //The following information we can have only if we have at least one item in selected folder
+        //The following information we can have only if we have at least one item in selected folder.
         if(count($albums_and_pictures_array_with_sort_info['directories_or_files']) > 0) {
-            //The line below cuts all data into pages
-            //We can do it only if we have at least one item in the array of the full data
+            //The line below cuts all data into pages.
+            //We can do it only if we have at least one item in the array of the full data.
             $albums_and_pictures_full_cut_into_pages = array_chunk($albums_and_pictures_array_with_sort_info['directories_or_files'], 
                                                                    $items_amount_per_page, false);
             $albums_and_pictures_full_info->paginator_info = (new CommonRepository())->get_paginator_info($page, 
