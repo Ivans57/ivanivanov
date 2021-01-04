@@ -304,25 +304,42 @@ $( document ).ready(function() {
         window.location.href = url;
     }
     
-    //Keyword Search.
+    //++++++++++++++++++++++Keyword Search.++++++++++++++++++++++
+    var url_for_search = "/admin/keywords/search";
+    
     $( "#keyword_search_button" ).click(function() {
+        var find_keywords_by_text = $( "#keyword_search" ).val();      
+        keyword_search(url_for_search, find_keywords_by_text, 1);
+    });   
+    
+    //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
+    $(document).on("click", ".turn-page", function() {
         var find_keywords_by_text = $( "#keyword_search" ).val();
-        var url = "/admin/keywords/search";
-        keyword_search(url, find_keywords_by_text);
+        var go_to_page_number = $(this).data('page');
+        var current_element_id = $(this).attr('id');
+        
+        if (current_element_id === "previous_page") {
+            go_to_page_number = go_to_page_number - 1;
+        } else if (current_element_id === "next_page") {
+            go_to_page_number = go_to_page_number + 1;
+        }
+        
+        keyword_search(url_for_search, find_keywords_by_text, go_to_page_number);
     });
     
     //The function below is calling search function.
-    function keyword_search(url, find_keywords_by_text) {
+    function keyword_search(url, find_keywords_by_text, page_number) {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {find_keywords_by_text: find_keywords_by_text, page_number: 1},
+                data: {find_keywords_by_text: find_keywords_by_text, page_number: page_number},
                 success:function(data) {
                     $('.admin-panel-keywords-content').html(data.html);
                 }
             });
     }
     
+    //++++++++++++++++++++++End of Keyword Search.++++++++++++++++++++++
 });
 
 /*--------------------------------------------------------*/

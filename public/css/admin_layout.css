@@ -1767,6 +1767,11 @@ component used through many sections.*/
     text-decoration: none;
 }
 
+/*This is only for search paginator.*/
+.admin-panel-main-article .paginator .turn-page {
+    cursor: pointer;
+}
+
 .admin-panel-main-article .paginator .previous-inactive,
 .admin-panel-main-article .paginator .previous-active {
     margin-right: 5px;
