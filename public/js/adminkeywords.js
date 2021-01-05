@@ -269,29 +269,14 @@ $( document ).ready(function() {
         }
      });
     
-    //Sorting by keyword.
-    $( "#keywords_sort_by_keyword" ).click(function() {
-        keywords_sort("keywords_sort_by_keyword");
-    });
-    
-    //Sorting by text.
-    $( "#keywords_sort_by_text" ).click(function() {
-        keywords_sort("keywords_sort_by_text");
-    });
-    
-    //Sorting by section.
-    $( "#keywords_sort_by_section" ).click(function() {
-        keywords_sort("keywords_sort_by_section");
-    });
-    
-    //Sorting by creation date and time.
-    $( "#keywords_sort_by_creation" ).click(function() {
-        keywords_sort("keywords_sort_by_creation");
-    });
-    
-    //Sorting by update date and time.
-    $( "#keywords_sort_by_update" ).click(function() {
-        keywords_sort("keywords_sort_by_update");
+    //Sorting by keyword, text, section, creation date and time, update date and time.
+    //There will be two sort modes normal and for search.
+    $(document).on("click", ".sort", function() {
+        if ($(this).data('search_is_on') === 0) {
+            keywords_sort($(this).attr('id'));
+        } else {
+            keyword_search(url_for_search, $("#keyword_search").val(), 1, $(this).attr('id'), $(this).data('sorting_mode'));
+        }
     });
     
     //The function below is making a link to do sorting and going to it.
@@ -314,6 +299,8 @@ $( document ).ready(function() {
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
     $(document).on("click", ".turn-page", function() {
+        var current_sorting_method_element = document.querySelector('.admin-panel-keywords-keywords-header-caret-used');
+        
         var find_keywords_by_text = $( "#keyword_search" ).val();
         var go_to_page_number = $(this).data('page');
         var current_element_id = $(this).attr('id');
@@ -324,15 +311,23 @@ $( document ).ready(function() {
             go_to_page_number = go_to_page_number + 1;
         }
         
-        keyword_search(url_for_search, find_keywords_by_text, go_to_page_number);
+        keyword_search(url_for_search, find_keywords_by_text, go_to_page_number, current_sorting_method_element.id, 
+                       (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
     });
     
     //The function below is calling search function.
-    function keyword_search(url, find_keywords_by_text, page_number) {
+    //The last two parameters we have to pass separately, because depending on whether a user is going two swicth within
+    //different sorting modes or turn the pages, needs to be applied current sorting mode (asc or desc) or opposite one.
+    function keyword_search(url, find_keywords_by_text, page_number, sorting_method = null, sorting_mode = null) {
+        if (sorting_method === null || sorting_mode === null) {
+            var sorting_method_and_mode = null;
+        } else {
+            var sorting_method_and_mode = sorting_method+"_"+sorting_mode;
+        }
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {find_keywords_by_text: find_keywords_by_text, page_number: page_number},
+                data: {find_keywords_by_text: find_keywords_by_text, page_number: page_number, sorting_mode: sorting_method_and_mode},
                 success:function(data) {
                     $('.admin-panel-keywords-content').html(data.html);
                 }

@@ -67,7 +67,9 @@ class AdminKeywordsController extends Controller
                 //The variable below is required to show field sorting tools correctly.
                 //We cannot just stick to $keywords->total(), because on the second page, if there is only one keyword,
                 //no sorting arrows will be shown.
-                'all_keywords_amount' => Keyword::count()
+                'all_keywords_amount' => Keyword::count(),
+                //The variable below is required for sort to indicate which function to call index or search.
+                'search_is_on' => 0
             ]);
         }
     }
@@ -75,17 +77,19 @@ class AdminKeywordsController extends Controller
     public function searchKeyword(Request $request) {        
         $items_amount_per_page = 14;
         
-        //!Need to sort out with a page number!
-        $keywords_with_info = $this->keywords->getKeywordsFromSearch($request->input('find_keywords_by_text'), 
-                                                                     $request->input('page_number'), $items_amount_per_page);
+        $keywords_with_info = $this->keywords->getKeywordsFromSearch($request->input('find_keywords_by_text'), $request->input('page_number'), 
+                                                                     $items_amount_per_page, $request->input('sorting_mode'));
                
         $keywords = $keywords_with_info->keywords_on_page;
         $sorting_asc_or_desc = $keywords_with_info->sorting_asc_or_desc;
         $all_keywords_amount = $keywords_with_info->all_keywords_count;
         $pagination_info = $keywords_with_info->paginator_info;
+        //The variable below is required for sort to indicate which function to call index or search.
+        $search_is_on = 1;
         
         $html = view('adminpages.adminkeywords_searchcontent', 
-                compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page", "pagination_info"))->render();
+                compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page", 
+                        "pagination_info", "search_is_on"))->render();
         
         //return response()->json(['some_data' => $keywords_text]);
         return response()->json(compact('html'));
