@@ -115,7 +115,9 @@ class AdminKeywordsController extends Controller
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view
             //We need it only to make the variable initialized. Othervise there will be error.
-            'headTitle' => __('keywords.'.$this->current_page)
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'store'
             ]);
     }
     
@@ -148,7 +150,9 @@ class AdminKeywordsController extends Controller
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'update'
             ]);
     }
     
@@ -159,17 +163,22 @@ class AdminKeywordsController extends Controller
             //We need it only to make the variable initialized. Othervise there will be an error.
             'headTitle' => __('keywords.'.$this->current_page),
             'keywords' => $keywords,
-            'plural_or_singular' => (sizeof($keywords_array) > 1) ? 'plural' : 'singular'
+            'plural_or_singular' => (sizeof($keywords_array) > 1) ? 'plural' : 'singular',
             ]);
                
     }
     
     public function destroy($keywords) {
-        $this->keywords->destroy($keywords);        
+        $this->keywords->destroy($keywords);       
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
+            'headTitle' => __('keywords.'.$this->current_page),
+            //Four variables below are required to make proper actions when pop up window closes.
+            'action' => 'destroy',
+            'section' => 'keywords',
+            'parent_keyword' => '0',
+            'parent_directory_is_empty' => (\App\Keyword::count()) > 0 ? 0 : 1
             ]);
                
     }
