@@ -275,7 +275,7 @@ $( document ).ready(function() {
         if ($(this).data('search_is_on') === 0) {
             keywords_sort($(this).attr('id'));
         } else {
-            keyword_search(url_for_search, $("#keyword_search").val(), 1, $(this).attr('id'), $(this).data('sorting_mode'));
+            keyword_search(make_search_url(), $("#keyword_search").val(), 1, $(this).attr('id'), $(this).data('sorting_mode'));
         }
     });
     
@@ -290,11 +290,19 @@ $( document ).ready(function() {
     }
     
     //++++++++++++++++++++++Keyword Search.++++++++++++++++++++++
-    var url_for_search = "/admin/keywords/search";
+    //This function is required for localization application.
+    function make_search_url() {
+        var url_for_search_without_localization = "/admin/keywords/search";
+        var localization = $("#keyword_search_button").data('localization');
+        var url_for_search = (localization === 'en') ? url_for_search_without_localization : "/"+localization+url_for_search_without_localization;
+        
+        return url_for_search;
+    }
     
     $( "#keyword_search_button" ).click(function() {
+        //var url_for_search = make_search_url();
         var find_keywords_by_text = $( "#keyword_search" ).val();      
-        keyword_search(url_for_search, find_keywords_by_text, 1);
+        keyword_search(make_search_url(), find_keywords_by_text, 1);
     });   
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
@@ -311,7 +319,7 @@ $( document ).ready(function() {
             go_to_page_number = go_to_page_number + 1;
         }
         
-        keyword_search(url_for_search, find_keywords_by_text, go_to_page_number, current_sorting_method_element.id, 
+        keyword_search(make_search_url(), find_keywords_by_text, go_to_page_number, current_sorting_method_element.id, 
                        (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
     });
     
