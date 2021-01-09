@@ -27,14 +27,16 @@
             </div>           
         </div>
     </div>
-    <div>
-        {!! Form::text('keyword_search', null, 
-            ['class' => 'some-class', 
-             'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'keyword_search', 'id' => 'keyword_search']) !!}
-        {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
-                ['class' => 'some-class', 'id' => 'keyword_search_button', 'title' => Lang::get('keywords.FindInDataBase'), 
-                 'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
-    </div>
+    @if ($all_keywords_amount > 1)
+        <div>
+            {!! Form::text('keyword_search', null, 
+                ['class' => 'some-class', 
+                 'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'keyword_search', 'id' => 'keyword_search']) !!}
+            {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
+                    ['class' => 'some-class', 'id' => 'keyword_search_button', 'title' => Lang::get('keywords.FindInDataBase'), 
+                     'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
+        </div>
+    @endif
     <!-- The class below is required only for JavaScript purposes.-->
     <div class="admin-panel-keywords-content">
         @include('adminpages.adminkeywords_content')

@@ -186,10 +186,12 @@ $( document ).ready(function() {
             }
         });
     }
-    
+      
     //The Code below is required if user needs to select or unselect all records by ticking one checkbox.
     //This code also changes a view of control buttons (delete and edit). The control buttons are getting enabled and disabled.
-    $('#keywords_all_items_select').click(function() {
+    //The form of record below is required for a proper work of records loaded by ajax. 
+    //Can't use a form like $( "#keywords_all_items_select" ).click(function() {...
+    $(document).on("click", "#keywords_all_items_select", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-keywords-keywords-checkbox');
         var all_checkboxes_select = document.querySelector('#keywords_all_items_select_wrapper');
         var button_edit = document.querySelector('#keywords_button_edit');
@@ -225,7 +227,9 @@ $( document ).ready(function() {
     
     //The Code below is making some changes when user is checking separate checkboxes.
     //This way control buttons (delete and edit) view is getting changed. The control buttons are getting enabled and disabled.
-    $('.admin-panel-keywords-keywords-checkbox').click(function() {
+    //The form of record below is required for a proper work of records loaded by ajax. 
+    //Can't use a form like $( "#keywords_all_items_select" ).click(function() {...
+    $(document).on("click", ".admin-panel-keywords-keywords-checkbox", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-keywords-keywords-checkbox');
         var all_checkboxes_select = document.querySelector('#keywords_all_items_select');
         var all_checkboxes_select_wrapper = document.querySelector('#keywords_all_items_select_wrapper');

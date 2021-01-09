@@ -179,7 +179,6 @@ class AdminKeywordsController extends Controller
             'section' => 'keywords',
             'parent_keyword' => '0',
             'parent_directory_is_empty' => (\App\Keyword::count()) > 0 ? 0 : 1
-            ]);
-               
+            ]);              
     }
 }
