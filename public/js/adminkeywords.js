@@ -35,7 +35,6 @@ $( document ).ready(function() {
 
     //Making list of all elements with our class.
     var keyword_buttons = document.querySelectorAll('.admin-panel-keywords-keyword-control-button');
-    //var keyword_links = document.querySelectorAll('.admin-panel-keywords-keyword-control-button-link');
     
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
@@ -66,10 +65,11 @@ $( document ).ready(function() {
         afterClose: function() {
             //We don't need an array here as in previous examples, because there will be
             //always only one pressed element.
-            var button = document.querySelector('.admin-panel-keywords-add-keyword-button-pressed');
-            var link = document.querySelector('.admin-panel-keywords-add-keyword-button-link-pressed');
+            //var button = document.querySelector('.admin-panel-keywords-add-keyword-button-pressed');
+            //var link = document.querySelector('.admin-panel-keywords-add-keyword-button-link-pressed');
 
-            unclickButton(button, link);
+            unclickButton(document.querySelector('.admin-panel-keywords-add-keyword-button-pressed'), 
+                          document.querySelector('.admin-panel-keywords-add-keyword-button-link-pressed'));
 
             function unclickButton(button, link) {
                 button.classList.remove('admin-panel-keywords-add-keyword-button-pressed');
@@ -98,8 +98,8 @@ $( document ).ready(function() {
     function keywords_control_button_view_change_after_fancybox_close() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
-        var button = document.querySelector('.admin-panel-keywords-edit-delete-control-button-pressed');
-        unclickButton(button);
+        //var button = document.querySelector('.admin-panel-keywords-edit-delete-control-button-pressed');
+        unclickButton(document.querySelector('.admin-panel-keywords-edit-delete-control-button-pressed'));
 
         function unclickButton(button) {
             button.classList.remove('admin-panel-keywords-edit-delete-control-button-pressed');
@@ -117,9 +117,11 @@ $( document ).ready(function() {
         }
         //We need to make a condition below, becuase we can edit only one item at the same time.
         if (selected_checkbox.length === 1) {
-            var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
-            var url = localization+'/admin/keywords/'+selected_checkbox[0].dataset.keyword+'/edit/';
-            edit_keyword(url);
+            //var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
+            //var url = ((selected_checkbox[0].dataset.localization === "en") ? "" : "/ru")+'/admin/keywords/'+selected_checkbox[0].dataset.keyword+'/edit/';
+            //passing url as a parameter.
+            edit_keyword(((selected_checkbox[0].dataset.localization === "en") ? "" : 
+                           "/ru")+'/admin/keywords/'+selected_checkbox[0].dataset.keyword+'/edit/');
         }
     });
     
@@ -157,11 +159,13 @@ $( document ).ready(function() {
             }
         }
         if (selected_checkbox_data.length > 0) {
-            var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
+            //var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
             //For different localization will be different height.
-            var height = (all_checkboxes[0].dataset.localization === "en") ? "170px" : "200px";
-            var url = localization+'/admin/keywords/delete/'+selected_checkbox_data;                                                       
-            delete_keywords(url, height);
+            //var height = (all_checkboxes[0].dataset.localization === "en") ? "170px" : "200px";
+            //var url = ((all_checkboxes[0].dataset.localization === "en") ? "" : "/ru")+'/admin/keywords/delete/'+selected_checkbox_data;
+            //passing url as the first parameter and height as the second parameter.
+            delete_keywords((((all_checkboxes[0].dataset.localization === "en") ? "" : "/ru")+'/admin/keywords/delete/'+selected_checkbox_data), 
+                               ((all_checkboxes[0].dataset.localization === "en") ? "170px" : "200px"));
         }
     });
 
@@ -287,10 +291,12 @@ $( document ).ready(function() {
     function keywords_sort(sorting_method) {
         var checkbox = document.querySelector('.admin-panel-keywords-keywords-checkbox');
         //If it is an english localization, we don't need to show it, because it is a default localization.
-        var localization = (checkbox.dataset.localization === "en") ? "" : "/ru";
+        //var localization = (checkbox.dataset.localization === "en") ? "" : "/ru";
         var current_sorting_method = document.querySelector('#'+sorting_method);
-        var url = localization+"/admin/keywords/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
-        window.location.href = url;
+        //var url = ((checkbox.dataset.localization === "en") ? "" : "/ru")+"/admin/keywords/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
+        //href equals to url.
+        window.location.href = ((checkbox.dataset.localization === "en") ? "" : 
+                                 "/ru")+"/admin/keywords/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
     }
     
     //++++++++++++++++++++++Keyword Search.++++++++++++++++++++++
@@ -303,27 +309,22 @@ $( document ).ready(function() {
         return url_for_search;
     }
     
-    $( "#keyword_search_button" ).click(function() {
-        //var url_for_search = make_search_url();
-        var find_keywords_by_text = $( "#keyword_search" ).val();      
-        keyword_search(make_search_url(), find_keywords_by_text, 1);
+    $( "#keyword_search_button" ).click(function() {      
+        keyword_search(make_search_url(), $("#keyword_search").val(), 1);
     });   
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
     $(document).on("click", ".turn-page", function() {
-        var current_sorting_method_element = document.querySelector('.admin-panel-keywords-keywords-header-caret-used');
-        
-        var find_keywords_by_text = $( "#keyword_search" ).val();
+        var current_sorting_method_element = document.querySelector('.admin-panel-keywords-keywords-header-caret-used');      
         var go_to_page_number = $(this).data('page');
-        var current_element_id = $(this).attr('id');
         
-        if (current_element_id === "previous_page") {
+        if (($(this).attr('id')) === "previous_page") {
             go_to_page_number = go_to_page_number - 1;
-        } else if (current_element_id === "next_page") {
+        } else if (($(this).attr('id')) === "next_page") {
             go_to_page_number = go_to_page_number + 1;
         }
         
-        keyword_search(make_search_url(), find_keywords_by_text, go_to_page_number, current_sorting_method_element.id, 
+        keyword_search(make_search_url(), $("#keyword_search").val(), go_to_page_number, current_sorting_method_element.id, 
                        (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
     });
     
