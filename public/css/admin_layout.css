@@ -214,6 +214,31 @@ main {
     padding-right: 5px;
 }
 
+.admin-panel-main-article .admin-panel-keywords-search {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    margin-right: 5px;
+}
+
+.admin-panel-main-article .admin-panel-keywords-search .admin-panel-keywords-search-input {
+    width: 250px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px grey solid;
+}
+
+.admin-panel-main-article .admin-panel-keywords-search .admin-panel-keywords-search-button {
+    background-color: #2196F3;
+    margin-left: -5px;
+    color: white;
+    border-radius: 3px;
+    height: 30px;
+    width: 30px;
+    border: 1px grey solid;
+}
+
 .admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-add-keyword-wrapper {
     padding-top: 5px;
     padding-bottom: 5px;

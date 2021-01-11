@@ -28,12 +28,12 @@
         </div>
     </div>
     @if ($all_keywords_amount > 1)
-        <div>
+        <div class="admin-panel-keywords-search">
             {!! Form::text('keyword_search', null, 
-                ['class' => 'some-class', 
-                 'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'keyword_search', 'id' => 'keyword_search']) !!}
+                ['class' => 'admin-panel-keywords-search-input', 
+                 'placeholder' => Lang::get('keywords.SearchByText').'...', 'name' => 'keyword_search', 'id' => 'keyword_search']) !!}
             {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
-                    ['class' => 'some-class', 'id' => 'keyword_search_button', 'title' => Lang::get('keywords.FindInDataBase'), 
+                    ['class' => 'admin-panel-keywords-search-button', 'id' => 'keyword_search_button', 'title' => Lang::get('keywords.Search'), 
                      'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
         </div>
     @endif

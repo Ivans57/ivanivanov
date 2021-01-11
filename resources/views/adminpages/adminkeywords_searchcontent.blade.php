@@ -7,6 +7,6 @@
     @endif
 @else
     <div class="admin-panel-keywords-empty-text-wrapper">
-        <p>@lang('keywords.EmptySection')</p>
+        <p>@lang('keywords.NothingFound')</p>
     </div>
 @endif
