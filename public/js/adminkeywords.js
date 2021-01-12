@@ -65,9 +65,6 @@ $( document ).ready(function() {
         afterClose: function() {
             //We don't need an array here as in previous examples, because there will be
             //always only one pressed element.
-            //var button = document.querySelector('.admin-panel-keywords-add-keyword-button-pressed');
-            //var link = document.querySelector('.admin-panel-keywords-add-keyword-button-link-pressed');
-
             unclickButton(document.querySelector('.admin-panel-keywords-add-keyword-button-pressed'), 
                           document.querySelector('.admin-panel-keywords-add-keyword-button-link-pressed'));
 
@@ -98,7 +95,6 @@ $( document ).ready(function() {
     function keywords_control_button_view_change_after_fancybox_close() {
         //We don't need an array here as in previous examples, because there will be
         //always only one pressed element.
-        //var button = document.querySelector('.admin-panel-keywords-edit-delete-control-button-pressed');
         unclickButton(document.querySelector('.admin-panel-keywords-edit-delete-control-button-pressed'));
 
         function unclickButton(button) {
@@ -117,9 +113,7 @@ $( document ).ready(function() {
         }
         //We need to make a condition below, becuase we can edit only one item at the same time.
         if (selected_checkbox.length === 1) {
-            //var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
-            //var url = ((selected_checkbox[0].dataset.localization === "en") ? "" : "/ru")+'/admin/keywords/'+selected_checkbox[0].dataset.keyword+'/edit/';
-            //passing url as a parameter.
+            //Passing url as a parameter.
             edit_keyword(((selected_checkbox[0].dataset.localization === "en") ? "" : 
                            "/ru")+'/admin/keywords/'+selected_checkbox[0].dataset.keyword+'/edit/');
         }
@@ -159,10 +153,7 @@ $( document ).ready(function() {
             }
         }
         if (selected_checkbox_data.length > 0) {
-            //var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
             //For different localization will be different height.
-            //var height = (all_checkboxes[0].dataset.localization === "en") ? "170px" : "200px";
-            //var url = ((all_checkboxes[0].dataset.localization === "en") ? "" : "/ru")+'/admin/keywords/delete/'+selected_checkbox_data;
             //passing url as the first parameter and height as the second parameter.
             delete_keywords((((all_checkboxes[0].dataset.localization === "en") ? "" : "/ru")+'/admin/keywords/delete/'+selected_checkbox_data), 
                                ((all_checkboxes[0].dataset.localization === "en") ? "170px" : "200px"));
@@ -291,9 +282,7 @@ $( document ).ready(function() {
     function keywords_sort(sorting_method) {
         var checkbox = document.querySelector('.admin-panel-keywords-keywords-checkbox');
         //If it is an english localization, we don't need to show it, because it is a default localization.
-        //var localization = (checkbox.dataset.localization === "en") ? "" : "/ru";
         var current_sorting_method = document.querySelector('#'+sorting_method);
-        //var url = ((checkbox.dataset.localization === "en") ? "" : "/ru")+"/admin/keywords/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
         //href equals to url.
         window.location.href = ((checkbox.dataset.localization === "en") ? "" : 
                                  "/ru")+"/admin/keywords/"+current_sorting_method.id+"_"+current_sorting_method.dataset.sorting_mode;
