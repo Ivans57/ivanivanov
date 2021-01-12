@@ -298,7 +298,7 @@ class AlbumsRepository {
     private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $albums_and_pictures_full_info, 
                                               $items_amount_per_page, $including_invisible, $sorting_mode = null,
                                               $albums_or_pictures_first = null) {
-        return view('adminpages.adminalbum')->with([
+        return view('adminpages.albums.adminalbum')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.

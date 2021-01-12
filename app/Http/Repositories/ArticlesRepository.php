@@ -103,7 +103,7 @@ class ArticlesRepository {
     private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
                                               $items_amount_per_page, $including_invisible, $sorting_mode = null, 
                                               $folders_or_articles_first = null) {
-        return view('adminpages.adminfolder')->with([
+        return view('adminpages.folders.adminfolder')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.

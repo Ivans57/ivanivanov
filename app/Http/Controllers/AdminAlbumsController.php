@@ -63,7 +63,7 @@ class AdminAlbumsController extends Controller
                     return $this->common->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
                     $sorting_data["directories_or_files"]->lastPage(), $this->is_admin_panel);
         } else {
-            return view('adminpages.adminalbums')->with([
+            return view('adminpages.albums.adminalbums')->with([
             //Below main website links.
             'main_ws_links' => $main_links->mainWSLinks,
             //Below main admin panel links.

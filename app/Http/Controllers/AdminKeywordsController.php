@@ -53,7 +53,7 @@ class AdminKeywordsController extends Controller
             return $this->navigation_bar_obj->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
                     $sorting_data["keywords"]->lastPage(), $this->is_admin_panel);
         } else {
-            return view('adminpages.adminkeywords')->with([
+            return view('adminpages.keywords.adminkeywords')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.
@@ -87,7 +87,7 @@ class AdminKeywordsController extends Controller
         //The variable below is required for sort to indicate which function to call index or search.
         $search_is_on = 1;
         
-        $html = view('adminpages.adminkeywords_searchcontent', 
+        $html = view('adminpages.keywords.adminkeywords_searchcontent', 
                 compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page", 
                         "pagination_info", "search_is_on"))->render();
         

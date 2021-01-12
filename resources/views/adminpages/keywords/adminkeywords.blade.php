@@ -39,7 +39,7 @@
     @endif
     <!-- The class below is required only for JavaScript purposes.-->
     <div class="admin-panel-keywords-content">
-        @include('adminpages.adminkeywords_content')
+        @include('adminpages.keywords.adminkeywords_content')
     </div>
 </article>
 
