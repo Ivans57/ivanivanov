@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AdminArticlesRepository;
+use App\Folder;
+use App\Http\Requests\CreateEditFolderRequest;
+//The reuqtes below is required for search.
+use Illuminate\Http\Request;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lowe case.
 use Illuminate\Support\Str;
-use App\Http\Requests\CreateEditFolderRequest;
-use App\Folder;
 
 
 class AdminArticlesController extends Controller
@@ -43,8 +45,9 @@ class AdminArticlesController extends Controller
         $items_amount_per_page = 14;
         
         //In the next line the data are getting extracted from the database and sorted.
-        //The fourth parameter is 'folders', because currently we are working with level 0 folders.
-        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 
+        //The fifth parameter is 'folders', because currently we are working with level 0 folders.
+        //The first parameter is required to show if search mode has been activated.
+        $sorting_data = $this->common->sort_for_albums_or_articles(0, $items_amount_per_page, $sorting_mode, 
                                                                     $show_invisible === "all" ? 1 : 0, 'folders');
         
         //The variable below is required to show field sorting tools correctly.
@@ -97,6 +100,31 @@ class AdminArticlesController extends Controller
         return $this->folders->showFolderView(Str::lower($this->current_page), 
                     $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 
                     $show_invisible == "only_visible" ? 0 : 1, $sorting_mode, $folders_or_articles_first);
+    }
+    
+    public function searchFolderOrArticle(Request $request) {        
+        $items_amount_per_page = 14;
+        
+        $folders_with_info = $this->folders->getFoldersFromSearch($request->input('find_folders_by_name'), $request->input('page_number'), 
+                                                                     $items_amount_per_page, $request->input('show_only_visible'), $request->input('sorting_mode'));
+               
+        $folders = $folders_with_info->folders_on_page;
+        $sorting_asc_or_desc = $folders_with_info->sorting_asc_or_desc;
+        $all_items_amount = $folders_with_info->all_folders_count;
+        $pagination_info = $folders_with_info->paginator_info;
+        //The variable below is required for sort to indicate which function to call index or search.
+        $search_is_on = 1;
+        $show_invisible = $request->input('show_only_visible');
+        $sorting_method_and_mode = ($request->input('sorting_mode') === null) ? "0" : $request->input('sorting_mode');
+        $parent_keyword = "0";
+        $section = "articles";
+        
+        $html = view('adminpages.folders.adminfolders_searchcontent', 
+                compact("folders", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", 
+                        "pagination_info", "search_is_on", "show_invisible", "sorting_method_and_mode", "section", "parent_keyword"))->render();
+        
+        //return response()->json(['some_data' => $keywords_text]);
+        return response()->json(compact('html'));
     }
     
     public function create($parent_keyword) {      

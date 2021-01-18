@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use Carbon\Carbon;
 use App\Keyword;
 
+//This class is required for search.
 class KeywordsWithPaginationInfo {
     public $all_keywords_count;
     public $keywords_on_page;

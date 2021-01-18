@@ -318,6 +318,14 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/articles/{show_invisible?}/{sorting_mode?}', 'AdminArticlesController@index');
 });
 
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/articles/search', 'AdminArticlesController@searchFolderOrArticle');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/articles/search', 'AdminArticlesController@searchFolderOrArticle');
+});
+
 Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/articles/{keyword}/page/{page}/{show_invisible?}/{sorting_mode?}/{folders_or_articles_first?}', 
                'AdminArticlesController@showFolder');

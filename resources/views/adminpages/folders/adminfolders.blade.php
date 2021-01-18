@@ -25,6 +25,16 @@
             </div>           
         </div>
     </div>
+    @if ($all_folders_count > 1)
+        <div class="admin-panel-keywords-search">
+            {!! Form::text('folder_search', null, 
+                ['class' => 'admin-panel-keywords-search-input', 
+                 'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'folder_search', 'id' => 'folder_search']) !!}
+            {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
+                    ['class' => 'admin-panel-keywords-search-button', 'id' => 'folder_search_button', 'title' => Lang::get('keywords.Search'), 
+                     'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
+        </div>
+    @endif
     <!-- The class below is required only for JavaScript purposes.-->
     <div class="admin-panel-articles-content">
         @include('adminpages.folders.adminfolders_content')

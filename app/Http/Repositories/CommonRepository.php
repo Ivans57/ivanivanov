@@ -239,8 +239,8 @@ class CommonRepository {
     }
     
     //The method below is to sort albums/folders(directories) and pictures/articles(files) in different modes.
-    public function sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
-                                                    $what_to_sort, $parent_directory = null) {
+    public function sort_for_albums_or_articles($search_mode_is_on, $items_amount_per_page, $sorting_mode, $including_invisible, 
+                                                    $what_to_sort, $parent_directory = null, $search_text = null) {
         //This array is required to show sorting arrows properly.
         $sorting_asc_or_desc = ["Name" => ["desc" , 0], "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];
         
@@ -249,58 +249,73 @@ class CommonRepository {
         switch ($sorting_mode) {
             case ('sort_by_name_desc'):                
                 if ($what_to_sort == 'albums' || $what_to_sort == 'included_albums' || $what_to_sort == 'included_pictures'){
-                    $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                        (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'desc', $parent_directory);
+                    $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
+                                        (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'desc', $parent_directory, $search_text);
                 } else if ($what_to_sort == 'folders' || $what_to_sort == 'included_folders' || $what_to_sort == 'included_articles') {
-                    $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                        (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'desc', $parent_directory);
+                    $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
+                                        (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'desc', $parent_directory, $search_text);
                 }
                 $sorting_asc_or_desc["Name"] = ["asc" , 1];
                 break;
             case ('sort_by_name_asc'):                
                 if ($what_to_sort == 'albums' || $what_to_sort == 'included_albums' || $what_to_sort == 'included_pictures'){
-                    $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                        (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'asc', $parent_directory);
+                    $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
+                                        (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'asc', $parent_directory, $search_text);
                 } else if ($what_to_sort == 'folders' || $what_to_sort == 'included_folders' || $what_to_sort == 'included_articles') {
-                    $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                        (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'asc', $parent_directory);
+                    $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
+                                        (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'asc', $parent_directory, $search_text);
                 }
                 $sorting_asc_or_desc["Name"] = ["desc" , 1];
                 break;
             case ('sort_by_creation_desc'):
-                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'created_at', 'desc', $parent_directory);
+                $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'desc', $parent_directory, $search_text);
                 $sorting_asc_or_desc["Creation"] = ["asc" , 1];
                 break;
             case ('sort_by_creation_asc'):
-                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'created_at', 'asc', $parent_directory);
+                $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'asc', $parent_directory, $search_text);
                 $sorting_asc_or_desc["Creation"] = ["desc" , 1];
                 break;
             case ('sort_by_update_desc'):
-                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'updated_at', 'desc', $parent_directory);
+                $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'updated_at', 'desc', $parent_directory, $search_text);
                 $sorting_asc_or_desc["Update"] = ["asc" , 1];
                 break;
             case ('sort_by_update_asc'):
-                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'updated_at', 'asc', $parent_directory);
+                $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'updated_at', 'asc', $parent_directory, $search_text);
                 $sorting_asc_or_desc["Update"] = ["desc" , 1];
                 break;
             default:
-                $directories_or_files = $this->sort_by($items_amount_per_page, $including_invisible, $what_to_sort, 
-                                    'created_at', 'desc', $parent_directory);
+                $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
+                                    'created_at', 'desc', $parent_directory, $search_text);
                 $sorting_asc_or_desc["Creation"] = ["asc" , 1];
         }     
         return ["directories_or_files" => $directories_or_files, "sorting_asc_or_desc" => $sorting_asc_or_desc];
     }
     
     //This function is required to simplify sort_for_albums_or_articles function.
-    private function sort_by($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_directory = null) {
+    private function sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, 
+                             $parent_directory = null, $search_text = null) {
+        
+        $directories_or_files = null;
+        if ($search_mode_is_on == 1) {
+            $directories_or_files = $this->sort_for_search($search_text, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc);
+        } else {
+            $directories_or_files = $this->normal_sort($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_directory);
+        }
+        
+        return $directories_or_files;
+    }
+    
+    //This sort function is working when user is not searching anything, just opening pages to see the contents.
+    private function normal_sort($items_amount_per_page, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc, $parent_directory = null) {
         $for_albums_and_pictures = new AlbumsRepository();
         $for_folders_and_articles = new ArticlesRepository();
         
         $directories_or_files = null;
+        
         switch ($what_to_sort) {
             case ('albums'):
                 $directories_or_files = $for_albums_and_pictures->getAllLevelZeroAlbums($items_amount_per_page, $including_invisible, $sort_by_field, $asc_or_desc);
@@ -321,6 +336,32 @@ class CommonRepository {
                 $directories_or_files = $for_folders_and_articles->getIncludedArticles($parent_directory, $including_invisible, $sort_by_field, $asc_or_desc);
                 break;
         }
+        
+        return $directories_or_files;
+    }
+    
+    //This sort function is working when user is searching something.
+    private function sort_for_search($search_text, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc) {
+        $for_albums_and_pictures = new AlbumsRepository();
+        $for_folders_and_articles = new ArticlesRepository();
+        
+        $directories_or_files = null;
+        
+        switch ($what_to_sort) {
+            case ('albums'):
+                $directories_or_files = $for_albums_and_pictures->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('pictures'):
+                $directories_or_files = $for_albums_and_pictures->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('folders'):
+                $directories_or_files = $for_folders_and_articles->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+            case ('articles'):
+                $directories_or_files = $for_folders_and_articles->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
+                break;
+        }
+        
         return $directories_or_files;
     }
 }

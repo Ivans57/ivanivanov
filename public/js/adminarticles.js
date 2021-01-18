@@ -7,6 +7,15 @@
 /*Scripts for Admin Panel Articles*/
 
 $( document ).ready(function() {
+    //We need the following lines to make ajax requests work.
+    //There are special tokens used for security. We need to add them in all heads
+    //and also ajax should be set up to pass them.
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
     //Making list of all elements with our class.
     var add_folder_buttons = document.querySelectorAll('.admin-panel-articles-add-folder-button');
     var add_folder_links = document.querySelectorAll('.admin-panel-articles-add-folder-button-link');
@@ -323,7 +332,57 @@ $( document ).ready(function() {
             button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
             button_edit.setAttribute('disabled', '');
         }
-     });     
+     });
+     
+     //++++++++++++++++++++++Folder Search.++++++++++++++++++++++
+    //This function is required for localization application.
+    function make_search_url() {
+        var url_for_search_without_localization = "/admin/articles/search";
+        var localization = $("#folder_search_button").data('localization');
+        var url_for_search = (localization === 'en') ? url_for_search_without_localization : "/"+localization+url_for_search_without_localization;
+        
+        return url_for_search;
+    }
+    
+    $( "#folder_search_button" ).click(function() {      
+        folder_search(make_search_url(), $("#folder_search").val(), $("#show_only_visible").val(), 1);
+    });   
+    
+    //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
+    $(document).on("click", ".turn-page", function() {
+        var current_sorting_method_element = document.querySelector('.admin-panel-keywords-keywords-header-caret-used');      
+        var go_to_page_number = $(this).data('page');
+        
+        if (($(this).attr('id')) === "previous_page") {
+            go_to_page_number = go_to_page_number - 1;
+        } else if (($(this).attr('id')) === "next_page") {
+            go_to_page_number = go_to_page_number + 1;
+        }
+        
+        folder_search(make_search_url(), $("#folder_search").val(), $("#show_only_visible").val(), go_to_page_number, current_sorting_method_element.id, 
+                       (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
+    });
+    
+    //The function below is calling search function.
+    //The last two parameters we have to pass separately, because depending on whether a user is going two swicth within
+    //different sorting modes or turn the pages, needs to be applied current sorting mode (asc or desc) or opposite one.
+    function folder_search(url, find_folders_by_name, show_only_visible, page_number, sorting_method = null, sorting_mode = null) {
+        if (sorting_method === null || sorting_mode === null) {
+            var sorting_method_and_mode = null;
+        } else {
+            var sorting_method_and_mode = sorting_method+"_"+sorting_mode;
+        }
+        $.ajax({
+                type: "POST",
+                url: url,
+                data: {find_folders_by_name: find_folders_by_name, page_number: page_number, sorting_mode: sorting_method_and_mode, show_only_visible: show_only_visible},
+                success:function(data) {
+                    $('.admin-panel-articles-content').html(data.html);
+                }
+            });
+    }
+    
+    //++++++++++++++++++++++End of Folder Search.++++++++++++++++++++++
 });
 
 /*--------------------------------------------------------*/

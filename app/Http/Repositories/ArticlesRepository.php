@@ -46,6 +46,18 @@ class ArticleForView {
     public $articleParents;
 }
 
+//This class is required for search.
+class FoldersWithPaginationInfo {
+    public $all_folders_count;
+    public $folders_on_page;
+    public $sorting_asc_or_desc;
+    //It is better to keep this property here,
+    //so in case of empty items array we don't need
+    //to make an object.
+    //public $total_number_of_items;
+    public $paginator_info;   
+}
+
 class ArticlesRepository {
     
     //The null below for the last two arguments is just temporary!
@@ -64,7 +76,21 @@ class ArticlesRepository {
         }      
         return $folder_links;
     }
-          
+    
+    public function getAllFoldersForSearch($keywords_text, $including_invisible, $sort_by_field = null, $asc_desc = null){
+        
+        if ($including_invisible) {
+            $folders = (Folder::where('folder_name', 'LIKE', '%'.$keywords_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        } else {
+            //The condition below is just temporary!
+            $folders = (Folder::where('folder_name', 'LIKE', '%'.$keywords_text.'%')->where('is_visible', '=', 1)
+                             ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        }      
+        return $folders;
+    }
+    
     //We need the method below to clutter down the method in controller, which
     //is responsible for showing some separate album.
     public function showFolderView($section, $page, $keyword, $items_amount_per_page, $main_links, 
@@ -365,5 +391,52 @@ class ArticlesRepository {
             array_push($folders_keywords_array, $folder_keyword->keyword);
         }    
         return $folders_keywords_array;   
+    }
+    
+    //This function is used for search.
+    public function getFoldersFromSearch($search_text, $page, $items_amount_per_page, $show_invisible, $sorting_mode = null) {        
+           
+        $common = new CommonRepository();
+        
+        $folders_with_pagination = new FoldersWithPaginationInfo();
+        
+        //In the next line the data are getting extracted from the database and sorted.
+        //The sixth parameter needs to pass as null to avoid confusion.
+        $all_folders = $common->sort_for_albums_or_articles(1, $items_amount_per_page, $sorting_mode, 
+                                                                             $show_invisible === "all" ? 1 : 0, 'folders', null/*parent directory*/, $search_text);
+        
+        $folders_with_pagination->all_folders_count = sizeof($all_folders["directories_or_files"]);
+        
+        $folders_with_pagination->sorting_asc_or_desc = $all_folders["sorting_asc_or_desc"];
+        
+        //Later keywords array has to be chunked to separate pieces for pagination.
+        //When getting data from the database it is not a pure array, it is an object and it cannot be chunked.
+        //For that reason these data need to be converted to an array.
+        $all_folders_array = [];
+        
+        foreach ($all_folders["directories_or_files"] as $one_folder){
+           array_push($all_folders_array, $one_folder); 
+        }
+        
+        //The following information we can have only if we have at least one item.
+        if($folders_with_pagination->all_folders_count > 0) {
+            //The line below cuts all data into pages.
+            //We can do it only if we have at least one item in the array of the full data.
+            $folders_cut_into_pages = array_chunk($all_folders_array, $items_amount_per_page, false);
+            $folders_with_pagination->paginator_info = $common->get_paginator_info($page, $folders_cut_into_pages);
+            //We need to do the check below in case user enters a page number more tha actual number of pages,
+            //so we can avoid an error.
+            $folders_with_pagination->folders_on_page = $folders_with_pagination->paginator_info->number_of_pages >= $page ? 
+                                                                $folders_cut_into_pages[$page-1] : null;
+        } else {
+            //As we need to know paginator_info->number_of_pages to check the condition
+            //in showAlbumView() method we need to make paginator_info object
+            //and assign its number_of_pages variable. Otherwise we will have an error
+            //if we have any empty folder
+            $folders_with_pagination->paginator_info = new Paginator();
+            $folders_with_pagination->paginator_info->number_of_pages = 1;
+        }
+        
+        return $folders_with_pagination;
     }
 }
