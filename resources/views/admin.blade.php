@@ -36,10 +36,10 @@
                             <script type="text/javascript" src="{{ URL::asset('js/adminkeywords.js') }}"></script>
                     @elseif ($section == 'albums')
                             <script type="text/javascript" src="{{ URL::asset('js/adminalbums.js') }}"></script>
-                            <script type="text/javascript" src="{{ URL::asset('js/admin_albums_and_articles_sort.js') }}"></script>
+                            <script type="text/javascript" src="{{ URL::asset('js/admin_albums_and_articles_sort_and_search.js') }}"></script>
                     @elseif ($section == 'articles')
                             <script type="text/javascript" src="{{ URL::asset('js/adminarticles.js') }}"></script>
-                            <script type="text/javascript" src="{{ URL::asset('js/admin_albums_and_articles_sort.js') }}"></script>
+                            <script type="text/javascript" src="{{ URL::asset('js/admin_albums_and_articles_sort_and_search.js') }}"></script>
                     @endif
                 @endif
                 <!-- This check is required, because the js files which are mentioned below will be used only when making a new article. -->
