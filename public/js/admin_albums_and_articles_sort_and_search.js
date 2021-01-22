@@ -17,7 +17,7 @@ $( document ).ready(function() {
     });
 
     //Sorting by name.
-    $("#sort_by_name").click(function() {
+    /*$("#sort_by_name").click(function() {
         var element_with_info = document.querySelector('#show_only_visible');
         var element_with_sorting_info = document.querySelector('#sort_by_name');
         var directories_or_files_first = get_directories_or_files_first(element_with_info.dataset.old_directories_or_files_first);
@@ -44,6 +44,20 @@ $( document ).ready(function() {
 
         sort_elements(element_with_info, element_with_sorting_info.id+"_"+element_with_sorting_info.dataset.sorting_mode, 
                       $('input[name="show_only_visible"]').val(), directories_or_files_first);
+    });*/
+    
+    //Sorting by Name, creation date and time, update date and time.
+    //There will be two sort modes normal and for search.
+    $(document).on("click", ".sort", function() {
+        if ($(this).data('search_is_on') === 0) {           
+            sort_elements($("#show_only_visible")[0], $(this).attr('id')+"_"+$(this).data('sorting_mode'), $('input[name="show_only_visible"]').val(), 
+                          get_directories_or_files_first($("#show_only_visible").data('old_directories_or_files_first')));
+        } else {
+            //keyword_search(make_search_url(), $("#keyword_search").val(), 1, $(this).attr('id'), $(this).data('sorting_mode'));
+            //folder_search(search_is_on, url, find_folders_by_name, show_only_visible, page_number, sorting_method = null, sorting_mode = null)
+            folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("#show_only_visible").val(), 1,
+                          $(this).attr('id'), $(this).data('sorting_mode'));
+        }
     });
 
     //This function is required to show folders(albums) or articles(pictures) first.
