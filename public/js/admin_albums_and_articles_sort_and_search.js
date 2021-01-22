@@ -15,38 +15,8 @@ $( document ).ready(function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-    //Sorting by name.
-    /*$("#sort_by_name").click(function() {
-        var element_with_info = document.querySelector('#show_only_visible');
-        var element_with_sorting_info = document.querySelector('#sort_by_name');
-        var directories_or_files_first = get_directories_or_files_first(element_with_info.dataset.old_directories_or_files_first);
-
-        sort_elements(element_with_info, element_with_sorting_info.id+"_"+element_with_sorting_info.dataset.sorting_mode, 
-                      $('input[name="show_only_visible"]').val(), directories_or_files_first);
-    });
-
-    //Sorting by creation date and time.
-    $("#sort_by_creation").click(function() {
-        var element_with_info = document.querySelector('#show_only_visible');
-        var element_with_sorting_info = document.querySelector('#sort_by_creation');
-        var directories_or_files_first = get_directories_or_files_first(element_with_info.dataset.old_directories_or_files_first);
-
-        sort_elements(element_with_info, element_with_sorting_info.id+"_"+element_with_sorting_info.dataset.sorting_mode, 
-                      $('input[name="show_only_visible"]').val(), directories_or_files_first);
-    });
-
-    //Sorting by update date and time.
-    $("#sort_by_update").click(function() {
-        var element_with_info = document.querySelector('#show_only_visible');
-        var element_with_sorting_info = document.querySelector('#sort_by_update');
-        var directories_or_files_first = get_directories_or_files_first(element_with_info.dataset.old_directories_or_files_first);
-
-        sort_elements(element_with_info, element_with_sorting_info.id+"_"+element_with_sorting_info.dataset.sorting_mode, 
-                      $('input[name="show_only_visible"]').val(), directories_or_files_first);
-    });*/
     
-    //Sorting by Name, creation date and time, update date and time.
+    //Sorting by name, creation date and time, update date and time.
     //There will be two sort modes normal and for search.
     $(document).on("click", ".sort", function() {
         if ($(this).data('search_is_on') === 0) {           
@@ -77,7 +47,9 @@ $( document ).ready(function() {
             sort_elements(element_with_info, element_with_info.dataset.old_sorting_method_and_mode,(($(this).val() === 'all') ? 'only_visible' : 'all'), 
                           directories_or_files_first);
         } else {
-            folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1);
+            var current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
+            folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1, 
+                            current_sorting_method_element.id, (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
         }
     });
 
@@ -98,8 +70,8 @@ $( document ).ready(function() {
     function sort_elements(element_with_info, sorting_info_id_and_sorting_mode, show_invisible, directories_or_files_first_value=null) {
         //If it is an english localization, we don't need to show it, because it is a default localization.
         var localization = (element_with_info.dataset.localization === "en") ? "" : "/ru";
-        //var current_sorting_method = document.querySelector('#'+element_with_sorting_info.id);
         var url;
+        
         if (element_with_info.dataset.is_level_zero === "1") {
             //It is enough to check just element_with_sorting_info_id, because if element_with_sorting_info_id is null,
             //then element_with_sorting_info_id_sorting_mode will be null as well.
@@ -140,7 +112,7 @@ $( document ).ready(function() {
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
     $(document).on("click", ".turn-page", function() {
-        var current_sorting_method_element = document.querySelector('.admin-panel-keywords-keywords-header-caret-used');      
+        var current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');      
         var go_to_page_number = $(this).data('page');
         
         if (($(this).attr('id')) === "previous_page") {
@@ -149,7 +121,8 @@ $( document ).ready(function() {
             go_to_page_number = go_to_page_number + 1;
         }
         
-        folder_search(make_search_url(), $("#folder_search").val(), $("#show_only_visible").val(), go_to_page_number, current_sorting_method_element.id, 
+        //The first parameter will always be "1", because pagination arrows for search will appear only when search mode is on.
+        folder_search("1", make_search_url(), $("#folder_search").val(), $("#show_only_visible").val(), go_to_page_number, current_sorting_method_element.id, 
                        (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
     });
     
