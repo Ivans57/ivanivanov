@@ -116,6 +116,8 @@ class AdminArticlesController extends Controller
         $folders = $folders_with_info->folders_on_page;
         $sorting_asc_or_desc = $folders_with_info->sorting_asc_or_desc;
         $all_items_amount = $folders_with_info->all_folders_count;
+        //The variable below is required to display bisibility checkbox properly.
+        $all_items_amount_including_invisible = $folders_with_info->all_folders_count_including_invisible;
         $pagination_info = $folders_with_info->paginator_info;
         //The variable below is required for sort to indicate which function to call index or search.
         $search_is_on = "1";
@@ -125,8 +127,8 @@ class AdminArticlesController extends Controller
         $section = "articles";
         
         $html = view('adminpages.folders.adminfolders_searchcontent', 
-                compact("folders", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", 
-                        "pagination_info", "search_is_on", "show_invisible", "sorting_method_and_mode", "section", "parent_keyword"))->render();
+                compact("folders", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "show_invisible", 
+                        "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "parent_keyword"))->render();
         
         //return response()->json(['some_data' => $keywords_text]);
         return response()->json(compact('html'));

@@ -49,12 +49,10 @@ class ArticleForView {
 //This class is required for search.
 class FoldersWithPaginationInfo {
     public $all_folders_count;
+    //The propery below is required to display bisibility checkbox properly.
+    public $all_folders_count_including_invisible;
     public $folders_on_page;
     public $sorting_asc_or_desc;
-    //It is better to keep this property here,
-    //so in case of empty items array we don't need
-    //to make an object.
-    //public $total_number_of_items;
     public $paginator_info;   
 }
 
@@ -406,6 +404,8 @@ class ArticlesRepository {
                                                                              $show_invisible === "all" ? 1 : 0, 'folders', null/*parent directory*/, $search_text);
         
         $folders_with_pagination->all_folders_count = sizeof($all_folders["directories_or_files"]);
+        
+        $folders_with_pagination->all_folders_count_including_invisible = Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->count();
         
         $folders_with_pagination->sorting_asc_or_desc = $all_folders["sorting_asc_or_desc"];
         

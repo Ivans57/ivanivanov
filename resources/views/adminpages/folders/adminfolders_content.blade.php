@@ -1,4 +1,5 @@
 {!! Form::hidden('search_is_on', '0', ['id' => 'search_is_on']); !!}
+<!-- Two conditions below are required to display visibility checkbox properly. -->
 @if ($all_folders_count > 0)
     <div class="admin-panel-articles-sorting">
         {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 

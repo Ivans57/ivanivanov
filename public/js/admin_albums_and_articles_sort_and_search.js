@@ -48,8 +48,12 @@ $( document ).ready(function() {
                           directories_or_files_first);
         } else {
             var current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
-            folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1, 
-                            current_sorting_method_element.id, (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
+            if (current_sorting_method_element === null) {
+                folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1);
+            } else {
+                folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1, 
+                                current_sorting_method_element.id, (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
+            }
         }
     });
 
