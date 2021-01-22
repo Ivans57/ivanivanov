@@ -254,7 +254,7 @@ $( document ).ready(function() {
     
     //The Code below is required if user needs to select or unselect all records by ticking one checkbox.
     //This code also changes a view of control buttons (delete and edit). The control buttons are getting enabled and disabled.
-    $('#articles_all_items_select').click(function() {
+    $(document).on("click", "#articles_all_items_select", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var all_checkboxes_select = document.querySelector('#articles_all_items_select_wrapper');
         var button_edit = document.querySelector('#articles_button_edit');
@@ -287,10 +287,11 @@ $( document ).ready(function() {
             button_delete.setAttribute('disabled', '');
         }
     });
-     
+    
     //The Code below is making some changes when user is checking separate checkboxes.
     //This way control buttons (delete and edit) view is getting changed. The control buttons are getting enabled and disabled.
-    $('.admin-panel-articles-article-and-folder-checkbox').click(function() {
+    //$('.admin-panel-articles-article-and-folder-checkbox').click(function() {
+    $(document).on("click", ".admin-panel-articles-article-and-folder-checkbox", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var all_checkboxes_select = document.querySelector('#articles_all_items_select');
         var all_checkboxes_select_wrapper = document.querySelector('#articles_all_items_select_wrapper');
