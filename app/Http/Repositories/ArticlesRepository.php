@@ -218,9 +218,9 @@ class ArticlesRepository {
         
         $for_sort_and_pagination = new CommonRepository();
         
-        $included_folders = $for_sort_and_pagination->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
+        $included_folders = $for_sort_and_pagination->sort_for_albums_or_articles("0", $items_amount_per_page, $sorting_mode, $including_invisible, 
                                                                 'included_folders', $folder);        
-        $included_articles = $for_sort_and_pagination->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
+        $included_articles = $for_sort_and_pagination->sort_for_albums_or_articles("0", $items_amount_per_page, $sorting_mode, $including_invisible, 
                                                                 'included_articles', $folder);
         
         //Here we are calling method which will merge all articles and folders from selected folder into one array.
