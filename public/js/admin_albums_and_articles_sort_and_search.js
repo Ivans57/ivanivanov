@@ -145,7 +145,11 @@ $( document ).ready(function() {
                 data: {search_is_on: search_is_on, find_folders_by_name: find_folders_by_name, page_number: page_number, 
                        sorting_mode: sorting_method_and_mode, show_only_visible: show_only_visible},
                 success:function(data) {
-                    $('.admin-panel-articles-content').html(data.html);
+                    if ($(".admin-panel-articles-title").length) {
+                        $('.admin-panel-articles-title').html(data.title);
+                    }
+                    $('.admin-panel-articles-control-buttons').html(data.control_buttons);
+                    $('.admin-panel-articles-content').html(data.content);
                 }
             });
     }

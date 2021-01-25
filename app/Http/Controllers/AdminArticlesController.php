@@ -95,21 +95,16 @@ class AdminArticlesController extends Controller
         
         $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);
         
-        //We need the variable below to display how many items we need to show per one page
-        $items_amount_per_page = 14;
-        
         //We need to call the method below to clutter down current method in controller
         return $this->folders->showFolderView(Str::lower($this->current_page), 
-                    $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 
+                    $page, $keyword, 14 /*items_amount_per_page*/, $main_links, $this->is_admin_panel, 
                     $show_invisible == "only_visible" ? 0 : 1, $sorting_mode, $folders_or_articles_first);
     }
     
-    public function searchFolderOrArticle(Request $request) {        
-        $items_amount_per_page = 14;
-        
+    public function searchFolderOrArticle(Request $request) {               
         //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to serach mode previous visibility rule
         //should be discarded.
-        $folders_with_info = $this->folders->getFoldersFromSearch($request->input('find_folders_by_name'), $request->input('page_number'), $items_amount_per_page, 
+        $folders_with_info = $this->folders->getFoldersFromSearch($request->input('find_folders_by_name'), $request->input('page_number'), 14 /*items_amount_per_page*/, 
                                                                   $request->input('search_is_on') == '0' ? 'all' : $request->input('show_only_visible'), 
                                                                   $request->input('sorting_mode'));
                
@@ -126,12 +121,16 @@ class AdminArticlesController extends Controller
         $parent_keyword = "0";
         $section = "articles";
         
-        $html = view('adminpages.folders.adminfolders_searchcontent', 
+        $title = view('adminpages.folders.adminfolder_search_folder_title')->render();
+        
+        $control_buttons = view('adminpages.folders.adminfolders_searchcontrolbuttons')->render();
+        
+        $content = view('adminpages.folders.adminfolders_searchcontent', 
                 compact("folders", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "show_invisible", 
                         "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "parent_keyword"))->render();
         
-        //return response()->json(['some_data' => $keywords_text]);
-        return response()->json(compact('html'));
+        
+        return response()->json(compact('title', 'control_buttons', 'content'));
     }
     
     public function create($parent_keyword) {      
