@@ -75,18 +75,32 @@ class ArticlesRepository {
         return $folder_links;
     }
     
-    public function getAllFoldersForSearch($keywords_text, $including_invisible, $sort_by_field = null, $asc_desc = null){
+    public function getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null){
         
         if ($including_invisible) {
-            $folders = (Folder::where('folder_name', 'LIKE', '%'.$keywords_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+            $folders = (Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
                             ($asc_desc) ? $asc_desc : 'desc')->get());
         } else {
             //The condition below is just temporary!
-            $folders = (Folder::where('folder_name', 'LIKE', '%'.$keywords_text.'%')->where('is_visible', '=', 1)
+            $folders = (Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
                              ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
                             ($asc_desc) ? $asc_desc : 'desc')->get());
         }      
         return $folders;
+    }
+    
+    public function getAllArticlesForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null){
+        
+        if ($including_invisible) {
+            $articles = (Article::where('article_title', 'LIKE', '%'.$search_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        } else {
+            //The condition below is just temporary!
+            $articles = (Article::where('folder_name', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
+                             ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        }      
+        return $articles;
     }
     
     //We need the method below to clutter down the method in controller, which
@@ -155,7 +169,8 @@ class ArticlesRepository {
                 'directories_or_files_first' => ($folders_or_articles_first) ? $folders_or_articles_first : 'folders_first',
                 'show_invisible' => $including_invisible == 1 ? 'all' : 'only_visible',
                 //is_admin_panel is required for paginator.
-                'is_admin_panel' => $is_admin_panel
+                'is_admin_panel' => $is_admin_panel,
+                'what_to_search' => 'folders'
                 ]);
     }
        
@@ -392,7 +407,7 @@ class ArticlesRepository {
     }
     
     //This function is used for search.
-    public function getFoldersFromSearch($search_text, $page, $items_amount_per_page, $show_invisible, $sorting_mode = null) {        
+    public function getFoldersFromSearch($search_text, $page, $items_amount_per_page, $what_to_search, $show_invisible, $sorting_mode = null) {        
            
         $common = new CommonRepository();
         
@@ -401,7 +416,7 @@ class ArticlesRepository {
         //In the next line the data are getting extracted from the database and sorted.
         //The sixth parameter needs to pass as null to avoid confusion.
         $all_folders = $common->sort_for_albums_or_articles(1, $items_amount_per_page, $sorting_mode, 
-                                                                             $show_invisible === "all" ? 1 : 0, 'folders', null/*parent directory*/, $search_text);
+                                                                             $show_invisible === "all" ? 1 : 0, $what_to_search, null/*parent directory*/, $search_text);
         
         $folders_with_pagination->all_folders_count = sizeof($all_folders["directories_or_files"]);
         

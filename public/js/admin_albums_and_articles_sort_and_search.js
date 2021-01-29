@@ -23,15 +23,13 @@ $( document ).ready(function() {
             sort_elements($("#show_only_visible")[0], $(this).attr('id')+"_"+$(this).data('sorting_mode'), $('input[name="show_only_visible"]').val(), 
                           get_directories_or_files_first($("#show_only_visible").data('old_directories_or_files_first')));
         } else {
-            //keyword_search(make_search_url(), $("#keyword_search").val(), 1, $(this).attr('id'), $(this).data('sorting_mode'));
-            //folder_search(search_is_on, url, find_folders_by_name, show_only_visible, page_number, sorting_method = null, sorting_mode = null)
-            folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("#show_only_visible").val(), 1,
-                          $(this).attr('id'), $(this).data('sorting_mode'));
+            folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), 
+                          $("#show_only_visible").val(), 1, $(this).attr('id'), $(this).data('sorting_mode'));
         }
     });
 
     //This function is required to show folders(albums) or articles(pictures) first.
-    $("input[type='radio']").change(function() {
+    $(".admin-panel-articles-sorting-controls").change(function() {
         var element_with_info = document.querySelector('#show_only_visible');
 
         sort_elements(element_with_info, element_with_info.dataset.old_sorting_method_and_mode, $('input[name="show_only_visible"]').val(), 
@@ -49,9 +47,9 @@ $( document ).ready(function() {
         } else {
             var current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
             if (current_sorting_method_element === null) {
-                folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1);
+                folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1);
             } else {
-                folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1, 
+                folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1, 
                                 current_sorting_method_element.id, (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
             }
         }
@@ -110,8 +108,8 @@ $( document ).ready(function() {
         return url_for_search;
     }
     
-    $( "#folder_search_button" ).click(function() {      
-        folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("#show_only_visible").val(), 1);
+    $( "#folder_search_button" ).click(function() {
+        folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), 1);
     });   
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
@@ -126,14 +124,14 @@ $( document ).ready(function() {
         }
         
         //The first parameter will always be "1", because pagination arrows for search will appear only when search mode is on.
-        folder_search("1", make_search_url(), $("#folder_search").val(), $("#show_only_visible").val(), go_to_page_number, current_sorting_method_element.id, 
+        folder_search("1", make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), go_to_page_number, current_sorting_method_element.id, 
                        (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
     });
     
     //The function below is calling search function.
     //The last two parameters we have to pass separately, because depending on whether a user is going two swicth within
     //different sorting modes or turn the pages, needs to be applied current sorting mode (asc or desc) or opposite one.
-    function folder_search(search_is_on, url, find_folders_by_name, show_only_visible, page_number, sorting_method = null, sorting_mode = null) {
+    function folder_search(search_is_on, url, find_folders_by_name, what_to_search, show_only_visible, page_number, sorting_method = null, sorting_mode = null) {
         if (sorting_method === null || sorting_mode === null) {
             var sorting_method_and_mode = null;
         } else {
@@ -143,7 +141,7 @@ $( document ).ready(function() {
                 type: "POST",
                 url: url,
                 data: {search_is_on: search_is_on, find_folders_by_name: find_folders_by_name, page_number: page_number, 
-                       sorting_mode: sorting_method_and_mode, show_only_visible: show_only_visible},
+                       what_to_search: what_to_search, sorting_mode: sorting_method_and_mode, show_only_visible: show_only_visible},
                 success:function(data) {
                     if ($(".admin-panel-articles-title").length) {
                         $('.admin-panel-articles-title').html(data.title);

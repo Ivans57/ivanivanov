@@ -993,7 +993,7 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
 }
 
 .admin-panel-wrapper .admin-panel-main-article-articles {
-    width: 750px;
+    width: 950px;
 }
 
 .admin-panel-main-article .admin-panel-articles-sorting {
@@ -1213,6 +1213,11 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field-name {
+    width: 400px;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
 .admin-panel-articles-article-and-folder-header-row .admin-panel-articles-article-and-folder-header-field 
 .admin-panel-articles-article-and-folder-header-text-and-caret-wrapper {
     display: flex;
@@ -1229,6 +1234,11 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
     padding-right: 10px;
     background-color: #cccccc;
     word-break: break-all;
+}
+
+.admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 
+.admin-panel-articles-article-and-folder-body-row .admin-panel-articles-article-and-folder-body-field-name {
+    width: 400px;
 }
 
 .admin-panel-main-article .admin-panel-articles-external-articles-and-folders-wrapper .admin-panel-articles-articles-and-folders-wrapper 

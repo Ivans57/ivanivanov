@@ -7,7 +7,7 @@
                  {!! Form::checkbox('articles_all_items_select', 'value', false, ['id' => 'articles_all_items_select', 
                                     'class' => 'admin-panel-articles-article-and-folder-header-checkbox']); !!}
             </div>
-            <div class="admin-panel-articles-article-and-folder-header-field">
+            <div class="admin-panel-articles-article-and-folder-header-field admin-panel-articles-article-and-folder-header-field-name">
                 <div class="admin-panel-articles-article-and-folder-header-text-and-caret-wrapper">
                     <div class="admin-panel-articles-article-and-folder-header-text">
                         <p>@lang('keywords.Name')</p>
@@ -93,7 +93,7 @@
                                            'class' => 'admin-panel-articles-article-and-folder-checkbox' ]) !!}
                     @endif
                 </div>
-                <div class="admin-panel-articles-article-and-folder-body-field">
+                <div class="admin-panel-articles-article-and-folder-body-field admin-panel-articles-article-and-folder-body-field-name">
                     @if ($folder_or_article->type == 'folder')
                         <a href={{ App::isLocale('en') ? "/admin/articles/".$folder_or_article->keyWord."/page/1" : 
                                    "/ru/admin/articles/".$folder_or_article->keyWord."/page/1" }}>

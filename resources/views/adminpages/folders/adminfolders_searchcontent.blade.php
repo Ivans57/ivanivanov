@@ -14,7 +14,7 @@
     </div>
 @endif
 @if ($all_items_amount > 0)
-    @include('adminpages.folders.adminfolders_data')
+    @include('adminpages.folders.adminfolders_searchdata')
     @if ($all_items_amount > $items_amount_per_page)
         <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
         @component('search_paginator', ['pagination_info' => $pagination_info])

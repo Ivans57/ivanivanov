@@ -86,7 +86,8 @@ class AdminArticlesController extends Controller
                 'all_folders_count' => Folder::where('included_in_folder_with_id', '=', null)->count(),
                 'all_items_amount' => $all_items_amount,
                 //The variable below is required for sort to indicate which function to call index or search.
-                'search_is_on' => "0"
+                'search_is_on' => "0",
+                'what_to_search' => 'folders'
             ]);
         }
     }
@@ -101,14 +102,16 @@ class AdminArticlesController extends Controller
                     $show_invisible == "only_visible" ? 0 : 1, $sorting_mode, $folders_or_articles_first);
     }
     
-    public function searchFolderOrArticle(Request $request) {               
+    public function searchFolderOrArticle(Request $request) {
+        $items_amount_per_page = 14;
+        
         //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to serach mode previous visibility rule
         //should be discarded.
-        $folders_with_info = $this->folders->getFoldersFromSearch($request->input('find_folders_by_name'), $request->input('page_number'), 14 /*items_amount_per_page*/, 
-                                                                  $request->input('search_is_on') == '0' ? 'all' : $request->input('show_only_visible'), 
-                                                                  $request->input('sorting_mode'));
+        $folders_with_info = $this->folders->getFoldersFromSearch($request->input('find_folders_by_name'), $request->input('page_number'), $items_amount_per_page, 
+                                                                  $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
+                                                                  $request->input('show_only_visible'), $request->input('sorting_mode'));
                
-        $folders = $folders_with_info->folders_on_page;
+        $folders_or_articles = $folders_with_info->folders_on_page;
         $sorting_asc_or_desc = $folders_with_info->sorting_asc_or_desc;
         $all_items_amount = $folders_with_info->all_folders_count;
         //The variable below is required to display bisibility checkbox properly.
@@ -120,14 +123,15 @@ class AdminArticlesController extends Controller
         $sorting_method_and_mode = ($request->input('sorting_mode') === null) ? "0" : $request->input('sorting_mode');
         $parent_keyword = "0";
         $section = "articles";
+        $what_to_search = $request->input('what_to_search');
         
         $title = view('adminpages.folders.adminfolder_search_folder_title')->render();
         
         $control_buttons = view('adminpages.folders.adminfolders_searchcontrolbuttons')->render();
         
         $content = view('adminpages.folders.adminfolders_searchcontent', 
-                compact("folders", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "show_invisible", 
-                        "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "parent_keyword"))->render();
+                compact("folders_or_articles", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "show_invisible", 
+                        "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "parent_keyword", "what_to_search"))->render();
         
         
         return response()->json(compact('title', 'control_buttons', 'content'));

@@ -358,7 +358,7 @@ class CommonRepository {
                 $directories_or_files = $for_folders_and_articles->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
                 break;
             case ('articles'):
-                $directories_or_files = $for_folders_and_articles->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
+                $directories_or_files = $for_folders_and_articles->getAllArticlesForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
                 break;
         }
         

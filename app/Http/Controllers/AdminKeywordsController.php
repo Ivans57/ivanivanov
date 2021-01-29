@@ -74,9 +74,10 @@ class AdminKeywordsController extends Controller
         }
     }
     
-    public function searchKeyword(Request $request) {                
+    public function searchKeyword(Request $request) {
+        $items_amount_per_page = 14;
         $keywords_with_info = $this->keywords->getKeywordsFromSearch($request->input('find_keywords_by_text'), $request->input('page_number'), 
-                                                                     14 /*items_amount_per_page*/, $request->input('sorting_mode'));
+                                                                     $items_amount_per_page, $request->input('sorting_mode'));
                
         $keywords = $keywords_with_info->keywords_on_page;
         $sorting_asc_or_desc = $keywords_with_info->sorting_asc_or_desc;

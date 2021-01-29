@@ -25,6 +25,18 @@
         </div>
     </div>
     @if ($allArticlesAmount > 0 || $allFoldersAmount > 0)
+        <div>
+            {!! Form::label('search_folders', 'Search for Folders', 
+                           ['class' => 'admin-panel-articles-what-to-search-label']) !!}               
+            {!! Form::radio('what_to_search', 'folders', 
+                           (($what_to_search === 'folders') ? true : false), ['id' => 'search_folders', 
+                            'class' => 'admin-panel-articles-what-to-search']); !!}                    
+            {!! Form::label('search_articles', 'Search for Articles', 
+                           ['class' => 'admin-panel-articles-what-to-search-label']) !!}               
+            {!! Form::radio('what_to_search', 'articles', 
+                           (($what_to_search === 'articles') ? true : false), ['id' => 'search_articles', 
+                            'class' => 'admin-panel-articles-what-to-search']); !!}
+        </div>
         <div class="admin-panel-keywords-search">
             {!! Form::text('folder_search', null, 
                     ['class' => 'admin-panel-keywords-search-input', 
