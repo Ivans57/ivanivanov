@@ -248,22 +248,22 @@ class CommonRepository {
         
         switch ($sorting_mode) {
             case ('sort_by_name_desc'):                
-                if ($what_to_sort == 'albums' || $what_to_sort == 'included_albums' || $what_to_sort == 'included_pictures'){
+                if ($what_to_sort == 'albums' || $what_to_sort == 'included_albums' || $what_to_sort == 'included_pictures' || $what_to_sort == 'pictures'){
                     $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
-                                        (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'desc', $parent_directory, $search_text);
-                } else if ($what_to_sort == 'folders' || $what_to_sort == 'included_folders' || $what_to_sort == 'included_articles') {
+                    (($what_to_sort === 'included_pictures' || $what_to_sort === 'pictures') ? 'picture_caption' : 'album_name'), 'desc', $parent_directory, $search_text);
+                } else if ($what_to_sort == 'folders' || $what_to_sort == 'included_folders' || $what_to_sort == 'included_articles' || $what_to_sort == 'articles') {
                     $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
-                                        (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'desc', $parent_directory, $search_text);
+                    (($what_to_sort === 'included_articles' || $what_to_sort === 'articles') ? 'article_title' : 'folder_name'), 'desc', $parent_directory, $search_text);
                 }
                 $sorting_asc_or_desc["Name"] = ["asc" , 1];
                 break;
             case ('sort_by_name_asc'):                
-                if ($what_to_sort == 'albums' || $what_to_sort == 'included_albums' || $what_to_sort == 'included_pictures'){
+                if ($what_to_sort == 'albums' || $what_to_sort == 'included_albums' || $what_to_sort == 'included_pictures' || $what_to_sort == 'pictures'){
                     $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
-                                        (($what_to_sort === 'included_pictures') ? 'picture_caption' : 'album_name'), 'asc', $parent_directory, $search_text);
-                } else if ($what_to_sort == 'folders' || $what_to_sort == 'included_folders' || $what_to_sort == 'included_articles') {
+                    (($what_to_sort === 'included_pictures' || $what_to_sort === 'pictures') ? 'picture_caption' : 'album_name'), 'asc', $parent_directory, $search_text);
+                } else if ($what_to_sort == 'folders' || $what_to_sort == 'included_folders' || $what_to_sort == 'included_articles' || $what_to_sort == 'articles') {
                     $directories_or_files = $this->sort_by($search_mode_is_on, $items_amount_per_page, $including_invisible, $what_to_sort, 
-                                        (($what_to_sort === 'included_articles') ? 'article_title' : 'folder_name'), 'asc', $parent_directory, $search_text);
+                    (($what_to_sort === 'included_articles' || $what_to_sort === 'articles') ? 'article_title' : 'folder_name'), 'asc', $parent_directory, $search_text);
                 }
                 $sorting_asc_or_desc["Name"] = ["desc" , 1];
                 break;
