@@ -96,7 +96,7 @@ class ArticlesRepository {
                             ($asc_desc) ? $asc_desc : 'desc')->get());
         } else {
             //The condition below is just temporary!
-            $articles = (Article::where('folder_name', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
+            $articles = (Article::where('article_title', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
                              ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
                             ($asc_desc) ? $asc_desc : 'desc')->get());
         }      

@@ -38,7 +38,7 @@ class AdminArticlesController extends Controller
     }
     
     
-    public function index($show_invisible="all", $sorting_mode = null) {
+    public function index($show_invisible = "all", $sorting_mode = null) {
         
         $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);        
         //We need the variable below to display how many items we need to show per one page.

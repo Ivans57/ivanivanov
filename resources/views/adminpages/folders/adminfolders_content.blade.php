@@ -10,9 +10,8 @@
         {!! Form::checkbox('show_only_visible', $show_invisible, $show_invisible == 'all' ? false : true, 
                           ['id' => 'show_only_visible', 'class' => 'admin-panel-articles-sorting-controls', 
                            'data-localization' => (App::isLocale('en') ? 'en' : 'ru'),
-                           'data-section' => $section, 'data-is_level_zero' => '1', 
-                           'data-parent_keyword' => "0",
-                           'data-old_sorting_method_and_mode' => $sorting_method_and_mode]); !!}       
+                           'data-section' => $section, 'data-is_level_zero' => '1', 'data-parent_keyword' => "0",
+                           'data-old_sorting_method_and_mode' => $sorting_method_and_mode]); !!}     
     </div>
 @endif
 @if ($folders->count() > 0)

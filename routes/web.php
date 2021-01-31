@@ -315,7 +315,7 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{show_invisible?}/{sorting_mode?}', 'AdminArticlesController@index');
+    Route::get('admin/articles/{show_invisible_arg?}/{sorting_mode?}', 'AdminArticlesController@index');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

@@ -29,7 +29,7 @@ $( document ).ready(function() {
     });
 
     //This function is required to show folders(albums) or articles(pictures) first.
-    $(".admin-panel-articles-sorting-controls").change(function() {
+    $('input[name="directories_or_files_first"]').change(function() {
         var element_with_info = document.querySelector('#show_only_visible');
 
         sort_elements(element_with_info, element_with_info.dataset.old_sorting_method_and_mode, $('input[name="show_only_visible"]').val(), 
