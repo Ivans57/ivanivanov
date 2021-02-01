@@ -7,7 +7,7 @@ in case we don't have full page-->
             <div class="admin-panel-articles-article-and-folder-body-row">
                 <div class="admin-panel-articles-article-and-folder-body-field">
                      {!! Form::checkbox('item_select', 1, false, 
-                                       ['data-keyword' => $folder_or_article->keyword, 'data-parent_keyword' => $parent_keyword,
+                                       ['data-keyword' => $folder_or_article->keyword, 'data-parent_keyword' => $folder_or_article->parent_keyword,
                                         'data-entity_type' => 'directory',  'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
                                         'class' => 'admin-panel-articles-article-and-folder-checkbox']); !!}
                 </div>
@@ -21,14 +21,14 @@ in case we don't have full page-->
                                                   URL::asset('images/icons/regular_folder_small_bnw.png') }}">                                
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-title">
-                                    <p>{{ $folder_or_article->folder_name }}</p>
+                                    <p>{{ $folder_or_article->name }}</p>
                                 </div>
                             </div>
                         </a>
                     @else
-                        <a href='{{ App::isLocale('en') ? "/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyword."/".
+                        <a href='{{ App::isLocale('en') ? "/admin/article/".$folder_or_article->parent_keyword."/edit/".$folder_or_article->keyword."/".
                                    $show_invisible."/".$sorting_method_and_mode."/"."folders" : 
-                                   "/ru/admin/article/".$parent_keyword."/edit/".$folder_or_article->keyword."/".
+                                   "/ru/admin/article/".$folder_or_article->parent_keyword."/edit/".$folder_or_article->keyword."/".
                                    $show_invisible."/".$sorting_method_and_mode."/"."folders" }}'>
                             <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
                                 <div>
@@ -36,7 +36,7 @@ in case we don't have full page-->
                                          'opacity:1' : 'opacity:0.45' }}">
                                 </div>
                                 <div class="admin-panel-articles-article-and-folder-title">
-                                    <p>{{ $folder_or_article->article_title }}</p>
+                                    <p>{{ $folder_or_article->name }}</p>
                                 </div>
                             </div>
                         </a>

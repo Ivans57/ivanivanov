@@ -49,12 +49,23 @@ class ArticleForView {
 //This class is required for search.
 class FoldersWithPaginationInfo {
     public $all_folders_count;
-    //The propery below is required to display bisibility checkbox properly.
-    public $all_folders_count_including_invisible;
+    //The propery below is required to display visibility checkbox properly.
+    public $all_items_count_including_invisible;
     public $folders_on_page;
     public $sorting_asc_or_desc;
     public $paginator_info;   
 }
+
+//This class is required for search.
+class FolderOrArticleForSearch {
+    public $keyword;
+    public $name;
+    public $is_visible;
+    public $created_at;
+    public $updated_at;
+    public $parent_keyword;   
+}
+
 
 class ArticlesRepository {
     
@@ -85,8 +96,27 @@ class ArticlesRepository {
             $folders = (Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
                              ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
                             ($asc_desc) ? $asc_desc : 'desc')->get());
-        }      
-        return $folders;
+        }
+        
+        $folders_array = [];
+               
+        foreach ($folders as $one_folder) {
+           $folder = new FolderOrArticleForSearch();
+           
+           $folder->keyword = $one_folder->keyword;
+           $folder->name = $one_folder->folder_name;
+           $folder->is_visible = $one_folder->is_visible;
+           $folder->created_at = $one_folder->created_at;
+           $folder->updated_at = $one_folder->updated_at;
+           
+           //$parent_keyword is required to make a property parent_keyword as a string.
+           $parent_keyword = Folder::where('id', $one_folder->included_in_folder_with_id)->first();
+           $folder->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
+            
+           array_push($folders_array, $folder); 
+        }
+        
+        return $folders_array;
     }
     
     public function getAllArticlesForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null){
@@ -99,8 +129,27 @@ class ArticlesRepository {
             $articles = (Article::where('article_title', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
                              ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
                             ($asc_desc) ? $asc_desc : 'desc')->get());
-        }      
-        return $articles;
+        }
+        
+        $articles_array = [];
+               
+        foreach ($articles as $one_article) {
+           $article = new FolderOrArticleForSearch();
+           
+           $article->keyword = $one_article->keyword;
+           $article->name = $one_article->article_title;
+           $article->is_visible = $one_article->is_visible;
+           $article->created_at = $one_article->created_at;
+           $article->updated_at = $one_article->updated_at;
+           
+           //$parent_keyword is required to make a property parent_keyword as a string.
+           $parent_keyword = Folder::where('id', $one_article->folder_id)->first();
+           $article->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
+            
+           array_push($articles_array, $article); 
+        }
+        
+        return $articles_array;
     }
     
     //We need the method below to clutter down the method in controller, which
@@ -420,24 +469,16 @@ class ArticlesRepository {
         
         $folders_with_pagination->all_folders_count = sizeof($all_folders["directories_or_files"]);
         
-        $folders_with_pagination->all_folders_count_including_invisible = Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->count();
+        $folders_with_pagination->all_items_count_including_invisible = ($what_to_search === "folders") ? Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->count() : 
+                                                                         Article::where('article_title', 'LIKE', '%'.$search_text.'%')->count();
         
         $folders_with_pagination->sorting_asc_or_desc = $all_folders["sorting_asc_or_desc"];
-        
-        //Later keywords array has to be chunked to separate pieces for pagination.
-        //When getting data from the database it is not a pure array, it is an object and it cannot be chunked.
-        //For that reason these data need to be converted to an array.
-        $all_folders_array = [];
-        
-        foreach ($all_folders["directories_or_files"] as $one_folder){
-           array_push($all_folders_array, $one_folder); 
-        }
-        
+                
         //The following information we can have only if we have at least one item.
         if($folders_with_pagination->all_folders_count > 0) {
             //The line below cuts all data into pages.
             //We can do it only if we have at least one item in the array of the full data.
-            $folders_cut_into_pages = array_chunk($all_folders_array, $items_amount_per_page, false);
+            $folders_cut_into_pages = array_chunk($all_folders["directories_or_files"], $items_amount_per_page, false);
             $folders_with_pagination->paginator_info = $common->get_paginator_info($page, $folders_cut_into_pages);
             //We need to do the check below in case user enters a page number more tha actual number of pages,
             //so we can avoid an error.
