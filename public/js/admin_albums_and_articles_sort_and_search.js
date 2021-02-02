@@ -108,7 +108,7 @@ $( document ).ready(function() {
         return url_for_search;
     }
     
-    $( "#folder_search_button" ).click(function() {
+    $("#folder_search_button").click(function() {
         folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), 1);
     });   
     
