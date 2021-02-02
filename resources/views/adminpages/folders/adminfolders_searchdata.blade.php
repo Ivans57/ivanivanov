@@ -8,7 +8,8 @@ in case we don't have full page-->
                 <div class="admin-panel-articles-article-and-folder-body-field">
                      {!! Form::checkbox('item_select', 1, false, 
                                        ['data-keyword' => $folder_or_article->keyword, 'data-parent_keyword' => $folder_or_article->parent_keyword,
-                                        'data-entity_type' => 'directory',  'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
+                                        'data-entity_type' => ($what_to_search === 'folders') ? 'directory' : 'file',  
+                                        'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
                                         'class' => 'admin-panel-articles-article-and-folder-checkbox']); !!}
                 </div>
                 <div class="admin-panel-articles-article-and-folder-body-field admin-panel-articles-article-and-folder-body-field-name">

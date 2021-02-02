@@ -106,7 +106,7 @@ $( document ).ready(function() {
         }
     }
        
-    $( "#articles_button_edit" ).click(function() {
+    $(document).on("click", "#articles_button_edit", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var selected_checkbox = [];
         for (i = 0; i < all_checkboxes.length; i++) {
@@ -156,7 +156,7 @@ $( document ).ready(function() {
         });
     }
     
-    $( "#articles_button_delete" ).click(function() {
+    $(document).on("click", "#articles_button_delete", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var selected_checkbox_data = "";//In this variable we keep items entity type (directory or file) and keyword.
         //The line below is required to get parent folder's keyword, which is necessary for correct hide or show invisible elements activation.
