@@ -104,12 +104,13 @@ class AdminArticlesController extends Controller
     
     public function searchFolderOrArticle(Request $request) {
         $items_amount_per_page = 14;
+        $show_only_visible = ($request->input('show_only_visible') === null) ? 'all' : $request->input('show_only_visible');
         
         //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to serach mode previous visibility rule
         //should be discarded.
         $folders_with_info = $this->folders->getFoldersFromSearch($request->input('find_folders_by_name'), $request->input('page_number'), $items_amount_per_page, 
                                                                   $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
-                                                                  $request->input('show_only_visible'), $request->input('sorting_mode'));
+                                                                  $show_only_visible, $request->input('sorting_mode'));
                
         $folders_or_articles = $folders_with_info->folders_on_page;
         $sorting_asc_or_desc = $folders_with_info->sorting_asc_or_desc;
@@ -119,7 +120,7 @@ class AdminArticlesController extends Controller
         $pagination_info = $folders_with_info->paginator_info;
         //The variable below is required for sort to indicate which function to call index or search.
         $search_is_on = "1";
-        $show_invisible = $request->input('search_is_on') == '0' ? 'all' : $request->input('show_only_visible');
+        $show_invisible = $request->input('search_is_on') == '0' ? 'all' : $show_only_visible;
         $sorting_method_and_mode = ($request->input('sorting_mode') === null) ? "0" : $request->input('sorting_mode');
         $section = "articles";
         $what_to_search = $request->input('what_to_search');

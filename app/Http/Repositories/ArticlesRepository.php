@@ -465,7 +465,7 @@ class ArticlesRepository {
         //In the next line the data are getting extracted from the database and sorted.
         //The sixth parameter needs to pass as null to avoid confusion.
         $all_folders = $common->sort_for_albums_or_articles(1, $items_amount_per_page, $sorting_mode, 
-                                                                             $show_invisible === "all" ? 1 : 0, $what_to_search, null/*parent directory*/, $search_text);
+                                                                             $show_invisible === "only_visible" ? 0 : 1, $what_to_search, null/*parent directory*/, $search_text);
         
         $folders_with_pagination->all_folders_count = sizeof($all_folders["directories_or_files"]);
         
