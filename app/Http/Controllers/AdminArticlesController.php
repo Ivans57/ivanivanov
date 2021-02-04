@@ -125,6 +125,8 @@ class AdminArticlesController extends Controller
         $section = "articles";
         $what_to_search = $request->input('what_to_search');
         
+        $path = "";
+        
         $title = view('adminpages.folders.adminfolder_search_folder_title')->render();
         
         $control_buttons = view('adminpages.folders.adminfolders_searchcontrolbuttons')->render();
@@ -134,7 +136,7 @@ class AdminArticlesController extends Controller
                         "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "what_to_search"))->render();
         
         
-        return response()->json(compact('title', 'control_buttons', 'content'));
+        return response()->json(compact('path', 'title', 'control_buttons', 'content'));
     }
     
     public function create($parent_keyword) {      

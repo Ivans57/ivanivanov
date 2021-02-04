@@ -38,7 +38,7 @@ class DirectoryData extends DirectoryBasic {
 
 class AlbumParentsRepository {
     //We need this function for Directory Parent search field when create or edit directory.
-    public function getParents($localization, $page, $directory_to_find, $directory_to_exclude_keyword, $mode) {//-
+    public function getParents($localization, $page, $directory_to_find, $directory_to_exclude_keyword, $mode) {
               
         $parents = new DirectoryParentsData();
         
@@ -64,10 +64,10 @@ class AlbumParentsRepository {
     
     //We need this function for Directory Parent search field when create or edit directory.
     //It is not enough to get just a name of the directory, we need to get a full path to show.
-    //We need the third argument, because we are using the same function for parent search and also for albums creation i a file system.
+    //We need the third argument, because we are using the same function for parent search and also for albums creation in a file system.
     //There will be small difference and to meet it we need the third argument $name_or_keyword_path.
     //As we are going to use this method out of this repository, it has to be public.
-    public function get_full_directory_path($directory_id, $directory_path, $name_or_keyword_path) {//-
+    public function get_full_directory_path($directory_id, $directory_path, $name_or_keyword_path) {
         //We cannot get information from data table, because in this case the sequence of items is important.
         $directory = $this->get_id_of_parent($directory_id);
         if ($name_or_keyword_path == "name") {
@@ -82,7 +82,7 @@ class AlbumParentsRepository {
     }
     
     //We need this function to simplify getParents function.
-    protected function get_parents_from_query($localization, $mode, $page, $directory_to_find, $directory_to_exclude_keyword, $records_to_show) {//+
+    protected function get_parents_from_query($localization, $mode, $page, $directory_to_find, $directory_to_exclude_keyword, $records_to_show) {
         
         $items_children = $this->get_directory_children_array($directory_to_exclude_keyword);
         
@@ -110,7 +110,7 @@ class AlbumParentsRepository {
     }
     
     //We need this function to simplify getParents and get_parents_from_query functions.
-    protected function get_directory_children_array($directory_to_exclude_keyword) {//-
+    protected function get_directory_children_array($directory_to_exclude_keyword) {
         if($directory_to_exclude_keyword) {     
             //We will do two request to avoid localization check.
             $directory_id = $this->get_directory_id_by_keyword($directory_to_exclude_keyword);
@@ -131,7 +131,7 @@ class AlbumParentsRepository {
     }
     
     //We need this function for Directory Parent dropdown list when create or edit directory.
-    public function getParentList($localization, $page, $parent_id, $parent_node_id, $keyword_of_directory_to_exclude, $mode) {//-
+    public function getParentList($localization, $page, $parent_id, $parent_node_id, $keyword_of_directory_to_exclude, $mode) {
         
         $parents = new DirectoryParentsData();        
         $records_to_show = 10;
@@ -159,7 +159,7 @@ class AlbumParentsRepository {
     
     //This function will be called when user is creating a new directory on level 0,
     //or when is editing a directory which is located on level 0.
-    private function get_closed_parent_list($localization, $mode, $page, $records_to_show, $parent_node_id, $keyword_of_directory_to_exclude) {//-
+    private function get_closed_parent_list($localization, $mode, $page, $records_to_show, $parent_node_id, $keyword_of_directory_to_exclude) {
         $parents = new DirectoryParentsData();
         
         //We need this for additional check whether a being checked item has children.
@@ -191,7 +191,7 @@ class AlbumParentsRepository {
     //Direct data from query is giving useful additional information for pagination.
     //In some cases need to call this function.
     protected function get_parent_list_from_query($localization, $page, $parent_node_id, 
-                                                $keyword_of_directory_to_exclude, $max_acceptable_nest_level, $records_to_show) {//+
+                                                $keyword_of_directory_to_exclude, $max_acceptable_nest_level, $records_to_show) {
         if ($localization === "en") {
             $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
                                                         'en_albums_data.nesting_level')
@@ -215,7 +215,7 @@ class AlbumParentsRepository {
     
     //This function will be called when user is creating a new directory on level 0,
     //or when is editing a directory which is located on level 0.
-    private function get_opened_parent_list($localization, $mode, $records_to_show, $parent_id, $keyword_of_directory_to_exclude) {//-
+    private function get_opened_parent_list($localization, $mode, $records_to_show, $parent_id, $keyword_of_directory_to_exclude) {
         $parents = new DirectoryParentsData();
         //First of all need to make an array of all ancestors of the item.
         //There is a special field for them in data table, but their sequence might be wrong.
@@ -247,7 +247,7 @@ class AlbumParentsRepository {
     }
     
     //This function extracts all ancestors of the selected record.
-    private function get_all_parents_ids_for_item($item_id, $parent_ids) {//-
+    private function get_all_parents_ids_for_item($item_id, $parent_ids) {
         $parent_id_new = $this->get_id_of_parent($item_id);
         if ($parent_id_new->ParentId !== null) {
             array_push($parent_ids, $parent_id_new);
@@ -260,7 +260,7 @@ class AlbumParentsRepository {
     //parents and their pagination information array, which will be required for
     //parent dropdown list for Directory edit window.
     private function get_parents_and_pagination_info_for_array($localization, $mode, $parent_id, $records_to_show, $iteration, 
-                                                            $keyword_of_directory_to_exclude) {//-
+                                                            $keyword_of_directory_to_exclude) {
         $parents_for_array = new DirectoryParentsData();
         $parent_id_of_parent = $this->get_id_of_parent($parent_id);
         
@@ -292,7 +292,7 @@ class AlbumParentsRepository {
         return $parents_for_array;
     }
     
-    protected function get_id_of_parent($directory_id) {//+
+    protected function get_id_of_parent($directory_id) {
         $directory = new Directory();
         $parent_id_of_parent = \App\Album::select('keyword', 'album_name', 'included_in_album_with_id')->where('id', $directory_id)->firstOrFail();
         $directory->DirectoryKeyword = $parent_id_of_parent->keyword;
@@ -303,7 +303,7 @@ class AlbumParentsRepository {
     
     //We need this function to make smaller function get_parents_and_pagination_info_for_array.
     private function get_record_location_in_parent_list($localization, $parent_id, $keyword_of_directory_to_exclude, 
-                                                        $included_in_directory_with_id, $max_acceptable_nest_level) {//-
+                                                        $included_in_directory_with_id, $max_acceptable_nest_level) {
         
         //This request we need to do only to get a data for pagination, because required record might be not on the first page.
         $parent_list_from_query_for_data = $this->get_full_parent_list_from_query($localization, $keyword_of_directory_to_exclude, 
@@ -348,7 +348,7 @@ class AlbumParentsRepository {
     
     //We need this function to make smaller function get_parents_and_pagination_info_for_array.
     protected function get_parents_for_opened_list_from_query($localization, $keyword_of_directory_to_exclude, $included_in_directory_with_id, 
-                                                            $records_to_show, $max_acceptable_nest_level, $page) {//+
+                                                            $records_to_show, $max_acceptable_nest_level, $page) {
         if ($localization === "en") {   
             $parent_list_from_query = \App\Album::select('en_albums.id', 'en_albums.album_name', 'en_albums_data.children', 
                                                         'en_albums_data.nesting_level')
@@ -405,7 +405,7 @@ class AlbumParentsRepository {
     
     //This function transforms data which have been got from database to a special objects array.
     //Usage of that object is giving more flexibility when sharing the same functions with another classes.
-    protected function parent_list_from_query_to_object_array($parent_list_from_query) {//+
+    protected function parent_list_from_query_to_object_array($parent_list_from_query) {
         $parent_list = array();         
         foreach ($parent_list_from_query as $parent_data_from_query) {
             $parent_data = new DirectoryData();
@@ -419,7 +419,7 @@ class AlbumParentsRepository {
     }
     
     //This function's purpose is to shorten make_parent_object_array_for_parent_list().
-    private function check_if_open_or_in_focus($directory_id, $parent_id, $iteration) {//-
+    private function check_if_open_or_in_focus($directory_id, $parent_id, $iteration) {
         $parent_data = new ParentDropDownListElement();
         
         if ($directory_id == $parent_id && $iteration == 0) {
@@ -433,7 +433,7 @@ class AlbumParentsRepository {
       
     //We need to use this function as due to some filters we might need 
     //to exclude some children from item's children list.
-    private function check_for_children($directory_id, $id_of_directory_to_exclude) {//-
+    private function check_for_children($directory_id, $id_of_directory_to_exclude) {
 
         $items_direct_children = $this->get_direct_children_from_query($directory_id);
         
@@ -448,14 +448,14 @@ class AlbumParentsRepository {
         return $hasChildren;
     }
     
-    protected function get_direct_children_from_query($directory_id) {//+
+    protected function get_direct_children_from_query($directory_id) {
         return \App\Album::select('id')->where('included_in_album_with_id', '=', $directory_id)->orderBy('created_at','DESC')->get();
     }
     
     //This function gets a pagination information for Parent search when create or edit directory.
     //We cannot display all directories, as there might be too many of them, which will make the system slow.
     //To avoid it, need to split an information in portions, that's why need to do a pagination.
-    private function get_pagination_info($parents_from_query) {//-
+    private function get_pagination_info($parents_from_query) {
         
         $pagination_info = new PaginationInfoForParentSearch();
         
@@ -471,7 +471,7 @@ class AlbumParentsRepository {
     }
     
     //We need this function to shorten getParents function.
-    protected function get_max_acceptable_nest_level($mode, $directory_to_exclude_keyword = NULL) {//-
+    protected function get_max_acceptable_nest_level($mode, $directory_to_exclude_keyword = NULL) {
                      
         $max_acceptable_nest_level = ($mode == "directory") ? 7 : 8;
         
@@ -494,12 +494,12 @@ class AlbumParentsRepository {
         return $max_acceptable_nest_level;
     }
     
-    protected function get_directory_id_by_keyword($keyword) {//+
+    protected function get_directory_id_by_keyword($keyword) {
         $directory_id = \App\Album::select('id')->where('keyword', $keyword)->firstOrFail();
         return $directory_id->id;
     }
     
-    protected function get_directory_data($items_id) {//+
+    protected function get_directory_data($items_id) {
         $directory_data = new DirectoryData();
         $directory_data_from_query = \App\AlbumData::where('items_id', $items_id)->select('nesting_level', 'children')->firstOrFail();
         $directory_data->NestingLevel = $directory_data_from_query->nesting_level;
@@ -508,7 +508,7 @@ class AlbumParentsRepository {
     }
     
     //We need this function to shorten get_max_acceptable_nest_level function.
-    private function get_children_max_nest_level($items_children, $max_acceptable_nest_level) {//-
+    private function get_children_max_nest_level($items_children, $max_acceptable_nest_level) {
                
         //array_map converts string array to int array.
         $children_nest_levels = $this->get_children_nest_levels(array_map('intval', $items_children));
@@ -529,7 +529,7 @@ class AlbumParentsRepository {
         return $children_max_nest_level;
     }
     
-    protected function get_children_nest_levels($items_children) {//+
+    protected function get_children_nest_levels($items_children) {
         return \App\AlbumData::whereIn('items_id', array_map('intval', $items_children))->select('nesting_level')->get();
     }
 }

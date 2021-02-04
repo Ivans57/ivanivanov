@@ -63,7 +63,7 @@ class FolderOrArticleForSearch {
     public $is_visible;
     public $created_at;
     public $updated_at;
-    public $parent_keyword;   
+    public $parent_keyword;
 }
 
 
@@ -99,16 +99,21 @@ class ArticlesRepository {
         }
         
         $folders_array = [];
-               
+     
+        $for_path = new FolderParentsRepository();
+        
         foreach ($folders as $one_folder) {
            $folder = new FolderOrArticleForSearch();
            
+           $path = ($one_folder->included_in_folder_with_id === null ) ? "0" : 
+                            $for_path->get_full_directory_path($one_folder->included_in_folder_with_id, "", "name");
+           
            $folder->keyword = $one_folder->keyword;
-           $folder->name = $one_folder->folder_name;
+           $folder->name = ($path === "0" ) ? " / ".$one_folder->folder_name : $path." / ".$one_folder->folder_name;
            $folder->is_visible = $one_folder->is_visible;
            $folder->created_at = $one_folder->created_at;
            $folder->updated_at = $one_folder->updated_at;
-           
+                     
            //$parent_keyword is required to make a property parent_keyword as a string.
            $parent_keyword = Folder::where('id', $one_folder->included_in_folder_with_id)->first();
            $folder->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
@@ -132,12 +137,17 @@ class ArticlesRepository {
         }
         
         $articles_array = [];
-               
+        
+        $for_path = new FolderParentsRepository();
+        
         foreach ($articles as $one_article) {
            $article = new FolderOrArticleForSearch();
            
+           $path = ($one_article->folder_id === null ) ? "0" : 
+                            $for_path->get_full_directory_path($one_article->folder_id, "", "name");
+           
            $article->keyword = $one_article->keyword;
-           $article->name = $one_article->article_title;
+           $article->name = ($path === "0" ) ? " / ".$one_article->article_title : $path." / ".$one_article->article_title;
            $article->is_visible = $one_article->is_visible;
            $article->created_at = $one_article->created_at;
            $article->updated_at = $one_article->updated_at;

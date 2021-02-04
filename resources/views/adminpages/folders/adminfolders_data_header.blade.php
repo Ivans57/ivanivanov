@@ -8,7 +8,11 @@
             <div class="admin-panel-articles-article-and-folder-header-field admin-panel-articles-article-and-folder-header-field-name">
                 <div class="admin-panel-articles-article-and-folder-header-text-and-caret-wrapper">
                     <div class="admin-panel-articles-article-and-folder-header-text">
-                        <p>@lang('keywords.Name')</p>
+                        @if ($search_is_on === "0")
+                            <p>@lang('keywords.Name')</p>
+                        @else
+                            <p>@lang('keywords.PathAndName')</p>
+                        @endif
                     </div>
                     @if ($all_items_amount > 1)
                         <div class="admin-panel-articles-article-and-folder-header-caret">
