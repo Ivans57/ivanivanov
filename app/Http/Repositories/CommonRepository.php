@@ -240,7 +240,7 @@ class CommonRepository {
     
     //The method below is to sort albums/folders(directories) and pictures/articles(files) in different modes.
     public function sort_for_albums_or_articles($search_mode_is_on, $items_amount_per_page, $sorting_mode, $including_invisible, 
-                                                    $what_to_sort, $parent_directory = null, $search_text = null) {
+                                                $what_to_sort, $parent_directory = null, $search_text = null) {
         //This array is required to show sorting arrows properly.
         $sorting_asc_or_desc = ["Name" => ["desc" , 0], "Creation" => ["desc" , 0], "Update" => ["desc" , 0],];
         
@@ -342,22 +342,24 @@ class CommonRepository {
     
     //This sort function is working when user is searching something.
     private function sort_for_search($search_text, $including_invisible, $what_to_sort, $sort_by_field, $asc_or_desc) {
-        $for_albums_and_pictures = new AlbumsRepository();
-        $for_folders_and_articles = new ArticlesRepository();
         
         $directories_or_files = null;
         
         switch ($what_to_sort) {
             case ('albums'):
+                $for_albums_and_pictures = new AlbumsRepository();
                 $directories_or_files = $for_albums_and_pictures->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
                 break;
             case ('pictures'):
+                $for_albums_and_pictures = new AlbumsRepository();
                 $directories_or_files = $for_albums_and_pictures->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
                 break;
             case ('folders'):
+                $for_folders_and_articles = new ArticlesRepository();
                 $directories_or_files = $for_folders_and_articles->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
                 break;
             case ('articles'):
+                $for_folders_and_articles = new ArticlesRepository();
                 $directories_or_files = $for_folders_and_articles->getAllArticlesForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
                 break;
         }

@@ -23,7 +23,7 @@ $( document ).ready(function() {
             sort_elements($("#show_only_visible")[0], $(this).attr('id')+"_"+$(this).data('sorting_mode'), $('input[name="show_only_visible"]').val(), 
                           get_directories_or_files_first($("#show_only_visible").data('old_directories_or_files_first')));
         } else {
-            folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), 
+            search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 
                           $("#show_only_visible").val(), 1, $(this).attr('id'), $(this).data('sorting_mode'));
         }
     });
@@ -46,10 +46,11 @@ $( document ).ready(function() {
                           directories_or_files_first);
         } else {
             var current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
+            //!Need to consider albums!
             if (current_sorting_method_element === null) {
-                folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1);
+                search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1);
             } else {
-                folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1, 
+                search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 'only_visible' : 'all'), 1, 
                                 current_sorting_method_element.id, (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
             }
         }
@@ -98,23 +99,24 @@ $( document ).ready(function() {
         window.location.href = url;
     }
     
-    //++++++++++++++++++++++Folder Search.++++++++++++++++++++++
+    //++++++++++++++++++++++Search+++++++++++++++++++++++++++
     //This function is required for localization application.
     function make_search_url() {
         var url_for_search_without_localization = "/admin/articles/search";
-        var localization = $("#folder_search_button").data('localization');
+        var localization = $("#search_button").data('localization');
         var url_for_search = (localization === 'en') ? url_for_search_without_localization : "/"+localization+url_for_search_without_localization;
         
         return url_for_search;
     }
     
-    $("#folder_search_button").click(function() {
-        folder_search($("#search_is_on").val(), make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), 1);
+    $("#search_button").click(function() {
+        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), 1);
     });   
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
     $(document).on("click", ".turn-page", function() {
-        var current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');      
+        //!Need to consider albums!
+        var current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
         var go_to_page_number = $(this).data('page');
         
         if (($(this).attr('id')) === "previous_page") {
@@ -124,14 +126,14 @@ $( document ).ready(function() {
         }
         
         //The first parameter will always be "1", because pagination arrows for search will appear only when search mode is on.
-        folder_search("1", make_search_url(), $("#folder_search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), go_to_page_number, current_sorting_method_element.id, 
-                       (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
+        search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), go_to_page_number, 
+               current_sorting_method_element.id, (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
     });
     
     //The function below is calling search function.
     //The last two parameters we have to pass separately, because depending on whether a user is going two swicth within
     //different sorting modes or turn the pages, needs to be applied current sorting mode (asc or desc) or opposite one.
-    function folder_search(search_is_on, url, find_folders_by_name, what_to_search, show_only_visible, page_number, sorting_method = null, sorting_mode = null) {
+    function search(search_is_on, url, find_by_name, what_to_search, show_only_visible, page_number, sorting_method = null, sorting_mode = null) {
         if (sorting_method === null || sorting_mode === null) {
             var sorting_method_and_mode = null;
         } else {
@@ -140,9 +142,10 @@ $( document ).ready(function() {
         $.ajax({
                 type: "POST",
                 url: url,
-                data: {search_is_on: search_is_on, find_folders_by_name: find_folders_by_name, page_number: page_number, 
+                data: {search_is_on: search_is_on, find_by_name: find_by_name, page_number: page_number, 
                        what_to_search: what_to_search, sorting_mode: sorting_method_and_mode, show_only_visible: show_only_visible},
                 success: function(data) {
+                    //On some views some elements (divs) won't exist, that's why some checks are required.
                     if ($(".admin-panel-articles-title").length) {
                         $('.admin-panel-articles-title').html(data.title);
                     }
@@ -155,6 +158,6 @@ $( document ).ready(function() {
             });
     }
     
-    //++++++++++++++++++++++End of Folder Search.++++++++++++++++++++++
+    //++++++++++++++++++++++End of Search.+++++++++++++++++++++++++++
 });
 /*--------------------------------------------------------*/

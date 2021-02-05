@@ -47,11 +47,11 @@ class ArticleForView {
 }
 
 //This class is required for search.
-class FoldersWithPaginationInfo {
-    public $all_folders_count;
+class FoldersOrArticlesWithPaginationInfo {
+    public $all_items_count;
     //The propery below is required to display visibility checkbox properly.
     public $all_items_count_including_invisible;
-    public $folders_on_page;
+    public $items_on_page;
     public $sorting_asc_or_desc;
     public $paginator_info;   
 }
@@ -86,17 +86,9 @@ class ArticlesRepository {
         return $folder_links;
     }
     
-    public function getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null){
+    public function getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
         
-        if ($including_invisible) {
-            $folders = (Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
-                            ($asc_desc) ? $asc_desc : 'desc')->get());
-        } else {
-            //The condition below is just temporary!
-            $folders = (Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
-                             ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
-                            ($asc_desc) ? $asc_desc : 'desc')->get());
-        }
+        $folders = $this->getAllFoldersForSearchFromDataBase($search_text, $including_invisible, $sort_by_field, $asc_desc);
         
         $folders_array = [];
      
@@ -124,17 +116,23 @@ class ArticlesRepository {
         return $folders_array;
     }
     
-    public function getAllArticlesForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null){
-        
+    //this function is required to simplify getAllFoldersForSearch function.
+    private function getAllFoldersForSearchFromDataBase($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
         if ($including_invisible) {
-            $articles = (Article::where('article_title', 'LIKE', '%'.$search_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+            $folders = (Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
                             ($asc_desc) ? $asc_desc : 'desc')->get());
         } else {
-            //The condition below is just temporary!
-            $articles = (Article::where('article_title', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
+            $folders = (Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
                              ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
                             ($asc_desc) ? $asc_desc : 'desc')->get());
         }
+        
+        return $folders;
+    }
+    
+    public function getAllArticlesForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+        
+        $articles = $this->getAllArticlesForSearchFromDataBase($search_text, $including_invisible, $sort_by_field, $asc_desc);
         
         $articles_array = [];
         
@@ -160,6 +158,21 @@ class ArticlesRepository {
         }
         
         return $articles_array;
+    }
+    
+    //this function is required to simplify getAllArticlesForSearch function.
+    private function getAllArticlesForSearchFromDataBase($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+        if ($including_invisible) {
+            $articles = (Article::where('article_title', 'LIKE', '%'.$search_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        } else {
+            //The condition below is just temporary!
+            $articles = (Article::where('article_title', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
+                             ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        }
+        
+        return $articles;
     }
     
     //We need the method below to clutter down the method in controller, which
@@ -466,43 +479,43 @@ class ArticlesRepository {
     }
     
     //This function is used for search.
-    public function getFoldersFromSearch($search_text, $page, $items_amount_per_page, $what_to_search, $show_invisible, $sorting_mode = null) {        
+    public function getFoldersOrArticlesFromSearch($search_text, $page, $items_amount_per_page, $what_to_search, $show_invisible, $sorting_mode = null) {        
            
         $common = new CommonRepository();
         
-        $folders_with_pagination = new FoldersWithPaginationInfo();
+        $items_with_pagination = new FoldersOrArticlesWithPaginationInfo();
         
         //In the next line the data are getting extracted from the database and sorted.
         //The sixth parameter needs to pass as null to avoid confusion.
-        $all_folders = $common->sort_for_albums_or_articles(1, $items_amount_per_page, $sorting_mode, 
-                                                                             $show_invisible === "only_visible" ? 0 : 1, $what_to_search, null/*parent directory*/, $search_text);
+        $all_items = $common->sort_for_albums_or_articles(1, $items_amount_per_page, $sorting_mode, 
+                                                          $show_invisible === "only_visible" ? 0 : 1, $what_to_search, null/*parent directory*/, $search_text);
         
-        $folders_with_pagination->all_folders_count = sizeof($all_folders["directories_or_files"]);
+        $items_with_pagination->all_items_count = sizeof($all_items["directories_or_files"]);
         
-        $folders_with_pagination->all_items_count_including_invisible = ($what_to_search === "folders") ? Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->count() : 
-                                                                         Article::where('article_title', 'LIKE', '%'.$search_text.'%')->count();
+        $items_with_pagination->all_items_count_including_invisible = ($what_to_search === "folders") ? Folder::where('folder_name', 'LIKE', '%'.$search_text.'%')->count() : 
+                                                                       Article::where('article_title', 'LIKE', '%'.$search_text.'%')->count();
         
-        $folders_with_pagination->sorting_asc_or_desc = $all_folders["sorting_asc_or_desc"];
+        $items_with_pagination->sorting_asc_or_desc = $all_items["sorting_asc_or_desc"];
                 
         //The following information we can have only if we have at least one item.
-        if($folders_with_pagination->all_folders_count > 0) {
+        if($items_with_pagination->all_items_count > 0) {
             //The line below cuts all data into pages.
             //We can do it only if we have at least one item in the array of the full data.
-            $folders_cut_into_pages = array_chunk($all_folders["directories_or_files"], $items_amount_per_page, false);
-            $folders_with_pagination->paginator_info = $common->get_paginator_info($page, $folders_cut_into_pages);
+            $items_cut_into_pages = array_chunk($all_items["directories_or_files"], $items_amount_per_page, false);
+            $items_with_pagination->paginator_info = $common->get_paginator_info($page, $items_cut_into_pages);
             //We need to do the check below in case user enters a page number more tha actual number of pages,
             //so we can avoid an error.
-            $folders_with_pagination->folders_on_page = $folders_with_pagination->paginator_info->number_of_pages >= $page ? 
-                                                                $folders_cut_into_pages[$page-1] : null;
+            $items_with_pagination->items_on_page = $items_with_pagination->paginator_info->number_of_pages >= $page ? 
+                                                                $items_cut_into_pages[$page-1] : null;
         } else {
             //As we need to know paginator_info->number_of_pages to check the condition
             //in showAlbumView() method we need to make paginator_info object
             //and assign its number_of_pages variable. Otherwise we will have an error
-            //if we have any empty folder
-            $folders_with_pagination->paginator_info = new Paginator();
-            $folders_with_pagination->paginator_info->number_of_pages = 1;
+            //if we have any empty folder.
+            $items_with_pagination->paginator_info = new Paginator();
+            $items_with_pagination->paginator_info->number_of_pages = 1;
         }
         
-        return $folders_with_pagination;
+        return $items_with_pagination;
     }
 }

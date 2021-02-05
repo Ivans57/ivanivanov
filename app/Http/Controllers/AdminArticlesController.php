@@ -50,12 +50,9 @@ class AdminArticlesController extends Controller
         $sorting_data = $this->common->sort_for_albums_or_articles(0, $items_amount_per_page, $sorting_mode, 
                                                                     $show_invisible === "all" ? 1 : 0, 'folders');
         
-        //The variable below is required to show field sorting tools correctly.
-        if ($show_invisible=='all') {
-            $all_items_amount = Folder::where('included_in_folder_with_id', '=', null)->count();
-        } else {
-            $all_items_amount = Folder::where('included_in_folder_with_id', '=', null)->where('is_visible', '=', 1)->count();
-        }
+        //The variable below is required to show field sorting tools correctly.       
+        $all_items_amount = ($show_invisible=='all') ? Folder::where('included_in_folder_with_id', '=', null)->count() : 
+                                                       Folder::where('included_in_folder_with_id', '=', null)->where('is_visible', '=', 1)->count();
         
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
@@ -108,16 +105,16 @@ class AdminArticlesController extends Controller
         
         //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to serach mode previous visibility rule
         //should be discarded.
-        $folders_with_info = $this->folders->getFoldersFromSearch($request->input('find_folders_by_name'), $request->input('page_number'), $items_amount_per_page, 
-                                                                  $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
-                                                                  $show_only_visible, $request->input('sorting_mode'));
+        $folders_or_articles_with_info = $this->folders->getFoldersOrArticlesFromSearch($request->input('find_by_name'), $request->input('page_number'), 
+                                                                $items_amount_per_page, $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
+                                                                $show_only_visible, $request->input('sorting_mode'));
                
-        $folders_or_articles = $folders_with_info->folders_on_page;
-        $sorting_asc_or_desc = $folders_with_info->sorting_asc_or_desc;
-        $all_items_amount = $folders_with_info->all_folders_count;
+        $folders_or_articles = $folders_or_articles_with_info->items_on_page;
+        $sorting_asc_or_desc = $folders_or_articles_with_info->sorting_asc_or_desc;
+        $all_items_amount = $folders_or_articles_with_info->all_items_count;
         //The variable below is required to display bisibility checkbox properly.
-        $all_items_amount_including_invisible = $folders_with_info->all_items_count_including_invisible;
-        $pagination_info = $folders_with_info->paginator_info;
+        $all_items_amount_including_invisible = $folders_or_articles_with_info->all_items_count_including_invisible;
+        $pagination_info = $folders_or_articles_with_info->paginator_info;
         //The variable below is required for sort to indicate which function to call index or search.
         $search_is_on = "1";
         $show_invisible = $request->input('search_is_on') == '0' ? 'all' : $show_only_visible;
@@ -125,10 +122,8 @@ class AdminArticlesController extends Controller
         $section = "articles";
         $what_to_search = $request->input('what_to_search');
         
-        $path = "";
-        
-        $title = view('adminpages.folders.adminfolder_search_folder_title')->render();
-        
+        $path = "";       
+        $title = view('adminpages.folders.adminfolder_search_folder_title')->render();       
         $control_buttons = view('adminpages.folders.adminfolders_searchcontrolbuttons')->render();
         
         $content = view('adminpages.folders.adminfolders_searchcontent', 

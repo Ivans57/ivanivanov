@@ -20,11 +20,11 @@
                             'class' => 'admin-panel-articles-what-to-search']); !!}
         </div>
         <div class="admin-panel-keywords-search">
-            {!! Form::text('folder_search', null, 
+            {!! Form::text('search', null, 
                 ['class' => 'admin-panel-keywords-search-input', 
-                 'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'folder_search', 'id' => 'folder_search']) !!}
+                 'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'search', 'id' => 'search']) !!}
             {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
-                    ['class' => 'admin-panel-keywords-search-button', 'id' => 'folder_search_button', 'title' => Lang::get('keywords.Search'), 
+                    ['class' => 'admin-panel-keywords-search-button', 'id' => 'search_button', 'title' => Lang::get('keywords.Search'), 
                      'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
         </div>
     @endif
