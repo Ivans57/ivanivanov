@@ -110,7 +110,8 @@ $( document ).ready(function() {
     }
     
     $("#search_button").click(function() {
-        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), 1);
+        //The fifth parameter will be always 'all', because when searching something again, need to drop all filters and sortings.
+        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 'all', 1);
     });   
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
