@@ -996,6 +996,44 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
     width: 950px;
 }
 
+.admin-panel-main-article .admin-panel-articles-search {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    margin-right: 5px;
+}
+
+.admin-panel-main-article .admin-panel-articles-search .admin-panel-articles-what-to-search-label {
+    margin-right: 5px;
+    margin-top: 5px;
+    font-family: Arial;
+    font-size: 15px;
+}
+
+.admin-panel-main-article .admin-panel-articles-search .admin-panel-articles-what-to-search {
+    margin-right: 20px;
+    margin-top: 9px;
+}
+
+.admin-panel-main-article .admin-panel-articles-search .admin-panel-articles-search-input {
+    width: 250px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px grey solid;
+    margin-left: 10px;
+}
+
+.admin-panel-main-article .admin-panel-articles-search .admin-panel-articles-search-button {
+    background-color: #2196F3;
+    margin-left: -5px;
+    color: white;
+    border-radius: 3px;
+    height: 30px;
+    width: 30px;
+    border: 1px grey solid;
+}
+
 .admin-panel-main-article .admin-panel-articles-sorting {
     display: flex;
     justify-content: flex-start;
