@@ -331,8 +331,13 @@ $( document ).ready(function() {
                 url: url,
                 data: {find_keywords_by_text: find_keywords_by_text, page_number: page_number, sorting_mode: sorting_method_and_mode},
                 success:function(data) {
-                    var keywords_container = document.querySelector('.admin-panel-main-article-keywords');
-                    keywords_container.insertAdjacentHTML("afterbegin", "<div>"+data.title+"</div>");
+                    //Title search needs to be added only once, for that reason need to check if element with class "admin-panel-search-title" exists.
+                    //Need to add one only if it doesn't exists, otherwise that element will be added every single time when user press "Search" button and
+                    //multiple titles will be displayed.
+                    if ($(".admin-panel-search-title").length === 0) {
+                        var keywords_container = document.querySelector('.admin-panel-main-article-keywords');
+                        keywords_container.insertAdjacentHTML("afterbegin", "<div class='admin-panel-search-title'>"+data.title+"</div>");
+                    }
                     
                     $('.admin-panel-keywords-control-buttons').html(data.control_buttons);
                     $('.admin-panel-keywords-content').html(data.content);
