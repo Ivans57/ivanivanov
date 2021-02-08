@@ -333,6 +333,8 @@ $( document ).ready(function() {
                 success:function(data) {
                     var keywords_container = document.querySelector('.admin-panel-main-article-keywords');
                     keywords_container.insertAdjacentHTML("afterbegin", "<div>"+data.title+"</div>");
+                    
+                    $('.admin-panel-keywords-control-buttons').html(data.control_buttons);
                     $('.admin-panel-keywords-content').html(data.content);
                 }
             });

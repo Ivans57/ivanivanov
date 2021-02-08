@@ -87,13 +87,13 @@ class AdminKeywordsController extends Controller
         $search_is_on = 1;
         
         $title = view('adminpages.keywords.adminkeywords_search_keywords_title')->render();
+        $control_buttons = view('adminpages.keywords.adminkeywords_searchcontrolbuttons')->render();
         
         $content = view('adminpages.keywords.adminkeywords_searchcontent', 
                 compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page", 
                         "pagination_info", "search_is_on"))->render();
         
-        //return response()->json(['some_data' => $keywords_text]);
-        return response()->json(compact("title", 'content'));
+        return response()->json(compact("title", "control_buttons", "content"));
     }
     
     public function create() {   

@@ -212,6 +212,9 @@ main {
     display: flex;
     justify-content: space-between;
     padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .admin-panel-main-article .admin-panel-keywords-search {
@@ -237,12 +240,6 @@ main {
     height: 30px;
     width: 30px;
     border: 1px grey solid;
-}
-
-.admin-panel-main-article .admin-panel-keywords-control-buttons .admin-panel-keywords-add-keyword-wrapper {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
 }
 
 .admin-panel-main-article .admin-panel-keywords-add-keyword-button,
