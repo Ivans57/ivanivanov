@@ -86,12 +86,14 @@ class AdminKeywordsController extends Controller
         //The variable below is required for sort to indicate which function to call index or search.
         $search_is_on = 1;
         
-        $html = view('adminpages.keywords.adminkeywords_searchcontent', 
+        $title = view('adminpages.keywords.adminkeywords_search_keywords_title')->render();
+        
+        $content = view('adminpages.keywords.adminkeywords_searchcontent', 
                 compact("keywords", "sorting_asc_or_desc", "all_keywords_amount", "items_amount_per_page", 
                         "pagination_info", "search_is_on"))->render();
         
         //return response()->json(['some_data' => $keywords_text]);
-        return response()->json(compact('html'));
+        return response()->json(compact("title", 'content'));
     }
     
     public function create() {   

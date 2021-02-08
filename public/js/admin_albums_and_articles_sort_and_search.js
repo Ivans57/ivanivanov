@@ -147,8 +147,12 @@ $( document ).ready(function() {
                        what_to_search: what_to_search, sorting_mode: sorting_method_and_mode, show_only_visible: show_only_visible},
                 success: function(data) {
                     //On some views some elements (divs) won't exist, that's why some checks are required.
+                    //In the first case, we still need that div, but becuase it doesn't exist in folders, need to add it.
                     if ($(".admin-panel-articles-title").length) {
                         $('.admin-panel-articles-title').html(data.title);
+                    } else {
+                        var article_container = document.querySelector('.admin-panel-main-article-articles');
+                        article_container.insertAdjacentHTML("afterbegin", "<div class='admin-panel-articles-title'>"+data.title+"</div>");
                     }
                     if ($(".path-panel").length) {
                         $('.path-panel').html(data.path);

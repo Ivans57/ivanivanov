@@ -331,7 +331,9 @@ $( document ).ready(function() {
                 url: url,
                 data: {find_keywords_by_text: find_keywords_by_text, page_number: page_number, sorting_mode: sorting_method_and_mode},
                 success:function(data) {
-                    $('.admin-panel-keywords-content').html(data.html);
+                    var keywords_container = document.querySelector('.admin-panel-main-article-keywords');
+                    keywords_container.insertAdjacentHTML("afterbegin", "<div>"+data.title+"</div>");
+                    $('.admin-panel-keywords-content').html(data.content);
                 }
             });
     }
