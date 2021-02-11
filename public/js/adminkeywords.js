@@ -33,20 +33,21 @@ $( document ).ready(function() {
         });
     }
 
+    //Apparently, commented piece of code below is not required.
     //Making list of all elements with our class.
-    var keyword_buttons = document.querySelectorAll('.admin-panel-keywords-keyword-control-button');
+    /*var keyword_buttons = document.querySelectorAll('.admin-panel-keywords-keyword-control-button');
     
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
     for (var i = 0; i < keyword_buttons.length; i++) {
-        clickKeywordButton(keyword_buttons[i]/*, keyword_links[i]*/);
+        clickKeywordButton(keyword_buttons[i]);
     }  
     function clickKeywordButton(button) {
         button.addEventListener('click', function() {
             button.classList.remove('admin-panel-keywords-keyword-control-button');
             button.classList.add('admin-panel-keywords-keyword-control-button-pressed');
         });
-    }
+    }*/
 
     //We need this script to open new keyword create page in fancy box window.
     $(".admin-panel-keywords-add-keyword-button-link").fancybox({
@@ -75,22 +76,11 @@ $( document ).ready(function() {
                 link.classList.add('admin-panel-keywords-add-keyword-button-link');
             }
         }
+    });    
+    
+    $(document).on("click", ".admin-panel-keywords-edit-delete-control-button", function() {
+        $(this).removeClass("admin-panel-keywords-edit-delete-control-button").addClass("admin-panel-keywords-edit-delete-control-button-pressed");
     });
-    
-    //Making list of all elements with selected class.
-    var keywords_control_buttons = document.querySelectorAll('.admin-panel-keywords-edit-delete-control-button');
-    
-    //getting through the array of elements and applying required function
-    //for all of them. We don't need these elements id anymore.
-    for (var i = 0; i < keywords_control_buttons.length; i++) {
-        clickFolderButton(keywords_control_buttons[i]);
-    }    
-    function clickFolderButton(control_button) {
-        control_button.addEventListener('click', function() {
-            control_button.classList.remove('admin-panel-keywords-edit-delete-control-button');
-            control_button.classList.add('admin-panel-keywords-edit-delete-control-button-pressed');
-        });
-    }
     
     function keywords_control_button_view_change_after_fancybox_close() {
         //We don't need an array here as in previous examples, because there will be
@@ -102,8 +92,8 @@ $( document ).ready(function() {
             button.classList.add('admin-panel-keywords-edit-delete-control-button');
         }
     }
-
-    $( "#keywords_button_edit" ).click(function() {
+    
+    $(document).on("click", "#keywords_button_edit", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-keywords-keywords-checkbox');
         var selected_checkbox = [];
         for (i = 0; i < all_checkboxes.length; i++) {
@@ -142,7 +132,7 @@ $( document ).ready(function() {
         });
     }
 
-    $( "#keywords_button_delete" ).click(function() {
+    $(document).on("click", "#keywords_button_delete", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-keywords-keywords-checkbox');
         var selected_checkbox_data = "";//In this variable we keep items (keywords) separated by ";" sign.            
         

@@ -49,20 +49,9 @@ $( document ).ready(function() {
         });
     }
 
-    //Making list of all elements with selected class.
-    var articles_control_buttons = document.querySelectorAll('.admin-panel-articles-article-and-folder-control-button');
-    
-    //getting through the array of elements and applying required function
-    //for all of them. We don't need these elements id anymore.
-    for (var i = 0; i < articles_control_buttons.length; i++) {
-        clickFolderButton(articles_control_buttons[i]);
-    }    
-    function clickFolderButton(control_button) {
-        control_button.addEventListener('click', function() {
-            control_button.classList.remove('admin-panel-articles-article-and-folder-control-button');
-            control_button.classList.add('admin-panel-articles-article-and-folder-control-button-pressed');
-        });
-    }
+    $(document).on("click", ".admin-panel-articles-article-and-folder-control-button", function() {
+        $(this).removeClass("admin-panel-articles-article-and-folder-control-button").addClass("admin-panel-articles-article-and-folder-control-button-pressed");
+    });
 
     //We need this script to open new Folder create page in fancy box window.
     $(".admin-panel-articles-add-folder-button-link").fancybox({
