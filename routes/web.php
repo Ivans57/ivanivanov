@@ -294,19 +294,19 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Delete will be the same for folders and articles.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/delete/{entity_types_and_keywords}/{parent_folder}', 'AdminArticlesController@delete');
+    Route::get('admin/articles/delete/{entity_types_and_keywords}/{parent_folder}/{search_is_on?}', 'AdminArticlesController@delete');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/delete/{entity_types_and_keywords}/{parent_folder}', 'AdminArticlesController@delete');
+    Route::get('admin/articles/delete/{entity_types_and_keywords}/{parent_folder}/{search_is_on?}', 'AdminArticlesController@delete');
 });
 //Section needs to be specified, otherwise the system will be confused with the route.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/articles/{section}/{entity_types_and_keywords}/{parent_folder}', 'AdminArticlesController@destroy');
+    Route::delete('admin/articles/{section}/{entity_types_and_keywords}/{parent_folder}/{search_is_on?}', 'AdminArticlesController@destroy');
 });
 //Section needs to be specified, otherwise the system will be confused with the route.
 Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/articles/{section}/{entity_types_and_keywords}/{parent_folder}', 'AdminArticlesController@destroy');
+    Route::delete('admin/articles/{section}/{entity_types_and_keywords}/{parent_folder}/{search_is_on?}', 'AdminArticlesController@destroy');
 });
 
 //sorting_mode argument is optional. It is required only for sorting.

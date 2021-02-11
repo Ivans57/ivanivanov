@@ -54,10 +54,10 @@ class AdminArticlesRepository extends ArticlesRepository {
     
     //There might be three types of views for return depends what user needs to delete,
     //folder(s), article(s), both folders and articles.
-    public function return_delete_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword) {
+    public function return_delete_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on) {
         //This case is for folders.
         if (sizeof($direcotries_and_files_array[0]) > 0 && sizeof($direcotries_and_files_array[1]) == 0) {
-            return $this->return_delete_folder_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword);
+            return $this->return_delete_folder_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on);
             //This case is for articles.    
         } else if (sizeof($direcotries_and_files_array[1]) > 0 && sizeof($direcotries_and_files_array[0]) == 0) {
             return $this->return_delete_article_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword);
@@ -68,7 +68,7 @@ class AdminArticlesRepository extends ArticlesRepository {
     }
     
     //This delete view is for folders.
-    private function return_delete_folder_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword) {
+    private function return_delete_folder_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on) {
         return view('adminpages.directory.delete_directory')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
@@ -78,7 +78,9 @@ class AdminArticlesRepository extends ArticlesRepository {
             'section' => 'articles',
             'plural_or_singular' => (sizeof($direcotries_and_files_array[0]) > 1) ? 'plural' : 'singular',
             //parent_keyword variable is required only to update page correctly after deleting elements.
-            'parent_keyword' => $parent_keyword
+            'parent_keyword' => $parent_keyword,
+            //The variable below is required to redirect user to a proper page after delete, which depends on whether user is using search mode or not.
+            'search_is_on' => $search_is_on
             ]);
     }
     

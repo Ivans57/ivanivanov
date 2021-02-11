@@ -167,7 +167,9 @@ $( document ).ready(function() {
         //require lees or more space in window.      
         var directories = [];
         var files = [];
-               
+        
+        var search_is_on = $("#search_is_on").val();
+        
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
                 var entity_type_and_keyword = all_checkboxes[i].dataset.entity_type+'+'+all_checkboxes[i].dataset.keyword+';';
@@ -182,7 +184,7 @@ $( document ).ready(function() {
         }        
         if (selected_checkbox_data.length > 0) {
             var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
-            var url = localization+'/admin/articles/delete/'+selected_checkbox_data+"/"+parent_keyword_info.dataset.parent_keyword;  
+            var url = localization+'/admin/articles/delete/'+selected_checkbox_data+"/"+parent_keyword_info.dataset.parent_keyword+"/"+search_is_on;  
             
             //Delete window will have different heights depends on what entites and how many of them are in there.
             var window_height = get_delete_folder_and_article_window_height(directories, files, localization);                                            

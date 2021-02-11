@@ -1,11 +1,12 @@
 @extends('create_edit_delete_window')
 
 @section('create_edit_delete_window_content')
-    {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/".$section."/".$section."/".$entity_types_and_keywords."/".$parent_keyword : 
-                    "/ru/admin/".$section."/".$section."/".$entity_types_and_keywords."/".$parent_keyword ]) !!}        
+    <!-- Before opening form_close need to assign variables to meet conditions for javascript to open root folder for articles after delete.-->
+    {!! Form::open(['method' => 'DELETE', 'url' => (App::isLocale('en') ? "/": "/ru/")."admin/".$section."/".$section."/".$entity_types_and_keywords."/".
+                                                   (($search_is_on === "0") ? $parent_keyword : 0)."/".$search_is_on]) !!}        
         <div class='admin-panel-delete-entity'>
             {!! Form::hidden('entity_types_and_keywords', $entity_types_and_keywords) !!}
-            {!! Form::hidden('parent_keyword_and_section', $parent_keyword, ['id' => 'parent_keyword_and_section', 'data-section' => $section]) !!}
+            {!! Form::hidden('parent_keyword_and_section', (($search_is_on === "0") ? $parent_keyword : "0"), ['id' => 'parent_keyword_and_section', 'data-section' => $section]) !!}
             @if ($plural_or_singular==='singular')
                 <div class="admin-panel-delete-entity-message"><h3>
                     {!! ($section === 'albums') ? Lang::get('keywords.DeleteAlbum').'?' : Lang::get('keywords.DeleteFolder').'?' !!}

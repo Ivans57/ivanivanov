@@ -222,7 +222,7 @@ class AdminArticlesController extends Controller
             ]);
     }
     
-    public function delete($entity_types_and_keywords, $parent_folder) {
+    public function delete($entity_types_and_keywords, $parent_folder, $search_is_on) {
         //Getting an array of arrays of directories (folders) and files (articles).
         //This is required for view when need to mention proper entity names 
         //(folders and articles, or both, single and plural), rules.
@@ -231,10 +231,10 @@ class AdminArticlesController extends Controller
         
         //There might be three types of views for return depends what user needs to delete,
         //folder(s), article(s), both folders and articles.
-        return $this->folders->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page, $parent_folder);    
+        return $this->folders->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page, $parent_folder, $search_is_on);    
     }
        
-    public function destroy($section, $entity_types_and_keywords, $parent_folder) {
+    public function destroy($section, $entity_types_and_keywords, $parent_folder, $search_is_on) {
         $this->folders->destroy($entity_types_and_keywords);
         
         //The lines below are required to show sorting tools correctly after delete of any item.
@@ -242,11 +242,12 @@ class AdminArticlesController extends Controller
         
         $parent_directory_is_empty = 1;
         
-        if ((\App\Folder::where('included_in_folder_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0 || 
-            (\App\Article::where('folder_id', '=', (($parent) ? $parent->id : null))->count()) > 0) {
+        if (((\App\Folder::where('included_in_folder_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0 || 
+            (\App\Article::where('folder_id', '=', (($parent) ? $parent->id : null))->count()) > 0) && $search_is_on === "0") {
             $parent_directory_is_empty = 0;    
         }
         
+        //Before opening form_close need to assign variables to meet conditions for javascript to open root folder for articles after delete.
         return view('adminpages.form_close')->with([
             //Actually we do not need any head title as it is just a partial view. 
             //We need it only to make the variable initialized. Othervise there will be an error.

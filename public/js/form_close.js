@@ -16,6 +16,8 @@ $( document ).ready(function() {
         }
         window.parent.$.fancybox.close();
     }
+    //In search mode after delete or edit items always need to redirect to root element (folder or album) to avoid errors.
+    //Before using this javascript all necessary variables need to be assigned to meet the condition which redirects to the root.
     if (action === 'destroy') {
         //If parent directory becomes empty after delete of an item, there are no filters and sorting required,
         //and need to relocate to the location.
