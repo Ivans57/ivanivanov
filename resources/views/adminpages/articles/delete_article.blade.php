@@ -1,11 +1,11 @@
 @extends('create_edit_delete_window')
 
 @section('create_edit_delete_window_content')
-    {!! Form::open([ 'method' => 'DELETE', 'url' => App::isLocale('en') ? "/admin/".$section."/".$section."/".$entity_types_and_keywords."/".$parent_keyword : 
-                    "/ru/admin/".$section."/".$section."/".$entity_types_and_keywords."/".$parent_keyword ]) !!}        
+    {!! Form::open(['method' => 'DELETE', 'url' => (App::isLocale('en') ? "/": "/ru/")."admin/".$section."/".$section."/".$entity_types_and_keywords."/".
+                                                   (($search_is_on === "0") ? $parent_keyword : 0)."/".$search_is_on]) !!}       
         <div class='admin-panel-delete-entity'>
             {!! Form::hidden('entity_types_and_keywords', $entity_types_and_keywords) !!}
-            {!! Form::hidden('parent_keyword_and_section', $parent_keyword, ['id' => 'parent_keyword_and_section', 'data-section' => $section]) !!}
+            {!! Form::hidden('parent_keyword_and_section', (($search_is_on === "0") ? $parent_keyword : "0"), ['id' => 'parent_keyword_and_section', 'data-section' => $section]) !!}
             @if ($plural_or_singular==='singular')
                 <div class="admin-panel-delete-entity-message"><h3 style="color:#cf1b0e;">@lang('keywords.DeleteArticle')?</h3></div>
             @else
