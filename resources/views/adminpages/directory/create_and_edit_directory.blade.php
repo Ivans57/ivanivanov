@@ -10,8 +10,8 @@
                          'id' => 'admin_panel_create_edit_entity_form' ]) !!}
     @else
         {!! Form::model($edited_directory, [ 'method' => 'PUT', 
-                                         'url' => App::isLocale('en') ? "/admin/".$section."/".$edited_directory->keyword : 
-                                         "/ru/admin/".$section."/".$edited_directory->keyword,
+                                         'url' => App::isLocale('en') ? "/admin/".$section."/".$edited_directory->keyword."/".$parent_keyword."/".$search_is_on : 
+                                         "/ru/admin/".$section."/".$edited_directory->keyword."/".$parent_keyword."/".$search_is_on,
                                          'data-localization' => App::isLocale('en') ? "en" : "ru",
                                          'data-section' => $section,
                                          'data-mode' => $mode,

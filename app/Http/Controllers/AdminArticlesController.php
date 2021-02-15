@@ -177,7 +177,7 @@ class AdminArticlesController extends Controller
             ]);
     }
     
-    public function edit($keyword, $parent_keyword) {            
+    public function edit($keyword, $parent_keyword, $search_is_on) {            
         if ($parent_keyword != "0") {
             $parent_info = \App\Folder::select('id', 'folder_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
@@ -200,13 +200,22 @@ class AdminArticlesController extends Controller
             //when user won't see the full list of directories due to some restrictions
             //and it work when creating or editing picture or articles in a file mode,
             //when user will see a full list of all albums and folders.
-            'mode' => 'directory'
+            'mode' => 'directory',
+            //The two variables below are required for edit in search mode.
+            'parent_keyword' => $parent_keyword,
+            'search_is_on' => $search_is_on
             ]);
         //return response()->json(['html'=>$view]);
     }
     
-    public function update($keyword, CreateEditFolderRequest $request) {    
+    public function update($keyword, $parent_keyword, $search_is_on, CreateEditFolderRequest $request) {    
         $this->folders->update($keyword, $request);
+              
+        if ($search_is_on === "1") {
+            $new_parent = Folder::where('id', $request->included_in_folder_with_id)->first();
+            $new_parent_keyword = ($new_parent === null) ? "0" : $new_parent->keyword;
+            $parent_keyword = ($parent_keyword === $new_parent_keyword) ? $parent_keyword : $new_parent_keyword;
+        }
         
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
@@ -218,7 +227,11 @@ class AdminArticlesController extends Controller
             //We need it only to make the variable initialized. Othervise there will be an error.
             'headTitle' => __('keywords.'.$this->current_page),
             //The variable below is required to make proper actions when pop up window closes.
-            'action' => 'update'
+            'action' => 'update',
+            //The three variables below are required for edit in search mode.
+            'parent_keyword' => $parent_keyword,
+            'section' => 'articles',
+            'search_is_on' => $search_is_on
             ]);
     }
     

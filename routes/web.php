@@ -337,19 +337,19 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/edit/{parent_keyword}', 'AdminArticlesController@edit');
+    Route::get('admin/articles/{keyword}/edit/{parent_keyword}/{search_is_on?}', 'AdminArticlesController@edit');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/articles/{keyword}/edit/{parent_keyword}', 'AdminArticlesController@edit');
+    Route::get('admin/articles/{keyword}/edit/{parent_keyword}/{search_is_on?}', 'AdminArticlesController@edit');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
+    Route::put('admin/articles/{keyword}/{parent_folder}/{search_is_on?}', 'AdminArticlesController@update');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::put('admin/articles/{keyword}', 'AdminArticlesController@update');
+    Route::put('admin/articles/{keyword}/{parent_folder}/{search_is_on?}', 'AdminArticlesController@update');
 });
 
 //End of Folders

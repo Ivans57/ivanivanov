@@ -98,16 +98,17 @@ $( document ).ready(function() {
     $(document).on("click", "#articles_button_edit", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-articles-article-and-folder-checkbox');
         var selected_checkbox = [];
+        
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
                 selected_checkbox.push(all_checkboxes[i]);
             }
         }
-        //We need to make a condition below, becuase we can edit only one item at the same time.
+        //We need to make a condition below, because we can edit only one item at the same time.
         if (selected_checkbox.length === 1) {
             if (selected_checkbox[0].dataset.entity_type === "directory") {
                 var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
-                var url = localization+'/admin/articles/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword;
+                var url = localization+'/admin/articles/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword+"/"+$("#search_is_on").val();
                 edit_folder(url);
             } else {
                 //The variable below is required to keep an element with sorting settings.
@@ -157,8 +158,6 @@ $( document ).ready(function() {
         var directories = [];
         var files = [];
         
-        var search_is_on = $("#search_is_on").val();
-        
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
                 var entity_type_and_keyword = all_checkboxes[i].dataset.entity_type+'+'+all_checkboxes[i].dataset.keyword+';';
@@ -173,7 +172,7 @@ $( document ).ready(function() {
         }        
         if (selected_checkbox_data.length > 0) {
             var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
-            var url = localization+'/admin/articles/delete/'+selected_checkbox_data+"/"+parent_keyword_info.dataset.parent_keyword+"/"+search_is_on;  
+            var url = localization+'/admin/articles/delete/'+selected_checkbox_data+"/"+parent_keyword_info.dataset.parent_keyword+"/"+$("#search_is_on").val();  
             
             //Delete window will have different heights depends on what entites and how many of them are in there.
             var window_height = get_delete_folder_and_article_window_height(directories, files, localization);                                            
