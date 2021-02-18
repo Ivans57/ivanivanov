@@ -46,6 +46,26 @@ class AlbumAndPictureForViewFullInfoForPage {
     public $paginator_info;   
 }
 
+//This class is required for search.
+class AlbumsOrPicturesWithPaginationInfo {
+    public $all_items_count;
+    //The propery below is required to display visibility checkbox properly.
+    public $all_items_count_including_invisible;
+    public $items_on_page;
+    public $sorting_asc_or_desc;
+    public $paginator_info;   
+}
+
+//This class is required for search.
+class AlbumOrPictureForSearch {
+    public $keyword;
+    public $name;
+    public $is_visible;
+    public $created_at;
+    public $updated_at;
+    public $parent_keyword;
+}
+
 
 class AlbumsRepository {
        
@@ -62,6 +82,95 @@ class AlbumsRepository {
                            ($asc_desc) ? $asc_desc : 'desc')->paginate($items_amount_per_page);
         }
         return $album_links;
+    }
+    
+    public function getAllAlbumsForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+        
+        $albums = $this->getAllAlbumsForSearchFromDataBase($search_text, $including_invisible, $sort_by_field, $asc_desc);
+        
+        $albums_array = [];
+     
+        $for_path = new AlbumParentsRepository();
+        
+        foreach ($albums as $one_album) {
+           $album = new AlbumOrPictureForSearch();
+           
+           $path = ($one_album->included_in_album_with_id === null ) ? "0" : 
+                            $for_path->get_full_directory_path($one_album->included_in_album_with_id, "", "name");
+           
+           $album->keyword = $one_album->keyword;
+           $album->name = ($path === "0" ) ? " / ".$one_album->album_name : $path." / ".$one_album->album_name;
+           $album->is_visible = $one_album->is_visible;
+           $album->created_at = $one_album->created_at;
+           $album->updated_at = $one_album->updated_at;
+                     
+           //$parent_keyword is required to make a property parent_keyword as a string.
+           $parent_keyword = Album::where('id', $one_album->included_in_album_with_id)->first();
+           $album->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
+            
+           array_push($albums_array, $album); 
+        }
+        
+        return $albums_array;
+    }
+    
+    //this function is required to simplify getAllAlbumsForSearch function.
+    private function getAllAlbumsForSearchFromDataBase($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+        if ($including_invisible) {
+            $albums = (Album::where('album_name', 'LIKE', '%'.$search_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        } else {
+            $albums = (Album::where('album_name', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
+                             ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        }
+        
+        return $albums;
+    }
+    
+    public function getAllPicturesForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+        
+        $pictures = $this->getAllPicturesForSearchFromDataBase($search_text, $including_invisible, $sort_by_field, $asc_desc);
+        
+        $pictures_array = [];
+        
+        $for_path = new AlbumOrPictureForSearch();
+        
+        foreach ($pictures as $one_picture) {
+           $picture = new AlbumOrPictureForSearch();
+           
+           $path = ($one_picture->included_in_album_with_id === null ) ? "0" : 
+                            $for_path->get_full_directory_path($one_picture->included_in_album_with_id, "", "name");
+           
+           $picture->keyword = $one_picture->keyword;
+           $picture->name = ($path === "0" ) ? " / ".$one_picture->picture_caption : $path." / ".$one_picture->picture_caption;
+           $picture->is_visible = $one_picture->is_visible;
+           $picture->created_at = $one_picture->created_at;
+           $picture->updated_at = $one_picture->updated_at;
+           
+           //$parent_keyword is required to make a property parent_keyword as a string.
+           $parent_keyword = Album::where('id', $one_picture->included_in_album_with_id)->first();
+           $picture->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
+            
+           array_push($pictures_array, $picture); 
+        }
+        
+        return $pictures_array;
+    }
+    
+    //this function is required to simplify getAllPicturesForSearch function.
+    private function getAllPicturesForSearchFromDataBase($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+        if ($including_invisible) {
+            $pictures = (Picture::where('picture_caption', 'LIKE', '%'.$search_text.'%')->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        } else {
+            //The condition below is just temporary!
+            $pictures = (Picture::where('picture_caption', 'LIKE', '%'.$search_text.'%')->where('is_visible', '=', 1)
+                             ->orderBy(($sort_by_field) ? $sort_by_field : 'created_at', 
+                            ($asc_desc) ? $asc_desc : 'desc')->get());
+        }
+        
+        return $pictures;
     }
     
     //This function returns all albums of some level elements except for 0 level elements.
@@ -111,7 +220,7 @@ class AlbumsRepository {
         }
     }
     
-    private function getAlbum($keyword, $page, $items_amount_per_page, $including_invisible, $sorting_mode, $albums_or_pictures_first = null) {
+    private function getAlbum($keyword, $page, $items_amount_per_page, $including_invisible, $sorting_mode = null, $albums_or_pictures_first = null) {
         //Here we take only first value, because this type of request supposed
         //to give us a collection of items. But in this case as keyword is unique
         //for every single record we will always have only one item, which is
@@ -187,9 +296,9 @@ class AlbumsRepository {
                                                                         $albums_or_pictures_first = null) {
         $for_sort = new CommonRepository();
         
-        $included_albums = $for_sort->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
+        $included_albums = $for_sort->sort_for_albums_or_articles("0", $items_amount_per_page, $sorting_mode, $including_invisible, 
                                                                 'included_albums', $album);        
-        $included_pictures = $for_sort->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, $including_invisible, 
+        $included_pictures = $for_sort->sort_for_albums_or_articles("0", $items_amount_per_page, $sorting_mode, $including_invisible, 
                                                                 'included_pictures', $album);
         
         //Here we are calling method which will merge all pictures and albums from selected album into one array.
@@ -327,7 +436,8 @@ class AlbumsRepository {
                 'albums_or_pictures_first' => ($albums_or_pictures_first) ? $albums_or_pictures_first : 'albums_first',
                 'show_invisible' => $including_invisible == 1 ? 'all' : 'only_visible',
                 //is_admin_panel is required for paginator.
-                'is_admin_panel' => $is_admin_panel
+                'is_admin_panel' => $is_admin_panel,
+                'what_to_search' => 'albums'
                 ]);
     }
     
@@ -366,5 +476,46 @@ class AlbumsRepository {
             array_push($albums_keywords_array, $album_keyword->keyword);
         }    
         return $albums_keywords_array;   
+    }
+    
+    //This function is used for search.
+    public function getAlbumsOrPicturesFromSearch($search_text, $page, $items_amount_per_page, $what_to_search, $show_invisible, $sorting_mode = null) {        
+           
+        $common = new CommonRepository();
+        
+        $items_with_pagination = new AlbumsOrPicturesWithPaginationInfo();
+        
+        //In the next line the data are getting extracted from the database and sorted.
+        //The sixth parameter needs to pass as null to avoid confusion.
+        $all_items = $common->sort_for_albums_or_articles(1, $items_amount_per_page, $sorting_mode, 
+                                                          $show_invisible === "only_visible" ? 0 : 1, $what_to_search, null/*parent directory*/, $search_text);
+        
+        $items_with_pagination->all_items_count = sizeof($all_items["directories_or_files"]);
+        
+        $items_with_pagination->all_items_count_including_invisible = ($what_to_search === "albums") ? Album::where('album_name', 'LIKE', '%'.$search_text.'%')->count() : 
+                                                                       Picture::where('picture_caption', 'LIKE', '%'.$search_text.'%')->count();
+        
+        $items_with_pagination->sorting_asc_or_desc = $all_items["sorting_asc_or_desc"];
+                
+        //The following information we can have only if we have at least one item.
+        if($items_with_pagination->all_items_count > 0) {
+            //The line below cuts all data into pages.
+            //We can do it only if we have at least one item in the array of the full data.
+            $items_cut_into_pages = array_chunk($all_items["directories_or_files"], $items_amount_per_page, false);
+            $items_with_pagination->paginator_info = $common->get_paginator_info($page, $items_cut_into_pages);
+            //We need to do the check below in case user enters a page number more tha actual number of pages,
+            //so we can avoid an error.
+            $items_with_pagination->items_on_page = $items_with_pagination->paginator_info->number_of_pages >= $page ? 
+                                                                $items_cut_into_pages[$page-1] : null;
+        } else {
+            //As we need to know paginator_info->number_of_pages to check the condition
+            //in showAlbumView() method we need to make paginator_info object
+            //and assign its number_of_pages variable. Otherwise we will have an error
+            //if we have any empty folder.
+            $items_with_pagination->paginator_info = new Paginator();
+            $items_with_pagination->paginator_info->number_of_pages = 1;
+        }
+        
+        return $items_with_pagination;
     }
 }

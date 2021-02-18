@@ -103,7 +103,7 @@ class AdminArticlesController extends Controller
         $items_amount_per_page = 14;
         $show_only_visible = ($request->input('show_only_visible') === null) ? 'all' : $request->input('show_only_visible');
         
-        //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to serach mode previous visibility rule
+        //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to search mode previous visibility rule
         //should be discarded.
         $folders_or_articles_with_info = $this->folders->getFoldersOrArticlesFromSearch($request->input('find_by_name'), $request->input('page_number'), 
                                                                 $items_amount_per_page, $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 

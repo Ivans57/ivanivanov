@@ -207,6 +207,14 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/albums/{show_invisible?}/{sorting_mode?}', 'AdminAlbumsController@index');
 });
 
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/albums/search', 'AdminAlbumsController@searchAlbumOrPicture');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/albums/search', 'AdminAlbumsController@searchAlbumOrPicture');
+});
+
 Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/albums/{keyword}/page/{page}/{show_invisible?}/{sorting_mode?}/{albums_or_pictures_first?}', 
                'AdminAlbumsController@show');

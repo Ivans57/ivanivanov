@@ -45,15 +45,13 @@ class AdminAlbumsController extends Controller
         
         //In the next line the data are getting extracted from the database and sorted.
         //The fourth parameter is 'albums', because currently we are working with level 0 albums.
-        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 
+        $sorting_data = $this->common->sort_for_albums_or_articles(0, $items_amount_per_page, $sorting_mode, 
                                                                     $show_invisible === "all" ? 1 : 0, 'albums');
         
         //The variable below is required to show field sorting tools correctly.
-        if ($show_invisible=='all') {
-            $all_items_amount = Album::where('included_in_album_with_id', '=', null)->count();
-        } else {
-            $all_items_amount = Album::where('included_in_album_with_id', '=', null)->where('is_visible', '=', 1)->count();
-        }
+        $all_items_amount = ($show_invisible=='all') ? Album::where('included_in_album_with_id', '=', null)->count() : 
+                                                       Album::where('included_in_album_with_id', '=', null)->where('is_visible', '=', 1)->count();
+        
         
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
@@ -62,7 +60,7 @@ class AdminAlbumsController extends Controller
                 ($sorting_data["directories_or_files"]->currentPage() > $sorting_data["directories_or_files"]->lastPage())) {
                     return $this->common->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
                     $sorting_data["directories_or_files"]->lastPage(), $this->is_admin_panel);
-        } else {
+        } else {    
             return view('adminpages.albums.adminalbums')->with([
             //Below main website links.
             'main_ws_links' => $main_links->mainWSLinks,
@@ -82,7 +80,10 @@ class AdminAlbumsController extends Controller
             'parent_keyword' => "0",
             //The line below is required to show correctly display_invisible elements.
             'all_albums_count' => Album::where('included_in_album_with_id', '=', null)->count(),
-            'all_items_amount' => $all_items_amount
+            'all_items_amount' => $all_items_amount,
+            //The variable below is required for sort to indicate which function to call index or search.
+            'search_is_on' => "0",
+            'what_to_search' => 'albums'   
             ]);
         }    
     }
@@ -90,14 +91,46 @@ class AdminAlbumsController extends Controller
     public function show($keyword, $page, $show_invisible, $sorting_mode = null, $albums_or_pictures_first = null) {
         
         $main_links = $this->common->get_main_links_for_admin_panel_and_website($this->current_page);
-               
-        //We need the variable below to display how many items we need to show per one page
-        $items_amount_per_page = 14;
           
         //We need to call the method below to clutter down current method in controller
         return $this->albums->showAlbumView(Str::lower($this->current_page), 
-                                            $page, $keyword, $items_amount_per_page, $main_links,$this->is_admin_panel, 
-                                            $show_invisible == "only_visible" ? 0 : 1, $sorting_mode, $albums_or_pictures_first);
+                                            $page, $keyword, 14 /*items_amount_per_page*/, $main_links,$this->is_admin_panel, 
+                                            $show_invisible == "only_visible" ? 0 : 1, $sorting_mode, $albums_or_pictures_first);       
+    }
+    
+    public function searchAlbumOrPicture(Request $request) {
+        $items_amount_per_page = 14;
+        $show_only_visible = ($request->input('show_only_visible') === null) ? 'all' : $request->input('show_only_visible');
+        
+        //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to search mode previous visibility rule
+        //should be discarded.
+        $albums_or_pictures_with_info = $this->albums->getAlbumsOrPicturesFromSearch($request->input('find_by_name'), $request->input('page_number'), 
+                                                                $items_amount_per_page, $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
+                                                                $show_only_visible, $request->input('sorting_mode'));
+               
+        $albums_or_pictures = $albums_or_pictures_with_info->items_on_page;
+        $sorting_asc_or_desc = $albums_or_pictures_with_info->sorting_asc_or_desc;
+        $all_items_amount = $albums_or_pictures_with_info->all_items_count;
+        //The variable below is required to display bisibility checkbox properly.
+        $all_items_amount_including_invisible = $albums_or_pictures_with_info->all_items_count_including_invisible;
+        $pagination_info = $albums_or_pictures_with_info->paginator_info;
+        //The variable below is required for sort to indicate which function to call index or search.
+        $search_is_on = "1";
+        $show_invisible = $request->input('search_is_on') == '0' ? 'all' : $show_only_visible;
+        $sorting_method_and_mode = ($request->input('sorting_mode') === null) ? "0" : $request->input('sorting_mode');
+        $section = "albums";
+        $what_to_search = $request->input('what_to_search');
+        
+        $path = "";       
+        $title = view('adminpages.albums.adminalbum_search_album_title')->render();       
+        $control_buttons = view('adminpages.albums.adminalbums_searchcontrolbuttons')->render();
+        
+        $content = view('adminpages.albums.adminalbums_searchcontent', 
+                compact("albums_or_pictures", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "show_invisible", 
+                        "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "what_to_search"))->render();
+        
+        
+        return response()->json(compact('path', 'title', 'control_buttons', 'content'));
     }
     
     public function create($parent_keyword) {           

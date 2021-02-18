@@ -348,11 +348,11 @@ class CommonRepository {
         switch ($what_to_sort) {
             case ('albums'):
                 $for_albums_and_pictures = new AlbumsRepository();
-                $directories_or_files = $for_albums_and_pictures->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
+                $directories_or_files = $for_albums_and_pictures->getAllAlbumsForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
                 break;
             case ('pictures'):
                 $for_albums_and_pictures = new AlbumsRepository();
-                $directories_or_files = $for_albums_and_pictures->getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
+                $directories_or_files = $for_albums_and_pictures->getAllPicturesForSearch($search_text, $including_invisible, $sort_by_field, $asc_or_desc);
                 break;
             case ('folders'):
                 $for_folders_and_articles = new ArticlesRepository();
