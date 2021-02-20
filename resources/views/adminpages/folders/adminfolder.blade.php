@@ -41,7 +41,7 @@
         {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
                         ['class' => 'admin-panel-articles-search-button', 'id' => 'search_button', 'title' => Lang::get('keywords.Search'), 
                          'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
-        </div>
+    </div>
     <!-- The class below is required only for JavaScript purposes.-->
     <div class="admin-panel-articles-content">
         @include('adminpages.folders.adminfolder_content')
