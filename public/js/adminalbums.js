@@ -135,7 +135,7 @@ $( document ).ready(function() {
         }
     }
     
-    $( "#albums_button_edit" ).click(function() {
+    $(document).on("click", "#albums_button_edit", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');
         var selected_checkbox = [];
         for (i = 0; i < all_checkboxes.length; i++) {
@@ -181,7 +181,7 @@ $( document ).ready(function() {
         });
     }
     
-    $( "#albums_button_delete" ).click(function() {
+    $(document).on("click", "#albums_button_delete", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');
         var selected_checkbox_data = "";//In this variable we keep items entity type (directory or file) and keyword.
         //The line below is required to get parent album's keyword, which is necessary for correct hide or show invisible elements activation.
@@ -280,7 +280,7 @@ $( document ).ready(function() {
     
     //The Code below is required if user needs to select or unselect all records by ticking one checkbox.
     //This code also changes a view of control buttons (delete and edit). The control buttons are getting enabled and disabled.
-    $('#albums_all_items_select').click(function() {
+    $(document).on("click", "#albums_all_items_select", function() {
         var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');
         var all_checkboxes_select = document.querySelector('#albums_all_items_select_wrapper');
         var button_edit = document.querySelector('#albums_button_edit');
@@ -316,7 +316,7 @@ $( document ).ready(function() {
     
     //The Code below is making some changes when user is checking separate checkboxes.
     //This way control buttons (delete and edit) view is getting changed. The control buttons are getting enabled and disabled.
-    $('.admin-panel-albums-picture-and-album-checkbox').click(function() {
+    $(document).on("click", ".admin-panel-albums-picture-and-album-checkbox", function() {
         var button_edit = document.querySelector('#albums_button_edit');
         var button_delete = document.querySelector('#albums_button_delete');
         var all_checkboxes = document.querySelectorAll('.admin-panel-albums-picture-and-album-checkbox');

@@ -3,7 +3,7 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article admin-panel-main-article-articles">
-    <div class="admin-panel-articles-control-buttons">
+    <div class="admin-panel-articles-control-buttons" id="control_buttons">
         @include('adminpages.folders.adminfolders_controlbuttons')
     </div>
     @if ($all_folders_count > 1)
@@ -23,11 +23,11 @@
                  'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'search', 'id' => 'search']) !!}
             {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
                     ['class' => 'admin-panel-articles-search-button', 'id' => 'search_button', 'title' => Lang::get('keywords.Search'), 
-                     'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
+                     'data-section' => $section, 'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
         </div>
     @endif
     <!-- The class below is required only for JavaScript purposes.-->
-    <div class="admin-panel-articles-content">
+    <div class="admin-panel-albums-or-articles-content">
         @include('adminpages.folders.adminfolders_content')
     </div>
 </article>
