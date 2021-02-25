@@ -5,7 +5,7 @@
         {!! Form::checkbox('albums_all_items_select', 'value', false, ['id' => 'albums_all_items_select', 
                            'class' => 'admin-panel-albums-picture-and-album-header-checkbox']); !!}
     </div>
-    <div class="admin-panel-albums-picture-and-album-header-field">
+    <div class="admin-panel-albums-picture-and-album-header-field admin-panel-albums-picture-and-album-header-field-name">
         <div class="admin-panel-albums-picture-and-album-header-text-and-caret-wrapper">
             <div class="admin-panel-albums-picture-and-album-header-text">
                 @if ($search_is_on === "0")

@@ -7,7 +7,7 @@
                 {!! Form::checkbox('albums_all_items_select', 'value', false, ['id' => 'albums_all_items_select', 
                                    'class' => 'admin-panel-albums-picture-and-album-header-checkbox']); !!}
             </div>
-            <div class="admin-panel-albums-picture-and-album-header-field">
+            <div class="admin-panel-albums-picture-and-album-header-field admin-panel-albums-picture-and-album-header-field-name">
                 <div class="admin-panel-albums-picture-and-album-header-text-and-caret-wrapper">
                     <div class="admin-panel-albums-picture-and-album-header-text">
                                 <p>@lang('keywords.Name')</p>
@@ -89,7 +89,7 @@
                                            'class' => 'admin-panel-albums-picture-and-album-checkbox' ]) !!}
                     @endif
                 </div>
-                <div class="admin-panel-albums-picture-and-album-body-field">
+                <div class="admin-panel-albums-picture-and-album-body-field admin-panel-albums-picture-and-album-body-field-name">
                     @if ($album_or_picture->type == 'album')
                         <a href={{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyWord."/page/1" : 
                                                          "/ru/admin/albums/".$album_or_picture->keyWord."/page/1" }}>

@@ -564,7 +564,45 @@ main {
 /*Admin Panel Albums part*/
 
 .admin-panel-wrapper .admin-panel-main-article-albums {
-    width: 750px;
+    width: 950px;
+}
+
+.admin-panel-main-article .admin-panel-albums-search {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    margin-right: 5px;
+}
+
+.admin-panel-main-article .admin-panel-albums-search .admin-panel-albums-what-to-search-label {
+    margin-right: 5px;
+    margin-top: 5px;
+    font-family: Arial;
+    font-size: 15px;
+}
+
+.admin-panel-main-article .admin-panel-albums-search .admin-panel-albums-what-to-search {
+    margin-right: 20px;
+    margin-top: 9px;
+}
+
+.admin-panel-main-article .admin-panel-albums-search .admin-panel-albums-search-input {
+    width: 250px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px grey solid;
+    margin-left: 10px;
+}
+
+.admin-panel-main-article .admin-panel-albums-search .admin-panel-albums-search-button {
+    background-color: #2196F3;
+    margin-left: -5px;
+    color: white;
+    border-radius: 3px;
+    height: 30px;
+    width: 30px;
+    border: 1px grey solid;
 }
 
 .admin-panel-main-article .admin-panel-albums-sorting {
@@ -604,18 +642,13 @@ main {
     justify-content: space-between;
     padding-left: 5px;
     padding-right: 5px;
+    margin-bottom: 15px;
 }
 
 .admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons {
     padding-top: 5px;
     display: flex;
     justify-content: space-between;
-}
-
-.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
 }
 
 .admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
@@ -729,7 +762,7 @@ main {
     color: grey;
 }
 
-.admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
+.admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-pictures-and-albums-control-buttons 
 .admin-panel-albums-pictures-and-albums-control-button-enabled:hover {
     filter: brightness(0.95);
 }
@@ -775,6 +808,11 @@ main {
     padding-bottom: 5px;
     background-color: black;
     color: white;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-header-row .admin-panel-albums-picture-and-album-header-field-name {
+    width: 400px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
@@ -865,6 +903,11 @@ main {
     padding-top: 2px;
     background-color: #cccccc;
     word-break: break-all;
+}
+
+.admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 
+.admin-panel-albums-picture-and-album-body-row .admin-panel-albums-picture-and-album-body-field-name {
+    width: 400px;
 }
 
 .admin-panel-main-article .admin-panel-albums-external-pictures-and-albums-wrapper .admin-panel-albums-pictures-and-albums-wrapper 

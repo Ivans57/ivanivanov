@@ -11,7 +11,7 @@ in case we don't have full page-->
                                        'data-entity_type' => 'directory',  'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
                                        'class' => 'admin-panel-albums-picture-and-album-checkbox']); !!}
                 </div>
-                <div class="admin-panel-albums-picture-and-album-body-field">
+                <div class="admin-panel-albums-picture-and-album-body-field admin-panel-albums-picture-and-album-body-field-name">
                     <a href='{{ App::isLocale('en') ? "/admin/albums/".$album->keyword."/page/1" : 
                             "/ru/admin/albums/".$album->keyword."/page/1" }}'>
                         <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">                            
