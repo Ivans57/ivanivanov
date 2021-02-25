@@ -183,19 +183,19 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Delete will be the same for albums and pictures.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/albums/delete/{entity_types_and_keywords}/{parent_album}', 'AdminAlbumsController@delete');
+    Route::get('admin/albums/delete/{entity_types_and_keywords}/{parent_album}/{search_is_on?}', 'AdminAlbumsController@delete');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/albums/delete/{entity_types_and_keywords}/{parent_album}', 'AdminAlbumsController@delete');
+    Route::get('admin/albums/delete/{entity_types_and_keywords}/{parent_album}/{search_is_on?}', 'AdminAlbumsController@delete');
 });
 //Section needs to be specified, otherwise the system will be confused with the route.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/albums/{section}/{entity_types_and_keywords}/{parent_album}', 'AdminAlbumsController@destroy');
+    Route::delete('admin/albums/{section}/{entity_types_and_keywords}/{parent_album}/{search_is_on?}', 'AdminAlbumsController@destroy');
 });
 //Section needs to be specified, otherwise the system will be confused with the route.
 Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/albums/{section}/{entity_types_and_keywords}/{parent_album}', 'AdminAlbumsController@destroy');
+    Route::delete('admin/albums/{section}/{entity_types_and_keywords}/{parent_album}/{search_is_on?}', 'AdminAlbumsController@destroy');
 });
 
 //sorting_mode argument is optional. It is required only for sorting.
@@ -226,19 +226,19 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/albums/{keyword}/edit/{parent_keyword}', 'AdminAlbumsController@edit');
+    Route::get('admin/albums/{keyword}/edit/{parent_keyword}/{search_is_on?}', 'AdminAlbumsController@edit');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/albums/{keyword}/edit/{parent_keyword}', 'AdminAlbumsController@edit');
+    Route::get('admin/albums/{keyword}/edit/{parent_keyword}/{search_is_on?}', 'AdminAlbumsController@edit');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::put('admin/albums/{keyword}', 'AdminAlbumsController@update');
+    Route::put('admin/albums/{keyword}/{parent_album}/{search_is_on?}', 'AdminAlbumsController@update');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::put('admin/albums/{keyword}', 'AdminAlbumsController@update');
+    Route::put('admin/albums/{keyword}/{parent_album}/{search_is_on?}', 'AdminAlbumsController@update');
 });
 
 //End of Albums
@@ -261,19 +261,19 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/pictures/{keyword}/edit/{parent_keyword}', 'AdminPicturesController@edit');
+    Route::get('admin/pictures/{keyword}/edit/{parent_keyword}/{search_is_on?}', 'AdminPicturesController@edit');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/pictures/{keyword}/edit/{parent_keyword}', 'AdminPicturesController@edit');
+    Route::get('admin/pictures/{keyword}/edit/{parent_keyword}/{search_is_on?}', 'AdminPicturesController@edit');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::put('admin/pictures/{keyword}', 'AdminPicturesController@update');
+    Route::put('admin/pictures/{keyword}/{parent_keyword}/{search_is_on?}', 'AdminPicturesController@update');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::put('admin/pictures/{keyword}', 'AdminPicturesController@update');
+    Route::put('admin/pictures/{keyword}/{parent_keyword}/{search_is_on?}', 'AdminPicturesController@update');
 });
 
 //End of Pictures

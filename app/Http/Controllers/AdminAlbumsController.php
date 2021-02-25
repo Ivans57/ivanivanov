@@ -179,7 +179,7 @@ class AdminAlbumsController extends Controller
             ]);
     }
     
-    public function edit($keyword, $parent_keyword) {                 
+    public function edit($keyword, $parent_keyword, $search_is_on) {                 
         if ($parent_keyword != "0") {
             $parent_info = \App\Album::select('id', 'album_name')
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
@@ -203,14 +203,22 @@ class AdminAlbumsController extends Controller
             //when user won't see the full list of directories due to some restrictions
             //and it work when creating or editing picture or articles in a file mode,
             //when user will see a full list of all albums and folders.
-            'mode' => 'directory'
+            'mode' => 'directory',
+            //The two vari/The twables below are required for edit in search mode.
+            'parent_keyword' => $parent_keyword,
+            'search_is_on' => $search_is_on
             ]);
         
     }
     
-    public function update($keyword, CreateEditAlbumRequest $request) {      
+    public function update($keyword, $parent_keyword, $search_is_on, CreateEditAlbumRequest $request) {      
         $this->albums->update($keyword, $request);
 
+        if ($search_is_on === "1") {
+            $new_parent = Album::where('id', $request->included_in_album_with_id)->first();
+            $new_parent_keyword = ($new_parent === null) ? "0" : $new_parent->keyword;
+            $parent_keyword = ($parent_keyword === $new_parent_keyword) ? $parent_keyword : $new_parent_keyword;
+        }
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
         //form and thsi form is launching special
@@ -221,11 +229,15 @@ class AdminAlbumsController extends Controller
             //We need it only to make the variable initialized. Othervise there will be an error.
             'headTitle' => __('keywords.'.$this->current_page),
             //The variable below is required to make proper actions when pop up window closes.
-            'action' => 'update'
+            'action' => 'update',
+            //The three variables below are required for edit in search mode.
+            'parent_keyword' => $parent_keyword,
+            'section' => 'articles',
+            'search_is_on' => $search_is_on
             ]);
     }
     //!Need to fix bug with checkboxes!
-    public function delete($entity_types_and_keywords, $parent_keyword) {
+    public function delete($entity_types_and_keywords, $parent_keyword, $search_is_on) {
         //Getting an array of arrays of directories (albums) and files (pictures).
         //This is required for view when need to mention proper entity names 
         //(folders and articles, or both, single and plural), rules.
@@ -234,10 +246,10 @@ class AdminAlbumsController extends Controller
         
         //There might be three types of views for return depends what user needs to delete,
         //folder(s), article(s), both folders and articles.
-        return $this->albums->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page, $parent_keyword);
+        return $this->albums->return_delete_view($direcotries_and_files, $entity_types_and_keywords, $this->current_page, $parent_keyword, $search_is_on);
     }
     
-    public function destroy($section, $entity_types_and_keywords, $parent_keyword) {    
+    public function destroy($section, $entity_types_and_keywords, $parent_keyword, $search_is_on) {    
         $this->albums->destroy($entity_types_and_keywords);
         
         //The lines below are required to show sorting tools correctly after delete of any item.
@@ -245,8 +257,8 @@ class AdminAlbumsController extends Controller
         
         $parent_directory_is_empty = 1;
         
-        if ((\App\Album::where('included_in_album_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0 || 
-            (\App\Picture::where('included_in_album_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0) {
+        if (((\App\Album::where('included_in_album_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0 || 
+            (\App\Picture::where('included_in_album_with_id', '=', (($parent) ? $parent->id : null))->count()) > 0) && $search_is_on === "0") {
             $parent_directory_is_empty = 0;    
         }
         

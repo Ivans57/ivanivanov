@@ -63,7 +63,7 @@ class AdminPicturesController extends Controller
             ]);
     }
     
-    public function edit($keyword, $parent_keyword) {
+    public function edit($keyword, $parent_keyword, $search_is_on) {
         $edited_picture = Picture::where('keyword', '=', $keyword)->firstOrFail();
         
         if ($parent_keyword != "0") {
@@ -90,13 +90,22 @@ class AdminPicturesController extends Controller
             //when user won't see the full list of directories due to some restrictions
             //and it work when creating or editing picture or articles in a file mode,
             //when user will see a full list of all albums and folders.
-            'mode' => 'file'
+            'mode' => 'file',
+            //The two vari/The twables below are required for edit in search mode.
+            'parent_keyword' => $parent_keyword,
+            'search_is_on' => $search_is_on
             ]);       
     }
     
-    public function update($keyword, EditPictureRequest $request) {      
+    public function update($keyword, $parent_keyword, $search_is_on, EditPictureRequest $request) {      
         $this->pictures->update($keyword, $request);
 
+        if ($search_is_on === "1") {
+            $new_parent = Album::where('id', $request->included_in_album_with_id)->first();
+            $new_parent_keyword = ($new_parent === null) ? "0" : $new_parent->keyword;
+            $parent_keyword = ($parent_keyword === $new_parent_keyword) ? $parent_keyword : $new_parent_keyword;
+        }
+        
         //We need to show an empty form first to close
         //a pop up window. We are opening special close
         //form and thsi form is launching special
@@ -107,26 +116,11 @@ class AdminPicturesController extends Controller
             //We need it only to make the variable initialized. Othervise there will be an error.
             'headTitle' => __('keywords.'.$this->current_page),
             //The variable below is required to make proper actions when pop up window closes.
-            'action' => 'update'
+            'action' => 'update',
+            //The three variables below are required for edit in search mode.
+            'parent_keyword' => $parent_keyword,
+            'section' => 'articles',
+            'search_is_on' => $search_is_on
             ]);
     }
-    
-    /*public function delete($keyword) {        
-        return view('adminpages.pictures.delete_picture')->with([
-            //Actually we do not need any head title as it is just a partial view.
-            //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page),
-            'keyword' => $keyword,
-            ]);
-    }
-    
-    public function destroy($keyword) {    
-        $this->pictures->destroy($keyword);
-        
-        return view('adminpages.form_close')->with([
-            //Actually we do not need any head title as it is just a partial view.
-            //We need it only to make the variable initialized. Othervise there will be an error.
-            'headTitle' => __('keywords.'.$this->current_page)
-            ]);
-    }*/
 }
