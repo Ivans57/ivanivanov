@@ -1,3 +1,4 @@
+{!! Form::hidden('search_is_on', '0', ['id' => 'search_is_on']); !!}
 @if ($allPicturesAmount > 0 || $allAlbumsAmount > 0)
         <div class="admin-panel-albums-sorting">
             {!! Form::label('show_only_visible', Lang::get('keywords.ShowOnlyVisible').':', 
