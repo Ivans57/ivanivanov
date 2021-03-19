@@ -152,12 +152,13 @@ $( document ).ready(function() {
                 edit_album(url, '440px');
             } else {
                 //The variable below is required to keep an element with sorting settings.
-                var sorting_settings = document.querySelector('#show_only_visible');
+                //var sorting_settings = document.querySelector('#show_only_visible');
                 
                 var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
-                var url = localization+'/admin/pictures/'+selected_checkbox[0].dataset.keyword+'/edit/'+
-                          selected_checkbox[0].dataset.parent_keyword+"/"+sorting_settings.value+"/"+
-                          sorting_settings.dataset.old_sorting_method_and_mode+"/"+sorting_settings.dataset.old_directories_or_files_first;
+                /*var url = localization+'/admin/pictures/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword+"/"+
+                          sorting_settings.value+"/"+sorting_settings.dataset.old_sorting_method_and_mode+"/"+sorting_settings.dataset.old_directories_or_files_first;*/
+                var url = localization+'/admin/pictures/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword+"/"+
+                          $("#search_is_on").val();
                 edit_album(url, '545px');
             }
         }
