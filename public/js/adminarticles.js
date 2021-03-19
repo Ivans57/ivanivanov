@@ -108,7 +108,8 @@ $( document ).ready(function() {
         if (selected_checkbox.length === 1) {
             if (selected_checkbox[0].dataset.entity_type === "directory") {
                 var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
-                var url = localization+'/admin/articles/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword+"/"+$("#search_is_on").val();
+                var url = localization+'/admin/articles/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword+"/"+
+                          $("#search_is_on").val();
                 edit_folder(url);
             } else {
                 //The variable below is required to keep an element with sorting settings.

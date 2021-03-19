@@ -147,11 +147,17 @@ $( document ).ready(function() {
         if (selected_checkbox.length === 1) {
             if (selected_checkbox[0].dataset.entity_type === "directory") {
                 var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
-                var url = localization+'/admin/albums/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword;
+                var url = localization+'/admin/albums/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword+"/"+
+                          $("#search_is_on").val();
                 edit_album(url, '440px');
             } else {
+                //The variable below is required to keep an element with sorting settings.
+                var sorting_settings = document.querySelector('#show_only_visible');
+                
                 var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
-                var url = localization+'/admin/pictures/'+selected_checkbox[0].dataset.keyword+'/edit/'+selected_checkbox[0].dataset.parent_keyword;
+                var url = localization+'/admin/pictures/'+selected_checkbox[0].dataset.keyword+'/edit/'+
+                          selected_checkbox[0].dataset.parent_keyword+"/"+sorting_settings.value+"/"+
+                          sorting_settings.dataset.old_sorting_method_and_mode+"/"+sorting_settings.dataset.old_directories_or_files_first;
                 edit_album(url, '545px');
             }
         }
@@ -207,7 +213,7 @@ $( document ).ready(function() {
         }
         if (selected_checkbox_data.length > 0) {
             var localization = (all_checkboxes[0].dataset.localization === "en") ? "" : "/ru";
-            var url = localization+'/admin/albums/delete/'+selected_checkbox_data+"/"+parent_keyword_info.dataset.parent_keyword;  
+            var url = localization+'/admin/albums/delete/'+selected_checkbox_data+"/"+parent_keyword_info.dataset.parent_keyword+"/"+$("#search_is_on").val();  
             
             //Delete window will have different heights depends on what entites and how many of them are in there.
             var window_height = get_delete_album_and_picture_window_height(directories, files, localization);

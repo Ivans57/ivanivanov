@@ -111,21 +111,21 @@ class AdminAlbumsRepository extends AlbumsRepository {
     
     //There might be three types of views for return depends what user needs to delete,
     //album(s), picture(s), both albums and pictures.
-    public function return_delete_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword) {
+    public function return_delete_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on) {
         //This case is for albums.
         if (sizeof($direcotries_and_files_array[0]) > 0 && sizeof($direcotries_and_files_array[1]) == 0) {
-            return $this->return_delete_album_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword);
+            return $this->return_delete_album_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on);
             //This case is for pictures.    
         } else if (sizeof($direcotries_and_files_array[1]) > 0 && sizeof($direcotries_and_files_array[0]) == 0) {
-            return $this->return_delete_picture_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword);
+            return $this->return_delete_picture_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on);
         //This case is for both albums and pictures.    
         } else if (sizeof($direcotries_and_files_array[0]) > 0 && sizeof($direcotries_and_files_array[1]) > 0) {
-            return $this->return_delete_album_and_picture_view($entity_types_and_keywords, $current_page, $parent_keyword);
+            return $this->return_delete_album_and_picture_view($entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on);
         }
     }
     
     //This delete view is for folders.
-    private function return_delete_album_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword) {
+    private function return_delete_album_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on) {
         return view('adminpages.directory.delete_directory')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
@@ -135,12 +135,14 @@ class AdminAlbumsRepository extends AlbumsRepository {
             'section' => 'albums',
             'plural_or_singular' => (sizeof($direcotries_and_files_array[0]) > 1) ? 'plural' : 'singular',
             //parent_keyword variable is required only to update page correctly after deleting elements.
-            'parent_keyword' => $parent_keyword
+            'parent_keyword' => $parent_keyword,
+            //The variable below is required to redirect user to a proper page after delete, which depends on whether user is using search mode or not.
+            'search_is_on' => $search_is_on
             ]);
     }
     
     //This delete view is for articles.
-    private function return_delete_picture_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword) {
+    private function return_delete_picture_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on) {
         return view('adminpages.pictures.delete_picture')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
@@ -150,12 +152,14 @@ class AdminAlbumsRepository extends AlbumsRepository {
             'section' => 'albums',
             'plural_or_singular' => (sizeof($direcotries_and_files_array[1]) > 1) ? 'plural' : 'singular',
             //parent_keyword variable is required only to update page correctly after deleting elements.
-            'parent_keyword' => $parent_keyword
+            'parent_keyword' => $parent_keyword,
+            //The variable below is required to redirect user to a proper page after delete, which depends on whether user is using search mode or not.
+            'search_is_on' => $search_is_on
             ]);
     }
     
     //This delete view is for both folders and articles.
-    private function return_delete_album_and_picture_view($entity_types_and_keywords, $current_page, $parent_keyword) {
+    private function return_delete_album_and_picture_view($entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on) {
         return view('adminpages.directory.delete_directories_and_files')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
@@ -164,7 +168,9 @@ class AdminAlbumsRepository extends AlbumsRepository {
             //The line below is required for form path.
             'section' => 'albums',
             //parent_keyword variable is required only to update page correctly after deleting elements.
-            'parent_keyword' => $parent_keyword
+            'parent_keyword' => $parent_keyword,
+            //The variable below is required to redirect user to a proper page after delete, which depends on whether user is using search mode or not.
+            'search_is_on' => $search_is_on
             ]);
     }
     
