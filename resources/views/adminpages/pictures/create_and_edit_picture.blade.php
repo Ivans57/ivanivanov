@@ -12,8 +12,8 @@
                          'enctype' => 'multipart/form-data' ]) !!}
     @else
         {!! Form::model($edited_picture, [ 'method' => 'PUT', 
-                                             'url' => App::isLocale('en') ? "/admin/pictures/".$edited_picture->keyword : 
-                                             "/ru/admin/pictures/".$edited_picture->keyword,
+                                             'url' => App::isLocale('en') ? "/admin/pictures/".$edited_picture->keyword."/".$parent_keyword."/".$search_is_on : 
+                                             "/ru/admin/pictures/".$edited_picture->keyword."/".$parent_keyword."/".$search_is_on,
                                              'data-localization' => App::isLocale('en') ? "en" : "ru",
                                              'data-section' => $section,
                                              'data-mode' => $mode,
