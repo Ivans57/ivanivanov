@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AdminAlbumsRepository;
+use App\Album;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters low case.
 use Illuminate\Support\Str;
 use App\Http\Requests\CreateEditAlbumRequest;
-use App\Album;
+//The reuqtes below is required for search.
+use Illuminate\Http\Request;
 
 
 class AdminAlbumsController extends Controller
@@ -97,7 +99,7 @@ class AdminAlbumsController extends Controller
                                             $page, $keyword, 14 /*items_amount_per_page*/, $main_links,$this->is_admin_panel, 
                                             $show_invisible == "only_visible" ? 0 : 1, $sorting_mode, $albums_or_pictures_first);       
     }
-    
+                    
     public function searchAlbumOrPicture(Request $request) {
         $items_amount_per_page = 14;
         $show_only_visible = ($request->input('show_only_visible') === null) ? 'all' : $request->input('show_only_visible');

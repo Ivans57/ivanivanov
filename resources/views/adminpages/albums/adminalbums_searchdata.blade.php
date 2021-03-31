@@ -7,17 +7,17 @@ in case we don't have full page-->
             <div class="admin-panel-albums-picture-and-album-body-row">
                 <div class="admin-panel-albums-picture-and-album-body-field">
                     {!! Form::checkbox('item_select', 1, false, 
-                                      ['data-keyword' => $album->keyword, 'data-parent_keyword' => $parent_keyword,
+                                      ['data-keyword' => $album_or_picture->keyword, 'data-parent_keyword' => $album_or_picture->parent_keyword,
                                        'data-entity_type' => ($what_to_search === 'folders') ? 'directory' : 'file', 
                                        'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
                                        'class' => 'admin-panel-albums-picture-and-album-checkbox']); !!}
                 </div>
                 <div class="admin-panel-albums-picture-and-album-body-field admin-panel-albums-picture-and-album-body-field-name">
                     @if ($what_to_search === 'albums')
-                        <a href='{{ App::isLocale('en') ? "/admin/albums/".$album->keyword."/page/1" : 
-                                "/ru/admin/albums/".$album->keyword."/page/1" }}'>
+                        <a href='{{ App::isLocale('en') ? "/admin/albums/".$album_or_picture->keyword."/page/1" : 
+                                "/ru/admin/albums/".$album_or_picture->keyword."/page/1" }}'>
                             <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">                            
-                                <img src="{{ ($album->is_visible==1) ? URL::asset('images/icons/album_folder.png') : 
+                                <img src="{{ ($album_or_picture->is_visible==1) ? URL::asset('images/icons/album_folder.png') : 
                                               URL::asset('images/icons/album_folder_bnw.png') }}" class="admin-panel-albums-albums-picture-image">                                                                   
                                 <div class="admin-panel-albums-picture-and-album-title">
                                     <p>{{ $album_or_picture->name }}</p>
