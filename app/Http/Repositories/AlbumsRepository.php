@@ -64,6 +64,9 @@ class AlbumOrPictureForSearch {
     public $created_at;
     public $updated_at;
     public $parent_keyword;
+    //The last two properties are only for pictures
+    public $path_to_file;
+    public $file_name;
 }
 
 
@@ -134,7 +137,7 @@ class AlbumsRepository {
         
         $pictures_array = [];
         
-        $for_path = new AlbumOrPictureForSearch();
+        $for_path = new AlbumParentsRepository();
         
         foreach ($pictures as $one_picture) {
            $picture = new AlbumOrPictureForSearch();
@@ -147,6 +150,11 @@ class AlbumsRepository {
            $picture->is_visible = $one_picture->is_visible;
            $picture->created_at = $one_picture->created_at;
            $picture->updated_at = $one_picture->updated_at;
+           
+           //The root path will look like like this, because we are getting pictures from storage folder via link in public folder.
+           $picture->path_to_file = (App::isLocale('en') ? 'storage/albums/en' : 'storage/albums/ru').
+                                    ((new AdminPicturesRepository())->getDirectoryPath($one_picture->included_in_album_with_id))."/";
+           $picture->file_name = $one_picture->file_name;
            
            //$parent_keyword is required to make a property parent_keyword as a string.
            $parent_keyword = Album::where('id', $one_picture->included_in_album_with_id)->first();
