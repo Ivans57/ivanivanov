@@ -122,9 +122,9 @@ $( document ).ready(function() {
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
     $(document).on("click", ".turn-page", function() {/*++*/      
-        var current_sorting_method_element;  
+        var current_sorting_method_element;
         //The condition below is checking which section is being used. Depends on the section need to choose proper element.
-        if ($(".admin-panel-albums-picture-and-album-header-caret-used").length) {
+        if ($(".admin-panel-albums-picture-and-album-header-caret-used").length === 0) {
                 current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
             } else {
                 current_sorting_method_element = document.querySelector('.admin-panel-albums-picture-and-album-header-caret-used');
