@@ -24,7 +24,7 @@ $( document ).ready(function() {
                           get_directories_or_files_first($("#show_only_visible").data('old_directories_or_files_first')));
         } else {
             search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 
-                          $("#show_only_visible").val(), 1, $(this).attr('id'), $(this).data('sorting_mode'));
+                          $("#show_only_visible").val(), 1, $(this).attr('id')+"_"+$(this).data('sorting_mode'));
         }
     });
 
@@ -38,6 +38,8 @@ $( document ).ready(function() {
 
     //This function is required if we need to display or hide invisible items.
     $(document).on("click", "#show_only_visible", function() {/*++*/
+        var element_with_info = document.querySelector('#show_only_visible');
+        
         if($("#search_is_on").val() === '0') {
             var element_with_info = document.querySelector('#show_only_visible');    
             var directories_or_files_first = get_directories_or_files_first(element_with_info.dataset.old_directories_or_files_first);
@@ -45,7 +47,9 @@ $( document ).ready(function() {
             sort_elements(element_with_info, element_with_info.dataset.old_sorting_method_and_mode,(($(this).val() === 'all') ? 'only_visible' : 'all'), 
                           directories_or_files_first);
         } else {
-            var current_sorting_method_element;
+            search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 
+                         'only_visible' : 'all'), 1, element_with_info.dataset.old_sorting_method_and_mode);
+            /*var current_sorting_method_element;
             //The condition below is checking which section is being used. Depends on the section need to choose proper element.
             if ($(".admin-panel-albums-picture-and-album-header-caret-used").length) {
                 current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
@@ -58,7 +62,7 @@ $( document ).ready(function() {
             } else {
                 search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 
                          'only_visible' : 'all'), 1, current_sorting_method_element.id, (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
-            }
+            }*/
         }
     });
 
@@ -137,20 +141,16 @@ $( document ).ready(function() {
             go_to_page_number = go_to_page_number + 1;
         }
         
+        var sorting_mode = (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc";
         //The first parameter will always be "1", because pagination arrows for search will appear only when search mode is on.
         search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), go_to_page_number, 
-               current_sorting_method_element.id, (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
+               (current_sorting_method_element.id+"_"+sorting_mode));
     });
     
     //The function below is calling search function.
     //The last two parameters we have to pass separately, because depending on whether a user is going two swicth within
     //different sorting modes or turn the pages, needs to be applied current sorting mode (asc or desc) or opposite one.
-    function search(search_is_on, url, find_by_name, what_to_search, show_only_visible, page_number, sorting_method = null, sorting_mode = null) {/*++*/
-        if (sorting_method === null || sorting_mode === null) {
-            var sorting_method_and_mode = null;
-        } else {
-            var sorting_method_and_mode = sorting_method+"_"+sorting_mode;
-        }
+    function search(search_is_on, url, find_by_name, what_to_search, show_only_visible, page_number, sorting_method_and_mode = null) {/*++*/
         $.ajax({
                 type: "POST",
                 url: url,

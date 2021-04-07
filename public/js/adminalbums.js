@@ -48,7 +48,7 @@ $( document ).ready(function() {
         });
     }
 
-    var albums_control_buttons = document.querySelectorAll('.admin-panel-albums-pictures-and-albums-control-button');
+    /*var albums_control_buttons = document.querySelectorAll('.admin-panel-albums-pictures-and-albums-control-button');
     //var folder_links = document.querySelectorAll('.admin-panel-albums-picture-and-album-control-button-link');    
     //getting through the array of elements and applying required function
     //for all of them. We don't need these elements id anymore.
@@ -60,7 +60,11 @@ $( document ).ready(function() {
             folder_button.classList.remove('admin-panel-albums-pictures-and-albums-control-button');
             folder_button.classList.add('admin-panel-albums-pictures-and-albums-control-button-pressed');
         });
-    }
+    }*/
+    
+    $(document).on("click", ".admin-panel-albums-pictures-and-albums-control-button", function() {
+        $(this).removeClass("admin-panel-albums-pictures-and-albums-control-button").addClass("admin-panel-albums-pictures-and-albums-control-button-pressed");
+    });
     
     //We need this script to open new Album create page in fancy box window.
     $(".admin-panel-albums-add-album-button-link").fancybox({
