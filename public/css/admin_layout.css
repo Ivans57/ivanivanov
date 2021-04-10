@@ -248,7 +248,7 @@ main {
     height: 26px;
     min-width: 74px;
     border: #a8a8a8 1px solid;
-    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .admin-panel-main-article .admin-panel-keywords-add-keyword-button {
@@ -663,6 +663,7 @@ main {
     height: 26px;
     min-width: 74px;
     border: #a8a8a8 1px solid;
+    margin-top: 5px;
 }
 
 .admin-panel-main-article .admin-panel-albums-control-buttons .admin-panel-albums-add-picture-album-wrapper 
@@ -1143,6 +1144,7 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
     height: 26px;
     min-width: 74px;
     border: #a8a8a8 1px solid;
+    margin-top: 5px;
 }
 
 .admin-panel-main-article .admin-panel-articles-control-buttons .admin-panel-articles-add-article-folder-wrapper 
