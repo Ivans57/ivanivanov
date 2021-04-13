@@ -127,8 +127,6 @@ class AdminAlbumsController extends Controller
         $title = view('adminpages.albums.adminalbum_search_album_title')->render();       
         $control_buttons = view('adminpages.albums.adminalbums_searchcontrolbuttons')->render();
         
-        //!Consider variable $pathToFile!
-        
         $content = view('adminpages.albums.adminalbums_searchcontent', 
                 compact("albums_or_pictures", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "show_invisible", 
                         "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "what_to_search"))->render();
@@ -234,7 +232,7 @@ class AdminAlbumsController extends Controller
             'action' => 'update',
             //The three variables below are required for edit in search mode.
             'parent_keyword' => $parent_keyword,
-            'section' => 'articles',
+            'section' => 'albums',
             'search_is_on' => $search_is_on
             ]);
     }

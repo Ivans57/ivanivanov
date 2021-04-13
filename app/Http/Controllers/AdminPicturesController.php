@@ -119,7 +119,7 @@ class AdminPicturesController extends Controller
             'action' => 'update',
             //The three variables below are required for edit in search mode.
             'parent_keyword' => $parent_keyword,
-            'section' => 'articles',
+            'section' => 'albums',
             'search_is_on' => $search_is_on
             ]);
     }

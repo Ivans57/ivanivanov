@@ -8,7 +8,7 @@ in case we don't have full page-->
                 <div class="admin-panel-albums-picture-and-album-body-field">
                     {!! Form::checkbox('item_select', 1, false, 
                                       ['data-keyword' => $album_or_picture->keyword, 'data-parent_keyword' => $album_or_picture->parent_keyword,
-                                       'data-entity_type' => ($what_to_search === 'folders') ? 'directory' : 'file', 
+                                       'data-entity_type' => ($what_to_search === 'albums') ? 'directory' : 'file', 
                                        'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
                                        'class' => 'admin-panel-albums-picture-and-album-checkbox']); !!}
                 </div>
