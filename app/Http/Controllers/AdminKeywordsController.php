@@ -155,8 +155,9 @@ class AdminKeywordsController extends Controller
             //The variable below is required to make proper actions when pop up window closes.
             'action' => 'update',
             'section' => 'keywords',
-            //The variable below is required only to avoid error, as the same form for many controllers has been used.
+            //Two variables below are required only to avoid error, as the same form for many controllers has been used.
             'parent_keyword' => '0',
+            'search_is_on' => '0'
             ]);
     }
     
@@ -181,9 +182,10 @@ class AdminKeywordsController extends Controller
             //Four variables below are required to make proper actions when pop up window closes.
             'action' => 'destroy',
             'section' => 'keywords',
-            //The variable below is required only to avoid error, as the same form for many controllers has been used.
+            'parent_directory_is_empty' => (\App\Keyword::count()) > 0 ? 0 : 1,
+            //Two variables below are required only to avoid error, as the same form for many controllers has been used.
             'parent_keyword' => '0',
-            'parent_directory_is_empty' => (\App\Keyword::count()) > 0 ? 0 : 1
+            'search_is_on' => '0'
             ]);              
     }
 }
