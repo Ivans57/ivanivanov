@@ -4,7 +4,8 @@
     {!! Form::hidden('action', $action, ['id' => 'action']) !!}
     <!--Hidden fields below are required only when user is deleting an item. -->   
     @if ($action == 'update' || $action == 'destroy')
-        {!! Form::hidden('parent_keyword_and_section', $parent_keyword, ['id' => 'parent_keyword_and_section', 'data-section' => $section, 
+        <!--The elemnt below has to be called "parent_keyword_and_section_closing" to avoid confusion with a delete form which was opened before in the same fancybox.-->
+        {!! Form::hidden('parent_keyword_and_section_closing', $parent_keyword, ['id' => 'parent_keyword_and_section_closing', 'data-section' => $section, 
                                                                              'data-localization' => App::isLocale('en') ? "en" : "ru"]) !!}
     @endif                                                                     
     @if ($action == 'update')

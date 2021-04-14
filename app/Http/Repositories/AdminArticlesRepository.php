@@ -63,7 +63,7 @@ class AdminArticlesRepository extends ArticlesRepository {
             return $this->return_delete_article_view($direcotries_and_files_array, $entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on);
         //This case is for both folders and articles.    
         } else if (sizeof($direcotries_and_files_array[0]) > 0 && sizeof($direcotries_and_files_array[1]) > 0) {
-            return $this->return_delete_folder_and_article_view($entity_types_and_keywords, $current_page, $parent_keyword);
+            return $this->return_delete_folder_and_article_view($entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on);
         }
     }
     
@@ -102,7 +102,7 @@ class AdminArticlesRepository extends ArticlesRepository {
     }
     
     //This delete view is for both folders and articles.
-    private function return_delete_folder_and_article_view($entity_types_and_keywords, $current_page, $parent_keyword) {
+    private function return_delete_folder_and_article_view($entity_types_and_keywords, $current_page, $parent_keyword, $search_is_on) {
         return view('adminpages.directory.delete_directories_and_files')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.
@@ -111,7 +111,9 @@ class AdminArticlesRepository extends ArticlesRepository {
             //The line below is required for form path.
             'section' => 'articles',
             //parent_keyword variable is required only to update page correctly after deleting elements.
-            'parent_keyword' => $parent_keyword
+            'parent_keyword' => $parent_keyword,
+            //The variable below is required to redirect user to a proper page after delete, which depends on whether user is using search mode or not.
+            'search_is_on' => $search_is_on
             ]);
     }
     

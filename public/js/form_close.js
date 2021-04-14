@@ -10,13 +10,12 @@ $( document ).ready(function() {
         var parent_directory_is_empty;
     }
     if (typeof window.parent.$.fancybox!=='undefined') {
-        parent_keyword_and_section = document.querySelector('#parent_keyword_and_section');
+        parent_keyword_and_section = document.querySelector('#parent_keyword_and_section_closing');
         if (action === 'destroy') {
             parent_directory_is_empty = document.querySelector('#parent_directory_is_empty');
         }
         window.parent.$.fancybox.close();
     }
-    
     if (action === 'destroy' || action === 'update') {
         var url;
         var localization = (parent_keyword_and_section.dataset.localization === "en") ? "" : "/ru";
