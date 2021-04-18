@@ -50,7 +50,7 @@ class AlbumsController extends Controller {
 
         //In the next line the data are getting extracted from the database and sorted.
         //The fourth parameter is 'folders', because currently we are working with level 0 folders.
-        $sorting_data = $this->common->sort_for_albums_or_articles($items_amount_per_page, $sorting_mode, 1, 'albums');
+        $sorting_data = $this->common->sort_for_albums_or_articles(0, $items_amount_per_page, $sorting_mode, 1, 'albums');
         
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
