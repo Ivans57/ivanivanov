@@ -99,6 +99,14 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('articles/{keyword}', 'ArticlesController@showArticle');
 });
 
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('articles/search', 'ArticlesController@searchFolderOrArticle');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('articles/search', 'ArticlesController@searchFolderOrArticle');
+});
+
 //------------------------------------------------------------------------------
 
 /*Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

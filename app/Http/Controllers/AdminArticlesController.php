@@ -9,7 +9,7 @@ use App\Http\Requests\CreateEditFolderRequest;
 //The reuqtes below is required for search.
 use Illuminate\Http\Request;
 //We need the line below to peform some manipulations with strings
-//e.g. making all string letters lowe case.
+//e.g. making all string letters lower case.
 use Illuminate\Support\Str;
 
 

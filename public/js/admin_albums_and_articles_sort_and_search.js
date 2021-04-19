@@ -18,7 +18,7 @@ $( document ).ready(function() {
     
     //Sorting by name, creation date and time, update date and time.
     //There will be two sort modes normal and for search.
-    $(document).on("click", ".sort", function() {/*+*/
+    $(document).on("click", ".sort", function() {
         if ($(this).data('search_is_on') === 0) {           
             sort_elements($("#show_only_visible")[0], $(this).attr('id')+"_"+$(this).data('sorting_mode'), $('input[name="show_only_visible"]').val(), 
                           get_directories_or_files_first($("#show_only_visible").data('old_directories_or_files_first')));
@@ -29,7 +29,7 @@ $( document ).ready(function() {
     });
 
     //This function is required to show folders(albums) or articles(pictures) first.
-    $('input[name="directories_or_files_first"]').change(function() {/*+*/
+    $('input[name="directories_or_files_first"]').change(function() {
         var element_with_info = document.querySelector('#show_only_visible');
 
         sort_elements(element_with_info, element_with_info.dataset.old_sorting_method_and_mode, $('input[name="show_only_visible"]').val(), 
@@ -37,7 +37,7 @@ $( document ).ready(function() {
     });
 
     //This function is required if we need to display or hide invisible items.
-    $(document).on("click", "#show_only_visible", function() {/*++*/
+    $(document).on("click", "#show_only_visible", function() {
         var element_with_info = document.querySelector('#show_only_visible');
         
         if($("#search_is_on").val() === '0') {
@@ -49,25 +49,11 @@ $( document ).ready(function() {
         } else {
             search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 
                          'only_visible' : 'all'), 1, element_with_info.dataset.old_sorting_method_and_mode);
-            /*var current_sorting_method_element;
-            //The condition below is checking which section is being used. Depends on the section need to choose proper element.
-            if ($(".admin-panel-albums-picture-and-album-header-caret-used").length) {
-                current_sorting_method_element = document.querySelector('.admin-panel-articles-article-and-folder-header-caret-used');
-            } else {
-                current_sorting_method_element = document.querySelector('.admin-panel-albums-picture-and-album-header-caret-used');
-            }
-            if (current_sorting_method_element === null) {
-                search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 
-                      (($(this).val() === 'all') ? 'only_visible' : 'all'), 1);
-            } else {
-                search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), (($(this).val() === 'all') ? 
-                         'only_visible' : 'all'), 1, current_sorting_method_element.id, (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc");
-            }*/
         }
     });
 
     //This function is required to remove extra code from sorting functions.
-    function get_directories_or_files_first(old_directories_or_files_first) {/*+*/
+    function get_directories_or_files_first(old_directories_or_files_first) {
         var directories_or_files_first = $("input[name='directories_or_files_first']:checked").val();
         if (typeof directories_or_files_first === 'undefined') {
             //The line below is required to keep old_directories_or_files_first setting in case this elements disappear 
@@ -111,7 +97,7 @@ $( document ).ready(function() {
     
     //++++++++++++++++++++++Search+++++++++++++++++++++++++++
     //This function is required for localization application.
-    function make_search_url() {/*++*/
+    function make_search_url() {
         var url_for_search_without_localization = "/admin/"+$("#search_button").data('section')+"/search";
         var localization = $("#search_button").data('localization');
         var url_for_search = (localization === 'en') ? url_for_search_without_localization : "/"+localization+url_for_search_without_localization;
@@ -119,13 +105,13 @@ $( document ).ready(function() {
         return url_for_search;
     }
     
-    $("#search_button").click(function() {/*+*/
+    $("#search_button").click(function() {
         //The fifth parameter will be always 'all', because when searching something again, need to drop all filters and sortings.
-        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 'all', 1);
+        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 1);
     });   
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
-    $(document).on("click", ".turn-page", function() {/*++*/      
+    $(document).on("click", ".turn-page", function() {     
         var current_sorting_method_element;
         //The condition below is checking which section is being used. Depends on the section need to choose proper element.
         if ($(".admin-panel-albums-picture-and-album-header-caret-used").length === 0) {
@@ -143,19 +129,19 @@ $( document ).ready(function() {
         
         var sorting_mode = (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc";
         //The first parameter will always be "1", because pagination arrows for search will appear only when search mode is on.
-        search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), go_to_page_number, 
+        search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), go_to_page_number, 
                (current_sorting_method_element.id+"_"+sorting_mode));
     });
     
     //The function below is calling search function.
     //The last two parameters we have to pass separately, because depending on whether a user is going two swicth within
     //different sorting modes or turn the pages, needs to be applied current sorting mode (asc or desc) or opposite one.
-    function search(search_is_on, url, find_by_name, what_to_search, show_only_visible, page_number, sorting_method_and_mode = null) {/*++*/
+    function search(search_is_on, url, find_by_name, what_to_search, page_number, sorting_method_and_mode = null) {
         $.ajax({
                 type: "POST",
                 url: url,
                 data: {search_is_on: search_is_on, find_by_name: find_by_name, page_number: page_number, 
-                       what_to_search: what_to_search, sorting_mode: sorting_method_and_mode, show_only_visible: show_only_visible},
+                       what_to_search: what_to_search, sorting_mode: sorting_method_and_mode},
                 success: function(data) {
                     //On some views some elements (divs) won't exist, that's why some checks are required.
                     //In the first case, we still need that div, but becuase it doesn't exist in folders, need to add it.
@@ -169,7 +155,7 @@ $( document ).ready(function() {
                     if ($(".path-panel").length) {
                         $('.path-panel').html(data.path);
                     }
-                    $('#control_buttons').html(data.control_buttons);
+                    //$('#control_buttons').html(data.control_buttons);
                     $('.admin-panel-albums-or-articles-content').html(data.content);
                 }
             });

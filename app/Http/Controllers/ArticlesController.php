@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\ArticlesRepository;
-//use Illuminate\Http\Request;
+use App\Folder;
+//The reuqtes below is required for search.
+use Illuminate\Http\Request;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lowe case.
 use Illuminate\Support\Str;
@@ -19,7 +21,7 @@ class ArticlesController extends Controller
     //site and admin panel.
     protected $is_admin_panel;
     
-    public function __construct(ArticlesRepository $articles){
+    public function __construct(ArticlesRepository $articles) {
 
         $this->folders = $articles;
         $this->current_page = 'Articles';
@@ -32,7 +34,7 @@ class ArticlesController extends Controller
         $this->is_admin_panel = false;
     }
 
-    public function index($sorting_mode = null){  
+    public function index($sorting_mode = null) {  
         
         $main_links = $this->common->get_main_website_links($this->current_page);
              
@@ -57,7 +59,10 @@ class ArticlesController extends Controller
                 'folders' => $sorting_data["directories_or_files"],
                 'section' => Str::lower($this->current_page),
                 'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
-                'items_amount_per_page' => $items_amount_per_page
+                'items_amount_per_page' => $items_amount_per_page,
+                //The line below is required to show correctly display_invisible elements.
+                'all_folders_count' => Folder::where('included_in_folder_with_id', '=', null)->count(),
+                'what_to_search' => 'folders'
                 ]);
         }
     }
@@ -74,13 +79,13 @@ class ArticlesController extends Controller
                     $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 0, $sorting_mode, $folders_or_articles_first);
     }
     
-    public function showArticle($keyword){
+    public function showArticle($keyword) {
         
         $main_links = $this->common->get_main_website_links($this->current_page);
         
         $article = $this->folders->getArticle($keyword);
         
-        return view('pages.article')->with([
+        return view('pages.folders_and_articles.article')->with([
             'main_links' => $main_links,
             'headTitle' => $article->article->article_title,
             'article_description' => $article->article->article_description,
@@ -90,5 +95,41 @@ class ArticlesController extends Controller
             'created_at' => $article->article->created_at,
             'articleParents' => $article->articleParents
             ]);
+    }
+    
+    public function searchFolderOrArticle(Request $request) {
+        $items_amount_per_page = 14;
+        //$show_only_visible = ($request->input('show_only_visible') === null) ? 'all' : $request->input('show_only_visible');
+        
+        //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to search mode previous visibility rule
+        //should be discarded.
+        $folders_or_articles_with_info = $this->folders->getFoldersOrArticlesFromSearch($request->input('find_by_name'), $request->input('page_number'), 
+                                                                $items_amount_per_page, $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
+                                                                1/*$show_only_visible*/, $request->input('sorting_mode'));
+        
+        //Need to check if all variables below are being used!
+        $folders_or_articles = $folders_or_articles_with_info->items_on_page;
+        $sorting_asc_or_desc = $folders_or_articles_with_info->sorting_asc_or_desc;
+        $all_items_amount = $folders_or_articles_with_info->all_items_count;
+        //The variable below is required to display bisibility checkbox properly.
+        $all_items_amount_including_invisible = $folders_or_articles_with_info->all_items_count_including_invisible;//This variable possibly is not required!
+        $pagination_info = $folders_or_articles_with_info->paginator_info;
+        //The variable below is required for sort to indicate which function to call index or search.
+        $search_is_on = "1";
+        $show_invisible = "0";
+        $sorting_method_and_mode = ($request->input('sorting_mode') === null) ? "0" : $request->input('sorting_mode');
+        $section = "articles";
+        $what_to_search = $request->input('what_to_search');
+        
+        $path = "";       
+        $title = view('pages.folders_and_articles.folder_search_title')->render();       
+        //$control_buttons = view('adminpages.folders.adminfolders_searchcontrolbuttons')->render();
+        
+        $content = view('pages.folders_and_articles.folders_searchcontent', 
+                compact("folders_or_articles", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "show_invisible", 
+                        "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "what_to_search"))->render();
+        
+        
+        return response()->json(compact('path', 'title', /*'control_buttons',*/ 'content'));
     }
 }

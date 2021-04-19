@@ -266,7 +266,8 @@ class ArticlesRepository {
                 'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
                 'directories_or_files_first' => ($folders_or_articles_first) ? $folders_or_articles_first : 'folders_first',
                 //is_admin_panel is required for paginator.
-                'is_admin_panel' => $is_admin_panel
+                'is_admin_panel' => $is_admin_panel,
+                'what_to_search' => 'folders'
                 ]);
     }
     
