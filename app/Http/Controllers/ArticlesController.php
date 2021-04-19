@@ -98,8 +98,8 @@ class ArticlesController extends Controller
     }
     
     public function searchFolderOrArticle(Request $request) {
+        //The variable below is being used in getFoldersOrArticlesFromSearch() and view() functions.
         $items_amount_per_page = 14;
-        //$show_only_visible = ($request->input('show_only_visible') === null) ? 'all' : $request->input('show_only_visible');
         
         //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to search mode previous visibility rule
         //should be discarded.
@@ -109,27 +109,23 @@ class ArticlesController extends Controller
         
         //Need to check if all variables below are being used!
         $folders_or_articles = $folders_or_articles_with_info->items_on_page;
-        $sorting_asc_or_desc = $folders_or_articles_with_info->sorting_asc_or_desc;
         $all_items_amount = $folders_or_articles_with_info->all_items_count;
         //The variable below is required to display bisibility checkbox properly.
-        $all_items_amount_including_invisible = $folders_or_articles_with_info->all_items_count_including_invisible;//This variable possibly is not required!
         $pagination_info = $folders_or_articles_with_info->paginator_info;
         //The variable below is required for sort to indicate which function to call index or search.
         $search_is_on = "1";
-        $show_invisible = "0";
         $sorting_method_and_mode = ($request->input('sorting_mode') === null) ? "0" : $request->input('sorting_mode');
         $section = "articles";
         $what_to_search = $request->input('what_to_search');
         
         $path = "";       
         $title = view('pages.folders_and_articles.folder_search_title')->render();       
-        //$control_buttons = view('adminpages.folders.adminfolders_searchcontrolbuttons')->render();
         
         $content = view('pages.folders_and_articles.folders_searchcontent', 
-                compact("folders_or_articles", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "show_invisible", 
-                        "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "what_to_search"))->render();
+                compact("folders_or_articles", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "sorting_method_and_mode", 
+                        "section", "what_to_search"))->render();
         
         
-        return response()->json(compact('path', 'title', /*'control_buttons',*/ 'content'));
+        return response()->json(compact('path', 'title', 'content'));
     }
 }

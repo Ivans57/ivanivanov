@@ -17,7 +17,7 @@
         @endif
     </div>
     <!-- The class below is only for js purposes -->
-    <div>
+    <div class="albums-or-articles-title">
         @include('pages.folders_and_articles.folder_folder_title')
     </div>
     <div class="admin-panel-articles-search">
@@ -39,7 +39,7 @@
                          'data-section' => $section, 'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
     </div>
     <!-- The class below is required only for JavaScript purposes.-->
-    <div class="admin-panel-albums-or-articles-content">
+    <div class="albums-or-articles-content">
         @include('pages.folders_and_articles.folder_content')
     </div>   
 </article>

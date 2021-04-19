@@ -107,7 +107,7 @@ $( document ).ready(function() {
     
     $("#search_button").click(function() {
         //The fifth parameter will be always 'all', because when searching something again, need to drop all filters and sortings.
-        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 1);
+        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 'all', 1);
     });   
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
@@ -129,19 +129,19 @@ $( document ).ready(function() {
         
         var sorting_mode = (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc";
         //The first parameter will always be "1", because pagination arrows for search will appear only when search mode is on.
-        search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), go_to_page_number, 
+        search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), go_to_page_number, 
                (current_sorting_method_element.id+"_"+sorting_mode));
     });
     
     //The function below is calling search function.
     //The last two parameters we have to pass separately, because depending on whether a user is going two swicth within
     //different sorting modes or turn the pages, needs to be applied current sorting mode (asc or desc) or opposite one.
-    function search(search_is_on, url, find_by_name, what_to_search, page_number, sorting_method_and_mode = null) {
+    function search(search_is_on, url, find_by_name, what_to_search, show_only_visible, page_number, sorting_method_and_mode = null) {
         $.ajax({
                 type: "POST",
                 url: url,
                 data: {search_is_on: search_is_on, find_by_name: find_by_name, page_number: page_number, 
-                       what_to_search: what_to_search, sorting_mode: sorting_method_and_mode},
+                       what_to_search: what_to_search, sorting_mode: sorting_method_and_mode, show_only_visible: show_only_visible},
                 success: function(data) {
                     //On some views some elements (divs) won't exist, that's why some checks are required.
                     //In the first case, we still need that div, but becuase it doesn't exist in folders, need to add it.
@@ -155,7 +155,7 @@ $( document ).ready(function() {
                     if ($(".path-panel").length) {
                         $('.path-panel').html(data.path);
                     }
-                    //$('#control_buttons').html(data.control_buttons);
+                    $('#control_buttons').html(data.control_buttons);
                     $('.admin-panel-albums-or-articles-content').html(data.content);
                 }
             });

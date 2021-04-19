@@ -177,7 +177,7 @@ function directories_or_files_sort(sorting_method, current_element) {
 }
 
 //This function is required to show folders(albums) or articles(pictures) first.
-$("input[type='radio']").change(function() {
+$("input[name='directories_or_files_first']").change(function() {
     var directories_or_files_first_value = $(this).val();
     var element_with_sorting_info = document.querySelector('#sort');
     
@@ -220,7 +220,7 @@ function directories_or_files_first(element_with_sorting_info, directories_or_fi
     
     $("#search_button").click(function() {
         //The fifth parameter will be always 'all', because when searching something again, need to drop all filters and sortings.
-        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 'all', 1);
+        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 1);
     });   
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
@@ -243,34 +243,33 @@ function directories_or_files_first(element_with_sorting_info, directories_or_fi
         
         var sorting_mode = (current_sorting_method_element.dataset.sorting_mode === "desc") ? "asc" : "desc";
         //The first parameter will always be "1", because pagination arrows for search will appear only when search mode is on.
-        search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), $("#show_only_visible").val(), go_to_page_number, 
+        search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), go_to_page_number, 
                (current_sorting_method_element.id+"_"+sorting_mode));
     });
     
     //The function below is calling search function.
     //The last two parameters we have to pass separately, because depending on whether a user is going two swicth within
     //different sorting modes or turn the pages, needs to be applied current sorting mode (asc or desc) or opposite one.
-    function search(search_is_on, url, find_by_name, what_to_search, show_only_visible, page_number, sorting_method_and_mode = null) {
+    function search(search_is_on, url, find_by_name, what_to_search, page_number, sorting_method_and_mode = null) {
         $.ajax({
                 type: "POST",
                 url: url,
                 data: {search_is_on: search_is_on, find_by_name: find_by_name, page_number: page_number, 
-                       what_to_search: what_to_search, sorting_mode: sorting_method_and_mode, show_only_visible: show_only_visible},
+                       what_to_search: what_to_search, sorting_mode: sorting_method_and_mode},
                 success: function(data) {
                     //On some views some elements (divs) won't exist, that's why some checks are required.
-                    //In the first case, we still need that div, but becuase it doesn't exist in folders, need to add it.
-                    if ($(".admin-panel-albums-or-articles-title").length) {
-                        $('.admin-panel-albums-or-articles-title').html(data.title);
+                    //In the first case, we still need that div, but because it doesn't exist in folders, need to add it.
+                    if ($(".albums-or-articles-title").length) {
+                        $('.albums-or-articles-title').html(data.title);
                     } else {
-                        //Below I am taking a common class, becuase this script is universal.
-                        var article_container = document.querySelector('.admin-panel-main-article');
-                        article_container.insertAdjacentHTML("afterbegin", "<div class='admin-panel-albums-or-articles-title'>"+data.title+"</div>");
+                        //Below I am taking a common class, because this script is universal.
+                        var article_container = document.querySelector('.website-main-article');
+                        article_container.insertAdjacentHTML("afterbegin", "<div class='albums-or-articles-title'>"+data.title+"</div>");
                     }
                     if ($(".path-panel").length) {
                         $('.path-panel').html(data.path);
                     }
-                    $('#control_buttons').html(data.control_buttons);
-                    $('.admin-panel-albums-or-articles-content').html(data.content);
+                    $('.albums-or-articles-content').html(data.content);
                 }
             });
     }
