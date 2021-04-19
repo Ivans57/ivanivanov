@@ -249,7 +249,7 @@ class ArticlesRepository {
     //The function below is required to simplify get_view function.
     private function get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $folders_and_articles_full_info, 
                                             $items_amount_per_page, $sorting_mode = null, $folders_or_articles_first = null) {
-        return view('pages.folder')->with([
+        return view('pages.folders_and_articles.folder')->with([
                 'main_links' => $main_links,
                 'headTitle' => $folders_and_articles_full_info->head_title,
                 'folderName' => $folders_and_articles_full_info->folder_name,           
