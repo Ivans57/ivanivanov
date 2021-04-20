@@ -1,3 +1,4 @@
+{!! Form::hidden('search_is_on', '0', ['id' => 'search_is_on']); !!}
 @if ($total_number_of_items > 0)
     <div class="folders-and-articles-sorting">                        
         {!! Form::label('sort', Lang::get('keywords.Sorting').':', 

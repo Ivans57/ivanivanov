@@ -66,7 +66,7 @@ $( document ).ready(function() {
     //element_with_sorting_info_id and element_with_sorting_info_sorting_mode are taken from the same element, 
     //but it is required to take them as separate variables (end then merge), because depending on kind of sorting action,
     //there might be required to use sorting_mode (what is going to be used) or current sorting mode (to keep it).
-    function sort_elements(element_with_info, sorting_info_id_and_sorting_mode, show_invisible, directories_or_files_first_value=null) {/*+*/
+    function sort_elements(element_with_info, sorting_info_id_and_sorting_mode, show_invisible, directories_or_files_first_value=null) {
         //If it is an english localization, we don't need to show it, because it is a default localization.
         var localization = (element_with_info.dataset.localization === "en") ? "" : "/ru";
         var url;
