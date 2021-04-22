@@ -116,8 +116,7 @@ class ArticlesController extends Controller
         $search_is_on = "1";
         $sorting_method_and_mode = ($request->input('sorting_mode') === null) ? "0" : $request->input('sorting_mode');
         $section = "articles";
-        $what_to_search = $request->input('what_to_search');
-        
+        $what_to_search = $request->input('what_to_search');       
         $path = "";       
         $title = view('pages.folders_and_articles.folder_search_title')->render();       
         

@@ -143,9 +143,12 @@ $( document ).ready(function() {
 
 /*--------------------------------------------------------*/
 
-/*-----------------------Search---------------------------*/
+/*Albums and Articles Search and sort*/
 
-    $( document ).ready(function() {
+$( document ).ready(function() {
+    
+    /*++++++++++++++++++++Search++++++++++++++++++++*/
+    
     //We need the following lines to make ajax requests work.
     //There are special tokens used for security. We need to add them in all heads
     //and also ajax should be set up to pass them.
@@ -159,7 +162,7 @@ $( document ).ready(function() {
     function make_search_url() {
         var url_for_search_without_localization = $("#search_button").data('section')+"/search";
         var localization = $("#search_button").data('localization');
-        var url_for_search = (localization === 'en') ? "/"+url_for_search_without_localization : "/"+localization+url_for_search_without_localization;
+        var url_for_search = (localization === 'en') ? "/"+url_for_search_without_localization : "/"+localization+"/"+url_for_search_without_localization;
         
         return url_for_search;
     }
@@ -208,68 +211,65 @@ $( document ).ready(function() {
                 }
             });
     }
+    
+    /*++++++++++++++++++++++++++++++++++++++++++++++*/
+    
+    /*++Scripts for website Albums and Articles sorting.++*/
+
+    $(document).on('change', '#sort', function() {
+        var current_element = document.querySelector('#sort');
+        if($("#search_is_on").val() === '0') {
+            directories_or_files_sort($(this).val(), current_element);
+        } else if($("#search_is_on").val() === '1') {
+            search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), "1", $("#sort").val());
+        }
+    });
+
+    //The function below is making a link to do sorting and going to it.
+    //For elements on level 0 and for different level elements will be different links, for that reason we need that parameter.
+    //The last parameter have only included items.
+    function directories_or_files_sort(sorting_method, current_element) {
+            //If it is an english localization, we don't need to show it, because it is a default localization.
+            var localization = (current_element.dataset.localization === "en") ? "" : "/ru";
+            var url;
+            if (current_element.dataset.is_level_zero === "1") {
+                url = localization+"/"+current_element.dataset.section+"/"+sorting_method; 
+            } else {
+                //We need to get the value below in case user changes the sequince of what entity type to show first and then applies another sorting mode.
+                //If we don't pass that value to the function below, changed entity display sequince will be lost after another sorting mode has been applied.
+                //But that will be applied only for non level 0 elements.
+                var directories_or_files_first = null;
+                //The check below is required to check if a parent folder(album) has also articles(pictures) included. If it doesn't have them, 
+                //there is no need for the last parameter. If there is only one entity in the folder (album), radio elements don't exist and without
+                //the check below, there will be an error.
+                if (current_element.dataset.has_files === 'true' && current_element.dataset.has_directories === 'true') {
+                    directories_or_files_first = document.querySelector('input[name="directories_or_files_first"]:checked').value;
+                }
+                url = localization+"/"+current_element.dataset.section+"/"+current_element.dataset.parent_keyword+"/page/1/"+
+                      sorting_method+"/"+directories_or_files_first;
+            }
+            window.location.href = url;
+    }
+
+    //This function is required to show folders(albums) or articles(pictures) first.
+    $("input[name='directories_or_files_first']").change(function() {
+        var directories_or_files_first_value = $(this).val();
+        var element_with_sorting_info = document.querySelector('#sort');
+
+        directories_or_files_first(element_with_sorting_info, directories_or_files_first_value);
+    });
+
+    function directories_or_files_first(element_with_sorting_info, directories_or_files_first_value) {
+        //If it is an english localization, we don't need to show it, because it is a default localization.
+        var localization = (element_with_sorting_info.dataset.localization === "en") ? "" : "/ru";
+
+        var url = localization+"/"+element_with_sorting_info.dataset.section+"/"+
+                  element_with_sorting_info.dataset.parent_keyword+
+                  "/page/1/"+element_with_sorting_info.value+"/"+directories_or_files_first_value;
+        window.location.href = url;
+    }
+    
+    /*++++++++++++++++++++++++++++++++++++++++++++++*/
 });
     
  /*--------------------------------------------------------*/
- 
- /*Scripts for website Albums and Articles sorting.*/
-
-/*$('select[name="sort"]').change(function(){
-    var current_element = document.querySelector('#sort');
-    directories_or_files_sort($(this).val(), current_element);
-});*/
-
-$(document).on('change', '#sort', function() {
-    var current_element = document.querySelector('#sort');
-    if($("#search_is_on").val() === '0') {
-        directories_or_files_sort($(this).val(), current_element);
-    } else if($("#search_is_on").val() === '1') {
-        search("1", '/articles'/*make_search_url()*/, $("#search").val(), $("input[name='what_to_search']:checked").val(), "1", $("#sort").val());
-    }
-});
-
-//The function below is making a link to do sorting and going to it.
-//For elements on level 0 and for different level elements will be different links, for that reason we need that parameter.
-//The last parameter have only included items.
-function directories_or_files_sort(sorting_method, current_element) {
-        //If it is an english localization, we don't need to show it, because it is a default localization.
-        var localization = (current_element.dataset.localization === "en") ? "" : "/ru";
-        var url;
-        if (current_element.dataset.is_level_zero === "1") {
-            url = localization+"/"+current_element.dataset.section+"/"+sorting_method; 
-        } else {
-            //We need to get the value below in case user changes the sequince of what entity type to show first and then applies another sorting mode.
-            //If we don't pass that value to the function below, changed entity display sequince will be lost after another sorting mode has been applied.
-            //But that will be applied only for non level 0 elements.
-            var directories_or_files_first = null;
-            //The check below is required to check if a parent folder(album) has also articles(pictures) included. If it doesn't have them, 
-            //there is no need for the last parameter. If there is only one entity in the folder (album), radio elements don't exist and without
-            //the check below, there will be an error.
-            if (current_element.dataset.has_files === 'true' && current_element.dataset.has_directories === 'true') {
-                directories_or_files_first = document.querySelector('input[name="directories_or_files_first"]:checked').value;
-            }
-            url = localization+"/"+current_element.dataset.section+"/"+current_element.dataset.parent_keyword+"/page/1/"+
-                  sorting_method+"/"+directories_or_files_first;
-        }
-        window.location.href = url;
-}
-
-//This function is required to show folders(albums) or articles(pictures) first.
-$("input[name='directories_or_files_first']").change(function() {
-    var directories_or_files_first_value = $(this).val();
-    var element_with_sorting_info = document.querySelector('#sort');
-    
-    directories_or_files_first(element_with_sorting_info, directories_or_files_first_value);
-});
-
-function directories_or_files_first(element_with_sorting_info, directories_or_files_first_value) {
-    //If it is an english localization, we don't need to show it, because it is a default localization.
-    var localization = (element_with_sorting_info.dataset.localization === "en") ? "" : "/ru";
-
-    var url = localization+"/"+element_with_sorting_info.dataset.section+"/"+
-              element_with_sorting_info.dataset.parent_keyword+
-              "/page/1/"+element_with_sorting_info.value+"/"+directories_or_files_first_value;
-    window.location.href = url;
-}
-
-/*--------------------------------------------------------*/

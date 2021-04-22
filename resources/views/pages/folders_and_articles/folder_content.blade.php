@@ -53,13 +53,19 @@
             @foreach ($folders_and_articles as $folder_or_article)
                 <div class="article-folder-or-article">
                     @if ($folder_or_article->type == 'folder')
-                        <a href={{ App::isLocale('en') ? "/articles/".$folder_or_article->keyWord."/page/1" : "/ru/articles/".$folder_or_article->keyWord."/page/1" }} class="article-folder-or-article-link">
-                            <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/regular_folder_small.png')}}" alt="{{ $folder_or_article->caption }}"></div>
+                        <a href={{ App::isLocale('en') ? "/articles/".$folder_or_article->keyWord."/page/1" : "/ru/articles/".$folder_or_article->keyWord."/page/1" }} 
+                           class="article-folder-or-article-link">
+                            <div class="article-folder-or-article-picture">
+                                <img src="{{ URL::asset('images/icons/regular_folder_small.png')}}" alt="{{ $folder_or_article->caption }}">
+                            </div>
                             <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
                         </a>
                     @else
-                        <a href={{ App::isLocale('en') ? "/articles/".$folder_or_article->keyWord : "/ru/articles/".$folder_or_article->keyWord }} class="article-folder-or-article-link">
-                            <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/article.png') }}" alt="{{ $folder_or_article->caption }}"></div>
+                        <a href={{ App::isLocale('en') ? "/articles/article/".$folder_or_article->keyWord : "/ru/articles/article/".$folder_or_article->keyWord }} 
+                           class="article-folder-or-article-link">
+                            <div class="article-folder-or-article-picture">
+                                <img src="{{ URL::asset('images/icons/article.png') }}" alt="{{ $folder_or_article->caption }}">
+                            </div>
                             <div class="article-folder-or-article-title"><p>{{ $folder_or_article->caption }}</p></div>
                         </a>
                     @endif

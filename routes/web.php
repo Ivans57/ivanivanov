@@ -74,6 +74,30 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 
 //Articles
 
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('articles/{keyword}/page/{page}/{sorting_mode?}/{folders_or_articles_first?}', 'ArticlesController@showFolder');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('articles/{keyword}/page/{page}/{sorting_mode?}/{folders_or_articles_first?}', 'ArticlesController@showFolder');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('articles/article/{keyword}', 'ArticlesController@showArticle');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('articles/article/{keyword}', 'ArticlesController@showArticle');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('articles/search', 'ArticlesController@searchFolderOrArticle');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('articles/search', 'ArticlesController@searchFolderOrArticle');
+});
+
 //sorting_mode argument is optional. It is required only for sorting.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('articles/{sorting_mode?}', 'ArticlesController@index');
@@ -81,30 +105,6 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 
 Route::group(['middleware' => 'locale'], function() {
     Route::get('articles/{sorting_mode?}', 'ArticlesController@index');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('articles/{keyword}/page/{page}/{sorting_mode?}/{folders_or_articles_first?}', 'ArticlesController@showFolder');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('articles/{keyword}/page/{page}/{sorting_mode?}/{folders_or_articles_first?}', 'ArticlesController@showFolder');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('articles/{keyword}', 'ArticlesController@showArticle');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('articles/{keyword}', 'ArticlesController@showArticle');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('articles/search', 'ArticlesController@searchFolderOrArticle');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::post('articles/search', 'ArticlesController@searchFolderOrArticle');
 });
 
 //------------------------------------------------------------------------------

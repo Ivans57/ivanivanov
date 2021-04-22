@@ -21,7 +21,7 @@
                     <div class="article-folder-or-article-title"><p>{{ $folder_or_article->name }}</p></div>
                 </a>
             @else
-                <a href={{ App::isLocale('en') ? "/articles/".$folder_or_article->keyword : "/ru/articles/".$folder_or_article->keyword }} 
+                <a href={{ App::isLocale('en') ? "/articles/article/".$folder_or_article->keyword : "/ru/articles/article/".$folder_or_article->keyword }} 
                     class="article-folder-or-article-link">
                     <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/article.png') }}" alt="{{ $folder_or_article->name }}"></div>
                     <div class="article-folder-or-article-title"><p>{{ $folder_or_article->name }}</p></div>
