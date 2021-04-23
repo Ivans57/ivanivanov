@@ -1766,7 +1766,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 but I will keep them in case we need them to have diferent properties.
 If we don't need both of them, their view can be simplified as in admin panel.*/
 .articles-article-folders {
-    width: 700px;
+    width: 750px;
     min-height: 610px;
 }
 
@@ -1778,6 +1778,45 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
 .articles-article {
     width: 800px;
     min-height: 610px;
+}
+
+/*The same classes are used for albums and articles sections.*/
+.website-main-article .albums-or-articles-search {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    margin-right: 5px;
+}
+
+.website-main-article .albums-or-articles-search .albums-or-articles-what-to-search-label {
+    margin-right: 5px;
+    margin-top: 5px;
+    font-family: Arial;
+    font-size: 16px;
+}
+
+.website-main-article .albums-or-articles-search .albums-or-articles-what-to-search {
+    margin-right: 15px;
+    margin-top: 9px;
+}
+
+.website-main-article .albums-or-articles-search .albums-or-articles-search-input {
+    width: 230px;
+    height: 28px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px #4f5250 solid;
+    margin-left: 10px;
+}
+
+.website-main-article .albums-or-articles-search .albums-or-articles-search-button {
+    background-color: #2196F3;
+    margin-left: -5px;
+    color: white;
+    border-radius: 3px;
+    height: 28px;
+    width: 28px;
+    border: 1px #4f5250 solid;
 }
 
 .articles-article-folders .folders-and-articles-sorting,
@@ -1858,7 +1897,7 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
 but we need our pagination tools to be in the bottom off the page. This is some kind of spacer.*/
 .articles-article-folders .external-folders-wrapper {
     min-height: 555px;
-    padding-left: 15px;
+    padding-left: 38px;
 }
 
 .articles-article-folders .external-folders-wrapper .folders-wrapper {
@@ -1919,29 +1958,31 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     filter: drop-shadow(0 0 0px black);
 }
 
-.articles-article-folders-and-articles .folders-and-articles-wrapper {
+/*Below, for some following classes I will use as a main parent website-main-article class
+instead of some particular ones. That's because some properties will be common with search mode.*/
+.website-main-article .folders-and-articles-wrapper {
     min-height: 410px;
 }
 
-.articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article {
+.website-main-article .folders-and-articles-wrapper .article-folder-or-article {
     border-bottom: 2px solid #bcbcbc;
     margin-top: 5px;
     margin-bottom: 5px;  
 }
 
-.articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-link {
+.website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-link {
     color: #393737;
     text-decoration: none;
 }
 
-.articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
+.website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
     display: inline-block;
     height: 31px;
     vertical-align: bottom;
     filter: drop-shadow(0 0 0px black);
 }
 
-.articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+.website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
     display: inline-block;
     height: 23px;
     vertical-align: bottom;
@@ -1951,12 +1992,12 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     font-weight: bold;
 }
 
-.articles-article-folders-and-articles .article-folder-or-article:hover .article-folder-or-article-link .article-folder-or-article-picture {
+.website-main-article .article-folder-or-article:hover .article-folder-or-article-link .article-folder-or-article-picture {
     filter: brightness(105%);
     filter: drop-shadow(0 0 1px black);
 }
 
-.articles-article-folders-and-articles .article-folder-or-article:hover .article-folder-or-article-link .article-folder-or-article-title {
+.website-main-article .article-folder-or-article:hover .article-folder-or-article-link .article-folder-or-article-title {
     font-size: 15px;
 }
 
@@ -2268,7 +2309,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         padding: 30px;
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-wrapper {
+    .website-main-article .folders-and-articles-wrapper {
         min-height: 435px;
     }
     
@@ -2384,11 +2425,11 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         font-size: 20px;
     }
     
-    .articles-article-folders .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
         transform: scale(0.8);
     }
     
-    .articles-article-folders .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
         font-size: 13px;
         margin-left: 3px;
     }
@@ -2535,11 +2576,11 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         font-size: 13px;
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
         height: 27px;
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
         height: 20px;
         margin-left: 3px;
         font-size: 13px;
@@ -2736,11 +2777,11 @@ but we need our pagination tools to be in the bottom off the page. This is some 
        font-size: 13px;
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
         height: 29px;
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
         font-size: 12px;
     }
 }
@@ -2900,7 +2941,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         min-height: 235px;
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-wrapper {
+    .website-main-article .folders-and-articles-wrapper {
         min-height: 390px;
     }
     
@@ -2917,7 +2958,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         transform: scale(1.2);  
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
         margin-left: 1px;
     }
     
@@ -2980,7 +3021,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         min-height: 230px;
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-wrapper {
+    .website-main-article .folders-and-articles-wrapper {
         min-height: 370px;
     }
 }
@@ -3155,6 +3196,14 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     border-left-color: #0000cc;  
     border-right: 0;
     box-shadow: 3px 0 0 0 #0000cc;
+}
+
+/*The properties below are required only for search paginator.*/
+.paginator .first-active:hover,
+.paginator .last-active:hover,
+.paginator .previous-active:hover,
+.paginator .next-active:hover {
+    cursor: pointer;
 }
 
 /*Universal Paginator for mobile devices.*/

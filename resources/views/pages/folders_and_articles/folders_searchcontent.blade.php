@@ -8,7 +8,7 @@
         @endcomponent
     @endif
 @else
-    <div class="admin-panel-articles-empty-folders-text-wrapper">
+    <div class="empty-folders-text-wrapper">
         <p>@lang('keywords.NothingFound')</p>
     </div>
 @endif
