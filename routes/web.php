@@ -54,20 +54,28 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Albums
 
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('albums/{sorting_mode?}', 'AlbumsController@index');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('albums/{sorting_mode?}', 'AlbumsController@index');
-});
-
 Route::group(['middleware' => 'locale'], function() {
     Route::get('albums/{keyword}/page/{page}/{sorting_mode?}/{albums_or_pictures_first?}', 'AlbumsController@show');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
     Route::get('albums/{keyword}/page/{page}/{sorting_mode?}/{albums_or_pictures_first?}', 'AlbumsController@show');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('albums/search', 'AlbumsController@searchAlbumOrPicture');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('albums/search', 'AlbumsController@searchAlbumOrPicture');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('albums/{sorting_mode?}', 'AlbumsController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('albums/{sorting_mode?}', 'AlbumsController@index');
 });
 
 //------------------------------------------------------------------------------

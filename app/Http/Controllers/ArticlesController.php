@@ -101,13 +101,10 @@ class ArticlesController extends Controller
         //The variable below is being used in getFoldersOrArticlesFromSearch() and view() functions.
         $items_amount_per_page = 14;
         
-        //The fourth parameter about visibility cannot be passed as it is, because when user is switching from normal mode to search mode previous visibility rule
-        //should be discarded.
         $folders_or_articles_with_info = $this->folders->getFoldersOrArticlesFromSearch($request->input('find_by_name'), $request->input('page_number'), 
                                                                 $items_amount_per_page, $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
                                                                 1/*$show_only_visible*/, $request->input('sorting_mode'));
         
-        //Need to check if all variables below are being used!
         $folders_or_articles = $folders_or_articles_with_info->items_on_page;
         $all_items_amount = $folders_or_articles_with_info->all_items_count;
         //The variable below is required to display bisibility checkbox properly.

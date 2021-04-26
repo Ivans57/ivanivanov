@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AlbumsRepository;
+use \App\Album;
 use Illuminate\Http\Request;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lowe case.
@@ -60,13 +61,18 @@ class AlbumsController extends Controller {
                     return $this->common->redirect_to_last_page_one_entity(Str::lower($this->current_page), 
                     $sorting_data["directories_or_files"]->lastPage(), $this->is_admin_panel);
         } else {
-            return view('pages.albums')->with([
+            return view('pages.albums_and_pictures.albums')->with([
                 'headTitle' => __('keywords.'.$this->current_page),
                 'main_links' => $main_links,
                 'album_links' => $sorting_data["directories_or_files"],
                 'section' => Str::lower($this->current_page),
                 'sorting_mode' => ($sorting_mode) ? $sorting_mode : 'sort_by_creation_desc',
-                'items_amount_per_page' => $items_amount_per_page
+                'items_amount_per_page' => $items_amount_per_page,
+                //The line below is required to show correctly display_invisible elements.
+                'all_albums_count' => Album::where('included_in_album_with_id', '=', null)->count(),
+                //The variable below is required for sort to indicate which function to call index or search.
+                'search_is_on' => "0",
+                'what_to_search' => 'albums'
             ]);
         }
     }
@@ -81,6 +87,33 @@ class AlbumsController extends Controller {
         //We need to call the method below to clutter down current method in controller
         return $this->albums->showAlbumView(Str::lower($this->current_page), 
                 $page, $keyword, $items_amount_per_page, $main_links, $this->is_admin_panel, 0, $sorting_mode, $albums_or_pictures_first);
+    }
+    
+    public function searchAlbumOrPicture(Request $request) {
+        $items_amount_per_page = 14;
+        
+        $albums_or_pictures_with_info = $this->albums->getAlbumsOrPicturesFromSearch($request->input('find_by_name'), $request->input('page_number'), 
+                                                                $items_amount_per_page, $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
+                                                                1/*$show_only_visible*/, $request->input('sorting_mode'));
+               
+        $albums_or_pictures = $albums_or_pictures_with_info->items_on_page;
+        $all_items_amount = $albums_or_pictures_with_info->all_items_count;
+        //The variable below is required to display bisibility checkbox properly.
+        $pagination_info = $albums_or_pictures_with_info->paginator_info;
+        //The variable below is required for sort to indicate which function to call index or search.
+        $search_is_on = "1";
+        $sorting_method_and_mode = ($request->input('sorting_mode') === null) ? "0" : $request->input('sorting_mode');
+        $section = "albums";
+        $what_to_search = $request->input('what_to_search');      
+        $path = "";       
+        $title = view('pages.albums_and_pictures.album_search_title')->render();       
+        
+        $content = view('pages.albums_and_pictures.albums_searchcontent', 
+                compact("albums_or_pictures", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "sorting_method_and_mode", 
+                        "section", "what_to_search"))->render();
+        
+        
+        return response()->json(compact('path', 'title', 'content'));
     }
     
     public function testik(Request $request){

@@ -452,7 +452,7 @@ class AlbumsRepository {
     //The function below is required to simplify get_view function.
     private function get_view_for_website($is_admin_panel, $keyword, $section, $main_links, $albums_and_pictures_full_info, 
                                             $items_amount_per_page, $sorting_mode = null, $albums_or_pictures_first = null) {       
-        return view('pages.album')->with([
+        return view('pages.albums_and_pictures.album')->with([
                 'main_links' => $main_links,
                 'headTitle' => $albums_and_pictures_full_info->head_title,
                 'pathToFile' => $albums_and_pictures_full_info->path_to_file,           
@@ -469,7 +469,8 @@ class AlbumsRepository {
                 'sorting_mode' => $sorting_mode? $sorting_mode : 'sort_by_creation_desc',
                 'directories_or_files_first' => ($albums_or_pictures_first) ? $albums_or_pictures_first : 'albums_first',
                 //is_admin_panel is required for paginator.
-                'is_admin_panel' => $is_admin_panel
+                'is_admin_panel' => $is_admin_panel,
+                'what_to_search' => 'albums'
                 ]);
     }
     
