@@ -953,8 +953,7 @@ will be shown, just excluding some components.*/
 /*Albums part*/
 
 .albums-article {
-    min-width: 650px;
-    max-width: 700px;
+    width: 750px;
     min-height: 720px;
 }
 
@@ -1026,7 +1025,7 @@ will be shown, just excluding some components.*/
 but we need our pagination tools to be in the bottom off the page. This is some kind of spacer.*/
 .albums-article .external-albums-wrapper {
     min-height: 580px;
-    padding-left: 25px;
+    padding-left: 50px;
 }
 
 .albums-article .external-albums-picture-wrapper .albums-picture-wrapper {
@@ -1036,21 +1035,22 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 }
 
 .albums-article .external-albums-wrapper .albums-wrapper .album-item {
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 8px;
+    margin-left: 8px;
     margin-top: -5px;
     margin-bottom: -5px;   
 }
 
 .albums-article .external-albums-picture-wrapper {
     min-height: 560px;
+    padding-left: 40px;
 }
 
 .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
     margin-right: 10px;
     margin-left: 10px;
     margin-top: -30px;
-    margin-bottom: 0px;   
+    margin-bottom: 5px;   
 }
 
 .albums-article .album-item .album-title {
