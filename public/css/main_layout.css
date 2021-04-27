@@ -1127,6 +1127,47 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     filter: drop-shadow(0 0 0px black);
 }
 
+.website-main-article .albums-picture-wrapper .albums-album-or-picture {
+    border-bottom: 2px solid #bcbcbc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-link {
+    color: #393737;
+    text-decoration: none;
+}
+
+.website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-picture {
+    display: inline-block;
+    vertical-align: bottom;
+    filter: drop-shadow(0 0 0px black);
+}
+
+.website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-picture .albums-album-picture-image {
+    width: 35px;
+    height: 35px;
+}
+
+.website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+    display: inline-block;
+    height: 23px;
+    vertical-align: bottom;
+    margin-left: 5px;
+    font-size: 14px;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.website-main-article .albums-album-or-picture:hover .albums-album-link .albums-album-picture {
+    filter: brightness(105%);
+    filter: drop-shadow(0 0 1px black);
+}
+
+.website-main-article .albums-album-or-picture:hover .albums-album-link .albums-album-title {
+    font-size: 15px;
+}
+
 /*Albums for mobile devices.*/
 
 @media (max-width: 850px) {

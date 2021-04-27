@@ -17,7 +17,9 @@
             @if ($what_to_search == 'folders')
                 <a href={{ App::isLocale('en') ? "/articles/".$folder_or_article->keyword."/page/1" : "/ru/articles/".$folder_or_article->keyword."/page/1" }} 
                     class="article-folder-or-article-link">
-                    <div class="article-folder-or-article-picture"><img src="{{ URL::asset('images/icons/regular_folder_small.png')}}" alt="{{ $folder_or_article->name }}"></div>
+                    <div class="article-folder-or-article-picture">
+                        <img src="{{ URL::asset('images/icons/regular_folder_small.png')}}" alt="{{ $folder_or_article->name }}">
+                    </div>
                     <div class="article-folder-or-article-title"><p>{{ $folder_or_article->name }}</p></div>
                 </a>
             @else
