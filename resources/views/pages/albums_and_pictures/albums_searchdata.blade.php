@@ -23,20 +23,15 @@
                     <div class="albums-album-title"><p>{{ $album_or_picture->name }}</p></div>
                 </a>
             @else
-                <a href='{{ URL::asset($album_or_picture->path_to_file.$album_or_picture->file_name) }}'
-                    data-fancybox="group" data-caption="{{ $album_or_picture->name }}" title="{{ $album_or_picture->name }}">
-                    <div class="admin-panel-albums-picture-and-album-title-and-picture-wrapper">
-                        <div class="admin-panel-albums-pictures-picture">
-                            <div><!-- These div is required to keep normal size of image without deforming it.-->
-                                <img src="{{ URL::asset($album_or_picture->path_to_file.$album_or_picture->file_name) }}" 
-                                     alt="{{ $album_or_picture->name }}"  
-                                     class="admin-panel-albums-pictures-picture-image">
-                            </div>
-                        </div>
-                        <div class="admin-panel-albums-picture-and-album-title">
-                            <p>{{ $album_or_picture->name }}</p>
+                <a href='{{ URL::asset($album_or_picture->path_to_file.$album_or_picture->file_name) }}' data-fancybox="group" 
+                   data-caption="{{ $album_or_picture->name }}" title="{{ $album_or_picture->name }}" class="albums-album-link">
+                    <div class="albums-album-picture">
+                        <div><!-- These div is required to keep normal size of image without deforming it.-->
+                            <img src="{{ URL::asset($album_or_picture->path_to_file.$album_or_picture->file_name) }}" alt="{{ $album_or_picture->name }}" 
+                                 class="albums-album-picture-image">
                         </div>
                     </div>
+                    <div class="albums-album-title"><p>{{ $album_or_picture->name }}</p></div>
                 </a>
             @endif
         </div>
