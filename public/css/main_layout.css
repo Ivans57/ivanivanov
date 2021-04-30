@@ -958,7 +958,7 @@ will be shown, just excluding some components.*/
 }
 
 .albums-article-for-included-albums {
-    max-width: 830px;
+    width: 800px;
 }
 
 .albums-article .albums-and-pictures-sorting {
@@ -990,7 +990,7 @@ will be shown, just excluding some components.*/
 .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
     margin-right: 5px;
     font-family: Arial;
-    font-size: 16px;
+    font-size: 15px;
     margin-top: 1px;
 }
 
@@ -1025,7 +1025,7 @@ will be shown, just excluding some components.*/
 but we need our pagination tools to be in the bottom off the page. This is some kind of spacer.*/
 .albums-article .external-albums-wrapper {
     min-height: 580px;
-    padding-left: 50px;
+    padding-left: 40px;
 }
 
 .albums-article .external-albums-picture-wrapper .albums-picture-wrapper {
@@ -1035,8 +1035,8 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 }
 
 .albums-article .external-albums-wrapper .albums-wrapper .album-item {
-    margin-right: 8px;
-    margin-left: 8px;
+    margin-right: 10px;
+    margin-left: 10px;
     margin-top: -5px;
     margin-bottom: -5px;   
 }
@@ -1047,22 +1047,23 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 }
 
 .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
     margin-top: -30px;
     margin-bottom: 5px;   
 }
 
-.albums-article .album-item .album-title {
+.website-main-article .album-item .album-title {
     margin-top: -20px;
     margin-left: 5px;
     width: 115px;
+    overflow: hidden;
 }
 
 /*We need this to make gaps between pictures in albums*/
 .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
     max-height: 130px;
@@ -1178,21 +1179,23 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 /*Albums for mobile devices.*/
 
 @media (max-width: 850px) {
-    .albums-article {
-        min-width: 600px;
+    .albums-article, .albums-article-for-included-albums {
+        width: 700px;
         min-height: 590px;
     }
     
-    .albums-article-for-included-albums {
-        max-width: 780px;
-    }
+    /*.albums-article-for-included-albums {
+        width: 800px;
+        min-height: 590px;
+    }*/
     
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
         margin-right: 12px;
     }
 
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
-        font-size: 15px;
+        margin-right: 5px;
+        font-size: 14px;
     }
 
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
@@ -1205,27 +1208,34 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .albums-article .external-albums-wrapper {
         min-height: 450px;
-        padding-left: 15px;
+        padding-left: 30px;
     }
     
     .albums-article .external-albums-picture-wrapper {
         min-height: 510px;
-        padding-left: 20px;
+        padding-left: 10px;
     }
     
     .albums-article .external-albums-wrapper .albums-wrapper .album-item {
-        transform: scale(0.95);
+        margin-right: 7px;
+        margin-left: 7px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        margin-right: 10px;
+        margin-left: 10px;  
+    }
+
+    /*We need this to make gaps between pictures in albums*/
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
         margin-right: 10px;
         margin-left: 10px;
-        margin-top: -10px;
-        margin-bottom: -10px;   
     }
 }
 
 @media (max-width: 700px) {
     .albums-article {
-        min-width: 500px;
-        max-width: 600px;
+        width: 590px;
         min-height: 500px;
     }
        
@@ -1235,12 +1245,13 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
         margin-right: 5px;
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
-        width: 190px;
+        width: 170px;
         padding: 3px;
+        font-size: 13px;
     }
     
     .albums-article h2 {
@@ -1249,22 +1260,22 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .albums-article .external-albums-wrapper {
         min-height: 360px;
-        padding-left: 5px;
+        padding-left: 25px;
     }
      
     .albums-article .external-albums-picture-wrapper {
         min-height: 460px;
-        padding-left: 20px;
+        padding-left: 30px;
     }
     
     /*We need to write styles for root album folders and album folders included 
-    in root album folders separately because we need to metion classes 
+    in root album folders separately, because we need to metion classes 
     albums-wrapper and albums-picture-wrapper. If we don't do this, styles for 
     noraml view will be stronger and styles for mobile view won't take an effect.*/
     .albums-article .external-albums-wrapper .albums-wrapper .album-item {
         transform: scale(0.9);
-        margin-right: 0px;
-        margin-left: 0px;
+        margin-right: 10px;
+        margin-left: 10px;
         margin-top: -15px;
         margin-bottom: -15px;   
     }
@@ -1277,7 +1288,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     including text, but we need to keep it almost the same size. It means scale 
     takes text 16px and appplies 0.8 to it.*/
     .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title .album-folder-title {
-        font-size: 18px;
+        font-size: 17px;
         filter: drop-shadow(0 0 0px black);
     }
     
@@ -1304,6 +1315,15 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .albums-article .external-albums-picture-wrapper {
         padding-left: 5px;
+    }
+    
+    .albums-article .external-albums-wrapper {
+        padding-left: 10px;
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item {
+        margin-right: 0px;
+        margin-left: 0px; 
     }
 }
 
@@ -1844,7 +1864,7 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
     margin-right: 5px;
     margin-top: 5px;
     font-family: Arial;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search {
@@ -1900,7 +1920,7 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
 .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-label {
     margin-right: 5px;
     font-family: Arial;
-    font-size: 16px;
+    font-size: 15px;
     margin-top: 1px;
 }
 
