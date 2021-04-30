@@ -8,7 +8,7 @@
         @endcomponent
     @endif
 @else
-    <div class="empty-folders-text-wrapper">
+    <div class="empty-albums-text-wrapper">
         <p>@lang('keywords.NothingFound')</p>
     </div>
 @endif

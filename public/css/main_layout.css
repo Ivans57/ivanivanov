@@ -1131,6 +1131,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     border-bottom: 2px solid #bcbcbc;
     margin-top: 5px;
     margin-bottom: 5px;
+    padding-bottom: 5px;
 }
 
 .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-link {
@@ -1141,12 +1142,14 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-picture {
     display: inline-block;
     vertical-align: bottom;
-    filter: drop-shadow(0 0 0px black);
+    filter: drop-shadow(0 0 0px black);  
+    max-width: 35px;
+    height: 30px;
+    overflow: hidden;
 }
 
 .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-picture .albums-album-picture-image {
-    width: 35px;
-    height: 35px;
+    width: 90%;
 }
 
 .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
@@ -1157,6 +1160,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     font-size: 14px;
     font-family: Arial;
     font-weight: bold;
+}
+
+.website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title-for-album-folder {
+    padding-top: 5px;
 }
 
 .website-main-article .albums-album-or-picture:hover .albums-album-link .albums-album-picture {
