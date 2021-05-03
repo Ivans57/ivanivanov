@@ -1466,27 +1466,43 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-bottom: 5px;
     }
     
-    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
-        font-size: 14px;
-    }
-    
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
-        width: 180px;
+        width: 165px;
+        height: 24px;
         padding: 1px;
-        font-size: 14px;
-    }
-    
-    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select option {
-        font-size: 14px;
+        font-size: 13px;
     }
     
     .albums-article .external-albums-wrapper {
-        padding-left: 20px;
+        padding-left: 5px;
     }
     
     .albums-article .external-albums-picture-wrapper {
         padding-left: 0px;
     }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item, 
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        transform: scale(0.6);
+        margin-right: -20px;
+        margin-left: -20px;
+        margin-top: -40px;
+        margin-bottom: -40px;  
+    }
+    
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title .album-folder-title, 
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title .album-folder-title {
+        font-size: 24px;   
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+        transform: scale(0.6);
+        margin-right: -20px;
+        margin-left: -20px;
+        margin-top: -8px;
+        margin-bottom: -8px;
+    }
+    
 }
 
 @media (max-width: 360px) {
@@ -1497,14 +1513,6 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .albums-article h2 {
         font-size: 26px;
         margin-bottom: 10px;
-    }
-    
-    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
-        transform: scale(0.8);
-        margin-top: 0px;
-        margin-bottom: 0px;
-        margin-right: 0px;
-        margin-left: 0px;
     }
     
     .albums-article .empty-albums-text-wrapper {
@@ -1527,14 +1535,19 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .albums-article .external-albums-wrapper {
         min-height: 320px;
+        padding-left: 0px;
+    }
+
+    .albums-article .external-albums-wrapper .albums-wrapper .album-item, 
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        margin-right: -23px;
+        margin-left: -23px; 
     }
     
     .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
-        transform: scale(0.6);
-        margin-top: -5px;
-        margin-bottom: -5px;
-        margin-right: -15px;
-        margin-left: 0px;
+        transform: scale(0.55);
+        margin-right: -24px;
+        margin-left: -24px;
     }
 }
 
@@ -1550,47 +1563,17 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .albums-article .external-albums-wrapper {
         min-height: 310px;
+        margin-left: -16px;
     }
     
     .albums-article .external-albums-picture-wrapper {
         min-height: 360px;
+        margin-left: -16px;
     }
     
     .albums-article h2 {
         font-size: 24px;
         margin-bottom: 8px;
-    }
-    
-    .albums-article .external-albums-wrapper .albums-wrapper .album-item {
-        transform: scale(0.6);
-        margin-right: -20px;
-        margin-left: -15px;
-        margin-top: -35px;
-        margin-bottom: -35px;   
-    }
-    
-    .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title {
-        transform: scale(1.2);
-    }
-    
-    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title {
-        transform: scale(1.2);
-    }
-    
-    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
-        transform: scale(0.7);
-        margin-right: -10px;
-        margin-left: -10px;
-        margin-top: -30px;
-        margin-bottom: -30px;
-    }
-    
-    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
-        transform: scale(0.6);
-        margin-top: -10px;
-        margin-bottom: -10px;
-        margin-right: -15px;
-        margin-left: -5px;
     }
 }
 
@@ -2847,6 +2830,10 @@ instead of some particular ones. That's because some properties will be common w
         margin-bottom: -30px;   
     }
     
+    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item .folder-title .article-folder-title {
+        font-size: 24px;
+    }
+    
     .articles-article-folders {
         min-height: 405px;
     }
@@ -3104,11 +3091,6 @@ instead of some particular ones. That's because some properties will be common w
         margin-left: -20px;
         margin-top: -35px;
         margin-bottom: -35px;   
-    }
-    
-    /*Need to enlarge folder titles, because they are too small*/
-    .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item .folder-title {
-        transform: scale(1.2);  
     }
     
     .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
