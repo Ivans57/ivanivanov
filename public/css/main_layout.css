@@ -1184,11 +1184,6 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         min-height: 590px;
     }
     
-    /*.albums-article-for-included-albums {
-        width: 800px;
-        min-height: 590px;
-    }*/
-    
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
         margin-right: 12px;
     }
@@ -1299,15 +1294,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 }
 
 @media (max-width: 630px) {
-    .albums-article {
-        min-width: 400px;
-        max-width: 480px;
+    .albums-article, .albums-article-for-included-albums {
+        width: 480px;
         min-height: 440px;
-    }
-    
-    .albums-article-for-included-albums {
-        max-width: 540px;
-    }
+    }    
     
     .albums-article .albums-and-pictures-sorting-for-included-albums {
         margin-bottom: 15px;
@@ -1315,6 +1305,11 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .albums-article .external-albums-picture-wrapper {
         padding-left: 5px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        margin-right: 0px;
+        margin-left: 0px;  
     }
     
     .albums-article .external-albums-wrapper {
@@ -1325,20 +1320,21 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-right: 0px;
         margin-left: 0px; 
     }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+        transform: scale(0.8);
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-right: -5px;
+        margin-left: -5px;
+    }
 }
 
 @media (max-width: 530px) {
     .articles-article {
         min-height: 500px;
     }
-    
-    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-right: 5px;
-        margin-left: 5px;
-    }
-    
+      
     .albums-article .external-albums-wrapper {
         min-height: 360px;
     }
@@ -1384,15 +1380,15 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
         transform: scale(0.8);
-        margin-right: -5px;
-        margin-left: -5px;
+        margin-right: -6px;
+        margin-left: -6px;
         margin-top: -25px;
         margin-bottom: -20px;   
     }
     
     .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
-        transform: scale(0.8);
-        margin-right: 0px;
+        margin-right: -7px;
+        margin-left: -7px;
     }
     
     .albums-article .external-albums-wrapper .albums-wrapper .album-item .album-title .album-folder-title {
@@ -1429,15 +1425,31 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     }
     
     .albums-article .external-albums-picture-wrapper {
-        padding-left: 20px;
+        padding-left: 10px;
     }
     
     .albums-article .external-albums-wrapper .albums-wrapper .album-item {
         transform: scale(0.7);
-        margin-right: -10px;
-        margin-left: -10px;
+        margin-right: -12px;
+        margin-left: -12px;
         margin-top: -30px;
         margin-bottom: -30px;   
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item {
+        transform: scale(0.7);
+        margin-right: -12px;
+        margin-left: -12px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title .album-folder-title {
+        font-size: 20px;
+    }
+    
+    .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
+        transform: scale(0.7);
+        margin-right: -12px;
+        margin-left: -12px;
     }
 }
 
