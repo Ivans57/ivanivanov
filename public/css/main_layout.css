@@ -1130,9 +1130,6 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
 .website-main-article .albums-picture-wrapper .albums-album-or-picture {
     border-bottom: 2px solid #bcbcbc;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
 }
 
 .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-link {
@@ -1142,7 +1139,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
 .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-picture {
     display: inline-block;
-    vertical-align: bottom;
+    vertical-align: top;
     filter: drop-shadow(0 0 0px black);  
     max-width: 35px;
     height: 30px;
@@ -1155,16 +1152,18 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
 .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
     display: inline-block;
-    height: 23px;
+    min-height: 23px;
+    max-width: 665px;
     vertical-align: bottom;
     margin-left: 5px;
     font-size: 14px;
     font-family: Arial;
     font-weight: bold;
+    overflow-wrap: break-word;
 }
 
-.website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title-for-album-folder {
-    padding-top: 5px;
+.website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title p {
+    margin-top: 10px;
 }
 
 .website-main-article .albums-album-or-picture:hover .albums-album-link .albums-album-picture {
@@ -1225,6 +1224,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
         margin-right: 10px;
         margin-left: 10px;
+    }
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        max-width: 610px;
     }
 }
 
@@ -1291,6 +1294,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         font-size: 17px;
         filter: drop-shadow(0 0 0px black);
     }
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        max-width: 505px;
+    }
 }
 
 @media (max-width: 630px) {
@@ -1327,6 +1334,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-bottom: 5px;
         margin-right: -5px;
         margin-left: -5px;
+    }
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        max-width: 395px;
     }
 }
 
@@ -1398,7 +1409,21 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title .album-folder-title {
         font-size: 18px;
     }
-      
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-picture {
+        transform: scale(0.8);
+    }
+
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        font-size: 13px;
+        margin-left: 0px;
+        max-width: 340px;
+    }
+    
+    .website-main-article .albums-album-or-picture:hover .albums-album-link .albums-album-title {
+        font-size: 14px;
+    }
+    
     .albums-article .empty-albums-text-wrapper {
         margin-top: 140px;
     }
@@ -1503,6 +1528,14 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-bottom: -8px;
     }
     
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-picture {
+	margin-bottom: -5px;
+    }
+
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        min-height: 20px;
+        max-width: 270px;
+    } 
 }
 
 @media (max-width: 360px) {
@@ -1549,6 +1582,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         margin-right: -24px;
         margin-left: -24px;
     }
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        max-width: 250px;
+    }
 }
 
 @media (max-width: 315px) {
@@ -1577,6 +1614,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         font-size: 24px;
         margin-bottom: 8px;
     }
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        max-width: 235px;
+    }
 }
 
 @media (max-width: 300px) {
@@ -1602,6 +1643,16 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .albums-article .external-albums-picture-wrapper {
         width: 250px;
         margin-left: -5px;
+    }
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+	font-size: 12px;
+        min-height: 18px;
+        max-width: 230px;
+    }
+    
+    .website-main-article .albums-album-or-picture:hover .albums-album-link .albums-album-title {
+        font-size: 13px;
     }
     
     .albums-article .empty-albums-text-wrapper {
@@ -1663,11 +1714,14 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     }
     
     .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-picture {
-        /*transform: scale(0.6);*/
         margin-top: -7px;
         margin-bottom: -7px;
         margin-right: -23px;
         margin-left: -10px;
+    }
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        max-width: 210px;
     }
 }
 
@@ -1725,6 +1779,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     .albums-article .external-albums-picture-wrapper .albums-picture-wrapper .album-item .album-title {
         transform: scale(1.1);
     }
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        max-width: 180px;
+    }
 }
 
 @media (max-width: 220px) {
@@ -1759,6 +1817,10 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         transform: scale(0.45);
         margin-right: -30px;
         margin-left: -20px;
+    }
+    
+    .website-main-article .albums-picture-wrapper .albums-album-or-picture .albums-album-title {
+        max-width: 160px;
     }
 }
 
@@ -2002,9 +2064,7 @@ instead of some particular ones. That's because some properties will be common w
 }
 
 .website-main-article .folders-and-articles-wrapper .article-folder-or-article {
-    border-bottom: 2px solid #bcbcbc;
-    margin-top: 5px;
-    margin-bottom: 5px;  
+    border-bottom: 2px solid #bcbcbc;  
 }
 
 .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-link {
@@ -2015,18 +2075,26 @@ instead of some particular ones. That's because some properties will be common w
 .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-picture {
     display: inline-block;
     height: 31px;
-    vertical-align: bottom;
+    vertical-align: top;
     filter: drop-shadow(0 0 0px black);
+    max-width: 35px;
+    overflow: hidden;
 }
 
 .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
     display: inline-block;
-    height: 23px;
+    min-height: 23px;
+    max-width: 665px;
     vertical-align: bottom;
     margin-left: 5px;
     font-size: 14px;
     font-family: Arial;
     font-weight: bold;
+    overflow-wrap: break-word;
+}
+
+.website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title p {
+    margin-top: 7px;
 }
 
 .website-main-article .article-folder-or-article:hover .article-folder-or-article-link .article-folder-or-article-picture {
@@ -2231,6 +2299,10 @@ instead of some particular ones. That's because some properties will be common w
         margin-bottom: -10px;   
     }
     
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        max-width: 590px;
+    }
+    
     .articles-article .article-picture {
         margin-right: 15px;
         margin-bottom: 15px;
@@ -2370,6 +2442,10 @@ instead of some particular ones. That's because some properties will be common w
         filter: drop-shadow(0 0 0px black);
     }
     
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        max-width: 470px;
+    }
+    
     .articles-article .article-picture {
         margin-bottom: 15px;
     }
@@ -2392,9 +2468,13 @@ instead of some particular ones. That's because some properties will be common w
     .articles-article-folders .external-folders-wrapper {
         padding-left: 10px;
     }
-    
+      
     .website-main-article .folders-and-articles-wrapper {
         min-height: 435px;
+    }
+    
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        max-width: 395px;
     }
     
     .articles-article .article-body .article-body-image-item {
@@ -2520,7 +2600,12 @@ instead of some particular ones. That's because some properties will be common w
     
     .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
         font-size: 13px;
-        margin-left: 3px;
+        margin-left: 0px;
+        max-width: 325px;
+    }
+    
+    .website-main-article .article-folder-or-article:hover .article-folder-or-article-link .article-folder-or-article-title {
+        font-size: 14px;
     }
     
     .articles-article-folders .empty-folders-text-wrapper {
@@ -2682,9 +2767,9 @@ instead of some particular ones. That's because some properties will be common w
     }
     
     .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
-        height: 20px;
-        margin-left: 3px;
+        min-height: 20px;
         font-size: 13px;
+        max-width: 260px;
     }
     
     .articles-article .article-picture {
@@ -2759,6 +2844,10 @@ instead of some particular ones. That's because some properties will be common w
         padding-left: 25px;
     }
     
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        max-width: 240px;
+    }
+    
     .articles-article .article-picture {
         margin-right: -20px;
         margin-left: -30px;
@@ -2802,6 +2891,10 @@ instead of some particular ones. That's because some properties will be common w
     
     .articles-article-folders .external-folders-wrapper .folders-wrapper .folder-item .folder-title .article-folder-title {
         font-size: 24px;
+    }
+    
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        max-width: 235px;
     }
     
     .articles-article-folders {
@@ -2889,6 +2982,12 @@ instead of some particular ones. That's because some properties will be common w
     
     .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
         font-size: 12px;
+        min-height: 18px;
+        max-width: 200px;
+    }
+    
+    .website-main-article .article-folder-or-article:hover .article-folder-or-article-link .article-folder-or-article-title {
+        font-size: 13px;
     }
 }
 
@@ -2910,6 +3009,10 @@ instead of some particular ones. That's because some properties will be common w
     
     .articles-article-folders .external-folders-wrapper {
         min-height: 265px;
+    }
+    
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        max-width: 180px;
     }
     
     .articles-article .article-picture {
@@ -2934,6 +3037,12 @@ instead of some particular ones. That's because some properties will be common w
     
     .articles-article .article-body .article-body-image-item .article-body-image {
         border-radius: 2px;
+    }
+}
+
+@media (max-width: 250px) {
+    .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
+        max-width: 180px;
     }
 }
 
@@ -3064,7 +3173,7 @@ instead of some particular ones. That's because some properties will be common w
     }
     
     .website-main-article .folders-and-articles-wrapper .article-folder-or-article .article-folder-or-article-title {
-        margin-left: 1px;
+        max-width: 160px;
     }
     
     .articles-article .article-body .article-body-image-item {
