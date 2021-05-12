@@ -2124,6 +2124,7 @@ instead of some particular ones. That's because some properties will be common w
     font-family: "Times New Roman", "Arial";
     font-style: italic;
     font-size: 17px;
+    margin-bottom: 25px;
 }
 
 /*There are some styles below for articles to make them look better after being converted from BBCode.*/
