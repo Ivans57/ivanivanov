@@ -169,7 +169,7 @@ $( document ).ready(function() {
     
     $("#search_button").click(function() {
         //The fifth parameter will be always 'all', because when searching something again, need to drop all filters and sortings.
-        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), 1);
+        search($("#search_is_on").val(), make_search_url(), $("#search").val(), $("#what_to_search").val(), 1);
     });   
     
     //This event needs to be done like below ($(document).on("click", ...), because due to ajax usage it can't be done like a normal event.
@@ -182,7 +182,7 @@ $( document ).ready(function() {
             go_to_page_number = go_to_page_number + 1;
         }       
         //The first parameter will always be "1", because pagination arrows for search will appear only when search mode is on.
-        search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), go_to_page_number, $("#sort").val());
+        search("1", make_search_url(), $("#search").val(), $("#what_to_search").val(), go_to_page_number, $("#sort").val());
     });
     
     //The function below is calling search function.
@@ -221,7 +221,7 @@ $( document ).ready(function() {
         if($("#search_is_on").val() === '0') {
             directories_or_files_sort($(this).val(), current_element);
         } else if($("#search_is_on").val() === '1') {
-            search("1", make_search_url(), $("#search").val(), $("input[name='what_to_search']:checked").val(), "1", $("#sort").val());
+            search("1", make_search_url(), $("#search").val(), $("#what_to_search").val(), "1", $("#sort").val());
         }
     });
 
@@ -253,6 +253,13 @@ $( document ).ready(function() {
 
     //This function is required to show folders(albums) or articles(pictures) first.
     $("input[name='directories_or_files_first']").change(function() {
+        var directories_or_files_first_value = $(this).val();
+        var element_with_sorting_info = document.querySelector('#sort');
+
+        directories_or_files_first(element_with_sorting_info, directories_or_files_first_value);
+    });
+    
+    $(document).on('change', '#directories_or_files_first', function() {
         var directories_or_files_first_value = $(this).val();
         var element_with_sorting_info = document.querySelector('#sort');
 

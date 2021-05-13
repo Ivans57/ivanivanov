@@ -4,7 +4,13 @@
 <article class="website-main-article articles-article-folders">
     @if ($all_folders_count > 1)
         <div class="albums-or-articles-search">
-            {!! Form::label('search_folders', Lang::get('keywords.SearchForFolders').':', 
+            {!! Form::select('what_to_search', array(
+                             'folders' => Lang::get('keywords.SearchForFolders'),
+                             'articles' => Lang::get('keywords.SearchForArticles')),
+                              $what_to_search, ['id' => 'what_to_search', 
+                              'class' => 'form-control folders-and-articles-sorting-controls folders-and-articles-sorting-select']) !!}
+            
+            <!-- {!! Form::label('search_folders', Lang::get('keywords.SearchForFolders').':', 
                            ['class' => 'albums-or-articles-what-to-search-label']) !!}               
             {!! Form::radio('what_to_search', 'folders', 
                            (($what_to_search === 'folders') ? true : false), ['id' => 'search_folders', 
@@ -13,7 +19,7 @@
                            ['class' => 'albums-or-articles-what-to-search-label']) !!}               
             {!! Form::radio('what_to_search', 'articles', 
                            (($what_to_search === 'articles') ? true : false), ['id' => 'search_articles', 
-                            'class' => 'albums-or-articles-what-to-search']); !!}
+                            'class' => 'albums-or-articles-what-to-search']); !!} -->
             {!! Form::text('search', null, 
                 ['class' => 'albums-or-articles-search-input', 
                  'placeholder' => Lang::get('keywords.SearchByName').'...', 'name' => 'search', 'id' => 'search']) !!}
