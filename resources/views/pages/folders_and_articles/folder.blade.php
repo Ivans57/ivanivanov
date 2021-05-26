@@ -25,7 +25,7 @@
                              'folders' => Lang::get('keywords.SearchForFolders'),
                              'articles' => Lang::get('keywords.SearchForArticles')),
                               $what_to_search, ['id' => 'what_to_search', 
-                              'class' => 'form-control folders-and-articles-sorting-controls folders-and-articles-sorting-select']) !!}
+                              'class' => 'folders-and-articles-sorting-controls folders-and-articles-sorting-select']) !!}
         
         <!-- {!! Form::label('search_folders', Lang::get('keywords.SearchForFolders').':', 
                        ['class' => 'albums-or-articles-what-to-search-label']) !!}               

@@ -1887,16 +1887,20 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
     flex-wrap: wrap;
 }
 
-.website-main-article .albums-or-articles-search .albums-or-articles-what-to-search-label {
+/*.website-main-article .albums-or-articles-search .albums-or-articles-what-to-search-label {
     margin-right: 5px;
     margin-top: 5px;
     font-family: Arial;
     font-size: 15px;
-}
+}*/
 
 .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search {
+    width: 160px;
+    height: 28px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px #4f5250 solid;
     margin-right: 15px;
-    margin-top: 9px;
 }
 
 .website-main-article .albums-or-articles-search .albums-or-articles-search-input {
@@ -2240,15 +2244,15 @@ instead of some particular ones. That's because some properties will be common w
         margin-bottom: 10px;
     }
 
-    .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search-label {
+    /*.website-main-article .albums-or-articles-search .albums-or-articles-what-to-search-label {
         font-size: 14px;
-    }
+    }*/
 
     .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search {
         margin-right: 10px;
-        margin-top: 9px;
+        height: 26px;
     }
-
+    
     .website-main-article .albums-or-articles-search .albums-or-articles-search-input {
         width: 210px;
         height: 26px;
@@ -2373,23 +2377,24 @@ instead of some particular ones. That's because some properties will be common w
         margin-bottom: 10px;
     }
 
-    .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search-label {
+    /*.website-main-article .albums-or-articles-search .albums-or-articles-what-to-search-label {
         font-size: 13px;
-    }
+    }*/
 
     .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search {
-        margin-right: 10px;
-        margin-top: 9px;
+        width: 150px;
+        font-size: 13px;
+    }
+    
+    .website-main-article .albums-or-articles-search .albums-or-articles-search-button {
+        height: 26px;
+        width: 26px;
+        margin-top: -1px;
     }
 
     .website-main-article .albums-or-articles-search .albums-or-articles-search-input {
         width: 200px;
         font-size: 13px;
-    }
-
-    .website-main-article .albums-or-articles-search .albums-or-articles-search-button {
-        height: 26px;
-        width: 26px;
     }
     
     .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-controls, 
@@ -2558,6 +2563,10 @@ instead of some particular ones. That's because some properties will be common w
         padding: 25px;
     }
     
+    .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search {
+        margin-right: 5px;
+    }
+    
     .website-main-article .albums-or-articles-search .albums-or-articles-search-input {
         width: 165px;
         height: 26px;
@@ -2619,6 +2628,11 @@ instead of some particular ones. That's because some properties will be common w
 }
 
 @media (max-width: 450px) {
+    .website-main-article .albums-or-articles-search .albums-or-articles-search-input {
+        width: 150px;
+        height: 26px;
+    }
+    
     .articles-article {
         width: 420px;
     }
@@ -2633,6 +2647,14 @@ instead of some particular ones. That's because some properties will be common w
 }
 
 @media (max-width: 430px) {
+    .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search {
+        margin-bottom: 10px;
+    }
+    
+    .website-main-article .albums-or-articles-search .albums-or-articles-search-button {
+        margin-right: 5px;
+    }
+    
     .articles-article {
         width: 390px;
     }
@@ -2644,7 +2666,7 @@ instead of some particular ones. That's because some properties will be common w
     .articles-article-folders-and-articles {
         width: 380px;
     }
-    
+       
     .articles-article .article-description, .articles-article .article-body, 
     .articles-article .article-body .font-size-default,
     .articles-article .article-author, .articles-article .article-source, 
@@ -2731,6 +2753,11 @@ instead of some particular ones. That's because some properties will be common w
     
     .articles-article-folders-and-articles {
         width: 320px;
+    }
+    
+    .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search {
+        height: 24px;
+        margin-top: 10px;
     }
     
     .website-main-article .albums-or-articles-search .albums-or-articles-search-input {
@@ -2836,7 +2863,7 @@ instead of some particular ones. That's because some properties will be common w
 
     .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select,
     .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select {
-        width: 170px;
+        width: 160px;
         height: 22px;
     }
     
@@ -3124,6 +3151,10 @@ instead of some particular ones. That's because some properties will be common w
     
     .articles-article {
         width: 200px;
+    }
+    
+    .website-main-article .albums-or-articles-search .albums-or-articles-what-to-search {
+        width: 135px;
     }
     
     .website-main-article .albums-or-articles-search .albums-or-articles-search-input {
