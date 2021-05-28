@@ -9,7 +9,7 @@
                          'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
                          'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
                           $sorting_mode, ['id' => 'sort', 
-                         'class' => 'folders-and-articles-sorting-controls folders-and-articles-sorting-select', 
+                         'class' => 'folders-and-articles-sorting-select', 
                          'data-section' => $section, 'data-parent_keyword' => $parent_keyword, 'data-is_level_zero' => '0', 
                          'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
                          'data-has_files' => ($articleAmount > 0) ? 'true' : 'false', 
@@ -28,7 +28,7 @@
                              'folders_first' => Lang::get('keywords.FoldersFirst'),
                              'articles_first' => Lang::get('keywords.ArticlesFirst')),
                               $directories_or_files_first, ['id' => 'directories_or_files_first', 
-                              'class' => 'folders-and-articles-sorting-controls folders-and-articles-sorting-select']) !!}
+                              'class' => 'folders-and-articles-sorting-priority']) !!}
         @endif          
     </div>
     @if ($articleAmount < 1)       

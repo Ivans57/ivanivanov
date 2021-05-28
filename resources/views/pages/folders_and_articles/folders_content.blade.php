@@ -6,7 +6,7 @@
         {!! Form::select('sort', array(
                          'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
                          'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
-                         $sorting_mode, ['id' => 'sort', 'class' => 'form-control folders-and-articles-sorting-select', 
+                         $sorting_mode, ['id' => 'sort', 'class' => 'folders-and-articles-sorting-select', 
                          'data-section' => $section, 'data-is_level_zero' => '1', 
                          'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}
     </div>
