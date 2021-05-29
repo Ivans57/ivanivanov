@@ -968,10 +968,57 @@ will be shown, just excluding some components.*/
     if we don't use that propery, the contents of the container won't go to the next line,
     but will fall out of the container.*/
     flex-wrap: wrap;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-right: 15px;
 }
 
 .albums-article .albums-and-pictures-sorting {
+    margin-left: 18px;
+}
+
+.albums-article .albums-and-pictures-sorting-for-included-albums {
+    margin-right: 0px;
+}
+ 
+.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+    margin-right: 5px;
+    margin-top: 10px;
+    font-family: Arial;
+    font-size: 15px;
+}
+
+.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select,
+.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-priority {
+    border-radius: 3px;
+    width: 205px;
+    height: 26px;
+    padding: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 10px;
+    background-color: white;
+    border-color: #4f5250;
+}
+
+.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-priority {
+    width: 150px;
+}
+
+.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+     margin-right: 20px;
+}
+
+/*.albums-article .albums-and-pictures-sorting {
+    display: flex;
+    justify-content: flex-start;*/
+    /*The next line is necessary for smaller size screens,
+    if we don't use that propery, the contents of the container won't go to the next line,
+    but will fall out of the container.*/
+    /*flex-wrap: wrap;
+    margin-bottom: 10px;
+}*/
+
+/*.albums-article .albums-and-pictures-sorting {
     margin-left: 18px;
 }
 
@@ -1002,7 +1049,7 @@ will be shown, just excluding some components.*/
     padding-bottom: 3px;
     background-color: white;
     border-color: #4f5250;
-}
+}*/
 
 .albums-article h2 {
     font-size: 35px;
@@ -1183,7 +1230,17 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         min-height: 590px;
     }
     
-    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+        margin-right: 5px;
+        margin-top: 11px;
+        font-size: 14px;
+    }
+
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 195px;
+    }
+    
+    /*.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
         margin-right: 12px;
     }
 
@@ -1194,7 +1251,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
         width: 195px;
-    }
+    }*/
     
     .albums-article h2 {
         font-size: 33px;
@@ -1236,8 +1293,26 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         width: 590px;
         min-height: 500px;
     }
-       
-    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+        margin-top: 13px;
+        margin-right: 5px;
+        font-size: 13px;
+    }
+
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 170px;
+        padding: 3px;
+        font-size: 13px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-priority {
+        width: 140px;
+        padding: 3px;
+        font-size: 13px;
+    }
+    
+    /*.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
         margin-right: 10px;
     }
 
@@ -1250,7 +1325,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         width: 170px;
         padding: 3px;
         font-size: 13px;
-    }
+    }*/
     
     .albums-article h2 {
         font-size: 31px;
@@ -1367,9 +1442,26 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         max-width: 435px;
     }
     
-    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+    /*.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
         width: 185px;
         padding: 2px;
+    }*/
+    
+    .albums-article .albums-and-pictures-sorting {
+        margin-left: 0px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+        margin-top: 13px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select,
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-priority {
+        padding: 2px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 165px;
     }
     
     .albums-article h2 {
@@ -1483,7 +1575,22 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         max-width: 340px;
     }
     
-    .albums-article .albums-and-pictures-sorting-for-included-albums {
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+        margin-right: 4px;
+        font-size: 13px;
+        margin-bottom: -5px;
+    }
+
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 170px;
+        height: 24px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-priority {
+        height: 24px;
+    }
+    
+    /*.albums-article .albums-and-pictures-sorting-for-included-albums {
         margin-bottom: 5px;
     }
     
@@ -1496,7 +1603,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         height: 24px;
         padding: 1px;
         font-size: 13px;
-    }
+    }*/
     
     .albums-article .external-albums-wrapper {
         padding-left: 5px;
@@ -1562,9 +1669,22 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         min-height: 430px;
     }
     
-    .albums-article .albums-and-pictures-sorting-for-included-albums {
-        margin-bottom: 0px;
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+        margin-right: 3px;
     }
+
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 160px;
+        height: 22px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-priority {
+        height: 22px;
+    }
+    
+    /*.albums-article .albums-and-pictures-sorting-for-included-albums {
+        margin-bottom: 0px;
+    }*/
     
     .albums-article .external-albums-wrapper {
         min-height: 320px;
@@ -1594,9 +1714,9 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         min-height: 405px;
     }
     
-    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
+    /*.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
         margin-right: 5px;
-    }
+    }*/
     
     .albums-article .external-albums-wrapper {
         min-height: 310px;
@@ -1621,6 +1741,12 @@ but we need our pagination tools to be in the bottom off the page. This is some 
 }
 
 @media (max-width: 300px) {
+    .albums-article .albums-and-pictures-sorting {
+        /*margin-top: 10px;*/
+        margin-top: -5px;
+        margin-left: 12px;
+    }
+    
     .albums-article {
         /*If I apply only width propery it is not working, for that reason
         I applied min-width.*/
@@ -1671,7 +1797,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         padding: 20px;
     }
     
-    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+    /*.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
         font-size: 13px;
         margin-right: 5px;
     }
@@ -1693,7 +1819,7 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-controls {
         margin-right: 5px;
-    }
+    }*/
     
     .albums-article .external-albums-wrapper {
         min-height: 265px;
@@ -1731,14 +1857,14 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         min-height: 350px;
     }
     
-    .albums-article .albums-and-pictures-sorting {
+    /*.albums-article .albums-and-pictures-sorting {
         margin-left: 5px;
     }
     
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
         height: 22px;
         margin-bottom: 5px;
-    }
+    }*/
     
     .albums-article .external-albums-wrapper {
         min-height: 250px;
@@ -1795,12 +1921,35 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     }
     
     .albums-article .albums-and-pictures-sorting {
+        margin-bottom: 10px;
+    }
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+        margin-right: 3px;
+        font-size: 13px;
+    }
+
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 160px;
+        height: 22px;
+        padding: 1px;
+    }
+    
+    /*.articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 145px;
+    }*/
+    
+    albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select-priority {
+        padding: 1px;
+    }
+    
+    /*.albums-article .albums-and-pictures-sorting {
         margin-left: 0px;
     }
     
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
         width: 155px;
-    }
+    }*/
 
     .albums-article .external-albums-wrapper {
         min-height: 250px;
@@ -1834,13 +1983,32 @@ but we need our pagination tools to be in the bottom off the page. This is some 
         padding-top: 20px;
     }
     
-    .albums-article .albums-and-pictures-sorting {
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-label {
+        margin-right: 3px;
+        font-size: 12px;
+    }
+
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
+        width: 160px;
+        height: 22px;
+        font-size: 12px;
+    }
+    
+    /*.articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select {
+        width: 145px;
+    }*/
+    
+    .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-priority {
+        font-size: 12px;
+    }
+    
+    /*.albums-article .albums-and-pictures-sorting {
         margin-left: 0px;
     }
     
     .albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select {
         margin-left: 5px;
-    }    
+    }*/
     
     .albums-article h2 {
         font-size: 21px;
@@ -2757,11 +2925,6 @@ instead of some particular ones. That's because some properties will be common w
         height: 24px;
     }
     
-    /*.articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-controls, 
-    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-controls {
-        margin-right: 8px;
-    }*/
-    
     .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-label,
     .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-label {
         margin-right: 4px;
@@ -2962,16 +3125,7 @@ instead of some particular ones. That's because some properties will be common w
     }
     
     .articles-article-folders .folders-and-articles-sorting,
-    .articles-article-folders-and-articles .folders-and-articles-sorting {
-        margin-top: 10px;
-    }
-    
     .articles-article-folders-and-articles .folders-and-articles-sorting  {
-        margin-top: -5px;
-        margin-left: 12px;
-    }
-    
-    .articles-article-folders .folders-and-articles-sorting  {
         margin-top: -5px;
         margin-left: 12px;
     }
@@ -3180,12 +3334,12 @@ instead of some particular ones. That's because some properties will be common w
         padding: 1px;
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-priority {
-        padding: 1px;
-    }
-    
     .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select {
         width: 145px;
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-priority {
+        padding: 1px;
     }
     
     .articles-article h2 {
@@ -3263,12 +3417,12 @@ instead of some particular ones. That's because some properties will be common w
         font-size: 12px;
     }
     
-    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-priority {
-        font-size: 12px;
-    }
-    
     .articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select {
         width: 145px;
+    }
+    
+    .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-priority {
+        font-size: 12px;
     }
     
     .articles-article-folders h2 {
