@@ -9,20 +9,26 @@
                          'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
                          'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
                           $sorting_mode, ['id' => 'sort', 
-                         'class' => 'form-control albums-and-pictures-sorting-controls albums-and-pictures-sorting-select', 
+                         'class' => 'albums-and-pictures-sorting-controls albums-and-pictures-sorting-select', 
                          'data-section' => $section, 'data-parent_keyword' => $parent_keyword, 'data-is_level_zero' => '0', 
                          'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
                          'data-has_files' => ($pictureAmount > 0) ? 'true' : 'false', 
                          'data-has_directories' => ($albumAmount > 0) ? 'true' : 'false']) !!}           
         @if ($pictureAmount > 0 && $albumAmount > 0)                   
-            {!! Form::label('albums_first', Lang::get('keywords.AlbumsFirst').':', ['class' => 'albums-and-pictures-sorting-label']) !!}               
+            <!-- {!! Form::label('albums_first', Lang::get('keywords.AlbumsFirst').':', ['class' => 'albums-and-pictures-sorting-label']) !!}               
             {!! Form::radio('directories_or_files_first', 'albums_first', 
                            (($directories_or_files_first === 'albums_first') ? true : false), ['id' => 'albums_first', 
                             'class' => 'albums-and-pictures-sorting-controls']); !!}                    
             {!! Form::label('pictures_first', Lang::get('keywords.PicturesFirst').':', ['class' => 'albums-and-pictures-sorting-label']) !!}               
             {!! Form::radio('directories_or_files_first', 'pictures_first', 
                            (($directories_or_files_first === 'pictures_first') ? true : false), ['id' => 'pictures_first', 
-                            'class' => 'albums-and-pictures-sorting-controls']); !!}                    
+                            'class' => 'albums-and-pictures-sorting-controls']); !!} -->
+            
+            {!! Form::select('directories_or_files_first', array(
+                             'albums_first' => Lang::get('keywords.AlbumsFirst'),
+                             'pictures_first' => Lang::get('keywords.PicturesFirst')),
+                              $directories_or_files_first, ['id' => 'directories_or_files_first', 
+                              'class' => 'albums-and-pictures-sorting-priority']) !!}
         @endif          
     </div>
     <div class="external-albums-picture-wrapper">

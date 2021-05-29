@@ -244,7 +244,7 @@ $( document ).ready(function() {
                 //the check below, there will be an error.
                 if (current_element.dataset.has_files === 'true' && current_element.dataset.has_directories === 'true') {
                     directories_or_files_first = $("#directories_or_files_first").val();
-                }//document.querySelector('input[name="directories_or_files_first"]:checked').value
+                }
                 url = localization+"/"+current_element.dataset.section+"/"+current_element.dataset.parent_keyword+"/page/1/"+
                       sorting_method+"/"+directories_or_files_first;
             }
