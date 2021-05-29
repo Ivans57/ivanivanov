@@ -243,8 +243,8 @@ $( document ).ready(function() {
                 //there is no need for the last parameter. If there is only one entity in the folder (album), radio elements don't exist and without
                 //the check below, there will be an error.
                 if (current_element.dataset.has_files === 'true' && current_element.dataset.has_directories === 'true') {
-                    directories_or_files_first = document.querySelector('input[name="directories_or_files_first"]:checked').value;
-                }
+                    directories_or_files_first = $("#directories_or_files_first").val();
+                }//document.querySelector('input[name="directories_or_files_first"]:checked').value
                 url = localization+"/"+current_element.dataset.section+"/"+current_element.dataset.parent_keyword+"/page/1/"+
                       sorting_method+"/"+directories_or_files_first;
             }
@@ -252,12 +252,12 @@ $( document ).ready(function() {
     }
 
     //This function is required to show folders(albums) or articles(pictures) first.
-    $("input[name='directories_or_files_first']").change(function() {
+    /*$("input[name='directories_or_files_first']").change(function() {
         var directories_or_files_first_value = $(this).val();
         var element_with_sorting_info = document.querySelector('#sort');
 
         directories_or_files_first(element_with_sorting_info, directories_or_files_first_value);
-    });
+    });*/
     
     $(document).on('change', '#directories_or_files_first', function() {
         var directories_or_files_first_value = $(this).val();
