@@ -15,15 +15,6 @@
                          'data-has_files' => ($pictureAmount > 0) ? 'true' : 'false', 
                          'data-has_directories' => ($albumAmount > 0) ? 'true' : 'false']) !!}           
         @if ($pictureAmount > 0 && $albumAmount > 0)                   
-            <!-- {!! Form::label('albums_first', Lang::get('keywords.AlbumsFirst').':', ['class' => 'albums-and-pictures-sorting-label']) !!}               
-            {!! Form::radio('directories_or_files_first', 'albums_first', 
-                           (($directories_or_files_first === 'albums_first') ? true : false), ['id' => 'albums_first', 
-                            'class' => 'albums-and-pictures-sorting-controls']); !!}                    
-            {!! Form::label('pictures_first', Lang::get('keywords.PicturesFirst').':', ['class' => 'albums-and-pictures-sorting-label']) !!}               
-            {!! Form::radio('directories_or_files_first', 'pictures_first', 
-                           (($directories_or_files_first === 'pictures_first') ? true : false), ['id' => 'pictures_first', 
-                            'class' => 'albums-and-pictures-sorting-controls']); !!} -->
-            
             {!! Form::select('directories_or_files_first', array(
                              'albums_first' => Lang::get('keywords.AlbumsFirst'),
                              'pictures_first' => Lang::get('keywords.PicturesFirst')),

@@ -15,15 +15,6 @@
                          'data-has_files' => ($articleAmount > 0) ? 'true' : 'false', 
                          'data-has_directories' => ($folderAmount > 0) ? 'true' : 'false']) !!}           
         @if ($articleAmount > 0 && $folderAmount > 0)                   
-            <!-- {!! Form::label('folders_first', Lang::get('keywords.FoldersFirst').':', ['class' => 'folders-and-articles-sorting-label']) !!}               
-            {!! Form::radio('directories_or_files_first', 'folders_first', 
-                           (($directories_or_files_first === 'folders_first') ? true : false), ['id' => 'folders_first', 
-                            'class' => 'folders-and-articles-sorting-controls']); !!}                    
-            {!! Form::label('articles_first', Lang::get('keywords.ArticlesFirst').':', ['class' => 'folders-and-articles-sorting-label']) !!}               
-            {!! Form::radio('directories_or_files_first', 'articles_first', 
-                           (($directories_or_files_first === 'articles_first') ? true : false), ['id' => 'articles_first', 
-                            'class' => 'folders-and-articles-sorting-controls']); !!} -->
-                                       
             {!! Form::select('directories_or_files_first', array(
                              'folders_first' => Lang::get('keywords.FoldersFirst'),
                              'articles_first' => Lang::get('keywords.ArticlesFirst')),

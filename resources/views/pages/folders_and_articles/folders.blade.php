@@ -8,19 +8,7 @@
                              'folders' => Lang::get('keywords.SearchForFolders'),
                              'articles' => Lang::get('keywords.SearchForArticles')),
                               $what_to_search, ['id' => 'what_to_search', 
-                              'class' => 'albums-or-articles-what-to-search']) !!}
-            
-            <!-- {!! Form::label('search_folders', Lang::get('keywords.SearchForFolders').':', 
-                           ['class' => 'albums-or-articles-what-to-search-label']) !!}               
-            {!! Form::radio('what_to_search', 'folders', 
-                           (($what_to_search === 'folders') ? true : false), ['id' => 'search_folders', 
-                            'class' => 'albums-or-articles-what-to-search']); !!}                    
-            {!! Form::label('search_articles', Lang::get('keywords.SearchForArticles').':', 
-                           ['class' => 'albums-or-articles-what-to-search-label']) !!}               
-            {!! Form::radio('what_to_search', 'articles', 
-                           (($what_to_search === 'articles') ? true : false), ['id' => 'search_articles', 
-                            'class' => 'albums-or-articles-what-to-search']); !!} -->
-            
+                              'class' => 'albums-or-articles-what-to-search']) !!}           
             <!-- The <div> below is required to keep input and button together when changing screen size. -->
             <div>
                 {!! Form::text('search', null, 

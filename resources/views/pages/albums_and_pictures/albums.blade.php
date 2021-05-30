@@ -4,16 +4,6 @@
 <article class="website-main-article albums-article">
     @if ($all_albums_count > 1)
         <div class="albums-or-articles-search">
-            <!-- {!! Form::label('search_albums', Lang::get('keywords.SearchForAlbums').':', 
-                           ['class' => 'albums-or-articles-what-to-search-label']) !!}               
-            {!! Form::radio('what_to_search', 'albums', 
-                           (($what_to_search === 'albums') ? true : false), ['id' => 'search_albums', 
-                            'class' => 'albums-or-articles-what-to-search']); !!}                    
-            {!! Form::label('search_pictures', Lang::get('keywords.SearchForPictures').':', 
-                           ['class' => 'albums-or-articles-what-to-search-label']) !!}               
-            {!! Form::radio('what_to_search', 'pictures', 
-                           (($what_to_search === 'pictures') ? true : false), ['id' => 'search_pictures', 
-                            'class' => 'albums-or-articles-what-to-search']); !!} -->
             {!! Form::select('what_to_search', array(
                              'albums' => Lang::get('keywords.SearchForAlbums'),
                              'pictures' => Lang::get('keywords.SearchForPictures')),

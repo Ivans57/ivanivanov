@@ -250,14 +250,6 @@ $( document ).ready(function() {
             }
             window.location.href = url;
     }
-
-    //This function is required to show folders(albums) or articles(pictures) first.
-    /*$("input[name='directories_or_files_first']").change(function() {
-        var directories_or_files_first_value = $(this).val();
-        var element_with_sorting_info = document.querySelector('#sort');
-
-        directories_or_files_first(element_with_sorting_info, directories_or_files_first_value);
-    });*/
     
     $(document).on('change', '#directories_or_files_first', function() {
         var directories_or_files_first_value = $(this).val();
