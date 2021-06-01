@@ -1006,6 +1006,11 @@ will be shown, just excluding some components.*/
      margin-right: 20px;
 }
 
+.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-select:hover,
+.albums-article .albums-and-pictures-sorting .albums-and-pictures-sorting-priority:hover {
+     cursor: pointer;
+}
+
 .albums-article h2 {
     font-size: 35px;
     /*We need to zero next following margin to get rid of margin h2 tag does 
@@ -1917,6 +1922,10 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
     border: 1px #4f5250 solid;
 }
 
+.website-main-article .albums-or-articles-search .albums-or-articles-what-to-search:hover {
+    cursor: pointer;
+}
+
 .website-main-article .albums-or-articles-search .albums-or-articles-search-input {
     width: 230px;
     height: 28px;
@@ -1976,6 +1985,12 @@ If we don't need both of them, their view can be simplified as in admin panel.*/
     margin-top: 10px;
     background-color: white;
     border-color: #4f5250;
+}
+
+.articles-article-folders .folders-and-articles-sorting .folders-and-articles-sorting-select:hover,
+.articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-select:hover,
+.articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-priority:hover {
+    cursor: pointer;
 }
 
 .articles-article-folders-and-articles .folders-and-articles-sorting .folders-and-articles-sorting-priority {
