@@ -201,8 +201,8 @@ $( document ).ready(function() {
                         $('.albums-or-articles-title').html(data.title);
                     } else {
                         //Below I am taking a common class, because this script is universal.
-                        var article_container = document.querySelector('.website-main-article');
-                        article_container.insertAdjacentHTML("afterbegin", "<div class='albums-or-articles-title'>"+data.title+"</div>");
+                        var previous_element = document.querySelector('.albums-or-articles-search');
+                        previous_element.insertAdjacentHTML("afterend", "<div class='albums-or-articles-title'>"+data.title+"</div>");
                     }
                     if ($(".path-panel").length) {
                         $('.path-panel').html(data.path);

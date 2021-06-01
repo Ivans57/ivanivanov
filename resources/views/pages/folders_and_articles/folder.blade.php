@@ -16,10 +16,6 @@
             @endcomponent                
         @endif
     </div>
-    <!-- The class below is only for js purposes -->
-    <div class="albums-or-articles-title">
-        @include('pages.folders_and_articles.folder_folder_title')
-    </div>
     <div class="albums-or-articles-search">
         {!! Form::select('what_to_search', array(
                              'folders' => Lang::get('keywords.SearchForFolders'),
@@ -34,6 +30,10 @@
                             ['class' => 'albums-or-articles-search-button', 'id' => 'search_button', 'title' => Lang::get('keywords.Search'), 
                              'data-section' => $section, 'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
         </div>                 
+    </div>
+    <!-- The class below is only for js purposes -->
+    <div class="albums-or-articles-title">
+        @include('pages.folders_and_articles.folder_folder_title')
     </div>
     <!-- The class below is required only for JavaScript purposes.-->
     <div class="albums-or-articles-content">
