@@ -33,22 +33,6 @@ $( document ).ready(function() {
         });
     }
 
-    //Apparently, commented piece of code below is not required.
-    //Making list of all elements with our class.
-    /*var keyword_buttons = document.querySelectorAll('.admin-panel-keywords-keyword-control-button');
-    
-    //getting through the array of elements and applying required function
-    //for all of them. We don't need these elements id anymore.
-    for (var i = 0; i < keyword_buttons.length; i++) {
-        clickKeywordButton(keyword_buttons[i]);
-    }  
-    function clickKeywordButton(button) {
-        button.addEventListener('click', function() {
-            button.classList.remove('admin-panel-keywords-keyword-control-button');
-            button.classList.add('admin-panel-keywords-keyword-control-button-pressed');
-        });
-    }*/
-
     //We need this script to open new keyword create page in fancy box window.
     $(".admin-panel-keywords-add-keyword-button-link").fancybox({
 	toolbar  : false,
@@ -325,8 +309,8 @@ $( document ).ready(function() {
                     //Need to add one only if it doesn't exists, otherwise that element will be added every single time when user press "Search" button and
                     //multiple titles will be displayed.
                     if ($(".admin-panel-search-title").length === 0) {
-                        var keywords_container = document.querySelector('.admin-panel-main-article-keywords');
-                        keywords_container.insertAdjacentHTML("afterbegin", "<div class='admin-panel-search-title'>"+data.title+"</div>");
+                        var previous_element = document.querySelector('.admin-panel-keywords-search');
+                        previous_element.insertAdjacentHTML("afterend", "<div class='admin-panel-search-title'>"+data.title+"</div>");
                     }
                     
                     $('.admin-panel-keywords-control-buttons').html(data.control_buttons);

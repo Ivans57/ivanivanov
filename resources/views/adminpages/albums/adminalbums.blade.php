@@ -3,9 +3,6 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article admin-panel-main-article-albums">
-    <div class="admin-panel-albums-control-buttons" id="control_buttons">
-        @include('adminpages.albums.adminalbums_controlbuttons')
-    </div>
     @if ($all_albums_count > 1)
         <div class="admin-panel-albums-search">
             {!! Form::label('search_albums', Lang::get('keywords.SearchForAlbums').':', 
@@ -25,6 +22,9 @@
                              'data-section' => $section, 'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
         </div>
     @endif
+    <div class="admin-panel-albums-control-buttons" id="control_buttons">
+        @include('adminpages.albums.adminalbums_controlbuttons')
+    </div>
     <!-- The class below is required only for JavaScript purposes.-->
     <div class="admin-panel-albums-or-articles-content">
         @include('adminpages.albums.adminalbums_content')

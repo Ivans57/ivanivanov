@@ -16,15 +16,6 @@
             @endcomponent
         @endif
     </div>
-    <!-- The class below is only for js purposes -->
-    <div class="admin-panel-albums-or-articles-title">
-        @include('adminpages.folders.adminfolder_folder_title')
-    </div>
-    <div class="admin-panel-articles-add-article-folder-wrapper">
-        <div class="admin-panel-articles-control-buttons" id="control_buttons">
-            @include('adminpages.folders.adminfolder_controlbuttons')
-        </div>
-    </div>
     <div class="admin-panel-articles-search">
         {!! Form::label('search_folders', Lang::get('keywords.SearchForFolders').':', 
                        ['class' => 'admin-panel-articles-what-to-search-label']) !!}               
@@ -42,6 +33,15 @@
         {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
                         ['class' => 'admin-panel-articles-search-button', 'id' => 'search_button', 'title' => Lang::get('keywords.Search'), 
                          'data-section' => $section, 'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
+    </div>
+    <!-- The class below is only for js purposes -->
+    <div class="admin-panel-albums-or-articles-title">
+        @include('adminpages.folders.adminfolder_folder_title')
+    </div>
+    <div class="admin-panel-articles-add-article-folder-wrapper">
+        <div class="admin-panel-articles-control-buttons" id="control_buttons">
+            @include('adminpages.folders.adminfolder_controlbuttons')
+        </div>
     </div>
     <!-- The class below is required only for JavaScript purposes.-->
     <div class="admin-panel-albums-or-articles-content">

@@ -15,12 +15,6 @@
                 @endslot
             @endcomponent
         @endif
-    </div> 
-    <div class="admin-panel-albums-or-articles-title">
-        @include('adminpages.albums.adminalbum_album_title')
-    </div>
-    <div class="admin-panel-albums-control-buttons" id="control_buttons">
-        @include('adminpages.albums.adminalbum_controlbuttons')
     </div>
     <!-- Consider conditions of displaying the elements below.-->
     <div class="admin-panel-albums-search">
@@ -35,6 +29,12 @@
         {!! Form::button('<span class="glyphicon glyphicon-search"></span>', 
                         ['class' => 'admin-panel-albums-search-button', 'id' => 'search_button', 'title' => Lang::get('keywords.Search'), 
                          'data-section' => $section, 'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
+    </div>
+    <div class="admin-panel-albums-or-articles-title">
+        @include('adminpages.albums.adminalbum_album_title')
+    </div>
+    <div class="admin-panel-albums-control-buttons" id="control_buttons">
+        @include('adminpages.albums.adminalbum_controlbuttons')
     </div>
      <!-- The class below is required only for JavaScript purposes.-->
     <div class="admin-panel-albums-or-articles-content">

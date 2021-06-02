@@ -3,9 +3,6 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article admin-panel-main-article-articles">
-    <div class="admin-panel-articles-control-buttons" id="control_buttons">
-        @include('adminpages.folders.adminfolders_controlbuttons')
-    </div>
     @if ($all_folders_count > 1)
         <div class="admin-panel-articles-search">
             {!! Form::label('search_folders', Lang::get('keywords.SearchForFolders').':', 
@@ -26,6 +23,9 @@
                      'data-section' => $section, 'data-localization' => App::isLocale('en') ? 'en' : 'ru' ]) !!}
         </div>
     @endif
+    <div class="admin-panel-articles-control-buttons" id="control_buttons">
+        @include('adminpages.folders.adminfolders_controlbuttons')
+    </div>
     <!-- The class below is required only for JavaScript purposes.-->
     <div class="admin-panel-albums-or-articles-content">
         @include('adminpages.folders.adminfolders_content')

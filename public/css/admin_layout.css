@@ -1112,7 +1112,7 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
     /*We need to zero next following margin to get rid of margin h2 tag does 
     before its div.*/
     margin-top: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     text-align: center;
     font-family: "Times New Roman", "Arial";
 }

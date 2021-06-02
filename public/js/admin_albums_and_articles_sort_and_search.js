@@ -148,9 +148,12 @@ $( document ).ready(function() {
                     if ($(".admin-panel-albums-or-articles-title").length) {
                         $('.admin-panel-albums-or-articles-title').html(data.title);
                     } else {
-                        //Below I am taking a common class, becuase this script is universal.
-                        var article_container = document.querySelector('.admin-panel-main-article');
-                        article_container.insertAdjacentHTML("afterbegin", "<div class='admin-panel-albums-or-articles-title'>"+data.title+"</div>");
+                        //Below need to consider this script is for both sections: Albums and Articles.
+                        var previous_element = document.querySelector('.admin-panel-albums-search');
+                        if (previous_element === null) {
+                            previous_element = document.querySelector('.admin-panel-articles-search');
+                        }
+                        previous_element.insertAdjacentHTML("afterend", "<div class='admin-panel-albums-or-articles-title'>"+data.title+"</div>");
                     }
                     if ($(".path-panel").length) {
                         $('.path-panel').html(data.path);
