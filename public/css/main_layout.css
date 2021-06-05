@@ -2054,12 +2054,14 @@ but we need our pagination tools to be in the bottom off the page. This is some 
     align-items: flex-start;
 }
 
-.articles-article-folders .empty-folders-text-wrapper {
+.articles-article-folders .empty-folders-text-wrapper,
+.articles-article-folders-and-articles .empty-folders-text-wrapper {
     text-align: center;
     margin-top: 170px;
 }
 
-.articles-article-folders .empty-folders-text-wrapper p {
+.articles-article-folders .empty-folders-text-wrapper p,
+.articles-article-folders-and-articles .empty-folders-text-wrapper p {
     font-family: Arial;
     font-size: 16px;
 }
@@ -2653,11 +2655,13 @@ instead of some particular ones. That's because some properties will be common w
         font-size: 14px;
     }
     
-    .articles-article-folders .empty-folders-text-wrapper {
+    .articles-article-folders .empty-folders-text-wrapper,
+    .articles-article-folders-and-articles .empty-folders-text-wrapper {
         margin-top: 140px;
     }
 
-    .articles-article-folders .empty-folders-text-wrapper p {
+    .articles-article-folders .empty-folders-text-wrapper p, 
+    .articles-article-folders-and-articles .empty-folders-text-wrapper p {
        font-size: 14px;
     }
 }
@@ -2859,11 +2863,13 @@ instead of some particular ones. That's because some properties will be common w
         min-height: 320px;
     }
 
-    .articles-article-folders .empty-folders-text-wrapper {
+    .articles-article-folders .empty-folders-text-wrapper, 
+    .articles-article-folders-and-articles .empty-folders-text-wrapper {
         margin-top: 80px;
     }
 
-    .articles-article-folders .empty-folders-text-wrapper p {
+    .articles-article-folders .empty-folders-text-wrapper p, 
+    .articles-article-folders-and-articles .empty-folders-text-wrapper p {
        font-size: 14px;
     }
 }
@@ -3012,11 +3018,13 @@ instead of some particular ones. That's because some properties will be common w
         padding-left: 5px;
     }
     
-    .articles-article-folders .empty-folders-text-wrapper {
+    .articles-article-folders .empty-folders-text-wrapper, 
+    .articles-article-folders-and-articles .empty-folders-text-wrapper {
         margin-top: 40px;
     }
 
-    .articles-article-folders .empty-folders-text-wrapper p {
+    .articles-article-folders .empty-folders-text-wrapper p, 
+    .articles-article-folders-and-articles .empty-folders-text-wrapper p {
        font-size: 13px;
     }
     
