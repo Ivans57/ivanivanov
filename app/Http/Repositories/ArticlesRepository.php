@@ -86,7 +86,7 @@ class ArticlesRepository {
         return $folder_links;
     }
     
-    public function getAllFoldersForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+    public function getAllFoldersForSearch($search_text, $including_invisible, $is_admin_panel, $sort_by_field = null, $asc_desc = null) {
         
         $folders = $this->getAllFoldersForSearchFromDataBase($search_text, $including_invisible, $sort_by_field, $asc_desc);
         
@@ -95,25 +95,53 @@ class ArticlesRepository {
         $for_path = new FolderParentsRepository();
         
         foreach ($folders as $one_folder) {
-           $folder = new FolderOrArticleForSearch();
-           
-           $path = ($one_folder->included_in_folder_with_id === null ) ? "0" : 
-                            $for_path->get_full_directory_path($one_folder->included_in_folder_with_id, "", "name");
-           
-           $folder->keyword = $one_folder->keyword;
-           $folder->name = ($path === "0" ) ? " / ".$one_folder->folder_name : $path." / ".$one_folder->folder_name;
-           $folder->is_visible = $one_folder->is_visible;
-           $folder->created_at = $one_folder->created_at;
-           $folder->updated_at = $one_folder->updated_at;
-                     
-           //$parent_keyword is required to make a property parent_keyword as a string.
-           $parent_keyword = Folder::where('id', $one_folder->included_in_folder_with_id)->first();
-           $folder->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
-            
-           array_push($folders_array, $folder); 
-        }
+            //First visibility check has been already proceeded when folders were taken from database.
+            if ($is_admin_panel === 1 || $one_folder->included_in_folder_with_id === null) {
+                $folder = $this->makeFolderSearchArrayElement($one_folder, $for_path);            
+                array_push($folders_array, $folder);
+            } else {
+                $parent = (Folder::where('id', '=', $one_folder->included_in_folder_with_id)->get());
+                $all_parents_are_visible = $this->checkParentVisibility($parent);
+                if ($all_parents_are_visible === 1) {
+                    $folder = $this->makeFolderSearchArrayElement($one_folder, $for_path);            
+                    array_push($folders_array, $folder);
+                }
+            }
         
         return $folders_array;
+        }
+    }
+    
+    //The function below checks if all item's parents are visible.
+    private function checkParentVisibility($parent) {
+        $is_visible = 0;
+        if ($parent->is_visible === 1 && $parent->included_in_folder_with_id === null) {
+            $is_visible = 1;
+        } elseif($parent->is_visible === 1 && $parent->included_in_folder_with_id !== null) {
+            $parent_of_parent = (Folder::where('id', '=', $parent->included_in_folder_with_id)->get());
+            $is_visible = $this->checkParentVisibility($parent_of_parent);
+        }
+        return $is_visible;
+    }
+    
+    //This function takes an element, which is retrieved from database and converts it to an array element.
+    private function makeFolderSearchArrayElement($one_folder, $for_path) {
+        $folder = new FolderOrArticleForSearch();
+
+        $path = ($one_folder->included_in_folder_with_id === null ) ? "0" : 
+                              $for_path->get_full_directory_path($one_folder->included_in_folder_with_id, "", "name");
+
+        $folder->keyword = $one_folder->keyword;
+        $folder->name = ($path === "0" ) ? " / ".$one_folder->folder_name : $path." / ".$one_folder->folder_name;
+        $folder->is_visible = $one_folder->is_visible;
+        $folder->created_at = $one_folder->created_at;
+        $folder->updated_at = $one_folder->updated_at;
+
+        //$parent_keyword is required to make a property parent_keyword as a string.
+        $parent_keyword = Folder::where('id', $one_folder->included_in_folder_with_id)->first();
+        $folder->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
+        
+        return $folder;
     }
     
     //this function is required to simplify getAllFoldersForSearch function.
@@ -480,7 +508,7 @@ class ArticlesRepository {
     }
     
     //This function is used for search.
-    public function getFoldersOrArticlesFromSearch($search_text, $page, $items_amount_per_page, $what_to_search, $show_invisible, $sorting_mode = null) {        
+    public function getFoldersOrArticlesFromSearch($search_text, $page, $items_amount_per_page, $what_to_search, $show_invisible, $is_admin_panel, $sorting_mode = null) {        
            
         $common = new CommonRepository();
         
@@ -489,7 +517,7 @@ class ArticlesRepository {
         //In the next line the data are getting extracted from the database and sorted.
         //The sixth parameter needs to pass as null to avoid confusion.
         $all_items = $common->sort_for_albums_or_articles(1, $items_amount_per_page, $sorting_mode, 
-                                                          $show_invisible === "only_visible" ? 0 : 1, $what_to_search, null/*parent directory*/, $search_text);
+                                                          $show_invisible === "only_visible" ? 0 : 1, $what_to_search, null/*parent directory*/, $search_text, $is_admin_panel);
         
         $items_with_pagination->all_items_count = sizeof($all_items["directories_or_files"]);
         
