@@ -49,6 +49,10 @@
             "keywords": [
                 "bbcode"
             ],
+            "support": {
+                "issues": "https://github.com/chriskonnertz/bbcode/issues",
+                "source": "https://github.com/chriskonnertz/bbcode/tree/master"
+            },
             "time": "2018-06-17T13:58:51+00:00"
         },
         {
@@ -3748,5 +3752,5 @@
         "php": ">=5.6.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.1.0"
 }
