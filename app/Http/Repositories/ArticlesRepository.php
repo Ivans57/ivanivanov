@@ -100,16 +100,15 @@ class ArticlesRepository {
                 $folder = $this->makeFolderSearchArrayElement($one_folder, $for_path);            
                 array_push($folders_array, $folder);
             } else {
-                $parent = (Folder::where('id', '=', $one_folder->included_in_folder_with_id)->get());
+                $parent = (Folder::where('id', '=', $one_folder->included_in_folder_with_id)->first());
                 $all_parents_are_visible = $this->checkParentVisibility($parent);
                 if ($all_parents_are_visible === 1) {
                     $folder = $this->makeFolderSearchArrayElement($one_folder, $for_path);            
                     array_push($folders_array, $folder);
                 }
             }
-        
-        return $folders_array;
         }
+        return $folders_array;
     }
     
     //The function below checks if all item's parents are visible.
@@ -118,7 +117,7 @@ class ArticlesRepository {
         if ($parent->is_visible === 1 && $parent->included_in_folder_with_id === null) {
             $is_visible = 1;
         } elseif($parent->is_visible === 1 && $parent->included_in_folder_with_id !== null) {
-            $parent_of_parent = (Folder::where('id', '=', $parent->included_in_folder_with_id)->get());
+            $parent_of_parent = (Folder::where('id', '=', $parent->included_in_folder_with_id)->first());
             $is_visible = $this->checkParentVisibility($parent_of_parent);
         }
         return $is_visible;

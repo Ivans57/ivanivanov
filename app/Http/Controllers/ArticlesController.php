@@ -102,8 +102,8 @@ class ArticlesController extends Controller
         $items_amount_per_page = 14;
         
         $folders_or_articles_with_info = $this->folders->getFoldersOrArticlesFromSearch($request->input('find_by_name'), $request->input('page_number'), 
-                                                                $items_amount_per_page, $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
-                                                                1/*$show_only_visible*/, 0, $request->input('sorting_mode'));
+                                                                $items_amount_per_page, $request->input('what_to_search'), "only_visible"/*$show_invisible*/, 0/*$is_admin_panel*/, 
+                                                                $request->input('sorting_mode'));
         
         $folders_or_articles = $folders_or_articles_with_info->items_on_page;
         $all_items_amount = $folders_or_articles_with_info->all_items_count;
@@ -120,7 +120,6 @@ class ArticlesController extends Controller
         $content = view('pages.folders_and_articles.folders_searchcontent', 
                 compact("folders_or_articles", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "sorting_method_and_mode", 
                         "section", "what_to_search"))->render();
-        
         
         return response()->json(compact('path', 'title', 'content'));
     }
