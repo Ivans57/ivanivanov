@@ -101,7 +101,7 @@ class ArticlesRepository {
                 array_push($folders_array, $folder);
             } else {
                 $parent = (Folder::where('id', '=', $one_folder->included_in_folder_with_id)->first());
-                $all_parents_are_visible = $this->checkParentVisibility($parent);
+                $all_parents_are_visible = $this->checkFolderParentVisibility($parent);
                 if ($all_parents_are_visible === 1) {
                     $folder = $this->makeFolderSearchArrayElement($one_folder, $for_path);            
                     array_push($folders_array, $folder);
@@ -112,13 +112,13 @@ class ArticlesRepository {
     }
     
     //The function below checks if all item's parents are visible.
-    private function checkParentVisibility($parent) {
+    private function checkFolderParentVisibility($parent) {
         $is_visible = 0;
         if ($parent->is_visible === 1 && $parent->included_in_folder_with_id === null) {
             $is_visible = 1;
         } elseif($parent->is_visible === 1 && $parent->included_in_folder_with_id !== null) {
             $parent_of_parent = (Folder::where('id', '=', $parent->included_in_folder_with_id)->first());
-            $is_visible = $this->checkParentVisibility($parent_of_parent);
+            $is_visible = $this->checkFolderParentVisibility($parent_of_parent);
         }
         return $is_visible;
     }
@@ -156,8 +156,8 @@ class ArticlesRepository {
         
         return $folders;
     }
-    
-    public function getAllArticlesForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+       
+    public function getAllArticlesForSearch($search_text, $including_invisible, $is_admin_panel, $sort_by_field = null, $asc_desc = null) {
         
         $articles = $this->getAllArticlesForSearchFromDataBase($search_text, $including_invisible, $sort_by_field, $asc_desc);
         
@@ -166,25 +166,40 @@ class ArticlesRepository {
         $for_path = new FolderParentsRepository();
         
         foreach ($articles as $one_article) {
-           $article = new FolderOrArticleForSearch();
-           
-           $path = ($one_article->folder_id === null ) ? "0" : 
-                            $for_path->get_full_directory_path($one_article->folder_id, "", "name");
-           
-           $article->keyword = $one_article->keyword;
-           $article->name = ($path === "0" ) ? " / ".$one_article->article_title : $path." / ".$one_article->article_title;
-           $article->is_visible = $one_article->is_visible;
-           $article->created_at = $one_article->created_at;
-           $article->updated_at = $one_article->updated_at;
-           
-           //$parent_keyword is required to make a property parent_keyword as a string.
-           $parent_keyword = Folder::where('id', $one_article->folder_id)->first();
-           $article->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
-            
-           array_push($articles_array, $article); 
-        }
-        
+            //First visibility check has been already proceeded when folders were taken from database.
+            if ($is_admin_panel === 1) {
+                $article = $this->makeArticleSearchArrayElement($one_article, $for_path);            
+                array_push($articles_array, $article);
+            } else {
+                $parent = (Folder::where('id', '=', $one_article->folder_id)->first());
+                $all_parents_are_visible = $this->checkFolderParentVisibility($parent);
+                if ($all_parents_are_visible === 1) {
+                    $article = $this->makeArticleSearchArrayElement($one_article, $for_path);            
+                    array_push($articles_array, $article);
+                }
+            }
+        }       
         return $articles_array;
+    }
+    
+    //This function takes an element, which is retrieved from database and converts it to an array element.
+    private function makeArticleSearchArrayElement($one_article, $for_path) {
+        $article = new FolderOrArticleForSearch();
+           
+        $path = ($one_article->folder_id === null ) ? "0" : 
+                        $for_path->get_full_directory_path($one_article->folder_id, "", "name");
+           
+        $article->keyword = $one_article->keyword;
+        $article->name = ($path === "0" ) ? " / ".$one_article->article_title : $path." / ".$one_article->article_title;
+        $article->is_visible = $one_article->is_visible;
+        $article->created_at = $one_article->created_at;
+        $article->updated_at = $one_article->updated_at;
+           
+        //$parent_keyword is required to make a property parent_keyword as a string.
+        $parent_keyword = Folder::where('id', $one_article->folder_id)->first();
+        $article->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
+        
+        return $article;
     }
     
     //this function is required to simplify getAllArticlesForSearch function.
