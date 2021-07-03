@@ -87,7 +87,7 @@ class AlbumsRepository {
         return $album_links;
     }
     
-    public function getAllAlbumsForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+    public function getAllAlbumsForSearch($search_text, $including_invisible, $is_admin_panel, $sort_by_field = null, $asc_desc = null) {
         
         $albums = $this->getAllAlbumsForSearchFromDataBase($search_text, $including_invisible, $sort_by_field, $asc_desc);
         
@@ -95,26 +95,54 @@ class AlbumsRepository {
      
         $for_path = new AlbumParentsRepository();
         
-        foreach ($albums as $one_album) {
-           $album = new AlbumOrPictureForSearch();
-           
-           $path = ($one_album->included_in_album_with_id === null ) ? "0" : 
-                            $for_path->get_full_directory_path($one_album->included_in_album_with_id, "", "name");
-           
-           $album->keyword = $one_album->keyword;
-           $album->name = ($path === "0" ) ? " / ".$one_album->album_name : $path." / ".$one_album->album_name;
-           $album->is_visible = $one_album->is_visible;
-           $album->created_at = $one_album->created_at;
-           $album->updated_at = $one_album->updated_at;
-                     
-           //$parent_keyword is required to make a property parent_keyword as a string.
-           $parent_keyword = Album::where('id', $one_album->included_in_album_with_id)->first();
-           $album->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
-            
-           array_push($albums_array, $album); 
+        foreach ($albums as $one_album) {            
+            //First visibility check has been already proceeded when folders were taken from database.
+            if ($is_admin_panel === 1 || $one_album->included_in_album_with_id === null) {
+                $album = $this->makeAlbumSearchArrayElement($one_album, $for_path);            
+                array_push($albums_array, $album);
+            } else {
+                $parent = (Album::where('id', '=', $one_album->included_in_album_with_id)->first());
+                $all_parents_are_visible = $this->checkAlbumParentVisibility($parent);
+                if ($all_parents_are_visible === 1) {
+                    $album = $this->makeAlbumSearchArrayElement($one_album, $for_path);            
+                    array_push($albums_array, $album);
+                }
+            }
         }
         
         return $albums_array;
+    }
+    
+    //The function below checks if all item's parents are visible.
+    private function checkAlbumParentVisibility($parent) {
+        $is_visible = 0;
+        if ($parent->is_visible === 1 && $parent->included_in_album_with_id === null) {
+            $is_visible = 1;
+        } elseif($parent->is_visible === 1 && $parent->included_in_album_with_id !== null) {
+            $parent_of_parent = (Album::where('id', '=', $parent->included_in_album_with_id)->first());
+            $is_visible = $this->checkAlbumParentVisibility($parent_of_parent);
+        }
+        return $is_visible;
+    }
+    
+    //This function takes an element, which is retrieved from database and converts it to an array element.
+    private function makeAlbumSearchArrayElement($one_album, $for_path) {
+        $album = new AlbumOrPictureForSearch();
+           
+        $path = ($one_album->included_in_album_with_id === null ) ? "0" : 
+                            $for_path->get_full_directory_path($one_album->included_in_album_with_id, "", "name");
+           
+        $album->keyword = $one_album->keyword;
+        $album->name = ($path === "0" ) ? " / ".$one_album->album_name : $path." / ".$one_album->album_name;
+        $album->is_visible = $one_album->is_visible;
+        $album->created_at = $one_album->created_at;
+        $album->updated_at = $one_album->updated_at;
+                     
+        //$parent_keyword is required to make a property parent_keyword as a string.
+        $parent_keyword = Album::where('id', $one_album->included_in_album_with_id)->first();
+        $album->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
+        
+        return $album;
     }
     
     //this function is required to simplify getAllAlbumsForSearch function.
@@ -131,7 +159,7 @@ class AlbumsRepository {
         return $albums;
     }
     
-    public function getAllPicturesForSearch($search_text, $including_invisible, $sort_by_field = null, $asc_desc = null) {
+    public function getAllPicturesForSearch($search_text, $including_invisible, $is_admin_panel, $sort_by_field = null, $asc_desc = null) {
         
         $pictures = $this->getAllPicturesForSearchFromDataBase($search_text, $including_invisible, $sort_by_field, $asc_desc);
         
@@ -140,30 +168,45 @@ class AlbumsRepository {
         $for_path = new AlbumParentsRepository();
         
         foreach ($pictures as $one_picture) {
-           $picture = new AlbumOrPictureForSearch();
+            //First visibility check has been already proceeded when folders were taken from database.
+            if ($is_admin_panel === 1) {
+                $picture = $this->makePictureSearchArrayElement($one_picture, $for_path);            
+                array_push($pictures_array, $picture);
+            } else {
+                $parent = (Album::where('id', '=', $one_picture->included_in_album_with_id)->first());
+                $all_parents_are_visible = $this->checkAlbumParentVisibility($parent);
+                if ($all_parents_are_visible === 1) {
+                    $picture = $this->makePictureSearchArrayElement($one_picture, $for_path);            
+                    array_push($pictures_array, $picture);
+                }
+            }
+        }       
+        return $pictures_array;
+    }
+    
+    //This function takes an element, which is retrieved from database and converts it to an array element.
+    private function makePictureSearchArrayElement($one_picture, $for_path) {
+        $picture = new AlbumOrPictureForSearch();
            
-           $path = ($one_picture->included_in_album_with_id === null ) ? "0" : 
+        $path = ($one_picture->included_in_album_with_id === null ) ? "0" : 
                             $for_path->get_full_directory_path($one_picture->included_in_album_with_id, "", "name");
            
-           $picture->keyword = $one_picture->keyword;
-           $picture->name = ($path === "0" ) ? " / ".$one_picture->picture_caption : $path." / ".$one_picture->picture_caption;
-           $picture->is_visible = $one_picture->is_visible;
-           $picture->created_at = $one_picture->created_at;
-           $picture->updated_at = $one_picture->updated_at;
+        $picture->keyword = $one_picture->keyword;
+        $picture->name = ($path === "0" ) ? " / ".$one_picture->picture_caption : $path." / ".$one_picture->picture_caption;
+        $picture->is_visible = $one_picture->is_visible;
+        $picture->created_at = $one_picture->created_at;
+        $picture->updated_at = $one_picture->updated_at;
            
-           //The root path will look like like this, because we are getting pictures from storage folder via link in public folder.
-           $picture->path_to_file = (App::isLocale('en') ? 'storage/albums/en' : 'storage/albums/ru').
-                                    ((new AdminPicturesRepository())->getDirectoryPath($one_picture->included_in_album_with_id))."/";
-           $picture->file_name = $one_picture->file_name;
+        //The root path will look like like this, because we are getting pictures from storage folder via link in public folder.
+        $picture->path_to_file = (App::isLocale('en') ? 'storage/albums/en' : 'storage/albums/ru').
+                                 ((new AdminPicturesRepository())->getDirectoryPath($one_picture->included_in_album_with_id))."/";
+        $picture->file_name = $one_picture->file_name;
            
-           //$parent_keyword is required to make a property parent_keyword as a string.
-           $parent_keyword = Album::where('id', $one_picture->included_in_album_with_id)->first();
-           $picture->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
-            
-           array_push($pictures_array, $picture); 
-        }
+        //$parent_keyword is required to make a property parent_keyword as a string.
+        $parent_keyword = Album::where('id', $one_picture->included_in_album_with_id)->first();
+        $picture->parent_keyword = ($parent_keyword === null) ? "0" : $parent_keyword->keyword;
         
-        return $pictures_array;
+        return $picture;
     }
     
     //this function is required to simplify getAllPicturesForSearch function.
@@ -488,7 +531,7 @@ class AlbumsRepository {
     }
     
     //This function is used for search.
-    public function getAlbumsOrPicturesFromSearch($search_text, $page, $items_amount_per_page, $what_to_search, $show_invisible, $sorting_mode = null) {        
+    public function getAlbumsOrPicturesFromSearch($search_text, $page, $items_amount_per_page, $what_to_search, $show_invisible, $is_admin_panel, $sorting_mode = null) {        
            
         $common = new CommonRepository();
         
@@ -497,7 +540,7 @@ class AlbumsRepository {
         //In the next line the data are getting extracted from the database and sorted.
         //The sixth parameter needs to pass as null to avoid confusion.
         $all_items = $common->sort_for_albums_or_articles(1, $items_amount_per_page, $sorting_mode, 
-                                                          $show_invisible === "only_visible" ? 0 : 1, $what_to_search, null/*parent directory*/, $search_text);
+                                                          $show_invisible === "only_visible" ? 0 : 1, $what_to_search, null/*parent directory*/, $search_text, $is_admin_panel);
         
         $items_with_pagination->all_items_count = sizeof($all_items["directories_or_files"]);
         

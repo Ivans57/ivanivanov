@@ -93,8 +93,8 @@ class AlbumsController extends Controller {
         $items_amount_per_page = 14;
         
         $albums_or_pictures_with_info = $this->albums->getAlbumsOrPicturesFromSearch($request->input('find_by_name'), $request->input('page_number'), 
-                                                                $items_amount_per_page, $request->input('what_to_search'), $request->input('search_is_on') == '0' ? 'all' : 
-                                                                1/*$show_only_visible*/, $request->input('sorting_mode'));
+                                                                $items_amount_per_page, $request->input('what_to_search'), "only_visible"/*$show_invisible*/, 
+                                                                0/*$is_admin_panel*/, $request->input('sorting_mode'));
                
         $albums_or_pictures = $albums_or_pictures_with_info->items_on_page;
         $all_items_amount = $albums_or_pictures_with_info->all_items_count;
