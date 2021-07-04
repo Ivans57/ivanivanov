@@ -96,15 +96,12 @@ class ArticlesRepository {
         
         foreach ($folders as $one_folder) {
             //First visibility check has been already proceeded when folders were taken from database.
-            if ($is_admin_panel === 1 || $one_folder->included_in_folder_with_id === null) {
-                $folder = $this->makeFolderSearchArrayElement($one_folder, $for_path);            
-                array_push($folders_array, $folder);
+            if ($is_admin_panel === 1 || $one_folder->included_in_folder_with_id === null) {           
+                array_push($folders_array, $this->makeFolderSearchArrayElement($one_folder, $for_path));
             } else {
-                $parent = (Folder::where('id', '=', $one_folder->included_in_folder_with_id)->first());
-                $all_parents_are_visible = $this->checkFolderParentVisibility($parent);
-                if ($all_parents_are_visible === 1) {
-                    $folder = $this->makeFolderSearchArrayElement($one_folder, $for_path);            
-                    array_push($folders_array, $folder);
+                $all_parents_are_visible = $this->checkFolderParentVisibility(Folder::where('id', '=', $one_folder->included_in_folder_with_id)->first());
+                if ($all_parents_are_visible === 1) {           
+                    array_push($folders_array, $this->makeFolderSearchArrayElement($one_folder, $for_path));
                 }
             }
         }
@@ -117,8 +114,7 @@ class ArticlesRepository {
         if ($parent->is_visible === 1 && $parent->included_in_folder_with_id === null) {
             $is_visible = 1;
         } elseif($parent->is_visible === 1 && $parent->included_in_folder_with_id !== null) {
-            $parent_of_parent = (Folder::where('id', '=', $parent->included_in_folder_with_id)->first());
-            $is_visible = $this->checkFolderParentVisibility($parent_of_parent);
+            $is_visible = $this->checkFolderParentVisibility((Folder::where('id', '=', $parent->included_in_folder_with_id)->first()));
         }
         return $is_visible;
     }
@@ -167,15 +163,12 @@ class ArticlesRepository {
         
         foreach ($articles as $one_article) {
             //First visibility check has been already proceeded when folders were taken from database.
-            if ($is_admin_panel === 1) {
-                $article = $this->makeArticleSearchArrayElement($one_article, $for_path);            
-                array_push($articles_array, $article);
+            if ($is_admin_panel === 1) {            
+                array_push($articles_array, $this->makeArticleSearchArrayElement($one_article, $for_path));
             } else {
-                $parent = (Folder::where('id', '=', $one_article->folder_id)->first());
-                $all_parents_are_visible = $this->checkFolderParentVisibility($parent);
-                if ($all_parents_are_visible === 1) {
-                    $article = $this->makeArticleSearchArrayElement($one_article, $for_path);            
-                    array_push($articles_array, $article);
+                $all_parents_are_visible = $this->checkFolderParentVisibility(Folder::where('id', '=', $one_article->folder_id)->first());
+                if ($all_parents_are_visible === 1) {           
+                    array_push($articles_array, $this->makeArticleSearchArrayElement($one_article, $for_path));
                 }
             }
         }       

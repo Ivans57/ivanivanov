@@ -97,15 +97,12 @@ class AlbumsRepository {
         
         foreach ($albums as $one_album) {            
             //First visibility check has been already proceeded when folders were taken from database.
-            if ($is_admin_panel === 1 || $one_album->included_in_album_with_id === null) {
-                $album = $this->makeAlbumSearchArrayElement($one_album, $for_path);            
-                array_push($albums_array, $album);
+            if ($is_admin_panel === 1 || $one_album->included_in_album_with_id === null) {           
+                array_push($albums_array, $this->makeAlbumSearchArrayElement($one_album, $for_path));
             } else {
-                $parent = (Album::where('id', '=', $one_album->included_in_album_with_id)->first());
-                $all_parents_are_visible = $this->checkAlbumParentVisibility($parent);
-                if ($all_parents_are_visible === 1) {
-                    $album = $this->makeAlbumSearchArrayElement($one_album, $for_path);            
-                    array_push($albums_array, $album);
+                $all_parents_are_visible = $this->checkAlbumParentVisibility(Album::where('id', '=', $one_album->included_in_album_with_id)->first());
+                if ($all_parents_are_visible === 1) {          
+                    array_push($albums_array, $this->makeAlbumSearchArrayElement($one_album, $for_path));
                 }
             }
         }
@@ -119,8 +116,7 @@ class AlbumsRepository {
         if ($parent->is_visible === 1 && $parent->included_in_album_with_id === null) {
             $is_visible = 1;
         } elseif($parent->is_visible === 1 && $parent->included_in_album_with_id !== null) {
-            $parent_of_parent = (Album::where('id', '=', $parent->included_in_album_with_id)->first());
-            $is_visible = $this->checkAlbumParentVisibility($parent_of_parent);
+            $is_visible = $this->checkAlbumParentVisibility(Album::where('id', '=', $parent->included_in_album_with_id)->first());
         }
         return $is_visible;
     }
@@ -169,15 +165,12 @@ class AlbumsRepository {
         
         foreach ($pictures as $one_picture) {
             //First visibility check has been already proceeded when folders were taken from database.
-            if ($is_admin_panel === 1) {
-                $picture = $this->makePictureSearchArrayElement($one_picture, $for_path);            
-                array_push($pictures_array, $picture);
+            if ($is_admin_panel === 1) {          
+                array_push($pictures_array, $this->makePictureSearchArrayElement($one_picture, $for_path));
             } else {
-                $parent = (Album::where('id', '=', $one_picture->included_in_album_with_id)->first());
-                $all_parents_are_visible = $this->checkAlbumParentVisibility($parent);
-                if ($all_parents_are_visible === 1) {
-                    $picture = $this->makePictureSearchArrayElement($one_picture, $for_path);            
-                    array_push($pictures_array, $picture);
+                $all_parents_are_visible = $this->checkAlbumParentVisibility(Album::where('id', '=', $one_picture->included_in_album_with_id)->first());
+                if ($all_parents_are_visible === 1) {          
+                    array_push($pictures_array, $this->makePictureSearchArrayElement($one_picture, $for_path));
                 }
             }
         }       
