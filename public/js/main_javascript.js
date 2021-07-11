@@ -268,19 +268,21 @@ $( document ).ready(function() {
     }
     
     $(document).on('change', '#directories_or_files_first', function() {
-        var directories_or_files_first_value = $(this).val();
-        var element_with_sorting_info = document.querySelector('#sort');
-
-        directories_or_files_first(element_with_sorting_info, directories_or_files_first_value);
+        directories_or_files_first(document.querySelector('#directories_or_files_first'), document.querySelector('#sort'));
     });
 
-    function directories_or_files_first(element_with_sorting_info, directories_or_files_first_value) {
+    function directories_or_files_first(directories_or_files_first_element, element_with_sorting_info) {
         //If it is an english localization, we don't need to show it, because it is a default localization.
-        var localization = (element_with_sorting_info.dataset.localization === "en") ? "" : "/ru";
-
-        var url = localization+"/"+element_with_sorting_info.dataset.section+"/"+
-                  element_with_sorting_info.dataset.parent_keyword+
-                  "/page/1/"+element_with_sorting_info.value+"/"+directories_or_files_first_value;
+        var localization = (directories_or_files_first_element.dataset.localization === "en") ? "" : "/ru";
+        if (element_with_sorting_info === null) {
+            var url = localization+"/"+directories_or_files_first_element.dataset.section+"/"+
+                      directories_or_files_first_element.dataset.parent_keyword+
+                      "/page/1/"+"0/"+directories_or_files_first_element.value;
+        } else {
+            var url = localization+"/"+directories_or_files_first_element.dataset.section+"/"+
+                      directories_or_files_first_element.dataset.parent_keyword+
+                      "/page/1/"+element_with_sorting_info.value+"/"+directories_or_files_first_element.value;
+        }     
         window.location.href = url;
     }
     

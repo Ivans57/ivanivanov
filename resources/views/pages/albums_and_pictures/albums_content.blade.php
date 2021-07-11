@@ -1,15 +1,17 @@
 {!! Form::hidden('search_is_on', '0', ['id' => 'search_is_on']); !!}
 @if ($album_links->count() > 0)
-    <div class="albums-and-pictures-sorting">
-        {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
-                       ['class' => 'albums-and-pictures-sorting-label']) !!}
-        {!! Form::select('sort', array(
-                         'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
-                         'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
-                          $sorting_mode, ['id' => 'sort', 'class' => 'form-control albums-and-pictures-sorting-select', 
-                         'data-section' => $section, 'data-is_level_zero' => '1', 
-                         'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}
-    </div>
+    @if ($album_links->count() > 1)
+        <div class="albums-and-pictures-sorting">
+            {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
+                           ['class' => 'albums-and-pictures-sorting-label']) !!}
+            {!! Form::select('sort', array(
+                             'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
+                             'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
+                              $sorting_mode, ['id' => 'sort', 'class' => 'form-control albums-and-pictures-sorting-select', 
+                             'data-section' => $section, 'data-is_level_zero' => '1', 
+                             'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}
+        </div>
+    @endif
     <div class="external-albums-wrapper">
         <div class="albums-wrapper">
             @foreach ($album_links as $album_link)

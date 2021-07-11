@@ -1,15 +1,17 @@
-<div class="folders-and-articles-sorting">                        
-    {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
-                   ['class' => 'folders-and-articles-sorting-label']) !!}           
-    {!! Form::select('sort', array(
-                     'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
-                     'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
-                     'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
-                     'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
-                      $sorting_method_and_mode, ['id' => 'sort', 
-                     'class' => 'form-control folders-and-articles-sorting-controls folders-and-articles-sorting-select', 
-                     'data-section' => $section, 'data-is_level_zero' => '0', 
-                     'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}                    
+<div class="folders-and-articles-sorting">
+    @if ($all_items_amount > 1)
+        {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
+                       ['class' => 'folders-and-articles-sorting-label']) !!}           
+        {!! Form::select('sort', array(
+                         'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
+                         'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
+                         'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
+                         'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
+                          $sorting_method_and_mode, ['id' => 'sort', 
+                         'class' => 'form-control folders-and-articles-sorting-controls folders-and-articles-sorting-select', 
+                         'data-section' => $section, 'data-is_level_zero' => '0', 
+                         'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}
+    @endif
 </div>
 <div class="folders-and-articles-wrapper">       
     @foreach ($folders_or_articles as $folder_or_article)

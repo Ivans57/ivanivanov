@@ -1,26 +1,30 @@
 {!! Form::hidden('search_is_on', '0', ['id' => 'search_is_on']); !!}
 @if ($total_number_of_items > 0)
-    <div class="albums-and-pictures-sorting albums-and-pictures-sorting-for-included-albums">                        
-        {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
-                       ['class' => 'albums-and-pictures-sorting-label']) !!}           
-        {!! Form::select('sort', array(
-                         'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
-                         'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
-                         'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
-                         'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
-                          $sorting_mode, ['id' => 'sort', 
-                         'class' => 'albums-and-pictures-sorting-controls albums-and-pictures-sorting-select', 
-                         'data-section' => $section, 'data-parent_keyword' => $parent_keyword, 'data-is_level_zero' => '0', 
-                         'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
-                         'data-has_files' => ($pictureAmount > 0) ? 'true' : 'false', 
-                         'data-has_directories' => ($albumAmount > 0) ? 'true' : 'false']) !!}           
+    <div class="albums-and-pictures-sorting albums-and-pictures-sorting-for-included-albums">
+        @if (($pictureAmount > 1 || $albumAmount > 1) || ($pictureAmount > 0 && $albumAmount > 0))
+            {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
+                           ['class' => 'albums-and-pictures-sorting-label']) !!}
+        @endif
+        @if ($pictureAmount > 1 || $albumAmount > 1)
+            {!! Form::select('sort', array(
+                             'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
+                             'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
+                             'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
+                             'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
+                              $sorting_mode, ['id' => 'sort', 
+                             'class' => 'albums-and-pictures-sorting-controls albums-and-pictures-sorting-select', 
+                             'data-section' => $section, 'data-parent_keyword' => $parent_keyword, 'data-is_level_zero' => '0', 
+                             'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
+                             'data-has_files' => ($pictureAmount > 0) ? 'true' : 'false', 
+                             'data-has_directories' => ($albumAmount > 0) ? 'true' : 'false']) !!}
+        @endif
         @if ($pictureAmount > 0 && $albumAmount > 0)                   
             {!! Form::select('directories_or_files_first', array(
                              'albums_first' => Lang::get('keywords.AlbumsFirst'),
                              'pictures_first' => Lang::get('keywords.PicturesFirst')),
-                              $directories_or_files_first, ['id' => 'directories_or_files_first', 
-                              'class' => 'albums-and-pictures-sorting-priority']) !!}
-        @endif          
+                              $directories_or_files_first, ['id' => 'directories_or_files_first', 'class' => 'albums-and-pictures-sorting-priority', 
+                              'data-localization' => App::isLocale('en') ? 'en' : 'ru', 'data-section' => $section, 'data-parent_keyword' => $parent_keyword]) !!}
+        @endif
     </div>
     <div class="external-albums-picture-wrapper">
         <div class="albums-picture-wrapper">       

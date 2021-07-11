@@ -1,25 +1,29 @@
 {!! Form::hidden('search_is_on', '0', ['id' => 'search_is_on']); !!}
 @if ($total_number_of_items > 0)
-    <div class="folders-and-articles-sorting">                        
-        {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
-                       ['class' => 'folders-and-articles-sorting-label']) !!}           
-        {!! Form::select('sort', array(
-                         'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
-                         'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
-                         'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
-                         'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
-                          $sorting_mode, ['id' => 'sort', 
-                         'class' => 'folders-and-articles-sorting-select', 
-                         'data-section' => $section, 'data-parent_keyword' => $parent_keyword, 'data-is_level_zero' => '0', 
-                         'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
-                         'data-has_files' => ($articleAmount > 0) ? 'true' : 'false', 
-                         'data-has_directories' => ($folderAmount > 0) ? 'true' : 'false']) !!}           
+    <div class="folders-and-articles-sorting">
+        @if (($articleAmount > 1 || $folderAmount > 1) || ($articleAmount > 0 && $folderAmount > 0))
+            {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
+                           ['class' => 'folders-and-articles-sorting-label']) !!}
+        @endif
+        @if ($articleAmount > 1 || $folderAmount > 1)
+            {!! Form::select('sort', array(
+                             'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
+                             'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
+                             'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
+                             'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
+                              $sorting_mode, ['id' => 'sort', 
+                             'class' => 'folders-and-articles-sorting-select', 
+                             'data-section' => $section, 'data-parent_keyword' => $parent_keyword, 'data-is_level_zero' => '0', 
+                             'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
+                             'data-has_files' => ($articleAmount > 0) ? 'true' : 'false', 
+                             'data-has_directories' => ($folderAmount > 0) ? 'true' : 'false']) !!}
+        @endif
         @if ($articleAmount > 0 && $folderAmount > 0)                   
             {!! Form::select('directories_or_files_first', array(
                              'folders_first' => Lang::get('keywords.FoldersFirst'),
                              'articles_first' => Lang::get('keywords.ArticlesFirst')),
-                              $directories_or_files_first, ['id' => 'directories_or_files_first', 
-                              'class' => 'folders-and-articles-sorting-priority']) !!}
+                              $directories_or_files_first, ['id' => 'directories_or_files_first', 'class' => 'folders-and-articles-sorting-priority', 
+                              'data-localization' => App::isLocale('en') ? 'en' : 'ru', 'data-section' => $section, 'data-parent_keyword' => $parent_keyword]) !!}
         @endif          
     </div>
     @if ($articleAmount < 1)       

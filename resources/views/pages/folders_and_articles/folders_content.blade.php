@@ -1,15 +1,17 @@
 {!! Form::hidden('search_is_on', '0', ['id' => 'search_is_on']); !!}
 @if ($folders->count() > 0)
-    <div class="folders-and-articles-sorting">
-        {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
-            ['class' => 'folders-and-articles-sorting-label']) !!}
-        {!! Form::select('sort', array(
-                         'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
-                         'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
-                         $sorting_mode, ['id' => 'sort', 'class' => 'folders-and-articles-sorting-select', 
-                         'data-section' => $section, 'data-is_level_zero' => '1', 
-                         'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}
-    </div>
+    @if ($folders->count() > 1)
+        <div class="folders-and-articles-sorting">
+            {!! Form::label('sort', Lang::get('keywords.Sorting').':', 
+                ['class' => 'folders-and-articles-sorting-label']) !!}
+            {!! Form::select('sort', array(
+                             'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
+                             'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
+                             $sorting_mode, ['id' => 'sort', 'class' => 'folders-and-articles-sorting-select', 
+                             'data-section' => $section, 'data-is_level_zero' => '1', 
+                             'data-localization' => App::isLocale('en') ? 'en' : 'ru']) !!}
+        </div>
+    @endif
     <div class="external-folders-wrapper">
         <div class="folders-wrapper">
             @foreach ($folders as $folder)
