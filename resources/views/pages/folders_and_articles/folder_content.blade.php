@@ -46,7 +46,10 @@
         </div>
         @if ($total_number_of_items > $items_amount_per_page)
             <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
-            @component('multy_entity_paginator', ['pagination_info' => $pagination_info])
+            <!--I am using multy entity paginator, because there are some difficulties with using one entity paginator within a folder.-->
+            @component('multy_entity_paginator', ['pagination_info' => $pagination_info, 'section' => $section, 
+                       'parent_keyword' => $folderName, 'is_admin_panel' => $is_admin_panel,
+                       'sorting_mode' => $sorting_mode, 'directories_or_files_first' => 0])
             @endcomponent
         @endif        
     @else
@@ -74,7 +77,7 @@
             @endforeach       
         </div>
         @if ($total_number_of_items > $items_amount_per_page)
-            <!--As it is impossible to pass an object via slot, we will pass it via attributes-->{{ $is_admin_panel }}
+            <!--As it is impossible to pass an object via slot, we will pass it via attributes-->
             @component('multy_entity_paginator', ['pagination_info' => $pagination_info, 'section' => $section, 
                        'parent_keyword' => $folderName, 'is_admin_panel' => $is_admin_panel,
                        'sorting_mode' => $sorting_mode, 'directories_or_files_first' => $directories_or_files_first])
