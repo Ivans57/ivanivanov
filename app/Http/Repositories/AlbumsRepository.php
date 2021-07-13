@@ -503,7 +503,7 @@ class AlbumsRepository {
                 'parent_keyword' => $keyword,
                 //Variable below needs to be corrected later.
                 'sorting_mode' => $sorting_mode? $sorting_mode : 'sort_by_creation_desc',
-                'directories_or_files_first' => ($albums_or_pictures_first) ? $albums_or_pictures_first : 'albums_first',
+                'directories_or_files_first' => ($albums_or_pictures_first) ? $albums_or_pictures_first : 0,
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel,
                 'what_to_search' => 'albums'
