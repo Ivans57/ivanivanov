@@ -5,8 +5,8 @@
         {!! Form::select('sort', array(
                          'sort_by_creation_desc' => Lang::get('keywords.LatestFirst'), 
                          'sort_by_creation_asc' => Lang::get('keywords.OldestFirst'), 
-                         'sort_by_name_desc' => Lang::get('keywords.SortByNameDescending'), 
-                         'sort_by_name_asc' => Lang::get('keywords.SortByNameAscending')), 
+                         'sort_by_name_desc' => Lang::get('keywords.SortByNameDesc'), 
+                         'sort_by_name_asc' => Lang::get('keywords.SortByNameAsc')), 
                           $sorting_method_and_mode, ['id' => 'sort', 
                          'class' => 'form-control albums-and-pictures-sorting-controls albums-and-pictures-sorting-select', 
                          'data-section' => $section, 'data-is_level_zero' => '0', 
