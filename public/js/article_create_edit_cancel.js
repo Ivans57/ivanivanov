@@ -9,15 +9,24 @@ $( document ).ready(function() {
     var parent_keyword = button_cancel.dataset.parent_keyword;
       
     button_cancel.onclick = function() {
-        if (form.dataset.localization === "en") {
+        //The first condition is for the search mode, when there is no need to pass any filters or sorting tools.
+        if (($('#sorting_show_invisible').val() && $('#sorting_sorting_mode').val() && $('#sorting_folders_or_articles_first').val()) === "") {
+            if (form.dataset.localization === "en") {
+            window.location.replace("/admin/articles/"+parent_keyword+"/page/1/");
+            } else {
+                window.location.replace("/ru/admin/articles/"+parent_keyword+"/page/1/");
+            }
+        } else {
+            if (form.dataset.localization === "en") {
             window.location.replace("/admin/articles/"+parent_keyword+"/page/1/"+
                                     $('#sorting_show_invisible').val()+"/"+$('#sorting_sorting_mode').val()+
                                     "/"+$('#sorting_folders_or_articles_first').val());
-        } else {
-            window.location.replace("/ru/admin/articles/"+parent_keyword+"/page/1/"+
-                                    $('#sorting_show_invisible').val()+"/"+$('#sorting_sorting_mode').val()+
-                                    "/"+$('#sorting_folders_or_articles_first').val());
-        }
+            } else {
+                window.location.replace("/ru/admin/articles/"+parent_keyword+"/page/1/"+
+                                        $('#sorting_show_invisible').val()+"/"+$('#sorting_sorting_mode').val()+
+                                        "/"+$('#sorting_folders_or_articles_first').val());
+            }
+        }      
     };
 });
 

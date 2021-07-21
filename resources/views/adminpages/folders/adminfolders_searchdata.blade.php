@@ -27,10 +27,8 @@ in case we don't have full page-->
                             </div>
                         </a>
                     @else
-                        <a href='{{ App::isLocale('en') ? "/admin/article/".$folder_or_article->parent_keyword."/edit/".$folder_or_article->keyword."/".
-                                   $show_invisible."/".$sorting_method_and_mode."/"."folders" : 
-                                   "/ru/admin/article/".$folder_or_article->parent_keyword."/edit/".$folder_or_article->keyword."/".
-                                   $show_invisible."/".$sorting_method_and_mode."/"."folders" }}'>
+                        <a href='{{ App::isLocale('en') ? "/admin/article/".$folder_or_article->parent_keyword."/edit/".$folder_or_article->keyword : 
+                                   "/ru/admin/article/".$folder_or_article->parent_keyword."/edit/".$folder_or_article->keyword }}'>
                             <div class="admin-panel-articles-article-and-folder-title-and-picture-wrapper">
                                 <div>
                                     <img src="{{ URL::asset('images/icons/article.png') }}" style="{{ ($folder_or_article->is_visible==1) ? 

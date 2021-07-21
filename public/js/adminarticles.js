@@ -116,9 +116,15 @@ $( document ).ready(function() {
                 var sorting_settings = document.querySelector('#show_only_visible');
                 
                 var localization = (selected_checkbox[0].dataset.localization === "en") ? "" : "/ru";
-                var url = localization+'/admin/article/'+selected_checkbox[0].dataset.parent_keyword+'/edit/'+
+                
+                if ($("#search_is_on").val() === "1") {
+                    var url = localization+'/admin/article/'+selected_checkbox[0].dataset.parent_keyword+'/edit/'+
+                          selected_checkbox[0].dataset.keyword;
+                } else {
+                    var url = localization+'/admin/article/'+selected_checkbox[0].dataset.parent_keyword+'/edit/'+
                           selected_checkbox[0].dataset.keyword+"/"+sorting_settings.value+"/"+
                           sorting_settings.dataset.old_sorting_method_and_mode+"/"+sorting_settings.dataset.old_directories_or_files_first;
+                }
                 window.location.href = url;
             }
         }

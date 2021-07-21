@@ -105,7 +105,7 @@ class AdminArticleController extends Controller
                                      $input['sorting_folders_or_articles_first']);
     }
     
-    public function edit($parent_keyword, $keyword, $show_invisible, $sorting_mode = null, $folders_or_articles_first = null) {
+    public function edit($parent_keyword, $keyword, $show_invisible = null, $sorting_mode = null, $folders_or_articles_first = null) {
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page); 
         
         $edited_article = Article::where('keyword', '=', $keyword)->firstOrFail();

@@ -121,6 +121,7 @@ class AdminArticlesController extends Controller
         $sorting_method_and_mode = ($request->input('sorting_mode') === null) ? "0" : $request->input('sorting_mode');
         $section = "articles";
         $what_to_search = $request->input('what_to_search');
+        $directories_or_files_first = ($what_to_search === "articles") ? "articles_first" : "folders_first";
         
         $path = "";       
         $title = view('adminpages.folders.adminfolder_search_folder_title')->render();       
@@ -128,7 +129,7 @@ class AdminArticlesController extends Controller
         
         $content = view('adminpages.folders.adminfolders_searchcontent', 
                 compact("folders_or_articles", "sorting_asc_or_desc", "all_items_amount", "items_amount_per_page", "pagination_info", "search_is_on", "show_invisible", 
-                        "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "what_to_search"))->render();
+                        "all_items_amount_including_invisible", "sorting_method_and_mode", "section", "what_to_search", "directories_or_files_first"))->render();
         
         
         return response()->json(compact('path', 'title', 'control_buttons', 'content'));

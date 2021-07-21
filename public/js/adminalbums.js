@@ -47,20 +47,6 @@ $( document ).ready(function() {
             link.classList.add('admin-panel-albums-add-picture-button-link-pressed');
         });
     }
-
-    /*var albums_control_buttons = document.querySelectorAll('.admin-panel-albums-pictures-and-albums-control-button');
-    //var folder_links = document.querySelectorAll('.admin-panel-albums-picture-and-album-control-button-link');    
-    //getting through the array of elements and applying required function
-    //for all of them. We don't need these elements id anymore.
-    for (var i = 0; i < albums_control_buttons.length; i++) {
-        clickAlbumButton(albums_control_buttons[i]);
-    }
-    function clickAlbumButton(folder_button) {
-        folder_button.addEventListener('click', function() {
-            folder_button.classList.remove('admin-panel-albums-pictures-and-albums-control-button');
-            folder_button.classList.add('admin-panel-albums-pictures-and-albums-control-button-pressed');
-        });
-    }*/
     
     $(document).on("click", ".admin-panel-albums-pictures-and-albums-control-button", function() {
         $(this).removeClass("admin-panel-albums-pictures-and-albums-control-button").addClass("admin-panel-albums-pictures-and-albums-control-button-pressed");

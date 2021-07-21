@@ -10,7 +10,8 @@
         <!--The checkbox below I am doing with basic html, because Laravel Forms are not working properly, cannot pass checked value when using ajax.-->
         <input type="checkbox" name="show_only_visible" id="show_only_visible" value={{ $show_invisible }} {{ $show_invisible == 'all' ? '' : 'checked="checked"'}}
                class = 'admin-panel-articles-sorting-controls' data-localization = {{ (App::isLocale('en') ? 'en' : 'ru') }} data-section = {{ $section }}
-               data-is_level_zero = '1' data-parent_keyword = "0" data-old_sorting_method_and_mode = {{ $sorting_method_and_mode }}>
+               data-is_level_zero = '1' data-parent_keyword = "0" data-old_sorting_method_and_mode = {{ $sorting_method_and_mode }} 
+               data-old_directories_or_files_first = {{ $directories_or_files_first }}>
     </div>
 @endif
 @if ($all_items_amount > 0)
