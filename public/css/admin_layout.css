@@ -1024,6 +1024,11 @@ a:hover .admin-panel-albums-picture-and-album-title-and-picture-wrapper .admin-p
 
 /*The styles below are required for working field when adding or creating articles.*/
 .admin-panel-wrapper .admin-panel-main-article-article {
+    /*property Position is required to attach alerts to Article container, to
+    provide to the location of alerts more flexibility on different size screens.
+    If I don't do that, there won't be any parent elelemnt for alerts container, which has absolute position.
+    It means that in case the page gets opened on a different size screen, alerts will be shifted.*/
+    position: relative;
     padding: 40px;
     padding-top: 30px;
     padding-top: 30px;
@@ -1791,13 +1796,14 @@ component used through many sections.*/
 /*End for parent drop down.*/
 /*End of parent search and drop down for Article create, edit and delete window.*/
 
+/*Main is the parent container of alerts. When assigning Top and Left properties, they are relative to element Main.*/
 .admin-panel-entity-create-edit-notification-wrapper {
     position: absolute;
     /*Need to add this z-index, otherwise through these notifications could be visible some
-    elements (e.g. arrovs and triangles), whic are supposed to be behind.*/
+    elements (e.g. arrovs and triangles), which are supposed to be behind.*/
     z-index: 1;
-    top: 185px;
-    left: 552px;
+    top: 5px;
+    left: 0px;
 }
 
 .admin-panel-entity-create-edit-notification-wrapper .admin-panel-entity-create-edit-notification {
