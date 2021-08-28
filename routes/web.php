@@ -141,14 +141,24 @@ Route::group(['prefix' => 'ru', 'middleware' => ['web'], 'locale'], function() {
 //Admin Panel
 //******************************************************************************
 
+//Login
+
+Route::get('admin', 'Auth\LoginController@create');
+
+Route::post('admin', 'Auth\LoginController@store');
+
+Route::get('admin/logout', 'Auth\LoginController@destroy');
+
+//------------------------------------------------------------------------------
+
 //Start
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin', 'AdminController@index');
+    Route::get('admin/start', 'AdminController@index');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin', 'AdminController@index');
+    Route::get('admin/start', 'AdminController@index');
 });
 
 //------------------------------------------------------------------------------

@@ -13,7 +13,7 @@
             <p>|</p>
         </div>
         <div>
-            <a href='/ru/admin'>
+            <a href='/ru/admin/start'>
                 @if (App::isLocale('en'))
                     <p class="admin-panel-rus-language-select-button">@lang('keywords.RussianVersion')</p>
                 @else
