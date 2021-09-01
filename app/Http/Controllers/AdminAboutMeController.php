@@ -16,6 +16,8 @@ class AdminAboutMeController extends Controller
     //There are some methods and variables which we will always use, so it will be better
     //if we call the and initialize in constructor
     public function __construct() {
+        //The line below is required not to allow an unauthenticated user to open pages related to this controller.
+        $this->middleware('auth.custom');
         $this->current_page = 'AboutMe';
         //The line below is making an object of repository which contains
         //a method for making navigation bar main links
