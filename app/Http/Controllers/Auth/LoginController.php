@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+//We need the line below to use localization. 
+use App;
+
 class LoginController extends Controller
 {
     /*
@@ -41,18 +44,25 @@ class LoginController extends Controller
     }
     
     public function store() {
-       if (! auth()->attempt(request(['name', 'password']))) {
-           return back()->withErrors([
-               'message' => 'Please check your credentials and try again.'
-           ]);
-       }
-        
-        return redirect('admin/start');;
+        if (! auth()->attempt(request(['name', 'password']))) {
+            return back()->withErrors([
+                'message' => 'Please check your credentials and try again.'
+            ]);
+        }      
+        if (App::isLocale('en')) {
+            return redirect('admin/start');
+        } else {
+            return redirect('ru/admin/start');
+        }
     }
     
     public function destroy() {
         auth()->logout();
         
-        return redirect('admin');
+        if (App::isLocale('en')) {
+            return redirect('admin');
+        } else {
+            return redirect('ru/admin');
+        }
     }
 }

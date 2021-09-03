@@ -1,3 +1,6 @@
+<div>
+    <a href={{ App::isLocale('en') ? "/admin/logout" : "/ru/admin/logout" }}><p>@lang('keywords.Logout')</p></a> 
+</div>
 <div class="admin-panel-language-and-title">
     <div class="admin-panel-language-select">
         <div>

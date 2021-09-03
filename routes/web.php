@@ -143,11 +143,29 @@ Route::group(['prefix' => 'ru', 'middleware' => ['web'], 'locale'], function() {
 
 //Login
 
-Route::get('admin', 'Auth\LoginController@create');
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin', 'Auth\LoginController@create');
+});
 
-Route::post('admin', 'Auth\LoginController@store');
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin', 'Auth\LoginController@create');
+});
 
-Route::get('admin/logout', 'Auth\LoginController@destroy');
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin', 'Auth\LoginController@store');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin', 'Auth\LoginController@store');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/logout', 'Auth\LoginController@destroy');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/logout', 'Auth\LoginController@destroy');
+});
 
 //------------------------------------------------------------------------------
 
