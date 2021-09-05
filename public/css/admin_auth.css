@@ -1,0 +1,20 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 5, 2021, 6:08:52 PM
+    Author     : Ivan
+*/
+
+.admin-panel-auth-wrapper {
+    /*Here we need to use CSS calculations, without them
+    it is not possible to paint 100% of the window and do proper padding.
+    Padding and margin assignments in percents do not work properly.*/
+    height: calc(100vh);
+    padding-top: calc(.30 * 100vh);
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+}

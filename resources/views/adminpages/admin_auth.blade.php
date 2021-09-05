@@ -7,13 +7,15 @@
             @endslot
             @slot('css')
                 <!--The line below needs to be changed, different styles need to be applied. -->
-                <link href="{{ URL::asset('css/pop_up_window_layout.css') }}" rel="stylesheet">
+                <link href="{{ URL::asset('css/admin_auth.css') }}" rel="stylesheet">
             @endslot
         @endcomponent     
     </head>
     <body>
-        <div>
-            @yield('admin_login')
+        <div class="admin-panel-auth-wrapper">
+            <main>
+                @yield('admin_login')
+            </main>
         </div>
     </body>
 </html>
