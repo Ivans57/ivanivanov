@@ -27,6 +27,25 @@ and open the template in the editor.
     background-color: #e3e3e3;
 }
 
+.admin-panel-wrapper .admin-panel-header .admin-panel-logout {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2%;
+    margin-bottom: -10px;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-logout a {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #1c2da3;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-logout a:hover {
+    color: #c40c0c;
+}
+
 .admin-panel-wrapper .admin-panel-header .admin-panel-language-and-title {
     display: flex;
     flex-direction: column;
