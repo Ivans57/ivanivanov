@@ -45,9 +45,7 @@ class LoginController extends Controller
     
     public function store() {
         if (! auth()->attempt(request(['name', 'password']))) {
-            return back()->withErrors([
-                'message' => 'Please check your credentials and try again.'
-            ]);
+            return $this->show_error_message();
         }      
         if (App::isLocale('en')) {
             return redirect('admin/start');
@@ -63,6 +61,18 @@ class LoginController extends Controller
             return redirect('admin');
         } else {
             return redirect('ru/admin');
+        }
+    }
+    
+    private function show_error_message () {      
+        if (App::isLocale('en')) {
+            return back()->withErrors([
+            'message' => 'Please check your credentials and try again.'
+        ]);
+        } else {
+            return back()->withErrors([
+            'message' => 'Пожалуйста, проверьте вводимые данные и попробуйте снова.'
+        ]);
         }
     }
 }

@@ -2,24 +2,20 @@
 
 @section('admin_login')
     @include('adminpages.create_edit_errors')
-        {!! Form::open([ 'method' => 'POST', 'url' => App::isLocale('en') ? "/admin/" : "/ru/admin/" ]) !!}
-            {{ csrf_field() }}
-            
-            <h1>@lang('keywords.Authorization')</h1>
-            
-            <div>
-                {!! Form::label('name', Lang::get('keywords.UserName')) !!}
-                {!! Form::text('name') !!}
+    {!! Form::open([ 'method' => 'POST', 'url' => App::isLocale('en') ? "/admin/" : "/ru/admin/" ]) !!}
+        {{ csrf_field() }}    
+        <h1>@lang('keywords.Authorization')</h1>
+        <div class="admin-panel-auth-wrapper-caption-fields-wrapper">
+            <div>    
+                <div>{!! Form::label('name', Lang::get('keywords.UserName'), ['class' => 'admin-panel-auth-wrapper-fields-controls-label']) !!}</div>  
+                <div>{!! Form::text('name', null, ['class' => 'admin-panel-auth-wrapper-fields-controls-input']) !!}</div>
+                <div>{!! Form::label('password', Lang::get('keywords.Password'), ['class' => 'admin-panel-auth-wrapper-fields-controls-label']) !!}</div>
+                <div>{!! Form::password('password', ['class' => 'admin-panel-auth-wrapper-fields-controls-input']) !!}</div>
             </div>
-            <div style="height:20px;"></div>
-            <div>
-                {!! Form::label('password', Lang::get('keywords.Password')) !!}
-                {!! Form::password('password') !!}
-            </div>
-            <div style="height:20px;"></div>
-            <div>
-                {!! Form::submit(Lang::get('keywords.Login')) !!}
-            </div>
+        </div>
+        <div class="admin-panel-auth-wrapper-button-wrapper">
+            {!! Form::submit(Lang::get('keywords.Login'), ['class' => 'btn btn-primary admin-panel-auth-wrapper-button']) !!}
+        </div>
             
-        {!! Form::close() !!}
+    {!! Form::close() !!}
 @stop

@@ -18,3 +18,58 @@ and open the template in the editor.
     display: flex;
     justify-content: center;
 }
+
+.admin-panel-auth-wrapper main {
+    /*position: relative is required to display errors block properly.*/
+    position: relative;
+    width: 400px;
+}
+
+.admin-panel-auth-wrapper main h1 {
+    text-align: center; 
+    font-family: "Times New Roman", "Arial";
+}
+
+.admin-panel-auth-wrapper .admin-panel-auth-wrapper-caption-fields-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.admin-panel-auth-wrapper .admin-panel-auth-wrapper-caption-fields-wrapper 
+.admin-panel-auth-wrapper-fields-controls-label {
+    font-family: "Arial";
+    font-size: 15px;
+}
+
+.admin-panel-auth-wrapper .admin-panel-auth-wrapper-caption-fields-wrapper
+.admin-panel-auth-wrapper-fields-controls-input {
+    margin-bottom: 20px;
+}
+
+.admin-panel-auth-wrapper .admin-panel-auth-wrapper-button-wrapper {
+    display: flex; 
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.admin-panel-auth-wrapper .admin-panel-auth-wrapper-button-wrapper 
+.admin-panel-auth-wrapper-button {
+    font-family: "Arial"; 
+    font-size: 15px;
+}
+
+/*Classes for errors are different from the other classes in this section, 
+because errors section (file) is common for authentication and admin panel sections.*/
+/*Main is the parent container of alerts. When assigning Top and Left properties, they are relative to element Main.*/
+.admin-panel-entity-create-edit-notification-wrapper {
+    position: absolute;
+    /*Need to add this z-index, otherwise through these notifications could be visible some
+    elements (e.g. arrovs and triangles), which are supposed to be behind.*/
+    z-index: 1;
+    top: -35px;
+    left: 5px;
+}
+
+.admin-panel-entity-create-edit-notification-wrapper .admin-panel-entity-create-edit-notification {
+    width: 400px;
+}
