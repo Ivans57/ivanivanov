@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function role_and_status()
+    {
+        return $this->hasOne('App\UsersRolesAndStatuses');
+    }
 }
