@@ -6,7 +6,7 @@ use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\KeywordsRepository;
 use App\Keyword;
 use App\Http\Requests\CreateEditKeywordRequest;
-//The reuqtes below is required for search.
+//The request below is required for search.
 use Illuminate\Http\Request;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.

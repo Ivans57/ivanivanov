@@ -181,6 +181,138 @@ Route::group(['middleware' => 'locale'], function() {
 
 //------------------------------------------------------------------------------
 
+//Keywords
+
+//This route should be written before index, otherwise "create" will be considered as variable.
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/keywords/create', 'AdminKeywordsController@create');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/keywords/create', 'AdminKeywordsController@create');
+});
+
+//sorting_mode argument is optional. It is required only for sorting.
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/keywords/{sorting_mode?}', 'AdminKeywordsController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/keywords/{sorting_mode?}', 'AdminKeywordsController@index');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/keywords/search', 'AdminKeywordsController@searchKeyword');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/keywords/search', 'AdminKeywordsController@searchKeyword');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/keywords', 'AdminKeywordsController@store');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/keywords', 'AdminKeywordsController@store');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/keywords/{keyword}/edit', 'AdminKeywordsController@edit');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/keywords/{keyword}/edit', 'AdminKeywordsController@edit');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::put('admin/keywords/{keyword}', 'AdminKeywordsController@update');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::put('admin/keywords/{keyword}', 'AdminKeywordsController@update');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/keywords/delete/{keywords}', 'AdminKeywordsController@remove');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/keywords/delete/{keywords}', 'AdminKeywordsController@remove');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::delete('admin/keywords/{keywords}', 'AdminKeywordsController@destroy');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::delete('admin/keywords/{keywords}', 'AdminKeywordsController@destroy');
+});
+
+//------------------------------------------------------------------------------
+
+//Users
+
+//This route should be written before index, otherwise "create" will be considered as variable.
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/users/create', 'AdminUsersController@create');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/users/create', 'AdminUsersController@create');
+});
+
+//sorting_mode argument is optional. It is required only for sorting.
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/users/{sorting_mode?}', 'AdminUsersController@index');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/users/{sorting_mode?}', 'AdminUsersController@index');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/users', 'AdminUsersController@store');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/users', 'AdminUsersController@store');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/users/{keyword}/edit', 'AdminUsersController@edit');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/users/{keyword}/edit', 'AdminUsersController@edit');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::put('admin/users/{keyword}', 'AdminUsersController@update');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::put('admin/users/{keyword}', 'AdminUsersController@update');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/users/delete/{keywords}', 'AdminUsersController@remove');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/users/delete/{keywords}', 'AdminUsersController@remove');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::delete('admin/users/{keywords}', 'AdminUsersController@destroy');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::delete('admin/users/{keywords}', 'AdminUsersController@destroy');
+});
+
+//------------------------------------------------------------------------------
+
 //Home
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
@@ -443,75 +575,6 @@ Route::group(['middleware' => 'locale'], function() {
     Route::put('admin/article/{keyword}', 'AdminArticleController@update');
 });
 //End of Articles
-
-//------------------------------------------------------------------------------
-
-//Keywords
-//This route should be written before index, otherwise "create" will be considered as variable.
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/keywords/create', 'AdminKeywordsController@create');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/keywords/create', 'AdminKeywordsController@create');
-});
-
-//sorting_mode argument is optional. It is required only for sorting.
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{sorting_mode?}', 'AdminKeywordsController@index');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{sorting_mode?}', 'AdminKeywordsController@index');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/keywords/search', 'AdminKeywordsController@searchKeyword');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/keywords/search', 'AdminKeywordsController@searchKeyword');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/keywords', 'AdminKeywordsController@store');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/keywords', 'AdminKeywordsController@store');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword}/edit', 'AdminKeywordsController@edit');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/keywords/{keyword}/edit', 'AdminKeywordsController@edit');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::put('admin/keywords/{keyword}', 'AdminKeywordsController@update');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::put('admin/keywords/{keyword}', 'AdminKeywordsController@update');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/keywords/delete/{keywords}', 'AdminKeywordsController@remove');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/keywords/delete/{keywords}', 'AdminKeywordsController@remove');
-});
-
-Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::delete('admin/keywords/{keywords}', 'AdminKeywordsController@destroy');
-});
-
-Route::group(['middleware' => 'locale'], function() {
-    Route::delete('admin/keywords/{keywords}', 'AdminKeywordsController@destroy');
-});
 
 //------------------------------------------------------------------------------
 
