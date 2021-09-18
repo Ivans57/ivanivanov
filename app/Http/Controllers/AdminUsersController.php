@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
 use App\Http\Repositories\CommonRepository;
-use App\Http\Repositories\UsersRepository;
+use App\Http\Repositories\AdminUsersRepository;
+use App\User;
 
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
@@ -21,7 +22,7 @@ class AdminUsersController extends Controller
     
     //There are some methods and variables which we will always use, so it will be better
     //if we call the and initialize in constructor
-    public function __construct(UsersRepository $users) {
+    public function __construct(AdminUsersRepository $users) {
         //The line below is required not to allow an unauthenticated user to open pages related to this controller.
         $this->middleware('auth.custom');
         $this->users = $users;
@@ -36,15 +37,12 @@ class AdminUsersController extends Controller
     }  
 
     //Optional argument is required for sorting.
-    //The second parameter is required when user is searching something and there is more than one page of something found,
-    //that will enable to turn pages of items found normaly, without dropping search.
-    public function index(/*$sorting_mode = null*/) {      
+    public function index($sorting_mode = null) {      
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);       
-        //$items_amount_per_page = 14;
         
         //In the next line the data are getting extracted from the database and sorted.
-        //$sorting_data = $this->keywords->sort(0, $items_amount_per_page, $sorting_mode);
-                      
+        $sorting_data = $this->users->sort($sorting_mode);
+              
         return view('adminpages.users.adminusers')->with([
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
@@ -52,7 +50,10 @@ class AdminUsersController extends Controller
                 'main_ap_links' => $main_links->mainAPLinks,
                 'headTitle' => __('keywords.'.$this->current_page),
                 //The variable below (section) is required to choose proper js files.
-                'section' => Str::lower($this->current_page)
+                'section' => Str::lower($this->current_page),            
+                'users' => $sorting_data["users"],
+                'sorting_asc_or_desc' => $sorting_data["sorting_asc_or_desc"],
+                'all_users_amount' => User::count()
             ]);
     }
 }

@@ -56,7 +56,7 @@ class KeywordsRepository {
     }
     
     //The method below is to sort keywords in different sorting modes.
-    //This function is operating in two modes: normal and serach.
+    //This function is operating in two modes: normal and search.
     //Normal mode is just to show the contents of the section,
     //Search mode is to display keywords with particular text.
     public function sort($search_mode_is_on, $items_amount_per_page, $sorting_mode, $keywords_text = null) {
