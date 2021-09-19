@@ -555,6 +555,325 @@ main {
 
 /*--------------------------------------------------------*/
 
+/*Admin Panel Users part*/
+
+.admin-panel-wrapper .admin-panel-main-article-users {
+    width: 975px;
+}
+
+.admin-panel-main-article .admin-panel-users-empty-text-wrapper {
+    text-align: center;
+    margin-top: 170px;
+}
+
+.admin-panel-main-article .admin-panel-users-empty-text-wrapper p {
+    font-family: Arial;
+    font-size: 16px;
+}
+
+.admin-panel-main-article .admin-panel-users-control-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-users-add-user-button,
+.admin-panel-main-article .admin-panel-users-add-user-button-pressed {
+    display: inline-block;
+    height: 26px;
+    min-width: 74px;
+    border: #a8a8a8 1px solid;
+    margin-top: 5px;
+}
+
+.admin-panel-main-article .admin-panel-users-add-user-button {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-users-add-user-button-pressed {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-users-add-user-button:hover {
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-users-add-user-button 
+.admin-panel-users-add-user-button-link,
+.admin-panel-users-add-user-button-pressed 
+.admin-panel-users-add-user-button-link-pressed {
+    display: block;
+    min-width: 74px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+.admin-panel-main-article .admin-panel-users-add-user-button 
+.admin-panel-users-add-user-button-link {
+    color: black;
+}
+
+.admin-panel-main-article .admin-panel-users-add-user-button-pressed 
+.admin-panel-users-add-user-button-link-pressed {
+    color: grey;
+}
+
+.admin-panel-main-article .admin-panel-users-control-buttons .admin-panel-users-edit-delete-control-buttons {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-panel-main-article .admin-panel-users-control-buttons .admin-panel-users-edit-delete-control-buttons 
+.admin-panel-users-edit-delete-control-button:first-child,
+.admin-panel-main-article .admin-panel-users-control-buttons .admin-panel-users-edit-delete-control-buttons 
+.admin-panel-users-edit-delete-control-button-pressed:first-child {
+    margin-left: 10px;
+}
+
+.admin-panel-main-article .admin-panel-users-control-buttons .admin-panel-users-edit-delete-control-buttons 
+.admin-panel-users-edit-delete-control-button,
+.admin-panel-main-article .admin-panel-users-control-buttons .admin-panel-users-edit-delete-control-buttons 
+.admin-panel-users-edit-delete-control-button-pressed {
+    height: 26px;
+    min-width: 56px;
+    border: #a8a8a8 1px solid;
+}
+
+.admin-panel-main-article .admin-panel-users-control-buttons .admin-panel-users-edit-delete-control-buttons 
+.admin-panel-users-edit-delete-control-button-enabled {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-users-control-buttons .admin-panel-users-edit-delete-control-buttons 
+.admin-panel-users-edit-delete-control-button-pressed,
+.admin-panel-main-article .admin-panel-users-control-buttons .admin-panel-users-edit-delete-control-buttons 
+.admin-panel-users-edit-delete-control-button-disabled {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+    color: grey;
+}
+
+.admin-panel-main-article .admin-panel-users-control-buttons .admin-panel-users-edit-delete-control-buttons 
+.admin-panel-users-edit-delete-control-button-enabled:hover {
+    filter: brightness(0.95);
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper {
+    min-height: 500px;  
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row,
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field, 
+.admin-panel-main-article .admin-panel-users-external-users-wrapper
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field {
+    background-color: black;
+    min-height: 26px;
+    width: 200px;
+    margin-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field:first-child 
+.admin-panel-users-users-header-checkbox {
+    margin-top: -3px;
+    margin-left: -1px;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field .admin-panel-users-users-header-text-and-caret-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field .admin-panel-users-users-header-text-and-caret-wrapper 
+.admin-panel-users-users-header-caret {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field .admin-panel-users-users-header-text-and-caret-wrapper 
+.admin-panel-users-users-header-caret span {
+    margin-top: 2px;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field .admin-panel-users-users-header-text-and-caret-wrapper 
+.admin-panel-users-users-header-caret .admin-panel-users-users-header-caret-used {
+    color: white;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field .admin-panel-users-users-header-text-and-caret-wrapper 
+.admin-panel-users-users-header-caret .admin-panel-users-users-header-caret-unused {
+    color: #87888c;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field .admin-panel-users-users-header-text-and-caret-wrapper 
+.admin-panel-users-users-header-caret .admin-panel-users-users-header-caret-unused:hover  {
+    color: #afccfa;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field .admin-panel-users-users-header-text-and-caret-wrapper 
+.admin-panel-users-users-header-caret:hover {
+    cursor: pointer;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field .admin-panel-users-users-body-field-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field .admin-panel-users-users-body-field-content p {
+    font-style: italic;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field:first-child, 
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field:first-child {
+    width: 30px;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field:nth-child(2), 
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field:nth-child(2) {
+    width: 180px;
+    overflow-wrap: break-word;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field:nth-child(4), 
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field:nth-child(4) {
+    width: 140px;
+    overflow-wrap: break-word;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field:nth-child(5), 
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field:nth-child(5), 
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field:nth-child(6), 
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field:nth-child(6){
+    display: flex;
+    width: 165px;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field {
+    background-color: #cccccc;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field .admin-panel-users-users-checkbox {
+    margin-top: 5px;
+    margin-left: -1px;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row:hover 
+.admin-panel-users-users-body-field {
+    filter: brightness(0.97);
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-header-row 
+.admin-panel-users-users-header-field h3,
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field p {
+    display: block;
+    font-family: Arial;
+    font-size: 15px;
+    color: white;
+    /*We need margins below, otherwise they will be adjusted automatically and 
+    the text won't look right' */
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 26px;
+}
+
+.admin-panel-main-article .admin-panel-users-external-users-wrapper 
+.admin-panel-users-users-wrapper .admin-panel-users-users-body-row 
+.admin-panel-users-users-body-field p {
+    color: black;
+}
+
+/*--------------------------------------------------------*/
+
 /*Admin Panel Home part*/
 
 .admin-panel-wrapper .admin-panel-home-article {
