@@ -34,6 +34,8 @@
                 @if (isset($section))
                     @if ($section == 'keywords')
                             <script type="text/javascript" src="{{ URL::asset('js/adminkeywords.js') }}"></script>
+                    @elseif ($section == 'users')
+                            <script type="text/javascript" src="{{ URL::asset('js/adminusers.js') }}"></script>
                     @elseif ($section == 'albums')
                             <script type="text/javascript" src="{{ URL::asset('js/adminalbums.js') }}"></script>
                             <script type="text/javascript" src="{{ URL::asset('js/admin_albums_and_articles_sort_and_search.js') }}"></script>

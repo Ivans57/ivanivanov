@@ -776,7 +776,6 @@ main {
 .admin-panel-users-users-body-field .admin-panel-users-users-body-field-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 .admin-panel-main-article .admin-panel-users-external-users-wrapper 

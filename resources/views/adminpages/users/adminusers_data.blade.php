@@ -194,7 +194,7 @@
                 </div>
                 <div class="admin-panel-users-users-body-field">
                     <div class="admin-panel-users-users-body-field-content">
-                        @if($user->role_and_status->status = 1)
+                        @if($user->role_and_status->status == 1)
                             <p>@lang('keywords.Active')</p>
                         @else
                             <p>@lang('keywords.Inactive')</p>

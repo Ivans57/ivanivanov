@@ -57,22 +57,23 @@ class AdminUsersRepository {
                 break; 
             
             case ('users_sort_by_role_desc'):
-                $users = (User::with('role_and_status')->latest()->get());              
+                $users = User::with('role_and_status')->get()->sortByDesc('role_and_status.role');
                 $sorting_asc_or_desc["Role"] = ["asc" , 1];
                 break;
             
             case ('users_sort_by_role_asc'):
-                $users = (User::with('role_and_status')->orderBy('role', 'asc')->get());      
+                //for sort bu ascending don't need to specify it is ascending, only for descending like above.
+                $users = User::with('role_and_status')->get()->sortBy('role_and_status.role');
                 $sorting_asc_or_desc["Role"] = ["desc" , 1];
                 break;
             
             case ('users_sort_by_status_desc'):
-                $users = (User::with('role_and_status')->orderBy('status', 'desc')->get());           
+                $users = User::with('role_and_status')->get()->sortByDesc('role_and_status.status');          
                 $sorting_asc_or_desc["Status"] = ["asc" , 1];
                 break;
             
             case ('users_sort_by_status_asc'):
-                $users = (User::with('role_and_status')->orderBy('status', 'asc')->get());           
+                $users = User::with('role_and_status')->get()->sortBy('role_and_status.status');          
                 $sorting_asc_or_desc["Status"] = ["desc" , 1];
                 break;
             
