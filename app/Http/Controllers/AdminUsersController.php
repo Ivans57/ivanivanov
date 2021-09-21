@@ -56,4 +56,16 @@ class AdminUsersController extends Controller
                 'all_users_amount' => User::count()
             ]);
     }
+    
+    public function create() {
+        return view('adminpages.users.create_and_edit_user')->with([
+            //Actually we do not need any head title as it is just a partial view
+            //We need it only to make the variable initialized. Othervise there will be error.
+            'headTitle' => __('keywords.'.$this->current_page),
+            //We are going to use one view for create and edit
+            //thats why we will nedd kind of indicator to know which option do we use
+            //create or edit.
+            'create_or_edit' => 'create'
+            ]);
+    }
 }
