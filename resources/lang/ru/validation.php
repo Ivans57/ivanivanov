@@ -30,7 +30,7 @@ return [
         'array'   => 'The :attribute must have between :min and :max items.',
     ],
     'boolean'              => 'The :attribute field must be true or false.',
-    'confirmed'            => 'The :attribute confirmation does not match.',
+    'confirmed'            => 'Пароли в поле пароля и в поле его подтверждения не совпадают.',
     'date'                 => 'The :attribute is not a valid date.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'The :attribute and :other must be different.',
@@ -38,7 +38,7 @@ return [
     'digits_between'       => 'The :attribute must be between :min and :max digits.',
     'dimensions'           => 'The :attribute has invalid image dimensions.',
     'distinct'             => 'The :attribute field has a duplicate value.',
-    'email'                => 'The :attribute must be a valid email address.',
+    'email'                => 'В поле :attribute должен быть адрес эл. почты.',
     'exists'               => 'The selected :attribute is invalid.',
     'file'                 => 'The :attribute must be a file.',
     'filled'               => 'The :attribute field is required.',
@@ -59,7 +59,7 @@ return [
     'min'                  => [
         'numeric' => 'The :attribute must be at least :min.',
         'file'    => 'The :attribute must be at least :min kilobytes.',
-        'string'  => 'The :attribute must be at least :min characters.',
+        'string'  => 'В поле :attribute должно быть как минимум :min знаков.',
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'not_in'               => 'The selected :attribute is invalid.',
@@ -89,11 +89,14 @@ return [
     //Additional validations added by developer
     'prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
     'keywords_prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
+    'users_prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
     'articles_prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
     'space_check' => 'Поле :attribute не должно содержать пробелы.',
     'album_keyword_uniqueness_check' => 'Ключевое слово альбома не уникально.',
     'folder_keyword_uniqueness_check' => 'Ключевое слово папки не уникально.',
     'keyword_uniqueness_check' => 'Ключевое слово не уникально.',
+    'username_uniqueness_check' => 'Имя пользователя не уникально.',
+    'email_uniqueness_check' => 'Эл. адрес не уникален.',
     'picture_keyword_uniqueness_check' => 'Ключевое слово изображения не уникально.',
     'article_keyword_uniqueness_check' => 'Ключевое слово статьи не уникально.',
 
@@ -140,6 +143,7 @@ return [
     'attributes' => ['keyword' => __('keywords.Keyword'), 'text' => __('keywords.Text'), 'album_name' => __('keywords.AlbumName'),
                     'folder_name' => __('keywords.FolderName'), 'picture_caption' => __('keywords.PictureCaption'), 
                     'article_keyword' => __('keywords.ArticleKeyword'), 'article_title' => __('keywords.ArticleTitle'), 
-                    'article_body' => __('keywords.ArticleText'), 'keyword' => __('keywords.Section')],
+                    'article_body' => __('keywords.ArticleText'), 'keyword' => __('keywords.Section'), 'name' => __('keywords.UserName'), 
+                    'email' => __('keywords.Email'), 'password' => __('keywords.Password')],
 
 ];

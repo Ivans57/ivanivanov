@@ -110,8 +110,6 @@ class AdminKeywordsController extends Controller
             ]);
     }
     
-    //As we use JavaScipt to authorise filled form, we do not need any Request objects.
-    //I left it for example. I will use this approcah for articles creation.
     public function store(CreateEditKeywordRequest $request) {      
         $this->keywords->store($request);
         

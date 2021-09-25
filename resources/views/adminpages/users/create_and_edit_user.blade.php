@@ -7,13 +7,14 @@
     @else
         {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/users/".$keyword : "/ru/admin/users/".$keyword, 'method' => 'PUT' ]) !!}
     @endif
-            {!! Form::hidden('old_keyword', $create_or_edit==='create' ? null : $keyword) !!}
+            {!! Form::hidden('old_username', $create_or_edit==='create' ? null : $keyword) !!}
+            {!! Form::hidden('old_email', $create_or_edit==='create' ? null : $keyword) !!}
             <div class='admin-panel-create-edit-entity'>
                 <div class="admin-panel-create-edit-entity-controls">
-                    <div>{!! Form::label('username', Lang::get('keywords.UserName').':', 
+                    <div>{!! Form::label('name', Lang::get('keywords.UserName').':', 
                             ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
                     </div>
-                    <div>{!! Form::text('username', $create_or_edit==='create' ? null : $keyword, 
+                    <div>{!! Form::text('name', $create_or_edit==='create' ? null : $keyword, 
                         ['class' => 'admin-panel-create-edit-entity-controls-input']) !!}
                     </div>
                 </div>

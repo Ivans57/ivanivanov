@@ -89,11 +89,14 @@ return [
     //Additional validations added by developer
     'prohibited_characters' => 'There are some prohibited characters in :attribute field.',
     'keywords_prohibited_characters' => 'There are some prohibited characters in :attribute field.',
+    'users_prohibited_characters' => 'There are some prohibited characters in :attribute field.',
     'articles_prohibited_characters' => 'There are some prohibited characters in :attribute field.',
     'space_check' => ':attribute should not have spaces.',
     'album_keyword_uniqueness_check' => 'Album keyword is not unique.',
     'folder_keyword_uniqueness_check' => 'Folder keyword is not unique.',
-    'keyword_uniqueness_check' => 'The keyword is not unique.',
+    'keyword_uniqueness_check' => 'The Keyword is not unique.',
+    'username_uniqueness_check' => 'The Username is not unique.',
+    'email_uniqueness_check' => 'The Email is not unique.',
     'picture_keyword_uniqueness_check' => 'Picture keyword is not unique.',
     'article_keyword_uniqueness_check' => 'Article keyword is not unique.',
 
@@ -140,6 +143,7 @@ return [
     'attributes' => ['keyword' => __('keywords.Keyword'), 'text' => __('keywords.Text'), 'album_name' => __('keywords.AlbumName'), 
                     'folder_name' => __('keywords.FolderName'), 'picture_caption' => __('keywords.PictureCaption'), 
                     'article_keyword' => __('keywords.ArticleKeyword'), 'article_title' => __('keywords.ArticleTitle'), 
-                    'article_body' => __('keywords.ArticleText'), 'keyword' => __('keywords.Section')],
+                    'article_body' => __('keywords.ArticleText'), 'keyword' => __('keywords.Section'), 'name' => __('keywords.UserName'), 
+                    'email' => __('keywords.Email'), 'password' => __('keywords.Password')],
 
 ];

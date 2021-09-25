@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AdminUsersRepository;
 use App\User;
+use App\Http\Requests\CreateEditUserRequest;
 
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
@@ -66,6 +67,18 @@ class AdminUsersController extends Controller
             //thats why we will nedd kind of indicator to know which option do we use
             //create or edit.
             'create_or_edit' => 'create'
+            ]);
+    }
+    
+    public function store(CreateEditUserRequest $request) {      
+        $this->users->store($request);
+        
+        return view('adminpages.form_close')->with([
+            //Actually we do not need any head title as it is just a partial view
+            //We need it only to make the variable initialized. Othervise there will be error.
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'store'
             ]);
     }
 }

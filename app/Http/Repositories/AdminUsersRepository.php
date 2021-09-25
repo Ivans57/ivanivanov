@@ -4,9 +4,24 @@ namespace App\Http\Repositories;
 
 //use Carbon\Carbon;
 use App\User;
+use App\UsersRolesAndStatuses;
 
 
 class AdminUsersRepository {
+    
+    public function store($request) {
+        
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        
+        $user_role_and_status = new UsersRolesAndStatuses;
+        $user_role_and_status->role = 'user';     
+        $user_role_and_status->status = 1;
+        $user->role_and_status()->save($user_role_and_status);
+    }
     
     //The method below is to sort users in different sorting modes.
     public function sort($sorting_mode) {
@@ -82,5 +97,29 @@ class AdminUsersRepository {
                 $sorting_asc_or_desc["Creation"] = ["asc" , 1];   
         }     
         return ["users" => $users, "sorting_asc_or_desc" => $sorting_asc_or_desc];
+    }
+    
+    //We need this to make a check for username uniqueness.
+    public function get_all_names() {
+        
+        $all_names = User::all('name');       
+        $names_array = array();
+        
+        foreach ($all_names as $name) {
+            array_push($names_array, $name->name);
+        }    
+        return $names_array;   
+    }
+    
+    //We need this to make a check for email uniqueness.
+    public function get_all_emails() {
+        
+        $all_emails = User::all('email');       
+        $emails_array = array();
+        
+        foreach ($all_emails as $email) {
+            array_push($emails_array, $email->email);
+        }    
+        return $emails_array;   
     }
 }
