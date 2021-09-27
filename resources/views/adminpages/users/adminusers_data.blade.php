@@ -174,7 +174,7 @@
                 <div class="admin-panel-users-users-body-field">
                     <p>{{ $user->name }}</p>
                 </div>
-                <div class="admin-panel-users-users-body-field">
+                <div class="admin-panel-users-users-body-field"  style="word-break: break-all">
                     <p>{{ $user->email }}</p>
                 </div>
                 <div class="admin-panel-users-users-body-field">
@@ -189,7 +189,11 @@
                 </div>              
                 <div class="admin-panel-users-users-body-field">
                     <div class="admin-panel-users-users-body-field-content">
-                        <p>{{ $user->role_and_status->role }}</p>
+                        @if($user->role_and_status->role == 'admin')
+                            <p>@lang('keywords.Admin')</p>
+                        @else
+                            <p>@lang('keywords.User')</p>
+                        @endif
                     </div>
                 </div>
                 <div class="admin-panel-users-users-body-field">

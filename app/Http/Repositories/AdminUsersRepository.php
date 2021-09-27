@@ -19,7 +19,7 @@ class AdminUsersRepository {
         
         $user_role_and_status = new UsersRolesAndStatuses;
         $user_role_and_status->role = 'user';     
-        $user_role_and_status->status = 1;
+        $user_role_and_status->status = $request->status;
         $user->role_and_status()->save($user_role_and_status);
     }
     

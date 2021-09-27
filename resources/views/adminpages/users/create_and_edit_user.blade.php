@@ -35,12 +35,21 @@
                     <div><input type="password" class="admin-panel-create-edit-entity-controls-input" id="password" name="password"></div>
                 </div>
                 <div class="admin-panel-create-edit-entity-regulations"><span>@lang('keywords.PasswordRegulations')</span></div>
-                <div class="admin-panel-create-edit-entity-controls" style="margin-bottom: 40px;">
+                <div class="admin-panel-create-edit-entity-controls" style="margin-bottom: 20px;">
                     <div>{!! Form::label('password_confirmation', Lang::get('keywords.ConfirmPassword').':', 
                                         ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}</div>
                     <!-- The password field below uses simple html, because for some reason cannot apply css to Form inputs with type password.-->
                     <div><input type="password" class="admin-panel-create-edit-entity-controls-input" id="password_confirmation" 
                                 name="password_confirmation"></div>
+                </div>
+                <div class="admin-panel-create-edit-entity-controls" style="margin-bottom: 40px;">
+                    <div class='admin-panel-create-edit-entity-controls-label-wrapper-for-status-select-for-user'>
+                        {!! Form::label('status', Lang::get('keywords.Status').':', 
+                                        ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
+                    </div>
+                    <div class='admin-panel-create-edit-entity-controls-input-status-select-wrapper-for-user'>
+                        {!! Form::select('status', array(1 => Lang::get('keywords.Active'), 0 => Lang::get('keywords.Inactive')), 1); !!}
+                    </div>
                 </div>
                 <div class="admin-panel-create-edit-entity-controls">
                     {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-create-edit-entity-controls-button']) !!}

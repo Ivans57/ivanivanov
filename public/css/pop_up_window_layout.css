@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : Ivan
 */
 
-/*Entity (Album, Picture, Folder, Keyword) create and edit windows*/
+/*Entity (Album, Picture, Folder, Keyword, User) create and edit windows*/
 
 /*Window's size is regulated by javascript in admin_panel_javascript file*/
 
@@ -58,6 +58,25 @@ and open the template in the editor.
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
 .admin-panel-create-edit-entity-controls-input {
     width: 285px;
+}
+
+.admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
+.admin-panel-create-edit-entity-controls-label-wrapper-for-status-select-for-user {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
+.admin-panel-create-edit-entity-controls-input-status-select-wrapper-for-user {
+    display: inline-block;
+}
+
+.admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
+.admin-panel-create-edit-entity-controls-input-status-select-wrapper-for-user select {
+    font-family: "Arial";
+    font-size: 16px;
+    height: 26px;
+    width: 125px;
 }
 
 .admin-panel-create-edit-entity .admin-panel-create-edit-entity-controls 
