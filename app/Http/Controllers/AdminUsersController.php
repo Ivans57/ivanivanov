@@ -81,4 +81,42 @@ class AdminUsersController extends Controller
             'action' => 'store'
             ]);
     }
+    
+    public function edit($name) {       
+        //Below we are fetching the user that we need to edit.
+        $user_to_edit = User::where('name', '=', $name)->firstOrFail();
+               
+        return view('adminpages.users.create_and_edit_user')->with([
+            //Actually we do not need any head title as it is just a partisal view
+            //We need it only to make the variable initialized. Othervise there will be error.
+            'headTitle' => __('keywords.'.$this->current_page),
+            'name' => $user_to_edit->name,
+            'email' => $user_to_edit->email,
+            'status' => $user_to_edit->role_and_status->status,
+            //We are going to use one view for create and edit
+            //thats why we will nedd kind of indicator to know which option do we use create or edit.
+            'create_or_edit' => 'edit'
+            ]);
+    }
+    
+    public function update($name, CreateEditUserRequest $request) {       
+        $this->users->update($name, $request);
+        
+        //We need to show an empty form first to close
+        //a pop up window. We are opening special close
+        //form and thsi form is launching special
+        //javascript which closing the pop up window
+        //and reloading a parent page.
+        return view('adminpages.form_close')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            'action' => 'update',
+            'section' => 'users',
+            //Two variables below are required only to avoid error, as the same form for many controllers has been used.
+            'parent_keyword' => '0',
+            'search_is_on' => '0'
+            ]);
+    }
 }

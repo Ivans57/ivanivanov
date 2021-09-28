@@ -122,8 +122,8 @@ class AdminKeywordsController extends Controller
             ]);
     }
     
-     public function edit($keyword) {       
-        //Belowe we are fetching the keyword we need to edit
+    public function edit($keyword) {       
+        //Below we are fetching the keyword that we need to edit.
         $keyword_to_edit = Keyword::where('keyword', '=', $keyword)->firstOrFail();
         
         return view('adminpages.keywords.create_and_edit_keyword')->with([

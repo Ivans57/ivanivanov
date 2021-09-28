@@ -280,19 +280,19 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/users/{keyword}/edit', 'AdminUsersController@edit');
+    Route::get('admin/users/{name}/edit', 'AdminUsersController@edit');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/users/{keyword}/edit', 'AdminUsersController@edit');
+    Route::get('admin/users/{name}/edit', 'AdminUsersController@edit');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::put('admin/users/{keyword}', 'AdminUsersController@update');
+    Route::put('admin/users/{name}', 'AdminUsersController@update');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::put('admin/users/{keyword}', 'AdminUsersController@update');
+    Route::put('admin/users/{name}', 'AdminUsersController@update');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

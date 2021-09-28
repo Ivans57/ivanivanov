@@ -23,6 +23,19 @@ class AdminUsersRepository {
         $user->role_and_status()->save($user_role_and_status);
     }
     
+    public function update($name, $request) {
+             
+        $edited_user = User::where('name', '=', $name)->firstOrFail();     
+        $edited_user->name = $request->name;
+        $edited_user->email = $request->email;
+        $edited_user->password = bcrypt($request->password);
+        $edited_user->save();
+        
+        $edited_user_role_and_status = UsersRolesAndStatuses::where('user_id', '=',  $edited_user->id)->firstOrFail();
+        $edited_user_role_and_status->status = $request->status;
+        $edited_user_role_and_status->save();
+    }
+    
     //The method below is to sort users in different sorting modes.
     public function sort($sorting_mode) {
         //This array is required to show sorting arrows properly.

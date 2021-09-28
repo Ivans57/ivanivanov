@@ -89,7 +89,7 @@ $( document ).ready(function() {
         if (selected_checkbox.length === 1) {
             //Passing url as a parameter.
             edit_user(((selected_checkbox[0].dataset.localization === "en") ? "" : 
-                           "/ru")+'/admin/keywords/'+selected_checkbox[0].dataset.keyword+'/edit/');
+                           "/ru")+'/admin/users/'+selected_checkbox[0].dataset.name+'/edit/');
         }
     });
     
@@ -104,7 +104,7 @@ $( document ).ready(function() {
                 preload : false,
                 css : {
                     'width' : '355px',
-                    'height' : '420px',
+                    'height' : '570px',
                     'margin-bottom' : '200px'
                 }
             },
