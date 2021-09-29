@@ -27,8 +27,11 @@ class AdminUsersRepository {
              
         $edited_user = User::where('name', '=', $name)->firstOrFail();     
         $edited_user->name = $request->name;
-        $edited_user->email = $request->email;
-        $edited_user->password = bcrypt($request->password);
+        $edited_user->email = $request->email;   
+        //Need to assign field password only if there is a new password, otherwise can skip it.
+        if ($request->password) {
+            $edited_user->password = bcrypt($request->password);
+        }
         $edited_user->save();
         
         $edited_user_role_and_status = UsersRolesAndStatuses::where('user_id', '=',  $edited_user->id)->firstOrFail();

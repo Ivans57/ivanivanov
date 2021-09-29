@@ -6,7 +6,8 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AdminUsersRepository;
 use App\User;
-use App\Http\Requests\CreateEditUserRequest;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\EditUserRequest;
 
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
@@ -99,7 +100,7 @@ class AdminUsersController extends Controller
             ]);
     }
     
-    public function update($name, CreateEditUserRequest $request) {       
+    public function update($name, EditUserRequest $request) {       
         $this->users->update($name, $request);
         
         //We need to show an empty form first to close

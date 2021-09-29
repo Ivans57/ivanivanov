@@ -104,7 +104,7 @@ $( document ).ready(function() {
                 preload : false,
                 css : {
                     'width' : '355px',
-                    'height' : '570px',
+                    'height' : '600px',
                     'margin-bottom' : '200px'
                 }
             },

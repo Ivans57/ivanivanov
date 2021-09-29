@@ -35,7 +35,11 @@
                     <!-- The password field below uses simple html, because for some reason cannot apply css to Form inputs with type password.-->
                     <div><input type="password" class="admin-panel-create-edit-entity-controls-input" id="password" name="password"></div>
                 </div>
-                <div class="admin-panel-create-edit-entity-regulations"><span>@lang('keywords.PasswordRegulations')</span></div>
+                <div class="admin-panel-create-edit-entity-regulations"><span>
+                                                                    {!! $create_or_edit==='create' ? Lang::get('keywords.PasswordRegulations') : 
+                                                                    Lang::get('keywords.PasswordRegulationsForEdit') !!}
+                    </span>
+                </div>
                 <div class="admin-panel-create-edit-entity-controls" style="margin-bottom: 20px;">
                     <div>{!! Form::label('password_confirmation', $create_or_edit==='create' ? Lang::get('keywords.ConfirmPassword').':' : 
                                           Lang::get('keywords.ConfirmNewPassword').':', 
