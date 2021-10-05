@@ -162,11 +162,11 @@ class CustomValidationServiceProvider extends ServiceProvider
         });
         
         Validator::extend('username_uniqueness_check', function ($attribute, $value, $parameters, $validator) {
-            //We need to compare an old keyword (from parameters[0]) with a new keyword ($value) 
-            //to avoid any misunderstanding when do keyword uniqueness check.
+            //We need to compare an old username (from parameters[0]) with a new username ($value) 
+            //to avoid any misunderstanding when do username uniqueness check.
             //When we edit existing record we might change something without changing
-            //a keyword. If we don't compare new keyword with its previous value, the system
-            //might think keyword is not unique as user is trying to assign already existing keyword.
+            //a username. If we don't compare new username with its previous value, the system
+            //might think username is not unique as user is trying to assign already existing username.
             if ((strcmp($value, $parameters[0])) == 0) {
                 return true;
             } else {
@@ -181,11 +181,11 @@ class CustomValidationServiceProvider extends ServiceProvider
         });
         
         Validator::extend('email_uniqueness_check', function ($attribute, $value, $parameters, $validator) {
-            //We need to compare an old keyword (from parameters[0]) with a new keyword ($value) 
-            //to avoid any misunderstanding when do keyword uniqueness check.
+            //We need to compare an old email (from parameters[0]) with a new email ($value) 
+            //to avoid any misunderstanding when do email uniqueness check.
             //When we edit existing record we might change something without changing
-            //a keyword. If we don't compare new keyword with its previous value, the system
-            //might think keyword is not unique as user is trying to assign already existing keyword.
+            //an email. If we don't compare new email with its previous value, the system
+            //might think email is not unique as user is trying to assign already existing email.
             if ((strcmp($value, $parameters[0])) == 0) {
                 return true;
             } else {

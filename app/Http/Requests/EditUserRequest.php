@@ -30,6 +30,7 @@ class EditUserRequest extends FormRequest
         //When we edit existing record we might change something without changing
         //a username. If we don't compare new username with its previous value, the system
         //might think username is not unique as user is trying to assign already existing username.
+        //The same as above applies to a emails.
         return [
             'name' => 'required|bail|space_check|users_prohibited_characters|'.'username_uniqueness_check:'.
                       $this->request->get('old_username').'|max:30',

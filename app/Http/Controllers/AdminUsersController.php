@@ -71,7 +71,7 @@ class AdminUsersController extends Controller
             ]);
     }
     
-    public function store(CreateEditUserRequest $request) {      
+    public function store(CreateUserRequest $request) {      
         $this->users->store($request);
         
         return view('adminpages.form_close')->with([
