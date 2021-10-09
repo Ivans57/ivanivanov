@@ -40,7 +40,7 @@
     </div>  
     <div class="admin-panel-create-edit-entity-controls">
         <div>
-            {!! Form::label('keyword', Lang::get('keywords.PictureKeyword').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
+            {!! Form::label('keyword', Lang::get('keywords.Keyword').':', ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
         </div>
         <div>{!! Form::text('keyword', null, ['class' => 'admin-panel-create-edit-entity-controls-input']) !!}</div>
     </div>                

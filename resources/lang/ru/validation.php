@@ -86,19 +86,10 @@ return [
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.', 
     
-    //Additional validations added by developer
+    //Additional validations added by developer.
     'prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
-    'keywords_prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
-    'users_prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
-    'articles_prohibited_characters' => 'Поле :attribute содержит запрещённые символы.',
-    'space_check' => 'Поле :attribute не должно содержать пробелы.',
-    'album_keyword_uniqueness_check' => 'Ключевое слово альбома не уникально.',
-    'folder_keyword_uniqueness_check' => 'Ключевое слово папки не уникально.',
-    'keyword_uniqueness_check' => 'Ключевое слово не уникально.',
-    'username_uniqueness_check' => 'Имя пользователя не уникально.',
-    'email_uniqueness_check' => 'Эл. адрес не уникален.',
-    'picture_keyword_uniqueness_check' => 'Ключевое слово изображения не уникально.',
-    'article_keyword_uniqueness_check' => 'Ключевое слово статьи не уникально.',
+    'space_check' => 'Поле :attribute не должно содержать пробелы.',  
+    'uniqueness_check' => 'Значение в поле :attribute не уникально.',
 
     /*
     |--------------------------------------------------------------------------
@@ -143,7 +134,7 @@ return [
     'attributes' => ['keyword' => __('keywords.Keyword'), 'text' => __('keywords.Text'), 'album_name' => __('keywords.AlbumName'),
                     'folder_name' => __('keywords.FolderName'), 'picture_caption' => __('keywords.PictureCaption'), 
                     'article_keyword' => __('keywords.ArticleKeyword'), 'article_title' => __('keywords.ArticleTitle'), 
-                    'article_body' => __('keywords.ArticleText'), 'keyword' => __('keywords.Section'), 'name' => __('keywords.UserName'), 
+                    'article_body' => __('keywords.ArticleText'), 'section' => __('keywords.Section'), 'name' => __('keywords.UserName'), 
                     'email' => __('keywords.Email'), 'password' => __('keywords.Password')],
 
 ];

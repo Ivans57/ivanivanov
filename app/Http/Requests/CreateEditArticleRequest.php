@@ -33,7 +33,8 @@ class CreateEditArticleRequest extends FormRequest
             //The line below is checking whether an article is included in any folder,
             //because articles cannot exist without folders.
             'folder_id'  => 'item_has_directory',
-            'article_keyword' => 'required|bail|articles_prohibited_characters|space_check|article_keyword_uniqueness_check:'.$this->request->get('old_keyword').'|max:50',
+            'article_keyword' => 'required|bail|prohibited_characters:article|space_check|uniqueness_check:'.
+                                 "article_keyword,".$this->request->get('old_keyword').'|max:50',
             'article_title' => 'required|max:50',
             'article_body' => 'required'
         ];

@@ -116,7 +116,7 @@ class AdminUsersRepository {
     }
     
     //We need this to make a check for username uniqueness.
-    public function get_all_names() {
+    /*public function get_all_names() {
         
         $all_names = User::all('name');       
         $names_array = array();
@@ -137,5 +137,17 @@ class AdminUsersRepository {
             array_push($emails_array, $email->email);
         }    
         return $emails_array;   
+    }*/
+    
+    //We need this to make a check for email uniqueness.
+    public function get_all_names_or_emails($names_or_emails) {
+             
+        $all_names_or_emails = User::all();      
+        $names_or_emails_array = array();
+        
+        foreach ($all_names_or_emails as $name_or_email) {
+            array_push($names_or_emails_array, ($names_or_emails == 'username' ? $name_or_email->name : $name_or_email->email));
+        }    
+        return $names_or_emails_array;
     }
 }

@@ -31,9 +31,10 @@ class CreateUserRequest extends FormRequest
         //might think username is not unique as user is trying to assign already existing username.
         //The same as above applies to a emails.
         return [
-            'name' => 'required|bail|space_check|users_prohibited_characters|'.'username_uniqueness_check:'.
-                      $this->request->get('old_username').'|max:30',
-            'email' => 'required|bail|email|space_check|'.'email_uniqueness_check:'.$this->request->get('old_email').'|max:50',
+            'name' => 'required|bail|space_check|prohibited_characters:username|'.'uniqueness_check:'.
+                      "username,".$this->request->get('old_username').'|max:30',
+            'email' => 'required|bail|email|space_check|'.'uniqueness_check:'.
+                       "email,".$this->request->get('old_email').'|max:50',
             'password' => 'required|confirmed|min:6'
         ];
     }

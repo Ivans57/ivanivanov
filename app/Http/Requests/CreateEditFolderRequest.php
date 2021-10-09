@@ -29,7 +29,8 @@ class CreateEditFolderRequest extends FormRequest
         //a keyword. If we don't compare new keyword with its previous value, the system
         //might think keyword is not unique as user is trying to assign already existing keyword.
         return [
-            'keyword' => 'required|bail|prohibited_characters|space_check|folder_keyword_uniqueness_check:'.$this->request->get('old_keyword').'|max:50',
+            'keyword' => 'required|bail|prohibited_characters:directory_and_picture|space_check|uniqueness_check:'.
+                         "folder_keyword,".$this->request->get('old_keyword').'|max:50',
             'folder_name' => 'required|max:50'
         ];
     }
