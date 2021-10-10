@@ -162,7 +162,8 @@ class AdminKeywordsController extends Controller
     }
     
     public function remove($keywords) {
-        $keywords_array = $this->keywords->get_keywords_from_string($keywords);
+        //Below is mentioned navigation_bar_obj. There is a CommonRepository in that property. Just don't want to rename it.
+        $keywords_array = $this->navigation_bar_obj->get_values_from_string($keywords);
         return view('adminpages.keywords.delete_keyword')->with([
             //Actually we do not need any head title as it is just a partial view.
             //We need it only to make the variable initialized. Othervise there will be an error.

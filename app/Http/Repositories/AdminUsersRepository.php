@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 //use Carbon\Carbon;
 use App\User;
 use App\UsersRolesAndStatuses;
+use App\Http\Repositories\CommonRepository;
 
 
 class AdminUsersRepository {
@@ -37,6 +38,13 @@ class AdminUsersRepository {
         $edited_user_role_and_status = UsersRolesAndStatuses::where('user_id', '=',  $edited_user->id)->firstOrFail();
         $edited_user_role_and_status->status = $request->status;
         $edited_user_role_and_status->save();
+    }
+    
+    public function destroy($usernames) {
+        $usernames_array = (new CommonRepository())->get_values_from_string($usernames);
+        foreach ($usernames_array as $username) {
+            User::where('name', '=', $username)->delete();
+        }
     }
     
     //The method below is to sort users in different sorting modes.

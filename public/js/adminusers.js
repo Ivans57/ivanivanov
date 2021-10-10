@@ -122,14 +122,14 @@ $( document ).ready(function() {
         
         for (i = 0; i < all_checkboxes.length; i++) {
             if (all_checkboxes[i].checked === true) {
-                var keyword = all_checkboxes[i].dataset.keyword+';';
-                selected_checkbox_data = selected_checkbox_data+keyword;
+                var username = all_checkboxes[i].dataset.name+';';
+                selected_checkbox_data = selected_checkbox_data+username;
             }
         }
         if (selected_checkbox_data.length > 0) {
             //For different localization will be different height.
             //passing url as the first parameter and height as the second parameter.
-            delete_users((((all_checkboxes[0].dataset.localization === "en") ? "" : "/ru")+'/admin/keywords/delete/'+selected_checkbox_data), 
+            delete_users((((all_checkboxes[0].dataset.localization === "en") ? "" : "/ru")+'/admin/users/delete/'+selected_checkbox_data), 
                                ((all_checkboxes[0].dataset.localization === "en") ? "170px" : "200px"));
         }
     });

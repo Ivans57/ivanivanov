@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use Carbon\Carbon;
 use App\Keyword;
+use App\Http\Repositories\CommonRepository;
 
 //This class is required for search.
 class KeywordsWithPaginationInfo {
@@ -38,21 +39,10 @@ class KeywordsRepository {
     }
     
     public function destroy($keywords) {
-        $keywords_array = $this->get_keywords_from_string($keywords);
+        $keywords_array = (new CommonRepository())->get_values_from_string($keywords);
         foreach ($keywords_array as $keyword) {
             Keyword::where('keyword', '=', $keyword)->delete();
         }
-    }
-    
-    //As it is not possible to send an array in get request, all keywords are sent in one string, 
-    //after this string comes to controller it needs to be split to get necessary data.
-    public function get_keywords_from_string($keywords) {
-        //All keywords are coming as one string. They are separated by ";"
-        $keywords_array = explode(";", $keywords);
-        //The function below removes the last (empty) element of the array.
-        array_pop($keywords_array);
-        
-        return $keywords_array;
     }
     
     //The method below is to sort keywords in different sorting modes.

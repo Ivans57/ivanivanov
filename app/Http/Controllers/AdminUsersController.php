@@ -120,4 +120,32 @@ class AdminUsersController extends Controller
             'search_is_on' => '0'
             ]);
     }
+    
+    public function remove($usernames) {
+        //Below is mentioned navigation_bar_obj. There is a CommonRepository in that property. Just don't want to rename it.
+        $usernames_array = $this->navigation_bar_obj->get_values_from_string($usernames);
+        return view('adminpages.users.delete_user')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page),
+            'usernames' => $usernames,
+            'plural_or_singular' => (sizeof($usernames_array) > 1) ? 'plural' : 'singular',
+            ]);        
+    }
+    
+    public function destroy($usernames) {
+        $this->users->destroy($usernames);       
+        return view('adminpages.form_close')->with([
+            //Actually we do not need any head title as it is just a partial view.
+            //We need it only to make the variable initialized. Othervise there will be an error.
+            'headTitle' => __('keywords.'.$this->current_page),
+            //Four variables below are required to make proper actions when pop up window closes.
+            'action' => 'destroy',
+            'section' => 'users',
+            'parent_directory_is_empty' => (\App\User::count()) > 0 ? 0 : 1,
+            //Two variables below are required only to avoid error, as the same form for many controllers has been used.
+            'parent_keyword' => '0',
+            'search_is_on' => '0'
+            ]);              
+    }
 }

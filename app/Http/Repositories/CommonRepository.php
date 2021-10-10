@@ -144,6 +144,18 @@ class CommonRepository {
         
     }
     
+    //For Keywords and Users (the method below).
+    //As it is not possible to send an array in get request, all keywords (usernames) are sent in one string, 
+    //after this string comes to controller it needs to be split to get necessary data.
+    public function get_values_from_string($values) {
+        //All keywords (usernames) are coming as one string. They are separated by ";"
+        $values_array = explode(";", $values);
+        //The function below removes the last (empty) element of the array.
+        array_pop($values_array);
+        
+        return $values_array;
+    }
+    
     //This method gets all necessary information for paginator.
     public function get_paginator_info($page, $all_items_collection_cut_into_pages) {
         
