@@ -86,13 +86,14 @@ class AdminUsersController extends Controller
     public function edit($name) {       
         //Below we are fetching the user that we need to edit.
         $user_to_edit = User::where('name', '=', $name)->firstOrFail();
-               
+                   
         return view('adminpages.users.create_and_edit_user')->with([
             //Actually we do not need any head title as it is just a partisal view
             //We need it only to make the variable initialized. Othervise there will be error.
             'headTitle' => __('keywords.'.$this->current_page),
             'name' => $user_to_edit->name,
             'email' => $user_to_edit->email,
+            'role' => $user_to_edit->role_and_status->role,
             'status' => $user_to_edit->role_and_status->status,
             //We are going to use one view for create and edit
             //thats why we will nedd kind of indicator to know which option do we use create or edit.

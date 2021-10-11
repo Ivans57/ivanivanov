@@ -48,16 +48,20 @@
                     <div><input type="password" class="admin-panel-create-edit-entity-controls-input" id="password_confirmation" 
                                 name="password_confirmation"></div>
                 </div>
-                <div class="admin-panel-create-edit-entity-controls" style="margin-bottom: 40px;">
-                    <div class='admin-panel-create-edit-entity-controls-label-wrapper-for-status-select-for-user'>
-                        {!! Form::label('status', Lang::get('keywords.Status').':', 
-                                        ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
+                @if ($role==='user')
+                    <div class="admin-panel-create-edit-entity-controls" style="margin-bottom: 40px;">
+                        <div class='admin-panel-create-edit-entity-controls-label-wrapper-for-status-select-for-user'>
+                            {!! Form::label('status', Lang::get('keywords.Status').':', 
+                                            ['class' => 'admin-panel-create-edit-entity-controls-label']) !!}
+                        </div>
+                        <div class='admin-panel-create-edit-entity-controls-input-status-select-wrapper-for-user'>
+                            {!! Form::select('status', array(1 => Lang::get('keywords.Active'), 0 => Lang::get('keywords.Inactive')), 
+                                             $create_or_edit==='create' ? 1 : $status); !!}
+                        </div>
                     </div>
-                    <div class='admin-panel-create-edit-entity-controls-input-status-select-wrapper-for-user'>
-                        {!! Form::select('status', array(1 => Lang::get('keywords.Active'), 0 => Lang::get('keywords.Inactive')), 
-                                         $create_or_edit==='create' ? 1 : $status); !!}
-                    </div>
-                </div>
+                @elseif ($role==='admin')
+                    <div class="admin-panel-create-edit-entity-controls" style="height: 20px; margin-bottom: 40px;"></div>
+                @endif
                 <div class="admin-panel-create-edit-entity-controls">
                     {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-create-edit-entity-controls-button']) !!}
                     {!! Form::button(Lang::get('keywords.Cancel'), 
