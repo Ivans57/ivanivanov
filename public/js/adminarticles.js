@@ -264,6 +264,12 @@ $( document ).ready(function() {
             button_delete.classList.remove('admin-panel-articles-article-and-folder-control-button-disabled');
             button_delete.classList.add('admin-panel-articles-article-and-folder-control-button-enabled');
             button_delete.removeAttribute('disabled');
+            //Without the check below in case user selects only one users and then selects all, button edit still will be active.
+            if (all_checkboxes.length > 1) {
+                button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-enabled');
+                button_edit.classList.add('admin-panel-articles-article-and-folder-control-button-disabled');
+                button_edit.setAttribute('disabled', '');
+            }
             //In case there is only one element in the list, still both button should be activated.
             if (all_checkboxes.length === 1) {
                 button_edit.classList.remove('admin-panel-articles-article-and-folder-control-button-disabled');
