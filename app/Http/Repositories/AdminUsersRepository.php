@@ -43,7 +43,11 @@ class AdminUsersRepository {
     public function destroy($usernames) {
         $usernames_array = (new CommonRepository())->get_values_from_string($usernames);
         foreach ($usernames_array as $username) {
-            User::where('name', '=', $username)->delete();
+            //User with admin status should be unable to be deleted.
+            if (UsersRolesAndStatuses::where('user_id', '=', 
+                                             User::where('name', '=', $username)->firstOrFail()->id)->firstOrFail()->role == 'user') {
+                User::where('name', '=', $username)->delete();
+            }
         }
     }
     

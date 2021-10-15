@@ -67,7 +67,9 @@ class AdminUsersController extends Controller
             //We are going to use one view for create and edit
             //thats why we will nedd kind of indicator to know which option do we use
             //create or edit.
-            'create_or_edit' => 'create'
+            'create_or_edit' => 'create',
+            //The variable below is required only to avoid an error.
+            'role' => 'user'
             ]);
     }
     

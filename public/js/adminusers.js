@@ -169,11 +169,27 @@ $( document ).ready(function() {
             all_checkboxes_select.title = all_checkboxes_select.dataset.unselect;
             all_checkboxes.forEach(function(checkbox) {
                 checkbox.checked = true;
-            });
-            button_delete.classList.remove('admin-panel-users-edit-delete-control-button-disabled');
-            button_delete.classList.add('admin-panel-users-edit-delete-control-button-enabled');
-            button_delete.removeAttribute('disabled');
-            //In case there is only one element in the list, still both button should be activated.
+            });      
+            //The line below checks if there is an admin among the selected users.
+            var check_for_admin = role_check(all_checkboxes);
+            
+            //Delete button should be activated only if there is no admin among the users.
+            if (check_for_admin === false) {
+                button_delete.classList.remove('admin-panel-users-edit-delete-control-button-disabled');
+                button_delete.classList.add('admin-panel-users-edit-delete-control-button-enabled');
+                button_delete.removeAttribute('disabled');
+            } else if (check_for_admin === true) {
+                button_delete.classList.remove('admin-panel-users-edit-delete-control-button-enabled');
+                button_delete.classList.add('admin-panel-users-edit-delete-control-button-disabled');
+                button_delete.setAttribute('disabled', '');
+            }
+            //Without the check below in case user selects only one users and then selects all, button edit still will be active.
+            if (all_checkboxes.length > 1) {
+                button_edit.classList.remove('admin-panel-users-edit-delete-control-button-enabled');
+                button_edit.classList.add('admin-panel-users-edit-delete-control-button-disabled');
+                button_edit.setAttribute('disabled', '');
+            }
+            //In case there is only one element in the list, edit button should be activated.
             if (all_checkboxes.length === 1) {
                 button_edit.classList.remove('admin-panel-users-edit-delete-control-button-disabled');
                 button_edit.classList.add('admin-panel-users-edit-delete-control-button-enabled');
@@ -207,7 +223,10 @@ $( document ).ready(function() {
             if (all_checkboxes[i].checked === true) {
                 selected_checkbox.push(all_checkboxes[i]);
             }
-        }
+        }       
+        //The line below checks if there is an admin among the selected users.
+        var check_for_admin = role_check(selected_checkbox);
+        
         //In case we check all boxes, "Select All" box will be checked automatically.
         //In case user checked the box "Select All" and then untick one of the checkboxes,
         //"Select All" checkbox will be unticked automatically.
@@ -221,26 +240,44 @@ $( document ).ready(function() {
               
         var button_edit = document.querySelector('#users_button_edit');
         var button_delete = document.querySelector('#users_button_delete');
-        if (selected_checkbox.length === 1) {
+        if (selected_checkbox.length === 1 && check_for_admin === false) {
             button_edit.classList.remove('admin-panel-users-edit-delete-control-button-disabled');
             button_edit.classList.add('admin-panel-users-edit-delete-control-button-enabled');
             button_edit.removeAttribute('disabled');
             button_delete.classList.remove('admin-panel-users-edit-delete-control-button-disabled');
             button_delete.classList.add('admin-panel-users-edit-delete-control-button-enabled');
             button_delete.removeAttribute('disabled');
-        } else if (selected_checkbox.length === 0) {
+        } else if (selected_checkbox.length === 1 && check_for_admin === true) {
+            button_edit.classList.remove('admin-panel-users-edit-delete-control-button-disabled');
+            button_edit.classList.add('admin-panel-users-edit-delete-control-button-enabled');
+            button_edit.removeAttribute('disabled');
+        } else if ((selected_checkbox.length === 0) || (selected_checkbox.length > 1 && check_for_admin === true)) {
             button_edit.classList.remove('admin-panel-users-edit-delete-control-button-enabled');
             button_edit.classList.add('admin-panel-users-edit-delete-control-button-disabled');
             button_edit.setAttribute('disabled', '');
             button_delete.classList.remove('admin-panel-users-edit-delete-control-button-enabled');
             button_delete.classList.add('admin-panel-users-edit-delete-control-button-disabled');
             button_delete.setAttribute('disabled', '');
-        } else if (selected_checkbox.length > 1) {
+        } else if (selected_checkbox.length > 1 && check_for_admin === false) {
             button_edit.classList.remove('admin-panel-users-edit-delete-control-button-enabled');
             button_edit.classList.add('admin-panel-users-edit-delete-control-button-disabled');
             button_edit.setAttribute('disabled', '');
+            button_delete.classList.remove('admin-panel-users-edit-delete-control-button-disabled');
+            button_delete.classList.add('admin-panel-users-edit-delete-control-button-enabled');
+            button_delete.removeAttribute('disabled');
         }
      });
+    
+    //If one of selected users is admin, button delete shouldn't be active.
+    //The function below is required to implement that behaviour.
+    function role_check(array_to_check) {
+        for (i = 0; i < array_to_check.length; i++) {
+            if (array_to_check[i].dataset.role === 'admin') {
+                return true;
+            }
+        }
+        return false;
+    }
     
     //Sorting by username, email, creation date and time, update date and time, role and status.
     //There will be two sort modes normal and for search.

@@ -168,8 +168,8 @@
             <div class="admin-panel-users-users-body-row"> 
                 <div class="admin-panel-users-users-body-field">
                     {!! Form::checkbox('item_select', 1, false, 
-                              ['data-name' => $user->name, 'data-localization' => App::isLocale('en') ? 'en' : 'ru', 
-                               'class' => 'admin-panel-users-users-checkbox']); !!}
+                              ['data-name' => $user->name, 'data-role' => $user->role_and_status->role, 
+                               'data-localization' => App::isLocale('en') ? 'en' : 'ru', 'class' => 'admin-panel-users-users-checkbox']); !!}
                 </div>
                 <div class="admin-panel-users-users-body-field">
                     <p>{{ $user->name }}</p>
