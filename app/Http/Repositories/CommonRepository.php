@@ -2,11 +2,12 @@
 
 namespace App\Http\Repositories;
 
-//We need the line below to use localization 
+//We need the line below to use localization.
 use App;
 use \App\MainLink;
 use \App\AdminLink;
 use \App\Keyword;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Repositories\AlbumsRepository;
 use App\Http\Repositories\ArticlesRepository;
 
@@ -38,7 +39,7 @@ class Paginator {
 class CommonRepository {
     
     //This method we need to use only when we are working with website.
-    public function get_main_website_links ($current_page) {
+    public function get_main_website_links ($current_page, $is_admin_panel) {
         
         //On the line below we can see an old example of using my localization.
         //We don't need it. I left it for information purposes.        
@@ -50,26 +51,15 @@ class CommonRepository {
         //The code in the if condition is required to make the website work even the database is empty
         if (is_null($main_links_full)){
             return null;
-        }
-        
-        //Here we are making an empty dynamic array
+        }       
+        //Here we are making an empty dynamic array.
         $main_links_info = array();
         
-        //Here we are filling our dynamic array with MainLinkForView class elements
-        //and saving in there the data which we will need to use in our view
-        for ($i = 0; $i < count($main_links_full); $i++) {
-            //$main_links_info[$i]->keyWord = $main_links_full[$i]->keyword;
-            $main_links_info[$i] = new MainLinkForView();
-            $main_links_info[$i]->keyWord = $main_links_full[$i]->keyword;
-            $main_links_info[$i]->linkName = $this->get_link_name($main_links_full[$i]->keyword);
-            $main_links_info[$i]->webLinkName = $main_links_full[$i]->web_link_name;
-            $main_links_info[$i]->adminWebLinkName = $main_links_full[$i]->admin_web_link_name;
+        if ($is_admin_panel === 0) {
+            $main_links_info = $this->get_main_website_links_for_website($main_links_full);
+        } else {
+            $main_links_info = $this->get_main_website_links_for_adminpanel($main_links_full);
         }
-        
-        //Two lines before I left for example how to find an index of array element
-        //containing some data we are looking for
-        //array_search("b",$cArray);
-        //$check_index = array_search("Home",$main_links_info);
                 
         //In the loop below we are checking every single element of main_links_info
         //array for containing in its keyWord property a certain keyword we are passing.
@@ -79,8 +69,41 @@ class CommonRepository {
             if ($main_link_info->keyWord == $current_page){
                 $main_link_info->isActive = true;
             }
+        }     
+        return $main_links_info;
+    }
+    
+    //As for website and admin panel are different conditions of showing main links, I made two separate methods for them.
+    private function get_main_website_links_for_website($main_links_from_database) {
+        //Here we are making an empty dynamic array.
+        $main_links_info = array();
+        for ($i = 0; $i < count($main_links_from_database); $i++) {
+            //Here we are filling our dynamic array with MainLinkForView class elements
+            //and saving in there the data which we will need to use in our view.
+            $main_links_info[$i] = new MainLinkForView();
+            $main_links_info[$i]->keyWord = $main_links_from_database[$i]->keyword;
+            $main_links_info[$i]->linkName = $this->get_link_name($main_links_from_database[$i]->keyword);
+            $main_links_info[$i]->webLinkName = $main_links_from_database[$i]->web_link_name;
+            $main_links_info[$i]->adminWebLinkName = $main_links_from_database[$i]->admin_web_link_name;
         }
-      
+        return $main_links_info;
+    }
+    
+    //As for website and admin panel are different conditions of showing main links, I made two separate methods for them.
+    private function get_main_website_links_for_adminpanel($main_links_from_database) {
+        //Here we are making an empty dynamic array.
+        $main_links_info = array();
+        foreach($main_links_from_database as $main_link_from_database) {
+            if (Auth::user()->role_and_status->role === 'admin') {
+                //Here we are filling our dynamic array with MainLinkForView class elements
+                //and saving in there the data which we will need to use in our view.
+                $main_link_info = new MainLinkForView();
+                $main_link_info->keyWord = $main_link_from_database->keyword;
+                $main_link_info->linkName = $this->get_link_name($main_link_from_database->keyword);
+                $main_link_info->adminWebLinkName = $main_link_from_database->admin_web_link_name;
+                array_push($main_links_info, $main_link_info);
+            }
+        }
         return $main_links_info;
     }
     
@@ -93,20 +116,21 @@ class CommonRepository {
         //The code in the if condition is required to make the admin panel work even the database is empty.
         if (is_null($main_links_full)){
             return null;
-        }
-        
+        }       
         //Here we are making an empty dynamic array
-        $main_links_info = array();
-        
+        $main_links_info = array();      
         //Here we are filling our dynamic array with MainLinkForView class elements
         //and saving in there the data which we will need to use in our view
-        for ($i = 0; $i < count($main_links_full); $i++) {
-            $main_links_info[$i] = new MainLinkForView();
-            $main_links_info[$i]->keyWord = $main_links_full[$i]->keyword;
-            $main_links_info[$i]->linkName = $this->get_link_name($main_links_full[$i]->keyword);
-            $main_links_info[$i]->adminWebLinkName = $main_links_full[$i]->admin_web_link_name;
+        foreach($main_links_full as $main_link_from_full) {
+            if ($main_link_from_full->keyword === 'Start' || Auth::user()->role_and_status->role === 'admin') {
+                $main_link_info = new MainLinkForView();
+                $main_link_info->keyWord = $main_link_from_full->keyword;
+                $main_link_info->linkName = $this->get_link_name($main_link_from_full->keyword);
+                $main_link_info->adminWebLinkName = $main_link_from_full->admin_web_link_name;
+                array_push($main_links_info, $main_link_info);
+            }
         }
-                
+              
         //In the loop below we are checking every single element of main_links_info
         //array for containing in its keyWord property a certain keyword we are passing.
         //If it does we are setting its isActive property to true.
@@ -136,7 +160,7 @@ class CommonRepository {
     public function get_main_links_for_admin_panel_and_website ($current_page) {
         
         $all_main_links = new AllMainLinks();        
-        $all_main_links->mainWSLinks = $this->get_main_website_links($current_page);
+        $all_main_links->mainWSLinks = $this->get_main_website_links($current_page, 1);
         $all_main_links->mainAPLinks = $this->get_main_admin_panel_links($current_page);
         //$main_links_and_keywords_link_status->keywordsLinkIsActive = $this->active_link_search($main_links_and_keywords_link_status->mainLinks);
         

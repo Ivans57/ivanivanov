@@ -36,7 +36,7 @@ class ArticlesController extends Controller
 
     public function index($sorting_mode = null) {  
         
-        $main_links = $this->common->get_main_website_links($this->current_page);
+        $main_links = $this->common->get_main_website_links($this->current_page, 0);
              
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 16;
@@ -69,7 +69,7 @@ class ArticlesController extends Controller
     
     public function showFolder($keyword, $page, $sorting_mode = null, $folders_or_articles_first = null) {
         
-        $main_links = $this->common->get_main_website_links($this->current_page);
+        $main_links = $this->common->get_main_website_links($this->current_page, 0);
         
         //We need the variable below to display how many items we need to show per one page
         $items_amount_per_page = 16;
@@ -81,7 +81,7 @@ class ArticlesController extends Controller
     
     public function showArticle($keyword) {
         
-        $main_links = $this->common->get_main_website_links($this->current_page);
+        $main_links = $this->common->get_main_website_links($this->current_page, 0);
         
         $article = $this->folders->getArticle($keyword);
         

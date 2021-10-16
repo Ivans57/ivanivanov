@@ -40,7 +40,7 @@ class AboutMeController extends Controller {
         //localization won't be applied
         //Localiztion gets applied only if we call some certaion method from any controller
         //!Need to think is it possible still to apply localization in constructor!
-        $main_links = $this->navigation_bar_obj->get_main_website_links($this->current_page);
+        $main_links = $this->navigation_bar_obj->get_main_website_links($this->current_page, 0);
          
         $article = (new AboutMeRepository())->getAboutMeArticle($this->current_page);
         
