@@ -893,6 +893,33 @@ main {
 
 /*--------------------------------------------------------*/
 
+/*User Control Buttons for all sections.*/
+
+.admin-panel-main-article .admin-panel-user-control-buttons {
+    display: flex;
+    /*padding-left: 5px;
+    padding-right: 5px;*/
+    margin-left: 5px;
+    margin-bottom: 15px;
+}
+
+.admin-panel-main-article .admin-panel-user-control-buttons .admin-panel-user-control-button-wrapper {
+    margin-right: 10px;
+}
+
+.admin-panel-main-article .admin-panel-user-control-buttons .admin-panel-user-control-button-wrapper .admin-panel-user-control-button {
+    background-image: linear-gradient(white, #d6d6d6);
+    height: 26px;
+    min-width: 56px;
+    border: #a8a8a8 1px solid;
+}
+
+.admin-panel-main-article .admin-panel-user-control-buttons .admin-panel-user-control-button-wrapper .admin-panel-user-control-button:hover {
+    filter: brightness(0.95);
+}
+
+/*--------------------------------------------------------*/
+
 /*Admin Panel Home part*/
 
 .admin-panel-wrapper .admin-panel-home-article {

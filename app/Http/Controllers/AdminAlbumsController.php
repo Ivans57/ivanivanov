@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\AdminAlbumsRepository;
 use App\Album;
+use Illuminate\Support\Facades\Auth;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters low case.
 use Illuminate\Support\Str;
 use App\Http\Requests\CreateEditAlbumRequest;
-//The reuqtes below is required for search.
+//The reuqest below is required for search.
 use Illuminate\Http\Request;
 
 
@@ -56,7 +57,6 @@ class AdminAlbumsController extends Controller
         $all_items_amount = ($show_invisible=='all') ? Album::where('included_in_album_with_id', '=', null)->count() : 
                                                        Album::where('included_in_album_with_id', '=', null)->where('is_visible', '=', 1)->count();
         
-        
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
@@ -85,6 +85,8 @@ class AdminAlbumsController extends Controller
             //The line below is required to show correctly display_invisible elements.
             'all_albums_count' => Album::where('included_in_album_with_id', '=', null)->count(),
             'all_items_amount' => $all_items_amount,
+            //The variable below is required for a check to show some specific content only for admin user.
+            'user_role' => Auth::user()->role_and_status->role,
             //The variable below is required for sort to indicate which function to call index or search.
             'search_is_on' => "0",
             'what_to_search' => 'albums'   
