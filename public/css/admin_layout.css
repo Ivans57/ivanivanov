@@ -907,11 +907,22 @@ main {
     margin-right: 10px;
 }
 
-.admin-panel-main-article .admin-panel-user-control-buttons .admin-panel-user-control-button-wrapper .admin-panel-user-control-button {
-    background-image: linear-gradient(white, #d6d6d6);
+.admin-panel-main-article .admin-panel-user-control-buttons .admin-panel-user-control-button-wrapper .admin-panel-user-control-button, 
+.admin-panel-main-article .admin-panel-user-control-buttons .admin-panel-user-control-button-wrapper .admin-panel-user-control-button-pressed {
     height: 26px;
     min-width: 56px;
     border: #a8a8a8 1px solid;
+}
+
+.admin-panel-main-article .admin-panel-user-control-buttons .admin-panel-user-control-button-wrapper .admin-panel-user-control-button {
+    background-image: linear-gradient(white, #d6d6d6);
+}
+
+.admin-panel-main-article .admin-panel-user-control-buttons .admin-panel-user-control-button-wrapper .admin-panel-user-control-button-pressed {
+    background-image: linear-gradient(#d6d6d6, white);
+    transform: scale(0.98);
+    filter: brightness(0.95);
+    color: grey;
 }
 
 .admin-panel-main-article .admin-panel-user-control-buttons .admin-panel-user-control-button-wrapper .admin-panel-user-control-button:hover {

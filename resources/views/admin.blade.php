@@ -44,9 +44,11 @@
                             <script type="text/javascript" src="{{ URL::asset('js/admin_albums_and_articles_sort_and_search.js') }}"></script>
                     @endif
                 @endif
-                <!-- The js in the condition below will be applied only when admin user is active-->
-                @if ($user_role == 'admin')
-                    <script type="text/javascript" src="{{ URL::asset('js/user_controlbuttons.js') }}"></script>
+                <!-- The js in the condition below will be applied only when admin user is active and only for albums and articles sections.-->
+                @if (isset($user_role) && isset($section))
+                    @if ($user_role == 'admin')
+                        <script type="text/javascript" src="{{ URL::asset('js/user_controlbuttons.js') }}"></script>
+                    @endif
                 @endif
                 <!-- This check is required, because the js files which are mentioned below will be used only when making a new article. -->
                 @if (isset($mode))

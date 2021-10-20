@@ -13,8 +13,7 @@ use App\Http\Requests\EditUserRequest;
 //e.g. making all string letters lower case.
 use Illuminate\Support\Str;
 
-class AdminUsersController extends Controller
-{
+class AdminUsersController extends Controller {
     protected $current_page;
     protected $navigation_bar_obj;
     //We need this variable to identify whether we are using a normal site
@@ -23,7 +22,7 @@ class AdminUsersController extends Controller
     protected $is_admin_panel;
     
     //There are some methods and variables which we will always use, so it will be better
-    //if we call the and initialize in constructor
+    //if we call the and initialize in constructor.
     public function __construct(AdminUsersRepository $users) {
         //The line below is required not to allow an unauthenticated user to open pages related to this controller.
         $this->middleware('auth.custom');
