@@ -8,6 +8,57 @@ and open the template in the editor.
     Author     : Ivan
 */
 
+
+/*Add, edit, delete user to section windows*/
+
+.admin-panel-add-edit-delete-user-to-section {
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 25px;
+    padding-bottom: 20px;
+}
+
+.admin-panel-add-edit-delete-user-to-section .admin-panel-add-edit-delete-user-to-section-controls 
+.admin-panel-add-edit-delete-user-to-section-controls-label {
+    font-family: "Arial";
+    font-size: 16px;
+}
+
+.admin-panel-add-edit-delete-user-to-section .admin-panel-add-edit-delete-user-to-section-controls 
+.admin-panel-add-edit-delete-user-to-section-controls-input {
+    font-family: "Arial";
+    font-size: 16px;
+    height: 26px;
+    width: 200px;
+}
+
+.admin-panel-add-edit-delete-user-to-section > div:first-child {
+    margin-bottom: 10px;
+}
+
+.admin-panel-add-edit-delete-user-to-section > div:nth-child(2) {
+    margin-bottom: 10px;
+}
+
+.admin-panel-add-edit-delete-user-to-section > div:last-child {
+    display: flex;
+    justify-content: space-between;
+    min-width: 250px;
+    margin-top: 40px;
+}
+
+.admin-panel-add-edit-delete-user-to-section .admin-panel-add-edit-delete-user-to-section-controls 
+.admin-panel-add-edit-delete-user-to-section-controls-button {
+    width: 100px;
+    font-size: 16px;
+    font-weight: bold;
+    word-wrap: break-word;
+    padding: 2px;
+}
+
+/*End for parent drop down*/
+
+
 /*Entity (Album, Picture, Folder, Keyword, User) create and edit windows*/
 
 /*Window's size is regulated by javascript in admin_panel_javascript file*/
@@ -86,6 +137,8 @@ and open the template in the editor.
     border: 1px solid grey;
     background: #f1f1f1;
 }
+
+/*End for Entity (Album, Picture, Folder, Keyword, User) create and edit windows*/
 
 /*Begining of parent search and drop down for Directory (Album or Folder) create, edit and delete window*/
 

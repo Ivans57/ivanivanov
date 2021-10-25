@@ -28,11 +28,23 @@ $( document ).ready(function() {
     
     $(document).on("click", "#add_user_button", function() {
         var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
-        var url = localization+'/admin/users-add-edit-delete/create-for-albums';
-        add_user(url, '545px');      
+        var url = localization+'/admin/users-add-edit-delete/add-for-albums';
+        add_edit_delete_user(url, '240px');      
     });
     
-    function add_user(url, height) {
+    $(document).on("click", "#edit_user_button", function() {
+        var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
+        var url = localization+'/admin/users-add-edit-delete/edit-for-albums';
+        add_edit_delete_user(url, '240px');      
+    });
+    
+    $(document).on("click", "#delete_user_button", function() {
+        var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
+        var url = localization+'/admin/users-add-edit-delete/delete-for-albums';
+        add_edit_delete_user(url, '205px');      
+    });
+    
+    function add_edit_delete_user(url, height) {
         //We need this script to open existing Album edit page in fancy box window.
         //Also we need this script to open existing Picture edit page in fancy box window.
         $.fancybox.open({

@@ -315,13 +315,28 @@ Route::group(['middleware' => 'locale'], function() {
 
 //Users Add, Edit, Delete within sections. 
 
-//This route should be written before index, otherwise "create" will be considered as variable.
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/users-add-edit-delete/create-for-albums', 'AdminUsersAddEditDeleteController@create_for_albums');
+    Route::get('admin/users-add-edit-delete/add-for-albums', 'AdminUsersAddEditDeleteController@add_for_albums');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/users-add-edit-delete/create-for-albums', 'AdminUsersAddEditDeleteController@create_for_albums');
+    Route::get('admin/users-add-edit-delete/add-for-albums', 'AdminUsersAddEditDeleteController@add_for_albums');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/users-add-edit-delete/edit-for-albums', 'AdminUsersAddEditDeleteController@edit_for_albums');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/users-add-edit-delete/edit-for-albums', 'AdminUsersAddEditDeleteController@edit_for_albums');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/users-add-edit-delete/delete-for-albums', 'AdminUsersAddEditDeleteController@delete_for_albums');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/users-add-edit-delete/delete-for-albums', 'AdminUsersAddEditDeleteController@delete_for_albums');
 });
 
 //------------------------------------------------------------------------------
