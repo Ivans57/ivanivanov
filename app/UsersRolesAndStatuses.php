@@ -12,8 +12,7 @@ class UsersRolesAndStatuses extends Model
     
     protected $fillable = ['role', 'status'];
     
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo('App\User');
     }
 }

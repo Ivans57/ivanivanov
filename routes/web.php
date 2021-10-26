@@ -316,11 +316,19 @@ Route::group(['middleware' => 'locale'], function() {
 //Users Add, Edit, Delete within sections. 
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/users-add-edit-delete/add-for-albums', 'AdminUsersAddEditDeleteController@add_for_albums');
+    Route::get('admin/users-add-edit-delete/add-for-albums/{section}', 'AdminUsersAddEditDeleteController@add_for_albums');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/users-add-edit-delete/add-for-albums', 'AdminUsersAddEditDeleteController@add_for_albums');
+    Route::get('admin/users-add-edit-delete/add-for-albums/{section}', 'AdminUsersAddEditDeleteController@add_for_albums');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@join_for_albums');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@join_for_albums');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

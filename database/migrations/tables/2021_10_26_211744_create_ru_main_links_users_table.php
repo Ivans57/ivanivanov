@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUsersToEnMainLinksTable extends Migration
+class CreateRuMainLinksUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class AddUsersToEnMainLinksTable extends Migration
      */
     public function up()
     {
-        Schema::table('en_main_links', function (Blueprint $table) {
+        Schema::create('ru_main_links_users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('links_id')->unsigned()->unique();
+            $table->foreign('links_id')->references('id')->on('ru_main_links')->onDelete('cascade');
             //full access users are able to see the whole contents of chosen section.
             $table->json('full_access_users')->nullable();
             //limited access users are not able to see the whole contents of chosen section.
@@ -28,9 +31,6 @@ class AddUsersToEnMainLinksTable extends Migration
      */
     public function down()
     {
-        Schema::table('en_main_links', function (Blueprint $table) {
-            $table->dropColumn('full_access_users');
-            $table->dropColumn('limited_access_users');
-        });
+        Schema::dropIfExists('ru_main_links_users');
     }
 }

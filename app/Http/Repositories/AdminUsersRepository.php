@@ -35,7 +35,7 @@ class AdminUsersRepository {
         }
         $edited_user->save();
         
-        $edited_user_role_and_status = UsersRolesAndStatuses::where('user_id', '=',  $edited_user->id)->firstOrFail();
+        $edited_user_role_and_status = UsersRolesAndStatuses::where('user_id', '=', $edited_user->id)->firstOrFail();
         $edited_user_role_and_status->status = $request->status;
         $edited_user_role_and_status->save();
     }

@@ -34,5 +34,9 @@ class MainLink extends BasicModel {
             
             $this->table = 'ru_main_links';
         }
-    }   
+    }
+    
+    public function user() {
+        return $this->hasOne('App\MainLinkUsers');
+    }
 }
