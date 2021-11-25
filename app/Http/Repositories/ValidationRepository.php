@@ -21,22 +21,22 @@ class ValidationRepository {
     //This function is required for prohibited characters check in custom validation.
     public function get_allowed_characters($kind_of_check) {
         switch ($kind_of_check) {
-            case "keyword"://+
+            case "keyword":
                 //I have added space to the array of allowed characters only for the purpose to show an error message
                 //just once, so we don't have two messages for prohibited characters and for spaces detection.
                 //We just need only one message telling that spaces are not allowed.
                 return array("A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g", "H", "h", "I", "i", "J", "j", 
                              "K", "k", "L", "l", "M", "m", "N", "n", "O", "o", "P", "p", "Q", "q", "R", "r", "S", "s", "T", "t", 
                              "U", "u", "V", "v", "W", "w", "X", "x", "Y", "y", "Z", "z", " ");
-            case "directory_and_picture"://-
+            case "directory_and_picture":
                 return array("A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g", "H", "h", "I", "i", "J", "j", "K", "k", 
                              "L", "l", "M", "m", "N", "n", "O", "o", "P", "p", "Q", "q", "R", "r", "S", "s", "T", "t", "U", "u", "V", "v", 
                              "W", "w", "X", "x", "Y", "y", "Z", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " ");
-            case "article"://+
+            case "article":
                 return array("A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g", "H", "h", "I", "i", "J", "j", "K", "k", 
                              "L", "l", "M", "m", "N", "n", "O", "o", "P", "p", "Q", "q", "R", "r", "S", "s", "T", "t", "U", "u", "V", "v", 
                              "W", "w", "X", "x", "Y", "y", "Z", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " ", "-", "_");
-            case "username"://+
+            case "username":
                 return array("A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g", "H", "h", "I", "i", "J", "j", "K", "k", 
                              "L", "l", "M", "m", "N", "n", "O", "o", "P", "p", "Q", "q", "R", "r", "S", "s", "T", "t", "U", "u", "V", "v", 
                              "W", "w", "X", "x", "Y", "y", "Z", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "_");

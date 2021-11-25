@@ -14,20 +14,20 @@
                 <div>{!! Form::label('users', Lang::get('keywords.SelectUser').':', 
                                     ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-label']) !!}</div>
                 <div>{!! Form::select('users', $users, null, ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-input', 
-                                      $users_array_size == 0 ? 'disabled' : 'enabled']) !!}</div>
+                                      $users_array_size == 0 ? 'enabled' : 'enabled']) !!}</div>
             </div>
             @if (($add_edit_or_delete == 'add') || ($add_edit_or_delete == 'edit'))
                 <div class="admin-panel-add-edit-delete-user-to-section-controls">
                     {!! Form::label('full_access', Lang::get('keywords.ProvideFullAccess').':', 
                                    ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-label']) !!}
-                    {!! Form::checkbox('full_access', 1, null, [$users_array_size == 0 ? 'disabled' : 'enabled']) !!}
+                    {!! Form::checkbox('full_access', 1, null, [$users_array_size == 0 ? 'enabled' : 'enabled']) !!}
                 </div>
             @endif
             <div class="admin-panel-add-edit-delete-user-to-section-controls">
                 @if ($add_edit_or_delete == 'add')
                     {!! Form::submit(Lang::get('keywords.Add'), 
                                     ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-button', 
-                                     $users_array_size == 0 ? 'disabled' : 'enabled']) !!}
+                                     $users_array_size == 0 ? 'enabled' : 'enabled']) !!}
                 @elseif ($add_edit_or_delete == 'edit')
                     {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-button']) !!}
                 @elseif ($add_edit_or_delete == 'delete')

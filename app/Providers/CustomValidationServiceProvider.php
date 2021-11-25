@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
+use App\MainLink;
+use App\MainLinkUsers;
+
 //We need CommonRepository to provide uniqueness checks.
 use App\Http\Repositories\ValidationRepository;
 
@@ -54,6 +57,39 @@ class CustomValidationServiceProvider extends ServiceProvider
         });
         
         
+        //This validation is required to check whether an user id attempted to be saved in main_links_users table already exists in there.
+        Validator::extend('user_id_uniqueness_check_for_add', function ($attribute, $value, $parameters, $validator) {
+            
+            $main_link_id = MainLink::select('id')->where('keyword', $parameters[0])->firstOrFail()->id;
+            
+            //Need to check in two fields at the same time, so the same id could not be written in two different fields.
+            $saved_user_ids_full_access = MainLinkUsers::where('links_id', $main_link_id)->select('full_access_users')
+                                                         ->firstOrFail()->full_access_users;
+            $saved_user_ids_limited_access = MainLinkUsers::where('links_id', $main_link_id)->select('limited_access_users')
+                                                            ->firstOrFail()->limited_access_users;
+            //The line below will work in case full and limited access user ids are both null (empty).
+            $saved_user_ids = null;
+            
+            if ($saved_user_ids_full_access === null && $saved_user_ids_limited_access != null) {
+                $saved_user_ids = $saved_user_ids_limited_access;
+                $saved_user_ids_array = json_decode($saved_user_ids, true);
+            } else if ($saved_user_ids_limited_access === null && $saved_user_ids_full_access != null) {
+                $saved_user_ids = $saved_user_ids_full_access;
+                $saved_user_ids_array = json_decode($saved_user_ids, true);
+            } else if ($saved_user_ids_full_access != null && $saved_user_ids_limited_access != null) {
+                //The line below is required to make the condition below to be executed.
+                $saved_user_ids = 1;
+                $saved_user_ids_full_access_array = json_decode($saved_user_ids_full_access, true);
+                $saved_user_ids_limited_access_array = json_decode($saved_user_ids_limited_access, true);
+                $saved_user_ids_array = array_merge($saved_user_ids_full_access_array, $saved_user_ids_limited_access_array);
+            }
+            
+            if ($saved_user_ids && (in_array($value, $saved_user_ids_array) == true)) {
+                return false;
+            } else {
+                return true;
+            }           
+        });
         
         Validator::extend('item_has_directory', function ($attribute, $value, $parameters, $validator) {
             //It is not allowed to store any picture in a root album (out of any album).

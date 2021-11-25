@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 //as no validation required, we can use just default request.
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use App\Http\Requests\AddEditUserRequest;
 use App\User;
 use App\MainLink;
 use App\MainLinkUsers;
@@ -65,7 +66,7 @@ class AdminUsersAddEditDeleteController extends Controller
             ]);
     }
     
-    public function join_for_albums(Request $request) {
+    public function join_for_albums(AddEditUserRequest $request) {
         
         $main_link_id = MainLink::select('id')->where('keyword', $request->section)->firstOrFail()->id;
         if ($request->full_access) {
