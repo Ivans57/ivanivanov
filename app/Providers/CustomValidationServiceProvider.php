@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\MainLink;
 use App\MainLinkUsers;
+use App\User;
 
 //We need CommonRepository to provide uniqueness checks.
 use App\Http\Repositories\ValidationRepository;
@@ -88,6 +89,25 @@ class CustomValidationServiceProvider extends ServiceProvider
                 return false;
             } else {
                 return true;
+            }           
+        });
+        
+        //This validation is required to check whether an user id attempted to be saved in main_links_users table exists.
+        Validator::extend('user_id_existence_check', function ($attribute, $value, $parameters, $validator) {
+            
+            $user_ids_from_database = User::select('id')->get();
+            
+            //Need to make an array, because in_array() function won't work directly for that, what was got from database.
+            $user_ids =[];
+            
+            foreach ($user_ids_from_database as $user_id_from_database) {
+                array_push($user_ids, $user_id_from_database->id);
+            }
+            
+            if ($user_ids && (in_array($value, $user_ids) == true)) {
+                return true;
+            } else {
+                return false;
             }           
         });
         

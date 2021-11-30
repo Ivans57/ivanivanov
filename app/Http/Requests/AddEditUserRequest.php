@@ -24,7 +24,7 @@ class AddEditUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'users' => 'required|bail|numeric|min:1|user_id_uniqueness_check_for_add:'.$this->request->get('section')
+            'users' => 'required|bail|numeric|min:1|user_id_uniqueness_check_for_add:'.$this->request->get('section').'|user_id_existence_check'
         ];
     }
 }
