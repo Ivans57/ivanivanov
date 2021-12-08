@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\AdminUsersAddEditDeleteRepository;
 use App\Http\Requests\AddEditUserRequest;
 use App\User;
-use App\MainLink;
-use App\MainLinkUsers;
+//use App\MainLink;
+//use App\MainLinkUsers;
 //The line below is required to make query conditions using merged table's fields.
 use Illuminate\Database\Eloquent\Builder;
 
@@ -52,16 +52,17 @@ class AdminUsersAddEditDeleteController extends Controller
             ]);
     }
     
-    public function edit_for_albums() {
+    public function edit_for_albums($section) {
         
-        $users_from_database = User::select('id', 'name')->with('role_and_status')->whereHas('role_and_status', function (Builder $query) { 
-            $query->where('role', '=', 'user'); 
-        })->orderBy('name', 'asc')->get();
+        $users_and_accesses = $this->users->get_users_for_edit_for_albums($section);
         
-        $users = array();
-        
-        foreach ($users_from_database as $user_from_database) {
-            $users[$user_from_database->id] = $user_from_database->name;
+        if (sizeof($users_and_accesses) != 0) {
+            //The next two lines below are required to tick the checkbox properly according to the acees status of the first user in dropdown list.
+            reset($users_and_accesses);       
+            $access_status_of_first_element = $users_and_accesses[key($users_and_accesses)]->access;
+        } else {
+            //We need to assign the variable below to avoid an error.
+            $access_status_of_first_element = 0;
         }
         
         return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
@@ -72,7 +73,13 @@ class AdminUsersAddEditDeleteController extends Controller
             //thats why we will nedd kind of indicator to know which option do we use
             //create or edit.
             'add_edit_or_delete' => 'edit',
-            'users' => $users
+            'users' => $users_and_accesses,
+            'section' => $section,
+            //The line below is required to keep fields activated or deactivated in different cases. 
+            'users_array_size' => sizeof($users_and_accesses),
+            //The next line below are required to tick the checkbox properly according to the acees status of the first user 
+            //in dropdown list.
+            'access_status_of_first_element' => $access_status_of_first_element
             ]);
     }
     

@@ -9,8 +9,15 @@ use App\MainLinkUsers;
 use Illuminate\Database\Eloquent\Builder;
 
 
+//This for updating user access.
+class UserNameAndAccess {
+    public $name;
+    public $access;
+}
+
 class AdminUsersAddEditDeleteRepository {
     
+    //!Need somehow to merge or simplify add and edit methods, extracting the same parts of code!
     public function get_users_for_add_for_albums($section) {
         
         $users_from_database = User::select('id', 'name')->with('role_and_status')->whereHas('role_and_status', function (Builder $query) { 
@@ -34,6 +41,48 @@ class AdminUsersAddEditDeleteRepository {
         return $users;
     }
     
+    //!Need somehow to merge or simplify add and edit methods, extracting the same parts of code!
+    public function get_users_for_edit_for_albums($section) {
+        
+        $users_from_database = User::select('id', 'name')->with('role_and_status')->whereHas('role_and_status', function (Builder $query) { 
+            $query->where('role', '=', 'user'); 
+        })->orderBy('name', 'asc')->get();
+
+        //I will extract full_access_users and limited_access_users as shown below, because there is a confusion with field names when 
+        //doing with model relations.
+        $main_link_id = MainLink::select('id')->where('keyword', $section)->firstOrFail()->id;
+        $full_and_limited_access_user_ids = MainLinkUsers::where('links_id', $main_link_id)
+                                            ->select('full_access_users', 'limited_access_users')->firstOrFail();
+        $user_names_and_accesses = array();
+        
+        foreach ($users_from_database as $user_from_database) {
+            if (in_array($user_from_database->id, 
+                         $this->get_user_ids(json_decode($full_and_limited_access_user_ids->full_access_users, true), 
+                                             json_decode($full_and_limited_access_user_ids->limited_access_users, true))) == true) {
+                $user_name_and_access = new UserNameAndAccess();
+                $user_name_and_access->name = $user_from_database->name;
+                $user_name_and_access->access = $this->get_user_access($user_from_database->id, 
+                                                                json_decode($full_and_limited_access_user_ids->full_access_users, true), 
+                                                                json_decode($full_and_limited_access_user_ids->limited_access_users, true));
+                $user_names_and_accesses[$user_from_database->id] = $user_name_and_access;
+            }
+        }     
+        return $user_names_and_accesses;
+    }
+    
+    //!Need to check with the second and the third parameters as nulls!
+    //The method below is required to get an information whether some particular user has limited or full access to some section
+    //it has been added to.
+    private function get_user_access($user_id, $full_access_user_ids, $limited_access_user_ids) {
+        
+        if (in_array($user_id, $full_access_user_ids) == true) {
+            return 'full';
+        } else if (in_array($user_id, $limited_access_user_ids) == true) {
+            return 'limited';
+        }
+    }
+    
+    //The method below is required to get users ids to check whether being checked user id is added to selected section.
     private function get_user_ids($full_access_user_ids, $limited_access_user_ids) {
         
         if ($full_access_user_ids === null && $limited_access_user_ids != null) {

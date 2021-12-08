@@ -4,7 +4,7 @@
     @if ($add_edit_or_delete==='add')
         {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/users-add-edit-delete" : "/ru/admin/users-add-edit-delete"]) !!}
     @elseif ($add_edit_or_delete==='edit')
-        {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/users/".$name : "/ru/admin/users/".$name, 'method' => 'PUT' ]) !!}
+        {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/users-add-edit-delete" : "/ru/admin/users-add-edit-delete", 'method' => 'PUT' ]) !!}
     @else
         {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/users/".$name : "/ru/admin/users/".$name, 'method' => 'PUT' ]) !!}
     @endif
@@ -13,14 +13,28 @@
             <div class="admin-panel-add-edit-delete-user-to-section-controls">
                 <div>{!! Form::label('users', Lang::get('keywords.SelectUser').':', 
                                     ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-label']) !!}</div>
-                <div>{!! Form::select('users', $users, null, ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-input', 
-                                      $users_array_size == 0 ? 'enabled' : 'enabled']) !!}</div>
+                @if ($add_edit_or_delete==='add')
+                    <div>{!! Form::select('users', $users, null, ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-input', 
+                                          $users_array_size == 0 ? 'enabled' : 'enabled']) !!}</div>
+                @elseif ($add_edit_or_delete==='edit') 
+                    <select name='users' class='admin-panel-add-edit-delete-user-to-section-controls-input' id='users'>
+                        @foreach($users as $key => $value)
+                            <option value="{{ $key }}" data-access='{{ $value->access }}'>{{ $value->name }}</option>
+                        @endforeach
+                    </select>                      
+                @endif
             </div>
             @if (($add_edit_or_delete == 'add') || ($add_edit_or_delete == 'edit'))
                 <div class="admin-panel-add-edit-delete-user-to-section-controls">
                     {!! Form::label('full_access', Lang::get('keywords.ProvideFullAccess').':', 
                                    ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-label']) !!}
-                    {!! Form::checkbox('full_access', 1, null, [$users_array_size == 0 ? 'enabled' : 'enabled']) !!}
+                    @if ($add_edit_or_delete==='edit' && $access_status_of_first_element === 'full')
+                        {!! Form::checkbox('full_access', 1, true, [$users_array_size == 0 ? 'enabled' : 'enabled']) !!}
+                    @elseif ($add_edit_or_delete==='edit' && $access_status_of_first_element === 'limited')
+                        {!! Form::checkbox('full_access', 1, false, [$users_array_size == 0 ? 'enabled' : 'enabled']) !!}
+                    @else
+                        {!! Form::checkbox('full_access', 1, null, [$users_array_size == 0 ? 'enabled' : 'enabled']) !!}
+                    @endif
                 </div>
             @endif
             <div class="admin-panel-add-edit-delete-user-to-section-controls">
@@ -44,6 +58,9 @@
     @component('pages/body_scripts')
         @slot('js')
             <script type="text/javascript" src="{{ URL::asset('js/pop_up_window_cancel.js') }}"></script>
+            @if ($add_edit_or_delete==='edit')
+                <script type="text/javascript" src="{{ URL::asset('js/user_edit_within_section.js') }}"></script>
+            @endif
         @endslot
     @endcomponent
     <!-- End of scripts -->
