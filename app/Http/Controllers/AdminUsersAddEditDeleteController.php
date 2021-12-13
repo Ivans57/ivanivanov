@@ -56,15 +56,6 @@ class AdminUsersAddEditDeleteController extends Controller
         
         $users_and_accesses = $this->users->get_users_for_edit_for_albums($section);
         
-        if (sizeof($users_and_accesses) != 0) {
-            //The next two lines below are required to tick the checkbox properly according to the acees status of the first user in dropdown list.
-            reset($users_and_accesses);       
-            $access_status_of_first_element = $users_and_accesses[key($users_and_accesses)]->access;
-        } else {
-            //We need to assign the variable below to avoid an error.
-            $access_status_of_first_element = 0;
-        }
-        
         return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
             //Actually we do not need any head title as it is just a partial view
             //We need it only to make the variable initialized. Othervise there will be error.
@@ -79,7 +70,7 @@ class AdminUsersAddEditDeleteController extends Controller
             'users_array_size' => sizeof($users_and_accesses),
             //The next line below are required to tick the checkbox properly according to the acees status of the first user 
             //in dropdown list.
-            'access_status_of_first_element' => $access_status_of_first_element
+            'access_status_of_first_element' => $this->users->get_status_of_first_user_for_albums($users_and_accesses)
             ]);
     }
     
