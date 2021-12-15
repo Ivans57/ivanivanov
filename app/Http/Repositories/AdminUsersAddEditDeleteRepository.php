@@ -49,13 +49,17 @@ class AdminUsersAddEditDeleteRepository {
         $user_names_and_accesses = array();       
         foreach ($users_from_database_and_added_users_ids->users_from_database as $user_from_database) {
             if (in_array($user_from_database->id, 
-                         $this->get_user_ids(json_decode($users_from_database_and_added_users_ids->full_and_limited_access_user_ids->full_access_users, true), 
-                                             json_decode($users_from_database_and_added_users_ids->full_and_limited_access_user_ids->limited_access_users, true))) == true) {
+                         $this->get_user_ids(json_decode($users_from_database_and_added_users_ids
+                                                         ->full_and_limited_access_user_ids->full_access_users, true), 
+                                             json_decode($users_from_database_and_added_users_ids
+                                                         ->full_and_limited_access_user_ids->limited_access_users, true))) == true) {
                 $user_name_and_access = new UserNameAndAccess();
                 $user_name_and_access->name = $user_from_database->name;
                 $user_name_and_access->access = $this->get_user_access($user_from_database->id, 
-                                                                json_decode($users_from_database_and_added_users_ids->full_and_limited_access_user_ids->full_access_users, true), 
-                                                                json_decode($users_from_database_and_added_users_ids->full_and_limited_access_user_ids->limited_access_users, true));
+                                                                json_decode($users_from_database_and_added_users_ids
+                                                                            ->full_and_limited_access_user_ids->full_access_users, true), 
+                                                                json_decode($users_from_database_and_added_users_ids
+                                                                            ->full_and_limited_access_user_ids->limited_access_users, true));
                 $user_names_and_accesses[$user_from_database->id] = $user_name_and_access;
             }
         }     
@@ -132,11 +136,13 @@ class AdminUsersAddEditDeleteRepository {
     public function join_user_for_albums($request) {
         
         $main_link_id = MainLink::select('id')->where('keyword', $request->section)->firstOrFail()->id;
+        
         if ($request->full_access) {
             $user_ids = MainLinkUsers::where('links_id', $main_link_id)->select('full_access_users')->firstOrFail()->full_access_users;
         } else {
             $user_ids = MainLinkUsers::where('links_id', $main_link_id)->select('limited_access_users')->firstOrFail()->limited_access_users;
         }
+        
         if ($user_ids === null) {
             $users_array[0] = $request->users;
         } else {
@@ -144,6 +150,7 @@ class AdminUsersAddEditDeleteRepository {
             $users_array = json_decode($user_ids, true);
             array_push($users_array, $request->users);
         }
+        
         $edited_section = MainLinkUsers::where('links_id', $main_link_id)->firstOrFail();     
         if ($request->full_access) {
             $edited_section->full_access_users = json_encode($users_array);
@@ -151,5 +158,70 @@ class AdminUsersAddEditDeleteRepository {
             $edited_section->limited_access_users = json_encode($users_array);
         }
         $edited_section->save();
+    }
+    
+    public function update_user_for_albums($request) {
+        
+        $main_link_id = MainLink::select('id')->where('keyword', $request->section)->firstOrFail()->id;
+        
+        $getting_updated_link = MainLinkUsers::where('links_id', $main_link_id)->firstOrFail();
+
+        $full_access_user_ids = $getting_updated_link->full_access_users;
+        $limited_access_user_ids = $getting_updated_link->limited_access_users;
+        
+        if ($full_access_user_ids) {
+            $full_access_user_ids_array = json_decode($full_access_user_ids, true);
+        } else {
+            $full_access_user_ids_array = [];
+        }
+        
+        if ($limited_access_user_ids) {
+            $limited_access_user_ids_array = json_decode($limited_access_user_ids, true);
+        }   else {
+            $limited_access_user_ids_array = [];
+        }
+        
+        $users_desired_status = $request->full_access;
+        
+        $changing_user_id = $request->users;
+        
+        if ($users_desired_status) {
+            $changing_user_id_current_status = in_array($changing_user_id, $full_access_user_ids_array);
+        } else {
+            $changing_user_id_current_status = in_array($changing_user_id, $limited_access_user_ids_array);
+        }
+        
+        if ($changing_user_id_current_status === false && $users_desired_status = $request->full_access) {
+            
+            array_push($full_access_user_ids_array, $changing_user_id);
+            $key = array_search($changing_user_id, $limited_access_user_ids_array);
+            unset($limited_access_user_ids_array[$key]);
+            $limited_access_user_ids_array = array_values($limited_access_user_ids_array);
+            
+        } else if ($changing_user_id_current_status === false && !$users_desired_status = $request->full_access) {
+            array_push($limited_access_user_ids_array, $changing_user_id);
+            $key = array_search($changing_user_id, $full_access_user_ids_array);
+            unset($full_access_user_ids_array[$key]);
+            $full_access_user_ids_array = array_values($full_access_user_ids_array);
+        }
+        if ($changing_user_id_current_status === false) {
+            
+            if (sizeof($full_access_user_ids_array) == 0) {
+                $full_access_user_ids = null;
+            } else {
+                $full_access_user_ids = json_encode($full_access_user_ids_array);
+            }
+            
+            if (sizeof($limited_access_user_ids_array) == 0) {
+                $limited_access_user_ids = null;
+            } else {
+                $limited_access_user_ids = json_encode($limited_access_user_ids_array);
+            }
+            
+            $getting_updated_link->full_access_users = $full_access_user_ids;
+            $getting_updated_link->limited_access_users = $limited_access_user_ids;
+            
+            $getting_updated_link->save();
+        }
     }
 }

@@ -43,7 +43,7 @@
                                     ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-button', 
                                      $users_array_size == 0 ? 'enabled' : 'enabled']) !!}
                 @elseif ($add_edit_or_delete == 'edit')
-                    {!! Form::submit(Lang::get('keywords.Save'), ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-button']) !!}
+                    {!! Form::submit(Lang::get('keywords.Update'), ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-button']) !!}
                 @elseif ($add_edit_or_delete == 'delete')
                     {!! Form::submit(Lang::get('keywords.Delete'), ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-button']) !!}
                 @endif

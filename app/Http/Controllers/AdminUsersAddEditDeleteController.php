@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\AdminUsersAddEditDeleteRepository;
-use App\Http\Requests\AddEditUserRequest;
+use App\Http\Requests\AddUserRequest;
+use App\Http\Requests\EditUserInSectionRequest;
 use App\User;
 //use App\MainLink;
 //use App\MainLinkUsers;
@@ -39,7 +40,7 @@ class AdminUsersAddEditDeleteController extends Controller
             ]);
     }
     
-    public function join_for_albums(AddEditUserRequest $request) {
+    public function join_for_albums(AddUserRequest $request) {
         
         $this->users->join_user_for_albums($request);
         
@@ -71,6 +72,21 @@ class AdminUsersAddEditDeleteController extends Controller
             //The next line below are required to tick the checkbox properly according to the acees status of the first user 
             //in dropdown list.
             'access_status_of_first_element' => $this->users->get_status_of_first_user_for_albums($users_and_accesses)
+            ]);
+    }
+    
+    public function update_for_albums(EditUserInSectionRequest $request) {
+        
+        $this->users->update_user_for_albums($request);
+        
+        return view('adminpages.form_close')->with([
+            //Actually we do not need any head title as it is just a partial view
+            //We need it only to make the variable initialized. Othervise there will be error.
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            //In this particular case it should be 'add', otherwise there will be an error.
+            //!Actually need to revise form_close for this case. We might need a separate form close!
+            'action' => 'add'
             ]);
     }
     

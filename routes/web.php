@@ -340,11 +340,11 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::put('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@join_for_albums');
+    Route::put('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@update_for_albums');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::put('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@join_for_albums');
+    Route::put('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@update_for_albums');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
