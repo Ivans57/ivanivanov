@@ -24,7 +24,6 @@ class EditUserInSectionRequest extends FormRequest
     public function rules()
     {
         return [
-            //!May be need to add one more check!
             'users' => 'required|bail|numeric|min:1|user_id_existence_check'
         ];
     }

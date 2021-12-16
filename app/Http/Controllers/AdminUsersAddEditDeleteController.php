@@ -6,8 +6,6 @@ use App\Http\Repositories\AdminUsersAddEditDeleteRepository;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\EditUserInSectionRequest;
 use App\User;
-//use App\MainLink;
-//use App\MainLinkUsers;
 //The line below is required to make query conditions using merged table's fields.
 use Illuminate\Database\Eloquent\Builder;
 

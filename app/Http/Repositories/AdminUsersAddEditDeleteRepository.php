@@ -161,67 +161,57 @@ class AdminUsersAddEditDeleteRepository {
     }
     
     public function update_user_for_albums($request) {
+             
+        $getting_updated_link = MainLinkUsers::where('links_id', MainLink::select('id')
+                                               ->where('keyword', $request->section)->firstOrFail()->id)->firstOrFail();
         
-        $main_link_id = MainLink::select('id')->where('keyword', $request->section)->firstOrFail()->id;
+        $full_access_user_ids_array = $getting_updated_link->full_access_users ? 
+                                      json_decode($getting_updated_link->full_access_users, true) : [];
         
-        $getting_updated_link = MainLinkUsers::where('links_id', $main_link_id)->firstOrFail();
-
-        $full_access_user_ids = $getting_updated_link->full_access_users;
-        $limited_access_user_ids = $getting_updated_link->limited_access_users;
+        $limited_access_user_ids_array = $getting_updated_link->limited_access_users ? 
+                                      json_decode($getting_updated_link->limited_access_users, true) : [];
         
-        if ($full_access_user_ids) {
-            $full_access_user_ids_array = json_decode($full_access_user_ids, true);
-        } else {
-            $full_access_user_ids_array = [];
-        }
+        //Sometimes admin-user can try to update selected user with the status that getting updated user already has.
+        //If it happens, database record update will be skipped (see conditions below).
+        //The variable below is required, because id arrays will change during this function execution.
+        $changing_user_already_has_required_status = $request->full_access ? in_array($request->users, $full_access_user_ids_array) : 
+                                                                             in_array($request->users, $limited_access_user_ids_array);
         
-        if ($limited_access_user_ids) {
-            $limited_access_user_ids_array = json_decode($limited_access_user_ids, true);
-        }   else {
-            $limited_access_user_ids_array = [];
-        }
-        
-        $users_desired_status = $request->full_access;
-        
-        $changing_user_id = $request->users;
-        
-        if ($users_desired_status) {
-            $changing_user_id_current_status = in_array($changing_user_id, $full_access_user_ids_array);
-        } else {
-            $changing_user_id_current_status = in_array($changing_user_id, $limited_access_user_ids_array);
-        }
-        
-        if ($changing_user_id_current_status === false && $users_desired_status = $request->full_access) {
+        //For the first two cases also need to consider the second condition, otherwise this function will work wrong.
+        //In that wrong case it will just execute another condition which always will be satisfactory.
+        if ($changing_user_already_has_required_status === false && $request->full_access) {
             
-            array_push($full_access_user_ids_array, $changing_user_id);
-            $key = array_search($changing_user_id, $limited_access_user_ids_array);
-            unset($limited_access_user_ids_array[$key]);
+            array_push($full_access_user_ids_array, $request->users/*changing user id*/);
+            //Below we are extracting updated user's id from previous status array.
+            unset($limited_access_user_ids_array[array_search($request->users/*changing user id*/, $limited_access_user_ids_array)]);
+            //Below an array from where updated user was extracted is getting reindexed. If we don't do that, we will get wrong json in the end.
             $limited_access_user_ids_array = array_values($limited_access_user_ids_array);
             
-        } else if ($changing_user_id_current_status === false && !$users_desired_status = $request->full_access) {
-            array_push($limited_access_user_ids_array, $changing_user_id);
-            $key = array_search($changing_user_id, $full_access_user_ids_array);
-            unset($full_access_user_ids_array[$key]);
+        } else if ($changing_user_already_has_required_status === false && !$request->full_access) {
+            array_push($limited_access_user_ids_array, $request->users/*changing user id*/);
+            //Below we are extracting updated user's id from previous status array.
+            unset($full_access_user_ids_array[array_search($request->users/*changing user id*/, $full_access_user_ids_array)]);
+            //Below an array from where updated user was extracted is getting reindexed. If we don't do that, we will get wrong json in the end.
             $full_access_user_ids_array = array_values($full_access_user_ids_array);
         }
-        if ($changing_user_id_current_status === false) {
+        if ($changing_user_already_has_required_status === false) {
             
-            if (sizeof($full_access_user_ids_array) == 0) {
-                $full_access_user_ids = null;
-            } else {
-                $full_access_user_ids = json_encode($full_access_user_ids_array);
-            }
+            //The line below saves all changes in database.
+            $this->update_main_link_user_ids($getting_updated_link, $full_access_user_ids_array, $limited_access_user_ids_array);
             
-            if (sizeof($limited_access_user_ids_array) == 0) {
-                $limited_access_user_ids = null;
-            } else {
-                $limited_access_user_ids = json_encode($limited_access_user_ids_array);
-            }
-            
-            $getting_updated_link->full_access_users = $full_access_user_ids;
-            $getting_updated_link->limited_access_users = $limited_access_user_ids;
-            
-            $getting_updated_link->save();
         }
+    }
+    
+    //The function below saves all related to users changes for main links in database.
+    //I made it to shorten main update (update_user_for_albums()) method.
+    private function update_main_link_user_ids($getting_updated_link, $full_access_user_ids_array, $limited_access_user_ids_array) {
+        
+        $getting_updated_link->full_access_users = sizeof($full_access_user_ids_array) == 0 ? 
+                                                       null : json_encode($full_access_user_ids_array);
+            
+        $getting_updated_link->limited_access_users = sizeof($limited_access_user_ids_array) == 0 ? 
+                                                       null : json_encode($limited_access_user_ids_array);
+            
+        $getting_updated_link->save();
     }
 }
