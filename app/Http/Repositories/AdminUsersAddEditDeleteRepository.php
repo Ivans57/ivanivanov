@@ -66,6 +66,25 @@ class AdminUsersAddEditDeleteRepository {
         return $user_names_and_accesses;
     }
     
+    public function get_users_for_delete_for_albums($section) {
+        
+        $users_from_database_and_added_users_ids = $this->get_users_from_database_and_added_users_ids($section);
+        
+        $users = array();               
+        foreach ($users_from_database_and_added_users_ids->users_from_database as $user_from_database) {
+            if (in_array($user_from_database->id, 
+                         $this->get_user_ids(json_decode(
+                                             $users_from_database_and_added_users_ids->full_and_limited_access_user_ids->full_access_users, 
+                                             true), 
+                                             json_decode(
+                                             $users_from_database_and_added_users_ids->full_and_limited_access_user_ids->limited_access_users, 
+                                             true))) == true) {
+                $users[$user_from_database->id] = $user_from_database->name;
+            }
+        }
+        return $users;
+    }
+    
     //The function below is required to tick the checkbox properly according to the acees status 
     //of the first user in dropdown list.
     public function get_status_of_first_user_for_albums($users_and_accesses) {
@@ -213,5 +232,33 @@ class AdminUsersAddEditDeleteRepository {
                                                        null : json_encode($limited_access_user_ids_array);
             
         $getting_updated_link->save();
+    }
+    
+    public function destroy_user_for_albums($request) {
+             
+        $getting_updated_link = MainLinkUsers::where('links_id', MainLink::select('id')
+                                               ->where('keyword', $request->section)->firstOrFail()->id)->firstOrFail();
+        
+        $full_access_user_ids_array = $getting_updated_link->full_access_users ? 
+                                      json_decode($getting_updated_link->full_access_users, true) : [];
+        
+        $limited_access_user_ids_array = $getting_updated_link->limited_access_users ? 
+                                      json_decode($getting_updated_link->limited_access_users, true) : [];
+        
+        $user_access_status/*limited or full*/ = $this->get_user_access($request->users/*deleted user's id*/, 
+                                                                        $full_access_user_ids_array, $limited_access_user_ids_array);
+        
+        if ($user_access_status == 'full') {
+            unset($full_access_user_ids_array[array_search($request->users, $full_access_user_ids_array)]);
+            //Below an array from where updated user was extracted is getting reindexed. If we don't do that, we will get wrong json in the end.
+            $full_access_user_ids_array = array_values($full_access_user_ids_array);
+        } else if ($user_access_status == 'limited') {
+            unset($limited_access_user_ids_array[array_search($request->users, $limited_access_user_ids_array)]);
+            //Below an array from where updated user was extracted is getting reindexed. If we don't do that, we will get wrong json in the end.
+            $limited_access_user_ids_array = array_values($limited_access_user_ids_array);
+        }
+        
+        //The line below saves all changes in database.
+        $this->update_main_link_user_ids($getting_updated_link, $full_access_user_ids_array, $limited_access_user_ids_array);
     }
 }

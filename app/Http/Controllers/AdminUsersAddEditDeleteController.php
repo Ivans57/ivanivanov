@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\AdminUsersAddEditDeleteRepository;
 use App\Http\Requests\AddUserRequest;
-use App\Http\Requests\EditUserInSectionRequest;
-use App\User;
-//The line below is required to make query conditions using merged table's fields.
-use Illuminate\Database\Eloquent\Builder;
+use App\Http\Requests\EditOrDeleteUserInSectionRequest;
 
 class AdminUsersAddEditDeleteController extends Controller
 {
@@ -73,7 +70,7 @@ class AdminUsersAddEditDeleteController extends Controller
             ]);
     }
     
-    public function update_for_albums(EditUserInSectionRequest $request) {
+    public function update_for_albums(EditOrDeleteUserInSectionRequest $request) {
         
         $this->users->update_user_for_albums($request);
         
@@ -88,17 +85,9 @@ class AdminUsersAddEditDeleteController extends Controller
             ]);
     }
     
-    public function delete_for_albums() {
+    public function delete_for_albums($section) {
         
-        $users_from_database = User::select('id', 'name')->with('role_and_status')->whereHas('role_and_status', function (Builder $query) { 
-            $query->where('role', '=', 'user'); 
-        })->orderBy('name', 'asc')->get();
-        
-        $users = array();
-        
-        foreach ($users_from_database as $user_from_database) {
-            $users[$user_from_database->id] = $user_from_database->name;
-        }
+        $users = $this->users->get_users_for_delete_for_albums($section);
         
         return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
             //Actually we do not need any head title as it is just a partial view
@@ -108,7 +97,25 @@ class AdminUsersAddEditDeleteController extends Controller
             //thats why we will nedd kind of indicator to know which option do we use
             //create or edit.
             'add_edit_or_delete' => 'delete',
-            'users' => $users
+            'users' => $users,
+            'section' => $section,
+            //The line below is required to keep fields activated or deactivated in different cases. 
+            'users_array_size' => sizeof($users)
+            ]);
+    }
+    
+    public function destroy_for_albums(EditOrDeleteUserInSectionRequest $request) {
+        
+        $this->users->destroy_user_for_albums($request);
+        
+        return view('adminpages.form_close')->with([
+            //Actually we do not need any head title as it is just a partial view
+            //We need it only to make the variable initialized. Othervise there will be error.
+            'headTitle' => __('keywords.'.$this->current_page),
+            //The variable below is required to make proper actions when pop up window closes.
+            //In this particular case it should be 'add', otherwise there will be an error.
+            //!Actually need to revise form_close for this case. We might need a separate form close!
+            'action' => 'add'
             ]);
     }
 }

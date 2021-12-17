@@ -40,7 +40,7 @@ $( document ).ready(function() {
     
     $(document).on("click", "#delete_user_button", function() {
         var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
-        var url = localization+'/admin/users-add-edit-delete/delete-for-albums';
+        var url = localization+'/admin/users-add-edit-delete/delete-for-albums/'+$('#useful_data').data('section');
         add_edit_delete_user(url, '205px');      
     });
     

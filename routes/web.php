@@ -348,11 +348,19 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::get('admin/users-add-edit-delete/delete-for-albums', 'AdminUsersAddEditDeleteController@delete_for_albums');
+    Route::get('admin/users-add-edit-delete/delete-for-albums/{section}', 'AdminUsersAddEditDeleteController@delete_for_albums');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::get('admin/users-add-edit-delete/delete-for-albums', 'AdminUsersAddEditDeleteController@delete_for_albums');
+    Route::get('admin/users-add-edit-delete/delete-for-albums/{section}', 'AdminUsersAddEditDeleteController@delete_for_albums');
+});
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::delete('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@destroy_for_albums');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::delete('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@destroy_for_albums');
 });
 
 //------------------------------------------------------------------------------

@@ -6,17 +6,17 @@
     @elseif ($add_edit_or_delete==='edit')
         {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/users-add-edit-delete" : "/ru/admin/users-add-edit-delete", 'method' => 'PUT' ]) !!}
     @else
-        {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/users/".$name : "/ru/admin/users/".$name, 'method' => 'PUT' ]) !!}
+        {!! Form::open([ 'url' => App::isLocale('en') ? "/admin/users-add-edit-delete" : "/ru/admin/users-add-edit-delete", 'method' => 'DELETE' ]) !!}
     @endif
         <div class='admin-panel-add-edit-delete-user-to-section'>
             {!! Form::hidden('section', $section, ['id' => 'section']); !!}
             <div class="admin-panel-add-edit-delete-user-to-section-controls">
                 <div>{!! Form::label('users', Lang::get('keywords.SelectUser').':', 
                                     ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-label']) !!}</div>
-                @if ($add_edit_or_delete==='add')
+                @if ($add_edit_or_delete === 'add' || $add_edit_or_delete === 'delete')
                     <div>{!! Form::select('users', $users, null, ['class' => 'admin-panel-add-edit-delete-user-to-section-controls-input', 
                                           $users_array_size == 0 ? 'enabled' : 'enabled']) !!}</div>
-                @elseif ($add_edit_or_delete==='edit') 
+                @elseif ($add_edit_or_delete === 'edit') 
                     <select name='users' class='admin-panel-add-edit-delete-user-to-section-controls-input' id='users'>
                         @foreach($users as $key => $value)
                             <option value="{{ $key }}" data-access='{{ $value->access }}'>{{ $value->name }}</option>
