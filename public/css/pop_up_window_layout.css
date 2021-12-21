@@ -56,6 +56,16 @@ and open the template in the editor.
     padding: 2px;
 }
 
+.admin-panel-add-edit-delete-user-to-section .admin-panel-add-edit-delete-user-to-section-controls 
+.admin-panel-add-edit-delete-user-to-section-controls-button-deactivated {
+    width: 100px;
+    font-size: 16px;
+    font-weight: bold;
+    word-wrap: break-word;
+    padding: 2px;
+    color: #c2c2c2;
+}
+
 /*End for parent drop down*/
 
 
