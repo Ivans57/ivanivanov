@@ -39,12 +39,10 @@ class AdminUsersAddEditDeleteController extends Controller
         
         $this->users->join_user_for_albums($request);
         
-        return view('adminpages.form_close')->with([
+        return view('adminpages.user_add_edit_delete_form_close')->with([
             //Actually we do not need any head title as it is just a partial view
             //We need it only to make the variable initialized. Othervise there will be error.
-            'headTitle' => __('keywords.'.$this->current_page),
-            //The variable below is required to make proper actions when pop up window closes.
-            'action' => 'add'
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
     
@@ -74,14 +72,10 @@ class AdminUsersAddEditDeleteController extends Controller
         
         $this->users->update_user_for_albums($request);
         
-        return view('adminpages.form_close')->with([
+        return view('adminpages.user_add_edit_delete_form_close')->with([
             //Actually we do not need any head title as it is just a partial view
             //We need it only to make the variable initialized. Othervise there will be error.
-            'headTitle' => __('keywords.'.$this->current_page),
-            //The variable below is required to make proper actions when pop up window closes.
-            //In this particular case it should be 'add', otherwise there will be an error.
-            //!Actually need to revise form_close for this case. We might need a separate form close!
-            'action' => 'add'
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
     
@@ -108,14 +102,10 @@ class AdminUsersAddEditDeleteController extends Controller
         
         $this->users->destroy_user_for_albums($request);
         
-        return view('adminpages.form_close')->with([
+        return view('adminpages.user_add_edit_delete_form_close')->with([
             //Actually we do not need any head title as it is just a partial view
             //We need it only to make the variable initialized. Othervise there will be error.
-            'headTitle' => __('keywords.'.$this->current_page),
-            //The variable below is required to make proper actions when pop up window closes.
-            //In this particular case it should be 'add', otherwise there will be an error.
-            //!Actually need to revise form_close for this case. We might need a separate form close!
-            'action' => 'add'
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
 }
