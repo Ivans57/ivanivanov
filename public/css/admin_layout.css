@@ -893,12 +893,40 @@ main {
 
 /*--------------------------------------------------------*/
 
+/*User Access Information for all sections.*/
+
+.admin-panel-main-article .admin-panel-user-access-information {
+    margin-left: 5px;
+    margin-bottom: 15px;
+}
+
+.admin-panel-main-article .admin-panel-user-access-information .admin-panel-user-access-information-full-access-users, 
+.admin-panel-main-article .admin-panel-user-access-information .admin-panel-user-access-information-limited-access-users {
+    font-style: italic;
+}
+
+.admin-panel-main-article .admin-panel-user-access-information .admin-panel-user-access-information-full-access-users {
+    color: green;
+}
+
+.admin-panel-main-article .admin-panel-user-access-information .admin-panel-user-access-information-limited-access-users {
+    color: red;
+}
+
+.admin-panel-main-article .admin-panel-user-access-information .admin-panel-user-access-information-full-access-users span {
+    font-weight: bold;
+}
+
+.admin-panel-main-article .admin-panel-user-access-information .admin-panel-user-access-information-limited-access-users span {
+    font-weight: bold;
+}
+
+/*--------------------------------------------------------*/
+
 /*User Control Buttons for all sections.*/
 
 .admin-panel-main-article .admin-panel-user-control-buttons {
     display: flex;
-    /*padding-left: 5px;
-    padding-right: 5px;*/
     margin-left: 5px;
     margin-bottom: 15px;
 }

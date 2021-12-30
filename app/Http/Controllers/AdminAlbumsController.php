@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use App\Http\Requests\CreateEditAlbumRequest;
 //The reuqest below is required for search.
 use Illuminate\Http\Request;
+//The repository below is required to show added to Albums section users names on a page.
+use App\Http\Repositories\AdminUsersAddEditDeleteRepository;
 
 
 class AdminAlbumsController extends Controller
@@ -57,6 +59,9 @@ class AdminAlbumsController extends Controller
         $all_items_amount = ($show_invisible=='all') ? Album::where('included_in_album_with_id', '=', null)->count() : 
                                                        Album::where('included_in_album_with_id', '=', null)->where('is_visible', '=', 1)->count();
         
+        //The line below is required to show added to Albums section users names on a page.
+        $full_and_limited_access_user_names = (new AdminUsersAddEditDeleteRepository())->get_full_and_limited_access_users_for_page($this->current_page);
+
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
@@ -89,7 +94,12 @@ class AdminAlbumsController extends Controller
             'user_role' => Auth::user()->role_and_status->role,
             //The variable below is required for sort to indicate which function to call index or search.
             'search_is_on' => "0",
-            'what_to_search' => 'albums'   
+            'what_to_search' => 'albums',
+            //Four variables below are required to show added to Albums section users names on a page.
+            'full_access_user_names' => $full_and_limited_access_user_names->full_access_users_names,
+            'limited_access_user_names' => $full_and_limited_access_user_names->limited_access_users_names,
+            'sizeof_full_access_users_names' => sizeof($full_and_limited_access_user_names->full_access_users_names),
+            'sizeof_limited_access_users_names' => sizeof($full_and_limited_access_user_names->limited_access_users_names)
             ]);
         }    
     }

@@ -4,6 +4,7 @@
 
 <article class="admin-panel-main-article admin-panel-main-article-albums">
     @if ($user_role === 'admin')
+        @include('adminpages.users_access_information')
         @include('adminpages.users_controlbuttons')
     @endif
     @if ($all_albums_count > 1)
