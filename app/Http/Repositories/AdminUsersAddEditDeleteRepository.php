@@ -35,34 +35,32 @@ class AdminUsersAddEditDeleteRepository {
         $full_and_limited_access_user_ids = MainLinkUsers::where('links_id', 
                                                                  MainLink::select('id')->where('keyword', $section)->firstOrFail()->id)
                                                                  ->select('full_access_users', 'limited_access_users')->firstOrFail();
-        
-        $full_access_user_ids = json_decode($full_and_limited_access_user_ids->full_access_users, true);
-        $limited_access_user_ids = json_decode($full_and_limited_access_user_ids->limited_access_users, true);
-        
-        $full_access_user_names = [];
+                           
+        return $this->get_full_and_limited_access_users_names(
+                                                     json_decode($full_and_limited_access_user_ids->full_access_users, true), 
+                                                     json_decode($full_and_limited_access_user_ids->limited_access_users, true));       
+    }
+    
+    //This method is required to simplify get_full_and_limited_access_users_for_page() method.
+    private function get_full_and_limited_access_users_names($full_access_user_ids, $limited_access_user_ids) {
+              
+        $full_and_limited_access_user_names = new FullAndLimitedAccessUsersNames();      
+        $full_and_limited_access_user_names->full_access_users_names = [];
+        $full_and_limited_access_user_names->limited_access_users_names = [];
         
         if ($full_access_user_ids) {
             foreach ($full_access_user_ids as $full_access_user_id) {
-                $user_name = User::select('name')->where('id', $full_access_user_id)->firstOrFail();
-                array_push($full_access_user_names, $user_name->name);
+                array_push($full_and_limited_access_user_names->full_access_users_names, 
+                           User::select('name')->where('id', $full_access_user_id)->firstOrFail()->name);
             }
-        }
-        
-        $limited_access_user_names = [];
-        
+        }        
         if ($limited_access_user_ids) {       
             foreach ($limited_access_user_ids as $limited_access_user_id) {
-                $user_name = User::select('name')->where('id', $limited_access_user_id)->firstOrFail();
-                array_push($limited_access_user_names, $user_name->name);
+                array_push($full_and_limited_access_user_names->limited_access_users_names, 
+                           User::select('name')->where('id', $limited_access_user_id)->firstOrFail()->name);
             }
-        }
-        
-        $full_and_limited_access_user_names = new FullAndLimitedAccessUsersNames();
-        $full_and_limited_access_user_names->full_access_users_names = $full_access_user_names;
-        $full_and_limited_access_user_names->limited_access_users_names = $limited_access_user_names;
-        
-        return $full_and_limited_access_user_names;
-        
+        }    
+        return $full_and_limited_access_user_names;       
     }
     
     public function get_users_for_add_for_albums($section) {
