@@ -34,7 +34,23 @@ and open the template in the editor.
     margin-bottom: -10px;
 }
 
-.admin-panel-wrapper .admin-panel-header .admin-panel-logout a {
+.admin-panel-wrapper .admin-panel-header .admin-panel-logout .admin-panel-logout-info {
+    margin-top: 2px;
+    margin-right: 25px;
+    font-size: 16px;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-logout .admin-panel-logout-info span:first-child {
+    font-style: italic;
+    margin-right: 10px;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-logout .admin-panel-logout-info span:last-child {
+    font-weight: bold;
+    color: #ab0c0f;
+}
+
+.admin-panel-wrapper .admin-panel-header .admin-panel-logout .admin-panel-logout-link a {
     margin-top: 10px;
     font-size: 18px;
     color: #1c2da3;

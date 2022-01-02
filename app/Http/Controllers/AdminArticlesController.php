@@ -8,6 +8,7 @@ use App\Folder;
 use App\Http\Requests\CreateEditFolderRequest;
 //The reuqtes below is required for search.
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
 use Illuminate\Support\Str;
@@ -65,6 +66,8 @@ class AdminArticlesController extends Controller
                     $sorting_data["directories_or_files"]->lastPage(), $this->is_admin_panel);
         } else {
             return view('adminpages.folders.adminfolders')->with([
+                //The variable below is required to show current user which is logged in.
+                'current_user_name' => Auth::user()->name,
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.

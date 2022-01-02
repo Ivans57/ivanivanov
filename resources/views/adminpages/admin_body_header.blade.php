@@ -1,5 +1,8 @@
 <div class="admin-panel-logout">
-    <a href='{{ App::isLocale("en") ? "/admin/logout" : "/ru/admin/logout" }}'><p>@lang('keywords.Logout')</p></a> 
+    <div class="admin-panel-logout-info"><span>@lang('keywords.YouAreAuthorisedAs')</span><span>{{ $current_user_name }}</span></div>
+    <div class="admin-panel-logout-link">
+        <a href='{{ App::isLocale("en") ? "/admin/logout" : "/ru/admin/logout" }}'><p>@lang('keywords.Logout')</p></a>
+    </div> 
 </div>
 <div class="admin-panel-language-and-title">
     <div class="admin-panel-language-select">

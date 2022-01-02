@@ -8,6 +8,7 @@ use App\Http\Repositories\CommonRepository;
 use \App\Album;
 use \App\Picture;
 use \App\AlbumData;
+use Illuminate\Support\Facades\Auth;
 
 
 class AlbumLinkForView {
@@ -452,6 +453,8 @@ class AlbumsRepository {
                                               $items_amount_per_page, $including_invisible, $sorting_mode = null,
                                               $albums_or_pictures_first = null) {
         return view('adminpages.albums.adminalbum')->with([
+                //The variable below is required to show current user which is logged in.
+                'current_user_name' => Auth::user()->name,
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.

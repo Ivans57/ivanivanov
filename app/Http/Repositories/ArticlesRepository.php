@@ -5,6 +5,7 @@ use App\Http\Repositories\CommonRepository;
 //The repository below is required for converting BBCode to HTML 
 //and processing these codes when opening an article.
 use App\Http\Repositories\ArticleProcessingRepository;
+use Illuminate\Support\Facades\Auth;
 use \App\Article;
 use \App\Folder;
 use \App\FolderData;
@@ -249,6 +250,8 @@ class ArticlesRepository {
                                               $items_amount_per_page, $including_invisible, $sorting_mode = null, 
                                               $folders_or_articles_first = null) {
         return view('adminpages.folders.adminfolder')->with([
+                //The variable below is required to show current user which is logged in.
+                'current_user_name' => Auth::user()->name,
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.

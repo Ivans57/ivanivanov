@@ -71,6 +71,8 @@ class AdminAlbumsController extends Controller
                     $sorting_data["directories_or_files"]->lastPage(), $this->is_admin_panel);
         } else {    
             return view('adminpages.albums.adminalbums')->with([
+            //The variable below is required to show current user which is logged in.
+            'current_user_name' => Auth::user()->name,
             //Below main website links.
             'main_ws_links' => $main_links->mainWSLinks,
             //Below main admin panel links.

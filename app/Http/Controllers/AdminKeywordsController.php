@@ -8,6 +8,7 @@ use App\Keyword;
 use App\Http\Requests\CreateEditKeywordRequest;
 //The request below is required for search.
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
 use Illuminate\Support\Str;
@@ -56,6 +57,8 @@ class AdminKeywordsController extends Controller
                     $sorting_data["keywords"]->lastPage(), $this->is_admin_panel);
         } else {
             return view('adminpages.keywords.adminkeywords')->with([
+                //The variable below is required to show current user which is logged in.
+                'current_user_name' => Auth::user()->name,
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.

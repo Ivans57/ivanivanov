@@ -17,7 +17,7 @@
     <body>
         <div class="admin-panel-wrapper">
             <header class="admin-panel-header">
-                @component('adminpages/admin_body_header', ['main_ws_links' => $main_ws_links, 'main_ap_links' => $main_ap_links])
+                @component('adminpages/admin_body_header', ['current_user_name' => $current_user_name, 'main_ws_links' => $main_ws_links, 'main_ap_links' => $main_ap_links])
                 @endcomponent
             </header>
             <main>

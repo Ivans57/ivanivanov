@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\CommonRepository;
-
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -25,12 +25,13 @@ class AdminController extends Controller
         $this->navigation_bar_obj = new CommonRepository();      
     }
     
-    //
     public function index() {
         
         $main_links = $this->navigation_bar_obj->get_main_links_for_admin_panel_and_website($this->current_page);
         
         return view('adminpages.adminstart')->with([
+            //The variable below is required to show current user which is logged in.
+            'current_user_name' => Auth::user()->name,
             //Below main website links.
             'main_ws_links' => $main_links->mainWSLinks,
             //Below main admin panel links.

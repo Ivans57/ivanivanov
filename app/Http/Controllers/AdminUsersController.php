@@ -8,6 +8,7 @@ use App\Http\Repositories\AdminUsersRepository;
 use App\User;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\EditUserRequest;
+use Illuminate\Support\Facades\Auth;
 
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
@@ -45,6 +46,8 @@ class AdminUsersController extends Controller {
         $sorting_data = $this->users->sort($sorting_mode);
               
         return view('adminpages.users.adminusers')->with([
+                //The variable below is required to show current user which is logged in.
+                'current_user_name' => Auth::user()->name,
                 //Below main website links.
                 'main_ws_links' => $main_links->mainWSLinks,
                 //Below main admin panel links.

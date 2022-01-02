@@ -10,6 +10,7 @@ use App\Http\Repositories\CommonRepository;
 use App\Http\Repositories\ArticlesRepository;
 use App\Folder;
 use App\Article;
+use Illuminate\Support\Facades\Auth;
 
 class AdminArticleController extends Controller
 {
@@ -47,6 +48,8 @@ class AdminArticleController extends Controller
         $parents = (new ArticlesRepository())->getArticlesParentsForPath($parent_info->id);
         
         return view('adminpages.articles.create_and_edit_article')->with([
+            //The variable below is required to show current user which is logged in.
+            'current_user_name' => Auth::user()->name,
             //Below main website links.
             'main_ws_links' => $main_links->mainWSLinks,
             //Below main admin panel links.
@@ -120,6 +123,8 @@ class AdminArticleController extends Controller
                     ->where('keyword', '=', $parent_keyword)->firstOrFail();
         }       
         return view('adminpages.articles.create_and_edit_article')->with([
+            //The variable below is required to show current user which is logged in.
+            'current_user_name' => Auth::user()->name,
             //Below main website links.
             'main_ws_links' => $main_links->mainWSLinks,
             //Below main admin panel links.
