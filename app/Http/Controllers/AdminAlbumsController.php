@@ -16,8 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Repositories\AdminUsersAddEditDeleteRepository;
 
 
-class AdminAlbumsController extends Controller
-{
+class AdminAlbumsController extends Controller {
     protected $albums;
     protected $current_page;
     //This property is required for Common Repositry where are all common functions.

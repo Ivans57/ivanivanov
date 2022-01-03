@@ -28,25 +28,24 @@ $( document ).ready(function() {
     
     $(document).on("click", "#add_user_button", function() {
         var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
-        var url = localization+'/admin/users-add-edit-delete/add-for-albums/'+$('#useful_data').data('section');
+        var url = localization+'/admin/users-add-edit-delete/add-for-section/'+$('#useful_data').data('section');
         add_edit_delete_user(url, '240px');      
     });
     
     $(document).on("click", "#edit_user_button", function() {
         var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
-        var url = localization+'/admin/users-add-edit-delete/edit-for-albums/'+$('#useful_data').data('section');
+        var url = localization+'/admin/users-add-edit-delete/edit-for-section/'+$('#useful_data').data('section');
         add_edit_delete_user(url, '240px');      
     });
     
     $(document).on("click", "#delete_user_button", function() {
         var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
-        var url = localization+'/admin/users-add-edit-delete/delete-for-albums/'+$('#useful_data').data('section');
+        var url = localization+'/admin/users-add-edit-delete/delete-for-section/'+$('#useful_data').data('section');
         add_edit_delete_user(url, '205px');      
     });
     
     function add_edit_delete_user(url, height) {
-        //We need this script to open existing Album edit page in fancy box window.
-        //Also we need this script to open existing Picture edit page in fancy box window.
+        //We need this script to open existing User Add, Edit or Delete page in fancy box window.
         $.fancybox.open({
             type: 'iframe',
             src: url,

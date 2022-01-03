@@ -16,9 +16,9 @@ class AdminUsersAddEditDeleteController extends Controller
         $this->current_page = '';
     }
     
-    public function add_for_albums($section) {
+    public function add_for_section($section) {
         
-        $users = $this->users->get_users_for_add_for_albums($section);
+        $users = $this->users->get_users_for_add_for_section($section);
         
         return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
             //Actually we do not need any head title as it is just a partial view
@@ -35,9 +35,9 @@ class AdminUsersAddEditDeleteController extends Controller
             ]);
     }
     
-    public function join_for_albums(AddUserRequest $request) {
+    public function join_for_section(AddUserRequest $request) {
         
-        $this->users->join_user_for_albums($request);
+        $this->users->join_user_for_section($request);
         
         return view('adminpages.user_add_edit_delete_form_close')->with([
             //Actually we do not need any head title as it is just a partial view
@@ -46,9 +46,9 @@ class AdminUsersAddEditDeleteController extends Controller
             ]);
     }
     
-    public function edit_for_albums($section) {
+    public function edit_for_section($section) {
         
-        $users_and_accesses = $this->users->get_users_for_edit_for_albums($section);
+        $users_and_accesses = $this->users->get_users_for_edit_for_section($section);
         
         return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
             //Actually we do not need any head title as it is just a partial view
@@ -64,13 +64,13 @@ class AdminUsersAddEditDeleteController extends Controller
             'users_array_size' => sizeof($users_and_accesses),
             //The next line below are required to tick the checkbox properly according to the acees status of the first user 
             //in dropdown list.
-            'access_status_of_first_element' => $this->users->get_status_of_first_user_for_albums($users_and_accesses)
+            'access_status_of_first_element' => $this->users->get_status_of_first_user_for_section($users_and_accesses)
             ]);
     }
     
-    public function update_for_albums(EditOrDeleteUserInSectionRequest $request) {
+    public function update_for_section(EditOrDeleteUserInSectionRequest $request) {
         
-        $this->users->update_user_for_albums($request);
+        $this->users->update_user_for_section($request);
         
         return view('adminpages.user_add_edit_delete_form_close')->with([
             //Actually we do not need any head title as it is just a partial view
@@ -79,9 +79,9 @@ class AdminUsersAddEditDeleteController extends Controller
             ]);
     }
     
-    public function delete_for_albums($section) {
+    public function delete_for_section($section) {
         
-        $users = $this->users->get_users_for_delete_for_albums($section);
+        $users = $this->users->get_users_for_delete_for_section($section);
         
         return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
             //Actually we do not need any head title as it is just a partial view
@@ -98,9 +98,9 @@ class AdminUsersAddEditDeleteController extends Controller
             ]);
     }
     
-    public function destroy_for_albums(EditOrDeleteUserInSectionRequest $request) {
+    public function destroy_for_section(EditOrDeleteUserInSectionRequest $request) {
         
-        $this->users->destroy_user_for_albums($request);
+        $this->users->destroy_user_for_section($request);
         
         return view('adminpages.user_add_edit_delete_form_close')->with([
             //Actually we do not need any head title as it is just a partial view

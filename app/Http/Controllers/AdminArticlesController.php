@@ -12,10 +12,11 @@ use Illuminate\Support\Facades\Auth;
 //We need the line below to peform some manipulations with strings
 //e.g. making all string letters lower case.
 use Illuminate\Support\Str;
+//The repository below is required to show added to Albums section users names on a page.
+use App\Http\Repositories\AdminUsersAddEditDeleteRepository;
 
 
-class AdminArticlesController extends Controller
-{
+class AdminArticlesController extends Controller {
     protected $current_page;
     //This property is required for Common Repositry where are all common functions.
     protected $common;
@@ -57,6 +58,9 @@ class AdminArticlesController extends Controller
         $all_items_amount = ($show_invisible=='all') ? Folder::where('included_in_folder_with_id', '=', null)->count() : 
                                                        Folder::where('included_in_folder_with_id', '=', null)->where('is_visible', '=', 1)->count();
         
+        //The line below is required to show added to Articles section users names on a page.
+        $full_and_limited_access_user_names = (new AdminUsersAddEditDeleteRepository())->get_full_and_limited_access_users_for_page($this->current_page);
+        
         //Below we need to do the check if entered page number is more than
         //actual number of pages, we redirect the user to the last page.
         //To avoid indefinite looping need to check whether a section has at least one element.
@@ -87,9 +91,16 @@ class AdminArticlesController extends Controller
                 //The line below is required to show correctly display_invisible elements.
                 'all_folders_count' => Folder::where('included_in_folder_with_id', '=', null)->count(),
                 'all_items_amount' => $all_items_amount,
+                //The variable below is required for a check to show some specific content only for admin user.
+                'user_role' => Auth::user()->role_and_status->role,
                 //The variable below is required for sort to indicate which function to call index or search.
                 'search_is_on' => "0",
-                'what_to_search' => 'folders'
+                'what_to_search' => 'folders',
+                //Four variables below are required to show added to Articles section users names on a page.
+                'full_access_user_names' => $full_and_limited_access_user_names->full_access_users_names,
+                'limited_access_user_names' => $full_and_limited_access_user_names->limited_access_users_names,
+                'sizeof_full_access_users_names' => sizeof($full_and_limited_access_user_names->full_access_users_names),
+                'sizeof_limited_access_users_names' => sizeof($full_and_limited_access_user_names->limited_access_users_names)
             ]);
         }
     }

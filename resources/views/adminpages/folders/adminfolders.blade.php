@@ -3,6 +3,10 @@
 @section('admincontent')
 
 <article class="admin-panel-main-article admin-panel-main-article-articles">
+    @if ($user_role === 'admin')
+        @include('adminpages.users_access_information')
+        @include('adminpages.users_controlbuttons')
+    @endif
     @if ($all_folders_count > 1)
         <div class="admin-panel-articles-search">
             {!! Form::label('search_folders', Lang::get('keywords.SearchForFolders').':', 

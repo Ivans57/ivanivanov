@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\User;
 use App\MainLink;
 use App\MainLinkUsers;
+use App\UsersRolesAndStatuses;
 //The line below is required to make query conditions using merged table's fields.
 use Illuminate\Database\Eloquent\Builder;
 
@@ -35,6 +36,7 @@ class AdminUsersAddEditDeleteRepository {
         $full_and_limited_access_user_ids = MainLinkUsers::where('links_id', 
                                                                  MainLink::select('id')->where('keyword', $section)->firstOrFail()->id)
                                                                  ->select('full_access_users', 'limited_access_users')->firstOrFail();
+                                                                
                            
         return $this->get_full_and_limited_access_users_names(
                                                      json_decode($full_and_limited_access_user_ids->full_access_users, true), 
@@ -50,20 +52,26 @@ class AdminUsersAddEditDeleteRepository {
         
         if ($full_access_user_ids) {
             foreach ($full_access_user_ids as $full_access_user_id) {
-                array_push($full_and_limited_access_user_names->full_access_users_names, 
-                           User::select('name')->where('id', $full_access_user_id)->firstOrFail()->name);
+                //Only active users need to show.
+                if ((UsersRolesAndStatuses::select('status')->where('user_id', $full_access_user_id)->firstOrFail()->status) == 1) {
+                    array_push($full_and_limited_access_user_names->full_access_users_names, 
+                               User::select('name')->where('id', $full_access_user_id)->firstOrFail()->name);
+                }
             }
         }        
         if ($limited_access_user_ids) {       
             foreach ($limited_access_user_ids as $limited_access_user_id) {
-                array_push($full_and_limited_access_user_names->limited_access_users_names, 
-                           User::select('name')->where('id', $limited_access_user_id)->firstOrFail()->name);
+                //Only active users need to show.
+                if ((UsersRolesAndStatuses::select('status')->where('user_id', $limited_access_user_id)->firstOrFail()->status) == 1) {
+                    array_push($full_and_limited_access_user_names->limited_access_users_names, 
+                               User::select('name')->where('id', $limited_access_user_id)->firstOrFail()->name);
+                }
             }
         }    
         return $full_and_limited_access_user_names;       
     }
     
-    public function get_users_for_add_for_albums($section) {
+    public function get_users_for_add_for_section($section) {
         
         $users_from_database_and_added_users_ids = $this->get_users_from_database_and_added_users_ids($section);
         
@@ -82,7 +90,7 @@ class AdminUsersAddEditDeleteRepository {
         return $users;
     }
     
-    public function get_users_for_edit_for_albums($section) {
+    public function get_users_for_edit_for_section($section) {
         
         $users_from_database_and_added_users_ids = $this->get_users_from_database_and_added_users_ids($section);
         
@@ -106,7 +114,7 @@ class AdminUsersAddEditDeleteRepository {
         return $user_names_and_accesses;
     }
     
-    public function get_users_for_delete_for_albums($section) {
+    public function get_users_for_delete_for_section($section) {
         
         $users_from_database_and_added_users_ids = $this->get_users_from_database_and_added_users_ids($section);
         
@@ -127,7 +135,7 @@ class AdminUsersAddEditDeleteRepository {
     
     //The function below is required to tick the checkbox properly according to the acees status 
     //of the first user in dropdown list.
-    public function get_status_of_first_user_for_albums($users_and_accesses) {
+    public function get_status_of_first_user_for_section($users_and_accesses) {
         if (sizeof($users_and_accesses) != 0) {
             //The next two lines below are required to tick the checkbox properly according to the acees status 
             //of the first user in dropdown list.
@@ -148,7 +156,8 @@ class AdminUsersAddEditDeleteRepository {
         $users_from_database_and_added_users_ids->users_from_database = User::select('id', 'name')
                                                                               ->with('role_and_status')
                                                                               ->whereHas('role_and_status', function (Builder $query) { 
-                                                                                $query->where('role', '=', 'user'); 
+                                                                                $query->where('role', '=', 'user');
+                                                                                $query->where('status', '=', '1');
                                                                               })->orderBy('name', 'asc')->get();
 
         //I will extract full_access_users and limited_access_users as shown below, because there is a confusion with field names when 
@@ -192,7 +201,7 @@ class AdminUsersAddEditDeleteRepository {
         return $user_ids;
     }
     
-    public function join_user_for_albums($request) {
+    public function join_user_for_section($request) {
         
         $main_link_id = MainLink::select('id')->where('keyword', $request->section)->firstOrFail()->id;
         
@@ -219,7 +228,7 @@ class AdminUsersAddEditDeleteRepository {
         $edited_section->save();
     }
     
-    public function update_user_for_albums($request) {
+    public function update_user_for_section($request) {
              
         $getting_updated_link = MainLinkUsers::where('links_id', MainLink::select('id')
                                                ->where('keyword', $request->section)->firstOrFail()->id)->firstOrFail();
@@ -274,7 +283,7 @@ class AdminUsersAddEditDeleteRepository {
         $getting_updated_link->save();
     }
     
-    public function destroy_user_for_albums($request) {
+    public function destroy_user_for_section($request) {
              
         $getting_updated_link = MainLinkUsers::where('links_id', MainLink::select('id')
                                                ->where('keyword', $request->section)->firstOrFail()->id)->firstOrFail();
