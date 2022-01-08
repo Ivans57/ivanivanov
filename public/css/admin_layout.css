@@ -42,7 +42,7 @@ and open the template in the editor.
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-logout .admin-panel-logout-info span:first-child {
     font-style: italic;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .admin-panel-wrapper .admin-panel-header .admin-panel-logout .admin-panel-logout-info span:last-child {

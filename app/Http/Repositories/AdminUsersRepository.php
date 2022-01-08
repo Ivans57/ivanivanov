@@ -6,7 +6,7 @@ namespace App\Http\Repositories;
 use App\User;
 use App\UsersRolesAndStatuses;
 use App\Http\Repositories\CommonRepository;
-
+use Illuminate\Support\Facades\DB;
 
 class AdminUsersRepository {
     
@@ -42,13 +42,49 @@ class AdminUsersRepository {
     
     public function destroy($usernames) {
         $usernames_array = (new CommonRepository())->get_values_from_string($usernames);
+        
         foreach ($usernames_array as $username) {
+            $user_id = User::where('name', '=', $username)->firstOrFail()->id;
+            
             //User with admin status should be unable to be deleted.
-            if (UsersRolesAndStatuses::where('user_id', '=', 
-                                             User::where('name', '=', $username)->firstOrFail()->id)->firstOrFail()->role == 'user') {
+            if (UsersRolesAndStatuses::where('user_id', '=', $user_id)->firstOrFail()->role == 'user') {
+                $this->remove_user_id_from_main_links($user_id, DB::table('en_main_links_users')->get(), 'en_main_links_users');
+                $this->remove_user_id_from_main_links($user_id, DB::table('ru_main_links_users')->get(), 'ru_main_links_users');
                 User::where('name', '=', $username)->delete();
             }
         }
+    }
+    
+    //This method removes being deleted user's id from all sections (main links) where it has been added to.
+    private function remove_user_id_from_main_links($user_id_to_remove, $main_links_info, $table_to_update) {
+        foreach ($main_links_info as $main_link_info) {
+            if ($main_link_info->full_access_users) {
+                $this->remove_user_id_from_main_link($user_id_to_remove, $main_link_info->full_access_users, $main_link_info->links_id, 
+                                                     $table_to_update, 'full_access_users');
+            }
+            if ($main_link_info->limited_access_users) {
+                $this->remove_user_id_from_main_link($user_id_to_remove, $main_link_info->limited_access_users, $main_link_info->links_id, 
+                                                     $table_to_update, 'limited_access_users');
+            }
+        }
+    }
+    
+    //This method is required to simplify remove_user_id_from_main_links() method.
+    private function remove_user_id_from_main_link($user_id_to_remove, $added_users_ids, $edited_link_id, $table_to_update, $field_to_update) {
+
+        $added_user_ids_array = json_decode($added_users_ids, true);
+        if (in_array($user_id_to_remove, $added_user_ids_array) == true) {
+            unset($added_user_ids_array[array_search($user_id_to_remove, $added_user_ids_array)]);
+            //Below an array from where updated user was extracted is getting reindexed. If we don't do that, we will get wrong json in the end.
+            $added_user_ids_array_edited = array_values($added_user_ids_array);
+
+            //Now need to update information in database.
+            //If we remove the last value from the array, we don't need an empty array, it should become null.
+            DB::table($table_to_update)->where('links_id', $edited_link_id)
+                                       ->update([$field_to_update => sizeof($added_user_ids_array_edited) == 0 ? 
+                                                                            null : json_encode($added_user_ids_array_edited)]);
+        }
+
     }
     
     //The method below is to sort users in different sorting modes.
@@ -126,30 +162,6 @@ class AdminUsersRepository {
         }     
         return ["users" => $users, "sorting_asc_or_desc" => $sorting_asc_or_desc];
     }
-    
-    //We need this to make a check for username uniqueness.
-    /*public function get_all_names() {
-        
-        $all_names = User::all('name');       
-        $names_array = array();
-        
-        foreach ($all_names as $name) {
-            array_push($names_array, $name->name);
-        }    
-        return $names_array;   
-    }
-    
-    //We need this to make a check for email uniqueness.
-    public function get_all_emails() {
-        
-        $all_emails = User::all('email');       
-        $emails_array = array();
-        
-        foreach ($all_emails as $email) {
-            array_push($emails_array, $email->email);
-        }    
-        return $emails_array;   
-    }*/
     
     //We need this to make a check for email uniqueness.
     public function get_all_names_or_emails($names_or_emails) {
