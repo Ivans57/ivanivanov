@@ -13,8 +13,8 @@ class AdminUsersRepository {
     public function store($request) {
         
         $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->name = strtolower($request->name);
+        $user->email = strtolower($request->email);
         $user->password = bcrypt($request->password);
         $user->save();
         
@@ -27,8 +27,8 @@ class AdminUsersRepository {
     public function update($name, $request) {
              
         $edited_user = User::where('name', '=', $name)->firstOrFail();     
-        $edited_user->name = $request->name;
-        $edited_user->email = $request->email;   
+        $edited_user->name = strtolower($request->name);
+        $edited_user->email = strtolower($request->email);   
         //Need to assign field password only if there is a new password, otherwise can skip it.
         if ($request->password) {
             $edited_user->password = bcrypt($request->password);
