@@ -16,6 +16,10 @@
             @endcomponent
         @endif
     </div>
+    @if ($user_role === 'admin')
+        @include('adminpages.users_access_information')
+        @include('adminpages.users_controlbuttons')
+    @endif
     <!-- Consider conditions of displaying the elements below.-->
     <div class="admin-panel-albums-search">
         {!! Form::label('search_albums', Lang::get('keywords.SearchForAlbums').':', ['class' => 'admin-panel-albums-what-to-search-label']) !!}               

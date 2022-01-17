@@ -30,4 +30,7 @@ class User extends Authenticatable
     public function role_and_status() {
         return $this->hasOne('App\UsersRolesAndStatuses');
     }
+    public function albums() {
+        return $this->hasOne('App\UserAlbums');
+    }
 }

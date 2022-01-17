@@ -5,6 +5,8 @@ namespace App\Http\Repositories;
 //We need the line below to use localization. 
 use App;
 use App\Http\Repositories\CommonRepository;
+//The line below is required to show users which are added to some particular album.
+use App\Http\Repositories\AdminUsersAddEditDeleteForDirectoryRepository;
 use \App\Album;
 use \App\Picture;
 use \App\AlbumData;
@@ -452,6 +454,11 @@ class AlbumsRepository {
     private function get_view_for_admin_panel($is_admin_panel, $keyword, $section, $main_links, $albums_and_pictures_full_info, 
                                               $items_amount_per_page, $including_invisible, $sorting_mode = null,
                                               $albums_or_pictures_first = null) {
+        //AdminUsersAddEditDeleteForDirectoryRepository
+        //I will retrieve all added users here in the most end to avoid any erros with passing parameters, because this is a 
+        //common repossitory, there are also pagination and sorting functions, it is easy to get confused with all these parameters.
+        $full_and_limited_access_users_names = (new AdminUsersAddEditDeleteForDirectoryRepository())
+                                                ->get_full_and_limited_access_users_for_page($keyword);
         return view('adminpages.albums.adminalbum')->with([
                 //The variable below is required to show current user which is logged in.
                 'current_user_name' => Auth::user()->name,
@@ -484,7 +491,14 @@ class AlbumsRepository {
                 'show_invisible' => $including_invisible == 1 ? 'all' : 'only_visible',
                 //is_admin_panel is required for paginator.
                 'is_admin_panel' => $is_admin_panel,
-                'what_to_search' => 'albums'
+                'what_to_search' => 'albums',
+                //The variable below is required for a check to show some specific content only for admin user.
+                'user_role' => Auth::user()->role_and_status->role,
+                //Four variables below are required to show added to Albums section users names on a page.
+                'full_access_user_names' => $full_and_limited_access_users_names->full_access_users_names,
+                'limited_access_user_names' => $full_and_limited_access_users_names->limited_access_users_names,
+                'sizeof_full_access_users_names' => sizeof($full_and_limited_access_users_names->full_access_users_names),
+                'sizeof_limited_access_users_names' => sizeof($full_and_limited_access_users_names->limited_access_users_names)
                 ]);
     }
     
