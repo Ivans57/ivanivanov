@@ -28,19 +28,34 @@ $( document ).ready(function() {
     
     $(document).on("click", "#add_user_button", function() {
         var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
-        var url = localization+'/admin/users-add-edit-delete/add-for-section/'+$('#useful_data').data('section');
+        //Below need to check whether we are working with root directory or any other normal directory.
+        if (($('#useful_data').data('parent_keyword')) === 0) {
+            var url = localization+'/admin/users-add-edit-delete/add-for-section/'+$('#useful_data').data('section');
+        } else {
+            var url = localization+'/admin/users-add-edit-delete/add-for-directory/'+$('#useful_data').data('parent_keyword');
+        }
         add_edit_delete_user(url, '240px');      
     });
     
     $(document).on("click", "#edit_user_button", function() {
         var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
-        var url = localization+'/admin/users-add-edit-delete/edit-for-section/'+$('#useful_data').data('section');
+        //Below need to check whether we are working with root directory or any other normal directory.
+        if (($('#useful_data').data('parent_keyword')) === 0) {
+            var url = localization+'/admin/users-add-edit-delete/edit-for-section/'+$('#useful_data').data('section');
+        } else {
+            var url = localization+'/admin/users-add-edit-delete/add-for-directory/'+$('#useful_data').data('parent_keyword');
+        }
         add_edit_delete_user(url, '240px');      
     });
     
     $(document).on("click", "#delete_user_button", function() {
         var localization = ($('#useful_data').data('localization') === "en") ? "" : "/ru";
-        var url = localization+'/admin/users-add-edit-delete/delete-for-section/'+$('#useful_data').data('section');
+        //Below need to check whether we are working with root directory or any other normal directory.
+        if (($('#useful_data').data('parent_keyword')) === 0) {
+            var url = localization+'/admin/users-add-edit-delete/delete-for-section/'+$('#useful_data').data('section');
+        } else {
+            var url = localization+'/admin/users-add-edit-delete/add-for-directory/'+$('#useful_data').data('parent_keyword');
+        }
         add_edit_delete_user(url, '205px');      
     });
     

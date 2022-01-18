@@ -365,6 +365,18 @@ Route::group(['middleware' => 'locale'], function() {
 
 //------------------------------------------------------------------------------
 
+//Users Add, Edit, Delete within directories. 
+
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::get('admin/users-add-edit-delete/add-for-directory/{directory}', 'AdminUserAddEditDeleteForDirectoryController@add_for_directory');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('admin/users-add-edit-delete/add-for-directory/{directory}', 'AdminUserAddEditDeleteForDirectoryController@add_for_directory');
+});
+
+//------------------------------------------------------------------------------
+
 //Home
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {

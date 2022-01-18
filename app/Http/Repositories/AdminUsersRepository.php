@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 //use Carbon\Carbon;
 use App\User;
 use App\UsersRolesAndStatuses;
+use App\UserAlbums;
 use App\Http\Repositories\CommonRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -22,6 +23,10 @@ class AdminUsersRepository {
         $user_role_and_status->role = 'user';     
         $user_role_and_status->status = $request->status;
         $user->role_and_status()->save($user_role_and_status);
+        
+        //Here we need to insert new user into the table where all its album ids will be located.
+        $user_albums = new UserAlbums;
+        $user->albums()->save($user_albums);               
     }
     
     public function update($name, $request) {

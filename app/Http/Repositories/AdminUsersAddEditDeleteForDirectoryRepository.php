@@ -32,4 +32,23 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                            
         return $full_and_limited_access_users_names;       
     }
+    
+    public function get_users_for_add_for_directory($directory_keyword) {
+        
+        $users_from_database_and_added_users_ids = $this->get_users_from_database_and_added_users_ids($directory_keyword);
+        
+        $users = array();               
+        foreach ($users_from_database_and_added_users_ids->users_from_database as $user_from_database) {
+            if (in_array($user_from_database->id, 
+                         $this->get_user_ids(json_decode(
+                                             $users_from_database_and_added_users_ids->full_and_limited_access_user_ids->full_access_users, 
+                                             true), 
+                                             json_decode(
+                                             $users_from_database_and_added_users_ids->full_and_limited_access_user_ids->limited_access_users, 
+                                             true))) == false) {
+                $users[$user_from_database->id] = $user_from_database->name;
+            }
+        }
+        return $users;
+    }
 }
