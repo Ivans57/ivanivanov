@@ -5,11 +5,11 @@ namespace App\Http\Repositories;
 use App\User;
 use App\UserAlbums;
 use App\Album;
-use App\MainkLink;
-//use App\MainLinkUsers;
+use App\MainLink;
+use App\MainLinkUsers;
 //use App\UsersRolesAndStatuses;
 //The line below is required to make query conditions using merged table's fields.
-//use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 //This class is required to show added to some directory users names on a page.
 class FullAndLimitedAccessUsersNames {
@@ -38,8 +38,11 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
     public function get_users_for_add_for_directory($directory_keyword) {
         
         $full_and_limited_access_users_for_directory = $this->get_full_and_limited_access_users_ids_for_directory($directory_keyword);
-        
-        $all_users = User::select('id', 'name')->orderBy('name', 'asc')->get();
+                
+        $all_users = User::select('id', 'name')->with('role_and_status')->whereHas('role_and_status', function (Builder $query) { 
+                                                                                $query->where('role', '=', 'user');
+                                                                                $query->where('status', '=', '1');
+                                                                                })->orderBy('name', 'asc')->get();
         
         $not_added_user_names = [];
         
@@ -70,22 +73,37 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
             //!Also need to add condition for Russian version!
             $limited_access_users_names_from_user = json_decode($user_id->en_albums_limited_access, true);
 
+            if ($limited_access_users_names_from_user === null) {
+                $limited_access_users_names_from_user = [];
+            }
+            
             if (in_array($directory_id, $limited_access_users_names_from_user) === true) {
                 array_push($full_and_limited_access_users_names->limited_access_users_names, $user_id->user_id);
             } else {
-                $current_main_link_id = MainkLink::select('id')->where('keyword', 'Albums')->firstOrFail();
-                $current_main_links_full_access_users = MainLinkUsers::select('full_access_users')->where('links_id', $current_main_link_id)->firstOrFail();
+                $current_main_link_id = MainLink::select('id')->where('keyword', 'Albums')->firstOrFail();
+                $current_main_links_full_access_users = MainLinkUsers::select('full_access_users')
+                                                        ->where('links_id', $current_main_link_id->id)->firstOrFail();
                 $current_main_links_full_access_users_array = json_decode($current_main_links_full_access_users->full_access_users, true);
+                
+                if($current_main_links_full_access_users_array === null) {
+                    $current_main_links_full_access_users_array = [];
+                }
+                
                 if (in_array($user_id->user_id, $current_main_links_full_access_users_array) === true) {
                     array_push($full_and_limited_access_users_names->full_access_users_names, $user_id->user_id);
                 } else {
                     //!Also need to add condition for Russian version!
                     $full_access_users_names_from_user = json_decode($user_id->en_albums_full_access, true);
+                    
+                    if ($full_access_users_names_from_user === null) {
+                        $full_access_users_names_from_user = [];
+                    }
+                    
                     if (in_array($directory_id, $full_access_users_names_from_user) === true) {
                         array_push($full_and_limited_access_users_names->full_access_users_names, $user_id->user_id);
                     } else {
                         //Check all parents.
-                        $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id, array());
+                        $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id->id, array());
                         foreach ($all_parents_ids_of_directory as $parent_id_of_directory) {
                             if (in_array($parent_id_of_directory, $full_access_users_names_from_user) === true) {
                                 //If user has a full access to at least one of directory's parents, that means the user has full access to this directory.
@@ -104,7 +122,7 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
     //This function is required to get all parents of some particular directory.
     private function get_parents_id_array($directory_id, $parents) {
         
-        $parent_id = Album::select('included_in_album_with_id')->where('id', $directory_id)->firstOrFail();
+        $parent_id = Album::select('included_in_album_with_id')->where('id', $directory_id)->firstOrFail()->id;
         
         if ($parent_id) {
             array_push($parents, $parent_id->included_in_album_with_id);
