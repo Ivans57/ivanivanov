@@ -2,6 +2,8 @@
 
 namespace App\Http\Repositories;
 
+//We need the line below to use localization. 
+use App;
 use App\User;
 use App\UserAlbums;
 use App\Album;
@@ -70,8 +72,8 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
         $full_and_limited_access_users_names->limited_access_users_names = [];
         
         foreach ($all_user_ids_with_all_added_albums as $user_id) {
-            //!Also need to add condition for Russian version!
-            $limited_access_users_names_from_user = json_decode($user_id->en_albums_limited_access, true);
+            $limited_access_users_names_from_user = json_decode((App::isLocale('en') ? $user_id->en_albums_limited_access : 
+                                                                                       $user_id->ru_albums_limited_access), true);
 
             if ($limited_access_users_names_from_user === null) {
                 $limited_access_users_names_from_user = [];
@@ -92,8 +94,8 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                 if (in_array($user_id->user_id, $current_main_links_full_access_users_array) === true) {
                     array_push($full_and_limited_access_users_names->full_access_users_names, $user_id->user_id);
                 } else {
-                    //!Also need to add condition for Russian version!
-                    $full_access_users_names_from_user = json_decode($user_id->en_albums_full_access, true);
+                    $full_access_users_names_from_user = json_decode((App::isLocale('en') ? $user_id->en_albums_full_access : 
+                                                                                            $user_id->ru_albums_full_access), true);
                     
                     if ($full_access_users_names_from_user === null) {
                         $full_access_users_names_from_user = [];
