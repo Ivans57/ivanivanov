@@ -61,48 +61,35 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
         
         $directory_id = Album::select('id')->where('keyword', $directory_keyword)->firstOrFail();
         
-        $all_user_ids_with_all_added_albums = UserAlbums::
-                    select('user_id', 'en_albums_full_access', 'en_albums_limited_access', 'ru_albums_full_access', 'ru_albums_limited_access')
-                    ->orderBy('user_id', 'asc')->get();
-        
         $full_and_limited_access_users_names = new FullAndLimitedAccessUsersNames();
         
-        $full_and_limited_access_users_names->full_access_users_names = [];
-        
+        $full_and_limited_access_users_names->full_access_users_names = [];       
         $full_and_limited_access_users_names->limited_access_users_names = [];
-        
-        foreach ($all_user_ids_with_all_added_albums as $user_id) {
-            $limited_access_users_names_from_user = json_decode((App::isLocale('en') ? $user_id->en_albums_limited_access : 
-                                                                                       $user_id->ru_albums_limited_access), true);
-
-            if ($limited_access_users_names_from_user === null) {
-                $limited_access_users_names_from_user = [];
-            }
-            
-            if (in_array($directory_id, $limited_access_users_names_from_user) === true) {
-                array_push($full_and_limited_access_users_names->limited_access_users_names, $user_id->user_id);
+               
+        foreach (UserAlbums::select('user_id', 'en_albums_full_access', 'en_albums_limited_access', 'ru_albums_full_access', 
+                                    'ru_albums_limited_access')->orderBy('user_id', 'asc')->get() as $user) {
+                                
+            if (in_array($directory_id->id, (((App::isLocale('en') ? $user->en_albums_limited_access : 
+                                               $user->ru_albums_limited_access)) ? 
+                                              (json_decode((App::isLocale('en') ? $user->en_albums_limited_access : 
+                                               $user->ru_albums_limited_access), true)) : [])) === true) {
+                array_push($full_and_limited_access_users_names->limited_access_users_names, $user->user_id);
             } else {
-                $current_main_link_id = MainLink::select('id')->where('keyword', 'Albums')->firstOrFail();
+                //!keyword should be passed with variable!
                 $current_main_links_full_access_users = MainLinkUsers::select('full_access_users')
-                                                        ->where('links_id', $current_main_link_id->id)->firstOrFail();
-                $current_main_links_full_access_users_array = json_decode($current_main_links_full_access_users->full_access_users, true);
+                                        ->where('links_id', MainLink::select('id')->where('keyword', 'Albums')->firstOrFail()->id)->firstOrFail();
                 
-                if($current_main_links_full_access_users_array === null) {
-                    $current_main_links_full_access_users_array = [];
-                }
-                
-                if (in_array($user_id->user_id, $current_main_links_full_access_users_array) === true) {
-                    array_push($full_and_limited_access_users_names->full_access_users_names, $user_id->user_id);
+                if (in_array($user->user_id, (($current_main_links_full_access_users->full_access_users) ? 
+                                                  json_decode($current_main_links_full_access_users->full_access_users, true) : [])) === true) {
+                    array_push($full_and_limited_access_users_names->full_access_users_names, $user->user_id);
                 } else {
-                    $full_access_users_names_from_user = json_decode((App::isLocale('en') ? $user_id->en_albums_full_access : 
-                                                                                            $user_id->ru_albums_full_access), true);
                     
-                    if ($full_access_users_names_from_user === null) {
-                        $full_access_users_names_from_user = [];
-                    }
-                    
-                    if (in_array($directory_id, $full_access_users_names_from_user) === true) {
-                        array_push($full_and_limited_access_users_names->full_access_users_names, $user_id->user_id);
+                    $full_access_users_names_from_user = (App::isLocale('en') ? $user->en_albums_full_access : 
+                                                          $user->ru_albums_full_access) ? (json_decode((App::isLocale('en') ? 
+                                                          $user->en_albums_full_access : $user->ru_albums_full_access), true)) : [];
+                   
+                    if (in_array($directory_id->id, $full_access_users_names_from_user) === true) {
+                        array_push($full_and_limited_access_users_names->full_access_users_names, $user->user_id);
                     } else {
                         //Check all parents.
                         $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id->id, array());
@@ -110,7 +97,7 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                             if (in_array($parent_id_of_directory, $full_access_users_names_from_user) === true) {
                                 //If user has a full access to at least one of directory's parents, that means the user has full access to this directory.
                                 //No need to check another directories. 
-                                array_push($full_and_limited_access_users_names->full_access_users_names, $user_id->user_id);
+                                array_push($full_and_limited_access_users_names->full_access_users_names, $user->user_id);
                                 break;
                             }
                         }
