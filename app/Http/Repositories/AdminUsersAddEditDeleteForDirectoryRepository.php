@@ -19,6 +19,12 @@ class FullAndLimitedAccessUsersNames {
     public $limited_access_users_names;
 }
 
+//This class is required to keep full and limited access user ids.
+class FullAndLimitedAccessUsersIDs {
+    public $full_access_users_ids;
+    public $limited_access_users_ids;
+}
+
 class AdminUsersAddEditDeleteForDirectoryRepository {
     
     //This method is required to show added to some section users names on a page.
@@ -38,7 +44,7 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
     }
     
     public function get_users_for_add_for_directory($directory_keyword) {
-        
+        //First of all need to make a list of all users which are already added to some particular directory.
         $full_and_limited_access_users_for_directory = $this->get_full_and_limited_access_users_ids_for_directory($directory_keyword);
                 
         $all_users = User::select('id', 'name')->with('role_and_status')->whereHas('role_and_status', function (Builder $query) { 
@@ -48,9 +54,10 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
         
         $not_added_user_names = [];
         
+        //Below we are adding the names of users which are not yet added to some particular directory to available users list.
         foreach ($all_users as $user) {
-            if ((in_array($user->id, $full_and_limited_access_users_for_directory->full_access_users_names) === false) || 
-                (in_array($user->id, $full_and_limited_access_users_for_directory->limited_access_users_names) === false)) {
+            if ((in_array($user->id, $full_and_limited_access_users_for_directory->full_access_users_ids) === false) || 
+                (in_array($user->id, $full_and_limited_access_users_for_directory->limited_access_users_ids) === false)) {
                     array_push($not_added_user_names, $user->name);
                 }
         }
@@ -61,51 +68,73 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
         
         $directory_id = Album::select('id')->where('keyword', $directory_keyword)->firstOrFail();
         
-        $full_and_limited_access_users_names = new FullAndLimitedAccessUsersNames();
+        $full_and_limited_access_users_ids = new FullAndLimitedAccessUsersIDs();
         
-        $full_and_limited_access_users_names->full_access_users_names = [];       
-        $full_and_limited_access_users_names->limited_access_users_names = [];
+        $full_and_limited_access_users_ids->full_access_users_ids = [];       
+        $full_and_limited_access_users_ids->limited_access_users_ids = [];
                
         foreach (UserAlbums::select('user_id', 'en_albums_full_access', 'en_albums_limited_access', 'ru_albums_full_access', 
                                     'ru_albums_limited_access')->orderBy('user_id', 'asc')->get() as $user) {
-                                
+            //If any user id is in limited access users field, it can be just simply added to limited access users ids array..                    
             if (in_array($directory_id->id, (((App::isLocale('en') ? $user->en_albums_limited_access : 
                                                $user->ru_albums_limited_access)) ? 
                                               (json_decode((App::isLocale('en') ? $user->en_albums_limited_access : 
                                                $user->ru_albums_limited_access), true)) : [])) === true) {
-                array_push($full_and_limited_access_users_names->limited_access_users_names, $user->user_id);
+                array_push($full_and_limited_access_users_ids->limited_access_users_ids, $user->user_id);
             } else {
-                //!keyword should be passed with variable!
-                $current_main_links_full_access_users = MainLinkUsers::select('full_access_users')
-                                        ->where('links_id', MainLink::select('id')->where('keyword', 'Albums')->firstOrFail()->id)->firstOrFail();
-                
-                if (in_array($user->user_id, (($current_main_links_full_access_users->full_access_users) ? 
-                                                  json_decode($current_main_links_full_access_users->full_access_users, true) : [])) === true) {
-                    array_push($full_and_limited_access_users_names->full_access_users_names, $user->user_id);
-                } else {
-                    
-                    $full_access_users_names_from_user = (App::isLocale('en') ? $user->en_albums_full_access : 
-                                                          $user->ru_albums_full_access) ? (json_decode((App::isLocale('en') ? 
-                                                          $user->en_albums_full_access : $user->ru_albums_full_access), true)) : [];
-                   
-                    if (in_array($directory_id->id, $full_access_users_names_from_user) === true) {
-                        array_push($full_and_limited_access_users_names->full_access_users_names, $user->user_id);
-                    } else {
-                        //Check all parents.
-                        $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id->id, array());
-                        foreach ($all_parents_ids_of_directory as $parent_id_of_directory) {
-                            if (in_array($parent_id_of_directory, $full_access_users_names_from_user) === true) {
-                                //If user has a full access to at least one of directory's parents, that means the user has full access to this directory.
-                                //No need to check another directories. 
-                                array_push($full_and_limited_access_users_names->full_access_users_names, $user->user_id);
-                                break;
-                            }
-                        }
-                    }
-                }
+                //The function below will push any particular user id to full access array only if there are some conditions for that.
+                //See the logic in the function.
+                $full_and_limited_access_users_ids->full_access_users_ids = $this->push_to_full_access_users_ids($user, 
+                                                            $full_and_limited_access_users_ids->full_access_users_ids, $directory_id->id);
             }
         }
-        return $full_and_limited_access_users_names;
+        return $full_and_limited_access_users_ids;
+    }
+    
+    //This function is required to unclutter get_full_and_limited_access_users_ids_for_directory() function.
+    private function push_to_full_access_users_ids($user, $full_access_users_ids, $directory_id) {
+        //!keyword should be passed with variable!
+        $current_main_links_full_access_users = MainLinkUsers::select('full_access_users')
+                                    ->where('links_id', MainLink::select('id')->where('keyword', 'Albums')->firstOrFail()->id)->firstOrFail();
+        //First of all need to check the root. If any particular user is added with a full access to the root of the directory, that means 
+        //this user also has a full access to this particular directory.
+        if (in_array($user->user_id, (($current_main_links_full_access_users->full_access_users) ? 
+                                        json_decode($current_main_links_full_access_users->full_access_users, true) : [])) === true) {
+            array_push($full_access_users_ids, $user->user_id);
+        //If the user is not added to the root, that means, need to check if it is associated with that particular directory.
+        //Can do it just checking one particluar field in databse.
+        } else {
+                    
+            $full_access_users_ids_from_user = (App::isLocale('en') ? $user->en_albums_full_access : 
+                                                  $user->ru_albums_full_access) ? (json_decode((App::isLocale('en') ? 
+                                                  $user->en_albums_full_access : $user->ru_albums_full_access), true)) : [];
+                   
+            if (in_array($directory_id, $full_access_users_ids_from_user) === true) {
+                array_push($full_access_users_ids, $user->user_id);
+            //If the user is not associated with the particular directory, that means we need to check if the directories parents 
+            //are associated with that user. If at least one of the parents is associated with the user, that means that user has full access to
+            //the actual directory we are considering.
+            } else {
+                $full_access_users_ids = $this->push_to_full_access_users_ids_by_parents($full_access_users_ids, $directory_id, 
+                                                                                           $full_access_users_ids_from_user, $user->user_id);
+            }
+        }
+        return $full_access_users_ids;
+    }
+    
+    //This function is required to unclutter push_to_full_access_users_ids() function.
+    private function push_to_full_access_users_ids_by_parents($full_access_users_names, $directory_id, $full_access_users_ids_from_user, $user_id) {
+        //Check all parents and if one of them has a full access, that means the actual child folder also has a full access.
+        $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id, array());
+        foreach ($all_parents_ids_of_directory as $parent_id_of_directory) {
+            if (in_array($parent_id_of_directory, $full_access_users_ids_from_user) === true) {
+                //If user has a full access to at least one of directory's parents, that means the user has full access to this directory.
+                //No need to check another directories. 
+                array_push($full_access_users_names, $user_id);
+                break;
+            }
+        }
+        return $full_access_users_names;
     }
     
     //This function is required to get all parents of some particular directory.
