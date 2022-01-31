@@ -32,7 +32,8 @@ $( document ).ready(function() {
         if (($('#useful_data').data('parent_keyword')) === 0) {
             var url = localization+'/admin/users-add-edit-delete/add-for-section/'+$('#useful_data').data('section');
         } else {
-            var url = localization+'/admin/users-add-edit-delete/add-for-directory/'+$('#useful_data').data('parent_keyword');
+            var url = localization+'/admin/users-add-edit-delete/add-for-directory/'+$('#useful_data').data('section')+'/'+
+                                                                                                       $('#useful_data').data('parent_keyword');
         }
         add_edit_delete_user(url, '240px');      
     });
@@ -43,7 +44,8 @@ $( document ).ready(function() {
         if (($('#useful_data').data('parent_keyword')) === 0) {
             var url = localization+'/admin/users-add-edit-delete/edit-for-section/'+$('#useful_data').data('section');
         } else {
-            var url = localization+'/admin/users-add-edit-delete/add-for-directory/'+$('#useful_data').data('parent_keyword');
+            var url = localization+'/admin/users-add-edit-delete/edit-for-directory/'+$('#useful_data').data('section')+'/'+
+                                                                                                       $('#useful_data').data('parent_keyword');
         }
         add_edit_delete_user(url, '240px');      
     });
@@ -54,7 +56,8 @@ $( document ).ready(function() {
         if (($('#useful_data').data('parent_keyword')) === 0) {
             var url = localization+'/admin/users-add-edit-delete/delete-for-section/'+$('#useful_data').data('section');
         } else {
-            var url = localization+'/admin/users-add-edit-delete/add-for-directory/'+$('#useful_data').data('parent_keyword');
+            var url = localization+'/admin/users-add-edit-delete/delete-for-directory/'+$('#useful_data').data('section')+'/'+
+                                                                                                       $('#useful_data').data('parent_keyword');
         }
         add_edit_delete_user(url, '205px');      
     });

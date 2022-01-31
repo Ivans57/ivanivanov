@@ -43,9 +43,9 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
         return $full_and_limited_access_users_names;       
     }
     
-    public function get_users_for_add_for_directory($directory_keyword) {
+    public function get_users_for_add_for_directory($directory_keyword, $section) {
         //First of all need to make a list of all users which are already added to some particular directory.
-        $full_and_limited_access_users_for_directory = $this->get_full_and_limited_access_users_ids_for_directory($directory_keyword);
+        $full_and_limited_access_users_for_directory = $this->get_full_and_limited_access_users_ids_for_directory($directory_keyword, $section);
                 
         $all_users = User::select('id', 'name')->with('role_and_status')->whereHas('role_and_status', function (Builder $query) { 
                                                                                 $query->where('role', '=', 'user');
@@ -64,7 +64,7 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
         return $not_added_user_names;
     }
     
-    private function get_full_and_limited_access_users_ids_for_directory($directory_keyword) {
+    private function get_full_and_limited_access_users_ids_for_directory($directory_keyword, $section) {
         
         $directory_id = Album::select('id')->where('keyword', $directory_keyword)->firstOrFail();
         
@@ -85,17 +85,16 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                 //The function below will push any particular user id to full access array only if there are some conditions for that.
                 //See the logic in the function.
                 $full_and_limited_access_users_ids->full_access_users_ids = $this->push_to_full_access_users_ids($user, 
-                                                            $full_and_limited_access_users_ids->full_access_users_ids, $directory_id->id);
+                                                        $full_and_limited_access_users_ids->full_access_users_ids, $directory_id->id, $section);
             }
         }
         return $full_and_limited_access_users_ids;
     }
     
     //This function is required to unclutter get_full_and_limited_access_users_ids_for_directory() function.
-    private function push_to_full_access_users_ids($user, $full_access_users_ids, $directory_id) {
-        //!keyword should be passed with variable!
+    private function push_to_full_access_users_ids($user, $full_access_users_ids, $directory_id, $section) {
         $current_main_links_full_access_users = MainLinkUsers::select('full_access_users')
-                                    ->where('links_id', MainLink::select('id')->where('keyword', 'Albums')->firstOrFail()->id)->firstOrFail();
+                                    ->where('links_id', MainLink::select('id')->where('keyword', $section)->firstOrFail()->id)->firstOrFail();
         //First of all need to check the root. If any particular user is added with a full access to the root of the directory, that means 
         //this user also has a full access to this particular directory.
         if (in_array($user->user_id, (($current_main_links_full_access_users->full_access_users) ? 

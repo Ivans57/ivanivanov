@@ -15,9 +15,9 @@ class AdminUserAddEditDeleteForDirectoryController extends Controller
         $this->current_page = '';
     }
     
-    public function add_for_directory($directory_keyword) {
+    public function add_for_directory($section, $directory_keyword) {
         
-        $users = $this->users->get_users_for_add_for_directory($directory_keyword);
+        $users = $this->users->get_users_for_add_for_directory($directory_keyword, $section);
         
         return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
             //Actually we do not need any head title as it is just a partial view
@@ -28,6 +28,8 @@ class AdminUserAddEditDeleteForDirectoryController extends Controller
             //create or edit.
             'add_edit_or_delete' => 'add',
             'users' => $users,
+            //The variable below actually keeps the keyword of current directory.
+            //Name Section is only because of the common view which is used for both root directory and for normal directories.
             'section' => $directory_keyword,
             //The line below is required to keep fields activated or deactivated in different cases. 
             'users_array_size' => sizeof($users)
