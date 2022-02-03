@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Repositories\AdminUsersAddEditDeleteForDirectoryRepository;
+//use App\Http\Requests\AddUserRequest;//!Subject of change!
 
 class AdminUserAddEditDeleteForDirectoryController extends Controller
 {
@@ -19,7 +20,7 @@ class AdminUserAddEditDeleteForDirectoryController extends Controller
         
         $users = $this->users->get_users_for_add_for_directory($directory_keyword, $section);
         
-        return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
+        return view('adminpages.add_edit_delete_users.add_edit_delete_user_for_directory')->with([
             //Actually we do not need any head title as it is just a partial view
             //We need it only to make the variable initialized. Othervise there will be error.
             'headTitle' => __('keywords.'.$this->current_page),
@@ -30,9 +31,20 @@ class AdminUserAddEditDeleteForDirectoryController extends Controller
             'users' => $users,
             //The variable below actually keeps the keyword of current directory.
             //Name Section is only because of the common view which is used for both root directory and for normal directories.
-            'section' => $directory_keyword,
+            'directory' => $directory_keyword,
             //The line below is required to keep fields activated or deactivated in different cases. 
             'users_array_size' => sizeof($users)
+            ]);
+    }
+    
+    public function join_for_directory(Request $request) {
+        
+        //$this->users->join_user_for_section($request);
+        
+        return view('adminpages.user_add_edit_delete_form_close')->with([
+            //Actually we do not need any head title as it is just a partial view
+            //We need it only to make the variable initialized. Othervise there will be error.
+            'headTitle' => __('keywords.'.$this->current_page)
             ]);
     }
 }

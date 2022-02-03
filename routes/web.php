@@ -324,11 +324,11 @@ Route::group(['middleware' => 'locale'], function() {
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
-    Route::post('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@join_for_section');
+    Route::post('admin/users-add-edit-delete-for-section', 'AdminUsersAddEditDeleteController@join_for_section');
 });
 
 Route::group(['middleware' => 'locale'], function() {
-    Route::post('admin/users-add-edit-delete', 'AdminUsersAddEditDeleteController@join_for_section');
+    Route::post('admin/users-add-edit-delete-for-section', 'AdminUsersAddEditDeleteController@join_for_section');
 });
 
 Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
@@ -375,6 +375,14 @@ Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
 Route::group(['middleware' => 'locale'], function() {
     Route::get('admin/users-add-edit-delete/add-for-directory/{section}/{directory}', 
                                                                             'AdminUserAddEditDeleteForDirectoryController@add_for_directory');
+    
+Route::group(['prefix' => 'ru', 'middleware' => 'locale'], function() {
+    Route::post('admin/users-add-edit-delete-for-directory', 'AdminUserAddEditDeleteForDirectoryController@join_for_directory');
+});
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::post('admin/users-add-edit-delete-for-directory', 'AdminUserAddEditDeleteForDirectoryController@join_for_directory');
+});
 });
 
 //------------------------------------------------------------------------------

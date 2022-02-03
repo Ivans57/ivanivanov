@@ -58,7 +58,7 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
         foreach ($all_users as $user) {
             if ((in_array($user->id, $full_and_limited_access_users_for_directory->full_access_users_ids) === false) || 
                 (in_array($user->id, $full_and_limited_access_users_for_directory->limited_access_users_ids) === false)) {
-                    array_push($not_added_user_names, $user->name);
+                    $not_added_user_names[$user->id] = $user->name;
                 }
         }
         return $not_added_user_names;

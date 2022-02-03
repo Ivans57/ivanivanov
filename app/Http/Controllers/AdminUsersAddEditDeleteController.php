@@ -20,7 +20,7 @@ class AdminUsersAddEditDeleteController extends Controller
         
         $users = $this->users->get_users_for_add_for_section($section);
         
-        return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
+        return view('adminpages.add_edit_delete_users.add_edit_delete_user_for_section')->with([
             //Actually we do not need any head title as it is just a partial view
             //We need it only to make the variable initialized. Othervise there will be error.
             'headTitle' => __('keywords.'.$this->current_page),
@@ -50,7 +50,7 @@ class AdminUsersAddEditDeleteController extends Controller
         
         $users_and_accesses = $this->users->get_users_for_edit_for_section($section);
         
-        return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
+        return view('adminpages.add_edit_delete_users.add_edit_delete_user_for_section')->with([
             //Actually we do not need any head title as it is just a partial view
             //We need it only to make the variable initialized. Othervise there will be error.
             'headTitle' => __('keywords.'.$this->current_page),
@@ -83,7 +83,7 @@ class AdminUsersAddEditDeleteController extends Controller
         
         $users = $this->users->get_users_for_delete_for_section($section);
         
-        return view('adminpages.add_edit_delete_users.add_edit_delete_user')->with([
+        return view('adminpages.add_edit_delete_users.add_edit_delete_user_for_section')->with([
             //Actually we do not need any head title as it is just a partial view
             //We need it only to make the variable initialized. Othervise there will be error.
             'headTitle' => __('keywords.'.$this->current_page),
