@@ -147,8 +147,71 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
             return $parents_array;
         } else {
             return $parents;
-        }
+        }        
+    }
+    
+    public function join_user_for_directory($request) {
         
+        $directory_id = Album::select('id')->where('keyword', $request->directory)->firstOrFail()->id;
+        
+        $current_user_data = UserAlbums::
+                    select('user_id', 'en_albums_full_access', 'en_albums_limited_access', 'ru_albums_full_access', 'ru_albums_limited_access')
+                    ->orderBy('user_id', 'asc')->where('user_id', $request->users)->firstOrFail;
+        
+        if (App::isLocale('en') && $request->full_access) {
+            $albums_ids_array = json_decode($current_user_data->en_albums_full_access, true);
+            
+            if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
+                $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id, array());
+                if ($this-parent_has_full_access($all_parents_ids_of_directory, $albums_ids_array) === false) {
+                    array_push($albums_ids_array, $directory_id);
+                }
+            } else if (!$albums_ids_array) {
+                $albums_ids_array= [];
+                array_push($albums_ids_array, $directory_id);
+            }
+            $current_user_data->en_albums_full_access = json_encode($albums_ids_array);
+        } else if (App::isLocale('en') && !$request->full_access) {
+            $albums_ids_array = json_decode($current_user_data->en_albums_limited_access, true);
+            if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
+                array_push($albums_ids_array, $directory_id);
+            } else if (!$albums_ids_array) {
+                $albums_ids_array= [];
+                array_push($albums_ids_array, $directory_id);
+            }
+            $current_user_data->en_albums_limited_access = json_encode($albums_ids_array);
+        } else if (App::isLocale('ru') && $request->full_access) {
+            $albums_ids_array = json_decode($current_user_data->ru_albums_full_access, true);
+            
+            if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
+                $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id, array());
+                if ($this-parent_has_full_access($all_parents_ids_of_directory, $albums_ids_array) === false) {
+                    array_push($albums_ids_array, $directory_id);
+                }
+            } else if (!$albums_ids_array) {
+                $albums_ids_array= [];
+                array_push($albums_ids_array, $directory_id);
+            }
+            $current_user_data->en_albums_full_access = json_encode($albums_ids_array);
+        } else if (App::isLocale('en') && !$request->full_access) {
+            $albums_ids_array = json_decode($current_user_data->ru_albums_limited_access, true);
+            if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
+                array_push($albums_ids_array, $directory_id);
+            } else if (!$albums_ids_array) {
+                $albums_ids_array= [];
+                array_push($albums_ids_array, $directory_id);
+            }
+        }       
+        //$current_user_data->save();
+    }
+    
+    private function parent_has_full_access($parents_ids, $albums_ids_array) {
+        foreach ($parents_ids as $parents_id) {
+            if (in_array($parents_id, $albums_ids_array) === true) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

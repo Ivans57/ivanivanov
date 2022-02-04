@@ -39,7 +39,7 @@ class AdminUserAddEditDeleteForDirectoryController extends Controller
     
     public function join_for_directory(Request $request) {
         
-        //$this->users->join_user_for_section($request);
+        //$this->users->join_user_for_directory($request);
         
         return view('adminpages.user_add_edit_delete_form_close')->with([
             //Actually we do not need any head title as it is just a partial view
