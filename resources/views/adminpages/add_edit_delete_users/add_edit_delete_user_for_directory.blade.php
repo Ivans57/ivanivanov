@@ -14,6 +14,7 @@
                          'method' => 'DELETE' ]) !!}
     @endif
         <div class='admin-panel-add-edit-delete-user-to-section'>
+            {!! Form::hidden('section', $section, ['id' => 'section']); !!}
             {!! Form::hidden('directory', $directory, ['id' => 'directory']); !!}
             @include('adminpages.add_edit_delete_users.add_edit_delete_user_fields')
         </div>
