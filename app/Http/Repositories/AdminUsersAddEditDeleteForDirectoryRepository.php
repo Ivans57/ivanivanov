@@ -54,9 +54,8 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
         
         $not_added_user_names = [];
         
-        //Below we are adding the names of users which are not yet added to some particular directory to available users list.
         foreach ($all_users as $user) {
-            if ((in_array($user->id, $full_and_limited_access_users_for_directory->full_access_users_ids) === false) || 
+            if ((in_array($user->id, $full_and_limited_access_users_for_directory->full_access_users_ids) === false) && 
                 (in_array($user->id, $full_and_limited_access_users_for_directory->limited_access_users_ids) === false)) {
                     $not_added_user_names[$user->id] = $user->name;
                 }
