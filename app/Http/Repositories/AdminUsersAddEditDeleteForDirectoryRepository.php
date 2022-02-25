@@ -138,11 +138,11 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
     //This function is required to get all parents of some particular directory.
     private function get_parents_id_array($directory_id, $parents) {
         
-        $parent_id = Album::select('included_in_album_with_id')->where('id', $directory_id)->firstOrFail()->id;
+        $parent = Album::select('included_in_album_with_id')->where('id', $directory_id)->firstOrFail();
         
-        if ($parent_id) {
-            array_push($parents, $parent_id->included_in_album_with_id);
-            $parents_array = $this->get_parents_id_array($parent_id->included_in_album_with_id, $parents);
+        if ($parent->included_in_album_with_id) {
+            array_push($parents, $parent->included_in_album_with_id);
+            $parents_array = $this->get_parents_id_array($parent->included_in_album_with_id, $parents);
             return $parents_array;
         } else {
             return $parents;
