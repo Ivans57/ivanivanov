@@ -165,10 +165,13 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
             $current_main_link_full_access_users_ids = [];
         }
         
-        if (!$current_main_link_full_access_users_ids || (in_array($request->users, $current_main_link_full_access_users_ids) === false)) {
+        if ((count($current_main_link_full_access_users_ids) == 0) || (in_array($request->users, $current_main_link_full_access_users_ids) === false)) {
             if (App::isLocale('en') && $request->full_access) {
                 //The variable below is required to provide a limited access for a root directory.
                 $current_main_link_limited_access_users_ids = json_decode($current_main_link_users_data->limited_access_users, true);
+                if (!$current_main_link_limited_access_users_ids) {
+                    $current_main_link_limited_access_users_ids = [];
+                }
                 $albums_ids_array = json_decode($current_user_data->en_albums_full_access, true);
                 $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id, array());
                 
@@ -181,6 +184,8 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                         if ($all_parents_ids_of_directory) {
                             $limited_access_albums_ids_array = $this->push_parent_to_limited_access($all_parents_ids_of_directory, 
                                                                (json_decode($current_user_data->en_albums_limited_access, true)));
+                            //There will be changes in limited albums field only if there are some parents for changed album.
+                            $current_user_data->en_albums_limited_access = json_encode($limited_access_albums_ids_array);
                         } /*Need to add user to limited_access_users for main links.*/else {
                             if (in_array($request->users, $current_main_link_limited_access_users_ids) === false) {
                                 array_push($current_main_link_limited_access_users_ids, (string)$request->users);                              
@@ -196,6 +201,8 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                     if ($all_parents_ids_of_directory) {
                         $limited_access_albums_ids_array = $this->push_parent_to_limited_access($all_parents_ids_of_directory, 
                                                            (json_decode($current_user_data->en_albums_limited_access, true)));
+                        //There will be changes in limited albums field only if there are some parents for changed album.
+                        $current_user_data->en_albums_limited_access = json_encode($limited_access_albums_ids_array);
                     } /*Need to add user to limited_access_users for main links.*/else {
                         if (in_array($request->users, $current_main_link_limited_access_users_ids) === false) {
                             array_push($current_main_link_limited_access_users_ids, (string)$request->users);
@@ -205,10 +212,7 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                     }
                 }
                 $current_user_data->en_albums_full_access = json_encode($albums_ids_array);
-                //There will be changes in limited albums field only if there are some parents for changed album.
-                if ($all_parents_ids_of_directory) {
-                    $current_user_data->en_albums_limited_access = json_encode($limited_access_albums_ids_array);
-                }
+                
             } else if (App::isLocale('en') && !$request->full_access) {
                 $albums_ids_array = json_decode($current_user_data->en_albums_limited_access, true);
                 if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
