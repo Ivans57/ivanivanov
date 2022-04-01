@@ -203,13 +203,11 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                                                            (json_decode($current_user_data->en_albums_limited_access, true)));
                         //There will be changes in limited albums field only if there are some parents for changed album.
                         $current_user_data->en_albums_limited_access = json_encode($limited_access_albums_ids_array);
-                    } /*Need to add user to limited_access_users for main links.*/else {
-                        if (in_array($request->users, $current_main_link_limited_access_users_ids) === false) {
-                            array_push($current_main_link_limited_access_users_ids, (string)$request->users);
-                            $current_main_link_users_data->limited_access_users = json_encode($current_main_link_limited_access_users_ids);
-                            $current_main_link_users_data->save(); 
-                        }
                     }
+                    //Need to add user to limited_access_users for main links.
+                    array_push($current_main_link_limited_access_users_ids, (string)$request->users);
+                    $current_main_link_users_data->limited_access_users = json_encode($current_main_link_limited_access_users_ids);
+                    $current_main_link_users_data->save();
                 }
                 $current_user_data->en_albums_full_access = json_encode($albums_ids_array);
                 
@@ -259,6 +257,7 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                 }
             }
         } else {
+            $limited_access_albums_ids_array = [];
             foreach ($all_parents_ids as $parent_id) {
                 array_push($limited_access_albums_ids_array, (string)$parent_id);
             }
