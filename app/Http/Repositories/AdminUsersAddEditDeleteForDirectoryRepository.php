@@ -151,108 +151,95 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
     
     public function join_user_for_directory($request) {
         
-        $directory_id = Album::select('id')->where('keyword', $request->directory)->firstOrFail()->id;
-                
-        //$main_link_id = MainLink::where('keyword', $request->section)->firstOrFail()->id;
-        
-        $current_main_link_users_data = MainLinkUsers::where('links_id', MainLink::where('keyword', $request->section)
-                                                                                   ->firstOrFail()->id)->firstOrFail();        
+        $directory_id = Album::select('id')->where('keyword', $request->directory)->firstOrFail()->id;                      
+        $current_main_link_users_data = MainLinkUsers::where('links_id', MainLink::where('keyword', $request->section)                                                                                   ->firstOrFail()->id)->firstOrFail();        
         $current_main_link_full_access_users_ids = json_decode($current_main_link_users_data->full_access_users, true);
         
         if (!$current_main_link_full_access_users_ids) {
             $current_main_link_full_access_users_ids = [];
-        }
-        
-        $current_user_data = UserAlbums::where('user_id', $request->users)->orderBy('user_id', 'asc')->firstOrFail();
-        
-        $en_albums_full_access_array = json_decode($current_user_data->en_albums_full_access, true); 
-        
-        if (!$en_albums_full_access_array) {
-            $en_albums_full_access_array = [];
-        }  
-        
-        $en_albums_limited_access = json_decode($current_user_data->en_albums_limited_access, true); 
-        
-        if (!$en_albums_limited_access) {
-            $en_albums_limited_access = [];
-        }
-        
+        }        
+        $current_user_data = UserAlbums::where('user_id', $request->users)->orderBy('user_id', 'asc')->firstOrFail();        
+        $albums_full_access_array = (App::isLocale('en')) ? (json_decode($current_user_data->en_albums_full_access, true)) : 
+                                                               (json_decode($current_user_data->ru_albums_full_access, true));       
+        if (!$albums_full_access_array) {
+            $albums_full_access_array = [];
+        }        
+        $albums_limited_access = (App::isLocale('en')) ? (json_decode($current_user_data->en_albums_limited_access, true)) : 
+                                                               (json_decode($current_user_data->ru_albums_limited_access, true));               
+        if (!$albums_limited_access) {
+            $albums_limited_access = [];
+        }       
         if ((in_array($request->users, $current_main_link_full_access_users_ids) === false) && 
-            (in_array((string)$directory_id, $en_albums_full_access_array) === false) && 
-            (in_array((string)$directory_id, $en_albums_limited_access) === false)) {
+            (in_array((string)$directory_id, $albums_full_access_array) === false) && 
+            (in_array((string)$directory_id, $albums_limited_access) === false)) {
             
-                if (App::isLocale('en') && $request->full_access) {
-                    
-                    $this->join_full_access_user_for_en_album($current_main_link_users_data, $directory_id, $en_albums_full_access_array, 
-                                                                                $en_albums_limited_access, $current_user_data, $request->users);
-                } else if (App::isLocale('en') && !$request->full_access) {
-                    $albums_ids_array = json_decode($current_user_data->en_albums_limited_access, true);
-                    if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
-                        array_push($albums_ids_array, (string)$directory_id);
-                    } else if (!$albums_ids_array) {
-                        $albums_ids_array = [];
-                        array_push($albums_ids_array, (string)$directory_id);
-                    }
-                    $current_user_data->en_albums_limited_access = json_encode($albums_ids_array);
-                } else if (App::isLocale('ru') && $request->full_access) {
-                    $albums_ids_array = json_decode($current_user_data->ru_albums_full_access, true);
-
-                    if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
-                        $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id, array());
-                        if ($this->parent_has_full_access($all_parents_ids_of_directory, $albums_ids_array) === false) {
-                            array_push($albums_ids_array, (string)$directory_id);
-                        }
-                    } else if (!$albums_ids_array) {
-                        $albums_ids_array = [];
-                        array_push($albums_ids_array, (string)$directory_id);
-                    }
-                $current_user_data->ru_albums_full_access = json_encode($albums_ids_array);
-                } else if (App::isLocale('ru') && !$request->full_access) {
-                    $albums_ids_array = json_decode($current_user_data->ru_albums_limited_access, true);
-                    if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
-                        array_push($albums_ids_array, (string)$directory_id);
-                    } else if (!$albums_ids_array) {
-                        $albums_ids_array = [];
-                        array_push($albums_ids_array, (string)$directory_id);
-                    }
-                    $current_user_data->ru_albums_full_access = json_encode($albums_ids_array);
-                }       
-                //$current_user_data->save();
-            
+            if ($request->full_access) {                   
+                $this->join_full_access_user_for_album($current_main_link_users_data, $directory_id, $albums_full_access_array, 
+                                                                            $albums_limited_access, $current_user_data, $request->users);
+            } else if (!$request->full_access) {
+                $albums_ids_array = json_decode($current_user_data->albums_limited_access, true);
+                if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
+                    array_push($albums_ids_array, (string)$directory_id);
+                } else if (!$albums_ids_array) {
+                    $albums_ids_array = [];
+                    array_push($albums_ids_array, (string)$directory_id);
+                }
+                $current_user_data->albums_limited_access = json_encode($albums_ids_array);
+            }        
         }
     }
     
-    //This function is required to unclutter join_user_for_directory() function.
-    private function join_full_access_user_for_en_album($current_main_link_users_data, $directory_id, $en_albums_full_access_array, 
-                                                                                        $en_albums_limited_access, $current_user_data, $user) {
-        
+    //This function is required to simplify join_user_for_directory() function.
+    private function join_full_access_user_for_album($current_main_link_users_data, $directory_id, $albums_full_access_array, 
+                                                                                        $albums_limited_access, $current_user_data, $user) {       
         $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id, array());
-                    
-        if (($this->parent_has_full_access($all_parents_ids_of_directory, $en_albums_full_access_array) === false)) {
+        //If being added user has unlimited access to at least one parent of chosen folder, it means that user has unlimited acess to all its 
+        //children. In this case the access status of actual folder doesn't change. It is still unlimited.          
+        if (($this->parent_has_full_access($all_parents_ids_of_directory, $albums_full_access_array) === false)) {
             //The variable below is required to provide a limited access for a root directory.
             $current_main_link_limited_access_users_ids = json_decode($current_main_link_users_data->limited_access_users, true);
             
             if (!$current_main_link_limited_access_users_ids) {
                 $current_main_link_limited_access_users_ids = [];
             }
-            array_push($en_albums_full_access_array, (string)$directory_id);
-            
-            $current_user_data->en_albums_full_access = json_encode($en_albums_full_access_array);
-            //All parents of full access folder (if they exist) should have limited access if they don't have it.
-            if (sizeof($all_parents_ids_of_directory) > 0) {
-                $limited_access_albums_ids_array = $this->push_parent_to_limited_access($all_parents_ids_of_directory, $en_albums_limited_access);
-                //There will be changes in limited albums field only if there are some parents for changed album.
-                $current_user_data->en_albums_limited_access = json_encode($limited_access_albums_ids_array);
-            }
-            //Need to add user to limited_access_users for main links.
-            if (in_array($user, $current_main_link_limited_access_users_ids) === false) {
-                array_push($current_main_link_limited_access_users_ids, (string)$user);
-                $current_main_link_users_data->limited_access_users = json_encode($current_main_link_limited_access_users_ids);
-                $current_main_link_users_data->save();
-            }
-            $current_user_data->save();
+            array_push($albums_full_access_array, (string)$directory_id);           
+
+            if (App::isLocale('en')) {
+                $current_user_data->en_albums_full_access = json_encode($albums_full_access_array);
+            } else if (App::isLocale('ru')) {
+                $current_user_data->ru_albums_full_access = json_encode($albums_full_access_array);
+            }            
+            $this->join_for_album_limited_access_addition_for_parent_albums_and_root_record_save($all_parents_ids_of_directory, 
+                   $albums_limited_access, $user, $current_main_link_limited_access_users_ids, $current_main_link_users_data, 
+                                                                                                                        $current_user_data);
         }
     }
+    
+    //This function is required to simplify join_full_access_user_for_album() function.
+    //The purpose of this function is to assign to all parents of chosen album limited access and limited access to root. 
+    //And make a save in database in the end.
+    private function join_for_album_limited_access_addition_for_parent_albums_and_root_record_save($all_parents_ids_of_directory, 
+                     $albums_limited_access, $user, $current_main_link_limited_access_users_ids, $current_main_link_users_data, 
+                                                                                                                        $current_user_data) {
+        //All parents of full access folder (if they exist) should have limited access if they don't have it.
+        if (sizeof($all_parents_ids_of_directory) > 0) {
+            $limited_access_albums_ids_array = $this->push_parent_to_limited_access($all_parents_ids_of_directory, $albums_limited_access);
+            //There will be changes in limited albums field only if there are some parents for changed album.
+            if (App::isLocale('en')) {
+                $current_user_data->en_albums_limited_access = json_encode($limited_access_albums_ids_array);
+            } else if (App::isLocale('ru')) {
+                $current_user_data->ru_albums_limited_access = json_encode($limited_access_albums_ids_array);
+            }
+        }
+        //Need to add user to limited_access_users for main links.
+        if (in_array($user, $current_main_link_limited_access_users_ids) === false) {
+            array_push($current_main_link_limited_access_users_ids, (string)$user);          
+            $current_main_link_users_data->limited_access_users = json_encode($current_main_link_limited_access_users_ids);
+            $current_main_link_users_data->save();
+        }
+        $current_user_data->save();
+    }
+    
     
     //This function is required to push ids of parents of album which is getting full access status to limited access albums, so
     //user can have a full path to that full access album.
