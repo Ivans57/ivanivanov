@@ -177,14 +177,8 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
                 $this->join_full_access_user_for_album($current_main_link_users_data, $directory_id, $albums_full_access_array, 
                                                                             $albums_limited_access, $current_user_data, $request->users);
             } else if (!$request->full_access) {
-                $albums_ids_array = json_decode($current_user_data->albums_limited_access, true);
-                if ($albums_ids_array && (in_array($directory_id, $albums_ids_array) === false)) {
-                    array_push($albums_ids_array, (string)$directory_id);
-                } else if (!$albums_ids_array) {
-                    $albums_ids_array = [];
-                    array_push($albums_ids_array, (string)$directory_id);
-                }
-                $current_user_data->albums_limited_access = json_encode($albums_ids_array);
+                $this->join_limited_access_user_for_album($current_main_link_users_data, $directory_id, $albums_full_access_array, 
+                                                                            $albums_limited_access, $current_user_data, $request->users);
             }        
         }
     }
@@ -215,13 +209,41 @@ class AdminUsersAddEditDeleteForDirectoryRepository {
         }
     }
     
+    //This function is required to simplify join_user_for_directory() function.
+    private function join_limited_access_user_for_album($current_main_link_users_data, $directory_id, $albums_full_access_array, 
+                                                                                        $albums_limited_access, $current_user_data, $user) {       
+        $all_parents_ids_of_directory = $this->get_parents_id_array($directory_id, array());
+        //If being added user has unlimited access to at least one parent of chosen folder, it means that user has unlimited acess to all its 
+        //children. In this case the access status of actual folder doesn't change.         
+        if (($this->parent_has_full_access($all_parents_ids_of_directory, $albums_full_access_array) === false)) {
+            //The variable below is required to provide a limited access for a root directory.
+            $current_main_link_limited_access_users_ids = json_decode($current_main_link_users_data->limited_access_users, true);
+
+            if (!$current_main_link_limited_access_users_ids) {
+                        $current_main_link_limited_access_users_ids = [];
+            }
+            
+            array_push($albums_limited_access, (string)$directory_id);           
+
+            if (App::isLocale('en')) {
+                $current_user_data->en_albums_limited_access = json_encode($albums_limited_access);
+            } else if (App::isLocale('ru')) {
+                $current_user_data->ru_albums_limited_access = json_encode($albums_limited_access);
+            }
+            
+            $this->join_for_album_limited_access_addition_for_parent_albums_and_root_record_save($all_parents_ids_of_directory, 
+                                    $albums_limited_access, $user, $current_main_link_limited_access_users_ids, $current_main_link_users_data, 
+                                                                                                                            $current_user_data);
+        }
+    }
+       
     //This function is required to simplify join_full_access_user_for_album() function.
     //The purpose of this function is to assign to all parents of chosen album limited access and limited access to root. 
     //And make a save in database in the end.
     private function join_for_album_limited_access_addition_for_parent_albums_and_root_record_save($all_parents_ids_of_directory, 
                      $albums_limited_access, $user, $current_main_link_limited_access_users_ids, $current_main_link_users_data, 
                                                                                                                         $current_user_data) {
-        //All parents of full access folder (if they exist) should have limited access if they don't have it.
+        //All parents of full/limited access directory (if they exist) should have limited access if they don't have it.
         if (sizeof($all_parents_ids_of_directory) > 0) {
             $limited_access_albums_ids_array = $this->push_parent_to_limited_access($all_parents_ids_of_directory, $albums_limited_access);
             //There will be changes in limited albums field only if there are some parents for changed album.
